@@ -1,4 +1,4 @@
-class CreateCourseAttendances < ActiveRecord::Migration[5.0]
+class CreateCourseAttendances < ActiveRecord::Migration
   def change
     create_table :course_attendances do |t|
       t.references :course, foreign_key: true

@@ -1,4 +1,4 @@
-class CreateHousingFacilities < ActiveRecord::Migration[5.0]
+class CreateHousingFacilities < ActiveRecord::Migration
   def change
     create_table :housing_facilities do |t|
       t.integer :room_count

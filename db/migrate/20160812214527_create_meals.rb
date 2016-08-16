@@ -1,4 +1,4 @@
-class CreateMeals < ActiveRecord::Migration[5.0]
+class CreateMeals < ActiveRecord::Migration
   def change
     create_table :meals do |t|
       t.date :date
