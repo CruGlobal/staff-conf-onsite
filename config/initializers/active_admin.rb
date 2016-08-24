@@ -1,3 +1,5 @@
+require 'active_admin/axlsx'
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
