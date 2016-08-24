@@ -194,6 +194,9 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 
+  # WYSIWYG Editor
+  config.register_javascript 'ckeditor/init.js'
+
   # == CSV options
   #
   # Set the CSV builder separator
