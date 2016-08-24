@@ -7,13 +7,14 @@ class CreatePeople < ActiveRecord::Migration
       t.boolean :emergency_contact
       t.string :phone
       t.date :birthdate
-      t.string :student_number
+      t.string :student_number, unique: true, index: true
       t.string :staff_number
       t.string :gender
       t.string :department
       t.references :family, foreign_key: true
       t.references :ministry, foreign_key: true
       t.string :type
+      t.string :childcare_grade
 
       t.timestamps
     end

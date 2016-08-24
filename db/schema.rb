@@ -48,16 +48,20 @@ ActiveRecord::Schema.define(version: 20160816164834) do
 
   create_table "course_attendances", force: :cascade do |t|
     t.integer  "course_id"
-    t.integer  "person_id"
+    t.integer  "attendee_id"
     t.string   "grade"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "course_attendances", ["attendee_id"], name: "index_course_attendances_on_attendee_id"
+  add_index "course_attendances", ["course_id", "attendee_id"], name: "index_course_attendances_on_course_id_and_attendee_id", unique: true
+  add_index "course_attendances", ["course_id"], name: "index_course_attendances_on_course_id"
+
   create_table "courses", force: :cascade do |t|
-    t.string   "title"
-    t.date     "start"
-    t.date     "end"
+    t.string   "name"
+    t.date     "start_at"
+    t.date     "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,7 +78,6 @@ ActiveRecord::Schema.define(version: 20160816164834) do
   end
 
   create_table "housing_facilities", force: :cascade do |t|
-    t.integer  "room_count"
     t.string   "name"
     t.string   "city"
     t.string   "state"
@@ -87,11 +90,13 @@ ActiveRecord::Schema.define(version: 20160816164834) do
 
   create_table "meals", force: :cascade do |t|
     t.date     "date"
-    t.integer  "person_id"
+    t.integer  "attendee_id"
     t.string   "meal_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "meals", ["attendee_id", "date", "meal_type"], name: "index_meals_on_attendee_id_and_date_and_meal_type", unique: true
 
   create_table "ministries", force: :cascade do |t|
     t.string   "name"
@@ -114,16 +119,21 @@ ActiveRecord::Schema.define(version: 20160816164834) do
     t.integer  "family_id"
     t.integer  "ministry_id"
     t.string   "type"
+    t.string   "childcare_grade"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "people", ["student_number"], name: "index_people_on_student_number"
   add_index "people", ["type"], name: "index_people_on_type"
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "housing_facility_id"
+    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "rooms", ["housing_facility_id", "number"], name: "index_rooms_on_housing_facility_id_and_number", unique: true
 
 end
