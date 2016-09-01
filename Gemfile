@@ -21,6 +21,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'countries', '~> 1.2.5'
 gem 'phone', '~> 1.2.3'
 gem 'truncate_html', '~> 0.9.3'
+# TODO gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
+# TODO and remove the version in ./lib/active_admin/
+gem 'axlsx', '~> 2.0.1'
 
 # Frontend Scripts
 gem 'turbolinks', '~> 5.0.1'
@@ -34,6 +37,7 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl', '~> 4.7.0'
   gem 'faker', '~> 1.6.6'
+  gem 'rubocop', '~> 0.42.0'
 end
 
 group :development do

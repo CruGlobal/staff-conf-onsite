@@ -14,5 +14,4 @@ ActiveAdmin.register Course do
     column :updated_at
     actions
   end
-
 end

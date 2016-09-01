@@ -1,6 +1,6 @@
 class Attendee < Person
-  # TODO Housing Preferences
-  # TODO Cost Adjustments
+  # TODO: Housing Preferences
+  # TODO: Cost Adjustments
 
   belongs_to :family
   has_many :course_attendances

@@ -5,4 +5,3 @@ module MealHelper
     Meal::TYPES
   end
 end
-

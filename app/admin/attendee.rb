@@ -2,7 +2,7 @@ ActiveAdmin.register Attendee do
   menu parent: 'People', priority: 1
 
   permit_params :first_name, :last_name, :email, :emergency_contact, :phone,
-    :birthdate, :student_number, :staff_number, :gender, :department
+                :birthdate, :student_number, :staff_number, :gender, :department
 
   index do
     selectable_column

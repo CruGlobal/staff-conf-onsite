@@ -11,9 +11,12 @@ module PersonHelper
 
   def age(dob)
     now = Time.now.utc.to_date
-    after_birthday = now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
 
-    now.year - dob.year - (after_birthday ? 0 : 1)
+    now.year - dob.year - (after_birthday(dob, now) ? 0 : 1)
+  end
+
+  def after_birthday(dob, now)
+    now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
   end
 
   def family_name(family)
