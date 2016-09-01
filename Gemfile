@@ -1,32 +1,47 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7.1'
-gem 'sqlite3'
+# Server
 gem 'puma', '~> 3.0'
+gem 'sqlite3', '~>1.3.11'
 
+# Framework
+gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
+
+# Authentication
 gem 'devise', '~> 4.2.0'
 # TODO gem 'devise_cas_authenticatable', '~> 1.9.2'
 
+# Assets
+gem 'coffee-rails', '~> 4.1.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
 
+# View Helpers
+gem 'countries', '~> 1.2.5'
+gem 'phone', '~> 1.2.3'
+gem 'truncate_html', '~> 0.9.3'
+
+# Frontend Scripts
+gem 'turbolinks', '~> 5.0.1'
+gem 'ckeditor', '~> 4.2.0'
 gem 'jquery-rails'
-gem 'turbolinks'
+gem 'intl-tel-input-rails', '~> 8.4.9'
 
-gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # Testing
   gem 'byebug'
   gem 'factory_girl', '~> 4.7.0'
   gem 'faker', '~> 1.6.6'
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
-  gem 'listen', '~> 3.0.5'
+  # Development Server
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '~> 2.0'
+
+  # Deployment
+  # TODO gem 'capistrano-rails'
 end
 
