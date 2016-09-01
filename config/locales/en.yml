@@ -20,4 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      course:
+        one: Class
+        other: Classes
+
+    attributes:
+      family:
+        country_code: Country
+        phone: Phone Number
+        zip: Zip Code
+      housing_facility:
+        country_code: Country
+        zip: Zip Code
+

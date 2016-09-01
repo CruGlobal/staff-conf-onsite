@@ -1,9 +1,9 @@
-class CreateCourses < ActiveRecord::Migration[5.0]
+class CreateCourses < ActiveRecord::Migration
   def change
     create_table :courses do |t|
-      t.string :title
-      t.date :start
-      t.date :end
+      t.string :name
+      t.date :start_at
+      t.date :end_at
 
       t.timestamps
     end

@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  GENDERS = {f: 'Female', m: 'Male'}.freeze
+
   belongs_to :family
   belongs_to :ministry
 

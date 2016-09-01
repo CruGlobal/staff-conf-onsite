@@ -1,4 +1,4 @@
-class CreateMinistries < ActiveRecord::Migration[5.0]
+class CreateMinistries < ActiveRecord::Migration
   def change
     create_table :ministries do |t|
       t.string :name

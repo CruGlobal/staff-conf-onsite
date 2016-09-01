@@ -1,4 +1,4 @@
-class CreateFamilies < ActiveRecord::Migration[5.0]
+class CreateFamilies < ActiveRecord::Migration
   def change
     create_table :families do |t|
       t.string :phone
