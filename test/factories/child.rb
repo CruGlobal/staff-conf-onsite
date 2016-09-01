@@ -4,7 +4,7 @@ FactoryGirl.define do
 
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    birthdate { Faker::Date.between(75.years.ago, 18.years.ago) }
+    birthdate { Faker::Date.between(12.years.ago, 1.years.ago) }
     gender { Person::GENDERS.keys.sample }
   end
 end

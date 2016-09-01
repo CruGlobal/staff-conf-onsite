@@ -1,5 +1,5 @@
 module CountryHelper
-  FIRST_CODE = 'US'
+  FIRST_CODE = 'US'.freeze
 
   module_function
 
