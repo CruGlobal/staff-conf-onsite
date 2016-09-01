@@ -1,0 +1,47 @@
+AllCops:
+  Include:
+    - Rakefile
+    - config.ru
+  Exclude:
+    - db/**/*
+    - script/**/*
+    - vendor/**/*
+    - bin/**/*
+    - test/**/*
+    - lib/active_admin/axlsx/**/*
+
+  TargetRubyVersion:
+    2.3
+
+Rails:
+  Enabled: true
+
+Documentation:
+  Enabled: false
+
+MethodLength:
+  Severity: warning
+  Max: 15
+
+Style/AndOr:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+GuardClause:
+  MinBodyLength: 3
+
+Style/Lambda:
+  Exclude:
+      - config/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented

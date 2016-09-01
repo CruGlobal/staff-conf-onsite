@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl', '~> 4.7.0'
   gem 'faker', '~> 1.6.6'
+  gem 'rubocop', '~> 0.42.0'
 end
 
 group :development do

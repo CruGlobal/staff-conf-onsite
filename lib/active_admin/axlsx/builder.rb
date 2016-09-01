@@ -4,8 +4,9 @@ module ActiveAdmin
   module Axlsx
     # Builder for xlsx data using the axlsx gem.
     class Builder
-
       include MethodOrProcHelper
+
+      attr_writer :i18n_scope
 
       # @param resource_class The resource this builder generate column information for.
       # @param [Hash] options the options for this builder
@@ -24,7 +25,7 @@ module ActiveAdmin
       #     after_filter { |sheet|
       #       sheet.add_row []
       #
-      #       sheet.add_row ['Author Name', 'Number of Posts'], :style => self.header_style
+      #       sheet.add_row ['Author Name', 'Number of Posts'], style: self.header_style
       #       data = labels = []
       #       User.all.each do |user|
       #         data << [user.posts.size]
@@ -32,25 +33,25 @@ module ActiveAdmin
       #         sheet.add_row [labels.last, data.last]
       #       end
       #       chart_color =  %w(88F700, 279CAC, B2A200, FD66A3, F20062, C8BA2B, 67E6F8, DFFDB9, FFE800, B6F0F8)
-      #       sheet.add_chart(Axlsx::Pie3DChart, :title => "post by author") do |chart|
-      #         chart.add_series :data => data, :labels => labels, :colors => chart_color
+      #       sheet.add_chart(Axlsx::Pie3DChart, title: "post by author") do |chart|
+      #         chart.add_series data: data, labels: labels, colors: chart_color
       #         chart.start_at 2, sheet.rows.size
       #         chart.end_at 3, sheet.rows.size + 20
       #       end
       #     }
       #   end
       #   @see ActiveAdmin::Axlsx::DSL
-      def initialize(resource_class, options={}, &block)
+      def initialize(resource_class, options = {}, &block)
         @skip_header = false
         @columns = resource_columns(resource_class)
         parse_options options
-        instance_eval &block if block_given?
+        instance_eval(&block) if block_given?
       end
 
       # The default header style
       # @return [Hash]
       def header_style
-        @header_style ||= { :bg_color => '00', :fg_color => 'FF', :sz => 12, :alignment => { :horizontal => :center } }
+        @header_style ||= { bg_color: '00', fg_color: 'FF', sz: 12, alignment: { horizontal: :center } }
       end
 
       # This has can be used to override the default header style for your
@@ -70,16 +71,6 @@ module ActiveAdmin
       # The scope to use when looking up column names to generate the report header
       def i18n_scope
         @i18n_scope ||= nil
-      end
-
-      # This is the I18n scope that will be used when looking up your
-      # colum names in the current I18n locale.
-      # If you set it to [:active_admin, :resources, :posts] the 
-      # serializer will render the value at active_admin.resources.posts.title in the
-      # current translations
-      # @note If you do not set this, the column name will be titleized.
-      def i18n_scope=(scope)
-        @i18n_scope = scope
       end
 
       # The stored block that will be executed after your report is generated.
@@ -136,10 +127,7 @@ module ActiveAdmin
         to_stream
       end
 
-      protected
-
       class Column
-
         def initialize(name, block = nil)
           @name = name.to_sym
           @data = block || @name
@@ -175,7 +163,7 @@ module ActiveAdmin
       # tranform column names into array of localized strings
       # @return [Array]
       def header_row(collection)
-        sheet.add_row header_data_for(collection), { :style => header_style_id }
+        sheet.add_row(header_data_for(collection), style: header_style_id)
       end
 
       def header_data_for(collection)
@@ -191,12 +179,12 @@ module ActiveAdmin
 
       def parse_options(options)
         options.each do |key, value|
-          self.send("#{key}=", value) if self.respond_to?("#{key}=") && value != nil
+          send("#{key}=", value) if respond_to?("#{key}=") && !value.nil?
         end
       end
 
       def resource_data(resource)
-        columns.map  do |column|
+        columns.map do |column|
           call_method_or_proc_on resource, column.data if in_scope(resource, column)
         end
       end
@@ -211,7 +199,7 @@ module ActiveAdmin
       end
 
       def package
-        @package ||= ::Axlsx::Package.new(:use_shared_strings => true)
+        @package ||= ::Axlsx::Package.new(use_shared_strings: true)
       end
 
       def header_style_id

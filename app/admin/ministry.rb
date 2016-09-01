@@ -7,7 +7,7 @@ ActiveAdmin.register Ministry do
     column(:name) { |m| h4 m.name }
     column(:description) { |m| html_summary(m.description) }
     column 'Members' do |m|
-      link_to(m.people.count, attendees_path(q: {ministry_id_eq: m.id}))
+      link_to(m.people.count, attendees_path(q: { ministry_id_eq: m.id }))
     end
     column :created_at
     column :updated_at
@@ -23,6 +23,7 @@ ActiveAdmin.register Ministry do
     attributes_table do
       row :id
       row :name
+      # rubocop:disable Rails/OutputSafety
       row(:description) { |m| m.description.html_safe }
       row :created_at
       row :updated_at
