@@ -72,5 +72,6 @@ ActiveAdmin.register Attendee do
       f.input :staff_number
       f.input :department
     end
+    f.actions
   end
 end
