@@ -44,5 +44,7 @@ ActiveAdmin.register Child do
       f.input :birthdate, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
       f.input :family
     end
+
+    f.actions
   end
 end
