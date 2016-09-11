@@ -10,7 +10,7 @@ namespace :dev do
   task populate: :environment do
     FactoryGirl.find_definitions
     AdminUser.connection.transaction do
-      create_dummies :admin_user, count: 10
+      create_dummies :user, count: 10
 
       create_dummies :course, count: 10
       create_dummies :ministry, count: 10
