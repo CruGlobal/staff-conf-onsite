@@ -1,0 +1,2 @@
+class AttendeePolicy < GeneralPolicy
+end

@@ -10,6 +10,7 @@ gem 'activeadmin', '~> 1.0.0.pre4'
 
 # Authentication
 gem 'devise', '~> 4.2.0'
+gem 'pundit', '~> 1.1.0'
 # TODO gem 'devise_cas_authenticatable', '~> 1.9.2'
 
 # Assets
@@ -38,6 +39,9 @@ group :development, :test do
   gem 'factory_girl', '~> 4.7.0'
   gem 'faker', '~> 1.6.6'
   gem 'rubocop', '~> 0.42.0'
+  gem 'guard', '~> 2.14.0'
+  gem 'guard-minitest', '~> 2.4.6'
+  gem 'minitest-reporters', '~> 1.1.11'
 end
 
 group :development do

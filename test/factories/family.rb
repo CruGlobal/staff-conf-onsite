@@ -1,7 +1,6 @@
 using InternationalPhoneNumber
 
 FactoryGirl.define do
-
   factory :family do
     phone { Faker::PhoneNumber.international }
 

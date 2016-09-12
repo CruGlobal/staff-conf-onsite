@@ -1,0 +1,3 @@
+class SpousePolicy < GeneralPolicy
+end
+

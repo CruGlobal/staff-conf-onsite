@@ -1,0 +1,3 @@
+class FamilyPolicy < GeneralPolicy
+end
+
