@@ -9,7 +9,7 @@ namespace :dev do
   desc "Populate the development DB with dummy records"
   task populate: :environment do
     FactoryGirl.find_definitions
-    AdminUser.connection.transaction do
+    User.connection.transaction do
       create_dummies :user, count: 10
 
       create_dummies :course, count: 10

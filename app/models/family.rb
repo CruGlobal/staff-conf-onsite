@@ -1,5 +1,5 @@
 class Family < ApplicationRecord
-  has_many :people
+  has_many :people, dependent: :destroy
   has_many :attendees
   has_one :spouse
   has_many :children

@@ -1,0 +1,3 @@
+class MinistryPolicy < GeneralPolicy
+end
+

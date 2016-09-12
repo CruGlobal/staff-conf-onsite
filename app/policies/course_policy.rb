@@ -1,0 +1,3 @@
+class CoursePolicy < FinancePolicy
+end
+
