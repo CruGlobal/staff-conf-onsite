@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(role: 'admin', email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-User.create!(role: 'finance', email: 'finance@example.com', password: 'password', password_confirmation: 'password')
-User.create!(role: 'general', email: 'general@example.com', password: 'password', password_confirmation: 'password')
+unless Rails.env.production?
+  # Example role accounts
+  User.create!(role: 'admin', email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+  User.create!(role: 'finance', email: 'finance@example.com', password: 'password', password_confirmation: 'password')
+  User.create!(role: 'general', email: 'general@example.com', password: 'password', password_confirmation: 'password')
+
+  # Developer accounts
+  User.create!(role: 'admin', email: 'jon.sangster@ballistiq.com', password: 'password', password_confirmation: 'password')
+  User.create!(role: 'admin', email: 'tyler@ballistiq.com', password: 'password', password_confirmation: 'password')
+end

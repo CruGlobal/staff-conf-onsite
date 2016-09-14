@@ -9,9 +9,9 @@ gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
 
 # Authentication
+gem 'rack-cas', '~> 0.15.0'
 gem 'devise', '~> 4.2.0'
 gem 'pundit', '~> 1.1.0'
-# TODO gem 'devise_cas_authenticatable', '~> 1.9.2'
 
 # Assets
 gem 'coffee-rails', '~> 4.1.0'
