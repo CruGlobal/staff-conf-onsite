@@ -43,6 +43,9 @@ ActiveAdmin.register Attendee do
       row :emergency_contact
       row :staff_number
       row :department
+      row 'Meals' do |a|
+        link_to a.meals.count, attendee_meals_path(a)
+      end
       row :created_at
       row :updated_at
     end
