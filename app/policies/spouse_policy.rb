@@ -1,3 +1,0 @@
-class SpousePolicy < GeneralPolicy
-end
-

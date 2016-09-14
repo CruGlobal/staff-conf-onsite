@@ -59,7 +59,6 @@ ActiveAdmin.register Family do
 
   sidebar 'Family Members', only: [:show, :edit] do
     attendees = family.attendees.load
-    spouse    = family.spouse
     children  = family.children.load
 
     if attendees.any?
@@ -68,13 +67,6 @@ ActiveAdmin.register Family do
         attendees.each do |p|
           li link_to(p.full_name, attendee_path(p))
         end
-      end
-    end
-
-    if spouse
-      h4 strong 'Spouse'
-      ul do
-        li link_to(spouse.full_name, spouse_path(spouse))
       end
     end
 
