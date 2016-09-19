@@ -10,7 +10,6 @@ gem 'activeadmin', '~> 1.0.0.pre4'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'
-gem 'devise', '~> 4.2.0'
 gem 'pundit', '~> 1.1.0'
 
 # Assets

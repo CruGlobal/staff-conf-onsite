@@ -8,7 +8,4 @@ class User < ActiveRecord::Base
     scope role, -> { where(role: role) }
     define_method("#{role}?") { self.role == role }
   end
-
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
 end
