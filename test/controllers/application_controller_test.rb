@@ -20,6 +20,8 @@ class ApplicationControllerTest < ActionController::TestCase
       proc { get 'test_action' => 'application#test_action' }
   end
 
+  # Scenario: the user has successfully logged in to the remote CAS service and
+  # they exist in the Users table.
   test 'login with CAS' do
     @user = create :user, email: @email
 
@@ -44,6 +46,8 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_equal @guid, @controller.current_user.guid
   end
 
+  # Scenario: the user has successfully logged in to the remote CAS service but
+  # they don't exist in the Users table
   test 'failed login with CAS' do
     @user = create :user, email: @email
 
@@ -61,5 +65,18 @@ class ApplicationControllerTest < ActionController::TestCase
     get :test_action
 
     assert_redirected_to controller: 'login', action: 'unauthorized'
+  end
+
+  # Scenario: the user has not logged in to the remote CAS service
+  test 'not logged into CAS' do
+    @user = create :user, email: @email
+
+    refute @controller.current_user, 'user should not be logged in'
+
+    @request.session['cas'] = {}
+
+    get :test_action
+
+    assert_response :unauthorized
   end
 end
