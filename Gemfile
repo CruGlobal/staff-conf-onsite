@@ -33,6 +33,8 @@ gem 'intl-tel-input-rails', '~> 8.4.9'
 
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.1.1'
+
   # Testing
   gem 'byebug'
   gem 'factory_girl', '~> 4.7.0'

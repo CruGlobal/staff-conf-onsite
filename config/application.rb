@@ -28,7 +28,7 @@ module CruConference
 
 
     # gem 'rack-cas'
-    config.rack_cas.server_url = 'https://thekey.me/cas/'
+    config.rack_cas.server_url = ENV['CAS_URL']
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
   end
 end
