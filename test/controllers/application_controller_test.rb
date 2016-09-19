@@ -1,0 +1,65 @@
+require 'test_helper'
+
+class ApplicationController
+  before_action :authenticate_user!, only: :test_action
+  def test_action
+    head :ok
+  end
+end
+
+
+class ApplicationControllerTest < ActionController::TestCase
+  setup do
+    @first_name = 'Foo'
+    @last_name = 'Bar'
+    @email = 'foo-bar@example.com'
+    @guid = 'test-guid'
+
+    # We use :eval_block instead of :draw, so existing routes aren't removed
+    Rails.application.routes.send :eval_block,
+      proc { get 'test_action' => 'application#test_action' }
+  end
+
+  test 'login with CAS' do
+    @user = create :user, email: @email
+
+    refute @controller.current_user, 'user should not be logged in'
+
+    @request.session['cas'] = {
+      'user' => @email,
+      'extra_attributes' => {
+        'theKeyGuid' => @guid,
+        'firstName' => @first_name,
+        'lastName' => @last_name
+      }
+    }
+
+    get :test_action
+
+    assert_equal @user, @controller.current_user
+
+    assert_equal @first_name, @controller.current_user.first_name
+    assert_equal @last_name, @controller.current_user.last_name
+    assert_equal @email, @controller.current_user.email
+    assert_equal @guid, @controller.current_user.guid
+  end
+
+  test 'failed login with CAS' do
+    @user = create :user, email: @email
+
+    refute @controller.current_user, 'user should not be logged in'
+
+    @request.session['cas'] = {
+      'user' => 'some_other_email@example.com',
+      'extra_attributes' => {
+        'theKeyGuid' => @guid,
+        'firstName' => @first_name,
+        'lastName' => @last_name
+      }
+    }
+
+    get :test_action
+
+    assert_redirected_to controller: 'login', action: 'unauthorized'
+  end
+end
