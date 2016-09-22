@@ -24,6 +24,7 @@ gem 'truncate_html', '~> 0.9.3'
 # TODO gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 2.0.1'
+gem 'money', '~> 6.7.1'
 
 # Frontend Scripts
 gem 'turbolinks', '~> 5.0.1'

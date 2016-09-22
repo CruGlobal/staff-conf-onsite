@@ -30,5 +30,9 @@ module CruConference
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
+
+    config.generators do |g|
+      g.test_framework :test_unit, fixture: false
+    end
   end
 end

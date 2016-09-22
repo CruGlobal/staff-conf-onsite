@@ -1,5 +1,5 @@
 ActiveAdmin.register Attendee do
-  menu parent: 'People', priority: 1
+  menu parent: 'People', priority: 2
 
   permit_params :first_name, :last_name, :email, :emergency_contact, :phone,
                 :birthdate, :student_number, :staff_number, :gender, :department
@@ -20,9 +20,6 @@ ActiveAdmin.register Attendee do
     column :emergency_contact
     column :staff_number
     column :department
-    column 'Meals' do |a|
-      link_to a.meals.count, attendee_meals_path(a)
-    end
     column :created_at
     column :updated_at
     actions
@@ -45,6 +42,9 @@ ActiveAdmin.register Attendee do
       row :department
       row 'Meals' do |a|
         link_to a.meals.count, attendee_meals_path(a)
+      end
+      row 'Cost Adjustments' do |a|
+        link_to a.cost_adjustments.count, cost_adjustments_path(q: { person_id_eq: a.id })
       end
       row :created_at
       row :updated_at
