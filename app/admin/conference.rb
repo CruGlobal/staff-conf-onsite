@@ -26,17 +26,36 @@ ActiveAdmin.register Conference do
   filter :updated_at
 
   show do
-    attributes_table do
-      row :id
-      row :name
-      # TODO: Use format_cents when merged with cost-adjustments branch
-      row :cents
-      # rubocop:disable Rails/OutputSafety
-      row(:description) { |m| m.description.try(:html_safe) }
-      row :stat_at
-      row :end_at
-      row :created_at
-      row :updated_at
+    columns do
+      column do
+        attributes_table do
+          row :id
+          row :name
+          # TODO: Use format_cents when merged with cost-adjustments branch
+          row :cents
+          # rubocop:disable Rails/OutputSafety
+          row(:description) { |m| m.description.try(:html_safe) }
+          row :stat_at
+          row :end_at
+          row :created_at
+          row :updated_at
+        end
+      end
+
+      column do
+        size = conference.attendees.size
+        panel "Attendees (#{size})" do
+          if size > 0
+            ul do
+              conference.attendees.each do |a|
+                li { link_to(a.full_name, a) }
+              end
+            end
+          else
+            strong 'None'
+          end
+        end
+      end
     end
     active_admin_comments
   end
