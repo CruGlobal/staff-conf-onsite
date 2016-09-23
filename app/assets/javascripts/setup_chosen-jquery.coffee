@@ -1,4 +1,4 @@
 $ ->
-  $('select[multiple]').chosen(
+  $('select').chosen(
     width: '80%'
   )
