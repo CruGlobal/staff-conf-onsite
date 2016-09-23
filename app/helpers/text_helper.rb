@@ -9,7 +9,7 @@ module TextHelper
   module_function
 
   def html_summary(html)
-    html_string = TruncateHtml::HtmlString.new(html)
+    html_string = TruncateHtml::HtmlString.new(html || '')
     # rubocop:disable Rails/OutputSafety
     TruncateHtml::HtmlTruncator.new(html_string).truncate.html_safe
   end
