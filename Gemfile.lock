@@ -67,6 +67,10 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.5)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     ckeditor (4.2.0)
       cocaine
       orm_adapter (~> 0.5.0)
@@ -280,6 +284,7 @@ DEPENDENCIES
   activeadmin (~> 1.0.0.pre4)
   axlsx (~> 2.0.1)
   byebug
+  chosen-rails (~> 1.5.2)
   ckeditor (~> 4.2.0)
   coffee-rails (~> 4.1.0)
   countries (~> 1.2.5)
