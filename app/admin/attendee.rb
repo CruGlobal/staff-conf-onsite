@@ -102,13 +102,13 @@ ActiveAdmin.register Attendee do
       f.input :emergency_contact
     end
 
-    f.inputs 'Attendance' do
+    f.inputs do
       f.input :ministry
       f.input :staff_number
       f.input :department
     end
 
-    f.inputs do
+    f.inputs 'Attendance' do
       f.input :conferences
       f.input :courses
     end
