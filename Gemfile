@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Server
 gem 'puma', '~> 3.0'
-gem 'sqlite3', '~>1.3.11'
+gem 'pg', '~> 0.19.0'
 
 # Framework
 gem 'rails', '~> 4.2.7.1'
@@ -34,6 +34,7 @@ gem 'intl-tel-input-rails', '~> 8.4.9'
 
 
 group :development, :test do
+  gem 'sqlite3', '~>1.3.11'
   gem 'dotenv-rails', '~> 2.1.1'
 
   # Testing
