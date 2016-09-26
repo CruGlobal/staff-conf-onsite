@@ -12,6 +12,7 @@ namespace :dev do
     User.connection.transaction do
       create_dummies :user, count: 10
 
+      create_dummies :conference, count: 10
       create_dummies :course, count: 10
       create_dummies :ministry, count: 10
       create_dummies :housing_facility_with_rooms, count: 10
