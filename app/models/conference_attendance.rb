@@ -1,0 +1,8 @@
+class ConferenceAttendance < ActiveRecord::Base
+  belongs_to :conference
+  belongs_to :attendee
+
+  validates :attendee_id, uniqueness: {
+    scope: :conference_id, message: 'may only sign up for a conference once'
+  }
+end
