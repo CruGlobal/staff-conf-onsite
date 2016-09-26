@@ -1,10 +1,11 @@
-ActiveAdmin.register Course do
-  permit_params :name, :start_at, :end_at
+ActiveAdmin.register Conference do
+  permit_params :name, :description, :start_at, :end_at, :price
 
   index do
     selectable_column
     column :id
     column(:name) { |c| h4 c.name }
+    column(:price) { |c| humanized_money_with_symbol(c.price) }
     column(:description) { |m| html_summary(m.description) }
     column :stat_at
     column :end_at
@@ -29,6 +30,7 @@ ActiveAdmin.register Course do
         attributes_table do
           row :id
           row :name
+          row(:price) { |c| humanized_money_with_symbol(c.price) }
           # rubocop:disable Rails/OutputSafety
           row(:description) { |m| m.description.try(:html_safe) }
           row :stat_at
@@ -39,11 +41,11 @@ ActiveAdmin.register Course do
       end
 
       column do
-        size = course.attendees.size
+        size = conference.attendees.size
         panel "Attendees (#{size})" do
           if size > 0
             ul do
-              course.attendees.each do |a|
+              conference.attendees.each do |a|
                 li { link_to(a.full_name, a) }
               end
             end
@@ -60,6 +62,7 @@ ActiveAdmin.register Course do
     f.semantic_errors
     f.inputs do
       f.input :name
+      f.input :price, as: :string
       f.input :description, as: :ckeditor
       f.input :start_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
       f.input :end_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }

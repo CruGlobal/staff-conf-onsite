@@ -7,8 +7,11 @@ Minitest::Reporters.use!
 
 FactoryGirl.find_definitions
 
+Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
+
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+  include Support::Moneyable
 
   def assert_permit(user, record, action)
     msg = "User #{user.inspect} should be permitted to #{action} #{record.inspect}, but isn't permitted"

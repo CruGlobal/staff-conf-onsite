@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925225618) do
+ActiveRecord::Schema.define(version: 20160926164300) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -27,6 +27,26 @@ ActiveRecord::Schema.define(version: 20160925225618) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+
+  create_table "conference_attendances", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.integer  "attendee_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "conference_attendances", ["attendee_id"], name: "index_conference_attendances_on_attendee_id"
+  add_index "conference_attendances", ["conference_id"], name: "index_conference_attendances_on_conference_id"
+
+  create_table "conferences", force: :cascade do |t|
+    t.integer  "price_cents"
+    t.string   "name"
+    t.text     "description"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "course_attendances", force: :cascade do |t|
     t.integer  "course_id"
@@ -46,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160925225618) do
     t.date     "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "families", force: :cascade do |t|
