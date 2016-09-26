@@ -44,12 +44,12 @@ module Authenticatable
     cas_attr('theKeyGuid').present?
   end
 
-  # @return [User] the local user matching the email passed from the remote CAS
+  # @return [User] the local user matching the GUID passed from the remote CAS
   #   service
   def user_matching_cas_session
     @user_matching_cas_session ||=
-      if (email = cas_email)
-        User.find_by(email: email)
+      if (guid = cas_attr('theKeyGuid'))
+        User.find_by(guid: guid)
       end
   end
 
@@ -59,7 +59,7 @@ module Authenticatable
 
   def after_successful_authentication
     user_matching_cas_session.assign_attributes(
-      guid: cas_attr('theKeyGuid'),
+      email: cas_email,
       first_name: cas_attr('firstName'),
       last_name: cas_attr('lastName')
     )

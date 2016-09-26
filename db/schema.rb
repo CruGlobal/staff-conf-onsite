@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20160926164300) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "role",       default: "general"
-    t.string   "guid"
+    t.string   "guid",                           null: false
     t.string   "first_name"
     t.string   "last_name"
   end
