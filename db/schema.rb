@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923030919) do
+ActiveRecord::Schema.define(version: 20160926164300) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160923030919) do
   add_index "conference_attendances", ["conference_id"], name: "index_conference_attendances_on_conference_id"
 
   create_table "conferences", force: :cascade do |t|
-    t.integer  "cents"
+    t.integer  "price_cents"
     t.string   "name"
     t.text     "description"
     t.date     "start_at"

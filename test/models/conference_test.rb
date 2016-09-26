@@ -6,7 +6,7 @@ class ConferenceTest < ActiveSupport::TestCase
     @conference = create :conference
   end
 
-  test_money_attr(:conference, :cents)
+  test_money_attr(:conference, :price)
 
   test 'permit create' do
     refute_permit @general_user, @conference, :create

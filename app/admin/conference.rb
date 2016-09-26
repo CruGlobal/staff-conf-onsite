@@ -1,12 +1,11 @@
 ActiveAdmin.register Conference do
-  permit_params :name, :description, :start_at, :end_at
+  permit_params :name, :description, :start_at, :end_at, :price
 
   index do
     selectable_column
     column :id
     column(:name) { |c| h4 c.name }
-    # TODO: Use format_cents when merged with cost-adjustments branch
-    column :cents
+    column(:price) { |c| humanized_money_with_symbol(c.price) }
     column(:description) { |m| html_summary(m.description) }
     column :stat_at
     column :end_at
@@ -31,8 +30,7 @@ ActiveAdmin.register Conference do
         attributes_table do
           row :id
           row :name
-          # TODO: Use format_cents when merged with cost-adjustments branch
-          row :cents
+          row(:price) { |c| humanized_money_with_symbol(c.price) }
           # rubocop:disable Rails/OutputSafety
           row(:description) { |m| m.description.try(:html_safe) }
           row :stat_at
@@ -64,7 +62,7 @@ ActiveAdmin.register Conference do
     f.semantic_errors
     f.inputs do
       f.input :name
-      f.input :cents, as: :string
+      f.input :price, as: :string
       f.input :description, as: :ckeditor
       f.input :start_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
       f.input :end_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }

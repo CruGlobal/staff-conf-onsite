@@ -23,6 +23,7 @@ gem 'countries', '~> 1.2.5'
 gem 'phone', '~> 1.2.3'
 gem 'truncate_html', '~> 0.9.3'
 gem 'chosen-rails', '~> 1.5.2'
+gem 'money-rails', '~> 1.7.0'
 # TODO gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 2.0.1'
