@@ -24,6 +24,14 @@ page](http://localhost:3000/users). Admin users can also be created with rake:
 bin/rake users:new_admin[user@example.com]
 ```
 
+The Development and Staging servers are seeded with an account for each User
+role, with a real CAS account:
+
+  * **Admin**: `jon.sangster+admin@ballistiq.com`
+  * **Finance**: `jon.sangster+finance@ballistiq.com`
+  * **General**: `jon.sangster+general@ballistiq.com`
+
+Each account uses the password `CRUstaff2016`
 
 ## Testing
 

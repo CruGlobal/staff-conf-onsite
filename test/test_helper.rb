@@ -5,6 +5,7 @@ require 'webmock/minitest'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
+StubCas.stub_requests
 FactoryGirl.find_definitions
 
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
