@@ -328,7 +328,6 @@ DEPENDENCIES
   intl-tel-input-rails (~> 8.4.9)
   jquery-rails
   minitest-reporters (~> 1.1.11)
-  money (~> 6.7.1)
   money-rails (~> 1.7.0)
   pg (~> 0.19.0)
   phone (~> 1.2.3)

@@ -1,11 +1,11 @@
 ActiveAdmin.register CostAdjustment do
-  permit_params :person_id, :cents, :description
+  permit_params :person_id, :price, :description
 
   index do
     selectable_column
     column :id
     column('Person') { |ca| link_to(ca.person.full_name, ca.person) }
-    column('Amount') { |ca| format_cents(ca.cents)  }
+    column(:price) { |c| humanized_money_with_symbol(c.price) }
     column(:description) { |ca| html_summary(ca.description) }
     column :created_at
     column :updated_at
@@ -16,7 +16,7 @@ ActiveAdmin.register CostAdjustment do
     attributes_table do
       row :id
       row('Person') { |ca| link_to(ca.person.full_name, ca.person) }
-      row('Amount') { |ca| format_cents(ca.cents)  }
+      row(:price) { |c| humanized_money_with_symbol(c.price) }
       row(:description) { |ca| html_summary(ca.description) }
       row :created_at
       row :updated_at
@@ -32,7 +32,7 @@ ActiveAdmin.register CostAdjustment do
     f.semantic_errors
     f.inputs do
       f.input :person
-      f.input :cents, as: :string
+      f.input :price_cents, as: :string
       f.input :description, as: :ckeditor
     end
     f.actions

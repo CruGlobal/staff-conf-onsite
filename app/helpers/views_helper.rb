@@ -34,8 +34,4 @@ module ViewsHelper
   def family_name(family)
     ::PersonHelper.family_name(family)
   end
-
-  def format_cents(cents)
-    ::MoneyHelper.format_cents(cents)
-  end
 end

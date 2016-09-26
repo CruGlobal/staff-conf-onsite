@@ -6,25 +6,7 @@ class CostAdjustmentTest < ActiveSupport::TestCase
     @cost_adjustment = create :cost_adjustment
   end
 
-  test 'cents=' do
-    @cost_adjustment.update(cents: 100)
-    assert_equal 100, @cost_adjustment.cents
-
-    @cost_adjustment.update(cents: '100')
-    assert_equal 100, @cost_adjustment.cents
-
-    @cost_adjustment.update(cents: '$USD 1.00')
-    assert_equal 100, @cost_adjustment.cents
-
-    @cost_adjustment.update(cents: '$USD 0.00')
-    assert_equal 0, @cost_adjustment.cents
-
-    @cost_adjustment.update(cents: '$USD 123.45')
-    assert_equal 12345, @cost_adjustment.cents
-
-    @cost_adjustment.update(cents: '1,234,567.89')
-    assert_equal 123456789, @cost_adjustment.cents
-  end
+  test_money_attr(:conference, :price)
 
   test 'permit create' do
     refute_permit @general_user, @cost_adjustment, :create
