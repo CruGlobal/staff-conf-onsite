@@ -23,7 +23,7 @@ class ApplicationControllerTest < ActionController::TestCase
   # Scenario: the user has successfully logged in to the remote CAS service and
   # they exist in the Users table.
   test 'login with CAS' do
-    @user = create :user, email: @email
+    @user = create :user, email: @email, guid: @guid
 
     refute @controller.current_user, 'user should not be logged in'
 

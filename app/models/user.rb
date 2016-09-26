@@ -26,8 +26,6 @@ class User < ActiveRecord::Base
     end
   rescue RestClient::ResourceNotFound
     errors.add(:email, "No account found on #{ENV['CAS_URL']} for #{email}")
-  rescue RestClient::Unauthorized
-    byebug
   end
 
   def set_cas_attributes(attrs)
