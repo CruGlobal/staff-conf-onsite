@@ -16,6 +16,13 @@ Instead of storing passwords locally, this project uses the
 sign-on protocol for authentication, even in development. You can create a free
 account at [TheKey.me](https://thekey.me/cas/service/selfservice?target=signup).
 
+For CAS Authentication to work in development, you need to create a
+`.env.local` file in the project's root to contain the TheKey.me API key, like:
+
+```sh
+export CAS_ACCESS_TOKEN="0123456789abcdef0123456789abcdef01234567"
+```
+
 Even with a validated CAS account, a user must be listed in the Users table.
 Users can be added by existing admin users on the [admin
 page](http://localhost:3000/users). Admin users can also be created with rake:
