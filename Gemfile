@@ -2,7 +2,11 @@ source 'https://rubygems.org'
 
 # Server
 gem 'puma', '~> 3.0'
-gem 'sqlite3', '~>1.3.11'
+gem 'pg', '~> 0.19.0'
+gem 'syslog-logger', '~> 1.6.8'
+gem 'redis-rails', '~> 5.0.1'
+gem 'redis-namespace', '~> 1.5.2'
+gem 'newrelic_rpm', '~> 3.16.2.321'
 
 # Framework
 gem 'rails', '~> 4.2.7.1'
@@ -36,6 +40,9 @@ gem 'intl-tel-input-rails', '~> 8.4.9'
 
 
 group :development, :test do
+  gem 'sqlite3', '~> 1.3.11'
+  gem 'dotenv-rails', '~> 2.1.1'
+
   # Testing
   gem 'byebug'
   gem 'factory_girl', '~> 4.7.0'
