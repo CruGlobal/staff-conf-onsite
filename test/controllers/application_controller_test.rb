@@ -30,7 +30,7 @@ class ApplicationControllerTest < ActionController::TestCase
     @request.session['cas'] = {
       'user' => @email,
       'extra_attributes' => {
-        'theKeyGuid' => @guid,
+        'ssoGuid' => @guid,
         'firstName' => @first_name,
         'lastName' => @last_name
       }
@@ -56,7 +56,7 @@ class ApplicationControllerTest < ActionController::TestCase
     @request.session['cas'] = {
       'user' => 'some_other_email@example.com',
       'extra_attributes' => {
-        'theKeyGuid' => @guid,
+        'ssoGuid' => @guid,
         'firstName' => @first_name,
         'lastName' => @last_name
       }

@@ -2,6 +2,8 @@ require 'test_helper'
 
 class CasAttributesTest < ActiveSupport::TestCase
   setup do
+    ENV['CAS_ACCESS_TOKEN'] = 'test'
+
     stub_request(
       :get,
       'https://thekey.me/cas/api/test/user/attributes?email=bob@example.com'
