@@ -17,7 +17,7 @@ class CasAttributes
   def get
     JSON.parse(
       RestClient.get(
-        "#{base_url}/user/attributes?email=#{email}",
+        "#{base_url}/user/attributes?email=#{CGI::escape(email)}",
         accept: :json
       )
     )
