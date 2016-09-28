@@ -1,12 +1,14 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'webmock/minitest'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
-FactoryGirl.find_definitions
-
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
+
+StubCas.stub_requests
+FactoryGirl.find_definitions
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
