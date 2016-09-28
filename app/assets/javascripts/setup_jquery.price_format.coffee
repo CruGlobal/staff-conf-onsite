@@ -1,4 +1,5 @@
 $ ->
-  $('input[name$="_cents]"]').priceFormat({
-    allowNegative: true
+  $('input[name$="price]"], input[name$="cents]"]').priceFormat({
+    allowNegative: true,
+    limit: 8
   })
