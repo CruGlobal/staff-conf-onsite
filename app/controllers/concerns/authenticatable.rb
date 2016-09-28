@@ -24,7 +24,7 @@ module Authenticatable
   # @return [User] the currently logged-in and authenticated user
   def current_user
     @current_user ||=
-      if (guid = cas_attr('theKeyGuid'))
+      if (guid = cas_attr('ssoGuid'))
         User.find_by(guid: guid)
       end
   end
@@ -41,14 +41,14 @@ module Authenticatable
 
   # @return [Boolean] if the user has signed into the remote CAS service
   def signed_into_cas?
-    cas_attr('theKeyGuid').present?
+    cas_attr('ssoGuid').present?
   end
 
   # @return [User] the local user matching the GUID passed from the remote CAS
   #   service
   def user_matching_cas_session
     @user_matching_cas_session ||=
-      if (guid = cas_attr('theKeyGuid'))
+      if (guid = cas_attr('ssoGuid'))
         User.find_by(guid: guid)
       end
   end

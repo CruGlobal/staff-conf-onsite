@@ -8,9 +8,9 @@
 
 unless Rails.env.production?
   # Example role accounts
-  User.create!(role: 'admin', email: 'admin@example.com')
-  User.create!(role: 'finance', email: 'finance@example.com')
-  User.create!(role: 'general', email: 'general@example.com')
+  User.create!(role: 'admin', email: 'jon.sangster+admin@ballistiq.com')
+  User.create!(role: 'finance', email: 'jon.sangster+finance@ballistiq.com')
+  User.create!(role: 'general', email: 'jon.sangster+general@ballistiq.com')
 
   # Developer accounts
   User.create!(role: 'admin', email: 'jon.sangster@ballistiq.com')
