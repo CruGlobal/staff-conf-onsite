@@ -32,7 +32,7 @@ ActiveAdmin.register CostAdjustment do
     f.semantic_errors
     f.inputs do
       f.input :person
-      f.input :price_cents, as: :string
+      f.input :price, as: :string
       f.input :description, as: :ckeditor
     end
     f.actions

@@ -47,6 +47,9 @@ ActiveAdmin.register Attendee do
           row 'Meals' do |a|
             link_to a.meals.count, attendee_meals_path(a)
           end
+          row 'Cost Adjustments' do |a|
+            link_to a.cost_adjustments.count, cost_adjustments_path(q: { person_id_eq: a.id })
+          end
           row :created_at
           row :updated_at
         end
@@ -76,12 +79,19 @@ ActiveAdmin.register Attendee do
             strong 'None'
           end
         end
+
+        panel 'Cost Adjustments' do
+          if attendee.cost_adjustments.any?
+            ul do
+              attendee.cost_adjustments.each do |c|
+                li { link_to(humanized_money_with_symbol(c.price), c) }
+              end
+            end
+          else
+            strong 'None'
+          end
+        end
       end
-      row 'Cost Adjustments' do |a|
-        link_to a.cost_adjustments.count, cost_adjustments_path(q: { person_id_eq: a.id })
-      end
-      row :created_at
-      row :updated_at
     end
     active_admin_comments
   end
