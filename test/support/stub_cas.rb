@@ -8,8 +8,15 @@ class StubCas
 
   DOMAIN_RE = /thekey\.me/
 
-  def self.stub_requests
+  # Stub out requests to the remote CAS service. If a block is provided,
+  # requests are only stubbed for the duration of the block.
+  def self.stub_requests(&blk)
     new.call
+
+    if blk
+      blk.call
+      WebMock.disable!
+    end
   end
 
   def call

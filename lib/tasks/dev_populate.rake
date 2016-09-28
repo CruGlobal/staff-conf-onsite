@@ -1,4 +1,5 @@
 require 'factory_girl'
+require Rails.root.join('test/support/stub_cas.rb')
 
 def create_dummies(model, *args, count: 1)
   puts "Creating #{count} #{model.to_s.pluralize(count)} records#{" (args: #{args})" if args.any?}..."
@@ -12,7 +13,9 @@ namespace :dev do
 
     begin
       User.connection.transaction do
-        create_dummies :user, count: 10
+        StubCas.stub_requests do
+          create_dummies :user, count: 10
+        end
 
         create_dummies :conference, count: 10
         create_dummies :course, count: 10
