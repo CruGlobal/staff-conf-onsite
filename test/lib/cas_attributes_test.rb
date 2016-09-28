@@ -2,11 +2,11 @@ require 'test_helper'
 
 class CasAttributesTest < ActiveSupport::TestCase
   setup do
-    ENV['CAS_ACCESS_TOKEN'] = 'test'
+    base_url = "https://thekey.me/cas/api/#{ENV['CAS_ACCESS_TOKEN']}"
 
     stub_request(
       :get,
-      'https://thekey.me/cas/api/test/user/attributes?email=bob@example.com'
+      "#{base_url}/user/attributes?email=bob@example.com"
     )
       .with(headers: {'Accept' => 'application/json'})
       .to_return(
