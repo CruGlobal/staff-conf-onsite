@@ -1,0 +1,2 @@
+class CostAdjustmentPolicy < FinancePolicy
+end
