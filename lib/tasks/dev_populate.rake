@@ -26,6 +26,8 @@ namespace :dev do
       if e.record.is_a?(Meal) && e.message =~ /one meal type per day/
         puts "Trying again..."
         retry
+      else
+        raise
       end
     end
   end
