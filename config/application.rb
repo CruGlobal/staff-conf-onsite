@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rack-cas/session_store/active_record'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,5 +25,14 @@ module CruConference
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths << Rails.root.join('lib')
+
+
+    # gem 'rack-cas'
+    config.rack_cas.server_url = ENV['CAS_URL']
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
+
+    config.generators do |g|
+      g.test_framework :test_unit, fixture: false
+    end
   end
 end

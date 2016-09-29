@@ -1,5 +1,5 @@
 ActiveAdmin.register Attendee do
-  menu parent: 'People', priority: 1
+  menu parent: 'People', priority: 2
 
   permit_params :first_name, :last_name, :email, :emergency_contact, :phone,
                 :birthdate, :student_number, :staff_number, :gender,
@@ -22,9 +22,6 @@ ActiveAdmin.register Attendee do
     column :emergency_contact
     column :staff_number
     column :department
-    column 'Meals' do |a|
-      link_to a.meals.count, attendee_meals_path(a)
-    end
     column :created_at
     column :updated_at
     actions
@@ -50,6 +47,9 @@ ActiveAdmin.register Attendee do
           row 'Meals' do |a|
             link_to a.meals.count, attendee_meals_path(a)
           end
+          row 'Cost Adjustments' do |a|
+            link_to a.cost_adjustments.count, cost_adjustments_path(q: { person_id_eq: a.id })
+          end
           row :created_at
           row :updated_at
         end
@@ -73,6 +73,18 @@ ActiveAdmin.register Attendee do
             ul do
               attendee.courses.each do |c|
                 li { link_to(c.name, c) }
+              end
+            end
+          else
+            strong 'None'
+          end
+        end
+
+        panel 'Cost Adjustments' do
+          if attendee.cost_adjustments.any?
+            ul do
+              attendee.cost_adjustments.each do |c|
+                li { link_to(humanized_money_with_symbol(c.price), c) }
               end
             end
           else

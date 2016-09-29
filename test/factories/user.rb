@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :user do
     email { Faker::Internet.email }
-    password 'password'
-    password_confirmation 'password'
     role { User::ROLES.sample }
+    guid { Faker::Number.hexadecimal(8) }
 
     factory :admin_user do
       role 'admin'

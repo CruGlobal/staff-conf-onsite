@@ -7,3 +7,6 @@ Rails.application.config.session_store :redis_store, servers: {
   namespace: 'cru-onsite:session:',
   expires_in: 2.days
 }
+
+require 'rack-cas/session_store/rails/active_record'
+Rails.application.config.session_store ActionDispatch::Session::RackCasActiveRecordStore
