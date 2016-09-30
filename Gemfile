@@ -38,6 +38,12 @@ gem 'ckeditor', '~> 4.2.0'
 gem 'jquery-rails'
 gem 'intl-tel-input-rails', '~> 8.4.9'
 
+# Gems which allow us to generate fake records for testing/demos
+group :development, :test, :staging do
+  gem 'faker', '~> 1.6.6'
+  gem 'factory_girl', '~> 4.7.0'
+  gem 'webmock', '~> 2.1.0'
+end
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.11'
@@ -45,13 +51,10 @@ group :development, :test do
 
   # Testing
   gem 'byebug'
-  gem 'factory_girl', '~> 4.7.0'
-  gem 'faker', '~> 1.6.6'
   gem 'rubocop', '~> 0.42.0'
   gem 'guard', '~> 2.14.0'
   gem 'guard-minitest', '~> 2.4.6'
   gem 'minitest-reporters', '~> 1.1.11'
-  gem 'webmock', '~> 2.1.0'
 end
 
 group :development do
