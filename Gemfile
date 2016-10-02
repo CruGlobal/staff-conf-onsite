@@ -38,13 +38,11 @@ gem 'ckeditor', '~> 4.2.0'
 gem 'jquery-rails'
 gem 'intl-tel-input-rails', '~> 8.4.9'
 
+# Gems which allow us to generate fake records for testing/demos
 group :development, :test, :staging do
-  # Gems which allow us to generate fake records for testing/demos
   gem 'faker', '~> 1.6.6'
   gem 'factory_girl', '~> 4.7.0'
   gem 'webmock', '~> 2.1.0'
-
-  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -62,5 +60,9 @@ end
 group :development do
   # Development Server
   gem 'spring'
+  gem 'web-console', '~> 2.0'
+
+  # Deployment
+  # TODO gem 'capistrano-rails'
 end
 
