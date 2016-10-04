@@ -1,4 +1,4 @@
-class Conference < ActiveRecord::Base
+class CostAdjustment < ActiveRecord::Base
   include Monetizable
 
   monetize_attr :price_cents, numericality: {
@@ -6,6 +6,5 @@ class Conference < ActiveRecord::Base
     less_than_or_equal_to:     1_000_000
   }
 
-  has_many :conference_attendances
-  has_many :attendees, through: :conference_attendances
+  belongs_to :person, foreign_key: 'person_id'
 end

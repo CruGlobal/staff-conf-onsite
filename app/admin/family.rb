@@ -1,5 +1,5 @@
 ActiveAdmin.register Family do
-  menu parent: 'People', priority: 4
+  menu parent: 'People', priority: 1
 
   permit_params :phone, :street, :city, :state, :zip, :country_code
 
