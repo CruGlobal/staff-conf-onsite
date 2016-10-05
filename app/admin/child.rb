@@ -1,7 +1,7 @@
 ActiveAdmin.register Child do
   menu parent: 'People', priority: 3
 
-  # permit_params :first_name, :last_name, :birthdate, :gender, :family, :parent_pickup, :needs_bed, :grade_level, childcare_weeks: []
+  permit_params :first_name, :last_name, :birthdate, :gender, :family, :parent_pickup, :needs_bed, :grade_level, childcare_weeks: []
 
   index do
     selectable_column
@@ -62,9 +62,4 @@ ActiveAdmin.register Child do
 
     f.actions
   end
-  # controller do
-  #   def permitted_params
-  #     params.permit!
-  #   end
-  # end
 end
