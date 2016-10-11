@@ -1,4 +1,7 @@
 #edit_attendee {
+  /**
+   * Theses styles are for the custom UI for Attendees' nested Meal records
+   */
   .meals_attributes {
     &__add_toggle {
       cursor: pointer;
@@ -14,6 +17,7 @@
       margin-right: 3em;
 
       // The rest is copied from ActiveAdmin button style
+      // Unfortunately, this style is currently not @extend-able
       border-radius: 200px;
       display: inline-block;
       font-weight: bold;

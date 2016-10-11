@@ -161,10 +161,14 @@ ActiveAdmin.register Attendee do
     end
 
     f.inputs 'Meals', class: 'meals_attributes' do
+      # This warning is hidden via Javascript
       h4 class: 'meals_attributes__warning' do
-        text_node "Checked Meals will be "
+        text_node 'Checked Meals will be '
         strong 'deleted'
       end
+
+      # A table of all of the meals this attendee has signed up for. Each row
+      # represents a day, and each column a single meal in that day
       table do
         thead do
           tr do
@@ -172,30 +176,37 @@ ActiveAdmin.register Attendee do
             Meal::TYPES.each { |t| th t }
           end
         end
-        tbody do
-          next_id = Meal.last.id + 1
 
+        tbody do
+          next_index = Meal.last.id + 1
+
+          # Creates a new row for each Date. ex:
+          # |    Date    | Breakfast |   Lunch   |  Dinner  |
+          # | October 20 |   [YES]   |   [YES]   |  [Yes]   |
           attendee.meals.order_by_date.each do |date, types|
             tr do
               td { strong l date, format: :month }
+
               Meal::TYPES.each do |t|
                 td do
                   name = "attendee[meals_attributes]"
-                  exists = false
+                  recordExistsInDatabase = types[t].present?
 
-                  if types[t]
-                    exists = true
+                  if recordExistsInDatabase
                     name = "#{name}[#{types[t].id}]"
                     insert_tag Arbre::HTML::Input, type: :hidden,
                       name: "#{name}[id]", value: types[t].id
                   else
-                    name = "#{name}[#{next_id}]"
-                    next_id += 1
+                    name = "#{name}[#{next_index}]"
+                    next_index += 1
                   end
 
+                  # Delete record checkbox
                   insert_tag Arbre::HTML::Input, type: :checkbox,
-                    name: "#{name}[_destroy]", checked: !exists,
+                    name: "#{name}[_destroy]", checked: !recordExistsInDatabase,
                     class: 'meals_attributes__destroy_toggle'
+
+                  # Meal Attributes
                   insert_tag Arbre::HTML::Input, type: :hidden,
                     name: "#{name}[date]", value: date
                   insert_tag Arbre::HTML::Input, type: :hidden,
@@ -203,10 +214,10 @@ ActiveAdmin.register Attendee do
                 end
               end
             end
-
           end
 
-          div(id: 'meals_attributes__js', 'data-nextid' => next_id, 'data-types' => Meal::TYPES.join(','))
+          div(id: 'meals_attributes__js', 'data-nextindex' => next_index,
+              'data-types' => Meal::TYPES.join(','))
         end
       end
     end
