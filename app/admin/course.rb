@@ -6,7 +6,7 @@ ActiveAdmin.register Course do
     column :id
     column(:name) { |c| h4 c.name }
     column(:description) { |m| html_summary(m.description) }
-    column :stat_at
+    column :start_at
     column :end_at
     column 'Attendees' do |c|
       link_to c.attendees.count, ''
