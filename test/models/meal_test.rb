@@ -31,7 +31,7 @@ class MealTest < ActiveSupport::TestCase
   end
 
   test 'order_by_date when empty' do
-    hash = Meal.where('1 == 0').order_by_date
+    hash = Meal.where('1 = 0').order_by_date
     assert_empty hash
   end
 
