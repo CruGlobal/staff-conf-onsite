@@ -10,11 +10,11 @@ class Meal < ApplicationRecord
   # Meals. Each element is a map of meal_type to Meal object.
   #
   # @example
-  #   Tue, 18 Apr 2017 => BreakFast -> #<Meal:...>
+  #   Tue, 18 Apr 2017 => Breakfast -> #<Meal:...>
   #                       Lunch     -> #<Meal:...>
   #                       Dinner    -> #<Meal:...>
   #   Sun, 21 May 2017 => Dinner    -> #<Meal:...>
-  #   Thu, 14 Sep 2017 => BreakFast -> #<Meal:...>
+  #   Thu, 14 Sep 2017 => Breakfast -> #<Meal:...>
   #                       Dinner    -> #<Meal:...>
   # @return [Hash<Date, Hash<String, Meal>>]
   def self.order_by_date
