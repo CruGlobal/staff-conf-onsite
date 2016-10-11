@@ -7,9 +7,10 @@ $ ->
   $country = $('select[name*="country_code"]')
   countryData = $.fn.intlTelInput.getCountryData()
 
-  $phone.intlTelInput
+  $phone.intlTelInput(
     formatOnInit: true
     initialCountry: 'us'
+  )
 
   # listen to the telephone input for changes
   $phone.on 'countrychange', (e, countryData) ->
