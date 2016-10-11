@@ -9,6 +9,11 @@ CRU staff to enter details for the CRU Conference.
 bin/rake dev:populate
 ```
 
+## Redis
+
+[Redis](http://redis.io/) is required to run this application, even in
+development mode.
+
 ## Authentication
 
 Instead of storing passwords locally, this project uses the
