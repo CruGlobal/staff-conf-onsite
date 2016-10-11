@@ -203,7 +203,10 @@ ActiveAdmin.register Attendee do
                 end
               end
             end
+
           end
+
+          div(id: 'meals_attributes__js', 'data-nextid' => next_id, 'data-types' => Meal::TYPES.join(','))
         end
       end
     end
