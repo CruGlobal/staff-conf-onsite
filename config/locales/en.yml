@@ -35,3 +35,6 @@ en:
         country_code: Country
         zip: Zip Code
 
+  date:
+    formats:
+      month: "%B %-d"
