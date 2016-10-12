@@ -49,8 +49,7 @@ ActiveAdmin.register Family do
     ]
     f.inputs 'Housing Preference', class: 'housing_preference_attributes',
         for: for_housing_preference do |hp|
-      hp.input :housing_type, as: :select,
-        collection: housing_type_select
+      hp.input :housing_type, as: :select, collection: housing_type_select
       hp.input :children_count, wrapper_html: { class: :apartments_only }
       hp.input :bedrooms_count, wrapper_html: { class: :apartments_only }
       hp.input :location1

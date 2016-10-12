@@ -5,7 +5,7 @@ module HousingHelper
 
   def housing_type_select
     HousingFacility::housing_types.map do |type, value|
-      [housing_type_name(type), value]
+      [housing_type_name(value), type]
     end
   end
 
