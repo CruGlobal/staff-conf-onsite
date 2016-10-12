@@ -9,8 +9,11 @@ module Attendees
           f.input :first_name
           f.input :last_name
           f.input :gender, as: :select, collection: gender_select
-          f.input :birthdate, as: :datepicker,
+          f.input(
+            :birthdate,
+            as: :datepicker,
             datepicker_options: { changeYear: true, changeMonth: true }
+          )
           f.input :family
         end
 
@@ -60,29 +63,44 @@ module Attendees
 
                   Meal::TYPES.each do |t|
                     td do
-                      name = "attendee[meals_attributes]"
-                      recordExistsInDatabase = types[t].present?
+                      name = 'attendee[meals_attributes]'
+                      record_exists_in_database = types[t].present?
 
-                      if recordExistsInDatabase
+                      if record_exists_in_database
                         name = "#{name}[#{types[t].id}]"
-                        insert_tag Arbre::HTML::Input, type: :hidden,
-                          name: "#{name}[id]", value: types[t].id
+                        insert_tag(
+                          Arbre::HTML::Input,
+                          type: :hidden,
+                          name: "#{name}[id]",
+                          value: types[t].id
+                        )
                       else
                         name = "#{name}[#{next_index}]"
                         next_index += 1
                       end
 
                       # Delete record checkbox
-                      insert_tag Arbre::HTML::Input, type: :checkbox,
+                      insert_tag(
+                        Arbre::HTML::Input,
+                        type: :checkbox,
                         name: "#{name}[_destroy]",
-                        checked: !recordExistsInDatabase,
+                        checked: !record_exists_in_database,
                         class: 'meals_attributes__destroy_toggle'
+                      )
 
                       # Meal Attributes
-                      insert_tag Arbre::HTML::Input, type: :hidden,
-                        name: "#{name}[date]", value: date
-                      insert_tag Arbre::HTML::Input, type: :hidden,
-                        name: "#{name}[meal_type]", value: t
+                      insert_tag(
+                        Arbre::HTML::Input,
+                        type: :hidden,
+                        name: "#{name}[date]",
+                        value: date
+                      )
+                      insert_tag(
+                        Arbre::HTML::Input,
+                        type: :hidden,
+                        name: "#{name}[meal_type]",
+                        value: t
+                      )
                     end
                   end
                 end

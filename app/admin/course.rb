@@ -29,7 +29,6 @@ ActiveAdmin.register Course do
         attributes_table do
           row :id
           row :name
-          # rubocop:disable Rails/OutputSafety
           row(:description) { |m| m.description.try(:html_safe) }
           row :stat_at
           row :end_at
@@ -41,7 +40,7 @@ ActiveAdmin.register Course do
       column do
         size = course.attendees.size
         panel "Attendees (#{size})" do
-          if size > 0
+          if size.positive?
             ul do
               course.attendees.each do |a|
                 li { link_to(a.full_name, a) }

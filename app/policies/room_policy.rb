@@ -1,3 +1,2 @@
 class RoomPolicy < GeneralPolicy
 end
-

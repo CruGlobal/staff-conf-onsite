@@ -31,7 +31,6 @@ ActiveAdmin.register Conference do
           row :id
           row :name
           row(:price) { |c| humanized_money_with_symbol(c.price) }
-          # rubocop:disable Rails/OutputSafety
           row(:description) { |m| m.description.try(:html_safe) }
           row :stat_at
           row :end_at
@@ -43,7 +42,7 @@ ActiveAdmin.register Conference do
       column do
         size = conference.attendees.size
         panel "Attendees (#{size})" do
-          if size > 0
+          if size.positive?
             ul do
               conference.attendees.each do |a|
                 li { link_to(a.full_name, a) }

@@ -76,21 +76,20 @@ module Attendees
                     end
                   end
                   tbody do
-                  attendee.meals.order_by_date.each do |date, types|
-                    puts date
-                    tr do
-                      td { strong l date, format: :month }
-                      Meal::TYPES.each do |t|
-                        td do
-                          if types[t]
-                            status_tag :yes, :meal_type
-                          else
-                            status_tag :no, :meal_type
+                    attendee.meals.order_by_date.each do |date, types|
+                      tr do
+                        td { strong l date, format: :month }
+                        Meal::TYPES.each do |t|
+                          td do
+                            if types[t]
+                              status_tag :yes, :meal_type
+                            else
+                              status_tag :no, :meal_type
+                            end
                           end
                         end
                       end
                     end
-                  end
                   end
                 end
               else

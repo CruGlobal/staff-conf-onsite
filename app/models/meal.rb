@@ -19,7 +19,7 @@ class Meal < ApplicationRecord
   # @return [Hash<Date, Hash<String, Meal>>]
   def self.order_by_date
     Hash.new { |h, v| h[v] = {} }.tap do |dates|
-      all.each { |meal| dates[meal.date][meal.meal_type] = meal }
+      all.find_each { |meal| dates[meal.date][meal.meal_type] = meal }
     end
   end
 end
