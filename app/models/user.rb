@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   ROLES = %w(general finance admin).freeze
 
   # Create scope and predicate method for each role. ex:

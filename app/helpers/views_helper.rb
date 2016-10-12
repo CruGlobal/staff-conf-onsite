@@ -28,9 +28,16 @@ module ViewsHelper
   end
 
   def childcare_weeks_select
-    ChildcareHelper.childcare_weeks_select
+    ::ChildcareHelper.childcare_weeks_select
   end
 
+  def housing_type_select
+    ::HousingHelper.housing_type_select
+  end
+
+  def housing_type_name(number)
+    ::HousingHelper.housing_type_name(number)
+  end
 
   def age(birthdate)
     ::PersonHelper.age(birthdate)

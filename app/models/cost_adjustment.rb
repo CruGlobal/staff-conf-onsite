@@ -1,4 +1,4 @@
-class CostAdjustment < ActiveRecord::Base
+class CostAdjustment < ApplicationRecord
   include Monetizable
 
   monetize_attr :price_cents, numericality: {

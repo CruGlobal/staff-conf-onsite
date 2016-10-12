@@ -1,6 +1,4 @@
 class Attendee < Person
-  # TODO: Housing Preferences
-
   belongs_to :family
 
   has_many :conference_attendances

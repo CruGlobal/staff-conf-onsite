@@ -1,7 +1,16 @@
 ActiveAdmin.register Family do
+  include Families::Show
+
   menu parent: 'People', priority: 1
 
-  permit_params :phone, :street, :city, :state, :zip, :country_code
+  permit_params(
+    :phone, :street, :city, :state, :zip, :country_code,
+
+    housing_preference_attributes: [
+      :id, :housing_type, :children_count, :bedrooms_count, :location1,
+      :location2, :location3, :beds_count, :roommates, :confirmed_at
+    ]
+  )
 
   index do
     selectable_column
@@ -18,20 +27,6 @@ ActiveAdmin.register Family do
     actions
   end
 
-  show title: ->(f) { PersonHelper.family_name(f) } do
-    attributes_table do
-      row :id
-      row(:phone) { |f| format_phone(f.phone) }
-      row :street
-      row :city
-      row :state
-      row(:country_code) { |f| country_name(f.country_code) }
-      row :zip
-      row :created_at
-      row :updated_at
-    end
-    active_admin_comments
-  end
 
   form title: ->(f) { "Edit #{PersonHelper.family_name(f)}" } do |f|
     f.semantic_errors
@@ -42,9 +37,30 @@ ActiveAdmin.register Family do
       f.input :street
       f.input :city
       f.input :state
-      f.input :country_code, as: :select, collection: country_select, include_blank: false
+      f.input :country_code, as: :select, collection: country_select,
+        include_blank: false
       f.input :zip
     end
+
+    # Housing Preference sub-form
+    for_housing_preference = [
+      :housing_preference,
+      f.object.housing_preference || f.object.build_housing_preference
+    ]
+    f.inputs 'Housing Preference', class: 'housing_preference_attributes',
+        for: for_housing_preference do |hp|
+      hp.input :housing_type, as: :select,
+        collection: housing_type_select
+      hp.input :children_count, wrapper_html: { class: :apartments_only }
+      hp.input :bedrooms_count, wrapper_html: { class: :apartments_only }
+      hp.input :location1
+      hp.input :location2
+      hp.input :location3
+      hp.input :beds_count
+      hp.input :roommates
+      hp.input :confirmed_at, as: :datepicker
+    end
+
     f.actions
   end
 
@@ -57,7 +73,7 @@ ActiveAdmin.register Family do
   filter :created_at
   filter :updated_at
 
-  sidebar 'Family Members', only: [:show, :edit] do
+  sidebar 'Family Members', only: [:edit] do
     attendees = family.attendees.load
     children  = family.children.load
 

@@ -12,3 +12,10 @@
 #  Money ---------------------------
 #= require jquery.price_format.2.0
 #= require setup_jquery.price_format
+#
+#
+#  Specific Models
+#  =================================
+#
+#  Family --------------------------
+#= require family/edit

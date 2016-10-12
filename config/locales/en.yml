@@ -34,4 +34,20 @@ en:
       housing_facility:
         country_code: Country
         zip: Zip Code
+        housing_types:
+          dormitory: Dormitory
+          apartment: Apartment
+          self_provided: Self-Provided
+      housing_preference:
+        location1: "Preferred Location #1"
+        location2: "Preferred Location #2"
+        location3: "Preferred Location #3"
+        beds_count: "# of Beds"
+        roommates: Preferred Roommates
+        children_count: "# of Children"
+        bedrooms_count: "# of Bedrooms"
+        confirmed_at: Confirmed by Admin
 
+  date:
+    formats:
+      month: "%B %-d"

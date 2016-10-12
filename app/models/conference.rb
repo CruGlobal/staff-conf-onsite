@@ -1,4 +1,4 @@
-class Conference < ActiveRecord::Base
+class Conference < ApplicationRecord
   include Monetizable
 
   monetize_attr :price_cents, numericality: {
