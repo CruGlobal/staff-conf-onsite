@@ -7,7 +7,7 @@ ActiveAdmin.register Conference do
     column(:name) { |c| h4 c.name }
     column(:price) { |c| humanized_money_with_symbol(c.price) }
     column(:description) { |m| html_summary(m.description) }
-    column :stat_at
+    column :start_at
     column :end_at
     column 'Attendees' do |c|
       link_to c.attendees.count, ''
@@ -33,7 +33,7 @@ ActiveAdmin.register Conference do
           row(:price) { |c| humanized_money_with_symbol(c.price) }
           # rubocop:disable Rails/OutputSafety
           row(:description) { |m| m.description.try(:html_safe) }
-          row :stat_at
+          row :start_at
           row :end_at
           row :created_at
           row :updated_at
