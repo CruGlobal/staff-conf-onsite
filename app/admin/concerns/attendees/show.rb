@@ -1,6 +1,6 @@
 module Attendees
   module Show
-    include MealsShow
+    include MealExemptionsShow
 
     def self.included(base)
       base.send :show do
@@ -11,7 +11,7 @@ module Attendees
             instance_exec(&ConferencesPanel)
             instance_exec(&CoursesPanel)
             instance_exec(&CostAdjustmentsPanel)
-            instance_exec(&ConferencesPanel)
+            instance_exec(&MealExemptionsPanel)
           end
         end
 
@@ -35,12 +35,6 @@ module Attendees
           row :emergency_contact
           row :staff_number
           row :department
-          row 'Meals' do |a|
-            link_to a.meals.count, attendee_meals_path(a)
-          end
-          row 'Cost Adjustments' do |a|
-            link_to a.cost_adjustments.count, cost_adjustments_path(q: { person_id_eq: a.id })
-          end
           row :created_at
           row :updated_at
         end
@@ -48,7 +42,7 @@ module Attendees
     end
 
     ConferencesPanel = proc do
-      panel 'Conferences' do
+      panel "Conferences (#{attendee.conferences.size})" do
         if attendee.conferences.any?
           ul do
             attendee.conferences.each do |c|
@@ -62,7 +56,7 @@ module Attendees
     end
 
     CoursesPanel = proc do
-      panel 'Courses' do
+      panel "Courses (#{attendee.courses.size})" do
         if attendee.courses.any?
           ul do
             attendee.courses.each do |c|
@@ -76,7 +70,7 @@ module Attendees
     end
 
     CostAdjustmentsPanel = proc do
-      panel 'Cost Adjustments' do
+      panel "Cost Adjustments (#{attendee.cost_adjustments.size})" do
         if attendee.cost_adjustments.any?
           ul do
             attendee.cost_adjustments.each do |c|

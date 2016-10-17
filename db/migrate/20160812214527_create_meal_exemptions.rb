@@ -1,6 +1,6 @@
-class CreateMeals < ActiveRecord::Migration
+class CreateMealExemptions < ActiveRecord::Migration
   def change
-    create_table :meals do |t|
+    create_table :meal_exemptions do |t|
       t.date :date
       t.references :attendee, foreign_key: true
       t.string :meal_type

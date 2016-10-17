@@ -7,9 +7,9 @@ ActiveAdmin.register Attendee do
   menu parent: 'People', priority: 2
 
   permit_params(
-    :first_name, :last_name, :email, :emergency_contact, :phone, :birthdate,
-    :student_number, :staff_number, :gender, :department, :family_id,
-    :ministry_id, conference_ids: [], course_ids: [], meals_attributes: [
+    :first_name, :last_name, :email, :emergency_contact, :phone, :staff_number,
+    :student_number, :gender, :department, :family_id, :birthdate, :ministry_id,
+    conference_ids: [], course_ids: [], meal_exemptions_attributes: [
       :id, :_destroy, :date, :meal_type
     ]
   )

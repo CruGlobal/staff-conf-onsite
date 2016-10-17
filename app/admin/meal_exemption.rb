@@ -1,10 +1,10 @@
-ActiveAdmin.register Meal do
+ActiveAdmin.register MealExemption do
   permit_params :person_id, :date, :meal_type
 
   belongs_to :attendee
 
-  index title: -> { "#{@attendee.full_name}: Meals" }
-  show title: ->(m) { "#{m.attendee.full_name}: #{m.date.to_s(:long_ordinal)} #{m.meal_type} Meal" }
+  index title: -> { "#{@attendee.full_name}: Meal Exemptions" }
+  show title: ->(m) { "#{m.attendee.full_name}: #{m.date.to_s(:long_ordinal)} #{m.meal_type} Meal Exemption" }
 
   form do |f|
     f.semantic_errors
@@ -20,7 +20,7 @@ ActiveAdmin.register Meal do
 
   filter :person
   filter :date
-  filter :meal_type, as: :select, collection: MealHelper.meal_type_select
+  filter :meal_type, as: :select, collection: MealExemptionHelper.meal_type_select
   filter :created_at
   filter :updated_at
 

@@ -1,8 +1,9 @@
 #edit_attendee {
   /**
-   * Theses styles are for the custom UI for Attendees' nested Meal records
+   * Theses styles are for the custom UI for Attendees' nested MealExemption
+   * records.
    */
-  .meals_attributes {
+  .meal_exemptions_attributes {
     &__add_toggle {
       cursor: pointer;
     }

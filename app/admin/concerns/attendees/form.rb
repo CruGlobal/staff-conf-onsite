@@ -1,13 +1,13 @@
 module Attendees
   module Form
-    include MealsSubform
+    include MealExemptionsEdit
 
     def self.included(base)
       base.send :form do |f|
         f.semantic_errors
 
         instance_exec(f, &AttendeeInputs)
-        instance_exec(f, &MealsSubform)
+        instance_exec(f, &MealExemptionsSubform)
 
         f.actions
       end

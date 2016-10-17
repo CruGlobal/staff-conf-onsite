@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20160926182441) do
     t.datetime "updated_at"
   end
 
-  create_table "meals", force: :cascade do |t|
+  create_table "meal_exemptions", force: :cascade do |t|
     t.date     "date"
     t.integer  "attendee_id"
     t.string   "meal_type"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20160926182441) do
     t.datetime "updated_at"
   end
 
-  add_index "meals", ["attendee_id", "date", "meal_type"], name: "index_meals_on_attendee_id_and_date_and_meal_type", unique: true
+  add_index "meal_exemptions", ["attendee_id", "date", "meal_type"], name: "index_meal_exemptions_on_attendee_id_and_date_and_meal_type", unique: true
 
   create_table "ministries", force: :cascade do |t|
     t.string   "name"
