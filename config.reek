@@ -1,4 +1,7 @@
 ---
+"lib/active_admin/resource":
+  ModuleInitialize:
+    enabled: false
 
 "lib/active_admin/axlsx":
   Attribute:

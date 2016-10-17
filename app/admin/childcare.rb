@@ -1,5 +1,4 @@
 ActiveAdmin.register Childcare do
-
   permit_params :title, :teachers, :address, :cost, :start_date, :end_date
 
   index do
@@ -24,10 +23,10 @@ ActiveAdmin.register Childcare do
       row :address
       row :start_date
       row :end_date
-      row "enrolled" do |childcare|
+      row 'enrolled' do |childcare|
         childcare.children.count
       end
-      row "Students" do |childcare|
+      row 'Students' do |childcare|
         childcare.children.each do |child|
           li "#{child.first_name} #{child.last_name}"
         end
@@ -43,9 +42,10 @@ ActiveAdmin.register Childcare do
     f.semantic_errors
 
     f.inputs do
-      f.input :title, hint: "Title of class including grade"
-      f.input :teachers, hint: "If more than one teacher please use commas between names"
-      f.input :address, hint: "Include address of building and room number"
+      f.input :title, hint: 'Title of class including grade'
+      f.input :teachers,
+              hint: 'If more than one teacher please use commas between names'
+      f.input :address, hint: 'Include address of building and room number'
       f.input :start_date
       f.input :end_date
       f.input :cost

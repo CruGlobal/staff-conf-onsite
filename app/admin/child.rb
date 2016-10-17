@@ -1,7 +1,8 @@
 ActiveAdmin.register Child do
   menu parent: 'People', priority: 3
 
-  permit_params :first_name, :last_name, :birthdate, :gender, :family, :parent_pickup, :needs_bed, :grade_level, childcare_weeks: []
+  permit_params :first_name, :last_name, :birthdate, :gender, :family,
+                :parent_pickup, :needs_bed, :grade_level, childcare_weeks: []
 
   index do
     selectable_column
@@ -49,15 +50,23 @@ ActiveAdmin.register Child do
       f.input :last_name
       f.input :family
       f.input :gender, as: :select, collection: gender_select
-      f.input :birthdate, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
+      f.input :birthdate, as: :datepicker, datepicker_options:
+        { changeYear: true, changeMonth: true }
       f.input :grade_level
       f.input :parent_pickup
       f.input :needs_bed
-      f.input :childcare_weeks, label: 'Weeks of ChildCare', collection: Childcare::CHILDCARE_WEEKS, multiple: true, hint: "Please add all weeks needed"
-      
+      f.input :childcare_weeks,
+              label: 'Weeks of ChildCare',
+              collection: Childcare::CHILDCARE_WEEKS,
+              multiple: true,
+              hint: 'Please add all weeks needed'
     end
-    f.inputs "Assign ChildCare Spaces" do
-      f.input :childcare_id, as: :select, collection: Childcare.all.order(:title).map {|c| ["#{c.title} | #{c.teachers} | #{c.address} | size:#{c.children.size}", c.id]}, label: 'Childcare Spaces', prompt: "please select"
+    f.inputs 'Assign ChildCare Spaces' do
+      f.input :childcare_id,
+              as: :select,
+              collection: childcare_spaces_select,
+              label: 'Childcare Spaces',
+              prompt: 'please select'
     end
 
     f.actions
