@@ -1,2 +1,2 @@
-class CoursePolicy < FinancePolicy
+class CoursePolicy < ReadOnlyPolicy
 end

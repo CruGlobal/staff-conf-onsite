@@ -1,6 +1,8 @@
 ActiveAdmin.register User do
   permit_params :role, :email
 
+  action_item(:new, only: :show) { link_to 'New User', new_user_path }
+
   index do
     selectable_column
     id_column

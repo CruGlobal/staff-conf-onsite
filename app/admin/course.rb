@@ -1,5 +1,7 @@
 ActiveAdmin.register Course do
-  permit_params :name, :start_at, :end_at
+  permit_params :name, :description, :start_at, :end_at
+
+  action_item(:new, only: :show) { link_to 'New Class', new_course_path }
 
   index do
     selectable_column
@@ -29,9 +31,8 @@ ActiveAdmin.register Course do
         attributes_table do
           row :id
           row :name
-          # rubocop:disable Rails/OutputSafety
-          row(:description) { |m| m.description.try(:html_safe) }
-          row :stat_at
+          row(:description) { |m| html_summary(m.description) }
+          row :start_at
           row :end_at
           row :created_at
           row :updated_at
