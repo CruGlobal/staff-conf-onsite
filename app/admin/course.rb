@@ -1,8 +1,6 @@
 ActiveAdmin.register Course do
   permit_params :name, :description, :start_at, :end_at
 
-  action_item(:new, only: :show) { link_to 'New Class', new_course_path }
-
   index do
     selectable_column
     column :id
