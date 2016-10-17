@@ -1,5 +1,7 @@
 require 'active_admin/axlsx'
 
+ActiveAdmin::Resource.include(ActiveAdmin::Resource::AdditionalActionItems)
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -100,8 +102,9 @@ ActiveAdmin.setup do |config|
   # a string, the strings is used as the path. If it's a Symbol, we
   # will call the method to return the path.
   #
-  # Default:
-  config.logout_link_path = '/logout' # Handled by gem `rack-cas`
+  # NOTE: This path is currently handled by gem `rack-cas`
+  # SEE:  https://wiki.jasig.org/display/CAS/gateway
+  config.logout_link_path = "/logout?gateway=true&service=#{CGI.escape(ENV['BASE_URL'])}"
 
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926182441) do
+ActiveRecord::Schema.define(version: 20160928162928) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20160926182441) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+
+  create_table "childcares", force: :cascade do |t|
+    t.string   "title"
+    t.string   "teachers"
+    t.string   "address"
+    t.integer  "cost"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "conference_attendances", force: :cascade do |t|
     t.integer  "conference_id"
@@ -135,8 +146,14 @@ ActiveRecord::Schema.define(version: 20160926182441) do
     t.string   "childcare_grade"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "needs_bed",         default: true
+    t.boolean  "parent_pickup"
+    t.string   "childcare_weeks"
+    t.integer  "childcare_id"
+    t.string   "grade_level"
   end
 
+  add_index "people", ["childcare_id"], name: "index_people_on_childcare_id"
   add_index "people", ["student_number"], name: "index_people_on_student_number"
   add_index "people", ["type"], name: "index_people_on_type"
 

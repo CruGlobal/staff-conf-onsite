@@ -1,12 +1,12 @@
 ActiveAdmin.register Course do
-  permit_params :name, :start_at, :end_at
+  permit_params :name, :description, :start_at, :end_at
 
   index do
     selectable_column
     column :id
     column(:name) { |c| h4 c.name }
     column(:description) { |m| html_summary(m.description) }
-    column :stat_at
+    column :start_at
     column :end_at
     column 'Attendees' do |c|
       link_to c.attendees.count, ''
@@ -29,8 +29,8 @@ ActiveAdmin.register Course do
         attributes_table do
           row :id
           row :name
-          row(:description) { |m| m.description.try(:html_safe) }
-          row :stat_at
+          row(:description) { |m| html_summary(m.description) }
+          row :start_at
           row :end_at
           row :created_at
           row :updated_at
