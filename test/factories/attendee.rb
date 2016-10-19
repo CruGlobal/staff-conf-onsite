@@ -15,13 +15,13 @@ FactoryGirl.define do
     staff_number { Faker::Number.number(10) }
     gender { Person::GENDERS.keys.sample }
 
-    factory :attendee_with_meals do
+    factory :attendee_with_meal_exemptions do
       transient do
         count 20
       end
 
       after(:create) do |attendee, params|
-        create_list(:meal, params.count, attendee: attendee)
+        create_list(:meal_exemption, params.count, attendee: attendee)
       end
     end
   end

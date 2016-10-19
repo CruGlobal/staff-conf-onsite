@@ -28,9 +28,12 @@ module ViewsHelper
   end
 
   def childcare_weeks_select
-    ChildcareHelper.childcare_weeks_select
+    ::ChildcareHelper.childcare_weeks_select
   end
 
+  def childcare_spaces_select
+    ::ChildcareHelper.childcare_spaces_select
+  end
 
   def age(birthdate)
     ::PersonHelper.age(birthdate)

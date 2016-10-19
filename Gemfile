@@ -52,6 +52,8 @@ group :development, :test do
   gem 'guard-minitest', '~> 2.4.6'
   gem 'minitest-reporters', '~> 1.1.11'
   gem 'webmock', '~> 2.1.0'
+  gem 'reek', '~> 4.4.2'
+  gem 'bundler-audit', '~> 0.5.0'
 end
 
 group :development do

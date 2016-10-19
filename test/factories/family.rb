@@ -18,8 +18,19 @@ FactoryGirl.define do
       end
 
       after(:create) do |f, params|
-        create_list(:attendee_with_meals, params.attendee_count, family: f, last_name: params.last_name)
-        create_list(:child, params.child_count, family: f, last_name: params.last_name)
+        create_list(
+          :attendee_with_meal_exemptions,
+          params.attendee_count,
+          family: f,
+          last_name: params.last_name
+        )
+
+        create_list(
+          :child,
+          params.child_count,
+          family: f,
+          last_name: params.last_name
+        )
       end
     end
   end

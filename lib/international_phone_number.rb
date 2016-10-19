@@ -1,4 +1,5 @@
 if defined?(Faker)
+  # Adds a Faker method to generate international phone numbers.
   module InternationalPhoneNumber
     refine Faker::PhoneNumber.singleton_class do
       CALLING_CODES = %w(

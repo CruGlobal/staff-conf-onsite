@@ -40,7 +40,7 @@ ActiveAdmin.register Course do
       column do
         size = course.attendees.size
         panel "Attendees (#{size})" do
-          if size > 0
+          if size.positive?
             ul do
               course.attendees.each do |a|
                 li { link_to(a.full_name, a) }

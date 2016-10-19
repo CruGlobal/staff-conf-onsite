@@ -1,7 +1,7 @@
-module MealHelper
+module MealExemptionHelper
   module_function
 
   def meal_type_select
-    Meal::TYPES
+    MealExemption::TYPES
   end
 end
