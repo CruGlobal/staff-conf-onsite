@@ -17,7 +17,7 @@ ActiveAdmin.register Attendee do
   index do
     selectable_column
     column :id
-    column(:student_number) { |a| h4 a.staff_number }
+    column(:student_number) { |a| h4 a.student_number }
     column :first_name
     column(:last_name) do |a|
       link_to a.last_name, family_path(a.family) if a.family_id
