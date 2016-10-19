@@ -1,6 +1,6 @@
 module Attendees
   module Show
-    include MealExemptionsShow
+    include ShowMealExemptions
 
     def self.included(base)
       base.send :show do

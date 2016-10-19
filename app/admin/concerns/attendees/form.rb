@@ -1,6 +1,6 @@
 module Attendees
   module Form
-    include MealExemptionsEdit
+    include FormMealExemptions
 
     def self.included(base)
       base.send :form do |f|

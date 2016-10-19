@@ -1,7 +1,7 @@
 module Attendees
   # Defines the view for the Meal Exemptions subform, nested in the Attendee
   # form.
-  module MealExemptionsEdit
+  module FormMealExemptions
     MealExemptionsSubform = proc do |f|
       f.inputs 'Meal Exemptions', class: 'meal_exemptions_attributes' do
         # This warning is hidden via Javascript

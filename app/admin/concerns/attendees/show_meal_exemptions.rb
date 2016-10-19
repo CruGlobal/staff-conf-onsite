@@ -1,5 +1,5 @@
 module Attendees
-  module MealExemptionsShow
+  module ShowMealExemptions
     MealExemptionsPanel = proc do
       panel "Meal Exemptions (#{attendee.meal_exemptions.size})" do
         if attendee.meal_exemptions.any?
