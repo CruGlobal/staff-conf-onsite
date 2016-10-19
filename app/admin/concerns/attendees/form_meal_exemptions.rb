@@ -21,7 +21,7 @@ module Attendees
           end
 
           tbody do
-            next_index = MealExemption.last.id + 1
+            next_index = (MealExemption.last.try(:id) || -1) + 1
 
             # Creates a new row for each Date. ex:
             # |    Date    | Breakfast |   Lunch   |  Dinner  |
