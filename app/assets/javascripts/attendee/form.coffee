@@ -3,7 +3,7 @@ labels =
   no:  'accept'
 
 $ ->
-  $form = $('#edit_attendee')
+  $form = $('#new_attendee, #edit_attendee')
   return unless $form.length
 
   $meals = $form.find('.meal_exemptions_attributes')

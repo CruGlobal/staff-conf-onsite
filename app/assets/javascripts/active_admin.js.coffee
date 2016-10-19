@@ -18,4 +18,4 @@
 #  =================================
 #
 #  Attendee ------------------------
-#= require attendee/edit
+#= require attendee/form
