@@ -22,7 +22,8 @@ module Attendees
     AttributesTable = proc do
       column do
         attributes_table do
-          row(:staff_number) { |a| code a.staff_number }
+          row :id
+          row(:student_number) { |a| code a.student_number }
           row :first_name
           row(:last_name) do |a|
             link_to a.last_name, family_path(a.family) if a.family_id
@@ -33,7 +34,7 @@ module Attendees
           row(:email) { |a| mail_to(a.email) }
           row(:phone) { |a| format_phone(a.phone) }
           row :emergency_contact
-          row :staff_number
+          row(:staff_number) { |a| code a.staff_number }
           row :department
           row :created_at
           row :updated_at
