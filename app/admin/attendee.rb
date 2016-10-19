@@ -17,7 +17,7 @@ ActiveAdmin.register Attendee do
   index do
     selectable_column
     column :id
-    column(:student_number) { |a| h4 a.staff_number }
+    column(:student_number) { |a| code a.student_number }
     column :first_name
     column(:last_name) do |a|
       link_to a.last_name, family_path(a.family) if a.family_id
@@ -28,7 +28,7 @@ ActiveAdmin.register Attendee do
     column(:email) { |a| mail_to(a.email) }
     column(:phone) { |a| format_phone(a.phone) }
     column :emergency_contact
-    column :staff_number
+    column(:staff_number) { |a| code a.staff_number }
     column :department
     column :created_at
     column :updated_at
