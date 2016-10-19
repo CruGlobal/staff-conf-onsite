@@ -1,7 +1,5 @@
 require 'active_admin/axlsx'
 
-ActiveAdmin::Resource.include(ActiveAdmin::Resource::AdditionalActionItems)
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #
