@@ -1,3 +1,2 @@
 class ChildPolicy < GeneralPolicy
 end
-

@@ -64,8 +64,6 @@ module Authenticatable
       last_name: cas_attr('lastName')
     )
 
-    if user_matching_cas_session.changed?
-      user_matching_cas_session.save
-    end
+    user_matching_cas_session.save if user_matching_cas_session.changed?
   end
 end

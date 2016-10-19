@@ -1,3 +1,2 @@
 class HousingFacilityPolicy < GeneralPolicy
 end
-

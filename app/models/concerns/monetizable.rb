@@ -18,7 +18,7 @@ module Monetizable
 
         define_method "#{prefix}_with_strip=" do |value|
           value = value.gsub(/[^\d.]/, '').to_f if value.is_a?(String)
-          self.send(setter, value)
+          send(setter, value)
         end
 
         alias_method_chain "#{prefix}=", :strip

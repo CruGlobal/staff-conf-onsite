@@ -1,0 +1,2 @@
+class MealExemptionPolicy < GeneralPolicy
+end

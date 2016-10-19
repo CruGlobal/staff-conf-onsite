@@ -23,7 +23,6 @@ ActiveAdmin.register Ministry do
     attributes_table do
       row :id
       row :name
-      # rubocop:disable Rails/OutputSafety
       row(:description) { |m| m.description.try(:html_safe) }
       row :created_at
       row :updated_at
