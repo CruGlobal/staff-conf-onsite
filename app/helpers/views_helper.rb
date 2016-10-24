@@ -1,45 +1,20 @@
 module ViewsHelper
-  def country_select
-    ::CountryHelper.country_select
-  end
-
-  def country_name(code)
-    ::CountryHelper.country_name(code)
-  end
-
-  def gender_select
-    ::PersonHelper.gender_select
-  end
-
-  def gender_name(g)
-    ::PersonHelper.gender_name(g)
-  end
-
-  def format_phone(number)
-    ::TextHelper.format_phone(number)
-  end
-
-  def html_summary(html)
-    ::TextHelper.html_summary(html)
-  end
-
-  def meal_type_select
-    ::MealHelper.meal_type_select
-  end
-
-  def childcare_weeks_select
-    ::ChildcareHelper.childcare_weeks_select
-  end
-
-  def childcare_spaces_select
-    ::ChildcareHelper.childcare_spaces_select
-  end
-
-  def age(birthdate)
-    ::PersonHelper.age(birthdate)
-  end
-
-  def family_name(family)
-    ::PersonHelper.family_name(family)
+  # This creates instance methods for all of the module methods from the other
+  # helper modules.
+  #
+  # The reason every other helper consists of only module methods, and
+  # ViewHelper consists of "instance aliases" of those module methods, is
+  # because:
+  #
+  #   1. Only ViewHelper is mixed into ActiveAdmin resources.
+  #   2. ViewHelper's instance methods are not available in the class_eval
+  #      context, so the module methods must be used in those cases.
+  Dir[Rails.root.join('app', 'helpers', '*.rb')].map do |path|
+    File.basename(path, '.rb').camelize.safe_constantize
+  end.compact.each do |mod|
+    (mod.public_methods - Module.public_methods).each do |method_name|
+      method = mod.method(method_name)
+      define_method(method_name) { |*args| instance_exec(*args, &method) }
+    end
   end
 end
