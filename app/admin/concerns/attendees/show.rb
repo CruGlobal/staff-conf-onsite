@@ -26,7 +26,7 @@ module Attendees
           row(:student_number) { |a| code a.student_number }
           row :first_name
           row(:last_name) do |a|
-            link_to a.last_name, family_path(a.family) if a.family_id
+            link_to last_name_label(a), family_path(a.family)
           end
           row :birthdate
           row('Age', sortable: :birthdate) { |a| age(a.birthdate) }
@@ -34,7 +34,6 @@ module Attendees
           row(:email) { |a| mail_to(a.email) }
           row(:phone) { |a| format_phone(a.phone) }
           row :emergency_contact
-          row(:staff_number) { |a| code a.staff_number }
           row :department
           row :created_at
           row :updated_at

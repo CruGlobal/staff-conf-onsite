@@ -14,17 +14,27 @@ module Attendees
     end
 
     AttendeeInputs = proc do |f|
+      f.inputs do
+        f.input :family, selected: param_family.try(:id)
+      end
+
       f.inputs 'Basic' do
         f.input :student_number
         f.input :first_name
-        f.input :last_name
+
+        if param_family
+          f.input :last_name, hint: t('misc.family.last_name_default', name:
+                                      param_family.last_name)
+        else
+          f.input :last_name
+        end
+
         f.input :gender, as: :select, collection: gender_select
         f.input(
           :birthdate,
           as: :datepicker,
           datepicker_options: { changeYear: true, changeMonth: true }
         )
-        f.input :family
       end
 
       f.inputs 'Contact' do
@@ -35,7 +45,6 @@ module Attendees
 
       f.inputs do
         f.input :ministry
-        f.input :staff_number
         f.input :department
       end
 

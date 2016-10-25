@@ -11,17 +11,14 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
+@import "widgets/buttons";
+
 //  Specific Models
 //  =================================
 
 //  Attendee ------------------------
 @import "attendee/form";
 
-
-// Overriding any non-variable SASS must be done after the fact.
-// For example, to change the default status-tag color:
-//
-//   .status_tag { background: #6090DB; }
 
 // CK Editor Fixes
 // see https://github.com/activeadmin/activeadmin/wiki/Ckeditor-integration
