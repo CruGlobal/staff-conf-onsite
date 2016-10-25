@@ -22,9 +22,7 @@ ActiveAdmin.register Attendee do
     column :id
     column(:student_number) { |a| code a.student_number }
     column :first_name
-    column(:last_name) do |a|
-      link_to a.last_name, family_path(a.family) if a.family_id
-    end
+    column(:last_name) { |a| link_to last_name_label(a), family_path(a.family) }
     column :birthdate
     column('Age', sortable: :birthdate) { |a| age(a.birthdate) }
     column(:gender) { |a| gender_name(a.gender) }

@@ -1,4 +1,12 @@
 module PersonHelper
+  # @return [Family,nil] The family specified by the `family_id` query param
+  def param_family
+    @param_family ||=
+      if (id = params[:family_id])
+        Family.find(id)
+      end
+  end
+
   module_function
 
   def gender_select
@@ -19,11 +27,15 @@ module PersonHelper
     now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
   end
 
-  def family_name(family)
-    if (last_name = family.people.first.try(:last_name))
-      "#{last_name} Family"
+  def family_label(family)
+    "#{family.last_name} Family ##{family.id}"
+  end
+
+  def last_name_label(person)
+    if person.last_name == person.family.last_name
+      "#{person.last_name} ##{person.family_id}"
     else
-      "Family ##{family.id}"
+      "#{person.last_name} (#{family_label(person.family)})"
     end
   end
 end

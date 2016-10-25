@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928162928) do
+ActiveRecord::Schema.define(version: 20161024012140) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160928162928) do
     t.string   "country_code", limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name",              null: false
   end
 
   create_table "housing_facilities", force: :cascade do |t|

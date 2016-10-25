@@ -38,3 +38,7 @@ en:
   date:
     formats:
       month: "%B %-d"
+
+  misc:
+    family:
+      last_name_default: Leave blank to use "%{name}"

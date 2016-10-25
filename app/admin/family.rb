@@ -1,12 +1,12 @@
 ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
-  permit_params :phone, :street, :city, :state, :zip, :country_code
+  permit_params :last_name, :phone, :street, :city, :state, :zip, :country_code
 
   index do
     selectable_column
     column :id
-    column('Name') { |f| h4 family_name(f) }
+    column :last_name
     column(:phone) { |f| format_phone(f.phone) }
     column :street
     column :city
@@ -18,9 +18,10 @@ ActiveAdmin.register Family do
     actions
   end
 
-  show title: ->(f) { PersonHelper.family_name(f) } do
+  show title: ->(f) { PersonHelper.family_label(f) } do
     attributes_table do
       row :id
+      row :last_name
       row(:phone) { |f| format_phone(f.phone) }
       row :street
       row :city
@@ -30,13 +31,17 @@ ActiveAdmin.register Family do
       row :created_at
       row :updated_at
     end
+
     active_admin_comments
   end
 
-  form title: ->(f) { "Edit #{PersonHelper.family_name(f)}" } do |f|
+  form title: ->(f) { "Edit #{PersonHelper.family_label(f)}" } do |f|
     f.semantic_errors
 
-    f.inputs :phone
+    f.inputs 'Basic Info' do
+      f.input :last_name
+      f.input :phone
+    end
 
     f.inputs 'Address' do
       f.input :street
@@ -48,6 +53,7 @@ ActiveAdmin.register Family do
     f.actions
   end
 
+  filter :last_name
   filter :phone
   filter :street
   filter :city

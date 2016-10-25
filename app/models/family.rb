@@ -3,7 +3,9 @@ class Family < ApplicationRecord
   has_many :attendees
   has_many :children
 
+  validates :last_name, presence: true
+
   def to_s
-    PersonHelper.family_name(self)
+    PersonHelper.family_label(self)
   end
 end
