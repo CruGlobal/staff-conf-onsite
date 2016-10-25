@@ -9,7 +9,12 @@ module PersonHelper
     Person::GENDERS[g.to_sym]
   end
 
+  # @param dob [Date]
+  # @return [FixNum, nil] the age, in years, of a person born on the given date,
+  #   or nil if the given date is nil
   def age(dob)
+    return nil if dob.nil?
+
     now = Time.now.utc.to_date
 
     now.year - dob.year - (after_birthday(dob, now) ? 0 : 1)
