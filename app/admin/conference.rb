@@ -6,7 +6,7 @@ ActiveAdmin.register Conference do
     column :id
     column(:name) { |c| h4 c.name }
     column(:price) { |c| humanized_money_with_symbol(c.price) }
-    column(:description) { |m| html_summary(m.description) }
+    column(:description) { |c| html_summary(c.description) }
     column :start_at
     column :end_at
     column 'Attendees' do |c|
@@ -31,7 +31,7 @@ ActiveAdmin.register Conference do
           row :id
           row :name
           row(:price) { |c| humanized_money_with_symbol(c.price) }
-          row(:description) { |m| m.description.try(:html_safe) }
+          row(:description) { |c| c.description.try(:html_safe) }
           row :start_at
           row :end_at
           row :created_at
