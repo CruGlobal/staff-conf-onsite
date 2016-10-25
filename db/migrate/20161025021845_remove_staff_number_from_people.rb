@@ -1,7 +1,5 @@
 class RemoveStaffNumberFromPeople < ActiveRecord::Migration
   def change
-    remove_column :people, :staff_number, :string
-
     reversible do |dir|
       Person.reset_column_information
 
@@ -17,5 +15,7 @@ class RemoveStaffNumberFromPeople < ActiveRecord::Migration
         end
       end
     end
+
+    remove_column :people, :staff_number, :string
   end
 end
