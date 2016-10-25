@@ -1,9 +1,9 @@
 class MealExemption < ApplicationRecord
   TYPES = %w(Breakfast Lunch Dinner).freeze
 
-  belongs_to :attendee
+  belongs_to :person
 
-  validates :meal_type, uniqueness: { scope: [:attendee_id, :date], message:
+  validates :meal_type, uniqueness: { scope: [:person_id, :date], message:
     'may only have one meal type per day' }
 
   # Creates a Hash table where each key is Date in which there's one or more

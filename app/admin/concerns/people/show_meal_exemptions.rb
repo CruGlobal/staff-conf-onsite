@@ -1,8 +1,8 @@
-module Attendees
+module People
   module ShowMealExemptions
-    MealExemptionsPanel = proc do
-      panel "Meal Exemptions (#{attendee.meal_exemptions.size})" do
-        if attendee.meal_exemptions.any?
+    MealExemptionsPanel = proc do |person|
+      panel "Meal Exemptions (#{person.meal_exemptions.size})" do
+        if person.meal_exemptions.any?
           table do
             thead do
               tr do
@@ -11,7 +11,7 @@ module Attendees
               end
             end
             tbody do
-              attendee.meal_exemptions.order_by_date.each do |date, types|
+              person.meal_exemptions.order_by_date.each do |date, types|
                 tr do
                   td { strong l date, format: :month }
                   MealExemption::TYPES.each do |t|
