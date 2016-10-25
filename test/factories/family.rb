@@ -4,6 +4,8 @@ FactoryGirl.define do
   factory :family do
     phone { Faker::PhoneNumber.international }
 
+    staff_number { Faker::Number.number(10) }
+
     street { Faker::Address.street_name }
     city { Faker::Address.city }
     state { Faker::Address.state }

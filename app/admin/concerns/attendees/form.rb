@@ -35,7 +35,6 @@ module Attendees
 
       f.inputs do
         f.input :ministry
-        f.input :staff_number
         f.input :department
       end
 
