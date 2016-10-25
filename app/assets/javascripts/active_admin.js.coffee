@@ -9,13 +9,18 @@
 #= require libphonenumber/utils
 #= require setup_intl-tel-input-rails
 #
-#  Money ---------------------------
+#  Money ----------------------------
 #= require jquery.price_format.2.0
 #= require setup_jquery.price_format
 #
 #
-#  Specific Models
-#  =================================
+#  Widgets
+#  ==================================
+#= require widgets/dates
 #
-#  Attendee/Child ------------------
+#
+#  Specific Models
+#  ==================================
+#
+#  Attendee/Child -------------------
 #= require person/form
