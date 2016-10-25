@@ -27,6 +27,17 @@ en:
         other: Classes
 
     attributes:
+      cost_adjustment:
+        cost_types:
+          dorm_adult: "Adult Dorm (room & board) Charges"
+          dorm_child: "Child Dorm (room & board) Charges"
+          apartment_rent: "Apartment Rent"
+          facility_use: "Facility Use Fee for Off Campus Residents"
+          tuition_class: "Class Tuition"
+          tuition_mpd: "MPD Tuition"
+          tuition_track: "Track Tuition"
+          tuition_staff: "Staff Conference Tuition"
+          books: "Books"
       family:
         country_code: Country
         phone: Phone Number

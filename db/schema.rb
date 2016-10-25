@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20161025030516) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "cost_type",   null: false
   end
 
   add_index "cost_adjustments", ["person_id"], name: "index_cost_adjustments_on_person_id"

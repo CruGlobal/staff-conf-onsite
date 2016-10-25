@@ -42,4 +42,12 @@ module ViewsHelper
   def family_name(family)
     ::PersonHelper.family_name(family)
   end
+
+  def cost_type_select
+    ::CostAdjustmentHelper.cost_type_select
+  end
+
+  def cost_type_name(obj)
+    ::CostAdjustmentHelper.cost_type_name(obj)
+  end
 end
