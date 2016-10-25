@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20161025030516) do
     t.string   "country_code", limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "staff_number",           null: false
   end
 
   create_table "housing_facilities", force: :cascade do |t|
@@ -138,7 +139,6 @@ ActiveRecord::Schema.define(version: 20161025030516) do
     t.string   "phone"
     t.date     "birthdate"
     t.string   "student_number"
-    t.string   "staff_number"
     t.string   "gender"
     t.string   "department"
     t.integer  "family_id"

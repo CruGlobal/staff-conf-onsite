@@ -16,7 +16,6 @@ FactoryGirl.define do
       end
     end
     student_number { Faker::Number.number(10) }
-    staff_number { Faker::Number.number(10) }
     gender { Person::GENDERS.keys.sample }
 
     factory :attendee_with_meal_exemptions do
