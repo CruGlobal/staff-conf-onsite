@@ -6,6 +6,8 @@ class CourseTest < ActiveSupport::TestCase
     @course = create :course
   end
 
+  test_money_attr(:course, :price)
+
   test 'permit create' do
     refute_permit @general_user, @course, :create
     refute_permit @finance_user, @course, :create
