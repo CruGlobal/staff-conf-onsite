@@ -27,4 +27,12 @@ module ViewsHelper
       end
     end
   end
+
+  def cost_type_select
+    ::CostAdjustmentHelper.cost_type_select
+  end
+
+  def cost_type_name(obj)
+    ::CostAdjustmentHelper.cost_type_name(obj)
+  end
 end
