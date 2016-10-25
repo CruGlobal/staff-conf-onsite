@@ -28,7 +28,7 @@ setupSingleStartAtChangeEvent = ($startAt) ->
 
   $startAt.on 'change', ->
     date = $(this).datepicker('getDate')
-    format = $startAt.datepicker('option', 'dateFormat')
+    format = $(this).datepicker('option', 'dateFormat')
 
     unless $endAt.val().length
       newDate = addDays(date, daysIncrement)
