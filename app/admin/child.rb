@@ -1,7 +1,10 @@
 ActiveAdmin.register Child do
   menu parent: 'People', priority: 3
 
-  permit_params :first_name, :last_name, :birthdate, :gender, :family,
+  # We create through Families#show
+  config.remove_action_item :new
+
+  permit_params :first_name, :last_name, :birthdate, :gender, :family_id,
                 :parent_pickup, :needs_bed, :grade_level, childcare_weeks: []
 
   index do

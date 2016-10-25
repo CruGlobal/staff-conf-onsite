@@ -78,5 +78,10 @@ ActiveAdmin.register Family do
         end
       end
     end
+
+    div class: 'action_items' do
+      span link_to('New Attendee', new_attendee_path(family_id: family.id)), class: 'action_item'
+      span link_to('New Child', new_child_path(family_id: family.id)), class: 'action_item'
+    end
   end
 end

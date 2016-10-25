@@ -6,6 +6,9 @@ ActiveAdmin.register Attendee do
 
   menu parent: 'People', priority: 2
 
+  # We create through Families#show
+  config.remove_action_item :new
+
   permit_params(
     :first_name, :last_name, :email, :emergency_contact, :phone, :staff_number,
     :student_number, :gender, :department, :family_id, :birthdate, :ministry_id,
