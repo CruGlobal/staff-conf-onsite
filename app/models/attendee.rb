@@ -1,4 +1,6 @@
 class Attendee < Person
+  include FamilyMember
+
   # TODO: Housing Preferences
 
   belongs_to :family
@@ -9,4 +11,6 @@ class Attendee < Person
   has_many :courses, through: :course_attendances
 
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
+
+  validates :family_id, presence: true
 end

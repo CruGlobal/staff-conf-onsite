@@ -15,8 +15,19 @@ module Children
 
     AttendeeInputs = proc do |f|
       f.inputs do
+        f.input :family, selected: params[:family_id]
+      end
+
+      f.inputs do
         f.input :first_name
-        f.input :last_name
+
+        if param_family
+          f.input :last_name, hint: t('misc.family.last_name_default', name:
+                                      param_family.last_name)
+        else
+          f.input :last_name
+        end
+
         f.input :family
         f.input :gender, as: :select, collection: gender_select
         f.input :birthdate, as: :datepicker, datepicker_options:

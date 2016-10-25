@@ -2,10 +2,6 @@ require 'phone'
 require 'truncate_html'
 
 module TextHelper
-  class << self
-    include ActionView::Helpers::TagHelper
-  end
-
   module_function
 
   def html_summary(html)

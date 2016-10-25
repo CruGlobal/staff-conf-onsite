@@ -22,9 +22,7 @@ module Children
       attributes_table do
         row :id
         row :first_name
-        row(:last_name) do |c|
-          link_to c.last_name, family_path(c.family) if c.family_id
-        end
+        row(:last_name) { |c| link_to last_name_label(c), family_path(c.family) }
         row(:gender) { |c| gender_name(c.gender) }
         row :birthdate
         row('Age', sortable: :birthdate) { |c| age(c.birthdate) }
