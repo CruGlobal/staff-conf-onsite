@@ -29,4 +29,23 @@ class ChildTest < ActiveSupport::TestCase
     assert_permit @finance_user, @child, :destroy
     assert_permit @admin_user, @child, :destroy
   end
+
+  test 'must have family' do
+    @child = build :child, family_id: nil
+    refute @child.valid?, 'child should be invalid with nil family_id'
+  end
+
+  test 'last_name should default to family name' do
+    @family = create :family, last_name: 'FooBar'
+    @child = create :child, family_id: @family.id, last_name: nil
+
+    assert_equal 'FooBar', @child.last_name
+  end
+
+  test 'family name should not override explicit last_name' do
+    @family = create :family, last_name: 'FooBar'
+    @child = create :child, family_id: @family.id, last_name: 'OtherName'
+
+    assert_equal 'OtherName', @child.last_name
+  end
 end

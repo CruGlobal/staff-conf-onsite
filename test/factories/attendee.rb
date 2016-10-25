@@ -6,7 +6,7 @@ FactoryGirl.define do
     ministry
 
     first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
+    last_name { Faker::Boolean.boolean(0.9) ? nil : Faker::Name.last_name }
     email { Faker::Internet.email }
     emergency_contact { [true, false].sample }
     phone { Faker::PhoneNumber.international }

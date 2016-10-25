@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20161025022249) do
     t.string   "country_code", limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name",              null: false
     t.string   "staff_number",           null: false
   end
 
