@@ -1,12 +1,14 @@
 ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
-  permit_params :last_name, :phone, :street, :city, :state, :zip, :country_code
+  permit_params :last_name, :staff_number, :phone, :street, :city, :state, :zip,
+                :country_code
 
   index do
     selectable_column
     column :id
     column :last_name
+    column(:staff_number) { |f| code f.staff_number }
     column(:phone) { |f| format_phone(f.phone) }
     column :street
     column :city
@@ -22,6 +24,7 @@ ActiveAdmin.register Family do
     attributes_table do
       row :id
       row :last_name
+      row(:staff_number) { |f| code f.staff_number }
       row(:phone) { |f| format_phone(f.phone) }
       row :street
       row :city
@@ -40,7 +43,7 @@ ActiveAdmin.register Family do
 
     f.inputs 'Basic Info' do
       f.input :last_name
-      f.input :phone
+      f.input :staff_number
     end
 
     f.inputs 'Address' do

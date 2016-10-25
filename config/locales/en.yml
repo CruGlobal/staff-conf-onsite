@@ -41,6 +41,7 @@ en:
       family:
         country_code: Country
         phone: Phone Number
+        staff_number: Staff ID
         zip: Zip Code
       housing_facility:
         country_code: Country

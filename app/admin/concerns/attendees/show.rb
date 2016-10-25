@@ -34,7 +34,6 @@ module Attendees
           row(:email) { |a| mail_to(a.email) }
           row(:phone) { |a| format_phone(a.phone) }
           row :emergency_contact
-          row(:staff_number) { |a| code a.staff_number }
           row :department
           row :created_at
           row :updated_at

@@ -10,7 +10,7 @@ ActiveAdmin.register Attendee do
   config.remove_action_item :new
 
   permit_params(
-    :first_name, :last_name, :email, :emergency_contact, :phone, :staff_number,
+    :first_name, :last_name, :email, :emergency_contact, :phone,
     :student_number, :gender, :department, :family_id, :birthdate, :ministry_id,
     conference_ids: [], course_ids: [], meal_exemptions_attributes: [
       :id, :_destroy, :date, :meal_type
@@ -29,7 +29,6 @@ ActiveAdmin.register Attendee do
     column(:email) { |a| mail_to(a.email) }
     column(:phone) { |a| format_phone(a.phone) }
     column :emergency_contact
-    column(:staff_number) { |a| code a.staff_number }
     column :department
     column :created_at
     column :updated_at
