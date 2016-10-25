@@ -26,7 +26,7 @@ FactoryGirl.define do
         )
 
         create_list(
-          :child,
+          :child_with_meal_exemptions,
           params.child_count,
           family: f,
           last_name: params.last_name

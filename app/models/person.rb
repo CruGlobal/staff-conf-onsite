@@ -5,6 +5,7 @@ class Person < ApplicationRecord
   belongs_to :ministry
 
   has_many :cost_adjustments
+  has_many :meal_exemptions
 
   def full_name
     "#{first_name} #{last_name}"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928162928) do
+ActiveRecord::Schema.define(version: 20161025030516) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -114,13 +114,13 @@ ActiveRecord::Schema.define(version: 20160928162928) do
 
   create_table "meal_exemptions", force: :cascade do |t|
     t.date     "date"
-    t.integer  "attendee_id"
+    t.integer  "person_id"
     t.string   "meal_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "meal_exemptions", ["attendee_id", "date", "meal_type"], name: "index_meal_exemptions_on_attendee_id_and_date_and_meal_type", unique: true
+  add_index "meal_exemptions", ["person_id", "date", "meal_type"], name: "index_meal_exemptions_on_person_id_and_date_and_meal_type", unique: true
 
   create_table "ministries", force: :cascade do |t|
     t.string   "name"

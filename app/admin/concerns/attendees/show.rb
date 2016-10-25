@@ -1,6 +1,6 @@
 module Attendees
   module Show
-    include ShowMealExemptions
+    include People::ShowMealExemptions
 
     def self.included(base)
       base.send :show do
@@ -11,7 +11,7 @@ module Attendees
             instance_exec(&ConferencesPanel)
             instance_exec(&CoursesPanel)
             instance_exec(&CostAdjustmentsPanel)
-            instance_exec(&MealExemptionsPanel)
+            instance_exec(attendee, &MealExemptionsPanel)
           end
         end
 
