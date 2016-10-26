@@ -2,18 +2,27 @@ labels =
   yes: 'exempt'
   no:  'accept'
 
+
 $ ->
-  $form = $('#new_attendee, #edit_attendee')
+  setupMealForm('attendee')
+  setupMealForm('child')
+
+
+# @param {string} personType - "attendee" or "child"
+setupMealForm = (personType) ->
+  $form = $("#new_#{personType}, #edit_#{personType}")
   return unless $form.length
 
   $meals = $form.find('.meal_exemptions_attributes')
   invertMealCheckboxes($meals)
   addNewMealButton(
+    personType,
     $meals,
     $meals.find('table tbody'),
     $('#meal_exemptions_attributes__js').data('nextindex')
     $('#meal_exemptions_attributes__js').data('types').split(',')
   )
+
 
 
 # The nested Meal Exemptions form includes a checkbox for each record that,
@@ -54,7 +63,9 @@ updateAddToggle = ($input, exists) ->
 # a new row of records. That is, a new day's worth of meal exemptions. When the
 # user clicks this button, they are prompted to pick a date via the jQuery
 # DatePicker widget and a new row is added for their chosen date.
-addNewMealButton = ($meals, $table, nextIndex, types) ->
+#
+# @param {string} personType - "attendee" or "child"
+addNewMealButton = (personType, $meals, $table, nextIndex, types) ->
   $input = $('<input type="text">').css('display', 'none').datepicker(
     dateFormat: "yy-mm-dd"
     altFormat: "MM d"
@@ -69,7 +80,7 @@ addNewMealButton = ($meals, $table, nextIndex, types) ->
       )
 
     for type in types
-      createNewMealTypeButton($row, type, nextIndex++, date)
+      createNewMealTypeButton(personType, $row, type, nextIndex++, date)
     $table.append($row)
 
   $btn =
@@ -82,14 +93,15 @@ addNewMealButton = ($meals, $table, nextIndex, types) ->
 
 # Creates a new toggle button for a specific Meal Exemption on a specific day.
 #
-# @param {jQuery} $row  - the jQuery row to add the new column to
-# @param {string} type  - the Meal#meal_type of the exemption in this column
+# @param {string} personType - "attendee" or "child"
+# @param {jQuery} $row       - the jQuery row to add the new column to
+# @param {string} type       - the Meal#meal_type of the exemption in this column
 #   (ie: Breakfast, Lunch, or Dinner)
-# @param {number} index - the query string row index of this MealExemption
+# @param {number} index      - the query string row index of this MealExemption
 #   record.
-# @param [Date} date    - the date of the new Meal Exemption record
-createNewMealTypeButton = ($row, type, index, date) ->
-  name = "attendee[meal_exemptions_attributes][#{index}]"
+# @param [Date} date         - the date of the new Meal Exemption record
+createNewMealTypeButton = (personType, $row, type, index, date) ->
+  name = "#{personType}[meal_exemptions_attributes][#{index}]"
   mealExists = true
 
   $destroyToggle =

@@ -24,7 +24,12 @@ FactoryGirl.define do
         create_list(:attendee_with_meal_exemptions,
                     params.attendee_count, family: f)
 
-        create_list(:child, params.child_count, family: f)
+        create_list(
+          :child_with_meal_exemptions,
+          params.child_count,
+          family: f,
+          last_name: params.last_name
+        )
       end
     end
   end

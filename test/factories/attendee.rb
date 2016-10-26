@@ -24,7 +24,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |attendee, params|
-        create_list(:meal_exemption, params.count, attendee: attendee)
+        create_list(:meal_exemption, params.count, person: attendee)
       end
     end
   end

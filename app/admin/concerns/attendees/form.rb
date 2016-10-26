@@ -1,13 +1,13 @@
 module Attendees
   module Form
-    include FormMealExemptions
+    include People::FormMealExemptions
 
     def self.included(base)
       base.send :form do |f|
         f.semantic_errors
 
         instance_exec(f, &AttendeeInputs)
-        instance_exec(f, &MealExemptionsSubform)
+        instance_exec(f, attendee, &MealExemptionsSubform)
 
         f.actions
       end
@@ -15,7 +15,7 @@ module Attendees
 
     AttendeeInputs = proc do |f|
       f.inputs do
-        f.input :family, selected: param_family.try(:id)
+        f.input :family, selected: (f.object.family_id || param_family.try(:id))
       end
 
       f.inputs 'Basic' do

@@ -17,5 +17,5 @@
 #  Specific Models
 #  =================================
 #
-#  Attendee ------------------------
-#= require attendee/form
+#  Attendee/Child ------------------
+#= require person/form

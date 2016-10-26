@@ -10,5 +10,15 @@ FactoryGirl.define do
       end
     end
     gender { Person::GENDERS.keys.sample }
+
+    factory :child_with_meal_exemptions do
+      transient do
+        count 20
+      end
+
+      after(:create) do |child, params|
+        create_list(:meal_exemption, params.count, person: child)
+      end
+    end
   end
 end
