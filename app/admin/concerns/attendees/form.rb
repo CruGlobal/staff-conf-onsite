@@ -15,7 +15,7 @@ module Attendees
 
     AttendeeInputs = proc do |f|
       f.inputs do
-        f.input :family, selected: param_family.try(:id)
+        f.input :family, selected: (f.object.family_id || param_family.try(:id))
       end
 
       f.inputs 'Basic' do
