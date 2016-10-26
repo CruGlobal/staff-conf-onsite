@@ -1,21 +1,27 @@
 #= require active_admin/base
 #
-#  Select Boxes ---------------------
-#= require chosen-jquery
-#= require setup_chosen-jquery
+#  Widgets
+#  ====================================
 #
-#  Telephone Numbers ----------------
+#  Date Inputs ------------------------
+#= require widgets/dates
+#
+#  Select Boxes -----------------------
+#= require chosen-jquery
+#= require widgets/chosen-jquery
+#
+#  Telephone Numbers ------------------
 #= require intlTelInput
 #= require libphonenumber/utils
-#= require setup_intl-tel-input-rails
+#= require widgets/intl-tel-input-rails
 #
-#  Money ---------------------------
+#  Money ------------------------------
 #= require jquery.price_format.2.0
-#= require setup_jquery.price_format
+#= require widgets/price_format-jquery
 #
 #
 #  Specific Models
-#  =================================
+#  ====================================
 #
-#  Attendee/Child ------------------
+#  Attendee/Child ---------------------
 #= require person/form
