@@ -3,15 +3,22 @@ module ActiveAdmin
     # @see https://github.com/activeadmin/activeadmin/blob/master/lib/active_admin/resource/action_items.rb
     module AdditionalActionItems
       def initialize(*args)
-        add_additional_action_items
+        add_additional_action_items_before
         super
+        add_additional_action_items_after
+      end
+
+      protected
+
+      def add_additional_action_items_before
+        add_additional_new_action_item
+      end
+
+      def add_additional_action_items_after
+        add_paper_trail_history_item
       end
 
       private
-
-      def add_additional_action_items
-        add_additional_new_action_item
-      end
 
       # Adds the default New link on :show. Normally it's only on :index.
       def add_additional_new_action_item
@@ -27,6 +34,25 @@ module ActiveAdmin
                 model: active_admin_config.resource_label
               ),
               new_resource_path
+            )
+          end
+        end
+      end
+
+      def add_paper_trail_history_item
+        add_action_item :paper_trail, only: :show do
+          permitted =
+            authorized?(ActiveAdmin::Auth::READ, PaperTrail::Version)
+
+          if permitted && active_admin_config.resource_class.paper_trail.enabled?
+            link_to(
+              'Versions',
+              paper_trail_versions_path(
+                q: {
+                  item_type_eq: resource.class.name,
+                  item_id_eq: resource.id
+                }
+              )
             )
           end
         end

@@ -11,6 +11,7 @@ gem 'newrelic_rpm', '~> 3.16.2.321'
 # Framework
 gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'paper_trail', '~> 5.2.2'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'

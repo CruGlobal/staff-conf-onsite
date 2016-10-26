@@ -47,6 +47,14 @@ en:
         country_code: Country
         zip: Zip Code
 
+  active_admin:
+    dashboard:
+      title: Dashboard
+      welcome: Welcome to the Onsite Staff Administration
+      call_to_action: To add new records, please use the menu at the top of the
+                      page
+      updated: Recently Updated
+
   date:
     formats:
       month: "%B %-d"
