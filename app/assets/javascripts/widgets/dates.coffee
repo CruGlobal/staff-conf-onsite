@@ -27,6 +27,8 @@ setupSingleStartAtChangeEvent = ($startAt) ->
   return unless $endAt.length
 
   $startAt.on 'change', ->
+    return unless $startAt.val().length
+
     date = $(this).datepicker('getDate')
     format = $(this).datepicker('option', 'dateFormat')
 
