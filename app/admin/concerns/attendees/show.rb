@@ -1,5 +1,6 @@
 module Attendees
   module Show
+    include People::ShowCostAdjustments
     include People::ShowMealExemptions
 
     def self.included(base)
@@ -10,7 +11,7 @@ module Attendees
           column do
             instance_exec(&ConferencesPanel)
             instance_exec(&CoursesPanel)
-            instance_exec(&CostAdjustmentsPanel)
+            instance_exec(attendee, &CostAdjustmentsPanel)
             instance_exec(attendee, &MealExemptionsPanel)
           end
         end
@@ -61,20 +62,6 @@ module Attendees
           ul do
             attendee.courses.each do |c|
               li { link_to(c.name, c) }
-            end
-          end
-        else
-          strong 'None'
-        end
-      end
-    end
-
-    CostAdjustmentsPanel = proc do
-      panel "Cost Adjustments (#{attendee.cost_adjustments.size})" do
-        if attendee.cost_adjustments.any?
-          ul do
-            attendee.cost_adjustments.each do |c|
-              li { link_to(humanized_money_with_symbol(c.price), c) }
             end
           end
         else
