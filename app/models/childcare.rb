@@ -1,4 +1,4 @@
-class Childcare < ActiveRecord::Base
+class Childcare < ApplicationRecord
   has_paper_trail
 
   belongs_to :family

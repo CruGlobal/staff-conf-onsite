@@ -46,7 +46,7 @@ module ActiveAdmin
 
           if permitted && active_admin_config.resource_class.paper_trail.enabled?
             link_to(
-              'Versions',
+              I18n.t('activerecord.models.paper_trail.version.other'),
               paper_trail_versions_path(
                 q: {
                   item_type_eq: resource.class.name,

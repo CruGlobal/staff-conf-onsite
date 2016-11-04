@@ -25,6 +25,10 @@ en:
       course:
         one: Class
         other: Classes
+      paper_trail:
+        version:
+          one: Version
+          other: Versions
 
     attributes:
       cost_adjustment:
