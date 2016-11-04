@@ -44,18 +44,21 @@ module ActiveAdmin
           permitted =
             authorized?(ActiveAdmin::Auth::READ, PaperTrail::Version)
 
-          if permitted && active_admin_config.resource_class.paper_trail.enabled?
-            link_to(
-              I18n.t('activerecord.models.paper_trail.version.other'),
-              paper_trail_versions_path(
-                q: {
-                  item_type_eq: resource.class.base_class.name,
-                  item_id_eq: resource.id
-                }
-              )
-            )
-          end
+          klass = active_admin_config.resource_class
+          link_to_versions if permitted && klass.paper_trail.enabled?
         end
+      end
+
+      def link_to_versions
+        link_to(
+          I18n.t('activerecord.models.paper_trail.version.other'),
+          paper_trail_versions_path(
+            q: {
+              item_type_eq: resource.class.base_class.name,
+              item_id_eq: resource.id
+            }
+          )
+        )
       end
     end
   end
