@@ -49,7 +49,7 @@ module ActiveAdmin
               I18n.t('activerecord.models.paper_trail.version.other'),
               paper_trail_versions_path(
                 q: {
-                  item_type_eq: resource.class.name,
+                  item_type_eq: resource.class.base_class.name,
                   item_id_eq: resource.id
                 }
               )
