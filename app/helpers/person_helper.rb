@@ -37,7 +37,10 @@ module PersonHelper
   end
 
   def last_name_label(person)
-    if person.last_name == person.family.last_name
+    # TODO: remove this first case when certain everyone has a Family
+    if person.family.nil?
+      person.last_name
+    elsif person.last_name == person.family.last_name
       "#{person.last_name} ##{person.family_id}"
     else
       "#{person.last_name} (#{family_label(person.family)})"
