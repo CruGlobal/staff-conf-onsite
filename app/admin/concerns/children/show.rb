@@ -1,5 +1,6 @@
 module Children
   module Show
+    include People::ShowCostAdjustments
     include People::ShowMealExemptions
 
     def self.included(base)
@@ -10,6 +11,7 @@ module Children
           end
 
           column do
+            instance_exec(child, &CostAdjustmentsPanel)
             instance_exec(child, &MealExemptionsPanel)
           end
         end
