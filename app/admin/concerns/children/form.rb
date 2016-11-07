@@ -28,7 +28,6 @@ module Children
           f.input :last_name
         end
 
-        f.input :family
         f.input :gender, as: :select, collection: gender_select
         f.input :birthdate, as: :datepicker, datepicker_options:
           { changeYear: true, changeMonth: true }
