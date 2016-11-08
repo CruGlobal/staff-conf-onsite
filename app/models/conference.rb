@@ -1,4 +1,6 @@
-class Conference < ActiveRecord::Base
+class Conference < ApplicationRecord
+  has_paper_trail
+
   include Monetizable
 
   monetize_attr :price_cents, numericality: {
@@ -8,4 +10,8 @@ class Conference < ActiveRecord::Base
 
   has_many :conference_attendances
   has_many :attendees, through: :conference_attendances
+
+  def audit_name
+    "#{super}: #{name}"
+  end
 end

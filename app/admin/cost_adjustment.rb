@@ -19,7 +19,7 @@ ActiveAdmin.register CostAdjustment do
       row('Person') { |ca| link_to(ca.person.full_name, ca.person) }
       row('Type') { |ca| cost_type_name(ca) }
       row(:price) { |ca| humanized_money_with_symbol(ca.price) }
-      row(:description) { |ca| html_summary(ca.description) }
+      row(:description) { |ca| html_full(ca.description) }
       row :created_at
       row :updated_at
     end
