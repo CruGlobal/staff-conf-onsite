@@ -1,9 +1,9 @@
 module Attendees
   module Form
-    include People::FormMealExemptions
+    include People::Form
 
     def self.included(base)
-      base.send :form do |f|
+      base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
         instance_exec(f, &AttendeeInputs)
@@ -14,17 +14,14 @@ module Attendees
     end
 
     AttendeeInputs = proc do |f|
-      f.inputs do
-        f.input :family, selected: (f.object.family_id || param_family.try(:id))
-      end
-
       f.inputs 'Basic' do
+        instance_exec(f, &FamilySelector)
+
         f.input :student_number
         f.input :first_name
 
         if param_family
-          f.input :last_name, hint: t('misc.family.last_name_default', name:
-                                      param_family.last_name)
+          f.input :last_name, input_html: { value: param_family.last_name }
         else
           f.input :last_name
         end
