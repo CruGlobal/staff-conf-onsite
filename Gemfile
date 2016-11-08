@@ -12,6 +12,7 @@ gem 'good_migrations', '~> 0.0.2'
 # Framework
 gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'paper_trail', '~> 5.2.2'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'

@@ -1,4 +1,4 @@
-class ConferenceAttendance < ActiveRecord::Base
+class ConferenceAttendance < ApplicationRecord
   belongs_to :conference
   belongs_to :attendee
 

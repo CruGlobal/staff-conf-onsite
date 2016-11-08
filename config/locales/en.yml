@@ -25,6 +25,10 @@ en:
       course:
         one: Class
         other: Classes
+      paper_trail:
+        version:
+          one: Version
+          other: Versions
 
     attributes:
       cost_adjustment:
@@ -77,6 +81,14 @@ en:
           FL00: Executive Team
           USDSDC: Digital Capacity
 
+
+  active_admin:
+    dashboard:
+      title: Dashboard
+      welcome: Welcome to the Onsite Staff Administration
+      call_to_action: To add new records, please use the menu at the top of the
+                      page
+      updated: Recently Updated
 
   date:
     formats:

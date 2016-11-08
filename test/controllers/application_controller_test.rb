@@ -38,7 +38,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     get :test_action
 
-    assert_equal @user, @controller.current_user
+    assert_equal @user, @controller.current_user.reload
 
     assert_equal @first_name, @controller.current_user.first_name
     assert_equal @last_name, @controller.current_user.last_name

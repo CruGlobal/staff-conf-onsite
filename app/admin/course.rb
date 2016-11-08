@@ -31,7 +31,7 @@ ActiveAdmin.register Course do
           row :id
           row :name
           row(:price) { |c| humanized_money_with_symbol(c.price) }
-          row(:description) { |c| html_summary(c.description) }
+          row(:description) { |c| html_full(c.description) }
           row :start_at
           row :end_at
           row :created_at

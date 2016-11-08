@@ -20,7 +20,13 @@ class Ministry < ApplicationRecord
     }.freeze
   }.freeze
 
+  has_paper_trail
+
   has_many :people
 
   validates :code, presence: true, inclusion: { in: CODES.map(&:to_s) }
+
+  def audit_name
+    "#{super}: #{name}"
+  end
 end
