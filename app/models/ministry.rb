@@ -16,7 +16,7 @@ class Ministry < ApplicationRecord
     CM: {
       CGL: [:CGL, :CGLFO].freeze,
       CGN: [:CGN, :CGNFO].freeze,
-      CGP: [:CGP, :CGPFO].freeze,
+      CGP: [:CGP, :CGPFO].freeze
     }.freeze
   }.freeze
 
