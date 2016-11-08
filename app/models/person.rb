@@ -9,6 +9,8 @@ class Person < ApplicationRecord
   has_many :cost_adjustments
   has_many :meal_exemptions
 
+  validates :family_id, presence: true
+
   def full_name
     "#{first_name} #{last_name}"
   end
