@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 20161025211229) do
 
   create_table "ministries", force: :cascade do |t|
     t.string   "name"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
