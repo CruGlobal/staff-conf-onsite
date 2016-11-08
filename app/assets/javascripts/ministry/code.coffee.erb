@@ -1,0 +1,102 @@
+# The list of possible Ministry codes that the user may choose from are
+# actually organized logically in a three-tier hiearchy. This code replaces the
+# flat <select> element with a UI element that lets the user "drill down" from
+# the top tier, through the second tier, to their final choice in the third
+# tier.
+
+# The definition of the menu hierarchy
+codeTiers = <%= Ministry::CODE_TIERS.to_json %>
+
+# a list of codes, and the labels which describe them
+codeLabels = <%= MinistryHelper.ministry_code_select.to_json %>
+
+
+$ ->
+  $select = $('select[name="ministry[code]"]')
+  return unless $select.length
+
+  replaceCodeSelectWithMultiLevelSelect($select)
+
+
+replaceCodeSelectWithMultiLevelSelect = ($select) ->
+  hideSelector($select)
+
+  $menu = createMutliLevelSelect($select)
+  $select.after($menu)
+
+  setupDropdownPlugin($menu, labelFromCode($select.val()))
+  addCallbacks($menu, $select)
+
+
+# Hides the original selector. The new UI element will change it's value, so it
+# will continue to exist, but remain hidden.
+# The jQuery "Chosen" UI is likely handling the "flat selector". We are taking
+# over this role, so remove it
+#
+# @param {jQuery} $select - the ministry[code] <select> element
+hideSelector = ($select) ->
+  $select.chosen('destroy')
+  $select.css('display', 'none')
+
+
+# Creates the hierarchy of <ul> elements that the jQuery Dropdown plugin uses
+# as its input.
+createMutliLevelSelect = ->
+  createSublist($('<ul>'), codeTiers)
+
+
+# @param {jQuery} $list - a <ul> element to add the new sub-list to
+# @param {Object} items - an object descibing a hiearchy of menu items. Each
+#   key represents the title of a sub-menu. Each key is either: a) an array of
+#   strings, representing the contents of the sub-menu, or, b) an object
+#   representing another nested sub-menu
+createSublist = ($list, items) ->
+  for key, value of items
+    $listItem =
+      if typeof(value) == "string"
+        $('<li>').text(labelFromCode(value))
+      else
+        $subList = createSublist($('<ul>'), value)
+        $("<li data-dropdown-text='#{labelFromCode(key)}'>").append($subList)
+
+    $list.append($listItem)
+
+  $list
+
+
+# @param {string} label - a Ministry code
+# @return {string} some text which describes the given code
+labelFromCode = (code) ->
+  for pairs in codeLabels
+    return pairs[0] if code == pairs[1]
+  return code
+
+
+# @param {string} label - some text which describes a code
+# @return {string} the Ministry code matching the given label
+codeFromLabel = (label) ->
+  for pairs in codeLabels
+    return pairs[1] if label == pairs[0]
+  return label
+
+
+setupDropdownPlugin = ($menu, initialSelection) ->
+  $menu.on 'dropdown-init', (_, dropdown) ->
+    setDefaultSelection(dropdown, initialSelection)
+  $menu.dropdown()
+
+
+setDefaultSelection = (dropdown, initialSelection) ->
+  selectedItem = null
+
+  for uid, item of dropdown.instance.items
+    selectedItem = item if item.text == initialSelection
+
+  dropdown.select(selectedItem) if selectedItem
+
+
+# @param {jQuery} $menu - the jQuery Dropdown UI element
+# @param {jQuery} $select - the ministry[code] <select> element
+addCallbacks = ($menu, $select) ->
+  $menu.on 'dropdown-after-select', (_, item)->
+    $select.val(codeFromLabel(item.text))
