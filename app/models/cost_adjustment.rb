@@ -1,4 +1,6 @@
 class CostAdjustment < ApplicationRecord
+  has_paper_trail
+
   include Monetizable
 
   monetize_attr :price_cents, numericality: {
