@@ -40,25 +40,26 @@ module ActiveAdmin
       end
 
       def add_paper_trail_history_item
-        add_action_item :paper_trail, only: :show do
-          permitted =
-            authorized?(ActiveAdmin::Auth::READ, PaperTrail::Version)
-
-          klass = active_admin_config.resource_class
-          link_to_versions if permitted && klass.paper_trail.enabled?
-        end
+        add_action_item :paper_trail, only: :show, &PAPER_TRAIL_ACTION
       end
 
-      def link_to_versions
-        link_to(
-          I18n.t('activerecord.models.paper_trail.version.other'),
-          paper_trail_versions_path(
-            q: {
-              item_type_eq: resource.class.base_class.name,
-              item_id_eq: resource.id
-            }
+      PAPER_TRAIL_ACTION = proc do
+        permitted =
+          authorized?(ActiveAdmin::Auth::READ, PaperTrail::Version)
+
+        klass = active_admin_config.resource_class
+
+        if permitted && klass.paper_trail.enabled?
+          link_to(
+            I18n.t('activerecord.models.paper_trail.version.other'),
+            paper_trail_versions_path(
+              q: {
+                item_type_eq: resource.class.base_class.name,
+                item_id_eq: resource.id
+              }
+            )
           )
-        )
+        end
       end
     end
   end
