@@ -1,2 +1,2 @@
-class MinistryPolicy < GeneralPolicy
+class MinistryPolicy < ReadOnlyPolicy
 end

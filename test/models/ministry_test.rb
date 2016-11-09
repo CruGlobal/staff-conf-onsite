@@ -7,8 +7,9 @@ class MinistryTest < ActiveSupport::TestCase
   end
 
   test 'permit create' do
-    assert_permit @general_user, @ministry, :create
-    assert_permit @finance_user, @ministry, :create
+    refute_permit @general_user, @ministry, :create
+    refute_permit @finance_user, @ministry, :create
+
     assert_permit @admin_user, @ministry, :create
   end
 
@@ -19,14 +20,16 @@ class MinistryTest < ActiveSupport::TestCase
   end
 
   test 'permit update' do
-    assert_permit @general_user, @ministry, :update
-    assert_permit @finance_user, @ministry, :update
+    refute_permit @general_user, @ministry, :update
+    refute_permit @finance_user, @ministry, :update
+
     assert_permit @admin_user, @ministry, :update
   end
 
   test 'permit destroy' do
-    assert_permit @general_user, @ministry, :destroy
-    assert_permit @finance_user, @ministry, :destroy
+    refute_permit @general_user, @ministry, :destroy
+    refute_permit @finance_user, @ministry, :destroy
+
     assert_permit @admin_user, @ministry, :destroy
   end
 end
