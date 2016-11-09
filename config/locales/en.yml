@@ -50,6 +50,37 @@ en:
       housing_facility:
         country_code: Country
         zip: Zip Code
+      ministry:
+        codes:
+          # Tier 1
+          USM: US Ministries
+          CM: Campus Ministry
+          HQ: Core Services
+
+          # Tier 2
+          AIA: Athletes In Action
+          CITY: City
+          FAML: FamilyLife
+          DS: Donation Services
+          FSG: Financial Services Group
+          USDS: US Digital Strategies
+          CGL: Campus Great Lakes Region
+          CGP: Campus Great Plains Region
+          CGN: Campus Greater NW Region
+
+          # Tier 3
+          ACCOU: Accounting
+          AIAFHQ: AIA Campus
+          CGLFO: Campus Great Lakes Fld Office
+          CGNFO: Campus Greater NW Fld Office
+          CGPFO: Campus Great Plains Fld Office
+          CITYCONV: City Conveners
+          DSADMIN: Donations Administration
+          DSPRC: Donation Processing
+          DSRCS: Donor Res/Cusomer Services
+          FL00: Executive Team
+          USDSDC: Digital Capacity
+
 
   active_admin:
     dashboard:

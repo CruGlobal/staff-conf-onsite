@@ -8,6 +8,7 @@
 #
 #  Select Boxes -----------------------
 #= require chosen-jquery
+#= require jquery.dropdown.1.6
 #= require widgets/chosen-jquery
 #
 #  Telephone Numbers ------------------
@@ -25,3 +26,6 @@
 #
 #  Attendee/Child ---------------------
 #= require person/form
+#
+#  Ministry ---------------------------
+#= require 'ministry/code'
