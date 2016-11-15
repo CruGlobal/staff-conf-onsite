@@ -7,13 +7,13 @@ FactoryGirl.define do
     zip { Faker::Address.zip }
     country_code { Faker::Address.country_code }
 
-    factory :housing_facility_with_rooms do
+    factory :housing_facility_with_units do
       transient do
         count 20
       end
 
       after(:create) do |hf, params|
-        create_list(:room, params.count, housing_facility: hf)
+        create_list(:housing_unit, params.count, housing_facility: hf)
       end
     end
   end

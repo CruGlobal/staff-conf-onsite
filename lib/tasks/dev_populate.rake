@@ -20,7 +20,7 @@ namespace :dev do
         create_dummies :conference, count: 10
         create_dummies :course, count: 10
         create_dummies :ministry, count: 10
-        create_dummies :housing_facility_with_rooms, count: 10
+        create_dummies :housing_facility_with_units, count: 10
         create_dummies :family_with_members, count: 10
       end
     rescue ActiveRecord::RecordInvalid => e

@@ -1,2 +1,0 @@
-class RoomPolicy < GeneralPolicy
-end

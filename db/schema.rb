@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108194219) do
+ActiveRecord::Schema.define(version: 20161115212533) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -116,6 +116,15 @@ ActiveRecord::Schema.define(version: 20161108194219) do
     t.datetime "updated_at"
   end
 
+  create_table "housing_units", force: :cascade do |t|
+    t.integer  "housing_facility_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "housing_units", ["housing_facility_id", "name"], name: "index_housing_units_on_housing_facility_id_and_name", unique: true
+
   create_table "meal_exemptions", force: :cascade do |t|
     t.date     "date"
     t.integer  "person_id"
@@ -159,15 +168,6 @@ ActiveRecord::Schema.define(version: 20161108194219) do
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id"
   add_index "people", ["student_number"], name: "index_people_on_student_number"
   add_index "people", ["type"], name: "index_people_on_type"
-
-  create_table "rooms", force: :cascade do |t|
-    t.integer  "housing_facility_id"
-    t.integer  "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rooms", ["housing_facility_id", "number"], name: "index_rooms_on_housing_facility_id_and_number", unique: true
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false

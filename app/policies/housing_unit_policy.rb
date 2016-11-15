@@ -1,0 +1,2 @@
+class HousingUnitPolicy < GeneralPolicy
+end
