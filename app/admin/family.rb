@@ -1,7 +1,7 @@
 ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
-  permit_params :last_name, :staff_number, :phone, :street, :city, :state, :zip,
+  permit_params :last_name, :staff_number, :street, :city, :state, :zip,
                 :country_code
 
   index do
@@ -9,7 +9,6 @@ ActiveAdmin.register Family do
     column :id
     column :last_name
     column(:staff_number) { |f| code f.staff_number }
-    column(:phone) { |f| format_phone(f.phone) }
     column :street
     column :city
     column :state
@@ -25,7 +24,6 @@ ActiveAdmin.register Family do
       row :id
       row :last_name
       row(:staff_number) { |f| code f.staff_number }
-      row(:phone) { |f| format_phone(f.phone) }
       row :street
       row :city
       row :state
@@ -57,7 +55,6 @@ ActiveAdmin.register Family do
   end
 
   filter :last_name
-  filter :phone
   filter :street
   filter :city
   filter :state
