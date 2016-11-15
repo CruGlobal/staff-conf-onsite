@@ -1,14 +1,8 @@
-using InternationalPhoneNumber
-
 FactoryGirl.define do
   factory :family do
     last_name { Faker::Name.last_name }
-
-    phone { Faker::PhoneNumber.international }
-
     staff_number { Faker::Number.number(10) }
-
-    street { Faker::Address.street_name }
+    street { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
     zip { Faker::Address.zip }
