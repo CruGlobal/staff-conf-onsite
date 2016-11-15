@@ -1,23 +1,23 @@
-ActiveAdmin.register Room do
+ActiveAdmin.register HousingUnit do
   belongs_to :housing_facility
 
-  permit_params :number
+  permit_params :name
 
-  index title: -> { "#{@housing_facility.name}: Rooms" } do
+  index title: -> { "#{@housing_facility.name}: Units" } do
     column :id
-    column(:number) { |r| h4 r.number }
+    column(:name) { |r| h4 r.name }
     column :created_at
     column :updated_at
     actions
   end
 
-  show title: ->(r) { "#{r.housing_facility.name}: Room #{r.number}" }
+  show title: ->(r) { "#{r.housing_facility.name}: Units #{r.name}" }
 
   form do |f|
     f.semantic_errors
 
     f.inputs do
-      f.input :number
+      f.input :name
     end
 
     f.actions
