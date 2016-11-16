@@ -1,5 +1,6 @@
 ActiveAdmin.register Course do
-  permit_params :name, :description, :start_at, :end_at, :price
+  permit_params :name, :instructor, :description, :week_descriptor, :ibs_code,
+                :price, :location
 
   index do
     selectable_column
