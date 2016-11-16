@@ -7,8 +7,9 @@ class HousingUnitTest < ActiveSupport::TestCase
   end
 
   test 'permit create' do
-    assert_permit @general_user, @housing_unit, :create
-    assert_permit @finance_user, @housing_unit, :create
+    refute_permit @general_user, @housing_unit, :create
+    refute_permit @finance_user, @housing_unit, :create
+
     assert_permit @admin_user, @housing_unit, :create
   end
 
@@ -19,14 +20,16 @@ class HousingUnitTest < ActiveSupport::TestCase
   end
 
   test 'permit update' do
-    assert_permit @general_user, @housing_unit, :update
-    assert_permit @finance_user, @housing_unit, :update
+    refute_permit @general_user, @housing_unit, :update
+    refute_permit @finance_user, @housing_unit, :update
+
     assert_permit @admin_user, @housing_unit, :update
   end
 
   test 'permit destroy' do
-    assert_permit @general_user, @housing_unit, :destroy
-    assert_permit @finance_user, @housing_unit, :destroy
+    refute_permit @general_user, @housing_unit, :destroy
+    refute_permit @finance_user, @housing_unit, :destroy
+
     assert_permit @admin_user, @housing_unit, :destroy
   end
 end
