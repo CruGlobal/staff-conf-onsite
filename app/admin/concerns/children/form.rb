@@ -31,9 +31,10 @@ module Children
         f.input :grade_level
         f.input :parent_pickup
         f.input :needs_bed
+
         f.input :childcare_weeks,
                 label: 'Weeks of ChildCare',
-                collection: Childcare::CHILDCARE_WEEKS,
+                collection: childcare_weeks_select,
                 multiple: true,
                 hint: 'Please add all weeks needed'
       end

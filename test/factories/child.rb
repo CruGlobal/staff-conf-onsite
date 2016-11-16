@@ -11,6 +11,13 @@ FactoryGirl.define do
     end
     gender { Person::GENDERS.keys.sample }
 
+    # A random number of random weeks
+    childcare_weeks do
+      count = Childcare::CHILDCARE_WEEKS.size
+      samples = Faker::Number.between(0, count)
+      (0...count).to_a.shuffle[0...samples]
+    end
+
     factory :child_with_meal_exemptions do
       transient do
         count 20

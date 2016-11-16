@@ -29,7 +29,7 @@ module Children
         row :birthdate
         row('Age', sortable: :birthdate) { |c| age(c.birthdate) }
         row :grade_level
-        row :childcare_weeks
+        row(:childcare_weeks) { |c| childcare_weeks_list(c) }
         row :parent_pickup
         row :needs_bed
         row :created_at
