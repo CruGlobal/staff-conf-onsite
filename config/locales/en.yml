@@ -31,6 +31,9 @@ en:
           other: Versions
 
     attributes:
+      child:
+        childcare_week_numbers:
+          none: No Childcare Needed
       cost_adjustment:
         cost_types:
           dorm_adult: "Adult Dorm (room & board) Charges"

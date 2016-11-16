@@ -6,6 +6,32 @@ class ChildTest < ActiveSupport::TestCase
     @child = create :child
   end
 
+  test 'childcare_weeks=' do
+    @child.childcare_weeks = [1, 2, 3]
+
+    assert_equal [1, 2, 3], @child.childcare_weeks
+    assert_equal '1,2,3', @child[:childcare_weeks]
+  end
+
+  test 'childcare_weeks= with empty array' do
+    @child.childcare_weeks = []
+
+    assert_equal [], @child.childcare_weeks
+    assert_equal '', @child[:childcare_weeks]
+  end
+
+  test 'childcare_weeks= out of order' do
+    @child.childcare_weeks = [1, 3, 2]
+
+    assert_equal [1, 2, 3], @child.childcare_weeks
+    assert_equal '1,2,3', @child[:childcare_weeks]
+  end
+
+  test 'childcare_weeks= with nil' do
+    @child.childcare_weeks = nil
+    assert_empty @child.childcare_weeks
+  end
+
   test 'permit create' do
     assert_permit @general_user, @child, :create
     assert_permit @finance_user, @child, :create
