@@ -8,6 +8,7 @@ ActiveAdmin.register Attendee do
 
   # We create through Families#show
   config.remove_action_item :new
+  config.remove_action_item :new_show
 
   permit_params(
     :first_name, :last_name, :email, :emergency_contact, :phone,

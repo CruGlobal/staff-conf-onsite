@@ -19,7 +19,7 @@ module People
     # editable.
     FamilySelector = proc do |form|
       if (id = form.object.family_id || param_family.try(:id))
-        form.input :family, as: :hidden, input_html: { value: id }
+        form.input :family_id, as: :hidden, input_html: { value: id }
       else
         form.input :family
       end
