@@ -1,2 +1,2 @@
-class HousingUnitPolicy < GeneralPolicy
+class HousingUnitPolicy < ReadOnlyPolicy
 end
