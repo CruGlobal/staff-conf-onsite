@@ -18,6 +18,7 @@ ActiveAdmin.register Ministry do
     actions
   end
 
+  filter :code
   filter :name
   filter :created_at
   filter :updated_at
