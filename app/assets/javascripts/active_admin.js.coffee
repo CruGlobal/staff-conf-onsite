@@ -28,4 +28,4 @@
 #= require person/form
 #
 #  Ministry ---------------------------
-#= require 'ministry/code'
+#= require 'ministry/select'

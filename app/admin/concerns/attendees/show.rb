@@ -35,6 +35,9 @@ module Attendees
           row(:email) { |a| mail_to(a.email) }
           row(:phone) { |a| format_phone(a.phone) }
           row :emergency_contact
+          row(:ministry) do |a|
+            link_to a.ministry, a.ministry if a.ministry_id
+          end
           row :department
           row :created_at
           row :updated_at
