@@ -1,0 +1,11 @@
+# vim:ft=ruby:
+
+form_for :spreadsheet, url: {action: action}, html: {multipart: true} do |f|
+  table do
+    tr do
+      td { label(for: :spreadsheet_file) { 'Select a File' } }
+      td { f.file_field :file }
+    end
+    tr { td; td(style: 'text-align: right') { submit_tag 'Go!' } }
+  end
+end
