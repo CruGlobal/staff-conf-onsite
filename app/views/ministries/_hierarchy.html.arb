@@ -1,8 +1,10 @@
 # vim:ft=ruby:
 
-panel 'Import Organizational Hierarchy' do
-  render partial: 'file_form', locals: { action: :import_hierarchy }
+h2 'Import Organizational Hierarchy'
 
+render partial: 'file_form', locals: { action: :import_hierarchy }
+
+panel 'Help: Import Organizational Hierarchy' do
   para <<-EOP
     This form allows you to upload a spreadsheet file containing relationship
     information between the ministries. This file defines which ministries are

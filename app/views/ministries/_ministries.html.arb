@@ -1,8 +1,10 @@
 # vim:ft=ruby:
 
-panel 'Import Ministries' do
-  render partial: 'file_form', locals: { action: :import_ministries }
+h2 'Import Ministries'
 
+render partial: 'file_form', locals: { action: :import_ministries }
+
+panel 'Help: Import Ministries' do
   para <<-EOP
     This form allows you to upload a spreadsheet file containing the code and
     name for a number of ministries. A new ministry record will be created for
@@ -50,5 +52,16 @@ panel 'Import Ministries' do
     tr { td 'HQ';       td 'Core Services' }
     tr { td 'DS';       td 'Donation Services' }
     tr { td 'CM';       td 'Campus Ministry' }
+  end
+
+  h4 'Header Row'
+
+  para "Use the 'Skip Header Row' option if the first row contains a title. ex:"
+
+  table class: 'ministry__upload__example-spreadsheet' do
+    tr { td strong 'Code'; td strong 'Description' }
+    tr { td 'AIA';         td 'Athletes In Action' }
+    tr { td 'AIAFHQ';      td 'AIA Campus' }
+    tr { td 'CITY';        td 'City' }
   end
 end

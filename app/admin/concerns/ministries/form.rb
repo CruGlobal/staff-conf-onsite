@@ -26,13 +26,17 @@ module Ministries
 
     def self.create_import(base, action, interactor)
       base.send :collection_action, "import_#{action}", method: :post do
-        res = interactor.call(file: params[:spreadsheet]['file'])
+        res =
+          interactor.call(
+            ActionController::Parameters.new(params).
+              require("spreadsheet_import_#{action}").
+              permit(:file, :skip_first)
+          )
 
         if res.success?
-          message = "#{action.to_s.titleize} imported successfully."
-          redirect_to ministries_path, notice: message
+          redirect_to ministries_path, notice: "#{action.to_s.titleize} imported successfully."
         else
-          redirect_to new_spreadsheet_ministries_path, notice: res.message
+          redirect_to new_spreadsheet_ministries_path, flash: { error: res.message }
         end
       end
     end
