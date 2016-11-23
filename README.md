@@ -3,10 +3,16 @@
 This project provides an [ActiveAdmin](http://activeadmin.info/) interface for
 CRU staff to enter details for the CRU Conference.
 
-## Populate Development DB
+## Development
 
+### Populate DB with Fake Data
 ```sh
 bin/rake dev:populate
+```
+
+### Generate Documentation
+```sh
+bin/rake yard
 ```
 
 ## Redis

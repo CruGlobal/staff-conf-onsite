@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116064653) do
+ActiveRecord::Schema.define(version: 20161120025232) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -137,11 +137,15 @@ ActiveRecord::Schema.define(version: 20161116064653) do
   add_index "meal_exemptions", ["person_id", "date", "meal_type"], name: "index_meal_exemptions_on_person_id_and_date_and_meal_type", unique: true
 
   create_table "ministries", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "code",       null: false
+    t.integer  "parent_id"
   end
+
+  add_index "ministries", ["code"], name: "index_ministries_on_code", unique: true
+  add_index "ministries", ["parent_id"], name: "index_ministries_on_parent_id"
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -161,7 +165,7 @@ ActiveRecord::Schema.define(version: 20161116064653) do
     t.datetime "updated_at"
     t.boolean  "needs_bed",         default: true
     t.boolean  "parent_pickup"
-    t.string   "childcare_weeks"
+    t.string   "childcare_weeks",   default: ""
     t.integer  "childcare_id"
     t.string   "grade_level"
   end

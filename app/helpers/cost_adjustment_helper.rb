@@ -9,9 +9,8 @@ module CostAdjustmentHelper
     end
   end
 
-  # @param [ApplicationRecord, Fixnum] obj - either a record with a
-  #   {cost_type} field, or the ordinal value of the
-  #   {CostAdjustment#cost_type} enum
+  # @param [ApplicationRecord, Fixnum] obj Either a record with a +cost_type+
+  #   field, or the ordinal value of the +CostAdjustment#cost_type+ enum
   # @return [String] the translated name of that type
   def cost_type_name(obj)
     # typecast an integer into an enum string

@@ -27,3 +27,5 @@ if Rails.env.test?
     end
   end
 end
+
+YARD::Rake::YardocTask.new

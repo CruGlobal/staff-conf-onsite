@@ -41,7 +41,7 @@ module Attendees
       end
 
       f.inputs do
-        f.input :ministry
+        select_ministry_widget(f)
         f.input :department
       end
 

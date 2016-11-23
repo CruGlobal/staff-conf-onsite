@@ -17,3 +17,7 @@
 /tmp
 /.byebug_history
 /.env.local
+
+# Ignore documentation
+/.yardoc/
+/doc/

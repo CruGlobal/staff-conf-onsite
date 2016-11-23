@@ -6,6 +6,25 @@ class MinistryTest < ActiveSupport::TestCase
     @ministry = create :ministry
   end
 
+  test 'own parent' do
+    @ministry.parent_id = @ministry.id
+
+    refute @ministry.valid?, 'cannot be your own parent'
+  end
+
+  test 'ancestors' do
+    child = create :ministry, parent: @ministry
+    gchild = create :ministry, parent: child
+    ggchild = create :ministry, parent: gchild
+    gggchild = create :ministry, parent: ggchild
+
+    assert_equal [@ministry, child, gchild, ggchild], gggchild.ancestors
+  end
+
+  test 'no ancestors' do
+    assert_empty @ministry.ancestors
+  end
+
   test 'permit create' do
     refute_permit @general_user, @ministry, :create
     refute_permit @finance_user, @ministry, :create

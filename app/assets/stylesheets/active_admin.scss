@@ -13,12 +13,16 @@
 
 @import "widgets/buttons";
 
-//  Specific Models
-//  =================================
+// Specific Models
+// =================================
 
-//  Attendee/Child ------------------
+// Attendee/Child ------------------
 @import "person/form";
 @import "person/show";
+
+// Ministry ------------------------
+@import "ministry/hierarchy";
+@import "ministry/upload";
 
 
 // CK Editor Fixes

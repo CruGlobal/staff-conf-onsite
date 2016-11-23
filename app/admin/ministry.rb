@@ -1,11 +1,15 @@
 ActiveAdmin.register Ministry do
-  permit_params :name, :code
+  include Ministries::Show
+  include Ministries::Form
+
+  permit_params :name, :code, :name, :parent_id
 
   index do
     selectable_column
     column :id
-    column(:name) { |m| h4 m.name }
     column :code
+    column :name
+    column(:parent) { |m| m.parent.to_s }
     column 'Members' do |m|
       link_to(m.people.count, attendees_path(q: { ministry_id_eq: m.id }))
     end
@@ -14,27 +18,8 @@ ActiveAdmin.register Ministry do
     actions
   end
 
+  filter :code
   filter :name
   filter :created_at
   filter :updated_at
-
-  show do
-    attributes_table do
-      row :id
-      row :name
-      row(:code) { |m| ministry_code_label(m.code) }
-      row :created_at
-      row :updated_at
-    end
-    active_admin_comments
-  end
-
-  form do |f|
-    f.semantic_errors
-    f.inputs do
-      f.input :name
-      f.input :code, as: :select, collection: ministry_code_select
-    end
-    f.actions
-  end
 end

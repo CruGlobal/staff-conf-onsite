@@ -9,13 +9,13 @@ class CasAttributes
     @email = email
   end
 
-  # Sample output
-  # {"relayGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
-  #  "ssoGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
-  #  "firstName"=>"Joshua",
-  #  "lastName"=>"Starcher",
-  #  "theKeyGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
-  #  "email"=>"josh.starcher@cru.org"}
+  # @example Sample output
+  #   {"relayGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
+  #    "ssoGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
+  #    "firstName"=>"Joshua",
+  #    "lastName"=>"Starcher",
+  #    "theKeyGuid"=>"F167605D-94A4-7121-2A58-8D0F2CA6E026",
+  #    "email"=>"josh.starcher@cru.org"}
   def get
     JSON.parse(
       RestClient.get(
