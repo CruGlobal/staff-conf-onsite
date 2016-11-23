@@ -8,6 +8,10 @@ FactoryGirl.define do
     zip { Faker::Address.zip }
     country_code { Faker::Address.country_code }
 
+    after :create do |family|
+      family.housing_preference ||= create(:housing_preference, family: family)
+    end
+
     factory :family_with_members do
       transient do
         attendee_count { 1 + rand(1) }

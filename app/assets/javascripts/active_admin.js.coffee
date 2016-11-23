@@ -29,3 +29,6 @@
 #
 #  Ministry ---------------------------
 #= require 'ministry/select'
+#
+#  Family -----------------------------
+#= require family/edit
