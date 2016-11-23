@@ -26,9 +26,8 @@ module Attendees
           row :id
           row(:student_number) { |a| code a.student_number }
           row :first_name
-          row(:last_name) do |a|
-            link_to last_name_label(a), family_path(a.family)
-          end
+          row :last_name
+          row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
           row :birthdate
           row('Age', sortable: :birthdate) { |a| age(a.birthdate) }
           row(:gender) { |a| gender_name(a.gender) }

@@ -24,7 +24,8 @@ module Children
       attributes_table do
         row :id
         row :first_name
-        row(:last_name) { |c| link_to last_name_label(c), family_path(c.family) }
+        row :last_name
+        row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
         row(:gender) { |c| gender_name(c.gender) }
         row :birthdate
         row('Age', sortable: :birthdate) { |c| age(c.birthdate) }

@@ -15,6 +15,6 @@ class Family < ApplicationRecord
   end
 
   def audit_name
-    "#{super}: #{last_name}"
+    "#{super}: #{PersonHelper.family_label(self)}"
   end
 end

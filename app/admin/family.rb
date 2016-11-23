@@ -13,7 +13,7 @@ ActiveAdmin.register Family do
   index do
     selectable_column
     column :id
-    column :last_name
+    column(:last_name) { |f| family_label(f) }
     column(:staff_number) { |f| code f.staff_number }
     column :street
     column :city
@@ -63,7 +63,7 @@ ActiveAdmin.register Family do
     f.actions
   end
 
-  filter :last_name
+  filter :last_name_or_people_first_name_cont, label: 'Last Name or Family Member Name'
   filter :street
   filter :city
   filter :state
