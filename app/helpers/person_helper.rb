@@ -33,7 +33,17 @@ module PersonHelper
   end
 
   def family_label(family)
-    "#{family.last_name} Family ##{family.id}"
+    "#{family.last_name}: #{family_attendees_sentence(family)}"
+  end
+
+  # @return [String] a comma-separated sentence of the attendee's first names
+  #   in the given family
+  def family_attendees_sentence(family)
+    if family.attendees.any?
+      family.attendees.map(&:first_name).to_sentence
+    else
+      'no attendees'
+    end
   end
 
   def last_name_label(person)
@@ -41,7 +51,7 @@ module PersonHelper
     if person.family.nil?
       person.last_name
     elsif person.last_name == person.family.last_name
-      "#{person.last_name} ##{person.family_id}"
+      family_label(person.family)
     else
       "#{person.last_name} (#{family_label(person.family)})"
     end

@@ -28,6 +28,5 @@ if Rails.env.test?
   end
 end
 
-if Rails.env.development?
-  YARD::Rake::YardocTask.new
-end
+# Documentation
+YARD::Rake::YardocTask.new if Rails.env.development?

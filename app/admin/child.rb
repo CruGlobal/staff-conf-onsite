@@ -19,7 +19,8 @@ ActiveAdmin.register Child do
     selectable_column
     column :id
     column :first_name
-    column(:last_name) { |c| link_to last_name_label(c), family_path(c.family) }
+    column :last_name
+    column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     column(:gender) { |c| gender_name(c.gender) }
     column :birthdate
     column('Age', sortable: :birthdate) { |c| age(c.birthdate) }
