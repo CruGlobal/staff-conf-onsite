@@ -29,4 +29,10 @@ class FamilyTest < ActiveSupport::TestCase
     assert_permit @finance_user, @family, :destroy
     assert_permit @admin_user, @family, :destroy
   end
+
+  test 'must have staff_number' do
+    @family = build :family, staff_number: nil
+
+    refute @family.valid?, 'family should be invalid with nil staff_number'
+  end
 end

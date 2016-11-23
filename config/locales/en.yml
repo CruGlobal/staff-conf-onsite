@@ -25,11 +25,29 @@ en:
       course:
         one: Class
         other: Classes
+      paper_trail:
+        version:
+          one: Version
+          other: Versions
 
     attributes:
+      child:
+        childcare_week_numbers:
+          none: No Childcare Needed
+      cost_adjustment:
+        cost_types:
+          dorm_adult: "Adult Dorm (room & board) Charges"
+          dorm_child: "Child Dorm (room & board) Charges"
+          apartment_rent: "Apartment Rent"
+          facility_use: "Facility Use Fee for Off Campus Residents"
+          tuition_class: "Class Tuition"
+          tuition_mpd: "MPD Tuition"
+          tuition_track: "Track Tuition"
+          tuition_staff: "Staff Conference Tuition"
+          books: "Books"
       family:
         country_code: Country
-        phone: Phone Number
+        staff_number: Staff ID
         zip: Zip Code
       housing_facility:
         country_code: Country
@@ -47,6 +65,14 @@ en:
         children_count: "# of Children"
         bedrooms_count: "# of Bedrooms"
         confirmed_at: Confirmed by Admin
+
+  active_admin:
+    dashboard:
+      title: Dashboard
+      welcome: Welcome to the Onsite Staff Administration
+      call_to_action: To add new records, please use the menu at the top of the
+                      page
+      updated: Recently Updated
 
   date:
     formats:

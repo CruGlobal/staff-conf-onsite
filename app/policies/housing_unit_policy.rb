@@ -1,0 +1,2 @@
+class HousingUnitPolicy < ReadOnlyPolicy
+end

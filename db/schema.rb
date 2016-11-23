@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011042755) do
+ActiveRecord::Schema.define(version: 20161120025232) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20161011042755) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "cost_type",   null: false
   end
 
   add_index "cost_adjustments", ["person_id"], name: "index_cost_adjustments_on_person_id"
@@ -83,15 +84,17 @@ ActiveRecord::Schema.define(version: 20161011042755) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
-    t.date     "start_at"
-    t.date     "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.integer  "price_cents",     null: false
+    t.string   "instructor"
+    t.string   "week_descriptor"
+    t.integer  "ibs_code"
+    t.string   "location"
   end
 
   create_table "families", force: :cascade do |t|
-    t.string   "phone"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
@@ -99,6 +102,8 @@ ActiveRecord::Schema.define(version: 20161011042755) do
     t.string   "country_code", limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_name",              null: false
+    t.string   "staff_number",           null: false
   end
 
   create_table "housing_facilities", force: :cascade do |t|
@@ -128,22 +133,35 @@ ActiveRecord::Schema.define(version: 20161011042755) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "meals", force: :cascade do |t|
+  create_table "housing_units", force: :cascade do |t|
+    t.integer  "housing_facility_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "housing_units", ["housing_facility_id", "name"], name: "index_housing_units_on_housing_facility_id_and_name", unique: true
+
+  create_table "meal_exemptions", force: :cascade do |t|
     t.date     "date"
-    t.integer  "attendee_id"
+    t.integer  "person_id"
     t.string   "meal_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "meals", ["attendee_id", "date", "meal_type"], name: "index_meals_on_attendee_id_and_date_and_meal_type", unique: true
+  add_index "meal_exemptions", ["person_id", "date", "meal_type"], name: "index_meal_exemptions_on_person_id_and_date_and_meal_type", unique: true
 
   create_table "ministries", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code",       null: false
+    t.integer  "parent_id"
   end
+
+  add_index "ministries", ["code"], name: "index_ministries_on_code", unique: true
+  add_index "ministries", ["parent_id"], name: "index_ministries_on_parent_id"
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -153,7 +171,6 @@ ActiveRecord::Schema.define(version: 20161011042755) do
     t.string   "phone"
     t.date     "birthdate"
     t.string   "student_number"
-    t.string   "staff_number"
     t.string   "gender"
     t.string   "department"
     t.integer  "family_id"
@@ -164,7 +181,7 @@ ActiveRecord::Schema.define(version: 20161011042755) do
     t.datetime "updated_at"
     t.boolean  "needs_bed",         default: true
     t.boolean  "parent_pickup"
-    t.string   "childcare_weeks"
+    t.string   "childcare_weeks",   default: ""
     t.integer  "childcare_id"
     t.string   "grade_level"
   end
@@ -172,15 +189,6 @@ ActiveRecord::Schema.define(version: 20161011042755) do
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id"
   add_index "people", ["student_number"], name: "index_people_on_student_number"
   add_index "people", ["type"], name: "index_people_on_type"
-
-  create_table "rooms", force: :cascade do |t|
-    t.integer  "housing_facility_id"
-    t.integer  "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rooms", ["housing_facility_id", "number"], name: "index_rooms_on_housing_facility_id_and_number", unique: true
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -205,5 +213,16 @@ ActiveRecord::Schema.define(version: 20161011042755) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",                     null: false
+    t.integer  "item_id",                       null: false
+    t.string   "event",                         null: false
+    t.string   "whodunnit"
+    t.text     "object",     limit: 1073741823
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end

@@ -11,16 +11,22 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
-//  Specific Models
-//  =================================
+@import "widgets/buttons";
 
-//  Family --------------------------
+// Specific Models
+// =================================
+
+// Attendee/Child ------------------
+@import "person/form";
+@import "person/show";
+
+// Ministry ------------------------
+@import "ministry/hierarchy";
+@import "ministry/upload";
+
+//  Family -------------------------
 @import "family/edit";
 
-// Overriding any non-variable SASS must be done after the fact.
-// For example, to change the default status-tag color:
-//
-//   .status_tag { background: #6090DB; }
 
 // CK Editor Fixes
 // see https://github.com/activeadmin/activeadmin/wiki/Ckeditor-integration
@@ -35,6 +41,8 @@
 
 // Select Boxes
 @import "chosen";
+@import "widgets/dropdown-variables";
+@import "jquery.dropdown.1.6/dropdown";
 
 .sidebar_section {
   h4 {

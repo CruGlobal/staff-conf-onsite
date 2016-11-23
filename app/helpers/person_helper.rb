@@ -1,4 +1,12 @@
 module PersonHelper
+  # @return [Family,nil] The family specified by the `family_id` query param
+  def param_family
+    @param_family ||=
+      if (id = params[:family_id])
+        Family.find(id)
+      end
+  end
+
   module_function
 
   def gender_select
@@ -9,7 +17,12 @@ module PersonHelper
     Person::GENDERS[g.to_sym]
   end
 
+  # @param dob [Date]
+  # @return [Fixnum, nil] the age, in years, of a person born on the given date,
+  #   or nil if the given date is nil
   def age(dob)
+    return nil if dob.nil?
+
     now = Time.now.utc.to_date
 
     now.year - dob.year - (after_birthday(dob, now) ? 0 : 1)
@@ -19,11 +32,18 @@ module PersonHelper
     now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
   end
 
-  def family_name(family)
-    if (last_name = family.people.first.try(:last_name))
-      "#{last_name} Family"
+  def family_label(family)
+    "#{family.last_name} Family ##{family.id}"
+  end
+
+  def last_name_label(person)
+    # TODO: remove this first case when certain everyone has a Family
+    if person.family.nil?
+      person.last_name
+    elsif person.last_name == person.family.last_name
+      "#{person.last_name} ##{person.family_id}"
     else
-      "Family ##{family.id}"
+      "#{person.last_name} (#{family_label(person.family)})"
     end
   end
 end

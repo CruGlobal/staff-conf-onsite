@@ -7,10 +7,15 @@ gem 'syslog-logger', '~> 1.6.8'
 gem 'redis-rails', '~> 5.0.1'
 gem 'redis-namespace', '~> 1.5.2'
 gem 'newrelic_rpm', '~> 3.16.2.321'
+gem 'good_migrations', '~> 0.0.2'
 
 # Framework
 gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'paper_trail', '~> 5.2.2'
+gem 'interactor-rails', '~> 2.0.2'
+# TODO: gem 'axlsx' requires rubycsv = 1.0. Update roo when that changes
+gem 'roo', '~> 1.13.2'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'
@@ -28,8 +33,8 @@ gem 'phone', '~> 1.2.3'
 gem 'truncate_html', '~> 0.9.3'
 gem 'chosen-rails', '~> 1.5.2'
 gem 'money-rails', '~> 1.7.0'
-# TODO gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
-# TODO and remove the version in ./lib/active_admin/
+# TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
+# TODO: and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 2.0.1'
 
 # Frontend Scripts
@@ -52,6 +57,11 @@ group :development, :test do
   gem 'guard-minitest', '~> 2.4.6'
   gem 'minitest-reporters', '~> 1.1.11'
   gem 'webmock', '~> 2.1.0'
+  gem 'reek', '~> 4.4.2'
+  gem 'bundler-audit', '~> 0.5.0'
+
+  # Documentation
+  gem 'yard', '~> 0.9.5'
 end
 
 group :development do

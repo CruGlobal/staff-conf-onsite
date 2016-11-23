@@ -4,7 +4,7 @@ module HousingHelper
   module_function
 
   def housing_type_select
-    HousingFacility::housing_types.map do |type, value|
+    HousingFacility.housing_types.map do |type, value|
       [housing_type_name(value), type]
     end
   end
@@ -22,10 +22,9 @@ module HousingHelper
       when Fixnum
         HousingFacility.new(housing_type: obj).housing_type
       else
-        fail "unexpected parameter, '#{obj.inspect}'"
+        raise "unexpected parameter, '#{obj.inspect}'"
       end
 
     I18n.t("#{I18N_PREFIX}.housing_types.#{type}")
   end
 end
-

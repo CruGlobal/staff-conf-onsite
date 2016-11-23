@@ -2,16 +2,20 @@ require 'phone'
 require 'truncate_html'
 
 module TextHelper
-  class << self
-    include ActionView::Helpers::TagHelper
-  end
-
   module_function
 
+  # This method truncates the given string, ensuring any open tags are closed
+  # and no tags are cut in half
+  # @return [string] a truncated version of the given HTML string
   def html_summary(html)
     html_string = TruncateHtml::HtmlString.new(html || '')
+    html_full(TruncateHtml::HtmlTruncator.new(html_string).truncate)
+  end
+
+  # @return [string] an HTML-safe version of the given string
+  def html_full(html)
     # rubocop:disable Rails/OutputSafety
-    TruncateHtml::HtmlTruncator.new(html_string).truncate.html_safe
+    html.html_safe
   end
 
   def format_phone(number)

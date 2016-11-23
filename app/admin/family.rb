@@ -3,20 +3,18 @@ ActiveAdmin.register Family do
 
   menu parent: 'People', priority: 1
 
-  permit_params(
-    :phone, :street, :city, :state, :zip, :country_code,
-
-    housing_preference_attributes: [
-      :id, :housing_type, :children_count, :bedrooms_count, :location1,
-      :location2, :location3, :beds_count, :roommates, :confirmed_at
-    ]
-  )
+  permit_params :last_name, :staff_number, :street, :city, :state, :zip,
+                :country_code, housing_preference_attributes: [
+                  :id, :housing_type, :children_count, :bedrooms_count,
+                  :location1, :location2, :location3, :beds_count, :roommates,
+                  :confirmed_at
+                ]
 
   index do
     selectable_column
     column :id
-    column('Name') { |f| h4 family_name(f) }
-    column(:phone) { |f| format_phone(f.phone) }
+    column :last_name
+    column(:staff_number) { |f| code f.staff_number }
     column :street
     column :city
     column :state
@@ -27,18 +25,20 @@ ActiveAdmin.register Family do
     actions
   end
 
-
-  form title: ->(f) { "Edit #{PersonHelper.family_name(f)}" } do |f|
+  form title: ->(f) { "Edit #{PersonHelper.family_label(f)}" } do |f|
     f.semantic_errors
 
-    f.inputs :phone
+    f.inputs 'Basic Info' do
+      f.input :last_name
+      f.input :staff_number
+    end
 
     f.inputs 'Address' do
       f.input :street
       f.input :city
       f.input :state
       f.input :country_code, as: :select, collection: country_select,
-        include_blank: false
+                             include_blank: false
       f.input :zip
     end
 
@@ -48,7 +48,7 @@ ActiveAdmin.register Family do
       f.object.housing_preference || f.object.build_housing_preference
     ]
     f.inputs 'Housing Preference', class: 'housing_preference_attributes',
-        for: for_housing_preference do |hp|
+                                   for: for_housing_preference do |hp|
       hp.input :housing_type, as: :select, collection: housing_type_select
       hp.input :children_count, wrapper_html: { class: :apartments_only }
       hp.input :bedrooms_count, wrapper_html: { class: :apartments_only }
@@ -63,7 +63,7 @@ ActiveAdmin.register Family do
     f.actions
   end
 
-  filter :phone
+  filter :last_name
   filter :street
   filter :city
   filter :state
@@ -92,6 +92,11 @@ ActiveAdmin.register Family do
           li link_to(p.full_name, child_path(p))
         end
       end
+    end
+
+    div class: 'action_items' do
+      span link_to('New Attendee', new_attendee_path(family_id: family.id)), class: 'action_item'
+      span link_to('New Child', new_child_path(family_id: family.id)), class: 'action_item'
     end
   end
 end

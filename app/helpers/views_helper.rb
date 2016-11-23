@@ -1,49 +1,30 @@
 module ViewsHelper
-  def country_select
-    ::CountryHelper.country_select
-  end
+  # This creates instance methods for all of the module methods from the other
+  # helper modules.
+  #
+  # ViewHelper is the only helper which is automatically mixed into ActiveAdmin
+  # records. This extends all the other helpers so that their helper methods
+  # are available to ActiveAdmin records. It also creates instance methods that
+  # alias the module methods from te other helper modules so that they're also
+  # available.
+  #
+  # The reason some helper methods are module methods is because ViewHelper's
+  # instance methods are not available in the class context, so the module
+  # methods must be used in those cases.
+  begin
+    modules =
+      Dir[Rails.root.join('app', 'helpers', '*.rb')].map do |path|
+        File.basename(path, '.rb').camelize.safe_constantize
+      end
 
-  def country_name(code)
-    ::CountryHelper.country_name(code)
-  end
+    modules.each do |mod|
+      next if mod.nil? || mod == self
 
-  def gender_select
-    ::PersonHelper.gender_select
-  end
+      extend mod
 
-  def gender_name(g)
-    ::PersonHelper.gender_name(g)
-  end
-
-  def format_phone(number)
-    ::TextHelper.format_phone(number)
-  end
-
-  def html_summary(html)
-    ::TextHelper.html_summary(html)
-  end
-
-  def meal_type_select
-    ::MealHelper.meal_type_select
-  end
-
-  def childcare_weeks_select
-    ::ChildcareHelper.childcare_weeks_select
-  end
-
-  def housing_type_select
-    ::HousingHelper.housing_type_select
-  end
-
-  def housing_type_name(number)
-    ::HousingHelper.housing_type_name(number)
-  end
-
-  def age(birthdate)
-    ::PersonHelper.age(birthdate)
-  end
-
-  def family_name(family)
-    ::PersonHelper.family_name(family)
+      (mod.public_methods - Module.public_methods).each do |method_name|
+        define_method(method_name) { |*args| mod.send(method_name, *args) }
+      end
+    end
   end
 end
