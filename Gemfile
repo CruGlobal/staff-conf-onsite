@@ -59,6 +59,9 @@ group :development, :test do
   gem 'webmock', '~> 2.1.0'
   gem 'reek', '~> 4.4.2'
   gem 'bundler-audit', '~> 0.5.0'
+
+  # Documentation
+  gem 'yard', '~> 0.9.5'
 end
 
 group :development do

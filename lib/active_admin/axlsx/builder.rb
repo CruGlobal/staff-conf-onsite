@@ -15,7 +15,7 @@ module ActiveAdmin
       #   header styles. @see Axlsx::Styles#add_style
       # @option [Array] :i18n_scope - the I18n scope to use when looking
       #   up localized column headers.
-      # @param [Block] Any block given will evaluated against this instance of Builder.
+      # @yield Any block given will evaluated against this instance of Builder.
       #   That means you can call any method on the builder from withing that block.
       # @example
       #   ActiveAdmin::Axlsx:Builder.new(Post, i18n: [:axlsx]) do

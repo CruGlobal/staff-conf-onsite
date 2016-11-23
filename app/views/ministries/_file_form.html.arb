@@ -3,7 +3,7 @@
 form_for "spreadsheet_#{action}", url: {action: action}, html: {multipart: true} do |f|
   fieldset class: 'inputs' do
     ol do
-      li do
+      li class: 'file input' do
         f.label :file, 'Select a File'
         f.file_field :file
         para class: 'inline-hints' do

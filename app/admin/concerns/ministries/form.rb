@@ -1,7 +1,7 @@
 module Ministries
   module Form
     def self.included(base)
-      setup_uploads(base)
+      create_spreadsheet_upload_actions(base)
 
       base.send :form do |f|
         f.semantic_errors
@@ -14,17 +14,22 @@ module Ministries
       end
     end
 
-    def self.setup_uploads(base)
-      base.send :action_item, only: :index do
+    def self.create_spreadsheet_upload_actions(base)
+      base.send :action_item, :import_spreadsheet, only: :index do
         link_to 'Import Spreadsheet', action: :new_spreadsheet
       end
 
       base.send :collection_action, :new_spreadsheet, title: 'Import Spreadsheet'
-      create_import(base, :ministries, ImportMinistriesSpreadsheet)
-      create_import(base, :hierarchy, ImportMinistryHierarchySpreadsheet)
+      create_import_action(base, :ministries, ImportMinistriesSpreadsheet)
+      create_import_action(base, :hierarchy, ImportMinistryHierarchySpreadsheet)
     end
 
-    def self.create_import(base, action, interactor)
+    # Creates a POST action to process an uploaded spreadsheet file.
+    # @param [Class] base The ActiveAdmin resource class to add the actions to
+    # @param [Symbol,String] action The name of the action
+    # @param [Interactor] interactor - The service object which will process
+    #   the upload
+    def self.create_import_action(base, action, interactor)
       base.send :collection_action, "import_#{action}", method: :post do
         res =
           interactor.call(

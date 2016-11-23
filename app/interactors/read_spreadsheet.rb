@@ -1,3 +1,25 @@
+# This service accepts an uploaded spreadsheet file and converts it into a
+# "ruby-representation" of that spreadsheet, which can then be processed by
+# other services.
+#
+# == Spreadsheet file
+#
+# This service can accept four types of spreadsheets:
+#
+#  1. OpenOffice (.ods)
+#  2. Comma-separated text file (.csv)
+#  3. Old Microsoft Excel (.xls)
+#  4. New Microsoft Excel (.xlsx)
+#
+# == Spreadsheet "Ruby Representation"
+#
+# Abstractly, a "spreadsheet" is a 3D array of strings. A single sheet in a
+# spreadsheet is a 2D array of columns and rows of strings, and a spreadsheet
+# may have multiple sheets.
+#
+# This service expects this spreadsheet to be an +Enumerable+ of "sheets",
+# where each sheet is an +Enumerable+ or "rows," where each row is an
+# +Enumerable+ of "cells" in that row, and each cell is a +String+.
 class ReadSpreadsheet
   include Interactor
 

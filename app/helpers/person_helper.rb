@@ -18,7 +18,7 @@ module PersonHelper
   end
 
   # @param dob [Date]
-  # @return [FixNum, nil] the age, in years, of a person born on the given date,
+  # @return [Fixnum, nil] the age, in years, of a person born on the given date,
   #   or nil if the given date is nil
   def age(dob)
     return nil if dob.nil?

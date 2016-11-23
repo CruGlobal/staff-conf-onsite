@@ -1,3 +1,12 @@
+# This service accepts a "ruby representation" of a spreadsheet containing
+# information about the hierarchy of {Ministry Ministries} in the system. Each
+# row describes a single chain of Grandparent-parent-child-etc. relationship,
+# where each cell in the row contains the +code+ of a +Ministry+ and each
+# Ministry is the parent of the +Ministry+ in the cell to its right.
+#
+# The {ReadSpreadsheet} service can convert an uploaded file into the
+# representation expected by this service. See its documentation for a
+# description of the spreadsheet "ruby representation."
 class UpdateMinistryParents
   include Interactor
 

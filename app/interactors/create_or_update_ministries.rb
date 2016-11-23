@@ -1,11 +1,24 @@
+# This service accepts a "ruby representation" of a spreadsheet containing a
+# list of code/name pairs. Each row represents either a new or existing
+# {Ministry Ministry's} `code` and `name`. If a {Ministry} already exists with
+# the given `code`, it's `name` will be updated with the name given in the
+# spreadsheet.
+#
+# The {ReadSpreadsheet} service can convert an uploaded file into the
+# representation expected by this service. See its documentation for a
+# description of the spreadsheet "ruby representation."
 class CreateOrUpdateMinistries
+  # @!attribute context.sheets
+  #   @return [Enumerable] A ruby-representation of the uploaded spreadsheet
+  #     file
+
   include Interactor
 
   Error = Class.new(StandardError)
 
   def call
     Ministry.transaction do
-      context.sheets.each { |sheet| process_sheet(sheet) }
+      context.sheets.each { |rows| parse_ministry_rows(rows) }
       ministries.each(&:save!)
     end
   rescue Error => e
@@ -14,12 +27,12 @@ class CreateOrUpdateMinistries
 
   private
 
-  def process_sheet(sheet)
-    sheet.each_with_index do |row, i|
+  def parse_ministry_rows(rows)
+    rows.each_with_index do |row, i|
       row = row.map(&:strip).select(&:present?)
 
       if row.size < 2
-        raise Error, "Row ##{i + 1} has too few columns. '#{row.join(',')}'"
+        raise Error, "Row ##{i + 1} has too few columns. '#{row.join(', ')}'"
       end
 
       create_or_update(row[0], row[1])
