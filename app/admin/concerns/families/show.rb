@@ -1,7 +1,7 @@
 module Families
   module Show
     def self.included(base)
-      base.send :show, title: ->(f) { PersonHelper.family_name(f) } do
+      base.send :show, title: ->(f) { PersonHelper.family_label(f) } do
         columns do
           column do
             instance_exec(&AttributesTable)
@@ -19,7 +19,8 @@ module Families
     AttributesTable = proc do
       attributes_table do
         row :id
-        row(:phone) { |f| format_phone(f.phone) }
+        row :last_name
+        row(:staff_number) { |f| code f.staff_number }
         row :street
         row :city
         row :state
