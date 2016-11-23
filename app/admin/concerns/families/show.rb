@@ -35,21 +35,33 @@ module Families
       panel 'Housing Preference' do
         attributes_table_for family.housing_preference do
           row(:housing_type) { |hp| housing_type_name(hp) }
-          if family.housing_preference.try(:apartment?)
-            row :children_count
-            row :bedrooms_count
-          end
-          row :location1
-          row :location2
-          row :location3
-          row :beds_count
-          row(:roommates) { |hp| simple_format hp.roommates }
+
+          instance_exec(&HousingTypeFieldRows)
+
           row :confirmed_at do |hp|
             if hp.confirmed_at.present?
               status_tag :yes, label: "confirmed on #{l hp.confirmed_at, format: :month}"
             else
               status_tag :no, label: 'unconfirmed'
             end
+          end
+        end
+      end
+    end
+
+    HousingTypeFieldRows = proc do
+      housing_type = family.housing_preference.housing_type.to_sym
+
+      HousingPreference::HOUSING_TYPE_FIELDS.each do |attr, types|
+        next unless types.include?(housing_type)
+
+        row(attr) do |hp|
+          value = hp.send(attr)
+
+          case HousingPreference.columns_hash[attr.to_s].type
+          when :text then simple_format(value)
+          when :boolean then status_tag(value ? :yes : :no)
+          else value
           end
         end
       end

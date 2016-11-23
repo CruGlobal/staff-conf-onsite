@@ -27,4 +27,19 @@ module HousingHelper
 
     I18n.t("#{I18N_PREFIX}.housing_types.#{type}")
   end
+
+  # Creates input fields that can by dynamically shown/hidden whenver the user
+  # changes the value of the +housing_type+ select box.
+  #
+  # @se app/assets/javascripts/family/edit.coffee
+  def dynamic_preference_input(form, attribute, opts = {})
+    classes =
+      HousingPreference::HOUSING_TYPE_FIELDS[attribute].
+        map { |t| "for-#{t}" }.join(' ')
+
+    opts[:wrapper_html] ||= {}
+    opts[:wrapper_html][:class] = "dynamic-field #{classes}"
+
+    form.input(attribute, opts)
+  end
 end

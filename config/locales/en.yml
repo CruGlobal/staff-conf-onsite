@@ -57,13 +57,18 @@ en:
           apartment: Apartment
           self_provided: Self-Provided
       housing_preference:
+        roommates: Preferred Roommates
+        beds_count: "# of Beds"
+        single_room: "Requests a single room"
+
+        children_count: "# of Children"
+        bedrooms_count: "# of Bedrooms"
+        other_family: "Name of a Family They Would be Able to Room with"
+        accepts_non_air_conditioned: "Willing to Accept a non A/C apartment"
+
         location1: "Preferred Location #1"
         location2: "Preferred Location #2"
         location3: "Preferred Location #3"
-        beds_count: "# of Beds"
-        roommates: Preferred Roommates
-        children_count: "# of Children"
-        bedrooms_count: "# of Bedrooms"
         confirmed_at: Confirmed by Admin
 
   active_admin:
