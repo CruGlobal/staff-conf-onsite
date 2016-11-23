@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161120025232) do
+ActiveRecord::Schema.define(version: 20161123063435) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(version: 20161120025232) do
   end
 
   create_table "housing_preferences", force: :cascade do |t|
-    t.integer  "family_id",      null: false
-    t.integer  "housing_type",   null: false
+    t.integer  "family_id",                   null: false
+    t.integer  "housing_type",                null: false
     t.string   "location1"
     t.string   "location2"
     t.string   "location3"
@@ -129,8 +129,11 @@ ActiveRecord::Schema.define(version: 20161120025232) do
     t.date     "confirmed_at"
     t.integer  "children_count"
     t.integer  "bedrooms_count"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "single_room"
+    t.string   "other_family"
+    t.boolean  "accepts_non_air_conditioned"
   end
 
   create_table "housing_units", force: :cascade do |t|

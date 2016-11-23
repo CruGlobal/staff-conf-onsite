@@ -1,13 +1,15 @@
 ActiveAdmin.register Family do
   include Families::Show
+  include Families::Form
 
   menu parent: 'People', priority: 1
 
   permit_params :last_name, :staff_number, :street, :city, :state, :zip,
                 :country_code, housing_preference_attributes: [
-                  :id, :housing_type, :children_count, :bedrooms_count,
-                  :location1, :location2, :location3, :beds_count, :roommates,
-                  :confirmed_at
+                  :id, :housing_type, :roommates, :beds_count, :single_room,
+                  :children_count, :bedrooms_count, :other_family,
+                  :accepts_non_air_conditioned, :location1, :location2,
+                  :location3, :confirmed_at
                 ]
 
   index do
@@ -23,44 +25,6 @@ ActiveAdmin.register Family do
     column :created_at
     column :updated_at
     actions
-  end
-
-  form title: ->(f) { "Edit #{PersonHelper.family_label(f)}" } do |f|
-    f.semantic_errors
-
-    f.inputs 'Basic Info' do
-      f.input :last_name
-      f.input :staff_number
-    end
-
-    f.inputs 'Address' do
-      f.input :street
-      f.input :city
-      f.input :state
-      f.input :country_code, as: :select, collection: country_select,
-                             include_blank: false
-      f.input :zip
-    end
-
-    # Housing Preference sub-form
-    for_housing_preference = [
-      :housing_preference,
-      f.object.housing_preference || f.object.build_housing_preference
-    ]
-    f.inputs 'Housing Preference', class: 'housing_preference_attributes',
-                                   for: for_housing_preference do |hp|
-      hp.input :housing_type, as: :select, collection: housing_type_select
-      hp.input :children_count, wrapper_html: { class: :apartments_only }
-      hp.input :bedrooms_count, wrapper_html: { class: :apartments_only }
-      hp.input :location1
-      hp.input :location2
-      hp.input :location3
-      hp.input :beds_count
-      hp.input :roommates
-      hp.input :confirmed_at, as: :datepicker
-    end
-
-    f.actions
   end
 
   filter :last_name_or_people_first_name_cont, label: 'Last Name or Family Member Name'

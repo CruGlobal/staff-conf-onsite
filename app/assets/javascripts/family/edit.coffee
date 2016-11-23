@@ -2,26 +2,23 @@ $ ->
   $form = $('#edit_family')
   return unless $form.length
 
-  setupApartmentOnlyFields($form.find('.housing_preference_attributes'))
+  setupHousinTypeDynamicFields($form.find('.housing_preference_attributes'))
   setupConfirmedAtToggleButton($form.find('.housing_preference_attributes'))
 
 
-# Some fields are only relevant when the user chooses "Apartment" from the
+# Some fields are only relevant when the user chooses a certain type from the
 # Housing Type select box. We hide/show those choices whenever the select's
 # value is changed.
-setupApartmentOnlyFields = ($form) ->
-  $select = $form.find('select[name="family[housing_preference_attributes][housing_type]"]')
-  $select.on 'change', -> hideApartmentOnlyFields($form, $select.val())
-  hideApartmentOnlyFields($form, $select.val())
+setupHousinTypeDynamicFields = ($form) ->
+  $select = $form.find('select[name$="[housing_type]"]')
+  $select.on 'change', -> showHideDynamicFields($form, $select.val())
+
+  showHideDynamicFields($form, $select.val())
 
 
-hideApartmentOnlyFields = ($form, currentValue) ->
-  apartmentEnumValue = "<%= HousingFacility.housing_types[:apartment] %>"
-
-  if currentValue == apartmentEnumValue
-    $form.find('.apartments_only').show()
-  else
-    $form.find('.apartments_only').hide()
+showHideDynamicFields = ($form, housingType) ->
+  $form.find('.dynamic-field').hide()
+  $form.find(".dynamic-field.for-#{housingType}").show()
 
 
 # One of the Housing Preference fields is "confirmed_at" the date at which the
