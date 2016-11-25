@@ -8,17 +8,23 @@ class Ministry < ApplicationRecord
   validates :code, uniqueness: true
   validate :no_self_parent
 
+  default_scope { includes :parent }
+
   # Ministries are structured in organizational hieararchy (think of an "org.
   # chart"), which each Ministry can have a hierarchy of "sub-ministries"
   # beneath it.
   #
+  # @param [ActiveRecord::Relation] relation The ministries to build the
+  #   hieararchy from. {#all} will be used if left nil.
   # @return [Hash<Ministry, Hash>] Each key is a Ministry record and each
   #   associated value is a hash of that ministry's descendants. If the ministry
   #   has no descendants (a leaf), this hash will be empty.
-  def self.hierarchy
+  def self.hierarchy(relation = nil)
+    relation ||= all
+
     hierarchy = {}
     subtrees = {}
-    ministries = all.to_a
+    ministries = relation.to_a
 
     while ministries.any?
       m = ministries.shift

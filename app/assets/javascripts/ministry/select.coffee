@@ -103,3 +103,4 @@ class DataMinistrySelectWidget
     $menu.on 'dropdown-after-select', (_, item) =>
       text = $decodeHtmlEntities.html(item.text).text()
       @$select.val(@labelIdMap[text])
+      @$select.trigger('change')
