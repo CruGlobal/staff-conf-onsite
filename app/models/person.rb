@@ -11,7 +11,7 @@ class Person < ApplicationRecord
   has_many :meal_exemptions
   has_many :stays
 
-  accepts_nested_attributes_for :stays
+  accepts_nested_attributes_for :stays, allow_destroy: true
 
   validates :family_id, presence: true
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }

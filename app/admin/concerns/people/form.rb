@@ -27,19 +27,23 @@ module People
     end
 
     STAY_SUBFORM ||= proc do |form|
-      panel 'Stays', 'data-housing_unit-container' => true do
+      panel 'Housing Assignments', 'data-housing_unit-container' => true do
         form.has_many :stays, heading: nil do |f|
           select_housing_unit_widget(f)
+
           f.input :arrived_at, as: :datepicker, datepicker_options: {
             changeYear: true, changeMonth: true
           }
           f.input :departed_at, as: :datepicker, datepicker_options: {
             changeYear: true, changeMonth: true
           }
+
           dynamic_stay_input(f, :percentage)
           dynamic_stay_input(f, :single_occupancy)
           dynamic_stay_input(f, :no_charge)
           dynamic_stay_input(f, :waive_minimum)
+
+          f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
         end
       end
     end

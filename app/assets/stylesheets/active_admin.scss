@@ -12,6 +12,7 @@
 @import "active_admin/base";
 
 @import "widgets/buttons";
+@import "widgets/inputs";
 
 // Specific Models
 // =================================
@@ -28,12 +29,6 @@
 @import "family/edit";
 
 
-// CK Editor Fixes
-// see https://github.com/activeadmin/activeadmin/wiki/Ckeditor-integration
-.cke_chrome {
-  width: 79.5% !important;
-  overflow: hidden;
-}
 
 // Telephone
 @import "intlTelInput";

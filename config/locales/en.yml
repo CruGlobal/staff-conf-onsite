@@ -76,6 +76,7 @@ en:
         no_charge: "Do not charge for this assignment"
         waive_minimum: "Waive the minimum stay when calculating the charge for this apartment"
         percentage: "Percentage of cost the occupant must pay"
+        _destroy: "Delete this record!"
 
   active_admin:
     dashboard:
