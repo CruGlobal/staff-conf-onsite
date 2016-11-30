@@ -5,7 +5,8 @@ ActiveAdmin.register HousingFacility do
   index do
     selectable_column
     column :id
-    column(:name) { |hf| h4 hf.name }
+    column :name
+    column(:housing_type) { |hf| hf.housing_type.titleize }
     column :cost_code
     column :cafeteria
     column :street
@@ -41,9 +42,12 @@ ActiveAdmin.register HousingFacility do
   form do |f|
     f.semantic_errors
 
-    f.inputs :name
-    f.inputs :cost_code, as: :select, collection: cost_code_select
-    f.inputs :cafeteria
+    f.inputs do
+      f.input :name
+      f.input :housing_type
+      f.input :cost_code, as: :select, collection: cost_code_select
+      f.input :cafeteria
+    end
 
     f.inputs 'Address' do
       f.input :street
@@ -56,6 +60,8 @@ ActiveAdmin.register HousingFacility do
   end
 
   filter :name
+  filter :cost_code
+  filter :cafeteria
   filter :street
   filter :city
   filter :state
