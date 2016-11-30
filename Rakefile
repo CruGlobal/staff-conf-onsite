@@ -29,4 +29,8 @@ if Rails.env.test?
 end
 
 # Documentation
-YARD::Rake::YardocTask.new if Rails.env.development?
+if Rails.env.development?
+  YARD::Rake::YardocTask.new do |t|
+    t.files = ['./app/**/*.rb']
+  end
+end

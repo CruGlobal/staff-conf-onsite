@@ -1,5 +1,11 @@
 FactoryGirl.define do
   factory :housing_facility do
+    housing_type do
+      HousingFacility.housing_types.
+        keys.
+        reject { |type| type == 'self_provided' }.
+        sample
+    end
     name { Faker::University.name }
     street { Faker::Address.street_address }
     city { Faker::Address.city }

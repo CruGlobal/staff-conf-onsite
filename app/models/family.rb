@@ -10,6 +10,7 @@ class Family < ApplicationRecord
 
   validates :last_name, :staff_number, presence: true
 
+  # @see PersonHelper.family_label
   def to_s
     PersonHelper.family_label(self)
   end

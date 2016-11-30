@@ -1,5 +1,5 @@
-# Provides the logic to authenticate the user via the remote CAS service.
-# ActiveAdmin is configured ([file:config/initializers/active_admin.rb]) to
+# Provides the logic to authenticate the {User current user} via the remote CAS
+# service.  ActiveAdmin is configured +config/initializers/active_admin.rb+ to
 # call {#authenticate_user!} when no user is currently logged in.
 #
 # It's not enough for the end-user to have logged in successfully to the remote
@@ -7,6 +7,14 @@
 module Authenticatable
   extend ActiveSupport::Concern
 
+  # A {filter}[http://guides.rubyonrails.org/action_controller_overview.html#filters]
+  # that checks if the user is currently logged in, on the remote CAS service,
+  # and that CAS user has a {User local account} in this system.
+  #
+  # * If the user is not logged into CAS, they will be redirected to the CAS
+  #   login page.
+  # * If the logged-in user doesn't have a {User local account}, they will be
+  #   shown an error message.
   def authenticate_user!
     if signed_into_cas?
       if user_matching_cas_session.present?
@@ -29,10 +37,13 @@ module Authenticatable
       end
   end
 
+  # @return [Object, nil] The value of the given attribute name from the {User
+  #   current user's} data from the CAS service.
   def cas_attr(attr)
     cas_extra_attributes.try(:[], attr)
   end
 
+  # @return [String, nil] The {User User's} email, from the CAS service.
   def cas_email
     request.session['cas'].try(:[], 'user')
   end

@@ -1,4 +1,5 @@
 module Attendees
+  # Defines the form for creating and editong {Attendee} records.
   module Form
     include People::Form
 
@@ -6,16 +7,24 @@ module Attendees
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
-        instance_exec(f, &AttendeeInputs)
-        instance_exec(f, attendee, &MealExemptionsSubform)
+        columns do
+          column do
+            instance_exec(f, &ATTENDEE_INPUTS)
+          end
+
+          column do
+            instance_exec(f, attendee, &STAY_SUBFORM)
+            instance_exec(f, attendee, &MEAL_EXEMPTIONS_SUBFORM)
+          end
+        end
 
         f.actions
       end
     end
 
-    AttendeeInputs = proc do |f|
+    ATTENDEE_INPUTS ||= proc do |f|
       f.inputs 'Basic' do
-        instance_exec(f, &FamilySelector)
+        instance_exec(f, &FAMILY_SELECTOR)
 
         f.input :student_number
         f.input :first_name

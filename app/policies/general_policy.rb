@@ -1,4 +1,5 @@
-# All users can Create, Read, Update, and Destroy records
+# Policy classes that extend this one will only allow all users to Create,
+# Update, Read, or Destroy records.
 class GeneralPolicy < ApplicationPolicy
   def index?
     true

@@ -1,15 +1,17 @@
 class User < ApplicationRecord
+  # The possible values of the +role+ attribute.
   ROLES = %w(general finance admin).freeze
 
   # Create scope and predicate method for each role. ex:
-  # - User.finance.first
-  # - @user.finance?
+  # - +User.finance.first+
+  # - +@user.finance?+
   ROLES.each do |role|
     scope role, -> { where(role: role) }
     define_method("#{role}?") { self.role == role }
   end
 
   validates :guid, presence: true
+  validates :role, inclusion: { in: ROLES }
 
   before_validation :fetch_cas_attributes, on: :create unless Rails.env.test?
 

@@ -1,2 +1,3 @@
-class CoursePolicy < ReadOnlyPolicy
+# The security policy for accessing {Course} records.
+class CoursePolicy < AdminOnlyPolicy
 end

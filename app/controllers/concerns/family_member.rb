@@ -1,3 +1,5 @@
+# This concern will set a record's +last_name+ attribute to its associated
+# {Family Family's} +last_name+ attribute, if it's not otherwise specified.
 module FamilyMember
   extend ActiveSupport::Concern
 

@@ -1,18 +1,23 @@
 module Attendees
+  # Defines the HTML for rendering a single {Attendee} record.
   module Show
     include People::ShowCostAdjustments
     include People::ShowMealExemptions
+    include People::ShowStays
 
     def self.included(base)
       base.send :show do
         columns do
-          instance_exec(&AttributesTable)
+          column do
+            instance_exec(&ATTRIBUTES_TABLE)
+            instance_exec(&CONFERENCES_PANEL)
+            instance_exec(&COURSES_PANEL)
+            instance_exec(attendee, &COST_ADJUSTMENTS_PANEL)
+          end
 
           column do
-            instance_exec(&ConferencesPanel)
-            instance_exec(&CoursesPanel)
-            instance_exec(attendee, &CostAdjustmentsPanel)
-            instance_exec(attendee, &MealExemptionsPanel)
+            instance_exec(attendee, &MEAL_EXEMPTIONS_PANEL)
+            instance_exec(attendee, &STAYS_PANEL)
           end
         end
 
@@ -20,33 +25,31 @@ module Attendees
       end
     end
 
-    AttributesTable = proc do
-      column do
-        attributes_table do
-          row :id
-          row(:student_number) { |a| code a.student_number }
-          row :first_name
-          row :last_name
-          row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-          row :birthdate
-          row('Age', sortable: :birthdate) { |a| age(a.birthdate) }
-          row(:gender) { |a| gender_name(a.gender) }
-          row(:email) { |a| mail_to(a.email) }
-          row(:phone) { |a| format_phone(a.phone) }
-          row :emergency_contact
-          row(:ministry) do |a|
-            if a.ministry_id.present?
-              link_to a.ministry.to_s, ministry_path(a.ministry_id)
-            end
+    ATTRIBUTES_TABLE ||= proc do
+      attributes_table do
+        row :id
+        row(:student_number) { |a| code a.student_number }
+        row :first_name
+        row :last_name
+        row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
+        row :birthdate
+        row('Age', sortable: :birthdate) { |a| age(a.birthdate) }
+        row(:gender) { |a| gender_name(a.gender) }
+        row(:email) { |a| mail_to(a.email) }
+        row(:phone) { |a| format_phone(a.phone) }
+        row :emergency_contact
+        row(:ministry) do |a|
+          if a.ministry_id.present?
+            link_to a.ministry.to_s, ministry_path(a.ministry_id)
           end
-          row :department
-          row :created_at
-          row :updated_at
         end
+        row :department
+        row :created_at
+        row :updated_at
       end
     end
 
-    ConferencesPanel = proc do
+    CONFERENCES_PANEL ||= proc do
       panel "Conferences (#{attendee.conferences.size})" do
         if attendee.conferences.any?
           ul do
@@ -60,7 +63,7 @@ module Attendees
       end
     end
 
-    CoursesPanel = proc do
+    COURSES_PANEL ||= proc do
       panel "Courses (#{attendee.courses.size})" do
         if attendee.courses.any?
           ul do

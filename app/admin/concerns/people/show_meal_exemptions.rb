@@ -1,6 +1,6 @@
 module People
   module ShowMealExemptions
-    MealExemptionsPanel = proc do |person|
+    MEAL_EXEMPTIONS_PANEL ||= proc do |person|
       panel "Meal Exemptions (#{person.meal_exemptions.size})" do
         if person.meal_exemptions.any?
           table do

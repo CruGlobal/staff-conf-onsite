@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  # The possible values for the +gender+ attribute.
   GENDERS = { f: 'Female', m: 'Male' }.freeze
 
   has_paper_trail
@@ -8,8 +9,12 @@ class Person < ApplicationRecord
 
   has_many :cost_adjustments
   has_many :meal_exemptions
+  has_many :stays
+
+  accepts_nested_attributes_for :stays
 
   validates :family_id, presence: true
+  validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
 
   def full_name
     "#{first_name} #{last_name}"

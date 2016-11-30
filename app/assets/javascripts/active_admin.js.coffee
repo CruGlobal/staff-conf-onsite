@@ -32,3 +32,9 @@
 #
 #  Family -----------------------------
 #= require family/edit
+#
+#  HousingUnit ------------------------
+#= require housing/select_housing_unit
+#
+#  Stay -------------------------------
+#= require stay/dynamic_fields

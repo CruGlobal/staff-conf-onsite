@@ -14,11 +14,11 @@ class Ministry < ApplicationRecord
   # chart"), which each Ministry can have a hierarchy of "sub-ministries"
   # beneath it.
   #
-  # @param [ActiveRecord::Relation] relation The ministries to build the
-  #   hieararchy from. {#all} will be used if left nil.
-  # @return [Hash<Ministry, Hash>] Each key is a Ministry record and each
+  # @param relation [ActiveRecord::Relation] the ministries to build the
+  #   hieararchy from. +all+ will be used if left +nil+
+  # @return [Hash<Ministry, Hash>] each key is a Ministry record and each
   #   associated value is a hash of that ministry's descendants. If the ministry
-  #   has no descendants (a leaf), this hash will be empty.
+  #   has no descendants (a leaf), this hash will be empty
   def self.hierarchy(relation = nil)
     relation ||= all
 

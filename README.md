@@ -5,22 +5,71 @@ CRU staff to enter details for the CRU Conference.
 
 ## Development
 
+### Set up Your Development Environment
+
+Check-out the repository and rubygem dependencies.
+
+```sh
+git co git@github.com:CruGlobal/staff-conf-onsite.git && cd staff-conf-onsite
+bundle
+```
+
+Before settings up the database, you need to setup the CAS credentials
+necessary to seed the development user records. These test accounts have real
+records on the [TheKey.me](https://thekey.me/cas/login) server and they are
+downloaded when the records are persisted. See the [Authentication
+Section](#authentication) section for instructions.
+
+Finally, setup the database and start the development server.
+
+```sh
+./bin/rake db:setup
+./bin/rails server
+```
+
 ### Populate DB with Fake Data
+
+This application is mainly concerned with data-entry and report creation. It
+can be very tedious to create the data required to do any real manual testing.
+You can use `FactoryGirl` to generate a number of fake records in the
+development DB.
+
 ```sh
 bin/rake dev:populate
 ```
 
 ### Generate Documentation
+
+If you're unfamiliar with this codebase, the HTML documentation is a very
+useful resource. After running the following command, navigate your browser to
+`./doc/index.html`.
+
 ```sh
 bin/rake yard
 ```
 
-## Redis
+## Linting and Testing
 
-[Redis](http://redis.io/) is required to run this application, even in
-development mode.
+The default `rake` task will lint the codebase with
+[RuboCop](https://github.com/bbatsov/rubocop) and
+[Reek](https://github.com/troessner/reek), then run the automated tests.
 
-## Authentication
+```sh
+bin/rake
+bin/rake test  # skip the linters
+```
+
+When writing code, you can use [Guard](https://github.com/guard/guard) for
+continuous testing. With Guard, whenever a file is updated, any tests
+associated with that file are automatically run.
+
+```sh
+bundle exec guard
+```
+
+## Application Concepts
+
+### Authentication
 
 Instead of storing passwords locally, this project uses the
 [CAS](https://en.wikipedia.org/wiki/Central_Authentication_Service) single
@@ -50,12 +99,3 @@ role, with a real CAS account:
   * **General**: `jon.sangster+general@ballistiq.com`
 
 Each account uses the password `CRUstaff2016`
-
-## Testing
-
-In development mode you can use [Guard](https://github.com/guard/guard) for
-continuous testing:
-
-```sh
-bundle exec guard
-```

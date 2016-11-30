@@ -1,6 +1,6 @@
 module People
   module ShowCostAdjustments
-    CostAdjustmentsPanel = proc do |person|
+    COST_ADJUSTMENTS_PANEL ||= proc do |person|
       panel "Cost Adjustments (#{person.cost_adjustments.size})" do
         if person.cost_adjustments.any?
           ul do

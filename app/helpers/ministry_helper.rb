@@ -1,11 +1,11 @@
 module MinistryHelper
   module_function
 
-  # Wraps Formtastic's `form.input :ministry, as: :select` helper, so that our
+  # Wraps Formtastic's +form.input :ministry, as: :select+ helper, so that our
   # custom jQuery widget can replace the select with a nicer UI widget.
   #
-  # @param [Formtastic Form] form The form DSL object
-  # @param [Symbol] attribute_name The name of the association attribute
+  # @param form [Formtastic Form] the form DSL object
+  # @param attribute_name [Symbol] the name of the association attribute
   # @see app/assets/javascripts/ministry/select.coffee
   def select_ministry_widget(form, attribute_name = :ministry)
     ministries = Ministry.all
@@ -22,20 +22,20 @@ module MinistryHelper
     )
   end
 
-  # @param [ActiveRecord::Relation] relation The ministries to build the
-  #   hieararchy from.
-  # @param [Hash<Ministry, Hash>] hierarchy The hierarchy to render. If +nil+,
+  # @param relation [ActiveRecord::Relation] the ministries to build the
+  #   hieararchy from
+  # @param hierarchy [Hash<Ministry, Hash>] the hierarchy to render. If +nil+,
   #   will default to {Ministry#hierarchy}
-  # @return [Hash<Fixnum, Hash] A map of IDs to sub-trees. Each key is the DB
+  # @return [Hash<Fixnum, Hash] a map of IDs to sub-trees. Each key is the DB
   #   ID of a ministry, and each value is a sub-tree, representing the hierarchy
   #   of ministries "beneath" this one in the organizational structure. That
   #   sub-tree may be empty
-  def ministry_hierarchy(ministries, hierarchy = nil)
-    hierarchy ||= Ministry.hierarchy(ministries)
+  def ministry_hierarchy(relation, hierarchy = nil)
+    hierarchy ||= Ministry.hierarchy(relation)
 
     {}.tap do |h|
       hierarchy.each do |ministry, subtree|
-        h[ministry.id] = ministry_hierarchy(ministries, subtree)
+        h[ministry.id] = ministry_hierarchy(relation, subtree)
       end
     end
   end

@@ -1,7 +1,7 @@
 module People
   # Defines the view for the Meal Exemptions subform, nested in a Person's form.
   module FormMealExemptions
-    MealExemptionsSubform = proc do |f, person|
+    MEAL_EXEMPTIONS_SUBFORM ||= proc do |f, person|
       f.inputs 'Meal Exemptions', class: 'meal_exemptions_attributes' do
         # This warning is hidden via Javascript
         h4 class: 'meal_exemptions_attributes__warning' do
@@ -26,7 +26,7 @@ module People
             # |     Date     |  Breakfast  |   Lunch     |  Dinner   |
             # |  October 20  |  [EXEMPT]   |  [EXEMPT]  |  [EXEMPT]  |
             person.meal_exemptions.order_by_date.each do |date, types|
-              instance_exec(person, date, types, next_index, &DateTableRow)
+              instance_exec(person, date, types, next_index, &DATE_TABLE_ROW)
               next_index += 1
             end
 
@@ -40,7 +40,7 @@ module People
       end
     end
 
-    DateTableRow = proc do |person, date, types, index|
+    DATE_TABLE_ROW ||= proc do |person, date, types, index|
       tr do
         td { strong l date, format: :month }
 

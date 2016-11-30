@@ -1,21 +1,26 @@
 # This service accepts a "ruby representation" of a spreadsheet containing a
 # list of code/name pairs. Each row represents either a new or existing
-# {Ministry Ministry's} `code` and `name`. If a {Ministry} already exists with
-# the given `code`, it's `name` will be updated with the name given in the
+# {Ministry Ministry's} +code+ and +name+. If a {Ministry} already exists with
+# the given +code+, it's +name+ will be updated with the name given in the
 # spreadsheet.
 #
 # The {ReadSpreadsheet} service can convert an uploaded file into the
 # representation expected by this service. See its documentation for a
 # description of the spreadsheet "ruby representation."
+#
+# == Context Input
+#
+# [+context.sheets+ [+Enumerable+]]
+#   a ruby-representation of the uploaded spreadsheet file.  See
+#   {ReadSpreadsheet}
 class CreateOrUpdateMinistries
-  # @!attribute context.sheets
-  #   @return [Enumerable] A ruby-representation of the uploaded spreadsheet
-  #     file
-
   include Interactor
 
   Error = Class.new(StandardError)
 
+  # Create or update each {Ministry} referenced in the given sheets.
+  #
+  # @return [Interactor::Context]
   def call
     Ministry.transaction do
       context.sheets.each { |rows| parse_ministry_rows(rows) }

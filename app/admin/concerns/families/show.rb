@@ -1,22 +1,23 @@
 module Families
+  # Defines the HTML for rendering a single {Family} record.
   module Show
     def self.included(base)
       base.send :show, title: ->(f) { PersonHelper.family_label(f) } do
         columns do
           column do
-            instance_exec(&AttributesTable)
-            instance_exec(&HousingPreferencesTable)
+            instance_exec(&ATTRIBUTES_TABLE)
+            instance_exec(&HOUSING_PREFERENCES_TABLE)
           end
           column do
-            instance_exec(&AttendeesList)
-            instance_exec(&ChildrenList)
+            instance_exec(&ATTENDEES_LIST)
+            instance_exec(&CHILDREN_LIST)
           end
         end
         active_admin_comments
       end
     end
 
-    AttributesTable = proc do
+    ATTRIBUTES_TABLE ||= proc do
       attributes_table do
         row :id
         row :last_name
@@ -31,12 +32,12 @@ module Families
       end
     end
 
-    HousingPreferencesTable = proc do
+    HOUSING_PREFERENCES_TABLE ||= proc do
       panel 'Housing Preference' do
         attributes_table_for family.housing_preference do
           row(:housing_type) { |hp| housing_type_name(hp) }
 
-          instance_exec(&HousingTypeFieldRows)
+          instance_exec(&HOUSING_TYPE_FIELD_ROWS)
 
           row :confirmed_at do |hp|
             if hp.confirmed_at.present?
@@ -49,25 +50,17 @@ module Families
       end
     end
 
-    HousingTypeFieldRows = proc do
+    HOUSING_TYPE_FIELD_ROWS ||= proc do
       housing_type = family.housing_preference.housing_type.to_sym
 
       HousingPreference::HOUSING_TYPE_FIELDS.each do |attr, types|
-        next unless types.include?(housing_type)
-
-        row(attr) do |hp|
-          value = hp.send(attr)
-
-          case HousingPreference.columns_hash[attr.to_s].type
-          when :text then simple_format(value)
-          when :boolean then status_tag(value ? :yes : :no)
-          else value
-          end
+        if types.include?(housing_type)
+          row(attr) { |hp| simple_format_attr(hp, attr) }
         end
       end
     end
 
-    AttendeesList = proc do
+    ATTENDEES_LIST ||= proc do
       attendees = family.attendees.load
 
       panel 'Attendees' do
@@ -83,7 +76,7 @@ module Families
       end
     end
 
-    ChildrenList = proc do
+    CHILDREN_LIST ||= proc do
       children = family.children.load
 
       panel 'Children' do
