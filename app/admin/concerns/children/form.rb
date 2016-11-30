@@ -29,7 +29,7 @@ module Children
         f.input :gender, as: :select, collection: gender_select
         f.input :birthdate, as: :datepicker, datepicker_options:
           { changeYear: true, changeMonth: true }
-        f.input :grade_level
+        f.input :grade_level, as: :select, collection: grade_level_select
         f.input :parent_pickup
         f.input :needs_bed
 

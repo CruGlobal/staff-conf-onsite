@@ -1,4 +1,6 @@
 module PersonHelper
+  I18N_CHILD_PREFIX = 'activerecord.attributes.child'.freeze
+
   # @return [Family,nil] the family specified by the +family_id+ query param
   def param_family
     @param_family ||=
@@ -17,18 +19,35 @@ module PersonHelper
     Person::GENDERS[g.to_sym]
   end
 
-  # @param dob [Date]
-  # @return [Fixnum, nil] the age, in years, of a person born on the given date,
-  #   or nil if the given date is nil
-  def age(dob)
-    return nil if dob.nil?
-
-    now = Time.now.utc.to_date
-
-    now.year - dob.year - (after_birthday(dob, now) ? 0 : 1)
+  # Creates an HTML element showing the given person's age, with a mouse-over
+  # +title+, reminding them that the date was calculated as of
+  # {Person::AGE_AS_OF}, and not the current date.
+  #
+  # @return [String] An HTML +<span>+ wrapping {#age}
+  def age_label(dob)
+    Arbre::Context.new do
+      span title: "As of #{I18n.l(Person::AGE_AS_OF, format: :month)}" do
+        PersonHelper.age(dob)
+      end
+    end
   end
 
-  def after_birthday(dob, now)
+  # @param dob [Date]
+  # @return [Fixnum, nil] the age, in years, of a person born on the given
+  #   date, or +nil+ if the given date is +nil+
+  # @see Person::AGE_AS_OF
+  def age(dob)
+    dob = dob.birthdate if dob.is_a?(Person)
+    return nil if dob.nil?
+
+    as_of = Person::AGE_AS_OF
+
+    as_of.year - dob.year - (after_birthday?(dob, as_of) ? 0 : 1)
+  end
+
+  # @return [Boolean] +true+ if +now+ is temporalily "after" +dob+, ingoring
+  #   the +year+ of each
+  def after_birthday?(dob, now)
     now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
   end
 
@@ -57,6 +76,28 @@ module PersonHelper
       family_label(person.family)
     else
       "#{person.last_name} (#{family_label(person.family)})"
+    end
+  end
+
+  # @return [Array<[label, key]>] a map of {Child::GRADE_LEVELS keys} and their
+  #   descriptions
+  def grade_level_select
+    Child::GRADE_LEVELS.map do |key|
+      [grade_level_label(key), key]
+    end
+  end
+
+  # @param obj [Person, String] either a {Person} or the value of that person's
+  #   +grade_level+ attribute
+  # @return [String] a description of the person's grade level.
+  def grade_level_label(obj)
+    case obj
+    when Person
+      grade_level_label(obj.grade_level)
+    when nil
+      nil
+    else
+      I18n.t("#{I18N_CHILD_PREFIX}.grade_levels.#{obj}")
     end
   end
 end

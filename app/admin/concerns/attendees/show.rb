@@ -33,7 +33,7 @@ module Attendees
         row :last_name
         row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
         row :birthdate
-        row('Age', sortable: :birthdate) { |a| age(a.birthdate) }
+        row(:age, sortable: :birthdate) { |a| age_label(a) }
         row(:gender) { |a| gender_name(a.gender) }
         row(:email) { |a| mail_to(a.email) }
         row(:phone) { |a| format_phone(a.phone) }
