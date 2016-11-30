@@ -1,6 +1,7 @@
 ActiveAdmin.register CostCode do
   permit_params :name, :description, :min_days, charges_attributes: [
-    :id, :max_days, :adult, :teen, :child, :infant, :child_meal, :single_delta
+    :id, :_destroy, :max_days, :adult, :teen, :child, :infant, :child_meal,
+    :single_delta
   ]
 
   index do
@@ -64,12 +65,15 @@ ActiveAdmin.register CostCode do
         panel 'Charges' do
           f.has_many :charges, heading: nil do |cf|
             cf.input :max_days
+
             money_input_widget(cf, :adult)
             money_input_widget(cf, :teen)
             money_input_widget(cf, :child)
             money_input_widget(cf, :infant)
             money_input_widget(cf, :child_meal)
             money_input_widget(cf, :single_delta)
+
+            cf.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
           end
         end
       end

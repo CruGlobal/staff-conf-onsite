@@ -41,6 +41,7 @@ en:
         infant: "Infant $/day"
         child_meal: "Child Meal Only $/day"
         single_delta: "Single Upcharge $/day"
+        _destroy: "Delete this record!"
       child:
         childcare_week_numbers:
           none: No Childcare Needed
