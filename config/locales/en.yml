@@ -31,6 +31,16 @@ en:
           other: Versions
 
     attributes:
+      cost_code:
+        min_days: "Minimum Stay"
+      cost_code_charge:
+        max_days: "Maximum Stay"
+        adult: "Adult $/day"
+        teen: "Teen $/day"
+        child: "Child $/day"
+        infant: "Infant $/day"
+        child_meal: "Child Meal Only $/day"
+        single_delta: "Single Upcharge $/day"
       child:
         childcare_week_numbers:
           none: No Childcare Needed
