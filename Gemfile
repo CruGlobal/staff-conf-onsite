@@ -68,6 +68,7 @@ group :development do
   # Development Server
   gem 'spring'
   gem 'web-console', '~> 2.0'
+  gem 'pry-rails', '~> 0.3.4'
 
   # Deployment
   # TODO gem 'capistrano-rails'

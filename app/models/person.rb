@@ -2,6 +2,10 @@ class Person < ApplicationRecord
   # The possible values for the +gender+ attribute.
   GENDERS = { f: 'Female', m: 'Male' }.freeze
 
+  # Whenever we calculate someone's age, it's as-of this date, and not the
+  # current calendar date.
+  AGE_AS_OF = Date.parse('2017-06-01').freeze
+
   has_paper_trail
 
   belongs_to :family

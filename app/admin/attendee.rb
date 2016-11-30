@@ -29,7 +29,7 @@ ActiveAdmin.register Attendee do
     column :last_name
     column(:family) { |a| link_to family_label(a.family), family_path(a.family) }
     column :birthdate
-    column('Age', sortable: :birthdate) { |a| age(a.birthdate) }
+    column(:age, sortable: :birthdate) { |a| age(a) }
     column(:gender) { |a| gender_name(a.gender) }
     column(:email) { |a| mail_to(a.email) }
     column(:phone) { |a| format_phone(a.phone) }

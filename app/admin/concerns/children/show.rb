@@ -29,8 +29,8 @@ module Children
         row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
         row(:gender) { |c| gender_name(c.gender) }
         row :birthdate
-        row('Age', sortable: :birthdate) { |c| age(c.birthdate) }
-        row :grade_level
+        row(:age, sortable: :birthdate) { |c| age_label(c) }
+        row(:grade_level) { |c| grade_level_label(c) }
         row(:childcare_weeks) { |c| childcare_weeks_list(c) }
         row :parent_pickup
         row :needs_bed

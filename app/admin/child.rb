@@ -26,8 +26,8 @@ ActiveAdmin.register Child do
     column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     column(:gender) { |c| gender_name(c.gender) }
     column :birthdate
-    column('Age', sortable: :birthdate) { |c| age(c.birthdate) }
-    column :grade_level
+    column(:age, sortable: :birthdate) { |c| age(c) }
+    column(:grade_level) { |c| grade_level_label(c) }
     column :parent_pickup
     column :needs_bed
     column :created_at
