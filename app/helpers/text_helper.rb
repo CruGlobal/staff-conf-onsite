@@ -27,4 +27,9 @@ module TextHelper
   rescue
     number
   end
+
+  def strip_tags(html)
+    @sanitizer ||= Rails::Html::Sanitizer.full_sanitizer.new
+    @sanitizer.sanitize(html, encode_special_chars: false)
+  end
 end

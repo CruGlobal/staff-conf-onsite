@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130080106) do
+ActiveRecord::Schema.define(version: 20161130090127) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -140,7 +140,11 @@ ActiveRecord::Schema.define(version: 20161130080106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "housing_type",           default: 0, null: false
+    t.integer  "cost_code_id"
+    t.string   "cafeteria"
   end
+
+  add_index "housing_facilities", ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id"
 
   create_table "housing_preferences", force: :cascade do |t|
     t.integer  "family_id",                   null: false

@@ -1,10 +1,13 @@
 ActiveAdmin.register HousingFacility do
-  permit_params :name, :street, :city, :state, :country_code, :zip
+  permit_params :name, :cost_code_id, :street, :city, :state, :country_code,
+                :zip
 
   index do
     selectable_column
     column :id
     column(:name) { |hf| h4 hf.name }
+    column :cost_code
+    column :cafeteria
     column :street
     column :city
     column :state
@@ -18,10 +21,29 @@ ActiveAdmin.register HousingFacility do
     actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row(:housing_type) { |hf| hf.housing_type.titleize }
+      row(:cost_code) { |hf| link_to(hf.cost_code, hf.cost_code) if hf.cost_code }
+      row :cafeteria
+      row :city
+      row :state
+      row :street
+      row(:country_code) { |hf| country_name(hf.country_code) }
+      row :zip
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form do |f|
     f.semantic_errors
 
     f.inputs :name
+    f.inputs :cost_code, as: :select, collection: cost_code_select
+    f.inputs :cafeteria
 
     f.inputs 'Address' do
       f.input :street
