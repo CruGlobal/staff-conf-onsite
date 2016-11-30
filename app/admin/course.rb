@@ -69,7 +69,7 @@ ActiveAdmin.register Course do
     f.inputs do
       f.input :name
       f.input :instructor
-      f.input :price, as: :string
+      money_input_widget(f, :price)
       f.input :description, as: :ckeditor
       f.input :week_descriptor
       f.input :ibs_code

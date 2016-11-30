@@ -35,7 +35,7 @@ ActiveAdmin.register CostAdjustment do
     f.inputs do
       f.input :person
       f.input :cost_type, as: :select, collection: cost_type_select
-      f.input :price, as: :string
+      money_input_widget(f, :price)
       f.input :description, as: :ckeditor
     end
     f.actions
