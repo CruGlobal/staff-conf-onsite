@@ -1,4 +1,5 @@
 module Children
+  # Defines the HTML for rendering a single {Child} record.
   module Show
     include People::ShowCostAdjustments
     include People::ShowMealExemptions
@@ -7,12 +8,12 @@ module Children
       base.send :show do
         columns do
           column do
-            instance_exec(&AttributesTable)
+            instance_exec(&ATTRIBUTES_TABLE)
           end
 
           column do
-            instance_exec(child, &CostAdjustmentsPanel)
-            instance_exec(child, &MealExemptionsPanel)
+            instance_exec(child, &COST_ADJUSTMENTS_PANEL)
+            instance_exec(child, &MEAL_EXEMPTIONS_PANEL)
           end
         end
 
@@ -20,7 +21,7 @@ module Children
       end
     end
 
-    AttributesTable = proc do
+    ATTRIBUTES_TABLE ||= proc do
       attributes_table do
         row :id
         row :first_name

@@ -20,12 +20,27 @@
 # This service expects this spreadsheet to be an +Enumerable+ of "sheets",
 # where each sheet is an +Enumerable+ or "rows," where each row is an
 # +Enumerable+ of "cells" in that row, and each cell is a +String+.
+#
+# == Context Input
+#
+# [+context.file+ [+ActionDispatch::Http::UploadedFile+]]
+#   a file uploaded to the server by a {User}
+#
+# == Context Output
+#
+# [+context.sheets+ [+Enumerable+]]
+#   a ruby-representation of the uploaded spreadsheet file
 class ReadSpreadsheet
   include Interactor
 
   Error = Class.new(StandardError)
   TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
 
+  # Convert the uploaded file into a list of rows, each of which is a list of
+  # cells (+strings+) in that row. This service will +fail!+ if the uploaded
+  # file is not a a compatible spreadsheet file.
+  #
+  # @return [Interactor::Context]
   def call
     reader = open(context.file)
     sheets = reader.sheets.map { |name| reader.sheet(name) }

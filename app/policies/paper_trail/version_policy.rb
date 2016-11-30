@@ -1,5 +1,6 @@
 module PaperTrail
-  class VersionPolicy < ReadOnlyPolicy
+  # The security policy for accessing {VersionPolicy} records.
+  class VersionPolicy < AdminOnlyPolicy
     def create?
       false # these should be managed by PaperTrail
     end

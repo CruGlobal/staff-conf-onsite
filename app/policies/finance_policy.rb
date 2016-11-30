@@ -1,4 +1,6 @@
-# Finance and Admin users can Create, Read, Update, or Destroy records
+# Policy classes that extend this one will only allow Finance and Admin users
+# to Create, Update, or Destroy records. General users will still be able to
+# read these records.
 class FinancePolicy < ApplicationPolicy
   def index?
     true

@@ -2,8 +2,8 @@ module Monetizable
   extend ActiveSupport::Concern
 
   included do
-    # Wraps the 'money-rails' gem to work with input provided by the jQuery
-    # format_price Javascript input. ex: "US$ 1,234.56"
+    # Wraps the +money-rails+ gem to work with input provided by the jQuery
+    # format_price Javascript input. ex: +US$ 1,234.56+
     #
     # @see https://github.com/RubyMoney/money-rails
     # @see http://jquerypriceformat.com

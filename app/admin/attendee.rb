@@ -15,6 +15,9 @@ ActiveAdmin.register Attendee do
     :student_number, :gender, :department, :family_id, :birthdate, :ministry_id,
     conference_ids: [], course_ids: [], meal_exemptions_attributes: [
       :id, :_destroy, :date, :meal_type
+    ], stays_attributes: [
+      :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
+      :single_occupancy, :no_charge, :waive_minimum, :percentage
     ]
   )
 

@@ -8,15 +8,16 @@ class Child < Person
 
   validates :family_id, presence: true
 
-  # @return [Array<Integer>] A list of indexes from the CHILDCARE_WEEKS array
+  # @return [Array<Fixnum>] a list of indexes from the
+  #   {Childcare::CHILDCARE_WEEKS} array
   def childcare_weeks
     if (week = self[:childcare_weeks])
       week.split(',').map(&:to_i)
     end
   end
 
-  # @param [Array<Integer>] arr A list of indexes from the CHILDCARE_WEEKS array
-  # @see Childcare#CHILDCARE_WEEKS
+  # @param arr [Array<Fixnum>] a subset of indexes from the
+  #   {Childcare::CHILDCARE_WEEKS} array
   def childcare_weeks=(arr)
     arr ||= []
     self[:childcare_weeks] = arr && arr.select(&:present?).sort.join(',')

@@ -15,10 +15,10 @@ $ ->
 
 
 class DataMinistrySelectWidget
-  # @param {JQuery} - The element to control with this widget.
+  # @param {JQuery} $select - The element to control with this widget.
   # @param {Object.<number, Object>} hierarchy - A tree where each key is a
   #   Ministry's DB ID and each value is an object containing a sub-tree. A
-  #   Ministry's sub-tree regresents all the others ministries in its
+  #   Ministry's sub-tree represents all the others ministries in its
   #   organisation.
   # @param {Object.<number, string>} labels - A map of Ministry DB IDs to their
   #   name.
@@ -26,6 +26,7 @@ class DataMinistrySelectWidget
     @labelIdMap = @_swapKeysWithValues(@labels)
 
 
+  # @return {Object} An object withe the keys and values swapped.
   _swapKeysWithValues: (obj) ->
     newObj = {}
     for k, v of obj
@@ -33,6 +34,7 @@ class DataMinistrySelectWidget
     newObj
 
 
+  # Creates the UI widget and replaces the HTML select element with it
   replaceCodeSelectWithMultiLevelSelect: ->
     @hideSelector()
 
@@ -103,3 +105,4 @@ class DataMinistrySelectWidget
     $menu.on 'dropdown-after-select', (_, item) =>
       text = $decodeHtmlEntities.html(item.text).text()
       @$select.val(@labelIdMap[text])
+      @$select.trigger('change')

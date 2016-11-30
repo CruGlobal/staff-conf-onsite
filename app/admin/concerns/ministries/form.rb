@@ -1,4 +1,5 @@
 module Ministries
+  # Defines the form for creating and editong {Ministry} records.
   module Form
     def self.included(base)
       create_spreadsheet_upload_actions(base)
@@ -25,10 +26,11 @@ module Ministries
     end
 
     # Creates a POST action to process an uploaded spreadsheet file.
-    # @param [Class] base The ActiveAdmin resource class to add the actions to
-    # @param [Symbol,String] action The name of the action
-    # @param [Interactor] interactor - The service object which will process
-    #   the upload
+    #
+    # @param base [Class] The ActiveAdmin resource class to add the actions to.
+    # @param action [Symbol,String] The name of the action.
+    # @param interactor [Interactor] The service object which will process the
+    #   upload.
     def self.create_import_action(base, action, interactor)
       base.send :collection_action, "import_#{action}", method: :post do
         res =

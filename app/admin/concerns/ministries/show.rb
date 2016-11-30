@@ -1,24 +1,25 @@
 module Ministries
+  # Defines the HTML for rendering a single {Ministry} record.
   module Show
     def self.included(base)
       base.send :show do
         columns do
           column do
-            instance_exec(&AttributesTable)
+            instance_exec(&ATTRIBUTES_TABLE)
           end
 
           column do
             if ministry.ancestors.any? || ministry.children.any?
-              instance_exec(&MinistryHierarchy)
+              instance_exec(&MINISTRY_HIERARCHY)
             end
 
-            instance_exec(&MembersPanel)
+            instance_exec(&MEMBERS_PANEL)
           end
         end
       end
     end
 
-    MembersPanel = proc do
+    MEMBERS_PANEL ||= proc do
       num_members = ministry.people.size
 
       panel "Members (#{num_members})" do
@@ -34,7 +35,7 @@ module Ministries
       end
     end
 
-    MinistryHierarchy = proc do
+    MINISTRY_HIERARCHY ||= proc do
       panel 'Hierarchy' do
         div class: 'ministry__hierarchy' do
           if ministry.ancestors.any?
@@ -60,7 +61,7 @@ module Ministries
       end
     end
 
-    AttributesTable = proc do
+    ATTRIBUTES_TABLE ||= proc do
       attributes_table do
         row :id
         row :code

@@ -1,4 +1,5 @@
 module Children
+  # Defines the form for creating and editong {Show} records.
   module Form
     include People::Form
 
@@ -6,16 +7,16 @@ module Children
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
-        instance_exec(f, &AttendeeInputs)
-        instance_exec(f, child, &MealExemptionsSubform)
+        instance_exec(f, &ATTENDEE_INPUTS)
+        instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
 
         f.actions
       end
     end
 
-    AttendeeInputs = proc do |f|
+    ATTENDEE_INPUTS ||= proc do |f|
       f.inputs do
-        instance_exec(f, &FamilySelector)
+        instance_exec(f, &FAMILY_SELECTOR)
 
         f.input :first_name
 

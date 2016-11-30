@@ -1,5 +1,5 @@
 module PersonHelper
-  # @return [Family,nil] The family specified by the `family_id` query param
+  # @return [Family,nil] the family specified by the +family_id+ query param
   def param_family
     @param_family ||=
       if (id = params[:family_id])
@@ -32,6 +32,9 @@ module PersonHelper
     now.month > dob.month || (now.month == dob.month && now.day >= dob.day)
   end
 
+  # @return [String] a string which attempts to uniquely identify the given
+  #  family, using its +last_name+ and the +first_name+ of each of its {Attendee
+  #  attendees}
   def family_label(family)
     "#{family.last_name}: #{family_attendees_sentence(family)}"
   end

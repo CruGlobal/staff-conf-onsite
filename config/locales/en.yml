@@ -70,6 +70,13 @@ en:
         location2: "Preferred Location #2"
         location3: "Preferred Location #3"
         confirmed_at: Confirmed by Admin
+      stay:
+        arrived_at: Arrival date
+        departed_at: Departure date
+        no_charge: "Do not charge for this assignment"
+        waive_minimum: "Waive the minimum stay when calculating the charge for this apartment"
+        percentage: "Percentage of cost the occupant must pay"
+        _destroy: "Delete this record!"
 
   active_admin:
     dashboard:
