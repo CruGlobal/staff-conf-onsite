@@ -61,7 +61,7 @@ ActiveAdmin.register Conference do
     f.semantic_errors
     f.inputs do
       f.input :name
-      f.input :price, as: :string
+      money_input_widget(f, :price)
       f.input :description, as: :ckeditor
       f.input :start_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
       f.input :end_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }

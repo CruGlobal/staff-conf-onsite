@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123173746) do
+ActiveRecord::Schema.define(version: 20161130080106) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -69,6 +69,30 @@ ActiveRecord::Schema.define(version: 20161123173746) do
   end
 
   add_index "cost_adjustments", ["person_id"], name: "index_cost_adjustments_on_person_id"
+
+  create_table "cost_code_charges", force: :cascade do |t|
+    t.integer  "cost_code_id"
+    t.integer  "max_days",           default: 0
+    t.integer  "adult_cents",        default: 0
+    t.integer  "teen_cents",         default: 0
+    t.integer  "child_cents",        default: 0
+    t.integer  "infant_cents",       default: 0
+    t.integer  "child_meal_cents",   default: 0
+    t.integer  "single_delta_cents", default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "cost_code_charges", ["cost_code_id", "max_days"], name: "index_cost_code_charges_on_cost_code_id_and_max_days", unique: true
+  add_index "cost_code_charges", ["cost_code_id"], name: "index_cost_code_charges_on_cost_code_id"
+
+  create_table "cost_codes", force: :cascade do |t|
+    t.string   "name",                    null: false
+    t.text     "description"
+    t.integer  "min_days",    default: 1, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "course_attendances", force: :cascade do |t|
     t.integer  "course_id"
