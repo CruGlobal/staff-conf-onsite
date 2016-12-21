@@ -7,10 +7,11 @@ module ApplicationHelper
   # @return [Arbre::Context] a formatted representation of the given attribute
   def simple_format_attr(record, attribute)
     value = record.send(attribute)
+    helper = self
 
     Arbre::Context.new do
       case record.class.columns_hash[attribute.to_s].type
-      when :text then div(simple_format(value))
+      when :text then div(helper.simple_format(value))
       when :boolean then status_tag(value ? :yes : :no)
       when :date then text_node(I18n.l(value, format: :month))
       else text_node(value)
