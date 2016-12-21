@@ -5,7 +5,8 @@ ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
   permit_params :last_name, :staff_number, :street, :city, :state, :zip,
-                :country_code, housing_preference_attributes: [
+                :country_code, :registration_comment,
+                housing_preference_attributes: [
                   :id, :housing_type, :roommates, :beds_count, :single_room,
                   :children_count, :bedrooms_count, :other_family,
                   :accepts_non_air_conditioned, :location1, :location2,
@@ -22,6 +23,7 @@ ActiveAdmin.register Family do
     column :state
     column(:country_code) { |f| country_name(f.country_code) }
     column :zip
+    column(:registration_comment) { |f| html_summary(f.registration_comment) }
     column :created_at
     column :updated_at
     actions
@@ -33,6 +35,7 @@ ActiveAdmin.register Family do
   filter :state
   filter :country_code, as: :select, collection: CountryHelper.country_select
   filter :zip
+  filter :registration_comment
   filter :created_at
   filter :updated_at
 

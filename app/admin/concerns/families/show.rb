@@ -11,12 +11,12 @@ module Families
           column do
             instance_exec(&ATTENDEES_LIST)
             instance_exec(&CHILDREN_LIST)
+            instance_exec(&REGISTRATION_COMMENT)
           end
         end
         active_admin_comments
       end
     end
-
     ATTRIBUTES_TABLE ||= proc do
       attributes_table do
         row :id
@@ -89,6 +89,12 @@ module Families
         else
           strong 'None'
         end
+      end
+    end
+
+    REGISTRATION_COMMENT ||= proc do
+      panel 'Registration Comment' do
+        html_full(family.registration_comment) || strong('N/A')
       end
     end
   end

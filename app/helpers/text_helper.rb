@@ -15,7 +15,7 @@ module TextHelper
   # @return [string] an HTML-safe version of the given string
   def html_full(html)
     # rubocop:disable Rails/OutputSafety
-    html.html_safe
+    html.html_safe if html.present?
   end
 
   def format_phone(number)

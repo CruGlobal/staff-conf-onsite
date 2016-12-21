@@ -9,6 +9,10 @@ module Families
         instance_exec(f, &ADDRESS_FIELDS)
         instance_exec(f, &HOUSING_PREFERENCE_FIELDS)
 
+        f.inputs do
+          f.input :registration_comment, as: :ckeditor
+        end
+
         f.actions
       end
     end
