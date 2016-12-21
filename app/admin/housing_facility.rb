@@ -1,6 +1,6 @@
 ActiveAdmin.register HousingFacility do
-  permit_params :name, :cost_code_id, :street, :city, :state, :country_code,
-                :zip
+  permit_params :name, :housing_type, :cost_code_id, :cafeteria, :street,
+                :city, :state, :country_code, :zip
 
   index do
     selectable_column
