@@ -59,7 +59,7 @@ module Families
           dynamic_preference_input(hp, :location2)
           dynamic_preference_input(hp, :location3)
 
-          hp.input :confirmed_at, as: :datepicker
+          datepicker_input(hp, :confirmed_at)
         end
       end
     end

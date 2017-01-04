@@ -63,8 +63,8 @@ ActiveAdmin.register Conference do
       f.input :name
       money_input_widget(f, :price)
       f.input :description, as: :ckeditor
-      f.input :start_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
-      f.input :end_at, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
+      datepicker_input(f, :start_at)
+      datepicker_input(f, :end_at)
     end
     f.actions
   end

@@ -18,4 +18,23 @@ module ApplicationHelper
       end
     end
   end
+
+  # Creates a datepicker UI element with useful default options.
+  #
+  # @param form [Formtastic Form] the form DSL object
+  # @param attribute [Symbol] the name of the attribute to create a date input
+  #   element for
+  # @param opts [Hash] additional options for the input field
+  def datepicker_input(form, attribute, opts = {})
+    opts.reverse_merge!(
+      as: :datepicker,
+      datepicker_options: {
+        changeYear: true,
+        changeMonth: true,
+        yearRange: 'c-60:c+10'
+      }
+    )
+
+    form.input attribute, opts
+  end
 end

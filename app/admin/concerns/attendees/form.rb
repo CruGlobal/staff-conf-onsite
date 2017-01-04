@@ -36,11 +36,7 @@ module Attendees
         end
 
         f.input :gender, as: :select, collection: gender_select
-        f.input(
-          :birthdate,
-          as: :datepicker,
-          datepicker_options: { changeYear: true, changeMonth: true }
-        )
+        datepicker_input(f, :birthdate)
       end
 
       f.inputs 'Contact' do

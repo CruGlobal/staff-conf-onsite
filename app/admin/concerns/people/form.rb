@@ -31,12 +31,8 @@ module People
         form.has_many :stays, heading: nil do |f|
           select_housing_unit_widget(f)
 
-          f.input :arrived_at, as: :datepicker, datepicker_options: {
-            changeYear: true, changeMonth: true
-          }
-          f.input :departed_at, as: :datepicker, datepicker_options: {
-            changeYear: true, changeMonth: true
-          }
+          datepicker_input(f, :arrived_at)
+          datepicker_input(f, :departed_at)
 
           dynamic_stay_input(f, :percentage)
           dynamic_stay_input(f, :single_occupancy)

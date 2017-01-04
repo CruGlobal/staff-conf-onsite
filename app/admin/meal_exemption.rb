@@ -11,7 +11,7 @@ ActiveAdmin.register MealExemption do
 
     f.inputs do
       f.input :person
-      f.input :date, as: :datepicker, datepicker_options: { changeYear: true, changeMonth: true }
+      datepicker_input(f, :date)
       f.input :meal_type, as: :select, collection: meal_type_select
     end
 
