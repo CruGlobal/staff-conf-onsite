@@ -10,6 +10,8 @@ class Family < ApplicationRecord
 
   validates :last_name, :staff_number, presence: true
 
+  before_validation :remove_blank_housing_preference
+
   # @see PersonHelper.family_label
   def to_s
     PersonHelper.family_label(self)
@@ -17,5 +19,13 @@ class Family < ApplicationRecord
 
   def audit_name
     "#{super}: #{PersonHelper.family_label(self)}"
+  end
+
+  private
+
+  def remove_blank_housing_preference
+    if housing_preference && housing_preference.housing_type.blank?
+      self.housing_preference = nil
+    end
   end
 end

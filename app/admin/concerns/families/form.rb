@@ -2,7 +2,11 @@ module Families
   # Defines the form for creating and editong {Family} records.
   module Form
     def self.included(base)
-      base.send :form, title: ->(f) { "Edit #{PersonHelper.family_label(f)}" } do |f|
+      title = lambda do |f|
+        f.new_record? ? 'New Family' : "Edit #{PersonHelper.family_label(f)}"
+      end
+
+      base.send :form, title: title do |f|
         f.semantic_errors
 
         instance_exec(f, &BASIC_INFO_FIELDS)
@@ -36,15 +40,14 @@ module Families
     end
 
     HOUSING_PREFERENCE_FIELDS ||= proc do |f|
-      panel 'Housing Preference' do
-        for_housing_preference = [
-          :housing_preference,
-          f.object.housing_preference || f.object.build_housing_preference
-        ]
+      if f.object.new_record?
+        f.object.build_housing_preference(housing_type: :self_provided)
+      end
 
-        f.inputs class: 'housing_preference_attributes',
-                 for: for_housing_preference do |hp|
-          hp.input :housing_type, as: :select, collection: housing_type_select
+      f.inputs 'Housing Preference', class: 'housing_preference_attributes' do
+        f.semantic_fields_for :housing_preference do |hp|
+          hp.input :housing_type, as: :select, collection: housing_type_select,
+                                  include_blank: false
 
           dynamic_preference_input(hp, :roommates, input_html: { rows: 4 })
           dynamic_preference_input(hp, :beds_count)

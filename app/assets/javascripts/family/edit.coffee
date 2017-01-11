@@ -1,5 +1,5 @@
 $ ->
-  $form = $('#edit_family')
+  $form = $('#new_family, #edit_family')
   return unless $form.length
 
   setupHousinTypeDynamicFields($form.find('.housing_preference_attributes'))
