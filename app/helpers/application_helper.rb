@@ -31,7 +31,7 @@ module ApplicationHelper
       datepicker_options: {
         changeYear: true,
         changeMonth: true,
-        yearRange: 'c-60:c+10'
+        yearRange: 'c-80:c+10'
       }
     )
 
