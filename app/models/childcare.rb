@@ -12,6 +12,6 @@ class Childcare < ApplicationRecord
                      'US STAFF CONFERENCE'].freeze
 
   def audit_name
-    "#{super}: #{title}"
+    "#{super}: #{name}"
   end
 end

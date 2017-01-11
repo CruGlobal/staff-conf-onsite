@@ -10,9 +10,11 @@ module ChildcareHelper
   # @return [Array<[label, id]>] the {Childcare} +<select>+ options acceptable
   #   for +options_for_select+
   def childcare_spaces_select
-    Childcare.all.order(:title).map do |c|
+    Childcare.all.order(:name).map do |c|
       [
-        [c.title, c.teachers, c.address, "size:#{c.children.size}"].join(' | '),
+        [
+          c.name, c.teachers, c.location, c.room, "size:#{c.children.size}"
+        ].join(' | '),
         c.id
       ]
     end

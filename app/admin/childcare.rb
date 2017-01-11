@@ -1,15 +1,13 @@
 ActiveAdmin.register Childcare do
-  permit_params :title, :teachers, :address, :cost, :start_date, :end_date
+  permit_params :name, :teachers, :location, :room
 
   index do
     selectable_column
     column :id
-    column :title
+    column :name
     column :teachers
-    column :address
-    column :start_date
-    column :end_date
-    column :cost
+    column :location
+    column :room
     column :created_at
     column :updated_at
     actions
@@ -18,11 +16,10 @@ ActiveAdmin.register Childcare do
   show do
     attributes_table do
       row :id
-      row :title
+      row :name
       row :teachers
-      row :address
-      row :start_date
-      row :end_date
+      row :location
+      row :room
       row 'enrolled' do |childcare|
         childcare.children.count
       end
@@ -31,7 +28,6 @@ ActiveAdmin.register Childcare do
           li "#{child.first_name} #{child.last_name}"
         end
       end
-      row :cost
       row :created_at
       row :updated_at
     end
@@ -42,13 +38,11 @@ ActiveAdmin.register Childcare do
     f.semantic_errors
 
     f.inputs do
-      f.input :title, hint: 'Title of class including grade'
+      f.input :name, hint: 'Title of class including grade'
       f.input :teachers,
               hint: 'If more than one teacher please use commas between names'
-      f.input :address, hint: 'Include address of building and room number'
-      f.input :start_date
-      f.input :end_date
-      f.input :cost
+      f.input :location
+      f.input :room
     end
 
     f.actions

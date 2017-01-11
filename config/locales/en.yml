@@ -22,6 +22,9 @@
 en:
   activerecord:
     models:
+      childcare:
+        one: Childcare Class
+        other: Childcare Classes
       course:
         one: Class
         other: Classes
@@ -31,6 +34,8 @@ en:
           other: Versions
 
     attributes:
+      childcares:
+        room: "Room Number"
       cost_code:
         min_days: "Minimum Stay"
       cost_code_charge:
