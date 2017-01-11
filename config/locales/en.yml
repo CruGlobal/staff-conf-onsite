@@ -77,6 +77,8 @@ en:
           tuition_track: "Track Tuition"
           tuition_staff: "Staff Conference Tuition"
           books: "Books"
+      course:
+        ibs_code: IBS ID
       family:
         country_code: Country
         staff_number: Staff ID
