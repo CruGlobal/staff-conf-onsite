@@ -48,6 +48,7 @@ en:
         single_delta: "Single Upcharge $/day"
         _destroy: "Delete this record!"
       child:
+        childcare: "Childcare Class"
         childcare_week_numbers:
           none: No Childcare Needed
         grade_level: "Age Group or Grade Level"

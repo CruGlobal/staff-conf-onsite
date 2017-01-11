@@ -14,22 +14,33 @@ ActiveAdmin.register Childcare do
   end
 
   show do
-    attributes_table do
-      row :id
-      row :name
-      row :teachers
-      row :location
-      row :room
-      row 'enrolled' do |childcare|
-        childcare.children.count
-      end
-      row 'Students' do |childcare|
-        childcare.children.each do |child|
-          li "#{child.first_name} #{child.last_name}"
+    columns do
+      column do
+        attributes_table do
+          row :id
+          row :name
+          row :teachers
+          row :location
+          row :room
+          row :created_at
+          row :updated_at
         end
       end
-      row :created_at
-      row :updated_at
+
+      column do
+        size = childcare.children.size
+        panel "Children (#{size})" do
+          if size.positive?
+            ul do
+              childcare.children.each do |c|
+                li { link_to(c.full_name, c) }
+              end
+            end
+          else
+            strong 'None'
+          end
+        end
+      end
     end
     active_admin_comments
   end

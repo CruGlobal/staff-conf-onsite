@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111022136) do
+ActiveRecord::Schema.define(version: 20170111023322) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(version: 20170111022136) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "needs_bed",         default: true
-    t.boolean  "parent_pickup"
+    t.boolean  "parent_pickup",     default: true
     t.string   "childcare_weeks",   default: ""
     t.integer  "childcare_id"
     t.string   "grade_level"

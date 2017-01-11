@@ -8,15 +8,15 @@ ActiveAdmin.register Child do
   config.remove_action_item :new
   config.remove_action_item :new_show
 
-  permit_params(
-    :first_name, :last_name, :birthdate, :gender, :family_id, :parent_pickup,
-    :needs_bed, :grade_level, childcare_weeks: [], meal_exemptions_attributes: [
-      :id, :_destroy, :date, :meal_type
-    ], stays_attributes: [
-      :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-      :single_occupancy, :no_charge, :waive_minimum, :percentage
-    ]
-  )
+  permit_params :first_name, :last_name, :birthdate, :gender, :family_id,
+                :parent_pickup, :needs_bed, :grade_level, :childcare_id,
+                childcare_weeks: [],
+                meal_exemptions_attributes: [:id, :_destroy, :date,
+                                             :meal_type],
+                stays_attributes: [:id, :_destroy, :housing_unit_id,
+                                   :arrived_at, :departed_at,
+                                   :single_occupancy, :no_charge,
+                                   :waive_minimum, :percentage]
 
   index do
     selectable_column
