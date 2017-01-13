@@ -15,4 +15,5 @@ class CostAdjustment < ApplicationRecord
   ]
 
   belongs_to :person, foreign_key: 'person_id'
+  validates :cost_type, :person, :price, presence: true
 end
