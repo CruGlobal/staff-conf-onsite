@@ -4,7 +4,7 @@ ActiveAdmin.register CostAdjustment do
   index do
     selectable_column
     column :id
-    column('Person') { |ca| link_to(ca.person.full_name, ca.person) if ca.person }
+    column('Person') { |ca| link_to(ca.person.full_name, ca.person) }
     column('Type') { |ca| cost_type_name(ca) }
     column(:price) { |ca| humanized_money_with_symbol(ca.price) }
     column(:description) { |ca| html_summary(ca.description) }
@@ -16,7 +16,7 @@ ActiveAdmin.register CostAdjustment do
   show title: ->(ca) { "Cost Adjustment ##{ca.id}, for #{ca.person.full_name}" } do
     attributes_table do
       row :id
-      row('Person') { |ca| link_to(ca.person.full_name, ca.person) if ca.person }
+      row('Person') { |ca| link_to(ca.person.full_name, ca.person) }
       row('Type') { |ca| cost_type_name(ca) }
       row(:price) { |ca| humanized_money_with_symbol(ca.price) }
       row(:description) { |ca| html_full(ca.description) }
