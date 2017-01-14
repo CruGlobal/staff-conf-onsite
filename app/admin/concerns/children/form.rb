@@ -10,6 +10,8 @@ module Children
         instance_exec(f, &ATTENDEE_INPUTS)
         instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
 
+        instance_exec(f, child, &COST_ADJUSTMENT_SUBFORM)
+
         f.actions
       end
     end

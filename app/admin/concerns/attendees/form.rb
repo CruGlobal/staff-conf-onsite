@@ -16,6 +16,10 @@ module Attendees
             instance_exec(f, attendee, &STAY_SUBFORM)
             instance_exec(f, attendee, &MEAL_EXEMPTIONS_SUBFORM)
           end
+
+          column do
+            instance_exec(f, attendee, &COST_ADJUSTMENT_SUBFORM)
+          end
         end
 
         f.actions
