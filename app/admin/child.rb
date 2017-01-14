@@ -12,7 +12,7 @@ ActiveAdmin.register Child do
                 :parent_pickup, :needs_bed, :grade_level, :childcare_id,
                 childcare_weeks: [],
                 cost_adjustments_attributes: [:id, :_destroy, :description, :person_id,
-                                   :price, :cost_type],
+                                              :price, :cost_type],
                 meal_exemptions_attributes: [:id, :_destroy, :date,
                                              :meal_type],
                 stays_attributes: [:id, :_destroy, :housing_unit_id,

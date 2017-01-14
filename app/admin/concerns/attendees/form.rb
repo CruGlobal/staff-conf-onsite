@@ -3,6 +3,7 @@ module Attendees
   module Form
     include People::Form
 
+    # rubocop:disable MethodLength
     def self.included(base)
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
@@ -25,6 +26,7 @@ module Attendees
         f.actions
       end
     end
+    # rubocop:enable MethodLength
 
     ATTENDEE_INPUTS ||= proc do |f|
       f.inputs 'Basic' do
