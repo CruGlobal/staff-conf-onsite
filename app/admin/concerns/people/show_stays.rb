@@ -25,6 +25,8 @@ module People
               end
             end
           end
+
+          row(:comment) { |stay| html_full stay.comment }
         end
       end
     end

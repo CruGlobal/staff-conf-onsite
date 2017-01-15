@@ -39,6 +39,7 @@ module People
           dynamic_stay_input(f, :no_charge)
           dynamic_stay_input(f, :waive_minimum)
 
+          f.input :comment, as: :ckeditor
           f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
         end
       end

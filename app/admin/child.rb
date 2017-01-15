@@ -16,7 +16,7 @@ ActiveAdmin.register Child do
                 stays_attributes: [:id, :_destroy, :housing_unit_id,
                                    :arrived_at, :departed_at,
                                    :single_occupancy, :no_charge,
-                                   :waive_minimum, :percentage]
+                                   :waive_minimum, :percentage, :comment]
 
   index do
     selectable_column
