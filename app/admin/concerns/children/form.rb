@@ -7,14 +7,22 @@ module Children
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
-        instance_exec(f, &ATTENDEE_INPUTS)
-        instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
+        columns do
+          column do
+            instance_exec(f, &CHILD_INPUTS)
+          end
+
+          column do
+            instance_exec(f, child, &STAY_SUBFORM)
+            instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
+          end
+        end
 
         f.actions
       end
     end
 
-    ATTENDEE_INPUTS ||= proc do |f|
+    CHILD_INPUTS ||= proc do |f|
       f.inputs do
         instance_exec(f, &FAMILY_SELECTOR)
 
