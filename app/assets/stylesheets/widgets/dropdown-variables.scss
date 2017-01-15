@@ -24,6 +24,7 @@ $dropdown-button-bg: transparent;
 
 .dropdown {
   width: 80%;
+  z-index: initial !important;
 
   a, a:link { color: black; }
 
