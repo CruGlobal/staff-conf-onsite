@@ -15,4 +15,5 @@ unless Rails.env.production?
   # Developer accounts
   User.create!(role: 'admin', email: 'jon.sangster@ballistiq.com')
   User.create!(role: 'admin', email: 'tyler@ballistiq.com')
+  User.create!(role: 'admin', email: 'daniel.fugere@ballistiq.com')
 end
