@@ -18,7 +18,8 @@ module MinistryHelper
         'data-ministry-code' => true,
         'data-labels' => Hash[ministries.map { |m| [m.id, m.to_s] }].to_json,
         'data-hierarchy' => ministry_hierarchy(ministries).to_json
-      }
+      },
+      include_blank: true
     )
   end
 
