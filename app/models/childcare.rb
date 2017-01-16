@@ -9,7 +9,7 @@ class Childcare < ApplicationRecord
   # @note {Child#childcare_weeks=} accepts a list of indexes into this list,
   #   not the strings themselves.
   CHILDCARE_WEEKS = ['Week 1', 'Week 2', 'Week 3', 'Week 4',
-                     'US STAFF CONFERENCE'].freeze
+                     'Staff Conference'].freeze
 
   def audit_name
     "#{super}: #{name}"

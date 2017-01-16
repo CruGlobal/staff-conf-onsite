@@ -49,6 +49,9 @@ en:
         _destroy: "Delete this record!"
       child:
         childcare: "Childcare Class"
+        childcare_suffixes:
+          younger: "Childcare"
+          older: "JrSr"
         childcare_week_numbers:
           none: No Childcare Needed
         grade_level: "Age Group or Grade Level"

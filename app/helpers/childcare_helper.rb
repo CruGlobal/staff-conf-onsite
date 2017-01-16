@@ -25,7 +25,7 @@ module ChildcareHelper
   #   attended by the given +Child+, or a message if the child is not attending
   #   any +Childcare+
   def childcare_weeks_list(child)
-    labels = child.childcare_weeks.map { |w| childcare_weeks_label(w) }
+    labels = child.childcare_weeks.map { |w| childcare_level(child, w) }
 
     Arbre::Context.new do
       if labels.any?
@@ -42,5 +42,16 @@ module ChildcareHelper
   #   given integer
   def childcare_weeks_label(index)
     Childcare::CHILDCARE_WEEKS[index]
+  end
+
+  def childcare_level(child, index)
+    week_label = childcare_weeks_label(index)
+    prefix = 'activerecord.attributes.child.childcare_suffixes'
+
+    if child.younger?
+      "#{week_label} #{I18n.t("#{prefix}.younger")}"
+    else
+      "#{week_label} #{I18n.t("#{prefix}.older")}"
+    end
   end
 end
