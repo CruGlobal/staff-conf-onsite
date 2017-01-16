@@ -18,6 +18,8 @@ module Children
           end
         end
 
+        instance_exec(f, child, &COST_ADJUSTMENT_SUBFORM)
+
         f.actions
       end
     end

@@ -3,6 +3,7 @@ module Attendees
   module Form
     include People::Form
 
+    # rubocop:disable MethodLength
     def self.included(base)
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
@@ -16,11 +17,16 @@ module Attendees
             instance_exec(f, attendee, &STAY_SUBFORM)
             instance_exec(f, attendee, &MEAL_EXEMPTIONS_SUBFORM)
           end
+
+          column do
+            instance_exec(f, attendee, &COST_ADJUSTMENT_SUBFORM)
+          end
         end
 
         f.actions
       end
     end
+    # rubocop:enable MethodLength
 
     ATTENDEE_INPUTS ||= proc do |f|
       f.inputs 'Basic' do
