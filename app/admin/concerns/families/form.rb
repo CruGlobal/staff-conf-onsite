@@ -13,10 +13,6 @@ module Families
         instance_exec(f, &ADDRESS_FIELDS)
         instance_exec(f, &HOUSING_PREFERENCE_FIELDS)
 
-        f.inputs do
-          f.input :registration_comment, as: :ckeditor
-        end
-
         f.actions
       end
     end
@@ -64,6 +60,8 @@ module Families
 
           datepicker_input(hp, :confirmed_at)
         end
+
+        f.input :registration_comment, as: :ckeditor
       end
     end
   end
