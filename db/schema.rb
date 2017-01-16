@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115225040) do
+ActiveRecord::Schema.define(version: 20170116011451) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -213,7 +213,7 @@ ActiveRecord::Schema.define(version: 20170115225040) do
     t.boolean  "parent_pickup",     default: true
     t.string   "childcare_weeks",   default: ""
     t.integer  "childcare_id"
-    t.string   "grade_level"
+    t.string   "grade_level",       default: "postHighSchool"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id"
