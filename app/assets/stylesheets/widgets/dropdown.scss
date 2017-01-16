@@ -26,6 +26,7 @@ $dropdown-button-bg: transparent;
   width: 80%;
   position: relative;
   cursor: pointer;
+  z-index: initial !important;
 
   a, a:link { color: black; }
 

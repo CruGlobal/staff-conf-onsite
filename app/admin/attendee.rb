@@ -17,7 +17,7 @@ ActiveAdmin.register Attendee do
       :id, :_destroy, :date, :meal_type
     ], stays_attributes: [
       :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-      :single_occupancy, :no_charge, :waive_minimum, :percentage
+      :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
     ]
   )
 
