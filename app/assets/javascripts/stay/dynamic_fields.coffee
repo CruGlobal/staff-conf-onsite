@@ -15,12 +15,15 @@ $ ->
   return unless $form.length
 
   # Pre-existing Stays
-  $form.find(itemSelector).each -> setupDynamicFields($(this), false)
+  $form.find(itemSelector).each ->
+    setupDynamicFields($(this), false)
+    setupDurationCalculation($(this))
 
   # When new Stay fields are added
   $('body').on 'DOMNodeInserted', (event) ->
     if $(event.target).is("#{containerSelector} #{itemSelector}")
       setupDynamicFields($(event.target), true)
+      setupDurationCalculation($(event.target))
 
 
 # Some fields are only relevant when the user chooses a certain type from the
@@ -99,3 +102,45 @@ selectEmptyOption = ($select) ->
 
   for uid, item of dropdown.instance.items
     dropdown.select(item) if item.text == emptyOption
+
+
+# Adds a "calculated field" showing the number of days between the Arrival and
+# Departure dates. ie: the duration of the person's Stay.
+#
+# @param {jQuery} $form - The HTML form that contains the dates
+setupDurationCalculation = ($form) ->
+  $start = $form.find('input[name$="[arrived_at]"]')
+  $end = $form.find('input[name$="[departed_at]"]')
+
+  $endContainer = $end.closest('li')
+
+  $duration = $('<span />').text('N/A')
+  $durationContainer =
+    $('<li class="inut" />').append(
+      $('<label class="label" />').text('Duration'),
+      $duration
+    )
+
+  $endContainer.after($durationContainer)
+
+  updateDuration = ->
+    $duration.text(
+      if $start.val() && $end.val()
+        startDate = new Date($start.val())
+        endDate = new Date($end.val())
+
+        duration = julianDayNumber(endDate) - julianDayNumber(startDate)
+        "#{duration} #{duration == 1 and 'Day' or 'Days'}"
+      else
+        'N/A'
+    )
+
+  $start.on 'change', updateDuration
+  $end.on 'change', updateDuration
+  updateDuration()
+
+
+julianDayNumber = (date) ->
+  # See http://stackoverflow.com/a/11760121/603806 for an explanation of this
+  # calculation
+  Math.floor((date / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5)

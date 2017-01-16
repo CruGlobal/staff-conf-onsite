@@ -27,8 +27,10 @@ module People
     end
 
     STAY_SUBFORM ||= proc do |form|
+      collection = [:stays, form.object.stays.order(:arrived_at)]
+
       panel 'Housing Assignments', 'data-housing_unit-container' => true do
-        form.has_many :stays, heading: nil do |f|
+        form.has_many :stays, heading: nil, for: collection do |f|
           select_housing_unit_widget(f)
 
           datepicker_input(f, :arrived_at)
@@ -39,6 +41,7 @@ module People
           dynamic_stay_input(f, :no_charge)
           dynamic_stay_input(f, :waive_minimum)
 
+          f.input :comment, as: :ckeditor
           f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
         end
       end

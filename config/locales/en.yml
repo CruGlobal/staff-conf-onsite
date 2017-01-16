@@ -72,6 +72,7 @@ en:
           grade11: "Grade 11"
           grade12: "Grade 12"
           grade13: "Grade 13 (Recently graduated High School)"
+          postHighSchool: "Post High School"
       cost_adjustment:
         cost_types:
           dorm_adult: "Adult Dorm (room & board) Charges"
