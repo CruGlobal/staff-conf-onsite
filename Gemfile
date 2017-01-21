@@ -59,6 +59,7 @@ group :development, :test do
   gem 'webmock', '~> 2.1.0'
   gem 'reek', '~> 4.4.2'
   gem 'bundler-audit', '~> 0.5.0'
+  gem 'pry-rails', '~> 0.3.4'
 
   # Documentation
   gem 'yard', '~> 0.9.5'
@@ -68,7 +69,6 @@ group :development do
   # Development Server
   gem 'spring'
   gem 'web-console', '~> 2.0'
-  gem 'pry-rails', '~> 0.3.4'
 
   # Deployment
   # TODO gem 'capistrano-rails'

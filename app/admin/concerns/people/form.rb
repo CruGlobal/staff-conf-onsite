@@ -52,6 +52,7 @@ module People
           f.input :cost_type, as: :select, collection: cost_type_select
           money_input_widget(f, :price)
           f.input :description, as: :ckeditor
+          f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
         end
       end
     end

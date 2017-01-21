@@ -27,4 +27,21 @@ class Person < ApplicationRecord
   def audit_name
     "#{super}: #{full_name}"
   end
+
+  def age
+    @age ||= get_age_from_birthdate
+  end
+
+  private
+
+  def get_age_from_birthdate
+    age = AGE_AS_OF.year - birthdate.year
+    age -= 1 if birthday_after_date
+    age
+  end
+
+  def birthday_after_date
+    birthdate.month >  AGE_AS_OF.month || 
+      birthdate.month == AGE_AS_OF.month && birthdate.day > AGE_AS_OF.day
+  end
 end
