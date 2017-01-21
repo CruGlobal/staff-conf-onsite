@@ -26,8 +26,4 @@ class Stay < ActiveRecord::Base
   def length_of_stay
     [(departed_at - arrived_at).to_i, 1].max
   end
-
-  def daily_cost
-
-  end
 end
