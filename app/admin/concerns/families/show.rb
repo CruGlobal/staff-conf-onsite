@@ -20,7 +20,10 @@ module Families
       attributes_table do
         row :id
         row :last_name
-        row(:staff_number) { |f| code f.staff_number }
+        row(:staff_number) do |f|
+          code f.staff_number
+          status_tag :yes, label: 'Chargeable' if f.chargeable_staff_number?
+        end
         row :street
         row :city
         row :state

@@ -5,6 +5,8 @@ class Family < ApplicationRecord
   has_many :attendees
   has_many :children
   has_one :housing_preference, autosave: true
+  has_one :chargeable_staff_number, primary_key: :staff_number,
+                                    foreign_key: :staff_number
 
   accepts_nested_attributes_for :housing_preference
 
@@ -19,6 +21,10 @@ class Family < ApplicationRecord
 
   def audit_name
     "#{super}: #{PersonHelper.family_label(self)}"
+  end
+
+  def chargeable_staff_number?
+    chargeable_staff_number.present?
   end
 
   private
