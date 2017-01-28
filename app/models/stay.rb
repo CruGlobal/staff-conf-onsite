@@ -6,8 +6,6 @@ class Stay < ActiveRecord::Base
     percentage: [:apartment].freeze
   }.freeze
 
-  belongs_to :housing_unit
-
   validates :person_id, :arrived_at, :departed_at, presence: true
   validates :percentage, numericality: {
     only_integer: true,
@@ -25,5 +23,40 @@ class Stay < ActiveRecord::Base
 
   def length_of_stay
     [(departed_at - arrived_at).to_i, 1].max
+  end
+
+  def cost_of_stay
+    case person.age
+    when 0..4
+      cost_for_person_of_age_group('infant')
+    when 5..10
+      cost_for_person_of_age_group('child')
+    when 11..14
+      cost_for_person_of_age_group('teen')
+    else 
+      cost_for_person_of_age_group('adult')
+    end
+  end
+
+  private
+
+  def cost_for_person_of_age_group(age_group)
+    total_charges_in_cents = 0
+    number_of_days_charged = 0
+
+    until length_of_stay == number_of_days_charged do
+      charge = charge_with_smallest_max_days_over_n(number_of_days_charged)
+      total_charges_in_cents += charge.send("#{age_group}_cents".to_sym)
+      number_of_days_charged += charge.max_days
+    end
+    total_charges_in_cents.to_f/100
+  end
+
+  def charge_with_smallest_max_days_over_n(number_of_days)
+    housing_unit_cost_code.charges.where('max_days > ?', number_of_days).order('max_days asc').first
+  end
+
+  def housing_unit_cost_code
+    housing_unit.housing_facility.cost_code
   end
 end
