@@ -33,7 +33,7 @@ class Stay < ActiveRecord::Base
       cost_for_person_of_age_group('child')
     when 11..14
       cost_for_person_of_age_group('teen')
-    else 
+    else
       cost_for_person_of_age_group('adult')
     end
   end
@@ -44,19 +44,20 @@ class Stay < ActiveRecord::Base
     total_charges_in_cents = 0
     number_of_days_charged = 0
 
-    until length_of_stay == number_of_days_charged do
+    until length_of_stay == number_of_days_charged
       charge = charge_with_smallest_max_days_over_n(number_of_days_charged)
       days_charged_here = [charge.max_days, length_of_stay - number_of_days_charged].min
       total_charges_in_cents += charge.send("#{age_group}_cents") * days_charged_here
       number_of_days_charged += days_charged_here
     end
-    total_charges_in_cents.to_f/100
+    total_charges_in_cents.to_f / 100
   end
 
   def charge_with_smallest_max_days_over_n(number_of_days)
     housing_facility.cost_code.charges.where('max_days > ?', number_of_days).order('max_days asc').first
   rescue NoMethodError
-    raise NotImplementedError, "Housing Facility with id #{housing_unit.housing_facility.id} is missing a cost_code. It must be added."
+    raise NotImplementedError,
+          "Housing Facility with id #{housing_unit.housing_facility.id} is missing a cost_code. It must be added."
   end
 
   def housing_facility

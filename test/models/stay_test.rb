@@ -31,7 +31,6 @@ class StayTest < ActiveSupport::TestCase
       @housing_facility.update(cost_code: nil)
       @stay.cost_of_stay
     end
-    @housing_facility.update(cost_code: @cost_code)
   end
 
   private
