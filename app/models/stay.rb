@@ -54,12 +54,12 @@ class Stay < ActiveRecord::Base
   end
 
   def charge_with_smallest_max_days_over_n(number_of_days)
-    housing_unit_cost_code.charges.where('max_days > ?', number_of_days).order('max_days asc').first
+    housing_facility.cost_code.charges.where('max_days > ?', number_of_days).order('max_days asc').first
+  rescue NoMethodError
+    raise NotImplementedError, "Housing Facility with id #{housing_unit.housing_facility.id} is missing a cost_code. It must be added."
   end
 
-  def housing_unit_cost_code
-    housing_unit.housing_facility.cost_code
-  rescue NoMethodError
-    raise NoMethodError, "Housing Facility with id #{housing_facility.id} is missing a cost_code"
+  def housing_facility
+    housing_unit.housing_facility
   end
 end

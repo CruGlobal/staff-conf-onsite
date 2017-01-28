@@ -26,6 +26,14 @@ class StayTest < ActiveSupport::TestCase
     assert_equal 200.00, @stay.cost_of_stay
   end
 
+  test '#cost_of_stay must raise understandable error when cost_code is missing from housing_facility' do
+    assert_raise NotImplementedError do
+      @housing_facility.update(cost_code: nil)
+      @stay.cost_of_stay
+    end
+    @housing_facility.update(cost_code: @cost_code)
+  end
+
   private
 
   def cost_of_stay(age_group)
