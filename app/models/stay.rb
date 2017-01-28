@@ -59,5 +59,7 @@ class Stay < ActiveRecord::Base
 
   def housing_unit_cost_code
     housing_unit.housing_facility.cost_code
+  rescue NoMethodError
+    raise NoMethodError, "Housing Facility with id #{housing_facility.id} is missing a cost_code"
   end
 end
