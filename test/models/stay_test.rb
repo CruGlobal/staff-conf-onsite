@@ -9,9 +9,10 @@ class StayTest < ActiveSupport::TestCase
                           person: @person, housing_unit: @housing_unit)
     @cost_code = create(:cost_code, housing_facilities: [@housing_facility])
     @cost_code_charges = []
-    [2,5,9999].each do |max_days|
-      @cost_code_charges << create(:cost_code_charge, :max_days => max_days,
-                                                      :cost_code => @cost_code)
+    [2,5,9999].each_with_index do |max_days, index|
+      @cost_code_charges << create(:cost_code_charge, max_days: max_days,
+                                                      child_cents: (index + 1) * 5000,
+                                                      cost_code: @cost_code)
     end
   end
 
@@ -22,7 +23,7 @@ class StayTest < ActiveSupport::TestCase
   end
 
   test '#cost_of_stay' do
-    assert_equal 3, @stay.cost_of_stay
+    assert_equal 200.00, @stay.cost_of_stay
   end
 
   private

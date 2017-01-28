@@ -46,8 +46,9 @@ class Stay < ActiveRecord::Base
 
     until length_of_stay == number_of_days_charged do
       charge = charge_with_smallest_max_days_over_n(number_of_days_charged)
-      total_charges_in_cents += charge.send("#{age_group}_cents".to_sym)
-      number_of_days_charged += charge.max_days
+      days_charged_here = [charge.max_days, length_of_stay - number_of_days_charged].min
+      total_charges_in_cents += charge.send("#{age_group}_cents") * days_charged_here
+      number_of_days_charged += days_charged_here
     end
     total_charges_in_cents.to_f/100
   end
