@@ -11,6 +11,18 @@ FactoryGirl.define do
     end
     gender { Person::GENDERS.keys.sample }
 
+    arrived_at do
+      if Faker::Boolean.boolean
+        Faker::Date.between(1.year.from_now, 2.years.from_now)
+      end
+    end
+
+    departed_at do
+      if Faker::Boolean.boolean
+        Faker::Date.between(1.year.from_now, 2.years.from_now)
+      end
+    end
+
     # A random number of random weeks
     childcare_weeks do
       count = Childcare::CHILDCARE_WEEKS.size
