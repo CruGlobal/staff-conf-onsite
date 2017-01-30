@@ -8,17 +8,31 @@ ActiveAdmin.register Child do
   config.remove_action_item :new
   config.remove_action_item :new_show
 
-  permit_params :first_name, :last_name, :birthdate, :gender, :family_id,
-                :parent_pickup, :needs_bed, :grade_level, :childcare_id,
-                childcare_weeks: [],
-                cost_adjustments_attributes: [:id, :_destroy, :description, :person_id,
-                                              :price, :cost_type],
-                meal_exemptions_attributes: [:id, :_destroy, :date,
-                                             :meal_type],
-                stays_attributes: [:id, :_destroy, :housing_unit_id,
-                                   :arrived_at, :departed_at,
-                                   :single_occupancy, :no_charge,
-                                   :waive_minimum, :percentage, :comment]
+  permit_params(
+    :first_name, :last_name, :birthdate, :gender, :family_id, :parent_pickup,
+    :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
+    childcare_weeks: [],
+    cost_adjustments_attributes: [
+      :id, :_destroy, :description, :person_id, :price, :cost_type
+    ],
+    meal_exemptions_attributes: [
+      :id, :_destroy, :date, :meal_type
+    ],
+    stays_attributes: [
+      :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
+      :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
+    ]
+  )
+
+  filter :first_name
+  filter :last_name
+  filter :birthdate
+  filter :gender
+  filter :parent_pickup
+  filter :needs_bed
+  filter :arrived_at
+  filter :departed_at
+  filter :childcare_class
 
   index do
     selectable_column
@@ -32,6 +46,8 @@ ActiveAdmin.register Child do
     column(:grade_level) { |c| grade_level_label(c) }
     column :parent_pickup
     column :needs_bed
+    column :arrived_at
+    column :departed_at
     column :created_at
     column :updated_at
     actions

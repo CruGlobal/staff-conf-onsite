@@ -24,6 +24,7 @@ $ ->
     if $(event.target).is("#{containerSelector} #{itemSelector}")
       setupDynamicFields($(event.target), true)
       setupDurationCalculation($(event.target))
+      setupDurationHints($(event.target))
 
 
 # Some fields are only relevant when the user chooses a certain type from the
@@ -144,3 +145,6 @@ julianDayNumber = (date) ->
   # See http://stackoverflow.com/a/11760121/603806 for an explanation of this
   # calculation
   Math.floor((date / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5)
+
+
+setupDurationHints = ($form) ->
