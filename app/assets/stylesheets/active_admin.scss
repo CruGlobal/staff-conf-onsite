@@ -13,6 +13,7 @@
 
 @import "widgets/buttons";
 @import "widgets/inputs";
+@import "widgets/spreadsheets";
 @import "widgets/typography";
 
 // Specific Models
@@ -37,7 +38,7 @@
 
 // Select Boxes
 @import "chosen";
-@import "widgets/dropdown-variables";
+@import "widgets/dropdown";
 @import "jquery.dropdown.1.6/dropdown";
 
 .sidebar_section {

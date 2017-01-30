@@ -11,7 +11,6 @@ module Families
           column do
             instance_exec(&ATTENDEES_LIST)
             instance_exec(&CHILDREN_LIST)
-            instance_exec(&REGISTRATION_COMMENT)
           end
         end
         active_admin_comments
@@ -21,7 +20,10 @@ module Families
       attributes_table do
         row :id
         row :last_name
-        row(:staff_number) { |f| code f.staff_number }
+        row(:staff_number) do |f|
+          code f.staff_number
+          status_tag :yes, label: 'Chargeable' if f.chargeable_staff_number?
+        end
         row :street
         row :city
         row :state
@@ -38,6 +40,10 @@ module Families
           row(:housing_type) { |hp| housing_type_name(hp) }
 
           instance_exec(&HOUSING_TYPE_FIELD_ROWS)
+
+          row(:registration_comment) do
+            html_full(family.registration_comment) || strong('N/A')
+          end
 
           row :confirmed_at do |hp|
             if hp.confirmed_at.present?
@@ -89,12 +95,6 @@ module Families
         else
           strong 'None'
         end
-      end
-    end
-
-    REGISTRATION_COMMENT ||= proc do
-      panel 'Registration Comment' do
-        html_full(family.registration_comment) || strong('N/A')
       end
     end
   end

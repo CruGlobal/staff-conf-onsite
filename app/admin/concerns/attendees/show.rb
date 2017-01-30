@@ -5,11 +5,13 @@ module Attendees
     include People::ShowMealExemptions
     include People::ShowStays
 
+    # rubocop:disable MethodLength
     def self.included(base)
       base.send :show do
         columns do
           column do
             instance_exec(&ATTRIBUTES_TABLE)
+            instance_exec(&DURATION_TABLE)
             instance_exec(&CONFERENCES_PANEL)
             instance_exec(&COURSES_PANEL)
             instance_exec(attendee, &COST_ADJUSTMENTS_PANEL)
@@ -24,6 +26,7 @@ module Attendees
         active_admin_comments
       end
     end
+    # rubocop:enable MethodLength
 
     ATTRIBUTES_TABLE ||= proc do
       attributes_table do
@@ -46,6 +49,15 @@ module Attendees
         row :department
         row :created_at
         row :updated_at
+      end
+    end
+
+    DURATION_TABLE ||= proc do
+      panel 'Duration' do
+        attributes_table_for attendee do
+          row :arrived_at
+          row :departed_at
+        end
       end
     end
 

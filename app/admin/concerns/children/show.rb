@@ -3,17 +3,20 @@ module Children
   module Show
     include People::ShowCostAdjustments
     include People::ShowMealExemptions
+    include People::ShowStays
 
     def self.included(base)
       base.send :show do
         columns do
           column do
             instance_exec(&ATTRIBUTES_TABLE)
+            instance_exec(&DURATION_TABLE)
+            instance_exec(child, &COST_ADJUSTMENTS_PANEL)
           end
 
           column do
-            instance_exec(child, &COST_ADJUSTMENTS_PANEL)
             instance_exec(child, &MEAL_EXEMPTIONS_PANEL)
+            instance_exec(child, &STAYS_PANEL)
           end
         end
 
@@ -37,6 +40,15 @@ module Children
         row :needs_bed
         row :created_at
         row :updated_at
+      end
+    end
+
+    DURATION_TABLE ||= proc do
+      panel 'Duration' do
+        attributes_table_for child do
+          row :arrived_at
+          row :departed_at
+        end
       end
     end
   end

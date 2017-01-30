@@ -3,19 +3,31 @@ module Children
   module Form
     include People::Form
 
+    # rubocop:disable MethodLength
     def self.included(base)
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
-        instance_exec(f, &ATTENDEE_INPUTS)
-        instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
+        columns do
+          column do
+            instance_exec(f, &CHILD_INPUTS)
+            instance_exec(f, &DURATION_INPUTS)
+            instance_exec(f, &CHILDCARE_INPUTS)
+          end
+          column do
+            instance_exec(f, child, &STAY_SUBFORM)
+            instance_exec(f, child, &MEAL_EXEMPTIONS_SUBFORM)
+          end
+        end
 
+        instance_exec(f, child, &COST_ADJUSTMENT_SUBFORM)
         f.actions
       end
     end
+    # rubocop:enable MethodLength
 
-    ATTENDEE_INPUTS ||= proc do |f|
-      f.inputs do
+    CHILD_INPUTS ||= proc do |f|
+      f.inputs 'Basic' do
         instance_exec(f, &FAMILY_SELECTOR)
 
         f.input :first_name
@@ -32,15 +44,24 @@ module Children
                               include_blank: true
         f.input :parent_pickup
         f.input :needs_bed
+      end
+    end
 
+    DURATION_INPUTS ||= proc do |f|
+      f.inputs 'Duration' do
+        datepicker_input(f, :arrived_at)
+        datepicker_input(f, :departed_at)
+      end
+    end
+
+    CHILDCARE_INPUTS ||= proc do |f|
+      f.inputs 'Childcare' do
         f.input :childcare_weeks,
                 label: 'Weeks of ChildCare',
                 collection: childcare_weeks_select,
                 multiple: true,
                 hint: 'Please add all weeks needed'
-      end
 
-      f.inputs 'Assign ChildCare Spaces' do
         f.input :childcare_id,
                 as: :select,
                 collection: childcare_spaces_select,

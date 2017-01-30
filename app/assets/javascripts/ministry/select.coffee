@@ -41,8 +41,15 @@ class DataMinistrySelectWidget
     $menu = @createMutliLevelSelect()
     @$select.after($menu)
 
-    @setupDropdownPlugin($menu, @labels[@$select.val()])
-    @addCallbacks($menu)
+    $widget = @setupDropdownPlugin($menu, @labels[@$select.val()])
+
+    allowDeselect = !!@$select.find('option[value=""]').length
+    if allowDeselect
+      $close = $('<abbr class="dropdown__close">')
+      $widget.append($close)
+      @createCloseCallback($close, $menu)
+
+    @createSelectCallback($menu)
 
 
   # Hides the original selector. The new UI element will change it's value, so it
@@ -87,22 +94,44 @@ class DataMinistrySelectWidget
       @setDefaultSelection(dropdown, initialSelection)
     $menu.dropdown()
 
+    @$select.siblings('.dropdown')
+
 
   setDefaultSelection: (dropdown, initialSelection) ->
     selectedItem = null
 
     # We have to match based off text, not ID
+    $decodeHtmlEntities = $('<div/>')
     for uid, item of dropdown.instance.items
-      selectedItem = item if item.text == initialSelection
+      itemText =  $decodeHtmlEntities.html(item.text).text()
+      selectedItem = item if itemText == initialSelection
 
     dropdown.select(selectedItem) if selectedItem
 
 
   # @param {jQuery} $menu - the jQuery Dropdown UI element
-  addCallbacks: ($menu) ->
+  createSelectCallback: ($menu) ->
     $decodeHtmlEntities = $('<div/>')
 
     $menu.on 'dropdown-after-select', (_, item) =>
       text = $decodeHtmlEntities.html(item.text).text()
       @$select.val(@labelIdMap[text])
       @$select.trigger('change')
+
+
+  createCloseCallback: ($close, $menu) ->
+    $close.on 'click', =>
+      plugin = $menu.data('dw.plugin.dropdown')
+      plugin.selectValue(null, true)
+      plugin.toggleText('')
+      @$select.val(null)
+      @$select.trigger('change')
+
+    showHide = =>
+      if @$select.val()
+        $close.removeClass('dropdown__close--hide')
+      else
+        $close.addClass('dropdown__close--hide')
+
+    @$select.on 'change', showHide
+    showHide()

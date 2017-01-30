@@ -3,23 +3,36 @@ module Attendees
   module Form
     include People::Form
 
+    # rubocop:disable MethodLength
     def self.included(base)
       base.send :form, FORM_OPTIONS do |f|
         f.semantic_errors
 
         columns do
           column do
-            instance_exec(f, &ATTENDEE_INPUTS)
+            instance_exec(f, &ATTRIBUTES_COLUMN)
           end
 
           column do
             instance_exec(f, attendee, &STAY_SUBFORM)
+          end
+
+          column do
+            instance_exec(f, attendee, &COST_ADJUSTMENT_SUBFORM)
             instance_exec(f, attendee, &MEAL_EXEMPTIONS_SUBFORM)
           end
         end
 
         f.actions
       end
+    end
+
+    ATTRIBUTES_COLUMN ||= proc do |f|
+      instance_exec(f, &ATTENDEE_INPUTS)
+      instance_exec(f, &DURATION_INPUTS)
+      instance_exec(f, &CONTACT_INPUTS)
+      instance_exec(f, &MINISTRY_INPUTS)
+      instance_exec(f, &ATTENDANCE_INPUTS)
     end
 
     ATTENDEE_INPUTS ||= proc do |f|
@@ -38,18 +51,31 @@ module Attendees
         f.input :gender, as: :select, collection: gender_select
         datepicker_input(f, :birthdate)
       end
+    end
 
+    DURATION_INPUTS ||= proc do |f|
+      f.inputs 'Duration' do
+        datepicker_input(f, :arrived_at)
+        datepicker_input(f, :departed_at)
+      end
+    end
+
+    CONTACT_INPUTS ||= proc do |f|
       f.inputs 'Contact' do
         f.input :email
         f.input :phone
         f.input :emergency_contact
       end
+    end
 
+    MINISTRY_INPUTS ||= proc do |f|
       f.inputs do
         select_ministry_widget(f)
         f.input :department
       end
+    end
 
+    ATTENDANCE_INPUTS ||= proc do |f|
       f.inputs 'Attendance' do
         f.input :conferences
         f.input :courses

@@ -12,14 +12,31 @@ ActiveAdmin.register Attendee do
 
   permit_params(
     :first_name, :last_name, :email, :emergency_contact, :phone,
-    :student_number, :gender, :department, :family_id, :birthdate, :ministry_id,
-    conference_ids: [], course_ids: [], meal_exemptions_attributes: [
+    :student_number, :gender, :department, :family_id, :birthdate,
+    :ministry_id, :arrived_at, :departed_at, conference_ids: [], course_ids:
+    [], cost_adjustments_attributes: [
+      :id, :_destroy, :description, :person_id, :price, :cost_type
+    ], meal_exemptions_attributes: [
       :id, :_destroy, :date, :meal_type
     ], stays_attributes: [
       :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-      :single_occupancy, :no_charge, :waive_minimum, :percentage
+      :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
     ]
   )
+
+  filter :student_number
+  filter :first_name
+  filter :last_name
+  filter :birthdate
+  filter :gender
+  filter :email
+  filter :phone
+  filter :emergency_contact
+  filter :department
+  filter :ministry
+  filter :courses
+  filter :arrived_at
+  filter :departed_at
 
   index do
     selectable_column
@@ -35,6 +52,8 @@ ActiveAdmin.register Attendee do
     column(:phone) { |a| format_phone(a.phone) }
     column :emergency_contact
     column :department
+    column :arrived_at
+    column :departed_at
     column :created_at
     column :updated_at
     actions

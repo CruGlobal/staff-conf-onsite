@@ -13,6 +13,13 @@ module People
           row :housing_unit
           row :arrived_at
           row :departed_at
+          row('Duration') do |stay|
+            if stay.arrived_at.present? && stay.departed_at.present?
+              pluralize (stay.departed_at.mjd - stay.arrived_at.mjd), 'Day'
+            else
+              strong 'N/A'
+            end
+          end
 
           Stay::HOUSING_TYPE_FIELDS.each do |attribute, types|
             row attribute do |stay|
@@ -25,6 +32,8 @@ module People
               end
             end
           end
+
+          row(:comment) { |stay| html_full stay.comment }
         end
       end
     end
