@@ -40,15 +40,15 @@ class Stay < ActiveRecord::Base
 
   private
 
-  def cost_for_person_of_age_group(age_group)
+  def calculate_cost_related_to_charge_field(beginning_of_field_name)
     total_charges_in_cents = 0
     number_of_days_charged = 0
 
     until length_of_stay == number_of_days_charged
       charge = charge_with_smallest_max_days_over_n(number_of_days_charged)
-      days_charged_here = [charge.max_days, length_of_stay - number_of_days_charged].min
-      total_charges_in_cents += charge.send("#{age_group}_cents") * days_charged_here
-      number_of_days_charged += days_charged_here
+      days_charged_in_this_cycle = [charge.max_days, length_of_stay - number_of_days_charged].min
+      total_charges_in_cents += charge.send("#{beginning_of_field_name}_cents") * days_charged_in_this_cycle
+      number_of_days_charged += days_charged_in_this_cycle
     end
     total_charges_in_cents.to_f / 100
   end
@@ -60,7 +60,23 @@ class Stay < ActiveRecord::Base
           "Housing Facility with id #{housing_unit.housing_facility.id} is missing a cost_code. It must be added."
   end
 
+  def child_to_be_charged_meal_only?
+    person.age < 11 && !person.needs_bed?
+  end
+
+  def cost_for_person_of_age_group(age_group)
+    return calculate_cost_related_to_charge_field('child_meal') if child_to_be_charged_meal_only?
+
+    cost = calculate_cost_related_to_charge_field(age_group)
+    cost += calculate_cost_related_to_charge_field('single_delta') if person_to_be_charged_single_occupancy_fee?
+    cost
+  end
+
   def housing_facility
     housing_unit.housing_facility
+  end
+
+  def person_to_be_charged_single_occupancy_fee?
+    person.age > 14 && single_occupancy?
   end
 end
