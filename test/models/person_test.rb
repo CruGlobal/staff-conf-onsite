@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StayTest < ActiveSupport::TestCase
+class PersonTest < ActiveSupport::TestCase
   setup do
     @person = Person.new(birthdate: 20.years.ago)
   end

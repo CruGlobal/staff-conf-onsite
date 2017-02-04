@@ -29,7 +29,7 @@ class Person < ApplicationRecord
   end
 
   def age
-    @age ||= age_from_birthdate
+    age_from_birthdate
   end
 
   private

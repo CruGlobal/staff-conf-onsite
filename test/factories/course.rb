@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :course do
     name { Faker::Educator.course }
     price_cents { Faker::Number.between(0, 1000_00) }
-    description { Faker::Lorem.paragraph(rand(3)) }
+    description { Faker::Lorem.paragraph(rand(3) + 1) }
     instructor { Faker::Name.first_name }
     sequence(:ibs_code) { |n| n }
     sequence(:location) { |n| "#{Faker::Address.city} #{n}" }
