@@ -14,6 +14,7 @@ module Attendees
           end
 
           column do
+            instance_exec(f, &COURSE_ATTENDANCES_SUBFORM)
             instance_exec(f, attendee, &STAY_SUBFORM)
           end
 
@@ -28,11 +29,9 @@ module Attendees
     end
 
     ATTRIBUTES_COLUMN ||= proc do |f|
-      instance_exec(f, &ATTENDEE_INPUTS)
       instance_exec(f, &DURATION_INPUTS)
       instance_exec(f, &CONTACT_INPUTS)
       instance_exec(f, &MINISTRY_INPUTS)
-      instance_exec(f, &ATTENDANCE_INPUTS)
     end
 
     ATTENDEE_INPUTS ||= proc do |f|
@@ -72,13 +71,21 @@ module Attendees
       f.inputs do
         select_ministry_widget(f)
         f.input :department
+        f.input :conferences
       end
     end
 
-    ATTENDANCE_INPUTS ||= proc do |f|
-      f.inputs 'Attendance' do
-        f.input :conferences
-        f.input :courses
+    COURSE_ATTENDANCES_SUBFORM ||= proc do |form|
+      collection = [:course_attendances, form.object.course_attendances]
+
+      panel 'Attendances' do
+        form.has_many :course_attendances, heading: nil, collection:
+            collection, new_record: 'Add New Attendance' do |f|
+          f.input :course
+          f.input :grade, collection: course_grade_select
+          f.input :seminary_credit
+          f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
+        end
       end
     end
   end

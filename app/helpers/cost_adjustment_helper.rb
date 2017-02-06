@@ -1,5 +1,5 @@
 module CostAdjustmentHelper
-  I18N_PREFIX = 'activerecord.attributes.cost_adjustment'.freeze
+  I18N_PREFIX_COST_ADJUSTMENT = 'activerecord.attributes.cost_adjustment'.freeze
 
   module_function
 
@@ -28,6 +28,6 @@ module CostAdjustmentHelper
         raise "unexpected parameter, '#{obj.inspect}'"
       end
 
-    I18n.t("#{I18N_PREFIX}.cost_types.#{type}")
+    I18n.t("#{I18N_PREFIX_COST_ADJUSTMENT}.cost_types.#{type}")
   end
 end

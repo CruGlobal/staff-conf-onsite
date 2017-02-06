@@ -47,13 +47,15 @@ ActiveAdmin.register Course do
       end
 
       column do
-        size = course.attendees.size
+        attendances = course.course_attendances.includes(:attendee)
+        size = attendances.size
+
         panel "Attendees (#{size})" do
           if size.positive?
-            ul do
-              course.attendees.each do |a|
-                li { link_to(a.full_name, a) }
-              end
+            table_for attendances do
+              column(:attendee) { |a| link_to(a.attendee.full_name, a.attendee) }
+              column :grade
+              column :seminary_credit
             end
           else
             strong 'None'

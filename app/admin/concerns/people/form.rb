@@ -46,6 +46,7 @@ module People
         end
       end
     end
+
     COST_ADJUSTMENT_SUBFORM ||= proc do |form|
       panel 'Cost Adjustments', 'data-housing_unit-container' => true do
         form.has_many :cost_adjustments, heading: nil do |f|

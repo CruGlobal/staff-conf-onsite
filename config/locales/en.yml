@@ -37,6 +37,8 @@ en:
           other: "Versions"
 
     attributes:
+      person:
+        course_attendance: "Attendance"
       chargeable_staff_number:
         staff_number: "Staff ID"
       childcares:
@@ -94,6 +96,12 @@ en:
           books: "Books"
       course:
         ibs_code: "IBS ID"
+        grades:
+          AU: 'AU (Auditing)'
+      course_attendance:
+        course: "Class"
+        grade: "Final Grade"
+        seminary_credit: "Request Additional Seminary Credit"
       family:
         country_code: "Country"
         staff_number: "Staff ID"

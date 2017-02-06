@@ -5,28 +5,30 @@ module Attendees
     include People::ShowMealExemptions
     include People::ShowStays
 
-    # rubocop:disable MethodLength
     def self.included(base)
       base.send :show do
         columns do
-          column do
-            instance_exec(&ATTRIBUTES_TABLE)
-            instance_exec(&DURATION_TABLE)
-            instance_exec(&CONFERENCES_PANEL)
-            instance_exec(&COURSES_PANEL)
-            instance_exec(attendee, &COST_ADJUSTMENTS_PANEL)
-          end
-
-          column do
-            instance_exec(attendee, &MEAL_EXEMPTIONS_PANEL)
-            instance_exec(attendee, &STAYS_PANEL)
-          end
+          column { instance_exec(&LEFT_COLUMN) }
+          column { instance_exec(&RIGHT_COLUMN) }
         end
 
         active_admin_comments
       end
     end
-    # rubocop:enable MethodLength
+
+    LEFT_COLUMN = proc do
+      instance_exec(&ATTRIBUTES_TABLE)
+      instance_exec(&DURATION_TABLE)
+      instance_exec(&CONFERENCES_PANEL)
+      instance_exec(&COURSES_PANEL)
+      instance_exec(attendee, &COST_ADJUSTMENTS_PANEL)
+    end
+
+    RIGHT_COLUMN = proc do
+      instance_exec(&ATTENDANCES_PANEL)
+      instance_exec(attendee, &STAYS_PANEL)
+      instance_exec(attendee, &MEAL_EXEMPTIONS_PANEL)
+    end
 
     ATTRIBUTES_TABLE ||= proc do
       attributes_table do
@@ -82,6 +84,21 @@ module Attendees
             attendee.courses.each do |c|
               li { link_to(c.name, c) }
             end
+          end
+        else
+          strong 'None'
+        end
+      end
+    end
+
+    ATTENDANCES_PANEL ||= proc do
+      panel 'Attendances' do
+        attendances = attendee.course_attendances.includes(:course)
+        if attendances.any?
+          table_for attendances.sort_by { |a| a.course.name } do
+            column :course
+            column :grade
+            column :seminary_credit
           end
         else
           strong 'None'

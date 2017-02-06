@@ -1,5 +1,5 @@
 module HousingHelper
-  I18N_PREFIX = 'activerecord.attributes.housing_facility'.freeze
+  I18N_PREFIX_HOUSING = 'activerecord.attributes.housing_facility'.freeze
 
   module_function
 
@@ -34,7 +34,7 @@ module HousingHelper
         raise "unexpected parameter, '#{obj.inspect}'"
       end
 
-    I18n.t("#{I18N_PREFIX}.housing_types.#{type}")
+    I18n.t("#{I18N_PREFIX_HOUSING}.housing_types.#{type}")
   end
 
   # Creates an input element, used by the JavaScript code in

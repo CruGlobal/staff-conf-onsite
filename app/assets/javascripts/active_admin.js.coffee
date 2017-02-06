@@ -25,7 +25,8 @@
 #  ====================================
 #
 #  Attendee/Child ---------------------
-#= require person/form
+#= require person/course_attendance_form
+#= require person/meal_form
 #
 #  Ministry ---------------------------
 #= require 'ministry/select'
