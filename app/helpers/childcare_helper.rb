@@ -44,14 +44,12 @@ module ChildcareHelper
     Childcare::CHILDCARE_WEEKS[index]
   end
 
+  # @return [String] a description of the given childcare level, based on the
+  #   child's age group
   def childcare_level(child, index)
-    week_label = childcare_weeks_label(index)
-    prefix = 'activerecord.attributes.child.childcare_suffixes'
-
-    if child.younger?
-      "#{week_label} #{I18n.t("#{prefix}.younger")}"
-    else
-      "#{week_label} #{I18n.t("#{prefix}.older")}"
-    end
+    I18n.t(
+      "activerecord.attributes.child.childcare_suffixes.#{child.age_group}",
+      label: childcare_weeks_label(index)
+    )
   end
 end

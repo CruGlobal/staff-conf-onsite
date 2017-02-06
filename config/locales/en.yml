@@ -57,8 +57,9 @@ en:
       child:
         childcare: "Childcare Class"
         childcare_suffixes:
-          younger: "Childcare"
-          older: "JrSr"
+          childcare: "%{label} Childcare"
+          junior_senior: "%{label} JrSr"
+          neither: "%{label}"
         childcare_week_numbers:
           none: "No Childcare Needed"
         grade_level: "Age Group or Grade Level"

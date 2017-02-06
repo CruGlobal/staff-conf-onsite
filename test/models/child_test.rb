@@ -75,15 +75,24 @@ class ChildTest < ActiveSupport::TestCase
     assert_equal 'OtherName', @child.last_name
   end
 
-  test '#younger?' do
-    %w(age0 age1 age2 age3 age4 age5 grade1 grade2 grade3 grade4 grade5).each do |level|
+  %w(age0 age1 age2 age3 age4 age5 grade1 grade2 grade3 grade4 grade5).each do |level|
+    test "#age_group is :childcare when grade level is #{level}" do
       @child.grade_level = level
-      assert @child.younger?
+      assert_equal :childcare, @child.age_group
     end
+  end
 
-    %w(grade6 grade7 grade8 grade9 grade10 grade11 grade12 grade13 postHighSchool).each do |level|
+  %w(grade6 grade7 grade8 grade9 grade10 grade11 grade12 grade13).each do |level|
+    test "#age_group is :junior_senior when grade level is #{level}" do
       @child.grade_level = level
-      refute @child.younger?
+      assert_equal :junior_senior, @child.age_group
+    end
+  end
+
+  [nil, 'postHighSchool'].each do |level|
+    test "#age_group is :neither when grade level is #{level}" do
+      @child.grade_level = level
+      assert_equal :neither, @child.age_group
     end
   end
 end
