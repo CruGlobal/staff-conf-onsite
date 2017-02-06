@@ -62,4 +62,9 @@ ActiveAdmin.register HousingUnit do
   sidebar 'Housing Facility' do
     h4 strong link_to(housing_facility.name, housing_facility_path(housing_facility))
   end
+
+  action_item :import_rooms, only: :index do
+    link_to 'Import Spreadsheet',
+            new_spreadsheet_housing_facility_path(params[:housing_facility_id])
+  end
 end

@@ -33,10 +33,9 @@ class Child < Person
   #   +:childcare+, +junior_senior+, or +neighter+ if they are no longer in
   #   public school
   def age_group
-    case
-    when grade_level.nil? || grade_level == 'postHighSchool'
+    if grade_level.nil? || grade_level == 'postHighSchool'
       :neither
-    when GRADE_LEVELS.index(grade_level) <= GRADE_LEVELS.index('grade5')
+    elsif GRADE_LEVELS.index(grade_level) <= GRADE_LEVELS.index('grade5')
       :childcare
     else
       :junior_senior
