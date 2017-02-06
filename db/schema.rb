@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(version: 20170204215958) do
   create_table "course_attendances", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "attendee_id"
-    t.integer  "grade"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "seminary_credit", default: false
+    t.string   "grade"
   end
 
   add_index "course_attendances", ["attendee_id"], name: "index_course_attendances_on_attendee_id"

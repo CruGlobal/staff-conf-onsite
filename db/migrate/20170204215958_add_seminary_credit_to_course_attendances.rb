@@ -3,8 +3,14 @@ class AddSeminaryCreditToCourseAttendances < ActiveRecord::Migration
     add_column :course_attendances, :seminary_credit, :boolean, default: false
 
     reversible do |dir|
-      dir.up   { change_column :course_attendances, :grade, :integer }
-      dir.down { change_column :course_attendances, :grade, :string }
+      dir.up do
+        remove_column :course_attendances, :grade
+        add_column :course_attendances, :grade, :string
+      end
+      dir.down do
+        remove_column :course_attendances, :grade
+        add_column :course_attendances, :grade, :integer
+      end
     end
   end
 end
