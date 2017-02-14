@@ -19,7 +19,7 @@ class CreateHousingUnits
   # @return [Interactor::Context]
   def call
     HousingFacility.transaction do
-      housing_facility.housing_units.delete_all if context.delete_existing
+      housing_facility.housing_units.each(&:destroy) if context.delete_existing
       parse_sheets(context.sheets)
     end
   rescue Error => e
