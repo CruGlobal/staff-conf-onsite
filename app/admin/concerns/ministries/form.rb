@@ -5,7 +5,8 @@ module Ministries
       create_spreadsheet_upload_actions(base)
 
       base.send :form do |f|
-        f.semantic_errors
+        show_errors_if_any(f)
+
         f.inputs do
           f.input :code
           f.input :name

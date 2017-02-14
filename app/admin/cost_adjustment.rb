@@ -31,7 +31,8 @@ ActiveAdmin.register CostAdjustment do
   filter :updated_at
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
+
     f.inputs do
       f.input :person
       f.input :cost_type, as: :select, collection: cost_type_select

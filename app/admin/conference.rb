@@ -58,7 +58,8 @@ ActiveAdmin.register Conference do
   end
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
+
     f.inputs do
       f.input :name
       money_input_widget(f, :price)

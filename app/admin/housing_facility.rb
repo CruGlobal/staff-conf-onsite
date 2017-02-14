@@ -40,7 +40,7 @@ ActiveAdmin.register HousingFacility do
   end
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
 
     f.inputs do
       f.input :name

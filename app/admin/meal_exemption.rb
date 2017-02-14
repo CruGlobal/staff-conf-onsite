@@ -7,7 +7,7 @@ ActiveAdmin.register MealExemption do
   show title: ->(m) { "#{m.attendee.full_name}: #{m.date.to_s(:long_ordinal)} #{m.meal_type} Meal Exemption" }
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
 
     f.inputs do
       f.input :person

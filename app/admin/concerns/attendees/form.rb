@@ -6,7 +6,7 @@ module Attendees
     # rubocop:disable MethodLength
     def self.included(base)
       base.send :form, FORM_OPTIONS do |f|
-        f.semantic_errors
+        show_errors_if_any(f)
 
         columns do
           column do

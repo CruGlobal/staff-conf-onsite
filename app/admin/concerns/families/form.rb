@@ -7,7 +7,7 @@ module Families
       end
 
       base.send :form, title: title do |f|
-        f.semantic_errors
+        show_errors_if_any(f)
 
         instance_exec(f, &BASIC_INFO_FIELDS)
         instance_exec(f, &ADDRESS_FIELDS)

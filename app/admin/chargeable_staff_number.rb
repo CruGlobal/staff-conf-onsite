@@ -35,7 +35,8 @@ ActiveAdmin.register ChargeableStaffNumber do
   end
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
+
     f.inputs do
       f.input :staff_number
     end

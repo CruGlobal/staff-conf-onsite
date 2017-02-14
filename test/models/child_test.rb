@@ -90,9 +90,9 @@ class ChildTest < ActiveSupport::TestCase
   end
 
   [nil, 'postHighSchool'].each do |level|
-    test "#age_group is :neither when grade level is #{level}" do
+    test "#age_group is :post_high_school when grade level is #{level}" do
       @child.grade_level = level
-      assert_equal :neither, @child.age_group
+      assert_equal :post_high_school, @child.age_group
     end
   end
 end

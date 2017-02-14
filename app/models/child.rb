@@ -13,6 +13,9 @@ class Child < Person
 
   validates :family_id, presence: true
   validates :grade_level, inclusion: { in: GRADE_LEVELS }, allow_nil: true
+  validates :childcare_weeks, if: :post_high_school?, absence: {
+    message: 'must be blank when child is Post High School'
+  }
 
   # @return [Array<Fixnum>] a list of indexes from the
   #   {Childcare::CHILDCARE_WEEKS} array
@@ -30,15 +33,19 @@ class Child < Person
   end
 
   # @return [Symbol] the school "age group" this child belongs to.
-  #   +:childcare+, +junior_senior+, or +neighter+ if they are no longer in
-  #   public school
+  #   +:childcare+, +junior_senior+, or +post_high_school+ if they are no longer
+  #   in public school
   def age_group
     if grade_level.nil? || grade_level == 'postHighSchool'
-      :neither
+      :post_high_school
     elsif GRADE_LEVELS.index(grade_level) <= GRADE_LEVELS.index('grade5')
       :childcare
     else
       :junior_senior
     end
+  end
+
+  def post_high_school?
+    age_group == :post_high_school
   end
 end

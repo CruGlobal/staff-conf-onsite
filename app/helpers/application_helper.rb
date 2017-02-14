@@ -37,4 +37,12 @@ module ApplicationHelper
 
     form.input attribute, opts
   end
+
+  # If the given form contains any errors (from the user's last POST), display
+  # those errors in a list.
+  #
+  # @param form [Formtastic Form] the form DSL object
+  def show_errors_if_any(form)
+    form.semantic_errors(*form.object.errors.keys)
+  end
 end
