@@ -93,7 +93,7 @@ ActiveAdmin.register HousingFacility do
       ImportHousingUnitsSpreadsheet.call(
         ActionController::Parameters.new(params).
           require('import_spreadsheet').
-          permit(:file, :skip_first).reverse_merge(
+          permit(:file, :skip_first, :delete_existing).reverse_merge(
             housing_facility_id: params[:id]
           )
       )

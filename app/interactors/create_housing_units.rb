@@ -19,14 +19,19 @@ class CreateHousingUnits
   # @return [Interactor::Context]
   def call
     HousingFacility.transaction do
-      context.sheets.each { |rows| parse_units(rows) }
-      housing_facility.housing_units.each(&:save!)
+      housing_facility.housing_units.delete_all if context.delete_existing
+      parse_sheets(context.sheets)
     end
   rescue Error => e
     context.fail! message: e.message
   end
 
   private
+
+  def parse_sheets(sheets)
+    sheets.each { |rows| parse_units(rows) }
+    housing_facility.housing_units.each(&:save!)
+  end
 
   def parse_units(rows)
     rows.each do |row|
