@@ -9,6 +9,8 @@ class Child < Person
   belongs_to :family
   belongs_to :childcare
 
+  has_many :childcare_attendances, dependent: :destroy
+
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 
   validates :family_id, presence: true

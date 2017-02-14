@@ -8,7 +8,7 @@ class Course < ApplicationRecord
     less_than_or_equal_to:     1_000_000
   }
 
-  has_many :course_attendances
+  has_many :course_attendances, dependent: :destroy
   has_many :attendees, through: :course_attendances
 
   validates :name, :description, :instructor, :week_descriptor, :ibs_code,

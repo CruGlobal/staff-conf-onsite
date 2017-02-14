@@ -11,9 +11,9 @@ class Person < ApplicationRecord
   belongs_to :family
   belongs_to :ministry
 
-  has_many :cost_adjustments
-  has_many :meal_exemptions
-  has_many :stays
+  has_many :cost_adjustments, dependent: :destroy
+  has_many :meal_exemptions, dependent: :destroy
+  has_many :stays, dependent: :destroy
 
   accepts_nested_attributes_for :stays, :cost_adjustments, allow_destroy: true
 

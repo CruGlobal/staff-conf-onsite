@@ -8,7 +8,7 @@ class Conference < ApplicationRecord
     less_than_or_equal_to:     1_000_000
   }
 
-  has_many :conference_attendances
+  has_many :conference_attendances, dependent: :destroy
   has_many :attendees, through: :conference_attendances
 
   def audit_name
