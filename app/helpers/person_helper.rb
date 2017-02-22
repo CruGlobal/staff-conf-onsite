@@ -9,8 +9,6 @@ module PersonHelper
       end
   end
 
-  module_function
-
   def gender_select
     Person::GENDERS.map { |k, v| [v, k] }
   end
@@ -25,9 +23,9 @@ module PersonHelper
   #
   # @return [String] An HTML +<span>+ wrapping {#age}
   def age_label(dob)
-    Arbre::Context.new do
+    HtmlContext.new do
       span title: "As of #{I18n.l(Person::AGE_AS_OF, format: :month)}" do
-        PersonHelper.age(dob)
+        age(dob)
       end
     end
   end

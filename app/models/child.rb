@@ -9,8 +9,6 @@ class Child < Person
   belongs_to :family
   belongs_to :childcare
 
-  has_many :childcare_attendances, dependent: :destroy
-
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 
   validates :family_id, presence: true
@@ -18,6 +16,7 @@ class Child < Person
   validates :childcare_weeks, if: :post_high_school?, absence: {
     message: 'must be blank when child is Post High School'
   }
+  validates_associated :meal_exemptions
 
   # @return [Array<Fixnum>] a list of indexes from the
   #   {Childcare::CHILDCARE_WEEKS} array

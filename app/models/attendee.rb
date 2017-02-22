@@ -12,4 +12,5 @@ class Attendee < Person
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 
   validates :family_id, presence: true
+  validates_associated :course_attendances, :meal_exemptions
 end

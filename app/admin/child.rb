@@ -1,6 +1,7 @@
 ActiveAdmin.register Child do
-  include Children::Show
-  include Children::Form
+  index { cell('children/index', self).call }
+  show  { cell('children/show', self).call }
+  form  { |f| cell('children/form', f).call }
 
   menu parent: 'People', priority: 3
 
@@ -33,23 +34,4 @@ ActiveAdmin.register Child do
   filter :arrived_at
   filter :departed_at
   filter :childcare_class
-
-  index do
-    selectable_column
-    column :id
-    column :first_name
-    column :last_name
-    column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
-    column(:gender) { |c| gender_name(c.gender) }
-    column :birthdate
-    column(:age, sortable: :birthdate) { |c| age(c) }
-    column(:grade_level) { |c| grade_level_label(c) }
-    column :parent_pickup
-    column :needs_bed
-    column :arrived_at
-    column :departed_at
-    column :created_at
-    column :updated_at
-    actions
-  end
 end

@@ -1,6 +1,4 @@
 module ChildcareHelper
-  module_function
-
   # @return [Array<[label, id]>] the {Childcare::CHILDCARE_WEEKS childcare
   #   weeks} +<select>+ options acceptable for +options_for_select+
   def childcare_weeks_select

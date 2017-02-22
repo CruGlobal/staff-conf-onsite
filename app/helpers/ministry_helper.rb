@@ -1,6 +1,4 @@
 module MinistryHelper
-  module_function
-
   # Wraps Formtastic's +form.input :ministry, as: :select+ helper, so that our
   # custom jQuery widget can replace the select with a nicer UI widget.
   #

@@ -1,6 +1,7 @@
 ActiveAdmin.register Attendee do
-  include Attendees::Show
-  include Attendees::Form
+  index { cell('attendees/index', self).call }
+  show  { cell('attendees/show', self).call }
+  form  { |f| cell('attendees/form', f).call }
 
   remove_filter :family # Adds N+1 additional quries to the index page
 
@@ -38,27 +39,6 @@ ActiveAdmin.register Attendee do
   filter :courses
   filter :arrived_at
   filter :departed_at
-
-  index do
-    selectable_column
-    column :id
-    column(:student_number) { |a| code a.student_number }
-    column :first_name
-    column :last_name
-    column(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-    column :birthdate
-    column(:age, sortable: :birthdate) { |a| age(a) }
-    column(:gender) { |a| gender_name(a.gender) }
-    column(:email) { |a| mail_to(a.email) }
-    column(:phone) { |a| format_phone(a.phone) }
-    column :emergency_contact
-    column :department
-    column :arrived_at
-    column :departed_at
-    column :created_at
-    column :updated_at
-    actions
-  end
 
   controller do
     def scoped_collection

@@ -1,8 +1,6 @@
 module CostAdjustmentHelper
   I18N_PREFIX_COST_ADJUSTMENT = 'activerecord.attributes.cost_adjustment'.freeze
 
-  module_function
-
   # @return [Array<[label, id]>] a map of {CostAdjustment} IDs and their
   #   descriptions
   def cost_type_select

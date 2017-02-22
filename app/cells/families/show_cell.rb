@@ -1,22 +1,24 @@
 module Families
-  # Defines the HTML for rendering a single {Family} record.
-  module Show
-    def self.included(base)
-      base.send :show, title: ->(f) { PersonHelper.family_label(f) } do
-        columns do
-          column do
-            instance_exec(&ATTRIBUTES_TABLE)
-            instance_exec(&HOUSING_PREFERENCES_TABLE)
-          end
-          column do
-            instance_exec(&ATTENDEES_LIST)
-            instance_exec(&CHILDREN_LIST)
-          end
+  class ShowCell < ::ShowCell
+    property :family
+
+    def show
+      columns do
+        column do
+          family_attributes_table
+          housing_preference_table
         end
-        active_admin_comments
+        column do
+          attendees_list
+          children_list
+        end
       end
+      active_admin_comments
     end
-    ATTRIBUTES_TABLE ||= proc do
+
+    private
+
+    def family_attributes_table
       attributes_table do
         row :id
         row :last_name
@@ -24,39 +26,46 @@ module Families
           code f.staff_number
           status_tag :yes, label: 'Chargeable' if f.chargeable_staff_number?
         end
-        row :street
-        row :city
-        row :state
-        row(:country_code) { |f| country_name(f.country_code) }
-        row :zip
+        address_rows
         row :created_at
         row :updated_at
       end
     end
 
-    HOUSING_PREFERENCES_TABLE ||= proc do
+    def address_rows
+      row :street
+      row :city
+      row :state
+      row(:country_code) { |f| country_name(f.country_code) }
+      row :zip
+    end
+
+    def housing_preference_table
       panel 'Housing Preference' do
         attributes_table_for family.housing_preference do
           row(:housing_type) { |hp| housing_type_name(hp) }
 
-          instance_exec(&HOUSING_TYPE_FIELD_ROWS)
+          housing_type_field_rows
 
           row(:registration_comment) do
             html_full(family.registration_comment) || strong('N/A')
           end
-
-          row :confirmed_at do |hp|
-            if hp.confirmed_at.present?
-              status_tag :yes, label: "confirmed on #{l hp.confirmed_at, format: :month}"
-            else
-              status_tag :no, label: 'unconfirmed'
-            end
-          end
+          confirmed_at_row
         end
       end
     end
 
-    HOUSING_TYPE_FIELD_ROWS ||= proc do
+    def confirmed_at_row
+      row :confirmed_at do |hp|
+        if hp.confirmed_at.present?
+          status_tag :yes, label: "confirmed on #{l hp.confirmed_at, format: :month}"
+        else
+          status_tag :no, label: 'unconfirmed'
+        end
+      end
+    end
+
+    def housing_type_field_rows
       housing_type = family.housing_preference.housing_type.to_sym
 
       HousingPreference::HOUSING_TYPE_FIELDS.each do |attr, types|
@@ -66,7 +75,7 @@ module Families
       end
     end
 
-    ATTENDEES_LIST ||= proc do
+    def attendees_list
       attendees = family.attendees.load
 
       panel 'Attendees' do
@@ -82,7 +91,7 @@ module Families
       end
     end
 
-    CHILDREN_LIST ||= proc do
+    def children_list
       children = family.children.load
 
       panel 'Children' do

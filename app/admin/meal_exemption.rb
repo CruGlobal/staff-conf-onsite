@@ -1,4 +1,6 @@
 ActiveAdmin.register MealExemption do
+  extend Rails.application.helpers
+
   permit_params :person_id, :date, :meal_type
 
   belongs_to :attendee
@@ -20,7 +22,7 @@ ActiveAdmin.register MealExemption do
 
   filter :person
   filter :date
-  filter :meal_type, as: :select, collection: MealExemptionHelper.meal_type_select
+  filter :meal_type, as: :select, collection: meal_type_select
   filter :created_at
   filter :updated_at
 

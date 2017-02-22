@@ -2,8 +2,6 @@ require 'phone'
 require 'truncate_html'
 
 module TextHelper
-  module_function
-
   # This method truncates the given string, ensuring any open tags are closed
   # and no tags are cut in half
   # @return [string] a truncated version of the given HTML string

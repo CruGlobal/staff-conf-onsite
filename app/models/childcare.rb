@@ -3,7 +3,6 @@ class Childcare < ApplicationRecord
 
   belongs_to :family
   has_many :children
-  has_many :childcare_attendances, dependent: :destroy
 
   # The list of individual weeks that children may attend.
   #

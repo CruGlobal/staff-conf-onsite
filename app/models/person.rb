@@ -19,6 +19,7 @@ class Person < ApplicationRecord
 
   validates :family_id, presence: true
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
+  validates_associated :stays
 
   def full_name
     "#{first_name} #{last_name}"

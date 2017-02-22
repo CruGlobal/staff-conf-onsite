@@ -1,4 +1,6 @@
 class Family < ApplicationRecord
+  include PersonHelper
+
   has_paper_trail
 
   has_many :people, dependent: :destroy
@@ -11,16 +13,17 @@ class Family < ApplicationRecord
   accepts_nested_attributes_for :housing_preference
 
   validates :last_name, :staff_number, presence: true
+  validates_associated :housing_preference
 
   before_validation :remove_blank_housing_preference
 
   # @see PersonHelper.family_label
   def to_s
-    PersonHelper.family_label(self)
+    family_label(self)
   end
 
   def audit_name
-    "#{super}: #{PersonHelper.family_label(self)}"
+    "#{super}: #{family_label(self)}"
   end
 
   def chargeable_staff_number?

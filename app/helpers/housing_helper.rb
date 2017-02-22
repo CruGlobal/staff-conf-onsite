@@ -1,8 +1,6 @@
 module HousingHelper
   I18N_PREFIX_HOUSING = 'activerecord.attributes.housing_facility'.freeze
 
-  module_function
-
   # @param type [HousingFacility, #to_s] either a facility record or the value
   #   of its +housing_type+ fields
   # @return [String] a string describing the given type

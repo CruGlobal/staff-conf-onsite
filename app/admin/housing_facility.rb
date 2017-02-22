@@ -1,4 +1,6 @@
 ActiveAdmin.register HousingFacility do
+  extend Rails.application.helpers
+
   permit_params :name, :housing_type, :cost_code_id, :cafeteria, :street,
                 :city, :state, :country_code, :zip
 
@@ -65,7 +67,7 @@ ActiveAdmin.register HousingFacility do
   filter :street
   filter :city
   filter :state
-  filter :country_code, as: :select, collection: CountryHelper.country_select
+  filter :country_code, as: :select, collection: country_select
   filter :zip
   filter :created_at
   filter :updated_at

@@ -1,14 +1,11 @@
 module People
-  # Defines the form for creating and editong {Person} records.
-  module Form
-    include FormMealExemptions
-
+  class FormCell < ::FormCell
     FORM_OPTIONS ||= {
       # If creating a new family-member, show the family name in the title
-      title: proc do |attendee|
-        label = "#{action_name.titlecase} #{attendee.class.name}"
+      title: proc do |person|
+        label = "#{action_name.titlecase} #{person.class.name}"
 
-        if (family = attendee.family || param_family)
+        if (family = person.family || param_family)
           "#{label} (#{family_label(family)})"
         else
           label
@@ -18,19 +15,19 @@ module People
 
     # If creating a new family-member, do not let the family association be
     # editable.
-    FAMILY_SELECTOR ||= proc do |form|
-      if (id = form.object.family_id || param_family.try(:id))
-        form.input :family_id, as: :hidden, input_html: { value: id }
+    def family_selector
+      if (id = object.family_id || param_family.try(:id))
+        input :family_id, as: :hidden, input_html: { value: id }
       else
-        form.input :family
+        input :family
       end
     end
 
-    STAY_SUBFORM ||= proc do |form|
-      collection = [:stays, form.object.stays.order(:arrived_at)]
+    def stay_subform
+      collection = [:stays, object.stays.order(:arrived_at)]
 
       panel 'Housing Assignments', 'data-housing_unit-container' => true do
-        form.has_many :stays, heading: nil, for: collection do |f|
+        has_many :stays, heading: nil, for: collection do |f|
           select_housing_unit_widget(f)
 
           datepicker_input(f, :arrived_at)
@@ -47,14 +44,20 @@ module People
       end
     end
 
-    COST_ADJUSTMENT_SUBFORM ||= proc do |form|
+    def cost_adjustment_subform
       panel 'Cost Adjustments', 'data-housing_unit-container' => true do
-        form.has_many :cost_adjustments, heading: nil do |f|
+        has_many :cost_adjustments, heading: nil do |f|
           f.input :cost_type, as: :select, collection: cost_type_select
           money_input_widget(f, :price)
           f.input :description, as: :ckeditor
         end
       end
+    end
+
+    private
+
+    def person
+      @options.fetch(:person)
     end
   end
 end
