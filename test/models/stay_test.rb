@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StayTest < ActiveSupport::TestCase
+class StayTest < ModelTestCase
   setup do
     @facility = create :housing_facility
     @unit = create :housing_unit, housing_facility: @facility

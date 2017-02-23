@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CostAdjustmentTest < ActiveSupport::TestCase
+class CostAdjustmentTest < ModelTestCase
   setup do
     create_users
     @cost_adjustment = create :cost_adjustment

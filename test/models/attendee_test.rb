@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AttendeeTest < ActiveSupport::TestCase
+class AttendeeTest < ModelTestCase
   setup do
     create_users
     @attendee = create :attendee

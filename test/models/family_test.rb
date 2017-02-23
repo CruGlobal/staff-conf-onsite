@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FamilyTest < ActiveSupport::TestCase
+class FamilyTest < ModelTestCase
   setup do
     create_users
     @family = create :family

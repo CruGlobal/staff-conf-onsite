@@ -10,7 +10,11 @@ Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 StubCas.stub_requests
 FactoryGirl.find_definitions
 
-class ActiveSupport::TestCase
+class ControllerTestCase < ActionController::TestCase
+  include FactoryGirl::Syntax::Methods
+end
+
+class ModelTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::Moneyable
 

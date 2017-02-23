@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ChargeableStaffNumberTest < ActiveSupport::TestCase
+class ChargeableStaffNumberTest < ModelTestCase
   setup do
     create_users
     @chargeable = create :chargeable_staff_number, staff_number: '12345'

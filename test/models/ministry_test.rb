@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MinistryTest < ActiveSupport::TestCase
+class MinistryTest < ModelTestCase
   setup do
     create_users
     @ministry = create :ministry

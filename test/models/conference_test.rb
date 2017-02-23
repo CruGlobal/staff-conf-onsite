@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConferenceTest < ActiveSupport::TestCase
+class ConferenceTest < ModelTestCase
   setup do
     create_users
     @conference = create :conference

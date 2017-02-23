@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CasAttributesTest < ActiveSupport::TestCase
+class CasAttributesTest < ModelTestCase
   setup do
     base_url = "https://thekey.me/cas/api/#{ENV['CAS_ACCESS_TOKEN']}"
 

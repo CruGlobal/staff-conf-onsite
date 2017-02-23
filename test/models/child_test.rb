@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ChildTest < ActiveSupport::TestCase
+class ChildTest < ModelTestCase
   setup do
     create_users
     @child = create :child
