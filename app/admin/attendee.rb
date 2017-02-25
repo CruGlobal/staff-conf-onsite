@@ -1,7 +1,7 @@
 ActiveAdmin.register Attendee do
-  index { cell('attendees/index', self).call }
-  show  { cell('attendees/show', self).call }
-  form  { |f| cell('attendees/form', f).call }
+  index { cell('attendee/index', self).call }
+  show  { cell('attendee/show', self).call }
+  form  { |f| cell('attendee/form', f).call }
 
   remove_filter :family # Adds N+1 additional quries to the index page
 

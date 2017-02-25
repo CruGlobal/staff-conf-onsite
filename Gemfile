@@ -57,9 +57,11 @@ group :development, :test do
   gem 'guard', '~> 2.14.0'
   gem 'guard-minitest', '~> 2.4.6'
   gem 'minitest-reporters', '~> 1.1.11'
+  gem 'minitest-rails-capybara', '~> 2.1'
   gem 'webmock', '~> 2.1.0'
   gem 'reek', '~> 4.4.2'
   gem 'bundler-audit', '~> 0.5.0'
+  gem 'rack_session_access', '~> 0.1'
 
   # Documentation
   gem 'yard', '~> 0.9.5'

@@ -6,4 +6,7 @@ guard :minitest do
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$})                       { 'test' }
   watch(%r{^test/support/(.+)\.rb$})                      { 'test' }
+
+  watch(%r{^app/admin/(.+).rb$}) { |m| Dir["test/integration/#{m[1]}/*_test.rb"] }
+  watch(%r{^app/cells/([^/]+)/(.+)_cell.rb$}) { |m| "test/integration/#{m[1]}/#{m[2]}_test.rb" }
 end

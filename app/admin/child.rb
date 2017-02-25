@@ -1,7 +1,7 @@
 ActiveAdmin.register Child do
-  index { cell('children/index', self).call }
-  show  { cell('children/show', self).call }
-  form  { |f| cell('children/form', f).call }
+  index { cell('child/index', self).call }
+  show  { cell('child/show', self).call }
+  form  { |f| cell('child/form', f).call }
 
   menu parent: 'People', priority: 3
 

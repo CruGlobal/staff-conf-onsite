@@ -1,7 +1,7 @@
 ActiveAdmin.register Ministry do
-  index { cell('ministries/index', self).call }
-  show  { cell('ministries/show', self).call }
-  form  { |f| cell('ministries/form', f).call }
+  index { cell('ministry/index', self).call }
+  show  { cell('ministry/show', self).call }
+  form  { |f| cell('ministry/form', f).call }
 
   permit_params :name, :code, :name, :parent_id
 

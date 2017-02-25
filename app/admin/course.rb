@@ -1,4 +1,6 @@
 ActiveAdmin.register Course do
+  show { cell('course/show', self).call }
+
   permit_params :name, :instructor, :description, :week_descriptor, :ibs_code,
                 :price, :location
 
@@ -28,43 +30,6 @@ ActiveAdmin.register Course do
   filter :location
   filter :created_at
   filter :updated_at
-
-  show do
-    columns do
-      column do
-        attributes_table do
-          row :id
-          row :name
-          row :instructor
-          row(:price) { |c| humanized_money_with_symbol(c.price) }
-          row(:description) { |c| html_full(c.description) }
-          row :week_descriptor
-          row :ibs_code
-          row :location
-          row :created_at
-          row :updated_at
-        end
-      end
-
-      column do
-        attendances = course.course_attendances.includes(:attendee)
-        size = attendances.size
-
-        panel "Attendees (#{size})" do
-          if size.positive?
-            table_for attendances do
-              column(:attendee) { |a| link_to(a.attendee.full_name, a.attendee) }
-              column :grade
-              column :seminary_credit
-            end
-          else
-            strong 'None'
-          end
-        end
-      end
-    end
-    active_admin_comments
-  end
 
   form do |f|
     show_errors_if_any(f)

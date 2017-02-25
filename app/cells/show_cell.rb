@@ -10,6 +10,7 @@ class ShowCell < ApplicationCell
            :row,
            :selectable_column,
            :status_tag,
+           :table_for,
            :text_node
 
   (Arbre::HTML::AUTO_BUILD_ELEMENTS + [:para]).each { |elem| property elem }

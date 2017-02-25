@@ -19,29 +19,31 @@ Rails:
 Documentation:
   Enabled: false
 
+GuardClause:
+  MinBodyLength: 3
+
 MethodLength:
   Severity: warning
   Max: 15
 
-Style/AndOr:
-  Enabled: false
-
 Metrics/LineLength:
   Max: 120
 
-GuardClause:
-  MinBodyLength: 3
-
-Style/Lambda:
-  Exclude:
-      - config/**/*
-
-Style/FrozenStringLiteralComment:
+Style/AndOr:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: False
 
 Style/DotPosition:
   EnforcedStyle: trailing
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Lambda:
+  Exclude:
+      - config/**/*
 
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
