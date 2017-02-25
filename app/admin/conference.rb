@@ -41,7 +41,7 @@ ActiveAdmin.register Conference do
 
       column do
         size = conference.attendees.size
-        panel "Attendees (#{size})" do
+        panel "Attendees (#{size})", class: 'attendees' do
           if size.positive?
             ul do
               conference.attendees.each do |a|

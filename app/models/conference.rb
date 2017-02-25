@@ -11,6 +11,8 @@ class Conference < ApplicationRecord
   has_many :conference_attendances, dependent: :destroy
   has_many :attendees, through: :conference_attendances
 
+  validates :name, presence: true
+
   def audit_name
     "#{super}: #{name}"
   end

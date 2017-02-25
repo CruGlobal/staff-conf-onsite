@@ -15,4 +15,23 @@ class Course::FormTest < IntegrationTest
 
     assert_active_admin_comments
   end
+
+  test '#new object creation' do
+    attr = attributes_for :course
+
+    visit new_course_path
+
+    assert_difference 'Course.count' do
+      within('form#new_course') do
+        fill_in 'Name',            with: attr[:name]
+        fill_in 'Instructor',      with: attr[:instructor]
+        fill_in 'Description',     with: attr[:description]
+        fill_in 'Week descriptor', with: attr[:week_descriptor]
+        fill_in 'IBS ID',          with: attr[:ibs_code]
+        fill_in 'Location',        with: attr[:location]
+      end
+
+      click_button 'Create Class'
+    end
+  end
 end
