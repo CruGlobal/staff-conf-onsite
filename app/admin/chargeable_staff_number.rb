@@ -22,7 +22,7 @@ ActiveAdmin.register ChargeableStaffNumber do
       end
 
       column do
-        panel 'Family' do
+        panel 'Family', class: 'family' do
           if (family = chargeable_staff_number.family)
             strong { link_to(family.to_s, family_path(family)) }
           else
