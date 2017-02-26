@@ -1,7 +1,9 @@
 ActiveAdmin.register Attendee do
-  index { cell('attendee/index', self).call }
-  show  { cell('attendee/show', self).call }
-  form  { |f| cell('attendee/form', f).call }
+  page_cells do |page|
+    page.index
+    page.show
+    page.form
+  end
 
   remove_filter :family # Adds N+1 additional quries to the index page
 
@@ -39,6 +41,8 @@ ActiveAdmin.register Attendee do
   filter :courses
   filter :arrived_at
   filter :departed_at
+  filter :created_at
+  filter :updated_at
 
   controller do
     def scoped_collection

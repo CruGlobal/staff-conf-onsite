@@ -50,6 +50,7 @@ ActiveAdmin.register CostCode do
   end
 
   form do |f|
+    byebug
     show_errors_if_any(f)
 
     columns do

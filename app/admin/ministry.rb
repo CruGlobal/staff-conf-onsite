@@ -1,7 +1,9 @@
 ActiveAdmin.register Ministry do
-  index { cell('ministry/index', self).call }
-  show  { cell('ministry/show', self).call }
-  form  { |f| cell('ministry/form', f).call }
+  page_cells do |page|
+    page.index
+    page.show
+    page.form
+  end
 
   permit_params :name, :code, :name, :parent_id
 

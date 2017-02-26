@@ -11,7 +11,7 @@ class Attendee::FormCell < ::FormCell
       column { right_column }
     end
 
-    submit_buttons
+    actions
   end
 
   private
@@ -35,6 +35,7 @@ class Attendee::FormCell < ::FormCell
   end
 
   def attributes_column
+    attendee_inputs
     duration_inputs
     contact_inputs
     ministry_inputs
@@ -54,7 +55,7 @@ class Attendee::FormCell < ::FormCell
       end
 
       input :gender, as: :select, collection: gender_select
-      datepicker_input(f, :birthdate)
+      datepicker_input(model, :birthdate)
     end
   end
 

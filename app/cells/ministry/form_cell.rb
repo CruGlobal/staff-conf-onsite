@@ -8,6 +8,6 @@ class Ministry::FormCell < ::FormCell
       select_ministry_widget(model, :parent)
     end
 
-    submit_buttons
+    actions
   end
 end

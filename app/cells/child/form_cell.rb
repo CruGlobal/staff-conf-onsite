@@ -9,7 +9,7 @@ class Child::FormCell < ::FormCell
       column { right_column }
     end
 
-    submit_buttons
+    actions
   end
 
   private

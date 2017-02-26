@@ -1,5 +1,7 @@
 ActiveAdmin.register Course do
-  show { cell('course/show', self).call }
+  page_cells do |page|
+    page.show
+  end
 
   permit_params :name, :instructor, :description, :week_descriptor, :ibs_code,
                 :price, :location

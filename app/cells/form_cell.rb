@@ -1,5 +1,6 @@
 class FormCell < ShowCell
-  property :has_many,
+  property :form,
+           :has_many,
            :input,
            :inputs,
            :object,
@@ -13,12 +14,12 @@ class FormCell < ShowCell
     model.semantic_errors(*object.errors.keys)
   end
 
-  def submit_buttons
-    fieldset class: 'actions' do
-      ol do
-        li { model.action(:submit) }
-        li { model.cancel_link }
-      end
-    end
+  def actions
+    super
+    # The reason to return nil here is to avoid rending the action buttons
+    # twice. Arbre inserts HTML into a Arbre::Context, but also returns the
+    # HTML from method call. Also, if a cell returns a string, it will be
+    # appended to the page a second time.
+    nil
   end
 end

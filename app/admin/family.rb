@@ -1,12 +1,12 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
 
-  index { cell('family/index', self).call }
-  show(title: ->(f) { family_label(f) }) { cell('family/show', self).call }
-  form title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" } do |f|
-    cell('family/form', f).call
+  page_cells do |page|
+    page.index
+    page.show title: ->(f) { family_label(f) }
+    page.form title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" }
+    page.sidebar 'Family Members', only: [:edit]
   end
-  sidebar('Family Members', only: [:edit]) { cell('family/sidebar', self).call }
 
   menu parent: 'People', priority: 1
 
