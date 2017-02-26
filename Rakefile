@@ -16,24 +16,25 @@ require 'bundler/audit/task'
 Bundler::Audit::Task.new
 
 # These tasks are redefined below
-%w(test test:integration).each do |t|
+%w(default test test:integration).each do |t|
   Rake.application.instance_variable_get('@tasks').delete(t)
 end
 
+desc 'Run the entire suit of tests and linters'
 task :default do
-  tasks = %w(bundle:audit rubocop reek test)
+  border = '=' * 80
+  tasks = %w(test:unit test:integration rubocop reek bundle:audit)
 
-  puts "\n\nRunning code analysis..."
   puts "The following Rake tasks will be run: #{tasks.to_sentence}"
-  puts 'To run only tests (without code analysis) use `rake test`'
   tasks.each do |task|
-    puts "\n\nRunning `rake #{task}`:"
+    puts "\n#{border}\nRunning `rake #{task}`\n#{border}"
     Rake::Task[task].invoke
   end
+  puts 'Success.'
 end
 
 Rake::TestTask.new('test:unit') do |t|
-  t.pattern = 'test/{controllers,lib,models}/*_test.rb'
+  t.pattern = 'test/{controllers,lib,models}/**/*_test.rb'
   t.description = 'Run quicker unit tests'
   t.libs << 'test'
   t.warning = false
@@ -41,7 +42,7 @@ Rake::TestTask.new('test:unit') do |t|
 end
 
 Rake::TestTask.new('test:integration') do |t|
-  t.pattern = 'test/integration/*_test.rb'
+  t.pattern = 'test/integration/**/*_test.rb'
   t.description = 'Run slower integration tests'
   t.libs << 'test'
   t.warning = false
