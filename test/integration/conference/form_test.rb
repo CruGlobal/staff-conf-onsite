@@ -15,7 +15,7 @@ class Conference::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
-  test '#new object creation' do
+  test '#new record creation' do
     attr = attributes_for :conference
 
     visit new_conference_path

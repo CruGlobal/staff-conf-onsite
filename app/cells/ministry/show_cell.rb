@@ -32,7 +32,7 @@ class Ministry::ShowCell < ::ShowCell
   end
 
   def ministry_hierarchy
-    panel 'Hierarchy' do
+    panel 'Hierarchy', class: 'hierarchy' do
       div class: 'ministry__hierarchy' do
         ancestors_list if ministry.ancestors.any?
         div(class: 'ministry__hierarchy__this') { ministry }
@@ -62,7 +62,7 @@ class Ministry::ShowCell < ::ShowCell
   def members_panel
     num_members = ministry.people.size
 
-    panel "Members (#{num_members})" do
+    panel "Members (#{num_members})", class: 'members' do
       num_members.positive? ? members_list : strong('None')
     end
   end

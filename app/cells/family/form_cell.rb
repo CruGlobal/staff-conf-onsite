@@ -6,7 +6,7 @@ class Family::FormCell < ::FormCell
     address_fields
     housing_preference_fields
 
-    actions
+    submit_buttons
   end
 
   private

@@ -16,7 +16,7 @@ class Course::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
-  test '#new object creation' do
+  test '#new record creation' do
     attr = attributes_for :course
 
     visit new_course_path

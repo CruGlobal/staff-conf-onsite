@@ -1,6 +1,5 @@
 class FormCell < ShowCell
-  property :actions,
-           :has_many,
+  property :has_many,
            :input,
            :inputs,
            :object,
@@ -12,5 +11,14 @@ class FormCell < ShowCell
   # errors in a list.
   def show_errors_if_any
     model.semantic_errors(*object.errors.keys)
+  end
+
+  def submit_buttons
+    fieldset class: 'actions' do
+      ol do
+        li { model.action(:submit) }
+        li { model.cancel_link }
+      end
+    end
   end
 end

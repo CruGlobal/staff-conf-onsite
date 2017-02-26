@@ -11,7 +11,7 @@ class Attendee::FormCell < ::FormCell
       column { right_column }
     end
 
-    actions
+    submit_buttons
   end
 
   private

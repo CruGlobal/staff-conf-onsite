@@ -3,14 +3,7 @@ require 'webmock'
 module Support
   module Cas
     def create_login_user(role = nil)
-      factory =
-        case role
-        when :general then :general_user
-        when :finance then :finance_user
-        else :admin_user
-        end
-
-      create(factory).tap { |u| login_user(u) }
+      create("#{role || :admin}_user").tap { |u| login_user(u) }
     end
 
     def login_user(user)
