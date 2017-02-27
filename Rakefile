@@ -53,6 +53,8 @@ desc 'Run unit tests and then integration tests'
 task test: %i(test:unit test:integration)
 
 # Documentation
-YARD::Rake::YardocTask.new do |t|
-  t.files = ['./app/**/*.rb']
+if Rails.env.development?
+  YARD::Rake::YardocTask.new do |t|
+    t.files = ['./app/**/*.rb']
+  end
 end
