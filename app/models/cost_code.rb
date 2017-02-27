@@ -1,4 +1,4 @@
-class CostCode < ActiveRecord::Base
+class CostCode < ApplicationRecord
   include CostCodeHelper
 
   has_many :charges, class_name: 'CostCodeCharge', foreign_key: 'cost_code_id',

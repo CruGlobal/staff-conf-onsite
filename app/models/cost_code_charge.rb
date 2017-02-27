@@ -1,4 +1,4 @@
-class CostCodeCharge < ActiveRecord::Base
+class CostCodeCharge < ApplicationRecord
   include Monetizable
 
   belongs_to :cost_code, inverse_of: :charges

@@ -1,4 +1,4 @@
-class Stay < ActiveRecord::Base
+class Stay < ApplicationRecord
   HOUSING_TYPE_FIELDS = {
     single_occupancy: [:dormitory].freeze,
     no_charge: [:apartment].freeze,
