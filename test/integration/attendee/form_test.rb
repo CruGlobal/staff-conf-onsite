@@ -18,9 +18,11 @@ class Attendee::FormTest < IntegrationTest
   end
 
   test '#new record creation' do
+    @family = create :family
     attr = attributes_for :attendee
 
-    visit new_attendee_path
+    visit edit_family_path(@family)
+    click_link 'New Attendee'
 
     assert_difference 'Attendee.count' do
       within('form#new_attendee') do
@@ -31,7 +33,6 @@ class Attendee::FormTest < IntegrationTest
       end
 
       click_button 'Create Attendee'
-      byebug
     end
   end
 end

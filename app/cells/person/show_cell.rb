@@ -6,7 +6,7 @@ class Person::ShowCell < ::ShowCell
   end
 
   def stays
-    panel 'Housing Assignments' do
+    panel 'Housing Assignments', class: 'stays' do
       attributes_table_for person.stays.order(:arrived_at) do
         housing_rows
         row :arrived_at
@@ -19,7 +19,7 @@ class Person::ShowCell < ::ShowCell
   end
 
   def cost_adjustments
-    panel "Cost Adjustments (#{person.cost_adjustments.size})" do
+    panel "Cost Adjustments (#{person.cost_adjustments.size})", class: 'cost_adjustments' do
       person.cost_adjustments.any? ? cost_adjusments_list : strong('None')
     end
   end

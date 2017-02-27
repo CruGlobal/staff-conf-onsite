@@ -23,10 +23,8 @@ module PersonHelper
   #
   # @return [String] An HTML +<span>+ wrapping {#age}
   def age_label(dob)
-    HtmlContext.new do
-      span title: "As of #{I18n.l(Person::AGE_AS_OF, format: :month)}" do
-        age(dob)
-      end
+    span title: "As of #{I18n.l(Person::AGE_AS_OF, format: :month)}" do
+      age(dob)
     end
   end
 

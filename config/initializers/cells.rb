@@ -11,10 +11,17 @@ module ActiveAdmin
 
   class CellHelper
     def initialize(dsl, model_type)
-      @dsl, @model_type = dsl, model_type
+      @dsl = dsl
+      @model_type = model_type
+    end
+
+    def respond_to_missing?(_method_name, _include_private = false)
+      true
     end
 
     def method_missing(name, *args)
+      return super unless respond_to_missing?(name)
+
       prefix = "#{@model_type}/"
 
       @dsl.send name, *args do |resource|

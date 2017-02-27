@@ -18,9 +18,7 @@ class Attendee::ShowCell < ::ShowCell
 
   def left_column
     attendee_attributes_table
-    duration_table
     conferences_panel
-    courses_panel
     person_cell.call(:cost_adjustments)
   end
 
@@ -38,6 +36,8 @@ class Attendee::ShowCell < ::ShowCell
       contact_rows
       ministry_row
       row :department
+      row :arrived_at
+      row :departed_at
       row :created_at
       row :updated_at
     end
@@ -66,17 +66,8 @@ class Attendee::ShowCell < ::ShowCell
     end
   end
 
-  def duration_table
-    panel 'Duration' do
-      attributes_table_for attendee do
-        row :arrived_at
-        row :departed_at
-      end
-    end
-  end
-
   def conferences_panel
-    panel "Conferences (#{attendee.conferences.size})" do
+    panel "Conferences (#{attendee.conferences.size})", class: 'conferences' do
       attendee.conferences.any? ? conference_list : strong('None')
     end
   end
@@ -87,30 +78,18 @@ class Attendee::ShowCell < ::ShowCell
     end
   end
 
-  def courses_panel
-    panel "Courses (#{attendee.courses.size})" do
-      attendee.courses.any? ? course_list : strong('None')
-    end
-  end
-
-  def course_list
-    ul do
-      attendee.courses.each { |c| li { link_to(c.name, c) } }
-    end
-  end
-
   def attendances_panel
-    panel 'Attendances' do
+    panel 'Attendances', class: 'attendances' do
       attendances = attendee.course_attendances.includes(:course)
-      if attendances.any?
-        table_for attendances.sort_by { |a| a.course.name } do
-          column :course
-          column :grade
-          column :seminary_credit
-        end
-      else
-        strong 'None'
-      end
+      attendances.any? ? attendances_list(attendances) : strong('None')
+    end
+  end
+
+  def attendances_list(attendances)
+    table_for attendances.sort_by { |a| a.course.name } do
+      column :course
+      column :grade
+      column :seminary_credit
     end
   end
 end

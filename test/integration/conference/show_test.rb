@@ -22,9 +22,7 @@ class Conference::ShowTest < IntegrationTest
   end
 
   test '#show attendees' do
-    @attendee = create :attendee
-    @conference.attendees << @attendee
-    @conference.save!
+    @attendee = create :attendee, conferences: [@conference]
 
     visit conference_path(@conference)
 

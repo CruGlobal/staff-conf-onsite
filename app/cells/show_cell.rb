@@ -14,4 +14,6 @@ class ShowCell < ApplicationCell
            :text_node
 
   (Arbre::HTML::AUTO_BUILD_ELEMENTS + [:para]).each { |elem| property elem }
+
+  make_method_return_nil :active_admin_comments
 end

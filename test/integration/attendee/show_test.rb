@@ -1,33 +1,60 @@
 require 'test_helper'
 
-class Course::ShowTest < IntegrationTest
+class Attendee::ShowTest < IntegrationTest
   before do
     @user = create_login_user
-    @course = create :course
+    @attendee = create :attendee
   end
 
   test '#show details' do
-    visit course_path(@course)
+    visit attendee_path(@attendee)
 
-    assert_selector '#page_title', text: @course.name
-    assert_show_rows :id, :name, :instructor, :price, :description, :ibs_code,
-                     :location, :created_at, :updated_at
+    assert_selector '#page_title', text: @attendee.full_name
+    assert_show_rows :id, :student_number, :first_name, :last_name, :family,
+                     :birthdate, :age, :gender, :email, :phone,
+                     :emergency_contact, :ministry, :department, :created_at,
+                     :updated_at,
+                     selector: "#attributes_table_attendee_#{@attendee.id}"
+
     assert_active_admin_comments
   end
 
-  test '#show attendees when empty' do
-    visit course_path(@course)
-
-    within('.attendees.panel') { assert_text 'None' }
+  test '#show conferences when empty' do
+    visit attendee_path(@attendee)
+    within('.conferences.panel') { assert_text 'None' }
   end
 
-  test '#show attendees' do
-    @attendee = create :attendee
-    @course.attendees << @attendee
-    @course.save!
+  test '#show conferences' do
+    @conference = create :conference, attendees: [@attendee]
+    visit attendee_path(@attendee)
+    within('.conferences.panel') { assert_text @conference.name }
+  end
 
-    visit course_path(@course)
+  test '#show cost_adjustments when empty' do
+    visit attendee_path(@attendee)
+    within('.cost_adjustments.panel') { assert_text 'None' }
+  end
 
-    within('.attendees.panel') { assert_text @attendee.full_name }
+  test '#show cost_adjustments' do
+    @cost_adjustment = create :cost_adjustment, person: @attendee, cost_type: :tuition_mpd
+    visit attendee_path(@attendee)
+    within('.cost_adjustments.panel') { assert_text 'MPD Tuition' }
+  end
+
+  test '#show attendances when empty' do
+    visit attendee_path(@attendee)
+    within('.attendances.panel') { assert_text 'None' }
+  end
+
+  test '#show attendances' do
+    @course = create :course, attendees: [@attendee]
+    visit attendee_path(@attendee)
+    within('.attendances.panel') { assert_text @course.name }
+  end
+
+  test '#show housing_assignments' do
+    @stay = create :stay, person: @attendee
+    visit attendee_path(@attendee)
+    within('.stays.panel') { assert_text @stay.housing_unit.name }
   end
 end

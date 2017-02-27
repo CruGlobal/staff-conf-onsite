@@ -6,8 +6,8 @@ module Support
       end
     end
 
-    def assert_show_rows(*rows)
-      within('.attributes_table') do
+    def assert_show_rows(*rows, selector: nil)
+      within("#{selector}.attributes_table") do
         rows.each { |row| assert_selector ".row-#{row}"}
       end
     end

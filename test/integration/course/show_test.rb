@@ -22,9 +22,7 @@ class Course::ShowTest < IntegrationTest
   end
 
   test '#show attendees' do
-    @attendee = create :attendee
-    @course.attendees << @attendee
-    @course.save!
+    @attendee = create :attendee, courses: [@course]
 
     visit course_path(@course)
 

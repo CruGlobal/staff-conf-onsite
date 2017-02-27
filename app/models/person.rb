@@ -14,6 +14,7 @@ class Person < ApplicationRecord
   has_many :cost_adjustments, dependent: :destroy
   has_many :meal_exemptions, dependent: :destroy
   has_many :stays, dependent: :destroy
+  has_many :housing_units, through: :stays
 
   accepts_nested_attributes_for :stays, :cost_adjustments, allow_destroy: true
 

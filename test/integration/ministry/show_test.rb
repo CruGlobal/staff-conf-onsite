@@ -30,15 +30,15 @@ class Ministry::ShowTest < IntegrationTest
 
   test '#show members when empty' do
     visit ministry_path(@ministry)
+
     within('.members.panel') { assert_text 'None' }
   end
 
   test '#show members' do
-    @member = create :attendee
-    @ministry.people << @member
-    @ministry.save!
+    @member = create :attendee, ministry: @ministry
 
     visit ministry_path(@ministry)
+
     within('.members.panel') { assert_text @member.full_name }
   end
 end
