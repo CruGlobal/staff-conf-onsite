@@ -49,6 +49,7 @@ class Person::FormCell < ::FormCell
       has_many :cost_adjustments, heading: nil do |f|
         f.input :cost_type, as: :select, collection: cost_type_select
         money_input_widget(f, :price)
+        f.input :percent
         f.input :description, as: :ckeditor
       end
     end

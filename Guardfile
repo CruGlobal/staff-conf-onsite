@@ -1,8 +1,5 @@
-guard :minitest do
-  # Editing tests themselves
+guard :minitest, all_on_start: false do
   watch(%r{^test/.+_test\.rb$})
-  watch(%r{^test/test_helper\.rb$})  { 'test' }
-  watch(%r{^test/support/(.+)\.rb$}) { 'test' }
 
   # Unit tests
   watch(%r{^app/(.+)\.rb$})                               { |m| "test/#{m[1]}_test.rb" }

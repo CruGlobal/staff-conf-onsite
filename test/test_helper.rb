@@ -24,8 +24,18 @@ class IntegrationTest < Capybara::Rails::TestCase
   include Support::Authentication
 
   self.use_transactional_fixtures = false
-  before(:each) { DatabaseCleaner.strategy = :truncation; DatabaseCleaner.start }
-  after(:each)  { DatabaseCleaner.clean }
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+    DatabaseCleaner.start
+  end
+  after(:each) do
+    Capybara.use_default_driver
+    DatabaseCleaner.clean
+  end
+
+  def enable_javascript!
+    Capybara.current_driver = Capybara.javascript_driver
+  end
 end
 
 class ModelTestCase < ActiveSupport::TestCase
@@ -34,6 +44,9 @@ class ModelTestCase < ActiveSupport::TestCase
   include Support::Moneyable
 
   self.use_transactional_fixtures = false
-  before(:each) { DatabaseCleaner.strategy = :truncation; DatabaseCleaner.start }
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+    DatabaseCleaner.start
+  end
   after(:each)  { DatabaseCleaner.clean }
 end

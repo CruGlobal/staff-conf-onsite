@@ -16,7 +16,7 @@ ActiveAdmin.register Child do
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
     childcare_weeks: [],
     cost_adjustments_attributes: [
-      :id, :_destroy, :description, :person_id, :price, :cost_type
+      :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
     ],
     meal_exemptions_attributes: [
       :id, :_destroy, :date, :meal_type

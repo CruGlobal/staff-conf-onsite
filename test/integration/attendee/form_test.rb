@@ -18,9 +18,9 @@ class Attendee::FormTest < IntegrationTest
   end
 
   test '#edit add cost_adjustment' do
-    attrs = attributes_for :cost_adjustment
+    enable_javascript!
 
-    Capybara.current_driver = Capybara.javascript_driver
+    attrs = attributes_for :cost_adjustment
 
     mock_login @user do
       visit edit_attendee_path(@attendee)
@@ -31,6 +31,7 @@ class Attendee::FormTest < IntegrationTest
 
           select_random('Cost type')
           fill_in 'Price', with: attrs[:price_cents]
+          fill_in 'Percent', with: attrs[:percent]
           fill_in_ckeditor 'Description', with: attrs[:description]
         end
 

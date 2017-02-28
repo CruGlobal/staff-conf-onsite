@@ -17,7 +17,7 @@ ActiveAdmin.register Attendee do
     :first_name, :last_name, :email, :emergency_contact, :phone, :gender,
     :student_number, :department, :family_id, :birthdate, :ministry_id,
     :arrived_at, :departed_at, conference_ids: [], cost_adjustments_attributes: [
-      :id, :_destroy, :description, :person_id, :price, :cost_type
+      :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
     ], course_attendances_attributes: [
       :id, :_destroy, :course_id, :seminary_credit, :grade
     ], meal_exemptions_attributes: [

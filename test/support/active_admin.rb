@@ -45,14 +45,30 @@ module Support
     end
 
     # Selects a random <option>
-    def select_random(selector)
-      select = find_field(selector)
-      options = select.all('option')
+    def select_random(inner_text)
+      select = find_field(inner_text, visible: false)
 
-      options[rand(options.size)].select_option
+      if (chosen = chosen_widget_sibling(select))
+        chosen_widget_select_random(chosen)
+      else
+        options = select.all('option')
+        options[rand(options.size)].select_option
+      end
+    end
+
+    def chosen_widget_select_random(element)
+      element.click
+      options = element.all('.active-result')
+      options[rand(options.size)].click
     end
 
     private
+
+    def chosen_widget_sibling(element)
+      if (parent = element.first(:xpath, './/..'))
+        parent.find('.chosen-container')
+      end
+    end
 
     def form_name(obj)
       case obj
