@@ -28,4 +28,12 @@ module CostAdjustmentHelper
 
     I18n.t("#{I18N_PREFIX_COST_ADJUSTMENT}.cost_types.#{type}")
   end
+
+  def cost_adjustment_amount(cost_adjustment)
+    if cost_adjustment.percent.present?
+      "#{cost_adjustment.percent}%"
+    else
+      humanized_money_with_symbol(cost_adjustment.price)
+    end
+  end
 end

@@ -46,22 +46,23 @@ gem 'intl-tel-input-rails', '~> 8.4.9'
 
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.3.11'
   gem 'dotenv-rails', '~> 2.1.1'
 
   # Testing
-  gem 'byebug'
-  gem 'factory_girl', '~> 4.7.0'
-  gem 'faker', '~> 1.6.6'
-  gem 'rubocop', '~> 0.42.0'
-  gem 'guard', '~> 2.14.0'
-  gem 'guard-minitest', '~> 2.4.6'
-  gem 'minitest-reporters', '~> 1.1.11'
-  gem 'minitest-rails-capybara', '~> 2.1'
-  gem 'webmock', '~> 2.1.0'
-  gem 'reek', '~> 4.4.2'
-  gem 'bundler-audit', '~> 0.5.0'
-  gem 'rack_session_access', '~> 0.1'
+  gem 'byebug'                            # Debugger
+  gem 'factory_girl', '~> 4.7'            # Test object factories
+  gem 'faker', '~> 1.6'                   # Fake data generator
+  gem 'rubocop', '~> 0.42'                # Linter
+  gem 'guard', '~> 2.14'                  # Continuous testing
+  gem 'guard-minitest', '~> 2.4'          # ""
+  gem 'minitest-reporters', '~> 1.1'      # Test output format
+  gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
+  gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
+  gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
+  gem 'webmock', '~> 2.1'                 # Stub HTTP requests
+  gem 'reek', '~> 4.4'                    # Linter
+  gem 'bundler-audit', '~> 0.5'           # Linter
+  gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
 
   # Documentation
   gem 'yard', '~> 0.9.5'

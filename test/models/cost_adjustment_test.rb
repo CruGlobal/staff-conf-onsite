@@ -6,32 +6,39 @@ class CostAdjustmentTest < ModelTestCase
     @cost_adjustment = create :cost_adjustment
   end
 
-  test_money_attr(:conference, :price)
+  test_money_attr(:cost_adjustment, :price)
+
+  test 'percentage too low' do
+    assert_raises ActiveRecord::RecordInvalid do
+      create :cost_adjustment, percent: -0.1
+    end
+  end
+
+  test 'percentage too high' do
+    assert_raises ActiveRecord::RecordInvalid do
+      create :cost_adjustment, percent: 100.1
+    end
+  end
+
+  test 'price and percent mutual exclusivity' do
+    assert_raises ActiveRecord::RecordInvalid do
+      create :cost_adjustment, price_cents: 123, percent: 50.5
+    end
+  end
 
   test 'permit create' do
-    refute_permit @general_user, @cost_adjustment, :create
-
-    assert_permit @finance_user, @cost_adjustment, :create
-    assert_permit @admin_user, @cost_adjustment, :create
+    assert_accessible :create, @cost_adjustment, only: [:admin, :finance]
   end
 
   test 'permit read' do
-    assert_permit @general_user, @cost_adjustment, :show
-    assert_permit @finance_user, @cost_adjustment, :show
-    assert_permit @admin_user, @cost_adjustment, :show
+    assert_accessible :show, @cost_adjustment, only: [:admin, :finance, :general]
   end
 
   test 'permit update' do
-    refute_permit @general_user, @cost_adjustment, :update
-
-    assert_permit @finance_user, @cost_adjustment, :update
-    assert_permit @admin_user, @cost_adjustment, :update
+    assert_accessible :update, @cost_adjustment, only: [:admin, :finance]
   end
 
   test 'permit destroy' do
-    refute_permit @general_user, @cost_adjustment, :destroy
-
-    assert_permit @finance_user, @cost_adjustment, :destroy
-    assert_permit @admin_user, @cost_adjustment, :destroy
+    assert_accessible :destroy, @cost_adjustment, only: [:admin, :finance]
   end
 end

@@ -10,8 +10,8 @@ class ApplicationCell < Cell::ViewModel
   # string, it will be appended to the page a second time.
   def self.make_method_return_nil(*method_names)
     method_names.each do |name|
-      define_method(name) do |*args|
-        super(*args)
+      define_method(name) do |*args, &blk|
+        super(*args, &blk)
         nil
       end
     end

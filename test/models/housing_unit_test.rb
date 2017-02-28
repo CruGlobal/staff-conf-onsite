@@ -7,30 +7,19 @@ class HousingUnitTest < ModelTestCase
   end
 
   test 'permit create' do
-    refute_permit @general_user, @housing_unit, :create
-    refute_permit @finance_user, @housing_unit, :create
-
-    assert_permit @admin_user, @housing_unit, :create
+    assert_accessible :create, @housing_unit, only: :admin
   end
 
   test 'permit read' do
-    assert_permit @general_user, @housing_unit, :show
-    assert_permit @finance_user, @housing_unit, :show
-    assert_permit @admin_user, @housing_unit, :show
+    assert_accessible :show, @housing_unit, only: [:general, :finance, :admin]
   end
 
   test 'permit update' do
-    refute_permit @general_user, @housing_unit, :update
-    refute_permit @finance_user, @housing_unit, :update
-
-    assert_permit @admin_user, @housing_unit, :update
+    assert_accessible :update, @housing_unit, only: :admin
   end
 
   test 'permit destroy' do
-    refute_permit @general_user, @housing_unit, :destroy
-    refute_permit @finance_user, @housing_unit, :destroy
-
-    assert_permit @admin_user, @housing_unit, :destroy
+    assert_accessible :destroy, @housing_unit, only: :admin
   end
 
   test '.hierarchy when no Facilities exist' do

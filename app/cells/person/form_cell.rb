@@ -44,7 +44,8 @@ class Person::FormCell < ::FormCell
   end
 
   def cost_adjustment_subform
-    panel 'Cost Adjustments', 'data-housing_unit-container' => true do
+    panel 'Cost Adjustments', class: 'cost_adjustments',
+                              'data-housing_unit-container' => true do
       has_many :cost_adjustments, heading: nil do |f|
         f.input :cost_type, as: :select, collection: cost_type_select
         money_input_widget(f, :price)

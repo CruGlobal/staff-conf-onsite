@@ -21,6 +21,7 @@ module Support
     end
 
     def call
+      WebMock.disable_net_connect!(allow_localhost: true)
       WebMock.enable!
 
       stub_request(:get, DOMAIN_RE).to_return do |req|

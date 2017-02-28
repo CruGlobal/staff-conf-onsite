@@ -1,10 +1,12 @@
 ENV['RAILS_ENV'] ||= 'test'
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
 require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
 require 'minitest/reporters'
+
 Minitest::Reporters.use!
 
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
@@ -19,31 +21,19 @@ end
 class IntegrationTest < Capybara::Rails::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::ActiveAdmin
-  include Support::Cas
+  include Support::Authentication
+
+  self.use_transactional_fixtures = false
+  before(:each) { DatabaseCleaner.strategy = :truncation; DatabaseCleaner.start }
+  after(:each)  { DatabaseCleaner.clean }
 end
 
 class ModelTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+  include Support::Authentication
   include Support::Moneyable
 
-  def assert_permit(user, record, action)
-    msg = "User #{user.inspect} should be permitted to #{action} #{record.inspect}, but isn't permitted"
-    assert permit(user, record, action), msg
-  end
-
-  def refute_permit(user, record, action)
-    msg = "User #{user.inspect} should NOT be permitted to #{action} #{record.inspect}, but is permitted"
-    refute permit(user, record, action), msg
-  end
-
-  def permit(user, record, action)
-    cls = self.class.to_s.gsub(/Test/, 'Policy')
-    cls.constantize.new(user, record).public_send("#{action.to_s}?")
-  end
-
-  def create_users
-    @general_user = create :general_user
-    @finance_user = create :finance_user
-    @admin_user = create :admin_user
-  end
+  self.use_transactional_fixtures = false
+  before(:each) { DatabaseCleaner.strategy = :truncation; DatabaseCleaner.start }
+  after(:each)  { DatabaseCleaner.clean }
 end

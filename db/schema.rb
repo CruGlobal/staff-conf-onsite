@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204215958) do
+ActiveRecord::Schema.define(version: 20170227033204) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -24,9 +27,9 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "chargeable_staff_numbers", force: :cascade do |t|
     t.string   "staff_number"
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "chargeable_staff_numbers", ["staff_number"], name: "index_chargeable_staff_numbers_on_staff_number"
+  add_index "chargeable_staff_numbers", ["staff_number"], name: "index_chargeable_staff_numbers_on_staff_number", using: :btree
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -52,8 +55,8 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "conference_attendances", ["attendee_id"], name: "index_conference_attendances_on_attendee_id"
-  add_index "conference_attendances", ["conference_id"], name: "index_conference_attendances_on_conference_id"
+  add_index "conference_attendances", ["attendee_id"], name: "index_conference_attendances_on_attendee_id", using: :btree
+  add_index "conference_attendances", ["conference_id"], name: "index_conference_attendances_on_conference_id", using: :btree
 
   create_table "conferences", force: :cascade do |t|
     t.integer  "price_cents"
@@ -67,14 +70,15 @@ ActiveRecord::Schema.define(version: 20170204215958) do
 
   create_table "cost_adjustments", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "price_cents", null: false
+    t.integer  "price_cents"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "cost_type",   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "cost_type",                           null: false
+    t.decimal  "percent",     precision: 5, scale: 2
   end
 
-  add_index "cost_adjustments", ["person_id"], name: "index_cost_adjustments_on_person_id"
+  add_index "cost_adjustments", ["person_id"], name: "index_cost_adjustments_on_person_id", using: :btree
 
   create_table "cost_code_charges", force: :cascade do |t|
     t.integer  "cost_code_id"
@@ -89,8 +93,8 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at",                     null: false
   end
 
-  add_index "cost_code_charges", ["cost_code_id", "max_days"], name: "index_cost_code_charges_on_cost_code_id_and_max_days", unique: true
-  add_index "cost_code_charges", ["cost_code_id"], name: "index_cost_code_charges_on_cost_code_id"
+  add_index "cost_code_charges", ["cost_code_id", "max_days"], name: "index_cost_code_charges_on_cost_code_id_and_max_days", unique: true, using: :btree
+  add_index "cost_code_charges", ["cost_code_id"], name: "index_cost_code_charges_on_cost_code_id", using: :btree
 
   create_table "cost_codes", force: :cascade do |t|
     t.string   "name",                    null: false
@@ -109,9 +113,9 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.string   "grade"
   end
 
-  add_index "course_attendances", ["attendee_id"], name: "index_course_attendances_on_attendee_id"
-  add_index "course_attendances", ["course_id", "attendee_id"], name: "index_course_attendances_on_course_id_and_attendee_id", unique: true
-  add_index "course_attendances", ["course_id"], name: "index_course_attendances_on_course_id"
+  add_index "course_attendances", ["attendee_id"], name: "index_course_attendances_on_attendee_id", using: :btree
+  add_index "course_attendances", ["course_id", "attendee_id"], name: "index_course_attendances_on_course_id_and_attendee_id", unique: true, using: :btree
+  add_index "course_attendances", ["course_id"], name: "index_course_attendances_on_course_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "name",            null: false
@@ -152,7 +156,7 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.string   "cafeteria"
   end
 
-  add_index "housing_facilities", ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id"
+  add_index "housing_facilities", ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id", using: :btree
 
   create_table "housing_preferences", force: :cascade do |t|
     t.integer  "family_id",                   null: false
@@ -179,7 +183,7 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at"
   end
 
-  add_index "housing_units", ["housing_facility_id", "name"], name: "index_housing_units_on_housing_facility_id_and_name", unique: true
+  add_index "housing_units", ["housing_facility_id", "name"], name: "index_housing_units_on_housing_facility_id_and_name", unique: true, using: :btree
 
   create_table "meal_exemptions", force: :cascade do |t|
     t.date     "date"
@@ -189,7 +193,7 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at"
   end
 
-  add_index "meal_exemptions", ["person_id", "date", "meal_type"], name: "index_meal_exemptions_on_person_id_and_date_and_meal_type", unique: true
+  add_index "meal_exemptions", ["person_id", "date", "meal_type"], name: "index_meal_exemptions_on_person_id_and_date_and_meal_type", unique: true, using: :btree
 
   create_table "ministries", force: :cascade do |t|
     t.string   "name",       null: false
@@ -199,8 +203,8 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.integer  "parent_id"
   end
 
-  add_index "ministries", ["code"], name: "index_ministries_on_code", unique: true
-  add_index "ministries", ["parent_id"], name: "index_ministries_on_parent_id"
+  add_index "ministries", ["code"], name: "index_ministries_on_code", unique: true, using: :btree
+  add_index "ministries", ["parent_id"], name: "index_ministries_on_parent_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -227,9 +231,9 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.date     "departed_at"
   end
 
-  add_index "people", ["childcare_id"], name: "index_people_on_childcare_id"
-  add_index "people", ["student_number"], name: "index_people_on_student_number"
-  add_index "people", ["type"], name: "index_people_on_type"
+  add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
+  add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
+  add_index "people", ["type"], name: "index_people_on_type", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -239,9 +243,9 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket"
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "stays", force: :cascade do |t|
     t.integer  "person_id",                        null: false
@@ -257,8 +261,8 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.text     "comment"
   end
 
-  add_index "stays", ["housing_unit_id"], name: "index_stays_on_housing_unit_id"
-  add_index "stays", ["person_id"], name: "index_stays_on_person_id"
+  add_index "stays", ["housing_unit_id"], name: "index_stays_on_housing_unit_id", using: :btree
+  add_index "stays", ["person_id"], name: "index_stays_on_person_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",      default: "",        null: false
@@ -270,17 +274,17 @@ ActiveRecord::Schema.define(version: 20170204215958) do
     t.string   "last_name"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                     null: false
-    t.integer  "item_id",                       null: false
-    t.string   "event",                         null: false
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
     t.string   "whodunnit"
-    t.text     "object",     limit: 1073741823
+    t.text     "object"
     t.datetime "created_at"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

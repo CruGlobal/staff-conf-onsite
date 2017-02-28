@@ -17,6 +17,29 @@ class Attendee::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
+  test '#edit add cost_adjustment' do
+    attrs = attributes_for :cost_adjustment
+
+    Capybara.current_driver = Capybara.javascript_driver
+
+    mock_login @user do
+      visit edit_attendee_path(@attendee)
+
+      assert_difference "CostAdjustment.where(person_id: #{@attendee.id}).count" do
+        within('.cost_adjustments.panel') do
+          click_link 'Add New Cost adjustment'
+
+          select_random('Cost type')
+          fill_in 'Price', with: attrs[:price_cents]
+          fill_in_ckeditor 'Description', with: attrs[:description]
+        end
+
+        click_button 'Update Attendee'
+        assert_current_path attendee_path(@attendee)
+      end
+    end
+  end
+
   test '#new record creation' do
     @family = create :family
     attr = attributes_for :attendee
@@ -26,9 +49,9 @@ class Attendee::FormTest < IntegrationTest
 
     assert_difference 'Attendee.count' do
       within('form#new_attendee') do
-        fill_in 'Student number',            with: attr[:student_number]
-        fill_in 'First name',            with: attr[:first_name]
-        fill_in 'Last name',            with: attr[:last_name]
+        fill_in 'Student number', with: attr[:student_number]
+        fill_in 'First name',     with: attr[:first_name]
+        fill_in 'Last name',      with: attr[:last_name]
         select 'Male', from: 'Gender'
       end
 

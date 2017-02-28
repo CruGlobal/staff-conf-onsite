@@ -7,8 +7,7 @@ class MinistryTest < ModelTestCase
   end
 
   test 'own parent' do
-    @ministry.parent_id = @ministry.id
-
+    @ministry.parent = @ministry
     refute @ministry.valid?, 'cannot be your own parent'
   end
 

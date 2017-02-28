@@ -3,7 +3,7 @@ class CostAdjustment < ApplicationRecord
 
   include Monetizable
 
-  monetize_attr :price_cents, numericality: {
+  monetize_attr :price_cents, allow_nil: true, numericality: {
     greater_than_or_equal_to: -1_000_000,
     less_than_or_equal_to:     1_000_000
   }
@@ -15,5 +15,28 @@ class CostAdjustment < ApplicationRecord
   ]
 
   belongs_to :person, foreign_key: 'person_id'
-  validates :cost_type, :person, :price, presence: true
+  validates :cost_type, :person, presence: true
+  validates :percent, allow_nil: true, numericality: {
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 100
+  }
+  validate :price_and_percent_are_mutually_exclusive
+
+  before_validation :make_zero_price_nil
+
+  private
+
+  def make_zero_price_nil
+    self.price_cents = nil if price_cents.present? && price_cents.zero?
+  end
+
+  def price_and_percent_are_mutually_exclusive
+    if price_cents.present? && percent.present?
+      if percent_changed?
+        errors.add(:percent, 'must be blank if "price" is set')
+      else
+        errors.add(:price_cents, 'must be blank if "percent" is set')
+      end
+    end
+  end
 end

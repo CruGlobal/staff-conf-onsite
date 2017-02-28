@@ -11,6 +11,5 @@ FactoryGirl.define do
       end
       c
     end
-    parent_id { Ministry.all.pluck(:id).sample if Faker::Boolean.boolean(0.9) }
   end
 end

@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-unless Rails.env.production?
+if Rails.env.development? || Rails.env.staging?
   # Example role accounts
   User.create!(role: 'admin', email: 'jon.sangster+admin@ballistiq.com')
   User.create!(role: 'finance', email: 'jon.sangster+finance@ballistiq.com')

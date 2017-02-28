@@ -6,7 +6,7 @@ class FormCell < ShowCell
            :object,
            :semantic_fields_for
 
-  make_method_return_nil :actions
+  make_method_return_nil :actions, :inputs
 
   protected
 

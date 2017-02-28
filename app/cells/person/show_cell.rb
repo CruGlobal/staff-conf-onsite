@@ -34,7 +34,7 @@ class Person::ShowCell < ::ShowCell
     ul do
       person.cost_adjustments.each do |ca|
         li do
-          link_to("#{humanized_money_with_symbol(ca.price)} - #{cost_type_name(ca)}", ca)
+          link_to("#{cost_adjustment_amount(ca)} - #{cost_type_name(ca)}", ca)
         end
       end
     end

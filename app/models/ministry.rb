@@ -70,14 +70,15 @@ class Ministry < ApplicationRecord
   # infinite loop when iterating them).
   def not_own_ancestor
     cursor = self
-    seen = [cursor]
+    seen = []
 
-    while cursor.parent.present?
-      if seen.include?(cursor.parent)
+    while cursor.present?
+      if seen.include?(cursor)
         errors.add(:parent_id, 'can\'t be a descendant')
+        return
       end
-      cursor = cursor.parent
       seen << cursor
+      cursor = cursor.parent
     end
   end
 end
