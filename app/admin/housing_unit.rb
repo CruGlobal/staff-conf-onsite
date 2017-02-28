@@ -1,33 +1,14 @@
 ActiveAdmin.register HousingUnit do
   page_cells do |page|
-    page.show title: ->(r) { "#{r.housing_facility.name}: Unit #{r.name}" }
+    page.index title: -> { "#{@housing_facility.name}: Units" }
+    page.show title: ->(hu) { "#{hu.housing_facility.name}: Unit #{hu.name}" }
+    page.form
+    page.sidebar 'Housing Facility'
   end
 
   belongs_to :housing_facility
 
   permit_params :name
-
-  index title: -> { "#{@housing_facility.name}: Units" } do
-    column :id
-    column(:name) { |r| h4 r.name }
-    column :created_at
-    column :updated_at
-    actions
-  end
-
-  form do |f|
-    show_errors_if_any(f)
-
-    f.inputs do
-      f.input :name
-    end
-
-    f.actions
-  end
-
-  sidebar 'Housing Facility' do
-    h4 strong link_to(housing_facility.name, housing_facility_path(housing_facility))
-  end
 
   action_item :import_rooms, only: :index do
     link_to 'Import Spreadsheet',
