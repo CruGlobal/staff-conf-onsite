@@ -25,6 +25,7 @@ test:
   database: cru_test
 
 production: &production
+  <<: *default
   pool: <%= ENV.fetch('DB_POOL', 25) %>
   database: <%= ENV.fetch('DB_DATABASE') %>
   username: <%= ENV.fetch('DB_USER') %>
