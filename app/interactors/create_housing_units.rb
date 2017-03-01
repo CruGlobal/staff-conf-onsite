@@ -18,9 +18,13 @@ class CreateHousingUnits
   #
   # @return [Interactor::Context]
   def call
+    all_units = housing_facility.housing_units.to_a
+    names = parse_sheets
+    new_names = names - all_units.map(&:name)
+
     HousingFacility.transaction do
-      housing_facility.housing_units.each(&:destroy) if context.delete_existing
-      parse_sheets(context.sheets)
+      possibly_delete_existing(all_units, names)
+      create_units(new_names)
     end
   rescue Error => e
     context.fail! message: e.message
@@ -28,25 +32,25 @@ class CreateHousingUnits
 
   private
 
-  def parse_sheets(sheets)
-    sheets.each { |rows| parse_units(rows) }
-    housing_facility.housing_units.each(&:save!)
+  def parse_sheets
+    context.sheets.flat_map do |rows|
+      rows.flat_map { |row| row.compact.map(&:strip).select(&:present?) }
+    end.uniq
   end
 
-  def parse_units(rows)
-    rows.each do |row|
-      row = row.compact.map(&:strip).select(&:present?)
-
-      row.each { |name| create_unit(name) }
+  def possibly_delete_existing(units, names_to_keep)
+    if context.delete_existing.present?
+      remove_units = units.reject { |u| names_to_keep.include?(u.name) }
+      remove_units.each(&:destroy!)
     end
   end
 
-  def create_unit(name)
-    housing_facility.housing_units.build(name: name) unless find_unit(name)
+  def create_units(names)
+    names.map { |name| create_unit(name) }.each(&:save!)
   end
 
-  def find_unit(name)
-    housing_facility.housing_units.find { |u| u.name == name }
+  def create_unit(name)
+    housing_facility.housing_units.build(name: name)
   end
 
   def housing_facility
