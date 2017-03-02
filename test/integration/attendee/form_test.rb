@@ -19,25 +19,24 @@ class Attendee::FormTest < IntegrationTest
 
   test '#edit add cost_adjustment' do
     enable_javascript!
+    login_user @user
 
     attrs = attributes_for :cost_adjustment
 
-    mock_login @user do
-      visit edit_attendee_path(@attendee)
+    visit edit_attendee_path(@attendee)
 
-      assert_difference "CostAdjustment.where(person_id: #{@attendee.id}).count" do
-        within('.cost_adjustments.panel') do
-          click_link 'Add New Cost adjustment'
+    assert_difference "CostAdjustment.where(person_id: #{@attendee.id}).count" do
+      within('.cost_adjustments.panel') do
+        click_link 'Add New Cost adjustment'
 
-          select_random('Cost type')
-          fill_in 'Price', with: attrs[:price_cents]
-          fill_in 'Percent', with: attrs[:percent]
-          fill_in_ckeditor 'Description', with: attrs[:description]
-        end
-
-        click_button 'Update Attendee'
-        assert_current_path attendee_path(@attendee)
+        select_random('Cost type')
+        fill_in 'Price', with: attrs[:price_cents]
+        fill_in 'Percent', with: attrs[:percent]
+        fill_in_ckeditor 'Description', with: attrs[:description]
       end
+
+      click_button 'Update Attendee'
+      assert_current_path attendee_path(@attendee)
     end
   end
 

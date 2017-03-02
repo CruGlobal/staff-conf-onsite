@@ -59,38 +59,5 @@ module Support
         }
       })
     end
-
-    # Mock the entire authentication process to skip it entirely, pretending
-    # that the given user is logged in.
-    def mock_login(user, &blk)
-      Authenticatable::SessionUser.stub(:new, MockSessionUser.new(user) , &blk)
-    end
-
-    class MockSessionUser < Authenticatable::SessionUser
-      def initialize(user)
-        super(nil)
-        @user = user
-      end
-
-      def signed_into_cas?
-        true
-      end
-
-      def user_matching_cas_session
-        @user
-      end
-
-      def cas_email
-        @user.email
-      end
-
-      def cas_attr(attr)
-        {
-          'firstName' => @user.first_name,
-          'lastName' => @user.last_name,
-          'ssoGuid' => @user.guid
-        }[attr]
-      end
-    end
   end
 end

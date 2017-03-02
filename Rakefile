@@ -12,8 +12,21 @@ RuboCop::RakeTask.new
 require 'reek/rake/task'
 Reek::Rake::Task.new
 
-require 'bundler/audit/task'
-Bundler::Audit::Task.new
+require 'bundler/audit/cli'
+namespace :bundle do
+  desc 'Updates the ruby-advisory-db then runs bundle-audit'
+  task :audit do
+    ignored =
+      File.open("#{Rails.root}/.bundle-audit-ignored").
+        each_line.
+        map { |line| line.sub(/#.+/, '').strip }.
+        select(&:present?).
+        map { |ignore| ['-i', ignore] }
+
+    Bundler::Audit::CLI.start(['update'])
+    Bundler::Audit::CLI.start((['check'] + ignored).flatten)
+  end
+end
 
 # These tasks are redefined below
 %w(default test test:integration).each do |t|

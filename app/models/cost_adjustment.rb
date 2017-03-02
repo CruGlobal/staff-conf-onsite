@@ -30,13 +30,20 @@ class CostAdjustment < ApplicationRecord
     self.price_cents = nil if price_cents.present? && price_cents.zero?
   end
 
+  # Either #price or #percent must be provided, but not both
   def price_and_percent_are_mutually_exclusive
     if price_cents.present? && percent.present?
-      if percent_changed?
-        errors.add(:percent, 'must be blank if "price" is set')
-      else
-        errors.add(:price_cents, 'must be blank if "percent" is set')
-      end
+      add_mutually_exclusive_error
+    elsif price_cents.nil? && percent.nil?
+      errors.add(:percent, 'must be present if "price" is blank')
+    end
+  end
+
+  def add_mutually_exclusive_error
+    if percent_changed?
+      errors.add(:percent, 'must be blank if "price" is set')
+    else
+      errors.add(:price_cents, 'must be blank if "percent" is set')
     end
   end
 end

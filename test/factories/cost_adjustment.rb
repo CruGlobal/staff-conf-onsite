@@ -3,10 +3,10 @@ FactoryGirl.define do
     person factory: :attendee
 
     price_cents do
-      Faker::Number.between(0, 1000_00) if Faker::Boolean.boolean
+      Faker::Number.between(1, 1000_00) if Faker::Boolean.boolean
     end
     percent do
-      Faker::Number.between(0, 100.0) unless price_cents.present?
+      Faker::Number.between(0.1, 100.0) unless price_cents.present?
     end
 
     description { Faker::Lorem.paragraph(rand(3)) }

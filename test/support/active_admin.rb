@@ -45,20 +45,35 @@ module Support
     end
 
     # Selects a random <option>
-    def select_random(inner_text)
-      select = find_field(inner_text, visible: false)
+    # @param [String] selector
+    # @param [Boolean] include_blank +true+ to not randomly choose the blank
+    #   option
+    def select_random(selector, include_blank: false)
+      select = find_field(selector, visible: false)
+      options = select.all('option', visible: false)
 
       if (chosen = chosen_widget_sibling(select))
-        chosen_widget_select_random(chosen)
+        blank_index =
+          if include_blank
+            nil
+          else
+            options.index(options.find { |opt| opt['value'].blank? })
+          end
+
+        chosen_widget_select_random(chosen, blank_index: blank_index)
       else
-        options = select.all('option')
         options[rand(options.size)].select_option
       end
     end
 
-    def chosen_widget_select_random(element)
+    # @param [Fixnum] blank_index The index of the blank option, which will
+    #   not be chosen. +nil+ to choose any option
+    def chosen_widget_select_random(element, blank_index: nil)
       element.click
-      options = element.all('.active-result')
+
+      options = element.all('.active-result').to_a
+      options.delete_at(blank_index) if blank_index.present?
+
       options[rand(options.size)].click
     end
 

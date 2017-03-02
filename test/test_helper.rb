@@ -22,6 +22,7 @@ class IntegrationTest < Capybara::Rails::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::ActiveAdmin
   include Support::Authentication
+  include Support::Javascript
 
   self.use_transactional_fixtures = false
   before(:each) do
@@ -31,10 +32,6 @@ class IntegrationTest < Capybara::Rails::TestCase
   after(:each) do
     Capybara.use_default_driver
     DatabaseCleaner.clean
-  end
-
-  def enable_javascript!
-    Capybara.current_driver = Capybara.javascript_driver
   end
 end
 
