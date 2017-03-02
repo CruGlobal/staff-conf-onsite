@@ -1,6 +1,7 @@
 class HousingUnit < ApplicationRecord
   belongs_to :housing_facility
-  has_many :stays
+  has_many :stays, dependent: :destroy
+  has_many :people, through: :stays
 
   validates :name, uniqueness: { scope: :housing_facility_id, message:
    'should be unique per facility' }

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HousingFacilityTest < ActiveSupport::TestCase
+class HousingFacilityTest < ModelTestCase
   setup do
     create_users
     @housing_facility = create :housing_facility

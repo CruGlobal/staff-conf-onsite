@@ -1,4 +1,6 @@
 ActiveAdmin.register MealExemption do
+  extend Rails.application.helpers
+
   permit_params :person_id, :date, :meal_type
 
   belongs_to :attendee
@@ -7,7 +9,7 @@ ActiveAdmin.register MealExemption do
   show title: ->(m) { "#{m.attendee.full_name}: #{m.date.to_s(:long_ordinal)} #{m.meal_type} Meal Exemption" }
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
 
     f.inputs do
       f.input :person
@@ -20,7 +22,7 @@ ActiveAdmin.register MealExemption do
 
   filter :person
   filter :date
-  filter :meal_type, as: :select, collection: MealExemptionHelper.meal_type_select
+  filter :meal_type, as: :select, collection: meal_type_select
   filter :created_at
   filter :updated_at
 

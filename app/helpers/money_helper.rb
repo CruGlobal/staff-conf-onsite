@@ -1,6 +1,4 @@
 module MoneyHelper
-  module_function
-
   # Wraps Formtastic's +form.input+ helper, so that +monitize+'d attributes
   # will be managed by the jQuery money widget.
   #

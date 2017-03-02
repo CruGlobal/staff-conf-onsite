@@ -14,6 +14,7 @@ setupHousingUnitSelectWidth = ($select) ->
 
   widget = new HousingUnitSelectWidget($select, hierarchy, labels)
   widget.replaceCodeSelectWithMultiLevelSelect()
+  widget.addDurationCallbacks()
 
 
 # Creates a multi-level select widget which lets the user "drill-down" to a
@@ -135,3 +136,21 @@ class HousingUnitSelectWidget
       for facilityName, ids of facilities
         return facilityName if $.inArray(id, ids) != -1
     null
+
+
+  addDurationCallbacks: ->
+    @addSingleDurationCallback('arrived_at', 'Person Arrives:')
+    @addSingleDurationCallback('departed_at', 'Person Departs:')
+
+
+  addSingleDurationCallback: (type, hintPrefix) ->
+    $container = @$select.closest('fieldset')
+    $target = $container.find("input[name$='[#{type}]']")
+    return unless $target.length
+
+    $hint = $('<p class="inline-hints" />').insertAfter($target)
+    update = -> $hint.text("#{hintPrefix} #{$(this).val()}")
+
+    $inputs = $("input[name='attendee[#{type}]'], input[name='child[#{type}]']")
+    $inputs.on('change', update)
+    $inputs.each(update)

@@ -41,7 +41,7 @@ ActiveAdmin.register Conference do
 
       column do
         size = conference.attendees.size
-        panel "Attendees (#{size})" do
+        panel "Attendees (#{size})", class: 'attendees' do
           if size.positive?
             ul do
               conference.attendees.each do |a|
@@ -58,7 +58,8 @@ ActiveAdmin.register Conference do
   end
 
   form do |f|
-    f.semantic_errors
+    show_errors_if_any(f)
+
     f.inputs do
       f.input :name
       money_input_widget(f, :price)

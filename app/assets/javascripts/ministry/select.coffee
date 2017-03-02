@@ -129,10 +129,8 @@ class DataMinistrySelectWidget
 
     showHide = =>
       if @$select.val()
-        console.log 'moo remove'
         $close.removeClass('dropdown__close--hide')
       else
-        console.log 'moo add'
         $close.addClass('dropdown__close--hide')
 
     @$select.on 'change', showHide

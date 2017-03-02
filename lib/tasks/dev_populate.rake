@@ -13,7 +13,7 @@ namespace :dev do
 
     begin
       User.connection.transaction do
-        StubCas.stub_requests do
+        Support::StubCas.stub_requests do
           create_dummies :user, count: 10
         end
 

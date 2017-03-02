@@ -23,9 +23,6 @@ module Support
           model.update(attr => '$USD 1.00')
           assert_equal Money.new(100), model.send(attr)
 
-          model.update(attr => '$USD 0.00')
-          assert_equal Money.new(0), model.send(attr)
-
           model.update(attr => '$USD 123.45')
           assert_equal Money.new(12345), model.send(attr)
 

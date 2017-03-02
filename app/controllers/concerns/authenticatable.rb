@@ -16,8 +16,8 @@ module Authenticatable
   # * If the logged-in user doesn't have a {User local account}, they will be
   #   shown an error message.
   def authenticate_user!
-    if signed_into_cas?
-      if user_matching_cas_session.present?
+    if session_user.signed_into_cas?
+      if current_user.present?
         after_successful_authentication
       else
         redirect_to unauthorized_login_path
@@ -31,50 +31,59 @@ module Authenticatable
 
   # @return [User] the currently logged-in and authenticated user
   def current_user
-    @current_user ||=
-      if (guid = cas_attr('ssoGuid'))
-        User.find_by(guid: guid)
-      end
+    session_user.user_matching_cas_session
   end
 
-  # @return [Object, nil] The value of the given attribute name from the {User
-  #   current user's} data from the CAS service.
-  def cas_attr(attr)
-    cas_extra_attributes.try(:[], attr)
-  end
-
-  # @return [String, nil] The {User User's} email, from the CAS service.
-  def cas_email
-    request.session['cas'].try(:[], 'user')
-  end
-
-  private
-
-  # @return [Boolean] if the user has signed into the remote CAS service
-  def signed_into_cas?
-    cas_attr('ssoGuid').present?
-  end
-
-  # @return [User] the local user matching the GUID passed from the remote CAS
-  #   service
-  def user_matching_cas_session
-    @user_matching_cas_session ||=
-      if (guid = cas_attr('ssoGuid'))
-        User.find_by(guid: guid)
-      end
-  end
-
-  def cas_extra_attributes
-    request.session['cas'].try(:[], 'extra_attributes')
+  def session_user
+    @session_user ||= SessionUser.new(request.session)
   end
 
   def after_successful_authentication
-    user_matching_cas_session.assign_attributes(
-      email: cas_email,
-      first_name: cas_attr('firstName'),
-      last_name: cas_attr('lastName')
+    current_user.assign_attributes(
+      email: session_user.cas_email,
+      first_name: session_user.cas_attr('firstName'),
+      last_name: session_user.cas_attr('lastName')
     )
 
-    user_matching_cas_session.save if user_matching_cas_session.changed?
+    current_user.save! if current_user.changed?
+  end
+
+  class SessionUser
+    attr_reader :session
+
+    def initialize(session)
+      @session = session
+    end
+
+    # @return [Boolean] if the user has signed into the remote CAS service
+    def signed_into_cas?
+      cas_attr('ssoGuid').present?
+    end
+
+    # @return [User] the local user matching the GUID passed from the remote CAS
+    #   service
+    def user_matching_cas_session
+      @user_matching_cas_session ||=
+        if (guid = cas_attr('ssoGuid'))
+          User.find_by(guid: guid)
+        end
+    end
+
+    # @return [Object, nil] The value of the given attribute name from the {User
+    #   current user's} data from the CAS service.
+    def cas_attr(attr)
+      cas_extra_attributes.try(:[], attr)
+    end
+
+    # @return [String, nil] The {User User's} email, from the CAS service.
+    def cas_email
+      session['cas'].try(:[], 'user')
+    end
+
+    private
+
+    def cas_extra_attributes
+      session['cas'].try(:[], 'extra_attributes')
+    end
   end
 end

@@ -22,18 +22,25 @@
 en:
   activerecord:
     models:
+      chargeable_staff_number:
+        one: "Chargeable Staff ID"
+        other: "Chargeable Staff IDs"
       childcare:
-        one: Childcare Class
-        other: Childcare Classes
+        one: "Childcare Class"
+        other: "Childcare Classes"
       course:
-        one: Class
-        other: Classes
+        one: "Class"
+        other: "Classes"
       paper_trail:
         version:
-          one: Version
-          other: Versions
+          one: "Version"
+          other: "Versions"
 
     attributes:
+      person:
+        course_attendance: "Attendance"
+      chargeable_staff_number:
+        staff_number: "Staff ID"
       childcares:
         room: "Room Number"
       cost_code:
@@ -49,8 +56,12 @@ en:
         _destroy: "Delete this record!"
       child:
         childcare: "Childcare Class"
+        childcare_suffixes:
+          childcare: "%{label} Childcare"
+          junior_senior: "%{label} JrSr"
+          post_high_school: "%{label}"
         childcare_week_numbers:
-          none: No Childcare Needed
+          none: "No Childcare Needed"
         grade_level: "Age Group or Grade Level"
         grade_levels:
           age0: "Infant / Age 0"
@@ -85,20 +96,26 @@ en:
           tuition_staff: "Staff Conference Tuition"
           books: "Books"
       course:
-        ibs_code: IBS ID
+        ibs_code: "IBS ID"
+        grades:
+          AU: 'AU (Auditing)'
+      course_attendance:
+        course: "Class"
+        grade: "Final Grade"
+        seminary_credit: "Request Additional Seminary Credit"
       family:
-        country_code: Country
-        staff_number: Staff ID
-        zip: Zip Code
+        country_code: "Country"
+        staff_number: "Staff ID"
+        zip: "Zip Code"
       housing_facility:
-        country_code: Country
-        zip: Zip Code
+        country_code: "Country"
+        zip: "Zip Code"
         housing_types:
-          dormitory: Dormitory
-          apartment: Apartment
-          self_provided: Self-Provided
+          dormitory: "Dormitory"
+          apartment: "Apartment"
+          self_provided: "Self-Provided"
       housing_preference:
-        roommates: Preferred Roommates
+        roommates: "Preferred Roommates"
         beds_count: "# of Beds"
         single_room: "Requests a single room"
 
@@ -110,10 +127,10 @@ en:
         location1: "Preferred Location #1"
         location2: "Preferred Location #2"
         location3: "Preferred Location #3"
-        confirmed_at: Confirmed by Admin
+        confirmed_at: "Confirmed by Admin"
       stay:
-        arrived_at: Arrival date
-        departed_at: Departure date
+        arrived_at: "Arrival date"
+        departed_at: "Departure date"
         no_charge: "Do not charge for this assignment"
         waive_minimum: "Waive the minimum stay when calculating the charge for this apartment"
         percentage: "Percentage of cost the occupant must pay"
@@ -121,11 +138,11 @@ en:
 
   active_admin:
     dashboard:
-      title: Dashboard
-      welcome: Welcome to the Onsite Staff Administration
+      title: "Dashboard"
+      welcome: "Welcome to the Onsite Staff Administration"
       call_to_action: To add new records, please use the menu at the top of the
                       page
-      updated: Recently Updated
+      updated: "Recently Updated"
 
   date:
     formats:

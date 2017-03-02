@@ -31,10 +31,18 @@ module ApplicationHelper
       datepicker_options: {
         changeYear: true,
         changeMonth: true,
-        yearRange: 'c-60:c+10'
+        yearRange: 'c-80:c+10'
       }
     )
 
     form.input attribute, opts
+  end
+
+  # If the given form contains any errors (from the user's last POST), display
+  # those errors in a list.
+  #
+  # @param form [Formtastic Form] the form DSL object
+  def show_errors_if_any(form)
+    form.semantic_errors(*form.object.errors.keys)
   end
 end

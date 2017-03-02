@@ -19,6 +19,8 @@ ActiveAdmin.register User do
   filter :created_at
 
   form do |f|
+    show_errors_if_any(f)
+
     f.inputs 'User Details' do
       f.input :role, as: :select, collection: User::ROLES, include_blank: false
       f.input :email

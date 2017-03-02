@@ -1,0 +1,47 @@
+# vim:ft=ruby:
+
+h2 'Import Housing Units'
+
+columns do
+  column do
+    render partial: 'file_form'
+  end
+
+  column do
+    panel 'Help: Import Housing Units' do
+      para <<-EOP
+        This form allows you to upload a spreadsheet file containing a number
+        of Housing Unit names. Existing Unit names will be ignored.
+      EOP
+
+      h4 'File Format'
+
+      para <<-EOP
+        The given file can contain any number of rows and columns, each cell
+        that isn't blank will be used to create a new Housing Unit with that
+      name.
+      EOP
+
+      h4 'Example File'
+
+      table class: 'example-spreadsheet' do
+        tr { td 'a100'; td 'a101'; td ''     }
+        tr { td 'b200'; td '';     td 'b202' }
+        tr { td 'c300'; td '';     td ''     }
+        tr { td 'd400'; td 'd401'; td ''     }
+        tr { td 'e500'; td '';     td ''     }
+      end
+
+      h4 'Header Row'
+
+      para "Use the 'Skip Header Row' option if the first row contains a title. ex:"
+
+      table class: 'example-spreadsheet' do
+        tr { td strong 'Housing Units' }
+        tr { td '100' }
+        tr { td '200' }
+        tr { td '300' }
+      end
+    end
+  end
+end

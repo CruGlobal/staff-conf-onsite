@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MealExemptionTest < ActiveSupport::TestCase
+class MealExemptionTest < ModelTestCase
   setup do
     create_users
     @meal_exemption = create :meal_exemption

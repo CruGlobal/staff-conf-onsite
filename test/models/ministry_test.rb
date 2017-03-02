@@ -1,14 +1,13 @@
 require 'test_helper'
 
-class MinistryTest < ActiveSupport::TestCase
+class MinistryTest < ModelTestCase
   setup do
     create_users
     @ministry = create :ministry
   end
 
   test 'own parent' do
-    @ministry.parent_id = @ministry.id
-
+    @ministry.parent = @ministry
     refute @ministry.valid?, 'cannot be your own parent'
   end
 

@@ -11,14 +11,16 @@ class Person < ApplicationRecord
   belongs_to :family
   belongs_to :ministry
 
-  has_many :cost_adjustments
-  has_many :meal_exemptions
-  has_many :stays
+  has_many :cost_adjustments, dependent: :destroy
+  has_many :meal_exemptions, dependent: :destroy
+  has_many :stays, dependent: :destroy
+  has_many :housing_units, through: :stays
 
   accepts_nested_attributes_for :stays, :cost_adjustments, allow_destroy: true
 
   validates :family_id, presence: true
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
+  validates_associated :stays
 
   def full_name
     "#{first_name} #{last_name}"
@@ -30,6 +32,11 @@ class Person < ApplicationRecord
 
   def age
     @age ||= age_from_birthdate
+  end
+
+  def birthdate=(date)
+    @age = nil
+    super
   end
 
   private

@@ -1,6 +1,4 @@
 module ChildcareHelper
-  module_function
-
   # @return [Array<[label, id]>] the {Childcare::CHILDCARE_WEEKS childcare
   #   weeks} +<select>+ options acceptable for +options_for_select+
   def childcare_weeks_select
@@ -25,7 +23,7 @@ module ChildcareHelper
   #   attended by the given +Child+, or a message if the child is not attending
   #   any +Childcare+
   def childcare_weeks_list(child)
-    labels = child.childcare_weeks.map { |w| childcare_weeks_label(w) }
+    labels = child.childcare_weeks.map { |w| childcare_level(child, w) }
 
     Arbre::Context.new do
       if labels.any?
@@ -42,5 +40,14 @@ module ChildcareHelper
   #   given integer
   def childcare_weeks_label(index)
     Childcare::CHILDCARE_WEEKS[index]
+  end
+
+  # @return [String] a description of the given childcare level, based on the
+  #   child's age group
+  def childcare_level(child, index)
+    I18n.t(
+      "activerecord.attributes.child.childcare_suffixes.#{child.age_group}",
+      label: childcare_weeks_label(index)
+    )
   end
 end

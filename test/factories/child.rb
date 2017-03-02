@@ -11,12 +11,30 @@ FactoryGirl.define do
     end
     gender { Person::GENDERS.keys.sample }
 
+    arrived_at do
+      if Faker::Boolean.boolean
+        Faker::Date.between(1.year.from_now, 2.years.from_now)
+      end
+    end
+
+    departed_at do
+      if Faker::Boolean.boolean
+        Faker::Date.between(1.year.from_now, 2.years.from_now)
+      end
+    end
+
     # A random number of random weeks
     childcare_weeks do
-      count = Childcare::CHILDCARE_WEEKS.size
-      samples = Faker::Number.between(0, count)
-      (0...count).to_a.shuffle[0...samples]
+      if grade_level == 'postHighSchool'
+        nil
+      else
+        count = Childcare::CHILDCARE_WEEKS.size
+        samples = Faker::Number.between(0, count)
+        (0...count).to_a.shuffle[0...samples]
+      end
     end
+
+    grade_level { Child::GRADE_LEVELS.sample }
 
     factory :child_with_meal_exemptions do
       transient do

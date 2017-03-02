@@ -1,0 +1,2 @@
+class IndexCell < ShowCell
+end

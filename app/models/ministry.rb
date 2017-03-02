@@ -6,7 +6,7 @@ class Ministry < ApplicationRecord
   belongs_to :parent, class_name: 'Ministry'
 
   validates :code, uniqueness: true
-  validate :no_self_parent
+  validate :not_own_ancestor
 
   default_scope { includes :parent }
 
@@ -65,9 +65,20 @@ class Ministry < ApplicationRecord
 
   private
 
-  def no_self_parent
-    if parent_id.present? && id == parent_id
-      errors.add(:parent_id, 'can\'t be your own parent')
+  # The hierarchy of {Ministry ministries} is a direced, acyclical graph. This
+  # validation method ensures no cycles are introduced (which would cause an
+  # infinite loop when iterating them).
+  def not_own_ancestor
+    cursor = self
+    seen = []
+
+    while cursor.present?
+      if seen.include?(cursor)
+        errors.add(:parent_id, 'can\'t be a descendant')
+        return
+      end
+      seen << cursor
+      cursor = cursor.parent
     end
   end
 end

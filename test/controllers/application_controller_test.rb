@@ -1,14 +1,15 @@
 require 'test_helper'
 
-class ApplicationController
+class TestApplicationController < ApplicationController
   before_action :authenticate_user!, only: :test_action
+
   def test_action
     head :ok
   end
 end
 
 
-class ApplicationControllerTest < ActionController::TestCase
+class TestApplicationControllerTest < ControllerTestCase
   setup do
     @first_name = 'Foo'
     @last_name = 'Bar'
@@ -17,7 +18,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     # We use :eval_block instead of :draw, so existing routes aren't removed
     Rails.application.routes.send :eval_block,
-      proc { get 'test_action' => 'application#test_action' }
+      proc { get 'test_action' => 'test_application#test_action' }
   end
 
   # Scenario: the user has successfully logged in to the remote CAS service and
