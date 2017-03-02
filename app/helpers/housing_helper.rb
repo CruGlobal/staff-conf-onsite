@@ -26,7 +26,7 @@ module HousingHelper
       case obj
       when ApplicationRecord
         obj.housing_type
-      when Fixnum
+      when Integer
         HousingFacility.new(housing_type: obj).housing_type
       else
         raise "unexpected parameter, '#{obj.inspect}'"

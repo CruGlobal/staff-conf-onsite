@@ -1,4 +1,10 @@
 ActiveAdmin.register ChargeableStaffNumber do
+  page_cells do |page|
+    page.index
+    page.show
+    page.form
+  end
+
   permit_params :staff_number
 
   index do
@@ -10,38 +16,6 @@ ActiveAdmin.register ChargeableStaffNumber do
 
   filter :staff_number
   filter :created_at
-
-  show do
-    columns do
-      column do
-        attributes_table do
-          row :id
-          row :staff_number
-          row :created_at
-        end
-      end
-
-      column do
-        panel 'Family', class: 'family' do
-          if (family = chargeable_staff_number.family)
-            strong { link_to(family.to_s, family_path(family)) }
-          else
-            strong 'None'
-          end
-        end
-      end
-    end
-    active_admin_comments
-  end
-
-  form do |f|
-    show_errors_if_any(f)
-
-    f.inputs do
-      f.input :staff_number
-    end
-    f.actions
-  end
 
   action_item :import_staff_numbers, only: :index do
     link_to 'Import Spreadsheet', action: :new_spreadsheet

@@ -15,26 +15,24 @@ class Family::SidebarCell < ::IndexCell
 
   def attendees_list
     attendees = family.attendees.load
+    return unless attendees.any?
 
-    if attendees.any?
-      h4 strong 'Attendees'
-      ul do
-        attendees.each do |p|
-          li link_to(p.full_name, attendee_path(p))
-        end
+    h4 strong 'Attendees'
+    ul do
+      attendees.each do |p|
+        li link_to(p.full_name, attendee_path(p))
       end
     end
   end
 
   def children_list
     children = family.children.load
+    return unless children.any?
 
-    if children.any?
-      h4 strong 'Children'
-      ul do
-        children.each do |p|
-          li link_to(p.full_name, child_path(p))
-        end
+    h4 strong 'Children'
+    ul do
+      children.each do |p|
+        li link_to(p.full_name, child_path(p))
       end
     end
   end

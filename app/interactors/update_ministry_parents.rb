@@ -36,10 +36,10 @@ class UpdateMinistryParents
   end
 
   def row_to_ministries(row)
-    row.map { |code| find_by_code(code) }
+    row.map { |code| find_by(code: code) }
   end
 
-  def find_by_code(code)
+  def find_by(code:)
     ministries.find { |m| m.code == code }
   end
 
@@ -48,12 +48,13 @@ class UpdateMinistryParents
   end
 
   def assert_ministries!(row, row_index, ministries)
-    if (nil_index = ministries.index(nil))
-      raise Error, [
-        "Row ##{row_index + 1}, Column ##{nil_index + 1} references a ministry",
-        "('#{row[nil_index]}') which doesn't exist in the system."
-      ].join(' ')
-    end
+    nil_index = ministries.index(nil)
+    return unless nil_index.present?
+
+    raise Error, [
+      "Row ##{row_index + 1}, Column ##{nil_index + 1} references a ministry",
+      "('#{row[nil_index]}') which doesn't exist in the system."
+    ].join(' ')
   end
 
   def assign_parents(ministries)

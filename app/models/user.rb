@@ -5,9 +5,9 @@ class User < ApplicationRecord
   # Create scope and predicate method for each role. ex:
   # - +User.finance.first+
   # - +@user.finance?+
-  ROLES.each do |role|
-    scope role, -> { where(role: role) }
-    define_method("#{role}?") { self.role == role }
+  ROLES.each do |r|
+    scope(r, -> { where(role: r) })
+    define_method("#{r}?") { role == r }
   end
 
   validates :guid, presence: true

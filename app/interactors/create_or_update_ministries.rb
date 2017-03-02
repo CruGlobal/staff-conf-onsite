@@ -45,14 +45,14 @@ class CreateOrUpdateMinistries
   end
 
   def create_or_update(code, name)
-    if (existing = find_by_code(code))
+    if (existing = find_by(code: code))
       existing.name = name
     else
       ministries.push(Ministry.new(code: code, name: name))
     end
   end
 
-  def find_by_code(code)
+  def find_by(code:)
     ministries.find { |m| m.code == code }
   end
 

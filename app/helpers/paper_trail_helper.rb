@@ -22,6 +22,7 @@ module PaperTrailHelper
   # @return [Hash] a hash of the record attributes in the previous
   #   version. It will be empty if this is the first created version
   def previous_version_hash(version)
+    # rubocop:disable Security/YAMLLoad
     version.object ? YAML.load(version.object) : {}
   end
 end
