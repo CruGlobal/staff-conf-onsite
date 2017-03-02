@@ -41,7 +41,8 @@ gem 'cells-rails', '~> 0.0.7'
 # Frontend Scripts
 gem 'turbolinks', '~> 5.0.1'
 gem 'ckeditor', '~> 4.2.0'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.2'
+gem 'jquery-ui-rails', '~> 5.0'
 gem 'intl-tel-input-rails', '~> 8.4.9'
 
 
