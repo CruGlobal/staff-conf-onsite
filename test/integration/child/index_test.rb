@@ -7,19 +7,7 @@ class Child::IndexTest < IntegrationTest
   end
 
   test '#index filters' do
-    enable_javascript!
-    login_user(@user)
-
-    @child.update!(childcare_id: nil)
-    @childcare = create :childcare
-
     visit children_path
-    within("#child_#{@child.id}") do
-      select_random('child[childcare_id]')
-    end
-    wait_for_ajax!
-
-    refute_nil @child.reload.childcare_id
 
     within('.filter_form') do
       assert_text 'First name'
@@ -31,6 +19,22 @@ class Child::IndexTest < IntegrationTest
       assert_text 'Arrived at'
       assert_text 'Departed at'
     end
+  end
+
+  test '#index set childcare' do
+    enable_javascript!
+    login_user(@user)
+
+    @child.update!(childcare_id: nil)
+    @childcare = create :childcare
+
+    visit children_path
+    within("#child_#{@child.id}") do
+      select_option('child[childcare_id]')
+    end
+    wait_for_ajax!
+
+    refute_nil @child.reload.childcare_id
   end
 
   test '#index columns' do
@@ -49,5 +53,5 @@ class Child::IndexTest < IntegrationTest
       assert_selector "#child_#{@child.id}"
     end
   end
-  
+
 end
