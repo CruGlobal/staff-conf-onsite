@@ -29,7 +29,7 @@ class Attendee::FormTest < IntegrationTest
       within('.cost_adjustments.panel') do
         click_link 'Add New Cost adjustment'
 
-        select_random('Cost type')
+        select_option('Cost type')
         fill_in 'Price', with: attrs[:price_cents]
         fill_in 'Percent', with: attrs[:percent]
         fill_in_ckeditor 'Description', with: attrs[:description]

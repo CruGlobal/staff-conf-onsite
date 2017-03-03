@@ -25,7 +25,8 @@ class Person::FormCell < ::FormCell
   def stay_subform
     collection = [:stays, object.stays.order(:arrived_at)]
 
-    panel 'Housing Assignments', 'data-housing_unit-container' => true do
+    panel 'Housing Assignments', class: 'housing_assignments',
+                                 'data-housing_unit-container' => true do
       has_many :stays, heading: nil, for: collection do |f|
         select_housing_unit_widget(f)
 
