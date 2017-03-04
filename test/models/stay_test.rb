@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StayTest < ModelTestCase
   setup do
-    @facility = create :housing_facility
+    @facility = create :housing_facility, cost_code: nil
     @unit = create :housing_unit, housing_facility: @facility
     @attendee = create :attendee
 
@@ -23,11 +23,20 @@ class StayTest < ModelTestCase
     assert_equal :self_provided, @stay.housing_type
   end
 
-  test '#length_of_stay' do
+  test '#duration' do
     @stay.update!(arrived_at: 6.days.ago, departed_at: 3.days.ago)
 
-    assert_equal 3, @stay.length_of_stay
+    assert_equal 3, @stay.duration
     @stay.departed_at = 6.days.ago + 1.hour
-    assert_equal 1, @stay.length_of_stay
+    assert_equal 1, @stay.duration
+  end
+
+  test '#min_days' do
+    @facility.update!(cost_code: create(:cost_code, min_days: 123))
+    assert_equal 123, @stay.min_days
+  end
+
+  test '#min_days with no cost_code' do
+    assert_equal 1, @stay.min_days
   end
 end

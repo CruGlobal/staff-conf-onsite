@@ -47,3 +47,15 @@ class ModelTestCase < ActiveSupport::TestCase
   end
   after(:each)  { DatabaseCleaner.clean }
 end
+
+class InteractorTestCase < ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+  include Support::Interactor
+
+  self.use_transactional_fixtures = false
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+    DatabaseCleaner.start
+  end
+  after(:each)  { DatabaseCleaner.clean }
+end

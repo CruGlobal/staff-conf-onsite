@@ -9,7 +9,31 @@ class CostCode < ApplicationRecord
 
   validates_associated :charges
 
+  # @param [Integer] days The length of the person's stay, in days
+  # @return [CostCodeCharge, nil] The charges applied to a stay of the given
+  #   number of days
+  def charge(days:)
+    charges_ordered.find_by('max_days >= ?', days)
+  end
+
+  # @return [CostCodeCharge, nil] The charge with the largest +max_days+
+  def last_charge
+    charges_ordered.last
+  end
+
+  # @return [Integer, nil] The greatest +max_days+ value of all associated
+  #   {CostCodeCharge charges}, if any.
+  def max_days
+    last_charge.try(:max_days)
+  end
+
   def to_s
     cost_code_label(self)
+  end
+
+  private
+
+  def charges_ordered
+    charges.order(:max_days)
   end
 end

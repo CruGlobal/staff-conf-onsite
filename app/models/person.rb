@@ -34,7 +34,7 @@ class Person < ApplicationRecord
     @age ||= age_from_birthdate
   end
 
-  def birthdate=(date)
+  def birthdate=(*_)
     @age = nil
     super
   end

@@ -8,4 +8,10 @@ class PersonTest < ActiveSupport::TestCase
   test '#age' do
     assert_equal 20, @person.age
   end
+
+  test '#age (memoized) changes after birthdate changes' do
+    assert_equal 20, @person.age
+    @person.update(birthdate: 40.years.ago)
+    assert_equal 40, @person.age
+  end
 end

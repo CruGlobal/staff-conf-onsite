@@ -9,5 +9,6 @@ class CostCodeCharge < ApplicationRecord
                   less_than_or_equal_to:     1_000_000
                 }
 
+  validates :cost_code_id, presence: true
   validates :max_days, uniqueness: { scope: :cost_code_id }
 end

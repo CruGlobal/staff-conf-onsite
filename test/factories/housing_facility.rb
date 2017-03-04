@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :housing_facility do
+    cost_code
+
     housing_type do
       HousingFacility.housing_types.
         keys.
