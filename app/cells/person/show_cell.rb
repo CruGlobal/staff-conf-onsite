@@ -1,20 +1,11 @@
 class Person::ShowCell < ::ShowCell
   def meal_exemptions
-    panel "Meal Exemptions (#{person.meal_exemptions.size})" do
-      person.meal_exemptions.any? ? meal_exemptions_table : strong('None')
-    end
+    cell('person/show_meal_exemptions', model, person: person).call(:meal_exemptions_panel)
   end
 
   def stays
-    panel 'Housing Assignments', class: 'stays' do
-      attributes_table_for person.stays.order(:arrived_at) do
-        housing_rows
-        row :arrived_at
-        row :departed_at
-        duration_row
-        housing_field_rows
-        row(:comment) { |stay| html_full stay.comment }
-      end
+    panel "Housing Assignments (#{person.stays.size})", class: 'stays' do
+      person.stays.any? ? stays_table : strong('None')
     end
   end
 
@@ -66,9 +57,7 @@ class Person::ShowCell < ::ShowCell
   def housing_field_rows
     Stay::HOUSING_TYPE_FIELDS.each do |attribute, types|
       row attribute do |stay|
-        t = stay.housing_type
-
-        if types.include?(t.to_sym)
+        if types.include?(stay.housing_type.to_sym)
           simple_format_attr(stay, attribute)
         else
           span('N/A', class: 'empty')
@@ -77,39 +66,14 @@ class Person::ShowCell < ::ShowCell
     end
   end
 
-  def meal_exemptions_table
-    table do
-      meal_exemptions_header
-
-      tbody do
-        person.meal_exemptions.order_by_date.each do |date, types|
-          meal_exemptions_row(date, types)
-        end
-      end
-    end
-  end
-
-  def meal_exemptions_header
-    thead do
-      tr do
-        th 'Date'
-        MealExemption::TYPES.each { |t| th t }
-      end
-    end
-  end
-
-  def meal_exemptions_row(date, types)
-    tr do
-      td { strong l date, format: :month }
-      MealExemption::TYPES.each do |t|
-        td do
-          if types[t]
-            status_tag :yes, :meal_type, label: 'exempt'
-          else
-            status_tag :no, :meal_type, label: 'accept'
-          end
-        end
-      end
+  def stays_table
+    attributes_table_for person.stays.order(:arrived_at) do
+      housing_rows
+      row :arrived_at
+      row :departed_at
+      duration_row
+      housing_field_rows
+      row(:comment) { |stay| html_full stay.comment }
     end
   end
 end
