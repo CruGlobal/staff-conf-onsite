@@ -1,8 +1,6 @@
 class SumChildStayCost
   include Interactor
 
-  Error = Class.new(StandardError)
-
   # First, for ALL dorm housing assignments (in case there's more than one),
   # add up the TOTAL number of days living in a dorm. Call this the TOTAL Days.
   #
@@ -48,8 +46,11 @@ class SumChildStayCost
       daily_costs = daily_costs(context.child, charge, stay.single_occupancy)
       daily_costs.inject(:+) * days
     else
-      raise Error, format('%p does not have an associated cost code which '\
-                          'can be applied to a stay of %d days', stay, days)
+      context.fail!(
+        error: format('%p does not have an associated cost code which can be ' \
+                      'applied to a stay of %d days',
+                      (stay.housing_facility || stay), days)
+      )
     end
   end
 
@@ -69,6 +70,8 @@ class SumChildStayCost
   end
 
   def apply_adjustments(cost)
+    cost ||= Money.new(0)
+
     ApplyCostAdjustments.call(
       cost: cost,
       cost_adjustments: context.child.cost_adjustments

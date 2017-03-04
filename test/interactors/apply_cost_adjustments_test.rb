@@ -6,6 +6,13 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @cost = Money.new(1_000_00) # $1,000.00
   end
 
+  test '0 adjustments' do
+    @service = create_service
+
+    @result = @service.tap(&:run!).context
+    assert_context Money.new(1000_00), @result, :new_cost
+  end
+
   test '1 price adjustment' do
     @service = create_service price_cents: 250_00
 

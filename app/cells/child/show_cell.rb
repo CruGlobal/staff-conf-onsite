@@ -24,6 +24,7 @@ class Child::ShowCell < ::ShowCell
 
   def right_column
     person_cell.call(:meal_exemptions)
+    temporary_stay_cost_panel
     person_cell.call(:stays)
   end
 
@@ -55,6 +56,19 @@ class Child::ShowCell < ::ShowCell
       attributes_table_for child do
         row :arrived_at
         row :departed_at
+      end
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_stay_cost_panel
+    panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = SumChildStayCost.call(child: child)
+      if result.success?
+        humanized_money_with_symbol result.total_charge
+      else
+        div(class: 'flash flash_error') { result.error }
       end
     end
   end
