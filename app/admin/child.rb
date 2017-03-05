@@ -2,7 +2,7 @@ ActiveAdmin.register Child do
   page_cells do |page|
     page.index
     page.show
-    page.form
+    page.form(Person::FormCell::OPTIONS)
   end
 
   menu parent: 'People', priority: 3

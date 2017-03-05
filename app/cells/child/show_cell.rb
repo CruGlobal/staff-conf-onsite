@@ -19,13 +19,14 @@ class Child::ShowCell < ::ShowCell
   def left_column
     child_attributes_table
     duration_table
-    person_cell.call(:cost_adjustments)
+    childcare_table
   end
 
   def right_column
-    person_cell.call(:meal_exemptions)
-    temporary_stay_cost_panel
+    person_cell.call(:cost_adjustments)
     person_cell.call(:stays)
+    temporary_stay_cost_panel
+    person_cell.call(:meal_exemptions)
   end
 
   def child_attributes_table
@@ -33,8 +34,6 @@ class Child::ShowCell < ::ShowCell
       row :id
       personal_attributes
       row(:grade_level) { |c| grade_level_label(c) }
-      row :childcare
-      row(:childcare_weeks) { |c| childcare_weeks_list(c) }
       row :parent_pickup
       row :needs_bed
       row :created_at
@@ -56,6 +55,15 @@ class Child::ShowCell < ::ShowCell
       attributes_table_for child do
         row :arrived_at
         row :departed_at
+      end
+    end
+  end
+
+  def childcare_table
+    panel 'Childcare', class: 'childcare' do
+      attributes_table_for child do
+        row :childcare
+        row(:childcare_weeks) { |c| childcare_weeks_list(c) }
       end
     end
   end

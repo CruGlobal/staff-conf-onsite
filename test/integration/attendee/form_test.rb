@@ -40,6 +40,39 @@ class Attendee::FormTest < IntegrationTest
     end
   end
 
+  test '#edit admin can change family_id' do
+    @admin = create :admin_user
+    login_user @admin
+
+    visit edit_attendee_path(@attendee)
+
+    within('.basic.inputs') do
+      assert_selector 'select[name="attendee[family_id]"]'
+    end
+  end
+
+  test '#edit finance user cannot change family_id' do
+    @finance = create :finance_user
+    login_user @finance
+
+    visit edit_attendee_path(@attendee)
+
+    within('.basic.inputs') do
+      refute_selector 'select[name="attendee[family_id]"]'
+    end
+  end
+
+  test '#edit general user cannot change family_id' do
+    @general = create :general_user
+    login_user @general
+
+    visit edit_attendee_path(@attendee)
+
+    within('.basic.inputs') do
+      refute_selector 'select[name="attendee[family_id]"]'
+    end
+  end
+
   test '#new record creation' do
     @family = create :family
     attr = attributes_for :attendee

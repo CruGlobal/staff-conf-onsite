@@ -1,5 +1,5 @@
 class Person::FormCell < ::FormCell
-  FORM_OPTIONS ||= {
+  OPTIONS ||= {
     # If creating a new family-member, show the family name in the title
     title: proc do |person|
       label = "#{action_name.titlecase} #{person.class.name}"
@@ -14,11 +14,15 @@ class Person::FormCell < ::FormCell
 
   # If creating a new family-member, do not let the family association be
   # editable.
-  def family_selector
-    if (id = object.family_id || param_family.try(:id))
-      input :family_id, as: :hidden, input_html: { value: id }
-    else
+  def family_selector_or_hidden
+    if (family_id = object.family_id || param_family.try(:id)).present?
+      object.family_id = family_id
+    end
+
+    if policy(object).update_family?
       input :family
+    elsif family_id.present?
+      input :family_id, as: :hidden
     end
   end
 

@@ -19,7 +19,7 @@ class Child::FormCell < ::FormCell
   end
 
   def left_column
-    child_inputs
+    child_inputs_table
     duration_inputs
     childcare_inputs
   end
@@ -30,9 +30,9 @@ class Child::FormCell < ::FormCell
     cell('person/form_meal_exemptions', model, person: child).call
   end
 
-  def child_inputs
-    inputs 'Basic' do
-      person_cell.call(:family_selector)
+  def child_inputs_table
+    inputs 'Basic', class: 'basic' do
+      person_cell.call(:family_selector_or_hidden)
 
       input :first_name
       last_name_input

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Child::ShowTest < IntegrationTest
   include CostAdjustmentHelper
-  
+
   before do
     @user = create_login_user
     @child = create :child
@@ -13,15 +13,15 @@ class Child::ShowTest < IntegrationTest
 
     assert_selector '#page_title', text: @child.full_name
 
-    within('.panel', text: "Child Details") do
+    within('.panel', text: 'Child Details') do
       assert_show_rows :id, :first_name, :last_name, :family, :gender,
-                       :birthdate, :age, :grade_level, :childcare,
-                       :childcare_weeks, :parent_pickup, :needs_bed,
-                       :created_at, :updated_at,
+                       :birthdate, :age, :grade_level, :parent_pickup,
+                       :needs_bed, :created_at, :updated_at,
                        selector: "#attributes_table_child_#{@child.id}"
     end
 
     within('.panel.duration') { assert_show_rows :arrived_at, :departed_at }
+    within('.panel.childcare') { assert_show_rows :childcare, :childcare_weeks }
 
     assert_active_admin_comments
   end

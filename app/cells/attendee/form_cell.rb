@@ -6,7 +6,7 @@ class Attendee::FormCell < ::FormCell
     show_errors_if_any
 
     columns do
-      column { left_column }
+      column { attributes_column }
       column { middle_column }
       column { right_column }
     end
@@ -15,10 +15,6 @@ class Attendee::FormCell < ::FormCell
   end
 
   private
-
-  def left_column
-    attributes_column
-  end
 
   def middle_column
     course_attendances_subform
@@ -42,8 +38,8 @@ class Attendee::FormCell < ::FormCell
   end
 
   def attendee_inputs
-    inputs 'Basic' do
-      person_cell.call(:family_selector)
+    inputs 'Basic', class: 'basic' do
+      person_cell.call(:family_selector_or_hidden)
 
       input :student_number
       input :first_name

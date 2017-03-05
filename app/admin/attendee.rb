@@ -2,7 +2,7 @@ ActiveAdmin.register Attendee do
   page_cells do |page|
     page.index
     page.show
-    page.form
+    page.form(Person::FormCell::OPTIONS)
   end
 
   remove_filter :family # Adds N+1 additional quries to the index page

@@ -1,8 +1,11 @@
 class ApplicationCell < Cell::ViewModel
   include Rails.application.helpers
   include MoneyRails::ActionViewExtension
+  include Pundit
 
   property :l
+
+  delegates :controller, :current_user
 
   # The reason to make a builder method return +nil+ is to avoid rending the
   # elements twice.  Arbre inserts HTML into a {Arbre::Context}, but also

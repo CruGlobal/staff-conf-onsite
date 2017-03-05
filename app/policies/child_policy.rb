@@ -1,3 +1,3 @@
 # The security policy for accessing {Child} records.
-class ChildPolicy < GeneralPolicy
+class ChildPolicy < PersonPolicy
 end
