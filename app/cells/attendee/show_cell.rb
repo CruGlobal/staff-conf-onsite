@@ -79,7 +79,7 @@ class Attendee::ShowCell < ::ShowCell
   end
 
   def attendances_panel
-    panel 'Attendances', class: 'attendances' do
+    panel 'Courses', class: 'attendances' do
       attendances = attendee.course_attendances.includes(:course)
       attendances.any? ? attendances_list(attendances) : strong('None')
     end
