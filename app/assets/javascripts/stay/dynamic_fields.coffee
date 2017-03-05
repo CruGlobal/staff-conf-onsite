@@ -118,7 +118,7 @@ setupDurationCalculation = ($form) ->
   $duration = $('<span />').text('N/A')
   $durationContainer =
     $('<li class="inut" />').append(
-      $('<label class="label" />').text('Duration'),
+      $('<label class="label" />').text('Requested Arrival/Departure'),
       $duration
     )
 

@@ -55,7 +55,7 @@ class Child::FormCell < ::FormCell
   end
 
   def duration_inputs
-    inputs 'Duration' do
+    inputs 'Requested Arrival/Departure' do
       datepicker_input(model, :arrived_at)
       datepicker_input(model, :departed_at)
     end

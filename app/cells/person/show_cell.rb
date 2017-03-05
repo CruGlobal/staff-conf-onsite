@@ -45,7 +45,7 @@ class Person::ShowCell < ::ShowCell
   end
 
   def duration_row
-    row 'Duration' do |stay|
+    row 'Requested Arrival/Departure' do |stay|
       if stay.arrived_at.present? && stay.departed_at.present?
         pluralize (stay.departed_at.mjd - stay.arrived_at.mjd), 'Day'
       else

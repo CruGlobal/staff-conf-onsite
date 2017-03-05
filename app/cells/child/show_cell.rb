@@ -51,7 +51,7 @@ class Child::ShowCell < ::ShowCell
   end
 
   def duration_table
-    panel 'Duration', class: 'duration' do
+    panel 'Requested Arrival/Departure', class: 'duration' do
       attributes_table_for child do
         row :arrived_at
         row :departed_at
