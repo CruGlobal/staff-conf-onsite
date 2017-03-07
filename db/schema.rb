@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302005322) do
+ActiveRecord::Schema.define(version: 20170306041012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,19 @@ ActiveRecord::Schema.define(version: 20170302005322) do
 
   add_index "stays", ["housing_unit_id"], name: "index_stays_on_housing_unit_id", using: :btree
   add_index "stays", ["person_id"], name: "index_stays_on_person_id", using: :btree
+
+  create_table "user_variables", force: :cascade do |t|
+    t.string   "code",        null: false
+    t.string   "short_name",  null: false
+    t.integer  "value_type",  null: false
+    t.string   "value",       null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_variables", ["code"], name: "index_user_variables_on_code", using: :btree
+  add_index "user_variables", ["short_name"], name: "index_user_variables_on_short_name", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",      default: "",        null: false

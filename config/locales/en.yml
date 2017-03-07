@@ -28,6 +28,9 @@ en:
       childcare:
         one: "Childcare Class"
         other: "Childcare Classes"
+      cost_code:
+        one: "Housing Cost Code"
+        other: "Housing Cost Codes"
       course:
         one: "Class"
         other: "Classes"
@@ -135,6 +138,13 @@ en:
         waive_minimum: "Waive the minimum stay when calculating the charge for this apartment"
         percentage: "Percentage of cost the occupant must pay"
         _destroy: "Delete this record!"
+      user_variable:
+        value_types:
+          string: 'Text'
+          money: 'Money'
+          date: 'Date'
+          number: 'Number'
+          html: 'HTML'
 
   active_admin:
     dashboard:
@@ -145,5 +155,8 @@ en:
       updated: "Recently Updated"
 
   date:
+    formats:
+      month: "%B %-d"
+  time:
     formats:
       month: "%B %-d"

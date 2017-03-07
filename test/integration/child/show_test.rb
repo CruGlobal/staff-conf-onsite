@@ -8,6 +8,8 @@ class Child::ShowTest < IntegrationTest
     @child = create :child
   end
 
+  stub_user_variable child_age_cutoff: 6.months.from_now
+
   test '#show details' do
     visit child_path(@child)
 

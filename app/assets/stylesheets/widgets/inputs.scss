@@ -13,3 +13,8 @@
     color: #932419;
   }
 }
+
+.input.string input[readonly] {
+  background: none;
+  border: none;
+}

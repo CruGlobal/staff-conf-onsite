@@ -58,6 +58,7 @@ group :development, :test do
   gem 'guard-minitest', '~> 2.4'          # ""
   gem 'minitest-reporters', '~> 1.1'      # Test output format
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
+  gem 'minitest-around', '~> 0.4'         # Minitest around callback
   gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
   gem 'webmock', '~> 2.1'                 # Stub HTTP requests

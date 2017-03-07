@@ -42,3 +42,6 @@
 #
 #  Stay -------------------------------
 #= require stay/dynamic_fields
+#
+#  UserVariable ---------------------
+#= require user_variable/create_auto_short_name

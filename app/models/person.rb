@@ -2,10 +2,6 @@ class Person < ApplicationRecord
   # The possible values for the +gender+ attribute.
   GENDERS = { f: 'Female', m: 'Male' }.freeze
 
-  # Whenever we calculate someone's age, it's as-of this date, and not the
-  # current calendar date.
-  AGE_AS_OF = Date.parse('2017-06-01').freeze
-
   has_paper_trail
 
   belongs_to :family
@@ -42,13 +38,17 @@ class Person < ApplicationRecord
   private
 
   def age_from_birthdate
-    age = AGE_AS_OF.year - birthdate.year
+    cutoff = UserVariable[:child_age_cutoff]
+
+    age = cutoff.year - birthdate.year
     age -= 1 if birthday_after_date?
     age
   end
 
   def birthday_after_date?
-    birthdate.month > AGE_AS_OF.month ||
-      birthdate.month == AGE_AS_OF.month && birthdate.day > AGE_AS_OF.day
+    cutoff = UserVariable[:child_age_cutoff]
+
+    birthdate.month > cutoff.month ||
+      birthdate.month == cutoff.month && birthdate.day > cutoff.day
   end
 end

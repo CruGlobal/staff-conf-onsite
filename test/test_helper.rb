@@ -16,6 +16,7 @@ FactoryGirl.find_definitions
 
 class ControllerTestCase < ActionController::TestCase
   include FactoryGirl::Syntax::Methods
+  include Support::UserVariable
 end
 
 class IntegrationTest < Capybara::Rails::TestCase
@@ -23,6 +24,7 @@ class IntegrationTest < Capybara::Rails::TestCase
   include Support::ActiveAdmin
   include Support::Authentication
   include Support::Javascript
+  include Support::UserVariable
 
   self.use_transactional_fixtures = false
   before(:each) do
@@ -39,6 +41,7 @@ class ModelTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::Authentication
   include Support::Moneyable
+  include Support::UserVariable
 
   self.use_transactional_fixtures = false
   before(:each) do
@@ -51,6 +54,7 @@ end
 class InteractorTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::Interactor
+  include Support::UserVariable
 
   self.use_transactional_fixtures = false
   before(:each) do

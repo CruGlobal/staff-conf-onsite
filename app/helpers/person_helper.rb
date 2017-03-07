@@ -19,11 +19,12 @@ module PersonHelper
 
   # Creates an HTML element showing the given person's age, with a mouse-over
   # +title+, reminding them that the date was calculated as of
-  # {Person::AGE_AS_OF}, and not the current date.
+  # +UserVariable[:child_age_cutoff]+, and not the current date.
   #
   # @return [String] An HTML +<span>+ wrapping {#age}
   def age_label(dob)
-    span title: "As of #{I18n.l(Person::AGE_AS_OF, format: :month)}" do
+    cutoff_date = UserVariable[:child_age_cutoff]
+    span title: "As of #{I18n.l(cutoff_date, format: :month)}" do
       age(dob)
     end
   end
@@ -31,12 +32,12 @@ module PersonHelper
   # @param dob [Date]
   # @return [Fixnum, nil] the age, in years, of a person born on the given
   #   date, or +nil+ if the given date is +nil+
-  # @see Person::AGE_AS_OF
+  # @see UserVariable[:child_age_cutoff]
   def age(dob)
     dob = dob.birthdate if dob.is_a?(Person)
     return nil if dob.nil?
 
-    as_of = Person::AGE_AS_OF
+    as_of = UserVariable[:child_age_cutoff]
 
     as_of.year - dob.year - (after_birthday?(dob, as_of) ? 0 : 1)
   end

@@ -32,7 +32,8 @@ class SumChildStayCost
     context.dorms = dorm_stays
     context.charges = dorm_stays.map { |stay| stay_charge(stay) }
 
-    context.total_charge = apply_adjustments(context.charges.inject(:+))
+    total_charge = apply_adjustments(context.charges.inject(:+))
+    context.total_charge = [0, total_charge].max
   end
 
   private

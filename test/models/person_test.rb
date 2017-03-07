@@ -1,9 +1,11 @@
 require 'test_helper'
 
-class PersonTest < ActiveSupport::TestCase
+class PersonTest < ModelTestCase
   setup do
     @person = Person.new(birthdate: 20.years.ago)
   end
+
+  stub_user_variable child_age_cutoff: 6.months.from_now
 
   test '#age' do
     assert_equal 20, @person.age
