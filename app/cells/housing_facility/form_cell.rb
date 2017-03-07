@@ -2,7 +2,7 @@ class HousingFacility::FormCell < ::FormCell
   def show
     show_errors_if_any
 
-    inputs do
+    inputs 'Details' do
       input :name
       input :housing_type
       input :cost_code, as: :select, collection: cost_code_select

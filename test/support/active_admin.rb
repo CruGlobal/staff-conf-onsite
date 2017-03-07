@@ -24,6 +24,12 @@ module Support
       end
     end
 
+    # Assert h2#page_title has given text
+    # @param [String] text the title to match
+    def assert_page_title(text)
+      assert_selector 'h2#page_title', text: text
+    end
+
     def assert_active_admin_comments
       assert_selector 'form.active_admin_comment'
     end

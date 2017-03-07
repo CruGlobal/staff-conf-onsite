@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :stay do
-    person { build(Faker::Boolean.boolean ? :attendee : :child) }
+    person { create(Faker::Boolean.boolean ? :attendee : :child) }
     housing_unit
     single_occupancy { Faker::Boolean.boolean }
     no_charge { Faker::Boolean.boolean }
