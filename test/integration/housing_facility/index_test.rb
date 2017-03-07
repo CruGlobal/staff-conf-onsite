@@ -1,13 +1,18 @@
 require 'test_helper'
 
 class HousingFacility::IndexTest < IntegrationTest
-  before do
-    @user = create_login_user
-    @housing_facility = create :housing_facility
+  include Support::HousingFacility
+
+  before { prepare_for_testing }
+
+  test '#index navigation' do
+    navigate_to_housing_facility :index
+
+    assert_page_title 'Housing Facilities'
   end
 
   test '#index filters' do
-    visit housing_facilities_path
+    visit_housing_facility :index
 
     within('.filter_form') do
       assert_text 'Name'
@@ -24,7 +29,7 @@ class HousingFacility::IndexTest < IntegrationTest
   end
 
   test '#index columns' do
-    visit housing_facilities_path
+    visit_housing_facility :index
 
     assert_index_columns :selectable, :id, :name, :housing_type, :cost_code,
                          :cafeteria, :street, :city, :state, :country_code, 
@@ -32,7 +37,7 @@ class HousingFacility::IndexTest < IntegrationTest
   end
 
   test '#index items' do
-    visit housing_facilities_path
+    visit_housing_facility :index
 
     within('#index_table_housing_facilities') do
       assert_selector "#housing_facility_#{@housing_facility.id}"

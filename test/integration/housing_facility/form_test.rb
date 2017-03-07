@@ -1,13 +1,20 @@
 require 'test_helper'
 
 class HousingFacility::FormTest < IntegrationTest
-  before do
-    @user = create_login_user
-    @housing_facility = create :housing_facility_with_units
+  include Support::HousingFacility
+
+  before { prepare_for_testing }
+
+  [:new, :edit].each do |action|
+    test("##{action} navigation") do
+      navigate_to_housing_facility action
+
+      assert_page_title "#{action.to_s.titleize} Housing Facility"
+    end
   end
 
   test '#edit fields' do
-    visit edit_housing_facility_path(@housing_facility)
+    visit_housing_facility :edit
 
     assert_edit_fields :name, :housing_type, :cost_code_id, :cafeteria,
                        :street, :city, :state, :zip, :country_code,
@@ -22,7 +29,7 @@ class HousingFacility::FormTest < IntegrationTest
 
     attrs = attributes_for :housing_facility
 
-    visit new_housing_facility_path
+    visit_housing_facility :new
 
     assert_difference ['HousingFacility.count'] do
       within('form#new_housing_facility') do

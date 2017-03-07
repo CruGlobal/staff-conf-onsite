@@ -1,24 +1,18 @@
 require 'test_helper'
 
 class HousingFacility::SidebarTest < IntegrationTest
-  before do
-    @user = create_login_user
-    @housing_facility = create :housing_facility_with_units
-  end
+  include Support::HousingFacility
 
-  test '#sidebar on show page' do
-    visit housing_facility_path(@housing_facility)
-    units_sidebar
-  end
+  before { prepare_for_testing }
+  after  { assert_units_sidebar }
 
-  test '#sidebar on edit page' do
-    visit edit_housing_facility_path(@housing_facility)
-    units_sidebar
+  [:show, :edit].each do |action|
+    test("sidebar #{action}") { visit_housing_facility action }
   end
 
   private
 
-  def units_sidebar
+  def assert_units_sidebar
     within('#units_sidebar_section') do
       assert_selector('h4 strong a',
                      text: "All Units (#{@housing_facility.housing_units.size})")
