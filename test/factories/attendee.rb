@@ -18,17 +18,11 @@ FactoryGirl.define do
     student_number { Faker::Number.number(10) }
     gender { Person::GENDERS.keys.sample }
 
-    arrived_at do
-      if Faker::Boolean.boolean
-        Faker::Date.between(1.year.from_now, 2.years.from_now)
-      end
+    [:arrived_at, :departed_at, :rec_center_pass_started_at].each do |attr|
+      add_attribute(attr) { maybe { random_future_date } }
     end
 
-    departed_at do
-      if Faker::Boolean.boolean
-        Faker::Date.between(1.year.from_now, 2.years.from_now)
-      end
-    end
+    rec_center_pass_expired_at { maybe { random_future_date(rec_center_pass_started_at) } }
 
     factory :attendee_with_meal_exemptions do
       transient do

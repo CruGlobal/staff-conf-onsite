@@ -35,6 +35,7 @@ class Attendee::FormCell < ::FormCell
     duration_inputs
     contact_inputs
     ministry_inputs
+    rec_center_pass_inputs
   end
 
   def attendee_inputs
@@ -67,6 +68,15 @@ class Attendee::FormCell < ::FormCell
       input :email
       input :phone
       input :emergency_contact
+    end
+  end
+
+  def rec_center_pass_inputs
+    inputs 'Rec Center Pass' do
+      datepicker_input(model, :rec_center_pass_started_at,
+                       label: 'Rec Center Pass Start Date')
+      datepicker_input(model, :rec_center_pass_expired_at,
+                       label: 'Rec Center Pass End Date')
     end
   end
 

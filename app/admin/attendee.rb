@@ -16,6 +16,7 @@ ActiveAdmin.register Attendee do
   permit_params(
     :first_name, :last_name, :email, :emergency_contact, :phone, :gender,
     :student_number, :department, :family_id, :birthdate, :ministry_id,
+    :rec_center_pass_started_at, :rec_center_pass_expired_at,
     :arrived_at, :departed_at, conference_ids: [], cost_adjustments_attributes: [
       :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
     ], course_attendances_attributes: [
