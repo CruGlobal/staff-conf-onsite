@@ -6,11 +6,9 @@ class HousingFacility < ApplicationRecord
   belongs_to :cost_code
   has_many :housing_units, dependent: :destroy
 
-  # @return [Integer] the minimum allowed length of a stay at this facility, in
-  #   days
-  def min_days
-    cost_code.try(:min_days) || 1
-  end
+  validates :cost_code, presence: true
+
+  delegate :min_days, :max_days, to: :cost_code
 
   def audit_name
     "#{super}: #{name}"

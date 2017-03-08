@@ -4,7 +4,7 @@ class SumChildStayCostTest < InteractorTestCase
   setup do
 
     @child = create :child
-    @cost_code = create_cost_code max_days: 10,
+    @cost_code = create_cost_code max_days: 100,
                                   adult_cents: 111,
                                   teen_cents: 222,
                                   child_cents: 333,
@@ -83,7 +83,7 @@ class SumChildStayCostTest < InteractorTestCase
 
   test 'adult staying at 2 dormitories' do
     @child.update!(birthdate: 15.years.ago)
-    @other_cost_code = create_cost_code max_days: 10, adult_cents: 112
+    @other_cost_code = create_cost_code max_days: 100, adult_cents: 112
     @other_dormitory = create :housing_facility, housing_type: :dormitory,
                                                  cost_code: @other_cost_code
     @other_unit = create :housing_unit, housing_facility: @other_dormitory

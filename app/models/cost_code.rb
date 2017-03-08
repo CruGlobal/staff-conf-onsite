@@ -21,10 +21,10 @@ class CostCode < ApplicationRecord
     charges_ordered.last
   end
 
-  # @return [Integer, nil] The greatest +max_days+ value of all associated
-  #   {CostCodeCharge charges}, if any.
+  # @return [Integer] The greatest +max_days+ value of all associated
+  #   {CostCodeCharge charges}. Will be +0+ is there are no charges.
   def max_days
-    last_charge.try(:max_days)
+    last_charge.try(:max_days) || 0
   end
 
   def to_s

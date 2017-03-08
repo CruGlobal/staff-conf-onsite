@@ -13,5 +13,16 @@ FactoryGirl.define do
         create_list(:cost_code_charge, params.count, cost_code: cost_code)
       end
     end
+
+    factory :cost_code_with_long_max_days do
+      transient do
+        max_days 10_000
+      end
+
+      after(:create) do |cost_code, params|
+        create_list(:cost_code_charge, 1, cost_code: cost_code,
+                                          max_days: params.max_days)
+      end
+    end
   end
 end

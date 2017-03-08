@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :housing_facility do
-    cost_code
+    association :cost_code, factory: :cost_code_with_long_max_days
 
     housing_type do
       HousingFacility.housing_types.

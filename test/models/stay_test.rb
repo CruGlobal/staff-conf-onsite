@@ -2,7 +2,9 @@ require 'test_helper'
 
 class StayTest < ModelTestCase
   setup do
-    @facility = create :housing_facility, cost_code: nil
+    @cost_code = create :cost_code, min_days: 1
+    @charge = create :cost_code_charge, cost_code: @cost_code, max_days: 1000
+    @facility = create :housing_facility, cost_code: @cost_code
     @unit = create :housing_unit, housing_facility: @facility
     @attendee = create :attendee
 
@@ -36,7 +38,22 @@ class StayTest < ModelTestCase
     assert_equal 123, @stay.min_days
   end
 
-  test '#min_days with no cost_code' do
-    assert_equal 1, @stay.min_days
+  test 'stay duration longer than cost_code#max_days' do
+    @charge.update!(max_days: 10)
+
+    assert_raise ActiveRecord::RecordInvalid do
+      @stay.update!(arrived_at: 1.day.ago, departed_at: 10.days.from_now)
+    end
+  end
+
+  test 'sum of 2 stay durations longer than cost_code#max_days' do
+    @charge.update!(max_days: 10)
+
+    @stay.update!(arrived_at: 1.day.ago, departed_at: 4.days.from_now)
+
+    assert_raise ActiveRecord::RecordInvalid do
+      create :stay, person: @attendee, housing_unit: @unit,
+                    arrived_at: 1.day.ago, departed_at: 5.days.from_now
+    end
   end
 end

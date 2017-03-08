@@ -52,7 +52,7 @@ module Support
 
     # Selects an <option>
     # @param [String] selector
-    # @param [String] value the value to select. If left blank, a random 
+    # @param [String] value the value to select. If left blank, a random
     #   option will be selected
     # @param [Boolean] include_blank +true+ to not randomly choose the blank
     #   option
@@ -82,7 +82,7 @@ module Support
       end
     end
 
-    # @param [String] value the value to select. If left blank, a random 
+    # @param [String] value the value to select. If left blank, a random
     #   option will be selected
     # @param [Fixnum] blank_index The index of the blank option, which will
     #   not be chosen. +nil+ to choose any option
@@ -95,11 +95,15 @@ module Support
         options = element.all('.active-result').to_a
         options.delete_at(blank_index) if blank_index.present?
 
-        options[rand(options.size)].click
+        if options.any?
+          options[rand(options.size)].click
+        else
+          raise format('chosen widget (%p) has no option elements', element)
+        end
       end
     end
 
-    # @param [String] value the value to select. If left blank, a random 
+    # @param [String] value the value to select. If left blank, a random
     #   option will be selected
     def select_option_or_random(element, value: nil)
       if value.present?

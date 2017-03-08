@@ -8,6 +8,6 @@ FactoryGirl.define do
     percentage { Faker::Number.between(0, 100) }
 
     arrived_at  { Faker::Date.between(1.year.from_now, 2.years.from_now) }
-    departed_at { Faker::Date.between(1.year.from_now, 2.years.from_now) }
+    departed_at { arrived_at + rand(0.0..(365.2525 * 2)).days }
   end
 end

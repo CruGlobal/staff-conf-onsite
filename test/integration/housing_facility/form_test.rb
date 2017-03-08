@@ -27,6 +27,7 @@ class HousingFacility::FormTest < IntegrationTest
     enable_javascript!
     login_user(@user)
 
+    create :cost_code
     attrs = attributes_for :housing_facility
 
     visit_housing_facility :new
@@ -36,7 +37,7 @@ class HousingFacility::FormTest < IntegrationTest
         # details
         fill_in 'Name',     with: attrs[:name]
         select_option('Housing type')
-        # select_option('Cost code')
+        select_option('Cost code')
         fill_in 'Cafeteria', with: attrs[:cafeteria]
 
         # address

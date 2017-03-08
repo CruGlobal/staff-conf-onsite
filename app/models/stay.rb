@@ -15,6 +15,7 @@ class Stay < ApplicationRecord
     greater_than_or_equal_to: 0,
     less_than_or_equal_to: 100
   }
+  validate :no_more_than_max_days!
 
   def housing_type
     type = housing_facility.try(:housing_type)
@@ -34,5 +35,26 @@ class Stay < ApplicationRecord
   # @return [Integer] the minimum allowed length of a stay, in days
   def min_days
     housing_facility.try(:min_days) || 1
+  end
+
+  private
+
+  def no_more_than_max_days!
+    return if housing_type == :self_provided
+
+    all_stays = ([self] + person.reload.stays).uniq(&:id)
+    duration = all_stays.map(&:duration).inject(&:+) || 0
+
+    add_max_days_error(duration) if duration > housing_facility.max_days
+  end
+
+  def add_max_days_error(duration)
+    errors.add(
+      :departed_at,
+      format('will mean that %s has stayed at this facility for a total of %d' \
+             ' days: longer than the maximum allowed (%d) by the cost code, %s',
+             person.full_name, duration, housing_facility.max_days,
+             housing_facility.cost_code.name)
+    )
   end
 end

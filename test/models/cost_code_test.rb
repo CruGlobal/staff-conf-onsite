@@ -34,7 +34,7 @@ class CostCodeTest < ModelTestCase
     assert_equal 30, @cost_code.max_days
 
     @cost_code.charges.destroy_all
-    assert_nil @cost_code.max_days
+    assert_equal 0, @cost_code.max_days
   end
 
   test 'permit create' do
