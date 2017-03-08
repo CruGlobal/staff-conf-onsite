@@ -13,7 +13,9 @@ class Child::FormTest < IntegrationTest
 
     assert_edit_fields :first_name, :last_name, :gender, :birthdate,
                        :grade_level, :parent_pickup, :needs_bed, :arrived_at,
-                       :departed_at, :childcare_weeks, :childcare_id, record: @child
+                       :departed_at, :childcare_weeks, :childcare_id, 
+                       :rec_center_pass_started_at, :rec_center_pass_expired_at, 
+                       record: @child
 
     assert_active_admin_comments
   end
@@ -64,6 +66,9 @@ class Child::FormTest < IntegrationTest
         check 'Parent pickup'
         check 'Needs bed'
 
+        fill_in 'Rec Center Pass Start Date', with: attrs[:rec_center_pass_started_at]
+        fill_in 'Rec Center Pass End Date',   with: attrs[:rec_center_pass_expired_at]
+
         # duration
         fill_in 'Arrived at',  with: attrs[:arrived_at]
         fill_in 'Departed at', with: attrs[:departed_at]
@@ -78,6 +83,5 @@ class Child::FormTest < IntegrationTest
       assert_selector('body.show.children')
     end
   end
-
 
 end

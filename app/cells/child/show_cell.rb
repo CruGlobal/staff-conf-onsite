@@ -36,6 +36,8 @@ class Child::ShowCell < ::ShowCell
       row(:grade_level) { |c| grade_level_label(c) }
       row :parent_pickup
       row :needs_bed
+      row :rec_center_pass_started_at
+      row :rec_center_pass_expired_at
       row :created_at
       row :updated_at
     end

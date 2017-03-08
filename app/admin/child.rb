@@ -14,6 +14,7 @@ ActiveAdmin.register Child do
   permit_params(
     :first_name, :last_name, :birthdate, :gender, :family_id, :parent_pickup,
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
+    :rec_center_pass_started_at, :rec_center_pass_expired_at,
     childcare_weeks: [],
     cost_adjustments_attributes: [
       :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
