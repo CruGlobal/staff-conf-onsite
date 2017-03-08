@@ -7,6 +7,9 @@ Rails.application.load_tasks
 # Documentation
 if Rails.env.development?
   YARD::Rake::YardocTask.new do |t|
-    t.files = ['./app/**/*.rb']
+    t.files = [
+      'app/**/*.rb',
+      'lib/**/*.rb'
+    ]
   end
 end
