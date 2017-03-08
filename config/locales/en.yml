@@ -41,7 +41,7 @@ en:
 
     attributes:
       person:
-        course_attendance: "Attendance"
+        course_attendance: "Course"
         arrived_at: "Requested Arrival date"
         departed_at: "Requested Departure date"
       chargeable_staff_number:

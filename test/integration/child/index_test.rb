@@ -18,8 +18,8 @@ class Child::IndexTest < IntegrationTest
       assert_text 'Gender'
       assert_text 'Parent pickup'
       assert_text 'Needs bed'
-      assert_text 'Arrived at'
-      assert_text 'Departed at'
+      assert_text 'Requested Arrival date'
+      assert_text 'Requested Departure date'
     end
   end
 

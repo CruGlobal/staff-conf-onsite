@@ -81,9 +81,9 @@ class Attendee::FormCell < ::FormCell
   def course_attendances_subform
     collection = [:course_attendances, object.course_attendances]
 
-    panel 'Attendances' do
+    panel 'Courses' do
       has_many :course_attendances, heading: nil, collection:
-          collection, new_record: 'Add New Attendance' do |f|
+          collection, new_record: 'Add New Course' do |f|
         f.input :course
         f.input :grade, collection: course_grade_select
         f.input :seminary_credit
