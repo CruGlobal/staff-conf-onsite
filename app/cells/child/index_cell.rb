@@ -32,16 +32,22 @@ class Child::IndexCell < ::IndexCell
   end
 
   def childcare_column(child)
+    collection = childcare_select_name_only
+
     model.active_admin_form_for child do |f|
       f.inputs do
         f.input :childcare_id,
                 as: :select,
-                collection: childcare_spaces_select,
+                collection: collection,
                 include_blank: true,
                 label: false,
                 prompt: 'please select',
                 input_html: { 'data-path' => child_path(child) }
       end
     end
+  end
+
+  def childcare_select_name_only
+    Childcare.all.order(:name).map { |c| [c.name, c.id] }
   end
 end
