@@ -13,7 +13,7 @@ class HousingFacility::SidebarCell < ::IndexCell
 
   def units_list
     ul class: 'units_list' do
-      housing_facility.housing_units.order(updated_at: :desc).map do |r|
+      housing_facility.housing_units.order(name: :asc).map do |r|
         li link_to(r.name,
                    housing_facility_housing_unit_path(housing_facility, r.id))
       end

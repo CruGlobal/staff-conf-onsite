@@ -6,6 +6,8 @@ ActiveAdmin.register HousingUnit do
     page.sidebar 'Housing Facility'
   end
 
+  config.sort_order = 'name_asc'
+
   belongs_to :housing_facility
 
   permit_params :name
