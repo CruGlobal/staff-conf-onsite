@@ -42,6 +42,8 @@ en:
     attributes:
       person:
         course_attendance: "Attendance"
+        arrived_at: "Requested Arrival date"
+        departed_at: "Requested Departure date"
       chargeable_staff_number:
         staff_number: "Staff ID"
       childcares:
@@ -132,8 +134,8 @@ en:
         location3: "Preferred Location #3"
         confirmed_at: "Confirmed by Admin"
       stay:
-        arrived_at: "Arrival date"
-        departed_at: "Departure date"
+        arrived_at: "Requested Arrival date"
+        departed_at: "Requested Departure date"
         no_charge: "Do not charge for this assignment"
         waive_minimum: "Waive the minimum stay when calculating the charge for this apartment"
         percentage: "Percentage of cost the occupant must pay"
