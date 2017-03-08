@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306041012) do
+ActiveRecord::Schema.define(version: 20170307202215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,13 +222,15 @@ ActiveRecord::Schema.define(version: 20170306041012) do
     t.string   "childcare_grade"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "needs_bed",         default: true
-    t.boolean  "parent_pickup",     default: true
-    t.string   "childcare_weeks",   default: ""
+    t.boolean  "needs_bed",                  default: true
+    t.boolean  "parent_pickup",              default: true
+    t.string   "childcare_weeks",            default: ""
     t.integer  "childcare_id"
-    t.string   "grade_level",       default: "postHighSchool"
+    t.string   "grade_level",                default: "postHighSchool"
     t.date     "arrived_at"
     t.date     "departed_at"
+    t.date     "rec_center_pass_started_at"
+    t.date     "rec_center_pass_expired_at"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
