@@ -11,7 +11,7 @@ class Conference::ShowTest < IntegrationTest
 
     assert_selector '#page_title', text: @conference.name
     assert_show_rows :id, :name, :price, :description, :start_at, :end_at,
-                     :created_at, :updated_at
+                     :waive_off_campus_facility_fee, :created_at, :updated_at
     assert_active_admin_comments
   end
 

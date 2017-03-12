@@ -5,7 +5,7 @@ ActiveAdmin.register Conference do
     page.form
   end
 
-  permit_params :name, :description, :start_at, :end_at, :price
+  permit_params :name, :description, :start_at, :end_at, :price, :waive_off_campus_facility_fee
 
   filter :name
   filter :description
