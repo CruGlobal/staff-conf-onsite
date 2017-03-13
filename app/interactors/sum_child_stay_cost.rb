@@ -1,5 +1,12 @@
+# == Context Input
+#
+# [+context.child+ [+Child+]]
 class SumChildStayCost
   include Interactor
+
+  before do
+    context.charges ||= Hash.new { |h, v| h[v] = Money.empty }
+  end
 
   # First, for ALL dorm housing assignments (in case there's more than one),
   # add up the TOTAL number of days living in a dorm. Call this the TOTAL Days.
@@ -24,21 +31,14 @@ class SumChildStayCost
   #    daily upcharge)
   #
   # 5) Loop through if there are multiple child dorm assignments
-  #
-  # 6) Subtract from that grand total charge any Child Dorm cost adjustments.
-  #    These could be either a percentage reduction or a fixed amount reduction.
-  #    The grand total cannot be less than $0.
   def call
-    context.dorms = dorm_stays
-    context.charges = dorm_stays.map { |stay| stay_charge(stay) }
-
-    total_charge = apply_adjustments(context.charges.inject(:+))
-    context.total_charge = [0, total_charge].max
+    context.charges['dorm_child'] +=
+      dorm_stays.map { |stay| stay_charge(stay) }.inject(Money.empty, &:+)
+    context.cost_adjustments = context.child.cost_adjustments
   end
 
   private
 
-  # @note This method also updates +context.total_charge+
   def stay_charge(stay)
     days = stay.duration
     cost_code = stay.housing_facility.try(:cost_code)
@@ -47,11 +47,7 @@ class SumChildStayCost
       daily_costs = daily_costs(context.child, charge, stay.single_occupancy)
       daily_costs.inject(:+) * days
     else
-      context.fail!(
-        error: format('%p does not have an associated cost code which can be ' \
-                      'applied to a stay of %d days',
-                      (stay.housing_facility || stay), days)
-      )
+      fail_no_cost_code!(stay, days)
     end
   end
 
@@ -64,18 +60,11 @@ class SumChildStayCost
     result.costs.map { |cost| charge.send(cost) }
   end
 
-  def dorm_cost_adjustments
-    context.child.cost_adjustments.
-      select { |ca| ca.cost_type == 'dorm_child' }.
-      map(&:price)
-  end
-
-  def apply_adjustments(cost)
-    cost ||= Money.new(0)
-
-    ApplyCostAdjustments.call(
-      cost: cost,
-      cost_adjustments: context.child.cost_adjustments
-    ).new_cost
+  def fail_no_cost_code!(stay, days)
+    context.fail!(
+      error: format('%p does not have an associated cost code which can be ' \
+                    'applied to a stay of %d days',
+                    (stay.housing_facility || stay), days)
+    )
   end
 end

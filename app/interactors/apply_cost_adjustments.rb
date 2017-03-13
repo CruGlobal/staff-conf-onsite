@@ -1,5 +1,4 @@
-# Apply a series of {CostAdjustment cost adjustments} to a given amount of
-# {Money money}.
+# Apply a series of {CostAdjustment cost adjustments} to one or more costs.
 #
 # The adjustments are applied in this order:
 #
@@ -8,32 +7,55 @@
 #   2. The price-based adjustments are then summed and subtracted from that
 #      result. ex: $75 - ($10 + $5) = $60
 #
-# [+context.cost+ [+Money+]]
+# == Context Input
+#
+# [+context.charges+ [+Hash<String, Money>+]]
+#   Each key is one of {CostAdjustment#cost_types} and each value is the total
+#   cost in that category. The types are used to determine which adjustments
+#   apply to each charge
 # [+context.cost_adjustments+ [+Array<CostAdjustment>+]]
-#   if the person has opted to take an entire dormitory room for themselves
+#
+# == Context Output
+#
+# [+context.subtotal+ [+Money+]]
+#   The total of all charges, before the {CostAdjustment cost adjustments} are
+#   applied
+# [+context.total+ [+Money+]]
+#   The total of all charges, after the {CostAdjustment cost adjustments} are
+#   applied
 class ApplyCostAdjustments
   include Interactor
 
   def call
-    context.new_cost = apply_discounts(context.cost)
+    context.subtotal ||= Money.empty
+    context.total ||= Money.empty
+
+    context.charges.each(&method(:add_total))
   end
 
   private
 
-  def apply_discounts(cost)
-    new_cost = cost - cost * total_percent_adjustment
-    new_cost - (price_adjustments.inject(:+) || 0)
+  def add_total(type, sum)
+    adjustments = context.cost_adjustments.select { |c| c.cost_type == type }
+
+    context.subtotal += sum
+    context.total += [Money.empty, apply_discounts(sum, adjustments)].max
   end
 
-  def price_adjustments
-    context.cost_adjustments.select(&:price_cents?).map(&:price)
+  def apply_discounts(sum, adjustments)
+    new_sum = sum - sum * total_percent(adjustments)
+    new_sum - (prices(adjustments).inject(:+) || Money.empty)
   end
 
-  def total_percent_adjustment
-    (percent_adjustments.inject(:+) || 0) / 100.0
+  def total_percent(adjustments)
+    (percents(adjustments).inject(:+) || 0) / 100.0
   end
 
-  def percent_adjustments
-    context.cost_adjustments.select(&:percent?).map(&:percent)
+  def percents(adjustments)
+    adjustments.select(&:percent?).map(&:percent)
+  end
+
+  def prices(adjustments)
+    adjustments.select(&:price_cents?).map(&:price)
   end
 end

@@ -94,7 +94,7 @@ module HousingHelper
     hierarchy ||= HousingUnit.hierarchy
 
     {}.tap do |h|
-      h[housing_type_label(:self_provided)] ||= {}
+      h[housing_type_label('self_provided')] ||= {}
 
       hierarchy.each do |type, facilities|
         h[type] ||= {}

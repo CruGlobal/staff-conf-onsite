@@ -74,9 +74,9 @@ class Child::ShowCell < ::ShowCell
   #       the future.
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = SumChildStayCost.call(child: child)
+      result = ChargeChildStays.call(child: child)
       if result.success?
-        humanized_money_with_symbol result.total_charge
+        humanized_money_with_symbol result.total
       else
         div(class: 'flash flash_error') { result.error }
       end

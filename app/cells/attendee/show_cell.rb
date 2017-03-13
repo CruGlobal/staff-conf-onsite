@@ -25,6 +25,7 @@ class Attendee::ShowCell < ::ShowCell
   def right_column
     attendances_panel
     person_cell.call(:stays)
+    temporary_stay_cost_panel
     person_cell.call(:meal_exemptions)
   end
 
@@ -90,6 +91,19 @@ class Attendee::ShowCell < ::ShowCell
       column :course
       column :grade
       column :seminary_credit
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_stay_cost_panel
+    panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = ChargeAttendeeStays.call(attendee: attendee)
+      if result.success?
+        humanized_money_with_symbol result.total
+      else
+        div(class: 'flash flash_error') { result.error }
+      end
     end
   end
 end
