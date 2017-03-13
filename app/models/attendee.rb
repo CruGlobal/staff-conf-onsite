@@ -2,6 +2,7 @@ class Attendee < Person
   include FamilyMember
 
   belongs_to :family
+  belongs_to :seminary
 
   has_many :conference_attendances, dependent: :destroy
   has_many :conferences, through: :conference_attendances
