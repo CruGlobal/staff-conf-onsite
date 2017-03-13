@@ -23,8 +23,8 @@ class Child::ShowCell < ::ShowCell
   end
 
   def right_column
-    person_cell.call(:cost_adjustments)
     person_cell.call(:stays)
+    person_cell.call(:cost_adjustments)
     temporary_stay_cost_panel
     person_cell.call(:meal_exemptions)
   end
@@ -78,9 +78,7 @@ class Child::ShowCell < ::ShowCell
 
       if result.success?
         temporary_stay_individual_dorms_cost_list
-
-        h4 'Total (after adjustments):'
-        text_node humanized_money_with_symbol result.total
+        temporary_stay_cost_table(result)
       else
         div(class: 'flash flash_error') { result.error }
       end
@@ -106,6 +104,25 @@ class Child::ShowCell < ::ShowCell
       text_node humanized_money_with_symbol result.total
     else
       div(class: 'flash flash_error') { result.error }
+    end
+  end
+
+  def temporary_stay_cost_table(result)
+    table do
+      temporary_stay_cost_table_head
+      tr do
+        td { humanized_money_with_symbol result.subtotal }
+        td { humanized_money_with_symbol result.total_adjustments * -1 }
+        td { humanized_money_with_symbol result.total }
+      end
+    end
+  end
+
+  def temporary_stay_cost_table_head
+    tr do
+      th { 'Sub-Total' }
+      th { 'Adjustments' }
+      th { 'Total' }
     end
   end
 end

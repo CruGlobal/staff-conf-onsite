@@ -19,12 +19,12 @@ class Attendee::ShowCell < ::ShowCell
   def left_column
     attendee_attributes_table
     conferences_panel
-    person_cell.call(:cost_adjustments)
+    attendances_panel
   end
 
   def right_column
-    attendances_panel
     person_cell.call(:stays)
+    person_cell.call(:cost_adjustments)
     temporary_stay_cost_panel
     person_cell.call(:meal_exemptions)
   end
@@ -100,10 +100,29 @@ class Attendee::ShowCell < ::ShowCell
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
       result = ChargeAttendeeStays.call(attendee: attendee)
       if result.success?
-        humanized_money_with_symbol result.total
+        temporary_stay_cost_table(result)
       else
         div(class: 'flash flash_error') { result.error }
       end
+    end
+  end
+
+  def temporary_stay_cost_table(result)
+    table do
+      temporary_stay_cost_table_head
+      tr do
+        td { humanized_money_with_symbol result.subtotal }
+        td { humanized_money_with_symbol result.total_adjustments * -1 }
+        td { humanized_money_with_symbol result.total }
+      end
+    end
+  end
+
+  def temporary_stay_cost_table_head
+    tr do
+      th { 'Sub-Total' }
+      th { 'Adjustments' }
+      th { 'Total' }
     end
   end
 end

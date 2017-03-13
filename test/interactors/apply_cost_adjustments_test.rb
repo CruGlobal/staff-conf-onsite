@@ -12,6 +12,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.empty, @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(1000_00), @result, :total
   end
 
@@ -19,6 +22,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service price_cents: 250_00
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(250_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(750_00), @result, :total
   end
 
@@ -26,6 +32,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service({price_cents: 250_00}, {price_cents: 1_00})
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(251_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(749_00), @result, :total
   end
 
@@ -33,6 +42,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service percent: 50.0
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(500_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(500_00), @result, :total
   end
 
@@ -40,6 +52,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service({percent: 50.0}, {percent: 25.0})
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(750_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(250_00), @result, :total
   end
 
@@ -47,6 +62,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service({price_cents: 150_00}, {percent: 50.0})
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(650_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.new(350_00), @result, :total
   end
 
@@ -54,6 +72,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service price_cents: 1_250_00
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(1000_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.empty, @result, :total
   end
 
@@ -61,6 +82,9 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     @service = create_service({percent: 50.0}, {percent: 85.0})
 
     @result = @service.tap(&:run!).context
+
+    assert_context Money.new(1000_00), @result, :total_adjustments
+    assert_context Money.new(1000_00), @result, :subtotal
     assert_context Money.empty, @result, :total
   end
 

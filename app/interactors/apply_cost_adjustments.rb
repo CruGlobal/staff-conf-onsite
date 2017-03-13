@@ -17,6 +17,8 @@
 #
 # == Context Output
 #
+# [+context.total_adjustments+ [+Money+]]
+#   The total dollar-amount of all adjustments
 # [+context.subtotal+ [+Money+]]
 #   The total of all charges, before the {CostAdjustment cost adjustments} are
 #   applied
@@ -26,25 +28,33 @@
 class ApplyCostAdjustments
   include Interactor
 
-  def call
+  before do
+    context.total_adjustments ||= Money.empty
     context.subtotal ||= Money.empty
     context.total ||= Money.empty
+  end
 
+  def call
     context.charges.each(&method(:add_total))
+    constrain_total_adjustments
   end
 
   private
 
   def add_total(type, sum)
     adjustments = context.cost_adjustments.select { |c| c.cost_type == type }
-
-    context.subtotal += sum
-    context.total += [Money.empty, apply_discounts(sum, adjustments)].max
+    add_to_context(sum, realize_adjustments(sum, adjustments))
   end
 
-  def apply_discounts(sum, adjustments)
-    new_sum = sum - sum * total_percent(adjustments)
-    new_sum - (prices(adjustments).inject(:+) || Money.empty)
+  def add_to_context(sum, adjust)
+    context.total_adjustments += adjust
+    context.subtotal += sum
+    context.total += [Money.empty, sum - adjust].max
+  end
+
+  def realize_adjustments(sum, adjustments)
+    percent_reduction = sum * total_percent(adjustments)
+    percent_reduction + prices(adjustments).inject(Money.empty, &:+)
   end
 
   def total_percent(adjustments)
@@ -57,5 +67,11 @@ class ApplyCostAdjustments
 
   def prices(adjustments)
     adjustments.select(&:price_cents?).map(&:price)
+  end
+
+  def constrain_total_adjustments
+    if context.total_adjustments > context.subtotal
+      context.total_adjustments = context.subtotal
+    end
   end
 end
