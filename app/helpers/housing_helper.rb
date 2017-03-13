@@ -104,4 +104,13 @@ module HousingHelper
       end
     end
   end
+
+  # @return [String] a short phrase describing how long the Stay will last
+  def join_stay_dates(stay)
+    dates =
+      [:arrived_at, :departed_at].map do |attr|
+        simple_format_attr(stay, attr)
+      end
+    dates.join(' until ')
+  end
 end

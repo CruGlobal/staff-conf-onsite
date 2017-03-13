@@ -75,11 +75,37 @@ class Child::ShowCell < ::ShowCell
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
       result = ChargeChildStays.call(child: child)
+
       if result.success?
-        humanized_money_with_symbol result.total
+        temporary_stay_individual_dorms_cost_list
+
+        h4 'Total (after adjustments):'
+        text_node humanized_money_with_symbol result.total
       else
         div(class: 'flash flash_error') { result.error }
       end
+    end
+  end
+
+  def temporary_stay_individual_dorms_cost_list
+    dorm_stays = child.stays.select { |s| s.housing_type == 'dormitory' }
+    return if dorm_stays.empty?
+
+    h4 'Dormatory Stays:'
+    dl do
+      dorm_stays.each do |stay|
+        dt { join_stay_dates(stay) }
+        dd { temporary_stay_individual_dorms_cost_list_item(stay) }
+      end
+    end
+  end
+
+  def temporary_stay_individual_dorms_cost_list_item(stay)
+    result = SingleChildDormitoryStayCost.call(child: child, stay: stay)
+    if result.success?
+      text_node humanized_money_with_symbol result.total
+    else
+      div(class: 'flash flash_error') { result.error }
     end
   end
 end
