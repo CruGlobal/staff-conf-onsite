@@ -70,8 +70,8 @@ class Child::FormTest < IntegrationTest
         fill_in 'Rec Center Pass End Date',   with: attrs[:rec_center_pass_expired_at]
 
         # duration
-        fill_in 'Arrived at',  with: attrs[:arrived_at]
-        fill_in 'Departed at', with: attrs[:departed_at]
+        fill_in 'Requested Arrival date',  with: attrs[:arrived_at]
+        fill_in 'Requested Departure date', with: attrs[:departed_at]
 
         # childcare
         select_option('Weeks of ChildCare')

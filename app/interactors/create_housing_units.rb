@@ -34,7 +34,9 @@ class CreateHousingUnits
 
   def parse_sheets
     context.sheets.flat_map do |rows|
-      rows.flat_map { |row| row.compact.map(&:strip).select(&:present?) }
+      rows.flat_map do |row|
+        row.compact.map(&:to_s).map(&:strip).select(&:present?)
+      end
     end.uniq
   end
 

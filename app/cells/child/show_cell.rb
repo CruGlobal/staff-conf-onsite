@@ -64,7 +64,9 @@ class Child::ShowCell < ::ShowCell
   def childcare_table
     panel 'Childcare', class: 'childcare' do
       attributes_table_for child do
-        row :childcare
+        row(:childcare) do |c|
+          link_to chilcare_spaces_label(c.childcare), c.childcare if c.childcare
+        end
         row(:childcare_weeks) { |c| childcare_weeks_list(c) }
       end
     end

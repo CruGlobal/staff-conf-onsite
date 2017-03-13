@@ -10,6 +10,7 @@ class Conference::FormTest < IntegrationTest
     visit edit_conference_path(@conference)
 
     assert_edit_fields :name, :price, :description, :start_at, :end_at,
+                       :waive_off_campus_facility_fee,
                        record: @conference
 
     assert_active_admin_comments
@@ -26,6 +27,8 @@ class Conference::FormTest < IntegrationTest
         fill_in 'Description', with: attr[:description]
         fill_in 'Start at',    with: attr[:start_at]
         fill_in 'End at',      with: attr[:end_at]
+
+        check 'Waive off campus facility fee'
       end
 
       click_button 'Create Conference'

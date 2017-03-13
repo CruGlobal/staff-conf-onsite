@@ -20,6 +20,7 @@ class Conference::ShowCell < ::ShowCell
       row(:description) { |c| c.description.try(:html_safe) }
       row :start_at
       row :end_at
+      row :waive_off_campus_facility_fee
       row :created_at
       row :updated_at
     end
