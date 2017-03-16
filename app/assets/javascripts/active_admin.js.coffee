@@ -3,6 +3,8 @@
 #  Widgets
 #  ====================================
 #
+#= require ckeditor-jquery
+#= require widgets/ckeditor
 #= require util/page_actions
 #
 #  Date Inputs ------------------------
