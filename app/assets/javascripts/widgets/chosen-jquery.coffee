@@ -5,9 +5,12 @@ $ ->
 
 setupChosenWidget = (scope) ->
   $('select', scope).each( ->
-    hasBlank = allow_single_deselect: $(this).find('option[value=""]').length
+    $elem = $(this)
+    return if $elem.parent().hasClass('ui-datepicker-title')
 
-    $(this).chosen(
+    hasBlank = allow_single_deselect: $elem.find('option[value=""]').length
+
+    $elem.chosen(
       width: '80%'
       allow_single_deselect: hasBlank
     )
