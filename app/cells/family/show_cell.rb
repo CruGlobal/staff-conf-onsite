@@ -9,14 +9,19 @@ class Family::ShowCell < ::ShowCell
       end
       column do
         attendees_list
+        stays_cell.call(:attendees_costs_panel)
         children_list
-        temporary_stay_cost_panel
+        stays_cell.call(:children_costs_panel)
       end
     end
     active_admin_comments
   end
 
   private
+
+  def stays_cell
+    @stays_cell ||= cell('family/stay', self, family: family)
+  end
 
   def family_attributes_table
     attributes_table do
@@ -104,38 +109,6 @@ class Family::ShowCell < ::ShowCell
       else
         strong 'None'
       end
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_stay_cost_panel
-    panel 'Children Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = SumFamilyChildrenStayCost.call(family: family)
-      if result.success?
-        temporary_stay_cost_table(result)
-      else
-        div(class: 'flash flash_error') { result.error }
-      end
-    end
-  end
-
-  def temporary_stay_cost_table(result)
-    table do
-      temporary_stay_cost_table_head
-      tr do
-        td { humanized_money_with_symbol result.subtotal }
-        td { humanized_money_with_symbol result.total_adjustments * -1 }
-        td { humanized_money_with_symbol result.total }
-      end
-    end
-  end
-
-  def temporary_stay_cost_table_head
-    tr do
-      th { 'Sub-Total' }
-      th { 'Adjustments' }
-      th { 'Total' }
     end
   end
 end
