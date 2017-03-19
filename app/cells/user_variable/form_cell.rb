@@ -17,7 +17,7 @@ class UserVariable::FormCell < ::FormCell
   private
 
   def input_code
-    if new_record? || policy(object).create?
+    if new_record? || policy.create?
       input :code
     else
       input :code, as: :string, input_html: { readonly: true }
@@ -25,7 +25,7 @@ class UserVariable::FormCell < ::FormCell
   end
 
   def input_value_type
-    if new_record? || policy(object).create?
+    if new_record? || policy.create?
       input :value_type
     else
       input :value_type, as: :string, input_html: {

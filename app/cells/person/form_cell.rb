@@ -19,7 +19,7 @@ class Person::FormCell < ::FormCell
       object.family_id = family_id
     end
 
-    if policy(object).update_family?
+    if policy.update_family?
       input :family
     elsif family_id.present?
       input :family_id, as: :hidden
