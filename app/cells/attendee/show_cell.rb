@@ -19,6 +19,7 @@ class Attendee::ShowCell < ::ShowCell
   def left_column
     attendee_attributes_table
     conferences_panel
+    temporary_conference_cost_panel
     attendances_panel
   end
 
@@ -73,6 +74,13 @@ class Attendee::ShowCell < ::ShowCell
     end
   end
 
+  def temporary_conference_cost_panel
+    panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      cell('cost_adjustment/summary',
+           self, result: ChargeConferenceCosts.call(attendee: attendee)).call
+    end
+  end
+
   def conference_list
     ul do
       attendee.conferences.each { |c| li { link_to(c.name, c) } }
@@ -99,12 +107,9 @@ class Attendee::ShowCell < ::ShowCell
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
       result = ChargeAttendeeStays.call(attendee: attendee)
-      if result.success?
-        temporary_stay_individual_dorms_cost_list
-        temporary_stay_cost_table(result)
-      else
-        div(class: 'flash flash_error') { result.error }
-      end
+
+      temporary_stay_individual_dorms_cost_list if result.success?
+      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 
@@ -127,25 +132,6 @@ class Attendee::ShowCell < ::ShowCell
       text_node humanized_money_with_symbol result.total
     else
       div(class: 'flash flash_error') { result.error }
-    end
-  end
-
-  def temporary_stay_cost_table(result)
-    table do
-      temporary_stay_cost_table_head
-      tr do
-        td { humanized_money_with_symbol result.subtotal }
-        td { humanized_money_with_symbol result.total_adjustments * -1 }
-        td { humanized_money_with_symbol result.total }
-      end
-    end
-  end
-
-  def temporary_stay_cost_table_head
-    tr do
-      th { 'Sub-Total' }
-      th { 'Adjustments' }
-      th { 'Total' }
     end
   end
 end

@@ -35,40 +35,43 @@ class ApplyCostAdjustments
   end
 
   def call
-    context.charges.each(&method(:add_total))
+    context.charges.each(&method(:add_to_total))
     constrain_total_adjustments
   end
 
   private
 
-  def add_total(type, sum)
+  def add_to_total(type, charge)
     adjustments = context.cost_adjustments.select { |c| c.cost_type == type }
-    add_to_context(sum, realize_adjustments(sum, adjustments))
+    add_to_context(charge, realize_adjustments(charge, adjustments))
   end
 
-  def add_to_context(sum, adjust)
+  def add_to_context(charge, adjust)
     context.total_adjustments += adjust
-    context.subtotal += sum
-    context.total += [Money.empty, sum - adjust].max
+    context.subtotal += charge
+    context.total += [Money.empty, charge - adjust].max
   end
 
-  def realize_adjustments(sum, adjustments)
-    percent_reduction = sum * total_percent(adjustments)
-    percent_reduction + prices(adjustments).inject(Money.empty, &:+)
+  def realize_adjustments(charge, adjustments)
+    percent_reduction = charge * total_percent(adjustments)
+    price_reduction   = select_prices(adjustments).inject(Money.empty, &:+)
+
+    [charge, percent_reduction + price_reduction].min
   end
 
   def total_percent(adjustments)
-    (percents(adjustments).inject(:+) || 0) / 100.0
+    select_percents(adjustments).inject(0, :+) / 100.0
   end
 
-  def percents(adjustments)
+  def select_percents(adjustments)
     adjustments.select(&:percent?).map(&:percent)
   end
 
-  def prices(adjustments)
+  def select_prices(adjustments)
     adjustments.select(&:price_cents?).map(&:price)
   end
 
+  # TODO: instead of constraining the total, constrain each type individually
   def constrain_total_adjustments
     if context.total_adjustments > context.subtotal
       context.total_adjustments = context.subtotal
