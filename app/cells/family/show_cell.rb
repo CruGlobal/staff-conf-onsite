@@ -9,13 +9,20 @@ class Family::ShowCell < ::ShowCell
       end
       column do
         attendees_list
+        temporary_conference_costs_panel
+        stays_cell.call(:attendees_costs_panel)
         children_list
+        stays_cell.call(:children_costs_panel)
       end
     end
     active_admin_comments
   end
 
   private
+
+  def stays_cell
+    @stays_cell ||= cell('family/stay', self, family: family)
+  end
 
   def family_attributes_table
     attributes_table do
@@ -87,6 +94,13 @@ class Family::ShowCell < ::ShowCell
       else
         strong 'None'
       end
+    end
+  end
+
+  def temporary_conference_costs_panel
+    panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      cell('cost_adjustment/summary',
+           self, result: SumFamilyConferencesCost.call(family: family)).call
     end
   end
 

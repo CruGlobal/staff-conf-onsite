@@ -52,6 +52,11 @@ class ApplicationPolicy
     update?
   end
 
+  # @return [Boolean] if the user may edit more than one record at a time
+  def bulk_edit?
+    user.finance? || user.admin?
+  end
+
   # @!group Destroy
 
   # @return [Boolean] if the user may destroy these records

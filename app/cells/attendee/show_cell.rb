@@ -19,12 +19,14 @@ class Attendee::ShowCell < ::ShowCell
   def left_column
     attendee_attributes_table
     conferences_panel
-    person_cell.call(:cost_adjustments)
+    temporary_conference_cost_panel
+    attendances_panel
   end
 
   def right_column
-    attendances_panel
     person_cell.call(:stays)
+    person_cell.call(:cost_adjustments)
+    temporary_stay_cost_panel
     person_cell.call(:meal_exemptions)
   end
 
@@ -74,6 +76,13 @@ class Attendee::ShowCell < ::ShowCell
     end
   end
 
+  def temporary_conference_cost_panel
+    panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      cell('cost_adjustment/summary',
+           self, result: ChargeConferenceCosts.call(attendee: attendee)).call
+    end
+  end
+
   def conference_list
     ul do
       attendee.conferences.each { |c| li { link_to(c.name, c) } }
@@ -92,6 +101,39 @@ class Attendee::ShowCell < ::ShowCell
       column :course
       column :grade
       column :seminary_credit
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_stay_cost_panel
+    panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = ChargeAttendeeStays.call(attendee: attendee)
+
+      temporary_stay_individual_dorms_cost_list if result.success?
+      cell('cost_adjustment/summary', self, result: result).call
+    end
+  end
+
+  def temporary_stay_individual_dorms_cost_list
+    stays = attendee.stays
+    return if stays.empty?
+
+    h4 'Individual Stays:'
+    dl do
+      stays.each do |stay|
+        dt { join_stay_dates(stay) }
+        dd { temporary_stay_individual_dorms_cost_list_item(stay) }
+      end
+    end
+  end
+
+  def temporary_stay_individual_dorms_cost_list_item(stay)
+    result = SingleAttendeeStayCost.call(stay: stay)
+    if result.success?
+      text_node humanized_money_with_symbol result.total
+    else
+      div(class: 'flash flash_error') { result.error }
     end
   end
 end

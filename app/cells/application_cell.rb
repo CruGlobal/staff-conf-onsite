@@ -19,4 +19,14 @@ class ApplicationCell < Cell::ViewModel
       end
     end
   end
+
+  def policy(*args)
+    if args.any?
+      super
+    elsif respond_to? :object
+      super(object)
+    else
+      super(controller.resource_class)
+    end
+  end
 end

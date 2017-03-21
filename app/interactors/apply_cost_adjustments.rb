@@ -1,5 +1,4 @@
-# Apply a series of {CostAdjustment cost adjustments} to a given amount of
-# {Money money}.
+# Apply a series of {CostAdjustment cost adjustments} to one or more costs.
 #
 # The adjustments are applied in this order:
 #
@@ -8,32 +7,74 @@
 #   2. The price-based adjustments are then summed and subtracted from that
 #      result. ex: $75 - ($10 + $5) = $60
 #
-# [+context.cost+ [+Money+]]
+# == Context Input
+#
+# [+context.charges+ [+Hash<String, Money>+]]
+#   Each key is one of {CostAdjustment#cost_types} and each value is the total
+#   cost in that category. The types are used to determine which adjustments
+#   apply to each charge
 # [+context.cost_adjustments+ [+Array<CostAdjustment>+]]
-#   if the person has opted to take an entire dormitory room for themselves
+#
+# == Context Output
+#
+# [+context.total_adjustments+ [+Money+]]
+#   The total dollar-amount of all adjustments
+# [+context.subtotal+ [+Money+]]
+#   The total of all charges, before the {CostAdjustment cost adjustments} are
+#   applied
+# [+context.total+ [+Money+]]
+#   The total of all charges, after the {CostAdjustment cost adjustments} are
+#   applied
 class ApplyCostAdjustments
   include Interactor
 
+  before do
+    context.total_adjustments ||= Money.empty
+    context.subtotal ||= Money.empty
+    context.total ||= Money.empty
+  end
+
   def call
-    context.new_cost = apply_discounts(context.cost)
+    context.charges.each(&method(:add_to_total))
+    constrain_total_adjustments
   end
 
   private
 
-  def apply_discounts(cost)
-    new_cost = cost - cost * total_percent_adjustment
-    new_cost - (price_adjustments.inject(:+) || 0)
+  def add_to_total(type, charge)
+    adjustments = context.cost_adjustments.select { |c| c.cost_type == type }
+    add_to_context(charge, realize_adjustments(charge, adjustments))
   end
 
-  def price_adjustments
-    context.cost_adjustments.select(&:price_cents?).map(&:price)
+  def add_to_context(charge, adjust)
+    context.total_adjustments += adjust
+    context.subtotal += charge
+    context.total += [Money.empty, charge - adjust].max
   end
 
-  def total_percent_adjustment
-    (percent_adjustments.inject(:+) || 0) / 100.0
+  def realize_adjustments(charge, adjustments)
+    percent_reduction = charge * total_percent(adjustments)
+    price_reduction   = select_prices(adjustments).inject(Money.empty, &:+)
+
+    [charge, percent_reduction + price_reduction].min
   end
 
-  def percent_adjustments
-    context.cost_adjustments.select(&:percent?).map(&:percent)
+  def total_percent(adjustments)
+    select_percents(adjustments).inject(0, :+) / 100.0
+  end
+
+  def select_percents(adjustments)
+    adjustments.select(&:percent?).map(&:percent)
+  end
+
+  def select_prices(adjustments)
+    adjustments.select(&:price_cents?).map(&:price)
+  end
+
+  # TODO: instead of constraining the total, constrain each type individually
+  def constrain_total_adjustments
+    if context.total_adjustments > context.subtotal
+      context.total_adjustments = context.subtotal
+    end
   end
 end

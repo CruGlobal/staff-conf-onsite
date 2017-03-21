@@ -13,7 +13,14 @@ class ShowCell < ApplicationCell
            :table_for,
            :text_node
 
-  (Arbre::HTML::AUTO_BUILD_ELEMENTS + [:para]).each { |elem| property elem }
+  (Arbre::HTML::AUTO_BUILD_ELEMENTS + [:para] - [:object]).each do |elem|
+    property elem
+  end
+
+  # The +Arbre+ method {#object} conflicts with a pre-existing +Cell+ method
+  def object_element
+    model.object
+  end
 
   make_method_return_nil :active_admin_comments
 end

@@ -31,7 +31,7 @@ class Family::FormCell < ::FormCell
 
   def housing_preference_fields
     if object.new_record?
-      object.build_housing_preference(housing_type: :self_provided)
+      object.build_housing_preference(housing_type: 'self_provided')
     end
 
     inputs 'Housing Preference', class: 'housing_preference_attributes' do

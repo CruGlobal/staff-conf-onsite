@@ -30,55 +30,61 @@ class SumChildStayCostTest < InteractorTestCase
     @child.reload
 
     @result = @service.tap(&:run!).context
-    assert_context Money.new(0), @result, :total_charge
+    assert_context expected_price(Money.empty), @result, :charges
   end
 
   test 'adult' do
     @child.update!(birthdate: 15.years.ago)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(111 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(111 * 5)), @result, :charges
   end
 
-  test 'teen' do
+  test 'old teen' do
     @child.update!(birthdate: 14.years.ago)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(222 * 5), @result, :total_charge
-
-    @child.update!(birthdate: 11.years.ago)
-    @result = @service.tap(&:run!).context
-    assert_context Money.new(222 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(222 * 5)), @result, :charges
   end
 
-  test 'child, needs bed' do
+  test 'young teen' do
+    @child.update!(birthdate: 11.years.ago)
+    @result = @service.tap(&:run!).context
+    assert_context expected_price(Money.new(222 * 5)), @result, :charges
+  end
+
+  test 'old child, needs bed' do
     @child.update!(birthdate: 10.years.ago, needs_bed: true)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(333 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(333 * 5)), @result, :charges
+  end
 
+  test 'young child, needs bed' do
     @child.update!(birthdate: 5.years.ago, needs_bed: true)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(333 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(333 * 5)), @result, :charges
   end
 
   test 'infant, needs bed' do
     @child.update!(birthdate: 4.years.ago, needs_bed: true)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(444 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(444 * 5)), @result, :charges
   end
 
-  test 'child, does not need bed' do
+  test 'old child, does not need bed' do
     @child.update!(birthdate: 10.years.ago, needs_bed: false)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(555 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(555 * 5)), @result, :charges
+  end
 
+  test 'young child, does not need bed' do
     @child.update!(birthdate: 5.years.ago, needs_bed: false)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(555 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(555 * 5)), @result, :charges
   end
 
   test 'infant, does not need bed' do
     @child.update!(birthdate: 4.years.ago, needs_bed: false)
     @result = @service.tap(&:run!).context
-    assert_context Money.new(555 * 5), @result, :total_charge
+    assert_context expected_price(Money.new(555 * 5)), @result, :charges
   end
 
   test 'adult staying at 2 dormitories' do
@@ -92,7 +98,7 @@ class SumChildStayCostTest < InteractorTestCase
 
     @result = @service.tap(&:run!).context
 
-    assert_context Money.new(111 * 5 + 112 * 7), @result, :total_charge
+    assert_context expected_price(Money.new(111 * 5 + 112 * 7)), @result, :charges
   end
 
   test 'adult staying at 2 units in 1 dormitory' do
@@ -103,7 +109,7 @@ class SumChildStayCostTest < InteractorTestCase
 
     @result = @service.tap(&:run!).context
 
-    assert_context Money.new(111 * 5 + 111 * 7), @result, :total_charge
+    assert_context expected_price(Money.new(111 * 5 + 111 * 7)), @result, :charges
   end
 
   test 'adult staying at 1 dormitory and 1 apartment' do
@@ -118,45 +124,7 @@ class SumChildStayCostTest < InteractorTestCase
 
     @result = @service.tap(&:run!).context
 
-    assert_context Money.new(111 * 5), @result, :total_charge
-  end
-
-  test 'adult with price cost adjustment' do
-    @child.update!(birthdate: 15.years.ago)
-
-    create :cost_adjustment, price_cents: 200, person: @child, cost_type: :dorm_child
-    @result = @service.tap(&:run!).context
-    assert_context Money.new(111 * 5 - 200), @result, :total_charge
-  end
-
-  test 'adult with percent cost adjustment' do
-    @child.update!(birthdate: 15.years.ago)
-
-    create :cost_adjustment, percent: 50, person: @child, cost_type: :dorm_child
-    @result = @service.tap(&:run!).context
-    assert_context Money.new(111 * 5 / 2), @result, :total_charge
-  end
-
-  test 'infant with many cost adjustments' do
-    @child.update!(birthdate: 2.years.ago)
-
-    create :cost_adjustment, price_cents: 12_00, person: @child, cost_type: :dorm_child
-    create :cost_adjustment, price_cents: 3_45, person: @child, cost_type: :dorm_child
-
-    create :cost_adjustment, percent: 10, person: @child, cost_type: :dorm_child
-    create :cost_adjustment, percent:  3, person: @child, cost_type: :dorm_child
-
-    @result = @service.tap(&:run!).context
-    assert_context Money.new(444 * 5 * 0.87 - 15_45), @result, :total_charge
-  end
-
-  test 'a cost adjustment that is more than the cost due' do
-    @child.update!(birthdate: 2.years.ago)
-
-    create :cost_adjustment, price_cents: 5_000_00, person: @child, cost_type: :dorm_child
-
-    @result = @service.tap(&:run!).context
-    assert_context Money.empty, @result, :total_charge
+    assert_context expected_price(Money.new(111 * 5)), @result, :charges
   end
 
   private
@@ -165,5 +133,9 @@ class SumChildStayCostTest < InteractorTestCase
     create(:cost_code, min_days: 1).tap do |code|
       create :cost_code_charge, charge_args.reverse_merge(cost_code: code)
     end
+  end
+
+  def expected_price(price)
+    { 'dorm_child' => price }
   end
 end

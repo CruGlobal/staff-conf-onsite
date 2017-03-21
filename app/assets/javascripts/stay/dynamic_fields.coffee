@@ -69,7 +69,7 @@ showOnlyTypeFields = ($container, type) ->
 #   the DOM, to enter a new Stay; false if this form represents a pre-existing
 #   Stay.
 initializeValues = ($form, $select, $facilityName, isNewForm) ->
-  idString = $select.val()
+  idString = $select.val() || ''
 
   unless idString.length
     showOnlyTypeFields($form, 'self_provided')

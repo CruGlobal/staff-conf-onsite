@@ -32,13 +32,8 @@ class HousingUnit::ShowCell < ::ShowCell
     ol do
       stays.each do |stay|
         li do
-          dates =
-            [:arrived_at, :departed_at].map do |attr|
-              simple_format_attr(stay, attr)
-            end
-
           text_node(link_to(stay.person.full_name, stay.person))
-          text_node(": #{dates.join(' until ')}")
+          text_node(": #{join_stay_dates(stay)}")
         end
       end
     end
