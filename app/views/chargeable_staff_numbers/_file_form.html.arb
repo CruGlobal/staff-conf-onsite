@@ -13,7 +13,7 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multi
       li class: 'boolean input' do
         label do
           f.check_box :delete_existing
-          span 'Delete existing Chargeable Staff IDs first'
+          span 'Delete Chargeable Staff IDs not listed in spreadsheet'
         end
       end
       li class: 'boolean input' do

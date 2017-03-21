@@ -34,10 +34,17 @@ class CreateHousingUnits
 
   def parse_sheets
     context.sheets.flat_map do |rows|
-      rows.flat_map do |row|
-        row.compact.map(&:to_s).map(&:strip).select(&:present?)
-      end
-    end.uniq
+      rows.flat_map { |row| row.compact.map(&method(:parse_cell)) }
+    end.compact.uniq
+  end
+
+  def parse_cell(cell)
+    case cell
+    when Numeric
+      cell.to_i.to_s
+    else
+      cell.to_s.strip
+    end
   end
 
   def possibly_delete_existing(units, names_to_keep)

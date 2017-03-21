@@ -17,7 +17,7 @@ FactoryGirl.define do
 
     rec_center_pass_expired_at do
       if rec_center_pass_started_at
-        maybe { random_future_date(rec_center_pass_started_at) }
+        random_future_date(rec_center_pass_started_at)
       end
     end
 
