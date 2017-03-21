@@ -14,6 +14,9 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :stays, :cost_adjustments, allow_destroy: true
 
+  validates :rec_center_pass_started_at, presence: true, if: :rec_center_pass_expired_at?
+  validates :rec_center_pass_expired_at, presence: true, if: :rec_center_pass_started_at?
+
   validates :family_id, presence: true
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
   validates_associated :stays

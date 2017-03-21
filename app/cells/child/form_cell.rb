@@ -20,6 +20,7 @@ class Child::FormCell < ::FormCell
 
   def left_column
     child_inputs_table
+    rec_center_pass_inputs
     duration_inputs
     childcare_inputs
   end
@@ -58,6 +59,15 @@ class Child::FormCell < ::FormCell
     inputs 'Requested Arrival/Departure' do
       datepicker_input(model, :arrived_at)
       datepicker_input(model, :departed_at)
+    end
+  end
+
+  def rec_center_pass_inputs
+    inputs 'Rec Center Pass' do
+      datepicker_input(model, :rec_center_pass_started_at,
+                       label: 'Rec Center Pass Start Date')
+      datepicker_input(model, :rec_center_pass_expired_at,
+                       label: 'Rec Center Pass End Date')
     end
   end
 
