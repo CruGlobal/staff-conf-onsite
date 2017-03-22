@@ -9,11 +9,11 @@ namespace :populate do
       ['Trinity Evangelical Divinity School', 'TIU'],
       ['Talbot School of Theology', 'TST']
     ].each do |seminary|
-      price = Money.new(seminary[2] || 90_00)
+      price = Money.new(seminary[2] || 9000)
       s = Seminary.create(
         name: seminary[0],
         code: seminary[1],
-        course_price_cents: price
+        course_price: price
       )
       puts "Created: #{s.name} (#{s.code}) - #{s.course_price}"
     end
