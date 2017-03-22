@@ -55,6 +55,7 @@ class SingleAttendeeStayCost
     return if stay.housing_type == 'self_provided'
 
     daily_cost = sum_daily_cost(stay)
+
     if (type = charge_type(stay))
       [type, must_pay(stay, daily_cost * stay.duration)]
     else
@@ -65,7 +66,9 @@ class SingleAttendeeStayCost
   def sum_daily_cost(stay)
     cost_code = stay.housing_facility.try(:cost_code)
 
-    if (charge = cost_code.try(:charge, days: stay.duration))
+    return Money.empty if stay.no_charge?
+
+    if (charge = cost_code.try(:charge, days: stay.total_duration))
       if stay.housing_type == 'dormitory' && stay.single_occupancy?
         charge.adult + charge.single_delta
       else

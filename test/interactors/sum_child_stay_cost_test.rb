@@ -127,6 +127,24 @@ class SumChildStayCostTest < InteractorTestCase
     assert_context expected_price(Money.new(111 * 5)), @result, :charges
   end
 
+  test 'adult staying at 2 dorms that cross the charge boundary' do
+    @child.update!(birthdate: 15.years.ago)
+    @child.stays.each(&:destroy!)
+    @child.reload
+
+    create :cost_code_charge, cost_code: @cost_code, max_days: 200,
+                              adult_cents: 1_00
+    @cost_code.reload
+
+    @child.stays.create! housing_unit: @unit, arrived_at: @arrived_at,
+                         departed_at: (@arrived_at + 100.days)
+    @child.stays.create! housing_unit: @unit, arrived_at: @arrived_at,
+                         departed_at: (@arrived_at + 1.day)
+
+    @result = @service.tap(&:run!).context
+    assert_context expected_price(Money.new(1_00 * 101)), @result, :charges
+  end
+
   private
 
   def create_cost_code(charge_args)

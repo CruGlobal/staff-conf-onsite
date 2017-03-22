@@ -39,14 +39,13 @@ class SingleChildDormitoryStayCost
   private
 
   def stay_charge(stay)
-    days = stay.duration
     cost_code = stay.housing_facility.try(:cost_code)
 
-    if (charge = cost_code.try(:charge, days: days))
+    if (charge = cost_code.try(:charge, days: stay.total_duration))
       daily_costs = daily_costs(context.child, charge, stay.single_occupancy)
-      daily_costs.inject(:+) * days
+      daily_costs.inject(:+) * stay.duration
     else
-      fail_no_cost_code!(stay, days)
+      fail_no_cost_code!(stay, stay.duration)
     end
   end
 
