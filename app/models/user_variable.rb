@@ -99,7 +99,7 @@ class UserVariable < ActiveRecord::Base
 
   def load_number(value)
     num = BigDecimal.new(value.to_s)
-    num.zero? ? num.to_i : num.to_f
+    num.frac.zero? ? num.to_i : num.to_f
   end
 
   def parse_number(value)

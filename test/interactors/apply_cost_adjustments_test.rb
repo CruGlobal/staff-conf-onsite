@@ -88,6 +88,21 @@ class ApplyCostAdjustmentsTest < InteractorTestCase
     assert_context Money.empty, @result, :total
   end
 
+  test 'total_adjustments not more than subtotal' do
+    @charges['dorm_child'] = Money.new(1_00)
+
+    create :cost_adjustment, person_id: @person.id, cost_type: 'dorm_adult',
+                             price_cents: 600_00
+    create :cost_adjustment, person_id: @person.id, cost_type: 'dorm_child',
+                             price_cents: 600_00
+
+    @result =
+      ApplyCostAdjustments.call(charges: @charges,
+                                cost_adjustments: @person.cost_adjustments)
+
+    assert_context Money.new(601_00), @result, :total_adjustments
+  end
+
   private
 
   def create_service(*args)

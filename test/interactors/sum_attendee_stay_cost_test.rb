@@ -73,6 +73,14 @@ class SumAttendeeStayCostTest < InteractorTestCase
     assert_context expected(dorm: Money.new((111 + 666) * 5)), @result, :charges
   end
 
+  test '1 apartment, no charge' do
+    @attendee.stays.create! housing_unit: @apt_unit, arrived_at: @arrived_at,
+                            departed_at: (@arrived_at + 8.days), no_charge: true
+
+    @result = @service.tap(&:run!).context
+    assert_context expected(apartment: Money.empty), @result, :charges
+  end
+
   test '1 apartment, only has to pay a percentage' do
     @attendee.stays.create! housing_unit: @apt_unit, arrived_at: @arrived_at,
                             departed_at: (@arrived_at + 8.days),
@@ -136,6 +144,20 @@ class SumAttendeeStayCostTest < InteractorTestCase
     @result = @service.tap(&:run!).context
     assert_context expected(apartment: Money.new(111 * 5 + 111 * 3 / 4.0)),
                    @result, :charges
+  end
+
+  test '2 dorms that cross the charge boundary' do
+    create :cost_code_charge, cost_code: @cost_code, max_days: 200,
+                              adult_cents: 1_00
+    @cost_code.reload
+
+    @attendee.stays.create! housing_unit: @dorm_unit, arrived_at: @arrived_at,
+                            departed_at: (@arrived_at + 100.days)
+    @attendee.stays.create! housing_unit: @dorm_unit, arrived_at: @arrived_at,
+                            departed_at: (@arrived_at + 1.day)
+
+    @result = @service.tap(&:run!).context
+    assert_context expected(dorm: Money.new(1_00 * 101)), @result, :charges
   end
 
   private
