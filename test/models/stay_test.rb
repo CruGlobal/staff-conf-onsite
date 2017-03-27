@@ -95,4 +95,26 @@ class StayTest < ModelTestCase
                     arrived_at: 1.day.ago, departed_at: 5.days.from_now
     end
   end
+
+  test '#on_campus for a dorm' do
+    @facility = create :dormitory, cost_code: @cost_code
+    @unit = create :housing_unit, housing_facility: @facility
+    @stay = create :stay, person: @attendee, housing_unit: @unit
+
+    assert @stay.on_campus, 'should be on_campus'
+  end
+
+  test '#on_campus for an apartment' do
+    @facility = create :apartment, cost_code: @cost_code
+    @unit = create :housing_unit, housing_facility: @facility
+    @stay = create :stay, person: @attendee, housing_unit: @unit
+
+    refute @stay.on_campus, 'should NOT be on_campus'
+  end
+
+  test '#on_campus for self-provided' do
+    @stay = create :stay, person: @attendee, housing_unit: nil
+
+    refute @stay.on_campus, 'should NOT be on_campus'
+  end
 end

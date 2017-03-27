@@ -17,6 +17,10 @@ class Stay < ApplicationRecord
   }
   validate :no_more_than_max_days!
 
+  scope :for_date, ->(date) {
+    where('arrived_at <= ? AND departed_at >= ?', date, date)
+  }
+
   def housing_type
     type = housing_facility.try(:housing_type)
     type || 'self_provided'
@@ -26,6 +30,11 @@ class Stay < ApplicationRecord
     # housing_unit will be nil if housing_type == 'self_provided'
     housing_unit.try(:housing_facility)
   end
+
+  def on_campus
+    housing_facility.present? && housing_facility.on_campus
+  end
+  alias on_campus? on_campus
 
   # @return [Integer] the length of the stay, in days
   def duration
