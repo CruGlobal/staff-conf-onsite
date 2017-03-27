@@ -7,6 +7,7 @@ class HousingFacility::IndexCell < ::IndexCell
     column(:housing_type) { |hf| hf.housing_type.titleize }
     column :cost_code
     column :cafeteria
+    column :on_campus
 
     address_columns
     units_column

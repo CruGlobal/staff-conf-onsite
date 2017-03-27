@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308202336) do
-
+ActiveRecord::Schema.define(version: 20170327030838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +155,7 @@ ActiveRecord::Schema.define(version: 20170308202336) do
     t.integer  "housing_type",           default: 0, null: false
     t.integer  "cost_code_id"
     t.string   "cafeteria"
+    t.boolean  "on_campus"
   end
 
   add_index "housing_facilities", ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id", using: :btree

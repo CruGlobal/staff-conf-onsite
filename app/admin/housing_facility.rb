@@ -9,11 +9,12 @@ ActiveAdmin.register HousingFacility do
   end
 
   permit_params :name, :housing_type, :cost_code_id, :cafeteria, :street,
-                :city, :state, :country_code, :zip
+                :city, :state, :country_code, :zip, :on_campus
 
   filter :name
   filter :cost_code
   filter :cafeteria
+  filter :on_campus
   filter :street
   filter :city
   filter :state

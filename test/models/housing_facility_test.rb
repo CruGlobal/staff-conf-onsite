@@ -32,4 +32,18 @@ class HousingFacilityTest < ModelTestCase
       create :housing_facility, cost_code: nil
     end
   end
+
+  test '#on_campus default true for dorms' do
+    @dorm = create :dormitory
+
+    assert_nil @dorm[:on_campus]
+    assert @dorm.on_campus?, 'should default to true for a dormitory'
+  end
+
+  test '#on_campus default false for non-dorm' do
+    @non_dorm = create :apartment
+
+    assert_nil @non_dorm[:on_campus]
+    refute @non_dorm.on_campus?, 'should default to false for a non-dormitory'
+  end
 end

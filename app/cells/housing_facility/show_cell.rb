@@ -3,17 +3,22 @@ class HousingFacility::ShowCell < ::ShowCell
 
   def show
     attributes_table do
-      row :id
-      row :name
-      row(:housing_type) { |hf| hf.housing_type.titleize }
-      row(:cost_code) { |hf| link_to(hf.cost_code, hf.cost_code) if hf.cost_code }
-      row :cafeteria
+      detail_rows
       address_rows
       timestamp_rows
     end
   end
 
   private
+
+  def detail_rows
+    row :id
+    row :name
+    row(:housing_type) { |hf| hf.housing_type.titleize }
+    row(:cost_code) { |hf| link_to(hf.cost_code, hf.cost_code) if hf.cost_code }
+    row :cafeteria
+    row :on_campus
+  end
 
   def address_rows
     row :city

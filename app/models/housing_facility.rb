@@ -13,4 +13,9 @@ class HousingFacility < ApplicationRecord
   def audit_name
     "#{super}: #{name}"
   end
+
+  def on_campus
+    self[:on_campus].present? ? self[:on_campus] : dormitory?
+  end
+  alias on_campus? on_campus
 end
