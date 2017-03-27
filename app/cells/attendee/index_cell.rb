@@ -7,6 +7,7 @@ class Attendee::IndexCell < ::IndexCell
     personal_columns
     contact_columns
     column :department
+    column :seminary
     date_columns
 
     actions

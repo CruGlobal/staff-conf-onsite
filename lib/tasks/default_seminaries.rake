@@ -17,5 +17,7 @@ namespace :populate do
       )
       puts "Created: #{s.name} (#{s.code}) - #{s.course_price}"
     end
+
+    Attendee.where(seminary_id: nil).update_all(seminary_id: Seminary.default.id)
   end
 end

@@ -38,6 +38,7 @@ class Attendee::ShowCell < ::ShowCell
       personal_rows
       contact_rows
       ministry_row
+      row :seminary
       row :department
       row :rec_center_pass_started_at
       row :rec_center_pass_expired_at

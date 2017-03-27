@@ -83,6 +83,7 @@ class Attendee::FormCell < ::FormCell
       select_ministry_widget(model)
       input :department
       input :conferences
+      input :seminary, include_blank: false
     end
   end
 
