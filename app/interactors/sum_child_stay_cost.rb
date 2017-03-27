@@ -9,7 +9,7 @@ class SumChildStayCost
   end
 
   def call
-    context.charges['dorm_child'] +=
+    context.charges[:dorm_child] +=
       dorm_stays.map { |stay| stay_charge(stay) }.inject(Money.empty, &:+)
     context.cost_adjustments = context.child.cost_adjustments
   end

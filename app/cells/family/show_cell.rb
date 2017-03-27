@@ -6,6 +6,7 @@ class Family::ShowCell < ::ShowCell
       column do
         family_attributes_table
         housing_preference_table
+        temporary_rec_pass_costs_panel
       end
       column do
         attendees_list
@@ -109,6 +110,15 @@ class Family::ShowCell < ::ShowCell
       else
         strong 'None'
       end
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_rec_pass_costs_panel
+    panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = SumFamilyRecPassCost.call(family: family)
+      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 end

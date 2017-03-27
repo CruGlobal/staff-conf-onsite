@@ -42,6 +42,7 @@ class ApplyCostAdjustments
   private
 
   def add_total(type, sum)
+    type = type.to_s
     adjustments = context.cost_adjustments.select { |c| c.cost_type == type }
     add_to_context(sum, realize_adjustments(sum, adjustments))
   end

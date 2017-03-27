@@ -100,6 +100,7 @@ en:
           tuition_track: "Track Tuition"
           tuition_staff: "Staff Conference Tuition"
           books: "Books"
+          rec_center: "Recreation Center"
       course:
         ibs_code: "IBS ID"
         grades:

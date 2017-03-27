@@ -19,6 +19,15 @@ class UserVariable < ActiveRecord::Base
     end
     alias [] get
 
+    def update(short_name, val)
+      var = find_by(short_name: short_name)
+      raise ArgumentError, "Unknown UserVariable, '#{short_name}'" if var.nil?
+
+      var.value = val
+      var.save!
+    end
+    alias []= update
+
     def empty_cache!
       @cached_values = nil
     end
@@ -67,7 +76,7 @@ class UserVariable < ActiveRecord::Base
       load_money(Float(value))
     end
   rescue
-    raise ArgumentError, "#{value} is not a valid amount of money"
+    raise ArgumentError, format('%p is not a valid amount of money', value)
   end
 
   def dump_money(value)

@@ -20,6 +20,7 @@ class Attendee::ShowCell < ::ShowCell
     attendee_attributes_table
     conferences_panel
     attendances_panel
+    person_cell.call(:rec_pass_cost_panel)
   end
 
   def right_column

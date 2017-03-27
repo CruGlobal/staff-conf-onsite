@@ -6,7 +6,8 @@ class Attendee::FormTest < IntegrationTest
     @attendee = create :attendee
   end
 
-  stub_user_variable child_age_cutoff: 6.months.from_now
+  stub_user_variable child_age_cutoff: 6.months.from_now,
+                     rec_center_daily: Money.new(1_00)
 
   test '#edit fields' do
     visit edit_attendee_path(@attendee)

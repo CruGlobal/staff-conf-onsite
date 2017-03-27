@@ -136,6 +136,6 @@ class SumChildStayCostTest < InteractorTestCase
   end
 
   def expected_price(price)
-    { 'dorm_child' => price }
+    { dorm_child: price }
   end
 end

@@ -67,4 +67,24 @@ class UserVariableTest < ModelTestCase
       create(:user_variable, value_type: 'number', value: Date.today)
     end
   end
+
+  test 'basic set' do
+    create(:user_variable, short_name: :test, value_type: 'money',
+                           value: Money.new(123_45))
+
+    UserVariable[:test] = Money.new(100_23)
+
+    assert_equal Money.new(100_23), UserVariable[:test]
+  end
+
+  test 'attempting to set a non-existant variable' do
+    assert_raise(ArgumentError) { UserVariable[:test] = Money.new(100_23) }
+  end
+
+  test 'attempting to set a variable with an illegal value' do
+    create(:user_variable, short_name: :test, value_type: 'money',
+                           value: Money.new(123_45))
+
+    assert_raise(ArgumentError) { UserVariable[:test] = 'some text' }
+  end
 end
