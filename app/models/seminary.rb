@@ -2,7 +2,7 @@ class Seminary < ApplicationRecord
   include Monetizable
 
   has_paper_trail
-  
+
   has_many :attendees
 
   monetize_attr :course_price_cents, numericality: {
@@ -17,7 +17,7 @@ class Seminary < ApplicationRecord
 
   def self.default
     Rails.cache.fetch(:default_seminary, expires_in: 1.week) do
-      Seminary.find_by_code('IBS')
+      Seminary.find_by(code: 'IBS')
     end
   end
 end
