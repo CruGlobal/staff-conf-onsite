@@ -17,6 +17,8 @@ class Child < Person
     message: 'must be blank when child is Post High School'
   }
   validates_associated :meal_exemptions
+  validate :hot_lunch_weeks_must_match_childcare_weeks!
+  validate :hot_lunch_age_range!
 
   # @return [Array<Fixnum>] a list of indexes from the
   #   {Childcare::CHILDCARE_WEEKS} array
@@ -48,5 +50,37 @@ class Child < Person
 
   def post_high_school?
     age_group == :post_high_school
+  end
+
+  # @return [Array<Fixnum>] a list of indexes from the
+  #   {Childcare::CHILDCARE_WEEKS} array in which the child is getting a hot
+  #   lunch
+  def hot_lunch_weeks
+    if (week = self[:hot_lunch_weeks])
+      week.split(',').map(&:to_i)
+    end
+  end
+
+  # @param arr [Array<Fixnum>] a subset of indexes from the
+  #   {Childcare::CHILDCARE_WEEKS} array in which the child is getting a hot
+  #   lunch
+  def hot_lunch_weeks=(arr)
+    arr ||= []
+    self[:hot_lunch_weeks] = arr && arr.select(&:present?).sort.join(',')
+  end
+
+  private
+
+  def hot_lunch_weeks_must_match_childcare_weeks!
+    if hot_lunch_weeks.any? { |week| !childcare_weeks.include?(week) }
+      errors.add(:hot_lunch_weeks, 'can only include Weeks of ChildCare')
+    end
+  end
+
+  def hot_lunch_age_range!
+    if hot_lunch_weeks.any? && (age_group != :childcare || age <= 2)
+      errors.add(:hot_lunch_weeks, 'is only for children older than 2 and in' \
+                                   ' grade 5 or lower')
+    end
   end
 end

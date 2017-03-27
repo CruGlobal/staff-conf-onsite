@@ -20,6 +20,7 @@ class Child::ShowCell < ::ShowCell
     child_attributes_table
     duration_table
     childcare_table
+    temporary_hot_lunch_cost_panel
   end
 
   def right_column
@@ -68,6 +69,7 @@ class Child::ShowCell < ::ShowCell
           link_to chilcare_spaces_label(c.childcare), c.childcare if c.childcare
         end
         row(:childcare_weeks) { |c| childcare_weeks_list(c) }
+        row(:hot_lunch_weeks) { |c| hot_lunch_weeks_list(c) }
       end
     end
   end
@@ -125,6 +127,13 @@ class Child::ShowCell < ::ShowCell
       th { 'Sub-Total' }
       th { 'Adjustments' }
       th { 'Total' }
+    end
+  end
+
+  def temporary_hot_lunch_cost_panel
+    panel 'Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = ChargeChildHotLunchCost.call(child: child)
+      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 end

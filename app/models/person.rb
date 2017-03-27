@@ -38,8 +38,8 @@ class Person < ApplicationRecord
     super
   end
 
-  # @return [Boolean] if this person is staying in an {HousingFacility#on
-  #   campus on-campus facility} on the given date
+  # @return [Boolean] if this person is staying in an
+  #   {HousingFacility#on_campus on-campus facility} on the given date
   def on_campus_at?(date)
     stays.for_date(date).any?(&:on_campus?)
   end

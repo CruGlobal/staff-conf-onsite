@@ -39,6 +39,26 @@ module ChildcareHelper
     end
   end
 
+  # @param child [Child] Some kid.
+  # @return [Arbre::Context] an HTML +<ul>+ list of the {Childcare} weeks in
+  #   which the given +Child+ is receiving a hot lunch
+  def hot_lunch_weeks_list(child)
+    labels =
+      child.hot_lunch_weeks.map do |w|
+        format('%s Hot Lunch', childcare_weeks_label(w))
+      end
+
+    Arbre::Context.new do
+      if labels.any?
+        ul do
+          labels.each { |week_label| li { week_label } }
+        end
+      else
+        span I18n.t('activerecord.attributes.child.childcare_week_numbers.none')
+      end
+    end
+  end
+
   # @return [String] a string describing the Childcare week represented by the
   #   given integer
   def childcare_weeks_label(index)

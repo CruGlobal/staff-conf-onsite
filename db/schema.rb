@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327030838) do
+ActiveRecord::Schema.define(version: 20170327041517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 20170327030838) do
     t.date     "departed_at"
     t.date     "rec_center_pass_started_at"
     t.date     "rec_center_pass_expired_at"
+    t.string   "hot_lunch_weeks",            default: "",               null: false
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree

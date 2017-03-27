@@ -17,9 +17,9 @@ class Stay < ApplicationRecord
   }
   validate :no_more_than_max_days!
 
-  scope :for_date, ->(date) {
+  scope :for_date, (lambda do |date|
     where('arrived_at <= ? AND departed_at >= ?', date, date)
-  }
+  end)
 
   def housing_type
     type = housing_facility.try(:housing_type)

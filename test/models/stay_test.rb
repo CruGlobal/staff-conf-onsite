@@ -3,7 +3,7 @@ require 'test_helper'
 class StayTest < ModelTestCase
   setup do
     @cost_code = create :cost_code
-    @charge = create :cost_code_charge, cost_code: @cost_code, max_days: 1000
+    @charge = create :cost_code_charge, cost_code: @cost_code, max_days: 99999
     @facility = create :housing_facility, cost_code: @cost_code
     @unit = create :housing_unit, housing_facility: @facility
     @attendee = create :attendee

@@ -5,7 +5,7 @@ class Child::ShowTest < IntegrationTest
 
   before do
     @user = create_login_user
-    @child = create :child
+    @child = create :child, birthdate: 5.years.ago
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now

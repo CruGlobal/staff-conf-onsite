@@ -95,4 +95,30 @@ class ChildTest < ModelTestCase
       assert_equal :post_high_school, @child.age_group
     end
   end
+
+  test 'hot_lunch_weeks=' do
+    @child.hot_lunch_weeks = [1, 2, 3]
+
+    assert_equal [1, 2, 3], @child.hot_lunch_weeks
+    assert_equal '1,2,3', @child[:hot_lunch_weeks]
+  end
+
+  test 'hot_lunch_weeks= with empty array' do
+    @child.hot_lunch_weeks = []
+
+    assert_equal [], @child.hot_lunch_weeks
+    assert_equal '', @child[:hot_lunch_weeks]
+  end
+
+  test 'hot_lunch_weeks= out of order' do
+    @child.hot_lunch_weeks = [1, 3, 2]
+
+    assert_equal [1, 2, 3], @child.hot_lunch_weeks
+    assert_equal '1,2,3', @child[:hot_lunch_weeks]
+  end
+
+  test 'hot_lunch_weeks= with nil' do
+    @child.hot_lunch_weeks = nil
+    assert_empty @child.hot_lunch_weeks
+  end
 end

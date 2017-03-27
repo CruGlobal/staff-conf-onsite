@@ -103,6 +103,7 @@ en:
           tuition_staff: "Staff Conference Tuition"
           books: "Books"
           rec_center: "Recreation Center"
+          lunch: "Lunch Charges"
       course:
         ibs_code: "IBS ID"
         grades:

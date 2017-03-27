@@ -3,23 +3,28 @@ class Family::ShowCell < ::ShowCell
 
   def show
     columns do
-      column do
-        family_attributes_table
-        housing_preference_table
-        temporary_rec_pass_costs_panel
-      end
-      column do
-        attendees_list
-        temporary_conference_costs_panel
-        stays_cell.call(:attendees_costs_panel)
-        children_list
-        stays_cell.call(:children_costs_panel)
-      end
+      column { left_column }
+      column { right_column }
     end
     active_admin_comments
   end
 
   private
+
+  def left_column
+    family_attributes_table
+    housing_preference_table
+    temporary_rec_pass_costs_panel
+    temporary_hot_lunch_costs_panel
+  end
+
+  def right_column
+    attendees_list
+    temporary_conference_costs_panel
+    stays_cell.call(:attendees_costs_panel)
+    children_list
+    stays_cell.call(:children_costs_panel)
+  end
 
   def stays_cell
     @stays_cell ||= cell('family/stay', self, family: family)
@@ -126,6 +131,15 @@ class Family::ShowCell < ::ShowCell
   def temporary_rec_pass_costs_panel
     panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
       result = SumFamilyRecPassCost.call(family: family)
+      cell('cost_adjustment/summary', self, result: result).call
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_hot_lunch_costs_panel
+    panel 'Children Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = SumFamilyChildrenHotLunchCost.call(family: family)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end
