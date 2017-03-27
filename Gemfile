@@ -45,6 +45,11 @@ gem 'jquery-rails', '~> 4.2'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'intl-tel-input-rails', '~> 8.4.9'
 
+# We don't require Nokogiri directly, only through other gems (like axlsx).
+# However, due to CVE-2016-4658, we need to ensure we're using at least v1.7.1.
+#
+# TODO: remove this line after dependent gems update to this version of Nokogiri
+gem 'nokogiri', '>= 1.7.1'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.1.1'
