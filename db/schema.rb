@@ -231,14 +231,26 @@ ActiveRecord::Schema.define(version: 20170327041517) do
     t.string   "grade_level",                default: "postHighSchool"
     t.date     "arrived_at"
     t.date     "departed_at"
+    t.integer  "seminary_id"
     t.date     "rec_center_pass_started_at"
     t.date     "rec_center_pass_expired_at"
     t.string   "hot_lunch_weeks",            default: "",               null: false
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
+  add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
+
+  create_table "seminaries", force: :cascade do |t|
+    t.string   "name",                           null: false
+    t.string   "code",                           null: false
+    t.integer  "course_price_cents", default: 0, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "seminaries", ["code"], name: "index_seminaries_on_code", unique: true, using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -305,4 +317,5 @@ ActiveRecord::Schema.define(version: 20170327041517) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "people", "seminaries"
 end

@@ -38,9 +38,9 @@ class Attendee::ShowCell < ::ShowCell
       personal_rows
       contact_rows
       ministry_row
+      row :seminary
       row :department
-      row :rec_center_pass_started_at
-      row :rec_center_pass_expired_at
+      rec_center_pass_rows
       row :arrived_at
       row :departed_at
       row :created_at
@@ -69,6 +69,11 @@ class Attendee::ShowCell < ::ShowCell
         link_to a.ministry.to_s, ministry_path(a.ministry_id)
       end
     end
+  end
+
+  def rec_center_pass_rows
+    row :rec_center_pass_started_at
+    row :rec_center_pass_expired_at
   end
 
   def conferences_panel

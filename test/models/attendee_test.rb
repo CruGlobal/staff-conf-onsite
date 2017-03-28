@@ -35,6 +35,11 @@ class AttendeeTest < ModelTestCase
     refute @attendee.valid?, 'attendee should be invalid with nil family_id'
   end
 
+  test 'must have a seminary' do
+    refute @attendee.update(seminary_id: nil)
+    assert @attendee.errors[:seminary_id].present?
+  end
+
   test 'last_name should default to family name' do
     @family = create :family, last_name: 'FooBar'
     @attendee = create :attendee, family_id: @family.id, last_name: nil

@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :attendee do
     family
     ministry
+    seminary
 
     first_name { Faker::Name.first_name }
     last_name { Faker::Boolean.boolean(0.9) ? nil : Faker::Name.last_name }
