@@ -21,6 +21,7 @@ class Child::ShowCell < ::ShowCell
     duration_table
     childcare_table
     temporary_hot_lunch_cost_panel
+    person_cell.call(:rec_pass_cost_panel)
   end
 
   def right_column
