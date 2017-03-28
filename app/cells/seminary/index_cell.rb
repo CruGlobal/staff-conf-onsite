@@ -14,10 +14,6 @@ class Seminary::IndexCell < ::IndexCell
 
   private
 
-  # def column_name
-  #   column(:name) { |c| h4 c.name }
-  # end
-
   def column_course_price
     column(:course_price) { |c| humanized_money_with_symbol(c.course_price) }
   end
