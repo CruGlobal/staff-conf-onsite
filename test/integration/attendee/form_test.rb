@@ -36,7 +36,7 @@ class Attendee::FormTest < IntegrationTest
         select_option('Cost type')
         fill_in 'Price', with: attrs[:price_cents]
         fill_in 'Percent', with: attrs[:percent]
-        fill_in_ckeditor 'Description', with: attrs[:description]
+        fill_in 'Description', with: attrs[:description]
       end
 
       click_button 'Update Attendee'

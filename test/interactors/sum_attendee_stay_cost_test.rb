@@ -157,6 +157,7 @@ class SumAttendeeStayCostTest < InteractorTestCase
                             departed_at: (@arrived_at + 1.day)
 
     @result = @service.tap(&:run!).context
+
     assert_context expected(dorm: Money.new(1_00 * 101)), @result, :charges
   end
 

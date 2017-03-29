@@ -43,20 +43,6 @@ class StayTest < ModelTestCase
     assert_equal 1, @stay.duration
   end
 
-  test '#total_duration for dorms in the same facility' do
-    @dormitory = create :dormitory, cost_code: @cost_code
-    @cost_code.update!(min_days: 1)
-    @stay.update!(housing_unit: create(:housing_unit, housing_facility: @dormitory),
-                  arrived_at: 6.days.ago, departed_at: 3.days.ago)
-
-    @another_stay = create :stay, person: @attendee,
-                                  housing_unit: create(:housing_unit, housing_facility: @dormitory),
-                                  arrived_at: 4.days.ago,
-                                  departed_at: 2.days.ago
-
-    assert_equal 5, @stay.total_duration
-  end
-
   test '#total_duration for dorms in different facilities' do
     @cost_code.update!(min_days: 1)
     @stay.update!(housing_unit: create(:dormitory_unit),
@@ -67,7 +53,7 @@ class StayTest < ModelTestCase
                                   arrived_at: 4.days.ago,
                                   departed_at: 2.days.ago
 
-    assert_equal 3, @stay.total_duration
+    assert_equal 5, @stay.total_duration
   end
 
   test '#min_days' do

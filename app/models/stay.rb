@@ -45,7 +45,7 @@ class Stay < ApplicationRecord
   #   stays in this facility, otherwise the same as {#duration}
   def total_duration
     if housing_type == 'dormitory'
-      duration_of_all_stays_in_same_facility
+      duration_of_all_dormitory_stays
     else
       duration
     end
@@ -64,14 +64,11 @@ class Stay < ApplicationRecord
 
   private
 
-  def duration_of_all_stays_in_same_facility
-    same_facility =
-      HousingUnit.where(housing_facility_id: housing_unit.housing_facility.id)
-
-    person.stays.
-      where(housing_unit_id: same_facility).
+  def duration_of_all_dormitory_stays
+    person.reload.stays.
+      select { |s| s.housing_type == 'dormitory' }.
       map(&:duration).
-      inject(&:+)
+      inject(0, &:+)
   end
 
   def no_more_than_max_days!

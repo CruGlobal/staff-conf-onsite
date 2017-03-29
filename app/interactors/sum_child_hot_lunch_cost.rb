@@ -35,12 +35,9 @@ class SumChildHotLunchCost
 
   # @see Childcare#CHILDCARE_WEEKS
   def hot_lunch_on_campus_indexes
-    on_campus_indexes =
-      hot_lunch_start_dates.map do |index, date|
-        index if context.child.on_campus_at?(date)
-      end
-
-    on_campus_indexes.compact
+    hot_lunch_start_dates.
+      map { |index, date| index if in_non_dorm?(date) }.
+      compact
   end
 
   # @return [Hash<Integer,Date>]
@@ -50,5 +47,11 @@ class SumChildHotLunchCost
         [week_offset, UserVariable[:childcare_first_day] + week_offset.weeks]
       end
     ]
+  end
+
+  def in_non_dorm?(date)
+    context.child.stays.for_date(date).any? do |s|
+      s.housing_type != 'dormitory'
+    end
   end
 end

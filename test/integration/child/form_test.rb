@@ -6,14 +6,15 @@ class Child::FormTest < IntegrationTest
     @child = create :child
   end
 
-  stub_user_variable child_age_cutoff: 6.months.from_now
+  stub_user_variable child_age_cutoff: 6.months.from_now,
+                     rec_center_daily: Money.new(1_00)
 
   test '#edit fields' do
     visit edit_child_path(@child)
 
     assert_edit_fields :first_name, :last_name, :gender, :birthdate,
                        :grade_level, :parent_pickup, :needs_bed, :arrived_at,
-                       :departed_at, :childcare_weeks, :childcare_id, 
+                       :departed_at, :childcare_weeks, :childcare_id,
                        :rec_center_pass_started_at, :rec_center_pass_expired_at, 
                        record: @child
 
@@ -35,7 +36,7 @@ class Child::FormTest < IntegrationTest
         select_option('Cost type')
         fill_in 'Price', with: attrs[:price_cents]
         fill_in 'Percent', with: attrs[:percent]
-        fill_in_ckeditor 'Description', with: attrs[:description]
+        fill_in 'Description', with: attrs[:description]
       end
 
       click_button 'Update Child'

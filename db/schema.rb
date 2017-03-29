@@ -231,10 +231,10 @@ ActiveRecord::Schema.define(version: 20170327041517) do
     t.string   "grade_level",                default: "postHighSchool"
     t.date     "arrived_at"
     t.date     "departed_at"
-    t.integer  "seminary_id"
     t.date     "rec_center_pass_started_at"
     t.date     "rec_center_pass_expired_at"
     t.string   "hot_lunch_weeks",            default: "",               null: false
+    t.integer  "seminary_id"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree

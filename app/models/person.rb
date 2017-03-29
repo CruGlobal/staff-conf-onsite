@@ -47,6 +47,7 @@ class Person < ApplicationRecord
   private
 
   def age_from_birthdate
+    return 0 unless birthdate.present?
     cutoff = UserVariable[:child_age_cutoff]
 
     age = cutoff.year - birthdate.year
