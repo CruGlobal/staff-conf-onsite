@@ -15,7 +15,7 @@ class CostCode::FormCell < ::FormCell
   def basic_inputs
     inputs do
       input :name
-      input :description, as: :ckeditor
+      input :description
       input :min_days
     end
   end

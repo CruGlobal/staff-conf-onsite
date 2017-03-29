@@ -43,7 +43,7 @@ class Family::FormCell < ::FormCell
         datepicker_input(hp, :confirmed_at)
       end
 
-      input :registration_comment, as: :ckeditor
+      input :registration_comment, input_html: { rows: 4 }
     end
   end
 

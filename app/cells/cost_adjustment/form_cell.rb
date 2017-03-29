@@ -7,7 +7,7 @@ class CostAdjustment::FormCell < ::FormCell
       input :cost_type, as: :select, collection: cost_type_select
       money_input_widget(model, :price)
       input :percent
-      input :description, as: :ckeditor
+      input :description
     end
 
     actions

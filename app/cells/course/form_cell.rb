@@ -6,7 +6,7 @@ class Course::FormCell < ::FormCell
       input :name
       input :instructor
       money_input_widget(model, :price)
-      input :description, as: :ckeditor
+      input :description
       input :week_descriptor
       input :ibs_code
       input :location

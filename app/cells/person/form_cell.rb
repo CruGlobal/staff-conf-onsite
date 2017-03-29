@@ -42,7 +42,7 @@ class Person::FormCell < ::FormCell
         dynamic_stay_input(f, :no_charge)
         dynamic_stay_input(f, :waive_minimum)
 
-        f.input :comment, as: :ckeditor
+        f.input :comment, input_html: { rows: 4 }
         f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
       end
     end
@@ -55,7 +55,7 @@ class Person::FormCell < ::FormCell
         f.input :cost_type, as: :select, collection: cost_type_select
         money_input_widget(f, :price)
         f.input :percent
-        f.input :description, as: :ckeditor
+        f.input :description, input_html: { rows: 4 }
         f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
       end
     end
