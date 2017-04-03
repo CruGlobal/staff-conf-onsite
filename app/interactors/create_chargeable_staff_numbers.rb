@@ -18,11 +18,12 @@ class CreateChargeableStaffNumbers
   include Interactor
 
   Error = Class.new(StandardError)
+  TRUE_VALUES = ReadSpreadsheet::TRUE_VALUES
 
   # @return [Interactor::Context]
   def call
     ChargeableStaffNumber.transaction do
-      ChargeableStaffNumber.delete_all if context.delete_existing
+      ChargeableStaffNumber.delete_all if delete_existing?
 
       numbers = context.sheets.flat_map { |rows| parse_staff_number_rows(rows) }
       numbers.each(&:save!)
@@ -32,6 +33,10 @@ class CreateChargeableStaffNumbers
   end
 
   private
+
+  def delete_existing?
+    TRUE_VALUES.include?(context.delete_existing)
+  end
 
   def scope
     @scope ||= ChargeableStaffNumber.all

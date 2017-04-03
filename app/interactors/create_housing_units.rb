@@ -13,6 +13,7 @@ class CreateHousingUnits
   include Interactor
 
   Error = Class.new(StandardError)
+  TRUE_VALUES = ReadSpreadsheet::TRUE_VALUES
 
   # Create each {HousingUnit} referenced in the given sheets.
   #
@@ -48,7 +49,7 @@ class CreateHousingUnits
   end
 
   def possibly_delete_existing(units, names_to_keep)
-    if context.delete_existing.present?
+    if delete_existing?
       remove_units = units.reject { |u| names_to_keep.include?(u.name) }
       remove_units.each(&:destroy!)
     end
@@ -65,5 +66,9 @@ class CreateHousingUnits
   def housing_facility
     @housing_facility ||=
       HousingFacility.includes(:housing_units).find(context.housing_facility_id)
+  end
+
+  def delete_existing?
+    TRUE_VALUES.include?(context.delete_existing)
   end
 end
