@@ -73,10 +73,13 @@ class UserVariable < ActiveRecord::Base
     elsif value.is_a?(Numeric)
       load_money(value)
     else
-      load_money(Float(value))
+      # Monetize returns $0.00 if value is a bad string
+      raise ArgumentError, 'contains no digits' unless value =~ /\d/
+      Monetize.parse!(value)
     end
-  rescue
-    raise ArgumentError, format('%p is not a valid amount of money', value)
+  rescue => e
+    raise ArgumentError,
+          format('%p is not a valid amount of money: %p', value, e)
   end
 
   def dump_money(value)

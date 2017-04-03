@@ -29,4 +29,8 @@ class ApplicationCell < Cell::ViewModel
       super(controller.resource_class)
     end
   end
+
+  def human_attribute_name(attr_name)
+    object.class.human_attribute_name(attr_name)
+  end
 end

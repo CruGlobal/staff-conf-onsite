@@ -7,8 +7,6 @@ class UserVariable::FormCell < ::FormCell
       input_value_type
       input_value
       input :description, as: :ckeditor
-
-      input :short_name, as: :hidden if new_record?
     end
 
     actions
@@ -19,6 +17,7 @@ class UserVariable::FormCell < ::FormCell
   def input_code
     if new_record? || policy.create?
       input :code
+      input :short_name, as: :hidden, input_html: { value: SecureRandom.uuid }
     else
       input :code, as: :string, input_html: { readonly: true }
     end
@@ -35,6 +34,30 @@ class UserVariable::FormCell < ::FormCell
   end
 
   def input_value
+    new_record? ? input_value_for_new_record : input_value_for_existing
+  end
+
+  # Create every input widget and select the right one with Javascript
+  def input_value_for_new_record
+    opts = {
+      label: human_attribute_name(:value),
+      input_html: { value: '' },
+      wrapper_html: { class: 'js-value-input' }
+    }
+
+    input :value_money,
+          opts.merge(as: :string, input_html: { value: '',
+                                                'data-money-input' => true })
+    input :value_date,
+          opts.merge(as: :datepicker, datepicker_options: {
+                       changeYear: true, changeMonth: true, yearRange: 'c-80:c+10'
+                     })
+    input :value_number, opts.merge(as: :number)
+    input :value_html, opts.merge(as: :ckeditor)
+    input :value_string, opts.merge(as: :string)
+  end
+
+  def input_value_for_existing
     case object.value_type
     when 'money'
       money_input_widget(model, :value)

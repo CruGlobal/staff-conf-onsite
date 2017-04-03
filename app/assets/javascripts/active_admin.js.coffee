@@ -47,3 +47,4 @@
 #
 #  UserVariable ---------------------
 #= require user_variable/create_auto_short_name
+#= require user_variable/new_value_inputs
