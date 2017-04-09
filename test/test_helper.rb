@@ -55,6 +55,7 @@ class InteractorTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::Interactor
   include Support::UserVariable
+  include ActionDispatch::TestProcess
 
   self.use_transactional_fixtures = false
   before(:each) do
