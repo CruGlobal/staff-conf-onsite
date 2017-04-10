@@ -30,12 +30,6 @@ class FamilyTest < ModelTestCase
     assert_permit @admin_user, @family, :destroy
   end
 
-  test 'must have staff_number' do
-    @family = build :family, staff_number: nil
-
-    refute @family.valid?, 'family should be invalid with nil staff_number'
-  end
-
   test '#chargeable_staff_number?' do
     @family.staff_number = '12345'
     chargeable = create :chargeable_staff_number, staff_number: '12345'

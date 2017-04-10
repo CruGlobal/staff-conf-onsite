@@ -2,7 +2,6 @@ require 'test_helper'
 
 class SumChildStayCostTest < InteractorTestCase
   setup do
-
     @child = create :child
     @cost_code = create_cost_code max_days: 100,
                                   adult_cents: 111,

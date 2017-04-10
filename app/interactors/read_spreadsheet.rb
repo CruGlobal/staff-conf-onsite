@@ -60,17 +60,20 @@ class ReadSpreadsheet
   def open(file)
     path = file.tempfile.path
 
-    case File.extname(file.original_filename)
-    when '.ods' then Roo::OpenOffice.new(path)
-    when '.csv' then Roo::CSV.new(path)
-    when '.xls' then Roo::Excel.new(path)
-    when '.xlsx' then Roo::Excelx.new(path)
-    else
-      raise Error, [
-        "Unexpected filename: '#{file.original_filename}'.",
-        'Extension must be .ods, .csv, .xls, or .xlsx'
-      ].join(' ')
-    end
+    ext =
+      case File.extname(file.original_filename)
+      when '.ods' then :ods
+      when '.csv' then :csv
+      when '.xls' then :xls
+      when '.xlsx' then :xlsx
+      else
+        raise Error, [
+          "Unexpected filename: '#{file.original_filename}'.",
+          'Extension must be .ods, .csv, .xls, or .xlsx'
+        ].join(' ')
+      end
+
+    Roo::Spreadsheet.open(path, extension: ext)
   end
 
   def skip_first_row?

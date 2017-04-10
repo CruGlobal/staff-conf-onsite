@@ -69,8 +69,10 @@ class Child::ShowCell < ::ShowCell
         row(:childcare) do |c|
           link_to chilcare_spaces_label(c.childcare), c.childcare if c.childcare
         end
+        row :childcare_deposit
         row(:childcare_weeks) { |c| childcare_weeks_list(c) }
         row(:hot_lunch_weeks) { |c| hot_lunch_weeks_list(c) }
+        row :childcare_comment
       end
     end
   end
