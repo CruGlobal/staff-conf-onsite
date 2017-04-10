@@ -108,16 +108,6 @@ columns do
         tr { td 'Pay Chartfield'; td status_tag(:no) }
         'Conference Status'
       end
-
-      h4 'Example File'
-
-      table class: 'example-spreadsheet' do
-        tr { td 'a100'; td 'a101'; td ''     }
-        tr { td 'b200'; td '';     td 'b202' }
-        tr { td 'c300'; td '';     td ''     }
-        tr { td 'd400'; td 'd401'; td ''     }
-        tr { td 'e500'; td '';     td ''     }
-      end
     end
   end
 end
