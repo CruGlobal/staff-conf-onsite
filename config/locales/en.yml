@@ -104,6 +104,7 @@ en:
           books: "Books"
           rec_center: "Recreation Center"
           lunch: "Lunch Charges"
+          childcare_jr_sr: "Childcare/JrSr"
       course:
         ibs_code: "IBS ID"
         grades:
