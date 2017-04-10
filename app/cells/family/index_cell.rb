@@ -3,8 +3,7 @@ class Family::IndexCell < ::IndexCell
     selectable_column
 
     column :id
-    column :import_tag # TODO: delete this before GIT PUSH!!!!!!!!!! TODO !!!!!!!!!!!!!!!
-    column('Family') { |f| family_label(f) }
+    column('Family', sortable: :last_name) { |f| family_label(f) }
     column(:staff_number) { |f| code f.staff_number }
     address_columns
     column(:registration_comment) { |f| html_summary(f.registration_comment) }

@@ -11,21 +11,13 @@ columns do
     panel 'Help: Import People and Families' do
       para <<-EOP
         This form allows you to upload a spreadsheet file containing a number
-        of People records—both Attendees and Children. Family records
-        will also be created for these imported People.
+        of People records—both Attendees and Children. Family records will also
+        be created for these imported People.
       EOP
 
       para <<-EOP
         For a large import, please be patient as this process may take a long
         time.
-      EOP
-
-      h4 'File Format'
-
-      para <<-EOP
-        The given file can contain any number of rows and columns, each cell
-        that isn't blank will be used to create a new Housing Unit with that
-      name.
       EOP
 
       h4 'Header Row'

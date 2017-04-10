@@ -168,10 +168,18 @@ module Import
         end
     end
 
+    def birthdate
+      @birthdate || calculate_birthdate
+    end
+
     private
 
     def true_string?(str)
       str.try(:downcase) == 'yes' || TRUE_VALUES.include?(str)
+    end
+
+    def calculate_birthdate
+      UserVariable[:child_age_cutoff] - age.to_i.years if age.present?
     end
   end
 end
