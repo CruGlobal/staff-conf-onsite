@@ -2,7 +2,7 @@ class AddImportAttributesToPeople < ActiveRecord::Migration
   def change
     add_column :people, :tshirt_size, :string
     add_column :people, :mobility_comment, :text
-    add_column :people, :personal_comment, :string
+    add_column :people, :personal_comment, :text
     add_column :people, :conference_comment, :text
     add_column :people, :childcare_deposit, :boolean
     add_column :people, :childcare_comment, :text

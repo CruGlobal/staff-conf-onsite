@@ -238,9 +238,10 @@ ActiveRecord::Schema.define(version: 20170409025132) do
     t.date     "rec_center_pass_expired_at"
     t.string   "hot_lunch_weeks",            default: "",               null: false
     t.integer  "seminary_id"
+    t.string   "family_tag"
     t.string   "tshirt_size"
     t.text     "mobility_comment"
-    t.string   "personal_comment"
+    t.text     "personal_comment"
     t.text     "conference_comment"
     t.boolean  "childcare_deposit"
     t.text     "childcare_comment"

@@ -51,10 +51,14 @@ class Attendee::ShowCell < ::ShowCell
   def personal_rows
     row :first_name
     row :last_name
+    row :conference_status
+    row :tshirt_size
     row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
     row :birthdate
     row(:age, sortable: :birthdate) { |a| age_label(a) }
     row(:gender) { |a| gender_name(a.gender) }
+    row :mobility_comment
+    row :personal_comment
   end
 
   def contact_rows
@@ -79,6 +83,18 @@ class Attendee::ShowCell < ::ShowCell
   def conferences_panel
     panel "Conferences (#{attendee.conferences.size})", class: 'conferences' do
       attendee.conferences.any? ? conference_list : strong('None')
+      conference_comment
+    end
+  end
+
+  def conference_comment
+    div class: 'attendance-comment' do
+      h4 'Comments'
+      if attendee.conference_comment.present?
+        para attendee.conference_comment
+      else
+        para strong 'None'
+      end
     end
   end
 
@@ -99,6 +115,7 @@ class Attendee::ShowCell < ::ShowCell
     panel 'Courses', class: 'attendances' do
       attendances = attendee.course_attendances.includes(:course)
       attendances.any? ? attendances_list(attendances) : strong('None')
+      course_comment
     end
   end
 
@@ -107,6 +124,17 @@ class Attendee::ShowCell < ::ShowCell
       column :course
       column :grade
       column :seminary_credit
+    end
+  end
+
+  def course_comment
+    div class: 'attendance-comment' do
+      h4 'IBS Comments'
+      if attendee.ibs_comment.present?
+        para attendee.ibs_comment
+      else
+        para strong 'None'
+      end
     end
   end
 

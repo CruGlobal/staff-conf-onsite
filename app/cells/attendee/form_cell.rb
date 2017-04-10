@@ -44,15 +44,22 @@ class Attendee::FormCell < ::FormCell
 
       input :student_number
       input :first_name
+      input_last_name
 
-      if param_family
-        input :last_name, input_html: { value: param_family.last_name }
-      else
-        input :last_name
-      end
-
+      input :conference_status
+      input :tshirt_size
       input :gender, as: :select, collection: gender_select
       datepicker_input(model, :birthdate)
+      input :mobility_comment, input_html: { rows: 4 }
+      input :personal_comment, input_html: { rows: 4 }
+    end
+  end
+
+  def input_last_name
+    if param_family
+      input :last_name, input_html: { value: param_family.last_name }
+    else
+      input :last_name
     end
   end
 
@@ -83,6 +90,7 @@ class Attendee::FormCell < ::FormCell
       select_ministry_widget(model)
       input :department
       input :conferences
+      input :conference_comment, input_html: { rows: 4 }
       input :seminary, include_blank: false
     end
   end
@@ -97,6 +105,10 @@ class Attendee::FormCell < ::FormCell
         f.input :grade, collection: course_grade_select
         f.input :seminary_credit
         f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
+      end
+
+      inputs class: 'ibs-comment-input' do
+        input :ibs_comment, input_html: { rows: 4 }
       end
     end
   end

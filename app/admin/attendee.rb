@@ -17,7 +17,9 @@ ActiveAdmin.register Attendee do
     :first_name, :last_name, :email, :emergency_contact, :phone, :gender,
     :student_number, :department, :family_id, :birthdate, :ministry_id,
     :seminary_id, :rec_center_pass_started_at, :rec_center_pass_expired_at,
-    :arrived_at, :departed_at, conference_ids: [], cost_adjustments_attributes: [
+    :conference_status, :tshirt_size, :mobility_comment, :personal_comment,
+    :conference_comment, :arrived_at, :departed_at, :ibs_comment,
+    conference_ids: [], cost_adjustments_attributes: [
       :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
     ], course_attendances_attributes: [
       :id, :_destroy, :course_id, :seminary_credit, :grade
