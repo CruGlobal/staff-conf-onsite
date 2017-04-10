@@ -45,6 +45,10 @@ ActiveAdmin.register Attendee do
   filter :created_at
   filter :updated_at
 
+  action_item :import_spreadsheet, only: :index do
+    link_to 'Import Spreadsheet', new_spreadsheet_families_path
+  end
+
   controller do
     def scoped_collection
       super.includes(:family)

@@ -14,4 +14,10 @@ class Import::PersonTest < ModelTestCase
     assert_equal Child, Import::Person.new(person_type: 'Child').record_class
     assert_equal Child, Import::Person.new(person_type: 'Additional Family Member').record_class
   end
+
+  test '#country_code' do
+    assert_equal 'US', Import::Person.new(country: 'USA').country_code
+    assert_equal 'CA', Import::Person.new(country: 'CAN').country_code
+    assert_equal 'BA', Import::Person.new(country: 'BIH').country_code
+  end
 end

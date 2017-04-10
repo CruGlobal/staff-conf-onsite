@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327041517) do
+ActiveRecord::Schema.define(version: 20170409025132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,13 +134,15 @@ ActiveRecord::Schema.define(version: 20170327041517) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "street"
+    t.string   "address1"
     t.string   "country_code",         limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "last_name",                      null: false
-    t.string   "staff_number",                   null: false
+    t.string   "staff_number"
     t.text     "registration_comment"
+    t.string   "address2"
+    t.string   "import_tag"
   end
 
   create_table "housing_facilities", force: :cascade do |t|
@@ -176,6 +178,7 @@ ActiveRecord::Schema.define(version: 20170327041517) do
     t.boolean  "single_room"
     t.string   "other_family"
     t.boolean  "accepts_non_air_conditioned"
+    t.text     "comment"
   end
 
   create_table "housing_units", force: :cascade do |t|
@@ -235,6 +238,23 @@ ActiveRecord::Schema.define(version: 20170327041517) do
     t.date     "rec_center_pass_expired_at"
     t.string   "hot_lunch_weeks",            default: "",               null: false
     t.integer  "seminary_id"
+    t.string   "tshirt_size"
+    t.text     "mobility_comment"
+    t.string   "personal_comment"
+    t.text     "conference_comment"
+    t.boolean  "childcare_deposit"
+    t.text     "childcare_comment"
+    t.text     "ibs_comment"
+    t.string   "ethnicity"
+    t.date     "hired_at"
+    t.string   "employee_status"
+    t.string   "caring_department"
+    t.string   "strategy"
+    t.string   "assignment_length"
+    t.string   "pay_chartfield"
+    t.string   "conference_status"
+    t.string   "name_tag_first_name"
+    t.string   "name_tag_last_name"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree

@@ -18,7 +18,7 @@ class HousingPreference < ApplicationRecord
 
   belongs_to :family
 
-  validates :housing_type, presence: true
+  validates :family_id, :housing_type, presence: true
   validates :children_count, :bedrooms_count,
             allow_nil: true,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }

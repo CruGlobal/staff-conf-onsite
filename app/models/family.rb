@@ -12,7 +12,7 @@ class Family < ApplicationRecord
 
   accepts_nested_attributes_for :housing_preference
 
-  validates :last_name, :staff_number, presence: true
+  validates :last_name, presence: true
   validates_associated :housing_preference
 
   before_validation :remove_blank_housing_preference

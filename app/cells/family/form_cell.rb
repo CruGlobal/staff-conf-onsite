@@ -20,7 +20,8 @@ class Family::FormCell < ::FormCell
 
   def address_fields
     inputs 'Address' do
-      input :street
+      input :address1
+      input :address2
       input :city
       input :state
       input :country_code, as: :select, collection: country_select,

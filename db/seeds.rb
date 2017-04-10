@@ -1,3 +1,4 @@
+require_relative './development_records'
 require_relative './user_variables'
 
 # This file should contain all the record creation needed to seed the database with its default values.
@@ -8,17 +9,7 @@ require_relative './user_variables'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-if Rails.env.development? || Rails.env.staging?
-  # Example role accounts
-  User.create!(role: 'admin', email: 'jon.sangster+admin@ballistiq.com')
-  User.create!(role: 'finance', email: 'jon.sangster+finance@ballistiq.com')
-  User.create!(role: 'general', email: 'jon.sangster+general@ballistiq.com')
-
-  # Developer accounts
-  User.create!(role: 'admin', email: 'jon.sangster@ballistiq.com')
-  User.create!(role: 'admin', email: 'tyler@ballistiq.com')
-  User.create!(role: 'admin', email: 'daniel.fugere@ballistiq.com')
-end
+SeedDevelopmentRecords.new.call if Rails.env.development? || Rails.env.staging?
 
 # This seeds must exist, all the time and in every evironment
 SeedUserVariables.new.call

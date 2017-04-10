@@ -1,10 +1,13 @@
 module Import
   class Person
     include ActiveModel::Model
+    include ActiveRecord::AttributeAssignment
+
+    TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
 
     SPREADSHEET_TITLES = {
       person_type: 'Person Type',
-      family_id:   'Family',
+      family_tag:  'Family',
 
       first_name:          'First',
       last_name:           'Last',
@@ -20,14 +23,14 @@ module Import
       mobility_comment: 'Mobility Needs Comment',
       personal_comment: 'Personal Comments',
 
-      address1:   'Address 1',
-      address2:   'Address 2',
-      city:       'City',
-      state:      'State',
-      zip_code:   'ZIP',
-      country:    'Country',
-      cell_phone: 'Cell',
-      email:      'Email',
+      address1: 'Address 1',
+      address2: 'Address 2',
+      city:     'City',
+      state:    'State',
+      zip:      'ZIP',
+      country:  'Country',
+      phone:    'Cell',
+      email:    'Email',
 
       conference_choices: 'Conference Choices',
       conference_comment: 'Conference Comments',
@@ -41,29 +44,29 @@ module Import
       housing_roommates:         'Dorm Requested Roommate',
       housing_roommates_email:   'Dorm Requested Roommate Email',
       housing_children_count:    'Apt Number Of Children',
-      housing_size:              'Apt Size Requested',
+      housing_bedrooms_count:    'Apt Size Requested',
       housing_sharing_requested: 'Apt Sharing Requested',
       housing_accepts_non_ac:    'Accept NON-A/C Apt',
       housing_location1:         'Housing 1st Choice',
       housing_location2:         'Housing 2nd Choice',
       housing_location3:         'Housing 3rd Choice',
-      housing_comments:          'Housing Comments',
-      housing_needs_bed:         'Child Needs Dorm Bed',
+      housing_comment:           'Housing Comments',
 
-      age_group:          'Age Group',
+      grade_level:          'Age Group',
+      needs_bed:          'Child Needs Dorm Bed',
       childcare_deposit:  'Childcare Deposit',
       childcare_weeks:    'Child Program Weeks',
       hot_lunch_weeks:    'Hot Lunch Weeks',
-      childcare_comments: 'Childcare Comments',
+      childcare_comment:  'Childcare Comments',
 
       ibs_courses:  'IBS Courses',
-      ibs_comments: 'IBS Comments',
+      ibs_comment: 'IBS Comments',
 
       rec_center_pass_started_at: 'RecPass Start Date',
       rec_center_pass_expired_at: 'RecPass End Date',
 
       ministry_code:     'Ministry Code',
-      hire_date:         'Hire Date',
+      hired_at:          'Hire Date',
       employee_status:   'Employee Status',
       caring_department: 'Caring Department',
       strategy:          'Strategy',
@@ -81,6 +84,32 @@ module Import
       'Additional Family Member' => Child
     }.freeze
 
+    AGE_GROUPS = {
+      'Infant / Age 0' => 'age0',
+      'Age 1' => 'age1',
+      'Age 2' => 'age2',
+      'Age 3' => 'age3',
+      'Age 4' => 'age4',
+      'Age 5 / Kindergarten' => 'age5',
+      'Grade 1' => 'grade1',
+      'Grade 2' => 'grade2',
+      'Grade 3' => 'grade3',
+      'Grade 4' => 'grade4',
+      'Grade 5' => 'grade5',
+      'Grade 6' => 'grade6',
+      'Grade 7' => 'grade7',
+      'Grade 8' => 'grade8',
+      'Grade 9' => 'grade9',
+      'Grade 10' => 'grade10',
+      'Grade 11' => 'grade11',
+      'Grade 12' => 'grade12',
+      'Grade 13' => 'grade13',
+      'Post High School' => 'postHighSchool'
+    }.freeze
+
+    validates :person_type, :first_name, :last_name, :family_tag, presence: true
+    validates :gender, inclusion: { in: ::Person::GENDERS.keys.map(&:to_s) }
+
     # @return [Boolean] if this person holds the family/address details for
     # their family
     def primary_family_member?
@@ -91,6 +120,58 @@ module Import
     #   represents
     def record_class
       PERSON_TYPES[person_type] || Child
+    end
+
+    def gender=(gender)
+      @gender = gender.try(:downcase) || 'm'
+    end
+
+    def country_code
+      ISO3166::Country.find_country_by_alpha3(country).try(:alpha2)
+    end
+
+    def housing_roommates_details
+      format('%s <%s>', housing_roommates, housing_roommates_email)
+    end
+
+    def family_record
+      Family.includes(:people).find_by(import_tag: family_tag)
+    end
+
+    def housing_single_room=(str)
+      @single_room = true_string?(str)
+    end
+
+    def housing_accepts_non_ac=(str)
+      @housing_accepts_non_ac = true_string?(str)
+    end
+
+    def needs_bed=(str)
+      @needs_bed = true_string?(str)
+    end
+
+    def grade_level=(group)
+      @grade_level = AGE_GROUPS[group]
+    end
+
+    def childcare_deposit=(str)
+      # weird one: "-1" seems to be true and ""/"0" are false
+      @childcare_deposit = str.present? && str != '0'
+    end
+
+    def housing_type=(type)
+      @housing_type =
+        case type.try(:downcase)
+        when /dorm/ then :dormitory
+        when /apartment/ then :apartment
+        else :self_provided
+        end
+    end
+
+    private
+
+    def true_string?(str)
+      str.try(:downcase) == 'yes' || TRUE_VALUES.include?(str)
     end
   end
 end

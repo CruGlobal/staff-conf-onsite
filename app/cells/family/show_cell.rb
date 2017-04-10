@@ -45,7 +45,8 @@ class Family::ShowCell < ::ShowCell
   end
 
   def address_rows
-    row :street
+    row :address1
+    row :address2
     row :city
     row :state
     row(:country_code) { |f| country_name(f.country_code) }
