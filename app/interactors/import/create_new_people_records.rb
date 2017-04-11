@@ -14,15 +14,17 @@ module Import
 
     before do
       @families = {}
-      @import_people = context.import_people
+      @imports = context.import_people
     end
 
     def call
-      people = @import_people.each_with_index.map(&method(:create_from_import))
-      persist_records!(@families.values, people)
+      ApplicationRecord.transaction do
+        people = @imports.each_with_index.map(&method(:create_from_import))
+        persist_records!(@families.values, people)
 
-      context.people = people.map(&:record)
-      context.families = @families.values.map(&:record)
+        context.people = people.map(&:record)
+        context.families = @families.values.map(&:record)
+      end
     rescue Error => e
       context.fail!(message: e.message)
     end
@@ -59,9 +61,7 @@ module Import
       return @families[tag] if @families.key?(tag)
 
       primary_person =
-        @import_people.find do |p|
-          p.family_tag == tag && p.primary_family_member?
-        end
+        @imports.find { |p| p.family_tag == tag && p.primary_family_member? }
       primary_person ||= import # fallback if primary is missing (unusual)
 
       family = primary_person.family_record || create_family(primary_person)
@@ -88,15 +88,18 @@ module Import
     end
 
     def update_person(person, import)
-      result = UpdatePersonFromImport.call(person: person, import: import)
+      result = UpdatePersonFromImport.call(person: person, import: import,
+                                           ministries: ministries)
       raise Error, result.message unless result.success?
     end
 
+    def ministries
+      @ministries ||= Ministry.all
+    end
+
     def persist_records!(families, people)
-      Family.transaction do
-        families.each(&method(:save_record!))
-        people.each(&method(:save_record!))
-      end
+      families.each(&method(:save_record!))
+      people.each(&method(:save_record!))
     end
 
     def save_record!(row_record)
