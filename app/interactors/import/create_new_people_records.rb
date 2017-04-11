@@ -5,61 +5,67 @@ module Import
   class CreateNewPeopleRecords
     include Interactor
 
+    # Associates the row number a given record was created on, so in the event
+    # of an error we can report to the end user which row of the spreadsheet
+    # caused the error.
+    RowRecord = Struct.new(:record, :row)
+
     Error = Class.new(StandardError)
 
     before do
       @families = {}
+      @import_people = context.import_people
     end
 
     def call
-      context.people =
-        context.import_people.each_with_index.map(&method(:create_from_row))
+      people = @import_people.each_with_index.map(&method(:create_from_import))
+      persist_records!(@families.values, people)
 
-      persist_records!(@families.values, context.people)
-
+      context.people = people.map(&:record)
+      context.families = @families.values.map(&:record)
     rescue Error => e
       context.fail!(message: e.message)
     end
 
     private
 
-    def create_from_row(import, index)
-      row_number = index + 2
-      find_or_create_person(import).tap { |p| set_attributes(p, import) }
+    def create_from_import(import, index)
+      row = index + 2
+      find_or_create_person(import, row).tap do |p|
+        set_attributes(p.record, import)
+      end
     rescue StandardError => e
-      raise Error, format('Row #%d: "%s"', row_number, e)
+      raise Error, format('Row #%d: %s', row, e)
     end
 
-    def find_or_create_person(import)
-      family = find_or_create_family(import)
+    def find_or_create_person(import, row)
+      family = find_or_create_family(import, row)
 
-      existing_person = family.people.find do |p|
+      existing_person = family.record.people.find do |p|
         p.birthdate == import.birthdate && p.first_name == import.first_name
       end
 
-      if existing_person.present?
-        existing_person
-      else
-        import.record_class.new.tap { |p| p.family = family }
-      end
+      person =
+        if existing_person.present?
+          existing_person
+        else
+          import.record_class.new.tap { |p| p.family = family.record }
+        end
+      RowRecord.new(person, row)
     end
 
-    def find_or_create_family(import)
+    def find_or_create_family(import, row)
       tag = import.family_tag
       return @families[tag] if @families.key?(tag)
 
       primary_person =
-        context.import_people.find do |p|
+        @import_people.find do |p|
           p.family_tag == tag && p.primary_family_member?
         end
       primary_person ||= import # fallback if primary is missing (unusual)
 
-      @families[primary_person.family_tag] =
-        if (family = primary_person.family_record)
-          family
-        else
-          create_family(primary_person)
-        end
+      family = primary_person.family_record || create_family(primary_person)
+      @families[primary_person.family_tag] = RowRecord.new(family, row)
     end
 
     def create_family(primary)
@@ -78,19 +84,28 @@ module Import
 
     def update_family(family, import)
       result = UpdateFamilyFromImport.call(family: family, import: import)
-      raise result.message unless result.success?
+      raise Error, result.message unless result.success?
     end
 
     def update_person(person, import)
       result = UpdatePersonFromImport.call(person: person, import: import)
-      raise result.message unless result.success?
+      raise Error, result.message unless result.success?
     end
 
     def persist_records!(families, people)
       Family.transaction do
-        families.each(&:save!)
-        people.each(&:save!)
+        families.each(&method(:save_record!))
+        people.each(&method(:save_record!))
       end
+    end
+
+    def save_record!(row_record)
+      record = row_record.record
+      record.save!
+    rescue ActiveRecord::ActiveRecordError => e
+      raise Error, format('Row #%d: Could not persist %s, %p. %s',
+                          row_record.row, record.class.name, record.audit_name,
+                          e.message)
     end
   end
 end

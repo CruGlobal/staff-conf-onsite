@@ -79,7 +79,7 @@ module Import
       choices.split(/\s*,\s*/).map do |name|
         begin
           Conference.find_by!(name: name)
-        rescue ActiveRecord::RecordNotFound
+        rescue ActiveRecord::ActiveRecordError
           raise format('Could not find Conference, %p', name)
         end
       end
@@ -91,7 +91,7 @@ module Import
       courses.split(/\s*,\s*/).map do |name|
         begin
           Course.find_by!(name: name)
-        rescue ActiveRecord::RecordNotFound
+        rescue ActiveRecord::ActiveRecordError
           raise format('Could not find Class, %p', name)
         end
       end

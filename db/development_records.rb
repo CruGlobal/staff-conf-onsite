@@ -8,23 +8,40 @@ class SeedDevelopmentRecords
   # +test/fixtures/+
   COURSES = [
     'Apologetics',
+    'Bible Study Methods',
     'Biblical Communication',
     'Biblical Interpretation',
     'Christian Worldview',
     'Church History',
     'God / Bible / Holy Spirit',
     'Humanity / Christ / Salvation',
+    'Intro to Christian Theology',
+    'Intro to Mission',
+    'Intro to Mission (online course for New Staff only)',
     'Old Testament Survey'
   ].freeze
 
   # These conferences are referenced by some test spreadsheet imports found in
   # +test/fixtures/+
   CONFERENCES = [
+    'Coach or Instructor',
     'Cru17',
+    'Institute of Biblical Studies TA',
     'Legacy Track (Staff 60 years of age and older)',
+    'Legal Internship Participant',
     'Missional Team Leader Spouse',
+    'Missional Team Leader Training Coach or Design Team Member',
     'Missional Team Leader Training Participant',
-    'Other'
+    'MPD Training: Married New Staff & Spouse is Not Attending',
+    'MPD Training: Married New Staff & Spouse is NS or SA and Attending MPD',
+    'MPD Training: Married New Staff & Spouse is Senior Staff',
+    'MPD Training: Senior Staff',
+    'MPD Training: Single',
+    'New Staff Training',
+    'Other',
+    'StillWaters17',
+    'XTrack Participant',
+    'XTrack Training Team'
   ].freeze
 
   def initialize

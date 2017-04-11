@@ -24,6 +24,7 @@ class Attendee::FormTest < IntegrationTest
   test '#edit add cost_adjustment' do
     enable_javascript!
     login_user @user
+    @attendee.cost_adjustments.each(&:destroy!)
 
     attrs = attributes_for :cost_adjustment
 
