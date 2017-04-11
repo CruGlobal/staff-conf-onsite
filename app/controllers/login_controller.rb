@@ -5,6 +5,6 @@ class LoginController < ApplicationController
   # system does not have an account setup for that user. An existing user
   # (role: admin) will have to create an accoun for them first.
   def unauthorized
-    @email = cas_email
+    @email = session_user.cas_email
   end
 end
