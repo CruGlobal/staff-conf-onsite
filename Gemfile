@@ -9,6 +9,10 @@ gem 'redis-namespace', '~> 1.5.2'
 gem 'newrelic_rpm', '~> 3.16.2.321'
 gem 'good_migrations', '~> 0.0.2'
 
+# Error Reporting
+gem 'rollbar', '~> 2.14'
+gem 'oj', '~> 2.18'
+
 # Framework
 gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre4'
