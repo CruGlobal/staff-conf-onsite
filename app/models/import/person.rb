@@ -135,7 +135,7 @@ module Import
     end
 
     def family_record
-      Family.includes(:people).find_by(import_tag: family_tag)
+      Family.includes(:people, :housing_preference).find_by(import_tag: family_tag)
     end
 
     def housing_single_room=(str)
@@ -151,7 +151,13 @@ module Import
     end
 
     def grade_level=(group)
-      @grade_level = AGE_GROUPS[group]
+      @grade_level =
+        if (match = AGE_GROUPS[group])
+          match
+        elsif group.present?
+          # go in reverse to match "Grade 10" before "Grade 1"
+          AGE_GROUPS.reverse_each.find { |k, _| group.include?(k) }.try(:last)
+        end
     end
 
     def childcare_deposit=(str)

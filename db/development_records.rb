@@ -37,6 +37,7 @@ class SeedDevelopmentRecords
     'MPD Training: Married New Staff & Spouse is Senior Staff',
     'MPD Training: Senior Staff',
     'MPD Training: Single',
+    'New Staff Orientation',
     'New Staff Training',
     'Other',
     'StillWaters17',

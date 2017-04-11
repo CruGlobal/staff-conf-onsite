@@ -9,6 +9,9 @@ module Import
     before do
       @person = context.person
       @import = context.import
+
+      # This is simply to avoid a large number of unneccessary SELECTs
+      @ministries = context.ministries || Ministry.all
     end
 
     def call
@@ -98,7 +101,7 @@ module Import
     end
 
     def find_ministry(code)
-      Ministry.find_by(code: code) if code.present?
+      @ministries.find { |m| m.code == code } if code.present?
     end
 
     def set_child_attributes
