@@ -21,29 +21,27 @@ class Attendee::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
-  20.times do |x|
-    test "#edit add cost_adjustment #{x}" do
-      enable_javascript!
-      login_user @user
-      @attendee.cost_adjustments.each(&:destroy!)
+  test 'edit add cost_adjustment' do
+    enable_javascript!
+    login_user @user
+    @attendee.cost_adjustments.each(&:destroy!)
 
-      attrs = attributes_for :cost_adjustment
+    attrs = attributes_for :cost_adjustment
 
-      visit edit_attendee_path(@attendee)
+    visit edit_attendee_path(@attendee)
 
-      assert_difference "CostAdjustment.where(person_id: #{@attendee.id}).count" do
-        within('.cost_adjustments.panel') do
-          click_link 'Add New Cost adjustment'
+    assert_difference "CostAdjustment.where(person_id: #{@attendee.id}).count" do
+      within('.cost_adjustments.panel') do
+        click_link 'Add New Cost adjustment'
 
-          select_option('Cost type')
-          fill_in 'Price', with: attrs[:price_cents]
-          fill_in 'Percent', with: attrs[:percent]
-          fill_in 'Description', with: attrs[:description]
-        end
-
-        click_button 'Update Attendee'
-        assert_current_path attendee_path(@attendee)
+        select_option('Cost type')
+        fill_in 'Price', with: attrs[:price_cents]
+        fill_in 'Percent', with: attrs[:percent]
+        fill_in 'Description', with: attrs[:description]
       end
+
+      click_button 'Update Attendee'
+      assert_current_path attendee_path(@attendee)
     end
   end
 
