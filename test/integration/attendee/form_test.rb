@@ -21,7 +21,7 @@ class Attendee::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
-  test 'edit add cost_adjustment' do
+  test '#edit add cost_adjustment' do
     enable_javascript!
     login_user @user
     @attendee.cost_adjustments.each(&:destroy!)
