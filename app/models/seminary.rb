@@ -16,8 +16,10 @@ class Seminary < ApplicationRecord
   end
 
   def self.default
-    Rails.cache.fetch(:default_seminary, expires_in: 1.week) do
-      Seminary.find_by(code: 'IBS')
+    Seminary.find_or_create_by(code: 'IBS') do |seminary|
+      seminary.name = 'IBS'
+      seminary.code = 'IBS'
+      seminary.course_price = 0
     end
   end
 end

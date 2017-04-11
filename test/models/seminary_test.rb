@@ -20,7 +20,11 @@ class SeminaryTest < ModelTestCase
   end
 
   test 'has_many Attendees' do
-    assert 3, @seminary.attendees.size
+    assert_equal 3, @seminary.attendees.size
+  end
+
+  test 'default seminary should be IBS' do
+    assert_equal Seminary.default.code, 'IBS'
   end
 
 end
