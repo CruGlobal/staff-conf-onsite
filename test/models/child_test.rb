@@ -4,6 +4,7 @@ class ChildTest < ModelTestCase
   setup do
     create_users
     @child = create :child
+    @childcare = create :childcare
   end
 
   test 'childcare_weeks=' do
@@ -75,11 +76,49 @@ class ChildTest < ModelTestCase
     assert_equal 'OtherName', @child.last_name
   end
 
-  %w(age0 age1 age2 age3 age4 age5 grade1 grade2 grade3 grade4 grade5).each do |level|
+  test 'invalid when childcare_weeks is set but child is post high school' do
+    @child.grade_level = 'postHighSchool'
+    @child.childcare_weeks = [0]
+
+    refute @child.valid?
+  end
+
+  test 'valid when childcare_weeks is set and child is not post high school' do
+    @child.grade_level = Child.childcare_grade_levels.sample
+    @child.childcare_weeks = [0]
+
+    assert @child.valid?
+  end
+
+  test 'invalid when childcare_id is set but child is too old' do
+    @child.grade_level = Child.senior_grade_levels.sample
+    @child.childcare = @childcare
+
+    refute @child.valid?
+  end
+
+  test 'valid when childcare_id is set and child is not too old' do
+    @child.grade_level = Child.childcare_grade_levels.sample
+    @child.childcare = @childcare
+
+    assert @child.valid?
+  end
+
+  test '.childcare_grade_levels' do
+    grades = %w(age0 age1 age2 age3 age4 age5 grade1 grade2 grade3 grade4 grade5)
+    assert_equal Child.childcare_grade_levels, grades
+  end
+
+  Child.childcare_grade_levels.each do |level|
     test "#age_group is :childcare when grade level is #{level}" do
       @child.grade_level = level
       assert_equal :childcare, @child.age_group
     end
+  end
+
+  test '.senior_grade_levels' do
+    grades = %w(grade6 grade7 grade8 grade9 grade10 grade11 grade12 grade13 postHighSchool)
+    assert_equal Child.senior_grade_levels, grades
   end
 
   %w(grade6 grade7 grade8 grade9 grade10 grade11 grade12 grade13).each do |level|
@@ -94,6 +133,22 @@ class ChildTest < ModelTestCase
       @child.grade_level = level
       assert_equal :post_high_school, @child.age_group
     end
+  end
+
+  test '#post_high_school?' do
+    @child.grade_level = Child.childcare_grade_levels.first
+    assert_equal @child.post_high_school?, false
+
+    @child.grade_level = 'postHighSchool'
+    assert_equal @child.post_high_school?, true
+  end
+
+  test '#too_old_for_childcare?' do
+    @child.grade_level = Child.childcare_grade_levels.first
+    assert_equal @child.too_old_for_childcare?, false
+
+    @child.grade_level = 'postHighSchool'
+    assert_equal @child.too_old_for_childcare?, true
   end
 
   test 'hot_lunch_weeks=' do

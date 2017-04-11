@@ -79,7 +79,6 @@ class Child::FormCell < ::FormCell
                               collection: childcare_weeks_select
 
       input :childcare_id, as: :select, label: 'Childcare Spaces',
-                           prompt: 'please select',
                            collection: childcare_spaces_select
 
       input :hot_lunch_weeks, label: 'Hot Lunch Weeks', multiple: true,

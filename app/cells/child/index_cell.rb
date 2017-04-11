@@ -32,6 +32,7 @@ class Child::IndexCell < ::IndexCell
   end
 
   def childcare_column(child)
+    return if child.too_old_for_childcare?
     collection = childcare_select_name_only
 
     model.active_admin_form_for child do |f|
@@ -39,9 +40,7 @@ class Child::IndexCell < ::IndexCell
         f.input :childcare_id,
                 as: :select,
                 collection: collection,
-                include_blank: true,
                 label: false,
-                prompt: 'please select',
                 input_html: { 'data-path' => child_path(child) }
       end
     end
