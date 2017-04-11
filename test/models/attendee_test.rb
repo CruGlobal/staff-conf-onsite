@@ -48,4 +48,8 @@ class AttendeeTest < ModelTestCase
 
     assert_equal 'OtherName', @attendee.last_name
   end
+
+  test 'default seminary should be IBS' do
+    assert_equal Attendee.new.seminary, Seminary.default
+  end
 end
