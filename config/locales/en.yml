@@ -38,6 +38,9 @@ en:
         version:
           one: "Version"
           other: "Versions"
+      user_variable:
+        one: "Variable"
+        other: "Variables"
 
     attributes:
       person:
