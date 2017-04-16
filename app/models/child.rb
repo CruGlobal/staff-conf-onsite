@@ -16,6 +16,9 @@ class Child < Person
   validates :childcare_weeks, if: :post_high_school?, absence: {
     message: 'must be blank when child is Post High School'
   }
+  validates :childcare, if: :too_old_for_childcare?, absence: {
+    message: 'must be blank when child is older than Grade 5'
+  }
   validates_associated :meal_exemptions
   validate :hot_lunch_weeks_must_match_childcare_weeks!
   validate :hot_lunch_age_range!
@@ -41,15 +44,31 @@ class Child < Person
   def age_group
     if grade_level.nil? || grade_level == 'postHighSchool'
       :post_high_school
-    elsif GRADE_LEVELS.index(grade_level) <= GRADE_LEVELS.index('grade5')
+    elsif Child.childcare_grade_levels.include? grade_level
       :childcare
     else
       :junior_senior
     end
   end
 
+  def self.childcare_grade_levels
+    GRADE_LEVELS.first(Child.grade5_index + 1)
+  end
+
+  def self.senior_grade_levels
+    GRADE_LEVELS.last(GRADE_LEVELS.size - (Child.grade5_index + 1))
+  end
+
+  def self.grade5_index
+    GRADE_LEVELS.index('grade5')
+  end
+
   def post_high_school?
     age_group == :post_high_school
+  end
+
+  def too_old_for_childcare?
+    age_group != :childcare
   end
 
   # @return [Array<Fixnum>] a list of indexes from the

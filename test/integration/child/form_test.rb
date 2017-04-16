@@ -3,7 +3,8 @@ require 'test_helper'
 class Child::FormTest < IntegrationTest
   before do
     @user = create_login_user
-    @child = create :child
+    @child = create :child, :childcare
+    @childcare = create :childcare
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now,

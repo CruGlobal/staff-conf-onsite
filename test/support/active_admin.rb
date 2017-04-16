@@ -54,21 +54,13 @@ module Support
     # @param [String] selector
     # @param [String] value the value to select. If left blank, a random
     #   option will be selected
-    # @param [Boolean] include_blank +true+ to not randomly choose the blank
+    # @param [Boolean] include_blank +true+ to randomly choose the blank
     #   option
     def select_option(selector, value: nil, include_blank: false)
       select = find_field(selector, visible: false)
-      options = select.all('option', visible: false)
 
       if (chosen = chosen_widget_sibling(select))
-        blank_index =
-          if include_blank
-            nil
-          else
-            options.index(options.find { |opt| opt['value'].blank? })
-          end
-
-        chosen_widget_select_option(chosen, value: value, blank_index: blank_index)
+        chosen_widget_select_option(chosen, value: value, include_blank: include_blank)
       else
         select_option_or_random(select, value: value)
       end
@@ -84,19 +76,23 @@ module Support
 
     # @param [String] value the value to select. If left blank, a random
     #   option will be selected
-    # @param [Fixnum] blank_index The index of the blank option, which will
-    #   not be chosen. +nil+ to choose any option
-    def chosen_widget_select_option(element, value: nil, blank_index: nil)
+    # @param [Fixnum] include_blank +true+ to randomly choose the blank
+    #   option
+    def chosen_widget_select_option(element, value: nil, include_blank: false)
       element.click
 
       if value.present?
         element.find('.active-result', text: value).click
       else
         options = element.all('.active-result').to_a
-        options.delete_at(blank_index) if blank_index.present?
 
         if options.any?
-          options[rand(options.size)].click
+          option_pool_size = options.size
+          option_pool_size = 9 if option_pool_size > 9
+          # because I think capybara has an issue scrolling inside the select box
+          # we limit the options to just the options visible without scrolling
+
+          options[rand(option_pool_size)].click unless include_blank && [true, false].sample
         else
           raise format('chosen widget (%p) has no option elements', element)
         end
