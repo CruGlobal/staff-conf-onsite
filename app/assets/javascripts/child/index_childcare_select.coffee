@@ -19,7 +19,7 @@ updateChildcareId = (element) ->
       'X-CSRF-Token': csrf
     url: path
     type: 'PATCH'
-    dataType: 'text' # the body is ignored anyway
+    dataType: 'json' # the body is ignored anyway
     data:
       child:
         childcare_id: childcareId
