@@ -54,7 +54,7 @@ class ApplicationPolicy
 
   # @return [Boolean] if the user may edit more than one record at a time
   def bulk_edit?
-    user.finance? || user.admin?
+    user.admin?
   end
 
   # @!group Destroy
