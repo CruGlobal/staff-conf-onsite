@@ -54,7 +54,7 @@ class Attendee::ShowCell < ::ShowCell
     row :conference_status
     row :tshirt_size
     row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-    row :birthdate
+    row(:birthdate) { |a| birthdate_label(a) }
     row(:age, sortable: :birthdate) { |a| age_label(a) }
     row(:gender) { |a| gender_name(a.gender) }
     row :mobility_comment

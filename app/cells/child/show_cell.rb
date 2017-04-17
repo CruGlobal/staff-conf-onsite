@@ -50,7 +50,7 @@ class Child::ShowCell < ::ShowCell
     row :last_name
     row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     row(:gender) { |c| gender_name(c.gender) }
-    row :birthdate
+    row(:birthdate) { |c| birthdate_label(c) }
     row(:age, sortable: :birthdate) { |c| age_label(c) }
   end
 

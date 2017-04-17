@@ -20,7 +20,7 @@ class Child::IndexCell < ::IndexCell
     column :last_name
     column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     column(:gender) { |c| gender_name(c.gender) }
-    column :birthdate
+    column(:birthdate) { |c| birthdate_label(c) }
     column(:age, sortable: :birthdate) { |c| age(c) }
   end
 

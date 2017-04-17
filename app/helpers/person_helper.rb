@@ -29,6 +29,14 @@ module PersonHelper
     end
   end
 
+  def birthdate_label(person)
+    if person.birthdate.present?
+      person.birthdate
+    else
+      span('Empty', class: 'empty danger')
+    end
+  end
+
   # @param dob [Date]
   # @return [Fixnum, nil] the age, in years, of a person born on the given
   #   date, or +nil+ if the given date is +nil+
