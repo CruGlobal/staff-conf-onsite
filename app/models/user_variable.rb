@@ -15,9 +15,8 @@ class UserVariable < ActiveRecord::Base
     def get(short_name)
       cached_values[short_name.to_sym].tap do |val|
         if val.nil?
-          raise ArgumentError,
-                format('Unknown UserVariable, %s (expected: %p)', short_name,
-                       cached_values.keys)
+          raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
+                                      short_name, cached_values.keys)
         end
       end
     end

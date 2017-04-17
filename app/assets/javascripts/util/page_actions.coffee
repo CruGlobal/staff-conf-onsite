@@ -1,6 +1,8 @@
 alreadyFired = false
 registry = []
 
+# NOTE: 'form' is a special action which will match against either 'create' or
+# 'new'
 window.pageAction = (args...) ->
   len = args.length
   func = args[len - 1]
@@ -14,10 +16,15 @@ window.pageAction = (args...) ->
     registry.push(func: func, classes: classes)
 
 fire = (func, classes) ->
-  $body = $(document.body)
-  for cl in classes
-    return false unless $body.hasClass(cl)
+  return false unless bodyMatch(cl) for cl in classes
   func($)
+
+bodyMatch = (cl) ->
+  if cl == 'form'
+    bodyMatch('create') || bodyMatch('new')
+  else
+    $(document.body).hasClass(cl)
+
 
 $ ->
   alreadyFired = true

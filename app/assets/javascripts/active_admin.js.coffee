@@ -30,6 +30,7 @@
 #
 #  Attendee/Child ---------------------
 #= require child/index_childcare_select
+#= require child/childcare_deposit
 #= require person/course_attendance_form
 #= require person/meal_form
 #

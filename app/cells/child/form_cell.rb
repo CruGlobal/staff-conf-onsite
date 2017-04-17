@@ -73,7 +73,7 @@ class Child::FormCell < ::FormCell
 
   def childcare_inputs
     inputs 'Childcare' do
-      input :childcare_deposit
+      input :childcare_deposit, input_html: { disabled: !policy.edit_deposit? }
       input :childcare_weeks, label: 'Weeks of ChildCare', multiple: true,
                               hint: 'Please add all weeks needed',
                               collection: childcare_weeks_select

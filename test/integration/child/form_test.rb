@@ -22,6 +22,13 @@ class Child::FormTest < IntegrationTest
     assert_active_admin_comments
   end
 
+  test 'general users cannot change #childcare_deposit' do
+    @user = create_login_user :general
+    visit edit_child_path(@child)
+
+    assert_selector '#child_childcare_deposit[disabled]'
+  end
+
   test '#edit add cost_adjustment' do
     enable_javascript!
     login_user(@user)
