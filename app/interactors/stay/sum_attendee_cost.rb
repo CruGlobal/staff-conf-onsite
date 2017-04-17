@@ -1,7 +1,7 @@
 # == Context Input
 #
 # [+context.attendee+ [+Attendee+]]
-class SumAttendeeStayCost
+class Stay::SumAttendeeCost
   include Interactor
 
   before do
@@ -17,7 +17,7 @@ class SumAttendeeStayCost
   private
 
   def sum_stay_cost(stay)
-    result = SingleAttendeeStayCost.call(stay: stay)
+    result = Stay::SingleAttendeeCost.call(stay: stay)
 
     if result.success?
       context.charges[result.type] += result.total

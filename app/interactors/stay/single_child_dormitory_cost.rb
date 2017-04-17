@@ -6,7 +6,7 @@
 # == Context Output
 #
 # [+context.total+ [+Money+]]
-class SingleChildDormitoryStayCost
+class Stay::SingleChildDormitoryCost
   include Interactor
 
   # First, for ALL dorm housing assignments (in case there's more than one),

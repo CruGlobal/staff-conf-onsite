@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SumChildStayCostTest < InteractorTestCase
+class Stay::SumChildCostTest < InteractorTestCase
   setup do
     @child = create :child
     @cost_code = create_cost_code max_days: 100,
@@ -18,7 +18,7 @@ class SumChildStayCostTest < InteractorTestCase
     @child.stays.create! housing_unit: @unit, arrived_at: @arrived_at,
                          departed_at: (@arrived_at + 5.days)
 
-    @service = SumChildStayCost.new(child: @child)
+    @service = Stay::SumChildCost.new(child: @child)
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now

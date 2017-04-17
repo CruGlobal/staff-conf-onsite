@@ -101,7 +101,7 @@ class Attendee::ShowCell < ::ShowCell
   def temporary_conference_cost_panel
     panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
       cell('cost_adjustment/summary',
-           self, result: ChargeConferenceCosts.call(attendee: attendee)).call
+           self, result: Conference::ChargeCosts.call(attendee: attendee)).call
     end
   end
 
@@ -142,7 +142,7 @@ class Attendee::ShowCell < ::ShowCell
   #       the future.
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeAttendeeStays.call(attendee: attendee)
+      result = Stay::ChargeAttendee.call(attendee: attendee)
 
       temporary_stay_individual_dorms_cost_list if result.success?
       cell('cost_adjustment/summary', self, result: result).call
@@ -163,7 +163,7 @@ class Attendee::ShowCell < ::ShowCell
   end
 
   def temporary_stay_individual_dorms_cost_list_item(stay)
-    result = SingleAttendeeStayCost.call(stay: stay)
+    result = Stay::SingleAttendeeCost.call(stay: stay)
     if result.success?
       text_node humanized_money_with_symbol result.total
     else

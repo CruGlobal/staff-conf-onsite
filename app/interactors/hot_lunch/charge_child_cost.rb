@@ -1,6 +1,6 @@
-class ChargeChildStays
+class HotLunch::ChargeChildCost
   include Interactor::Organizer
 
-  organize SumChildStayCost,
+  organize HotLunch::SumChildCost,
            ApplyCostAdjustments
 end

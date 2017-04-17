@@ -107,7 +107,7 @@ class Family::ShowCell < ::ShowCell
   def temporary_conference_costs_panel
     panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
       cell('cost_adjustment/summary',
-           self, result: SumFamilyConferencesCost.call(family: family)).call
+           self, result: Conference::SumFamilyCost.call(family: family)).call
     end
   end
 
@@ -131,7 +131,7 @@ class Family::ShowCell < ::ShowCell
   #       the future.
   def temporary_rec_pass_costs_panel
     panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = SumFamilyRecPassCost.call(family: family)
+      result = RecPass::SumFamilyCost.call(family: family)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end
@@ -140,7 +140,7 @@ class Family::ShowCell < ::ShowCell
   #       the future.
   def temporary_hot_lunch_costs_panel
     panel 'Children Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = SumFamilyChildrenHotLunchCost.call(family: family)
+      result = HotLunch::SumFamilyCost.call(family: family)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end

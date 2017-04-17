@@ -1,4 +1,4 @@
-class SumFamilyChildrenHotLunchCost
+class HotLunch::SumFamilyCost
   include Interactor
 
   before do
@@ -9,7 +9,7 @@ class SumFamilyChildrenHotLunchCost
 
   def call
     context.family.children.each do |child|
-      result = ChargeChildHotLunchCost.call(child: child)
+      result = HotLunch::ChargeChildCost.call(child: child)
 
       if result.success?
         add_to_context(result)

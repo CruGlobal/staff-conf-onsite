@@ -14,9 +14,9 @@
 #
 # [+context.file+ [+ActionDispatch::Http::UploadedFile+]]
 #   a file uploaded to the server by a {User}
-class ImportMinistryHierarchySpreadsheet
+class Ministry::ImportHierarchySpreadsheet
   include Interactor::Organizer
 
   organize ReadSpreadsheet,
-           UpdateMinistryParents
+           Ministry::UpdateParents
 end

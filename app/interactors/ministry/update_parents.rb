@@ -7,7 +7,7 @@
 # The {ReadSpreadsheet} service can convert an uploaded file into the
 # representation expected by this service. See its documentation for a
 # description of the spreadsheet "ruby representation."
-class UpdateMinistryParents
+class Ministry::UpdateParents
   include Interactor
 
   Error = Class.new(StandardError)

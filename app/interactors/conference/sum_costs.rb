@@ -1,7 +1,7 @@
 # == Context Input
 #
 # [+context.attendee+ [+Attendee+]]
-class SumConferenceCosts
+class Conference::SumCosts
   include Interactor
 
   before do

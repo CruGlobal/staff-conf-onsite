@@ -5,7 +5,7 @@
 # == Context Output
 #
 # [+context.total+ [+Money+]]
-class SingleAttendeeStayCost
+class Stay::SingleAttendeeCost
   include Interactor
 
   # If the housing facility for this individual assignment is an apartment,
@@ -23,8 +23,9 @@ class SingleAttendeeStayCost
   #   2) Using Housing Facility from the assignment, determine the Cost Code.
   #
   #   3) If the housing facility is an APARTMENT, check to see if "WAIVE
-  #      MINIMUM STAY" is checked. If so, go to step 4. If MINIMUM STAY for this
-  #      housing facility is > length of stay, length of stay = MINIMUM STAY
+  #      MINIMUM STAY" is checked. If so, go to step 4. If MINIMUM STAY for
+  #      this housing facility is > length of stay, length of stay = MINIMUM
+  #      STAY
   #
   #   4) Using the Cost Code, look up Adult $?/Day daily cost. A cost code may
   #      have multiple cost "groups". The correct cost group will be determined

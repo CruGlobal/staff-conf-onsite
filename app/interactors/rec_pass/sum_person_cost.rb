@@ -1,7 +1,7 @@
 # == Context Input
 #
 # [+context.person+ [+Person+]]
-class SumPersonRecPassCost
+class RecPass::SumPersonCost
   include Interactor
 
   before do

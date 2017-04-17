@@ -1,4 +1,4 @@
-class SumFamilyRecPassCost
+class Stay::SumFamilyAttendeesCost
   include Interactor
 
   before do
@@ -8,8 +8,8 @@ class SumFamilyRecPassCost
   end
 
   def call
-    context.family.people.each do |person|
-      result = ChargePersonRecPassCost.call(person: person)
+    context.family.attendees.each do |attendee|
+      result = Stay::ChargeAttendee.call(attendee: attendee)
 
       if result.success?
         add_to_context(result)

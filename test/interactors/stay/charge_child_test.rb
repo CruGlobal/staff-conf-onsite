@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ChargeChildStaysTest < InteractorTestCase
+class Stay::ChargeChildTest < InteractorTestCase
   setup do
 
     @child = create :child
@@ -19,7 +19,7 @@ class ChargeChildStaysTest < InteractorTestCase
     @child.stays.create! housing_unit: @unit, arrived_at: @arrived_at,
                          departed_at: (@arrived_at + 5.days)
 
-    @service = ChargeChildStays.new(child: @child)
+    @service = Stay::ChargeChild.new(child: @child)
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now

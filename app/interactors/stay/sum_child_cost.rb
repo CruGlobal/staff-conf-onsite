@@ -1,7 +1,7 @@
 # == Context Input
 #
 # [+context.child+ [+Child+]]
-class SumChildStayCost
+class Stay::SumChildCost
   include Interactor
 
   before do
@@ -17,7 +17,8 @@ class SumChildStayCost
   private
 
   def stay_charge(stay)
-    result = SingleChildDormitoryStayCost.call(child: context.child, stay: stay)
+    result = Stay::SingleChildDormitoryCost.call(child: context.child,
+                                                 stay: stay)
 
     if result.success?
       result.total

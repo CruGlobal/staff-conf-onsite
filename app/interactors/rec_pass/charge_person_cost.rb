@@ -1,6 +1,6 @@
-class ChargeAttendeeStays
+class RecPass::ChargePersonCost
   include Interactor::Organizer
 
-  organize SumAttendeeStayCost,
+  organize RecPass::SumPersonCost,
            ApplyCostAdjustments
 end

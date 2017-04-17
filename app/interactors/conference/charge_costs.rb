@@ -1,6 +1,6 @@
-class ChargeConferenceCosts
+class Conference::ChargeCosts
   include Interactor::Organizer
 
-  organize SumConferenceCosts,
+  organize Conference::SumCosts,
            ApplyCostAdjustments
 end

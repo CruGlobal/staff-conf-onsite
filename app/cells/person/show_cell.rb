@@ -19,7 +19,7 @@ class Person::ShowCell < ::ShowCell
   #       the future.
   def rec_pass_cost_panel
     panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargePersonRecPassCost.call(person: person)
+      result = RecPass::ChargePersonCost.call(person: person)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end

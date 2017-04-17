@@ -1,4 +1,4 @@
-class SumFamilyAttendeesStayCost
+class Stay::SumFamilyChildrenCost
   include Interactor
 
   before do
@@ -8,8 +8,8 @@ class SumFamilyAttendeesStayCost
   end
 
   def call
-    context.family.attendees.each do |attendee|
-      result = ChargeAttendeeStays.call(attendee: attendee)
+    context.family.children.each do |child|
+      result = Stay::ChargeChild.call(child: child)
 
       if result.success?
         add_to_context(result)

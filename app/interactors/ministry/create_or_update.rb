@@ -13,7 +13,7 @@
 # [+context.sheets+ [+Enumerable+]]
 #   a ruby-representation of the uploaded spreadsheet file.  See
 #   {ReadSpreadsheet}
-class CreateOrUpdateMinistries
+class Ministry::CreateOrUpdate
   include Interactor
 
   Error = Class.new(StandardError)

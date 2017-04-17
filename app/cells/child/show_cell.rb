@@ -81,7 +81,7 @@ class Child::ShowCell < ::ShowCell
   #       the future.
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeChildStays.call(child: child)
+      result = Stay::ChargeChild.call(child: child)
 
       if result.success?
         temporary_stay_individual_dorms_cost_list
@@ -106,7 +106,7 @@ class Child::ShowCell < ::ShowCell
   end
 
   def temporary_stay_individual_dorms_cost_list_item(stay)
-    result = SingleChildDormitoryStayCost.call(child: child, stay: stay)
+    result = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
     if result.success?
       text_node humanized_money_with_symbol result.total
     else
@@ -135,7 +135,7 @@ class Child::ShowCell < ::ShowCell
 
   def temporary_hot_lunch_cost_panel
     panel 'Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeChildHotLunchCost.call(child: child)
+      result = HotLunch::ChargeChildCost.call(child: child)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end

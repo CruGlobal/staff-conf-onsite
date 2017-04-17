@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class SumPersonRecPassCostTest < InteractorTestCase
+class RecPass::SumPersonRecPassCostTest < InteractorTestCase
   setup do
     @person = create :attendee
     @date = Date.parse('2017-01-01')
 
-    @service = SumPersonRecPassCost.new(person: @person)
+    @service = RecPass::SumPersonCost.new(person: @person)
   end
 
   stub_user_variable rec_center_daily: Money.new(123_45)

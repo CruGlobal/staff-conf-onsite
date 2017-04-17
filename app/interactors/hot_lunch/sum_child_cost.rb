@@ -1,7 +1,7 @@
 # == Context Input
 #
 # [+context.child+ [+Child+]]
-class SumChildHotLunchCost
+class HotLunch::SumChildCost
   include Interactor
 
   AGE_RANGE = 4..5
