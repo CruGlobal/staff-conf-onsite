@@ -22,7 +22,7 @@ FactoryGirl.define do
     end
 
     grade_level { Child::GRADE_LEVELS.sample }
-
+    childcare_deposit false
 
     after(:build) do |child|
       # A random number of random weeks

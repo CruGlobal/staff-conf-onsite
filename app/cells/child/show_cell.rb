@@ -20,6 +20,7 @@ class Child::ShowCell < ::ShowCell
     child_attributes_table
     duration_table
     childcare_table
+    temporary_childcare_cost_panel
     temporary_hot_lunch_cost_panel
     person_cell.call(:rec_pass_cost_panel)
   end
@@ -130,6 +131,13 @@ class Child::ShowCell < ::ShowCell
       th { 'Sub-Total' }
       th { 'Adjustments' }
       th { 'Total' }
+    end
+  end
+
+  def temporary_childcare_cost_panel
+    panel 'Childcare Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = Childcare::ChargeCosts.call(child: child)
+      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 

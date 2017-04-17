@@ -50,7 +50,7 @@ class Stay::SingleChildDormitoryCost
   end
 
   def daily_costs(child, charge, single)
-    result = ListChildCosts.call(child: child, single_occupancy: single)
+    result = Stay::ListChildCosts.call(child: child, single_occupancy: single)
     result.costs.map { |cost| charge.send(cost) }
   end
 

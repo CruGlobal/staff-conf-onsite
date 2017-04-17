@@ -14,6 +14,7 @@ class Family::ShowCell < ::ShowCell
   def left_column
     family_attributes_table
     housing_preference_table
+    temporary_childcare_costs_panel
     temporary_rec_pass_costs_panel
     temporary_hot_lunch_costs_panel
   end
@@ -132,6 +133,15 @@ class Family::ShowCell < ::ShowCell
   def temporary_rec_pass_costs_panel
     panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
       result = RecPass::SumFamilyCost.call(family: family)
+      cell('cost_adjustment/summary', self, result: result).call
+    end
+  end
+
+  # TODO: This is for client-demo purposes. This will be part of some report in
+  #       the future.
+  def temporary_childcare_costs_panel
+    panel 'Childcare Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = Childcare::SumFamilyCost.call(family: family)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end

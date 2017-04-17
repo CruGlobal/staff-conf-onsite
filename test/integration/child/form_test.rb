@@ -8,7 +8,13 @@ class Child::FormTest < IntegrationTest
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now,
-                     rec_center_daily: Money.new(1_00)
+                     rec_center_daily: Money.new(1_00),
+                     childcare_week_0:  Money.new(1_00),
+                     childcare_week_1:  Money.new(2_00),
+                     childcare_week_2:  Money.new(4_00),
+                     childcare_week_3:  Money.new(8_00),
+                     childcare_week_4:  Money.new(16_00),
+                     childcare_deposit: Money.new(32_00)
 
   test '#edit fields' do
     visit edit_child_path(@child)

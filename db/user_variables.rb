@@ -1,7 +1,5 @@
 class SeedUserVariables
   RECORDS = {
-    childcare_week_1: { value_type: :money, code: :CCWK1, value: 1_00,
-      description: 'Week 1 Childcare' },
     rec_center_daily: { value_type: :money, code: :RP, value: 1_00,
       description: 'Rec Center Pass Per Day' },
     child_age_cutoff: { value_type: :date, code: :CCD, value: '2017-07-01',
@@ -11,6 +9,17 @@ class SeedUserVariables
     childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
       description: 'This is the non-refundable registration fee for any child' \
                    ' registered for either childcare or JrSr High programs.' },
+
+    childcare_week_0: { value_type: :money, code: :CCWK1, value: 1_00,
+      description: 'Week 1 Childcare' },
+    childcare_week_1: { value_type: :money, code: :CCWK2, value: 1_00,
+      description: 'Week 2 Childcare' },
+    childcare_week_2: { value_type: :money, code: :CCWK3, value: 1_00,
+      description: 'Week 3 Childcare' },
+    childcare_week_3: { value_type: :money, code: :CCWK4, value: 1_00,
+      description: 'Week 4 Childcare' },
+    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00,
+      description: 'Staff Conference Childcare' },
 
     # Hot Lunches
     hot_lunch_week_0: { value_type: :money, code: :HL1, value: 1_00,

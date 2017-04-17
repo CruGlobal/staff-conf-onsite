@@ -8,7 +8,7 @@
 # [+context.child+ [+Child+]]
 # [+context.single_occupancy+ [+Boolean+]]
 #   if the person has opted to take an entire dormitory room for themselves
-class ListChildCosts
+class Stay::ListChildCosts
   include Interactor
 
   # Use "ADULT $/DAY" column if child's age is >=15 years old
