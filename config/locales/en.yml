@@ -72,6 +72,8 @@ en:
           post_high_school: "%{label}"
         childcare_week_numbers:
           none: "No Childcare Needed"
+        hot_lunch_week_numbers:
+          none: "No Hot Lunch Needed"
         grade_level: "Age Group or Grade Level"
         grade_levels:
           age0: "Infant / Age 0"
