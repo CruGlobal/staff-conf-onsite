@@ -14,7 +14,6 @@ class PaperTrailVersion::ShowCell < ::ShowCell
 
   def version_attributes_table
     attributes_table do
-      row :id
       row('Record') { |v| version_label(v) }
       row :event
       row('When')   { |v| v.created_at.to_s :long }

@@ -2,7 +2,6 @@ class Family::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column('Family', sortable: :last_name) { |f| family_label(f) }
     column(:staff_number) { |f| code f.staff_number }
     address_columns

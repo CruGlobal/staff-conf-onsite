@@ -43,7 +43,6 @@ class Attendee::FormCell < ::FormCell
       input :conference_status
       person_cell.call(:family_selector_or_hidden)
 
-      input :student_number
       input :first_name
       input_last_name
 

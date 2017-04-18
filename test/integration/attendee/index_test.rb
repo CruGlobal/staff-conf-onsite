@@ -32,11 +32,10 @@ class Attendee::IndexTest < IntegrationTest
   test '#index columns' do
     visit attendees_path
 
-    assert_index_columns :selectable, :id, :student_number, :first_name,
-                         :last_name, :family, :birthdate, :age, :gender,
-                         :email, :phone, :emergency_contact, :department,
-                         :arrived_at, :departed_at, :created_at, :updated_at,
-                         :actions
+    assert_index_columns :selectable, :student_number, :first_name, :last_name,
+                         :family, :birthdate, :age, :gender, :email, :phone,
+                         :emergency_contact, :department, :arrived_at,
+                         :departed_at, :created_at, :updated_at, :actions
   end
 
   test '#index items' do

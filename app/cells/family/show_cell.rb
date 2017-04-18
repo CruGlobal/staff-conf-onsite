@@ -33,7 +33,6 @@ class Family::ShowCell < ::ShowCell
 
   def family_attributes_table
     attributes_table do
-      row :id
       row :last_name
       row(:staff_number) do |f|
         code f.staff_number

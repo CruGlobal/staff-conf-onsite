@@ -2,7 +2,6 @@ class Course::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column_name
     column :instructor
     column_price

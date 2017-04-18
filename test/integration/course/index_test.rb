@@ -24,9 +24,9 @@ class Course::IndexTest < IntegrationTest
   test '#index columns' do
     visit courses_path
 
-    assert_index_columns :selectable, :id, :name, :instructor, :price,
-                         :description, :week_descriptor, :ibs_code, :location,
-                         :attendees, :created_at, :updated_at, :actions
+    assert_index_columns :selectable, :name, :instructor, :price, :description,
+                         :week_descriptor, :ibs_code, :location, :attendees,
+                         :created_at, :updated_at, :actions
   end
 
   test '#index items' do

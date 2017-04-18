@@ -34,7 +34,6 @@ class Child::ShowCell < ::ShowCell
 
   def child_attributes_table
     attributes_table do
-      row :id
       personal_attributes
       row(:grade_level) { |c| grade_level_label(c) }
       row :parent_pickup

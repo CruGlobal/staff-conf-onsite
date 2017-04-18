@@ -22,9 +22,8 @@ class Conference::IndexTest < IntegrationTest
   test '#index columns' do
     visit conferences_path
 
-    assert_index_columns :selectable, :id, :name, :price, :description,
-                         :start_at, :end_at, :attendees, :created_at,
-                         :updated_at, :actions
+    assert_index_columns :selectable, :name, :price, :description, :start_at,
+                         :end_at, :attendees, :created_at, :updated_at, :actions
   end
 
   test '#index items' do

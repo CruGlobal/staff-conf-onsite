@@ -2,7 +2,6 @@ class Ministry::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column :code
     column :name
     column(:parent) { |m| m.parent.to_s }

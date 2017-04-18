@@ -2,7 +2,6 @@ class Childcare::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column :name
     column :teachers
     column :location

@@ -17,10 +17,10 @@ class Child::ShowTest < IntegrationTest
     assert_selector '#page_title', text: @child.full_name
 
     within('.panel', text: 'Child Details') do
-      assert_show_rows :id, :first_name, :last_name, :family, :gender,
-                       :birthdate, :age, :grade_level, :parent_pickup,
-                       :needs_bed, :created_at, :updated_at,
-                       :rec_center_pass_started_at, :rec_center_pass_expired_at,
+      assert_show_rows :first_name, :last_name, :family, :gender, :birthdate,
+                       :age, :grade_level, :parent_pickup, :needs_bed,
+                       :created_at, :updated_at, :rec_center_pass_started_at,
+                       :rec_center_pass_expired_at,
                        selector: "#attributes_table_child_#{@child.id}"
     end
 

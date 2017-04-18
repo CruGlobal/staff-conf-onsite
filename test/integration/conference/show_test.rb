@@ -10,7 +10,7 @@ class Conference::ShowTest < IntegrationTest
     visit conference_path(@conference)
 
     assert_selector '#page_title', text: @conference.name
-    assert_show_rows :id, :name, :price, :description, :start_at, :end_at,
+    assert_show_rows :name, :price, :description, :start_at, :end_at,
                      :waive_off_campus_facility_fee, :created_at, :updated_at
     assert_active_admin_comments
   end

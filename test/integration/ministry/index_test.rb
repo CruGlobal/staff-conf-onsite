@@ -20,8 +20,8 @@ class Ministry::IndexTest < IntegrationTest
   test '#index columns' do
     visit ministries_path
 
-    assert_index_columns :selectable, :id, :name, :parent, :members,
-                         :created_at, :updated_at, :actions
+    assert_index_columns :selectable, :name, :parent, :members, :created_at,
+                         :updated_at, :actions
   end
 
   test '#index items' do

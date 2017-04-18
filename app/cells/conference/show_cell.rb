@@ -14,7 +14,6 @@ class Conference::ShowCell < ::ShowCell
 
   def conference_attributes_table
     attributes_table do
-      row :id
       row :name
       row(:price) { |c| humanized_money_with_symbol(c.price) }
       row(:description) { |c| c.description.try(:html_safe) }

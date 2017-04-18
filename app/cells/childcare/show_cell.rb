@@ -14,7 +14,6 @@ class Childcare::ShowCell < ::ShowCell
 
   def childcare_attributes_table
     attributes_table do
-      row :id
       row :name
       row :teachers
       row :location

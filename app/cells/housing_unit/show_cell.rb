@@ -12,7 +12,6 @@ class HousingUnit::ShowCell < ::ShowCell
 
   def housing_unit_attributes
     attributes_table do
-      row :id
       row :name
       row :housing_facility
       row(:housing_type) { |u| housing_type_label(u.housing_facility) }

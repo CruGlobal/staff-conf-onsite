@@ -2,7 +2,6 @@ class Seminary::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column :name
     column :code
     column_course_price

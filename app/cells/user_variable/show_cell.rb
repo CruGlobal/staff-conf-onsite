@@ -3,7 +3,6 @@ class UserVariable::ShowCell < ::ShowCell
 
   def show
     attributes_table do
-      row :id
       row :code
       row(:value_type) { |var| user_variable_type(var) }
       row(:description) { |var| html_full(var.description) }

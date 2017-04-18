@@ -2,7 +2,6 @@ class Child::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     personal_columns
     column(:grade_level) { |c| grade_level_label(c) }
     column(:childcare) { |c| childcare_column(c) }

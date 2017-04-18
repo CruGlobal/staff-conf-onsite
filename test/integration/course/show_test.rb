@@ -10,7 +10,7 @@ class Course::ShowTest < IntegrationTest
     visit course_path(@course)
 
     assert_selector '#page_title', text: @course.name
-    assert_show_rows :id, :name, :instructor, :price, :description, :ibs_code,
+    assert_show_rows :name, :instructor, :price, :description, :ibs_code,
                      :location, :created_at, :updated_at
     assert_active_admin_comments
   end

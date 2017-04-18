@@ -54,7 +54,7 @@ class Child::IndexTest < IntegrationTest
   test '#index columns' do
     visit children_path
 
-    assert_index_columns :selectable, :id, :first_name, :last_name, :family,
+    assert_index_columns :selectable, :first_name, :last_name, :family,
                          :gender, :birthdate, :age, :grade_level,
                          :parent_pickup, :needs_bed, :arrived_at, :departed_at,
                          :created_at, :updated_at, :actions

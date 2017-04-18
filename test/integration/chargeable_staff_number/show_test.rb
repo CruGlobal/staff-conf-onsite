@@ -9,7 +9,7 @@ class ChargeableStaffNumber::ShowTest < IntegrationTest
   test '#show details' do
     visit chargeable_staff_number_path(@chargeable)
 
-    assert_show_rows :id, :staff_number, :created_at
+    assert_show_rows :staff_number, :created_at
     assert_active_admin_comments
   end
 

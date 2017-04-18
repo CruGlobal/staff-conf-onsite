@@ -2,7 +2,6 @@ class Attendee::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column(:student_number) { |a| code a.student_number }
     personal_columns
     contact_columns
