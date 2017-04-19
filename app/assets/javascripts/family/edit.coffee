@@ -1,7 +1,5 @@
-$ ->
-  $form = $('#new_family, #edit_family')
-  return unless $form.length
-
+pageAction 'families', 'edit', ->
+  $form = $('form')
   setupHousinTypeDynamicFields($form.find('.housing_preference_attributes'))
   setupConfirmedAtToggleButton($form.find('.housing_preference_attributes'))
 

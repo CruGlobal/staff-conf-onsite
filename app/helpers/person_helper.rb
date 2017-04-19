@@ -73,6 +73,10 @@ module PersonHelper
     end
   end
 
+  def family_select
+    @family_select ||= Family.all.includes(:attendees).map { |f| [f, f.id] }
+  end
+
   def last_name_label(person)
     # TODO: remove this first case when certain everyone has a Family
     if person.family.nil?

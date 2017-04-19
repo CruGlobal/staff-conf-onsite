@@ -20,7 +20,7 @@ class Person::FormCell < ::FormCell
     end
 
     if policy.update_family?
-      input :family
+      input :family, as: :select, collection: family_select
     elsif family_id.present?
       input :family_id, as: :hidden
     end

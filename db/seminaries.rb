@@ -1,0 +1,19 @@
+class SeedSeminaries
+  RECORDS = {
+    IBS: { name: 'IBS', course_price: 0 }
+  }.freeze
+
+  def initialize
+    @existing = UserVariable.cached_values.keys
+  end
+
+  def call
+    RECORDS.each { |code, attributes| create_unless_exists(code, attributes) }
+  end
+
+  private
+
+  def create_unless_exists(code, attributes = {})
+    Seminary.find_or_create_by!(code: code) { |s| s.assign_attributes(attributes) }
+  end
+end

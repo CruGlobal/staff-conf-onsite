@@ -3,7 +3,8 @@ require 'test_helper'
 class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
   test 'single primary person, should create new Attendee' do
     assert_difference ->{ Attendee.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+      result = import_spreadsheet('people-import--single-primary.xlsx')
+      assert result.success?, result.message
     end
 
     @person = Attendee.last
@@ -24,7 +25,8 @@ class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
 
   test 'single primary person, should create Family' do
     assert_difference ->{ Family.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+      result = import_spreadsheet('people-import--single-primary.xlsx')
+      assert result.success?, result.message
     end
 
     @family = Family.last

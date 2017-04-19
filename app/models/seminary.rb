@@ -16,11 +16,6 @@ class Seminary < ApplicationRecord
   end
 
   def self.default
-    @default ||=
-      Seminary.find_or_create_by(code: 'IBS') do |seminary|
-        seminary.name = 'IBS'
-        seminary.code = 'IBS'
-        seminary.course_price = 0
-      end
+    @default ||= Seminary.find_by(code: 'IBS')
   end
 end

@@ -50,6 +50,9 @@ class AttendeeTest < ModelTestCase
   end
 
   test 'default seminary should be IBS' do
+    SeedSeminaries.new.call
+
+    refute_nil Seminary.default
     assert_equal Attendee.new.seminary, Seminary.default
   end
 end

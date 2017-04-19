@@ -39,6 +39,7 @@
 #
 #  Family -----------------------------
 #= require family/edit
+#= require family/spreadsheet
 #
 #  HousingUnit ------------------------
 #= require housing/select_housing_unit

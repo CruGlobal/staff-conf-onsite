@@ -8,8 +8,6 @@ class FormCell < ShowCell
 
   delegates :object, :new_record?
 
-  make_method_return_nil :actions, :inputs
-
   protected
 
   # If the form contains any errors (from the user's last POST), display those
