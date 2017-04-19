@@ -20,6 +20,6 @@ class Attendee < Person
   protected
 
   def set_default_seminary
-    self.seminary ||= Seminary.default
+    self.seminary_id ||= Seminary.default.id
   end
 end
