@@ -11,9 +11,4 @@ ActiveAdmin.register HousingUnit do
   belongs_to :housing_facility
 
   permit_params :name
-
-  action_item :import_rooms, only: :index do
-    link_to 'Import Spreadsheet',
-            new_spreadsheet_housing_facility_path(params[:housing_facility_id])
-  end
 end

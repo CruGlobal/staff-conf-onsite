@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
+  before do
+    SeedSeminaries.new.call
+  end
+
   test 'single primary person, should create new Attendee' do
     assert_difference ->{ Attendee.count }, +1 do
       result = import_spreadsheet('people-import--single-primary.xlsx')

@@ -15,7 +15,7 @@ gem 'oj', '~> 2.18'
 
 # Framework
 gem 'rails', '~> 4.2.7.1'
-gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'activeadmin', '~> 1.0.0.pre5'
 gem 'paper_trail', '~> 5.2.2'
 gem 'interactor-rails', '~> 2.0.2'
 # TODO: gem 'axlsx' requires rubycsv = 1.0. Update roo when that changes

@@ -23,23 +23,20 @@ ActiveAdmin.register HousingFacility do
   filter :created_at
   filter :updated_at
 
-  action_item :import_rooms, only: :show do
+  action_item :import_rooms, only: :index do
     link_to 'Import Spreadsheet', action: :new_spreadsheet
   end
 
-  member_action :new_spreadsheet, title: 'Import Spreadsheet'
-  member_action :import_spreadsheet, method: :post do
+  collection_action :new_spreadsheet, title: 'Import Spreadsheet'
+  collection_action :import_spreadsheet, method: :post do
     res =
       ImportHousingUnitsSpreadsheet.call(
         ActionController::Parameters.new(params).
-          require('import_spreadsheet').
-          permit(:file, :skip_first, :delete_existing).reverse_merge(
-            housing_facility_id: params[:id]
-          )
+          require('import_spreadsheet').permit(:file, :skip_first)
       )
 
     if res.success?
-      redirect_to housing_facility_path(params[:id]),
+      redirect_to housing_facilities_path,
                   notice: 'Housing Units imported successfully.'
     else
       redirect_to new_spreadsheet_rooms_path, flash: { error: res.message }
