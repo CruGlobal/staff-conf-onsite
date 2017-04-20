@@ -39,7 +39,7 @@ class CreateHousingUnits
   end
 
   def create_from_row(row, index)
-      Import::HousingUnit.from_array(index + 1, row)
+    Import::HousingUnit.from_array(index + 1, row)
   end
 
   def build_models(import_models)

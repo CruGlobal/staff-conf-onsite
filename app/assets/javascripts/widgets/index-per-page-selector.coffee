@@ -56,7 +56,8 @@ updateQueryStringParameter = (key, value) ->
 
 # Return the current number of items shown
 currentPerPage = ->
-  parseInt(getUrlParameter('per_page') || '30', 10)
+  initial = Math.min(30, recordsCount())
+  parseInt(getUrlParameter('per_page') || "#{initial}", 10)
 
 getUrlParameter = (selectedParam) ->
   pageURL = decodeURIComponent(window.location.search.substring(1))
