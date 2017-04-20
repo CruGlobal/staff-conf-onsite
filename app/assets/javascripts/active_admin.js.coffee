@@ -14,6 +14,7 @@
 #= require chosen-jquery
 #= require jquery.dropdown.1.6
 #= require widgets/chosen-jquery
+#= require widgets/index-per-page-selector
 #
 #  Telephone Numbers ------------------
 #= require intlTelInput

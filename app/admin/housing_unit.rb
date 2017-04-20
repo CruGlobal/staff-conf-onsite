@@ -7,6 +7,21 @@ ActiveAdmin.register HousingUnit do
   end
 
   config.sort_order = 'name_asc'
+  order_by(:name) do |clause|
+    if clause.order == 'desc'
+      [
+        'substring(name, \'^\D+\') NULLS LAST',
+        'substring(name, \'\d+\')::int NULLS LAST',
+        'name'
+      ].join(', ') + ' desc'
+    else
+      [
+        'substring(name, \'^\D+\') NULLS FIRST',
+        'substring(name, \'\d+\')::int NULLS FIRST',
+        'name'
+      ].join(', ') + ' asc'
+    end
+  end
 
   belongs_to :housing_facility
 

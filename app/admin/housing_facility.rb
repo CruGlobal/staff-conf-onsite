@@ -39,7 +39,7 @@ ActiveAdmin.register HousingFacility do
       redirect_to housing_facilities_path,
                   notice: 'Housing Units imported successfully.'
     else
-      redirect_to new_spreadsheet_rooms_path, flash: { error: res.message }
+      redirect_to new_spreadsheet_housing_facilities_path, flash: { error: res.message }
     end
   end
 end
