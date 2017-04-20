@@ -39,7 +39,8 @@ class CreateHousingUnits
   end
 
   def create_from_row(row, index)
-    Import::HousingUnit.from_array(index + 1, row)
+    row_number = index + (context.skip_first ? 2 : 1)
+    Import::HousingUnit.from_array(row_number, row)
   end
 
   def build_models(import_models)
@@ -61,7 +62,7 @@ class CreateHousingUnits
   def find_facility(name)
     @housing_facilities.find { |f| f.name == name }.tap do |facility|
       if facility.nil?
-        raise Error, format('Could not find HousingFacility: %p', name)
+        raise Error, format('Could not find HousingFacility: %s', name)
       end
     end
   end

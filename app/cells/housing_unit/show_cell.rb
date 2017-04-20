@@ -16,7 +16,6 @@ class HousingUnit::ShowCell < ::ShowCell
       row(:housing_type) { |u| housing_type_label(u.housing_facility) }
       row :name
       row :occupancy_type
-      row :room_type
       row :created_at
       row :updated_at
     end

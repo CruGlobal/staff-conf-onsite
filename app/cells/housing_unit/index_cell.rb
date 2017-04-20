@@ -4,7 +4,6 @@ class HousingUnit::IndexCell < ::IndexCell
 
     column :name
     column :occupancy_type
-    column :room_type
     column :created_at
     column :updated_at
 

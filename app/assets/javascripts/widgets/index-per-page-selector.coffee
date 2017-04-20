@@ -38,14 +38,16 @@ recordsCount = ->
   parseInt(count.match(/\d+/)[0], 10)
 
 createItem = (limit, label) ->
-  url = updateQueryStringParameter('per_page', limit)
-  $link = $('<a class="batch_action">').text(label).attr('href', url)
+  uri = document.URL
+  uri = updateQueryStringParameter(uri, 'per_page', limit)
+  uri = updateQueryStringParameter(uri, 'page', 1)
+
+  $link = $('<a class="batch_action">').text(label).attr('href', uri)
   if limit == currentPerPage()
     $link.addClass('active')
   $('<li>').append($link)
 
-updateQueryStringParameter = (key, value) ->
-  uri = document.URL
+updateQueryStringParameter = (uri, key, value) ->
   re = new RegExp("([?&])#{key}=.*?(&|$)", 'i')
   separator = if uri.indexOf('?') != -1 then '&' else '?'
 
