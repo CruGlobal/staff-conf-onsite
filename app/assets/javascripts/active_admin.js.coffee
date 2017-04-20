@@ -3,9 +3,11 @@
 #  Widgets
 #  ====================================
 #
+#= require util/page_actions
+#
 #= require ckeditor-jquery
 #= require widgets/ckeditor
-#= require util/page_actions
+#= require widgets/spinner
 #
 #  Date Inputs ------------------------
 #= require widgets/dates
@@ -40,7 +42,6 @@
 #
 #  Family -----------------------------
 #= require family/edit
-#= require family/spreadsheet
 #
 #  HousingUnit ------------------------
 #= require housing/select_housing_unit
