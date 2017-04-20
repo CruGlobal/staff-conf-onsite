@@ -12,7 +12,6 @@ class Seminary::ShowCell < ::ShowCell
 
   def left_column
     attributes_table do
-      row :id
       row :name
       row :code
       row(:course_price) { |s| humanized_money_with_symbol(s.course_price) }

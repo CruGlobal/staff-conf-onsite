@@ -3,7 +3,8 @@ require 'test_helper'
 class Child::IndexTest < IntegrationTest
   before do
     @user = create_login_user
-    @child = create :child
+    @child = create :child, :childcare
+    @childcare = create :childcare
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now
@@ -28,7 +29,6 @@ class Child::IndexTest < IntegrationTest
     login_user(@user)
 
     @child.update!(childcare_id: nil)
-    @childcare = create :childcare
 
     visit children_path
     within("#child_#{@child.id}") do
@@ -39,10 +39,22 @@ class Child::IndexTest < IntegrationTest
     refute_nil @child.reload.childcare_id
   end
 
+  test '#index set childcare invalid' do
+    enable_javascript!
+    login_user(@user)
+
+    @old_child = create :child, :senior
+
+    visit children_path
+    within("#child_#{@old_child.id}") do
+      refute_selector "select[name='child[childcare_id]']"
+    end
+  end
+
   test '#index columns' do
     visit children_path
 
-    assert_index_columns :selectable, :id, :first_name, :last_name, :family,
+    assert_index_columns :selectable, :first_name, :last_name, :family,
                          :gender, :birthdate, :age, :grade_level,
                          :parent_pickup, :needs_bed, :arrived_at, :departed_at,
                          :created_at, :updated_at, :actions

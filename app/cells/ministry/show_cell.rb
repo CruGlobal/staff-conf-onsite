@@ -18,7 +18,6 @@ class Ministry::ShowCell < ::ShowCell
 
   def ministry_attributes_table
     attributes_table do
-      row :id
       row :code
       row :name
       row(:parent) do |m|

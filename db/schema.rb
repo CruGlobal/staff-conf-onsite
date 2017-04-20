@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409025132) do
+ActiveRecord::Schema.define(version: 20170419235719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,6 +186,8 @@ ActiveRecord::Schema.define(version: 20170409025132) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "occupancy_type"
+    t.string   "room_type"
   end
 
   add_index "housing_units", ["housing_facility_id", "name"], name: "index_housing_units_on_housing_facility_id_and_name", unique: true, using: :btree

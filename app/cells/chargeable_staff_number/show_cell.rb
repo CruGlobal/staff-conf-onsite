@@ -14,7 +14,6 @@ class ChargeableStaffNumber::ShowCell < ::ShowCell
 
   def chargeable_staff_number_attributes_table
     attributes_table do
-      row :id
       row :staff_number
       row :created_at
     end

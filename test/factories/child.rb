@@ -21,18 +21,29 @@ FactoryGirl.define do
       end
     end
 
-    # A random number of random weeks
-    childcare_weeks do
-      if grade_level == 'postHighSchool'
-        nil
-      else
-        count = Childcare::CHILDCARE_WEEKS.size
-        samples = Faker::Number.between(0, count)
-        (0...count).to_a.shuffle[0...samples]
+    grade_level { Child::GRADE_LEVELS.sample }
+    childcare_deposit false
+
+    after(:build) do |child|
+      # A random number of random weeks
+      child.childcare_weeks do
+        if child.too_old_for_childcare?
+          nil
+        else
+          count = Childcare::CHILDCARE_WEEKS.size
+          samples = Faker::Number.between(0, count)
+          (0...count).to_a.shuffle[0...samples]
+        end
       end
     end
 
-    grade_level { Child::GRADE_LEVELS.sample }
+    trait :childcare do
+      grade_level { Child.childcare_grade_levels.sample }
+    end
+
+    trait :senior do
+      grade_level { Child.senior_grade_levels.sample }
+    end
 
     factory :child_with_meal_exemptions do
       transient do

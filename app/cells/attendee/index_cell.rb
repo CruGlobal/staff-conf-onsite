@@ -2,7 +2,6 @@ class Attendee::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column(:student_number) { |a| code a.student_number }
     personal_columns
     contact_columns
@@ -19,7 +18,7 @@ class Attendee::IndexCell < ::IndexCell
     column :first_name
     column :last_name
     column(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-    column :birthdate
+    column(:birthdate) { |a| birthdate_label(a) }
     column(:age, sortable: :birthdate) { |a| age(a) }
     column(:gender) { |a| gender_name(a.gender) }
   end

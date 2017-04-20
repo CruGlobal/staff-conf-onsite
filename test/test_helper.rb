@@ -6,6 +6,7 @@ require 'webmock/minitest'
 require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
 require 'minitest/reporters'
+require_relative '../db/seminaries'
 
 Minitest::Reporters.use!
 

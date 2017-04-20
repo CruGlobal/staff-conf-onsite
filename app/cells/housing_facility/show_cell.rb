@@ -12,7 +12,6 @@ class HousingFacility::ShowCell < ::ShowCell
   private
 
   def detail_rows
-    row :id
     row :name
     row(:housing_type) { |hf| hf.housing_type.titleize }
     row(:cost_code) { |hf| link_to(hf.cost_code, hf.cost_code) if hf.cost_code }

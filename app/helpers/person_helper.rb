@@ -29,6 +29,14 @@ module PersonHelper
     end
   end
 
+  def birthdate_label(person)
+    if person.birthdate.present?
+      person.birthdate
+    else
+      span('Empty', class: 'empty danger')
+    end
+  end
+
   # @param dob [Date]
   # @return [Fixnum, nil] the age, in years, of a person born on the given
   #   date, or +nil+ if the given date is +nil+
@@ -63,6 +71,10 @@ module PersonHelper
     else
       'no attendees'
     end
+  end
+
+  def family_select
+    @family_select ||= Family.all.includes(:attendees).map { |f| [f, f.id] }
   end
 
   def last_name_label(person)

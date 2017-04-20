@@ -27,7 +27,7 @@ class HousingUnit::IndexTest < IntegrationTest
   test '#index columns' do
     visit_housing_unit :index
 
-    assert_index_columns :id, :name, :created_at, :updated_at, :actions
+    assert_index_columns :name, :created_at, :updated_at, :actions
   end
 
   test '#index items' do

@@ -12,12 +12,6 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multi
       end
       li class: 'boolean input' do
         label do
-          f.check_box :delete_existing
-          span 'Delete Housing Units not listed in spreadsheet'
-        end
-      end
-      li class: 'boolean input' do
-        label do
           f.check_box :skip_first
           span 'Skip Header Row'
         end
@@ -27,12 +21,8 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multi
 
   fieldset class: 'actions' do
     ol do
-      li class: 'action input_action' do
-        submit_tag 'Submit'
-      end
-      li class: 'cancel' do
-        link_to 'Cancel', housing_facility_path(params[:id])
-      end
+      li(class: 'action input_action') { submit_tag 'Submit' }
+      li(class: 'cancel') { link_to 'Cancel', housing_facilities_path }
     end
   end
 end

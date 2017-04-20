@@ -12,10 +12,11 @@ class HousingUnit::ShowCell < ::ShowCell
 
   def housing_unit_attributes
     attributes_table do
-      row :id
-      row :name
       row :housing_facility
       row(:housing_type) { |u| housing_type_label(u.housing_facility) }
+      row :name
+      row :occupancy_type
+      row :room_type
       row :created_at
       row :updated_at
     end

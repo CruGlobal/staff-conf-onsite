@@ -16,7 +16,8 @@ class HousingUnit::ShowTest < IntegrationTest
     visit_housing_unit :show
 
     within('.panel', text: 'Housing Unit Details') do
-      assert_show_rows :id, :name, :housing_facility, :housing_type, :created_at, :updated_at, 
+      assert_show_rows :name, :housing_facility, :housing_type, :created_at,
+                       :updated_at,
                        selector: "#attributes_table_housing_unit_#{@housing_unit.id}"
     end
   end

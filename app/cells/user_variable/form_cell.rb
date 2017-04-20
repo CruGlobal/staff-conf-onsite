@@ -27,9 +27,7 @@ class UserVariable::FormCell < ::FormCell
     if new_record? || policy.create?
       input :value_type
     else
-      input :value_type, as: :string, input_html: {
-        readonly: true, value: user_variable_type(object)
-      }
+      input :value_type, input_html: { disabled: true }
     end
   end
 

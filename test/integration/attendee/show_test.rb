@@ -13,11 +13,16 @@ class Attendee::ShowTest < IntegrationTest
     visit attendee_path(@attendee)
 
     assert_selector '#page_title', text: @attendee.full_name
-    assert_show_rows :id, :student_number, :first_name, :last_name, :family,
-                     :birthdate, :age, :gender, :email, :phone, :emergency_contact,
-                     :ministry, :department, :created_at, :updated_at,
+    assert_show_rows :first_name, :last_name, :family, :birthdate, :age,
+                     :gender, :email, :phone, :emergency_contact, :ministry,
+                     :department, :created_at, :updated_at,
                      :rec_center_pass_started_at, :rec_center_pass_expired_at,
                      selector: "#attributes_table_attendee_#{@attendee.id}"
+
+    within '.attendances.panel' do
+      assert_text 'Student Number'
+      assert_text 'IBS Comments'
+    end
 
     assert_active_admin_comments
   end

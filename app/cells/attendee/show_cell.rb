@@ -16,10 +16,14 @@ class Attendee::ShowCell < ::ShowCell
     @person_cell ||= cell('person/show', model, person: attendee)
   end
 
+  def cost_cell
+    @cost_cell ||= cell('attendee/cost', model, attendee: attendee)
+  end
+
   def left_column
     attendee_attributes_table
     conferences_panel
-    temporary_conference_cost_panel
+    cost_cell.call(:temporary_conference_cost_panel)
     attendances_panel
     person_cell.call(:rec_pass_cost_panel)
   end
@@ -27,14 +31,13 @@ class Attendee::ShowCell < ::ShowCell
   def right_column
     person_cell.call(:stays)
     person_cell.call(:cost_adjustments)
-    temporary_stay_cost_panel
+    cost_cell.call(:temporary_stay_cost_panel)
     person_cell.call(:meal_exemptions)
   end
 
   def attendee_attributes_table
     attributes_table do
-      row :id
-      row(:student_number) { |a| code a.student_number }
+      row :conference_status
       personal_rows
       contact_rows
       ministry_row
@@ -51,10 +54,9 @@ class Attendee::ShowCell < ::ShowCell
   def personal_rows
     row :first_name
     row :last_name
-    row :conference_status
     row :tshirt_size
     row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-    row :birthdate
+    row(:birthdate) { |a| birthdate_label(a) }
     row(:age, sortable: :birthdate) { |a| age_label(a) }
     row(:gender) { |a| gender_name(a.gender) }
     row :mobility_comment
@@ -98,13 +100,6 @@ class Attendee::ShowCell < ::ShowCell
     end
   end
 
-  def temporary_conference_cost_panel
-    panel 'Conference Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      cell('cost_adjustment/summary',
-           self, result: ChargeConferenceCosts.call(attendee: attendee)).call
-    end
-  end
-
   def conference_list
     ul do
       attendee.conferences.each { |c| li { link_to(c.name, c) } }
@@ -113,9 +108,20 @@ class Attendee::ShowCell < ::ShowCell
 
   def attendances_panel
     panel 'Courses', class: 'attendances' do
+      student_number
+
       attendances = attendee.course_attendances.includes(:course)
-      attendances.any? ? attendances_list(attendances) : strong('None')
+      attendances.any? ? attendances_list(attendances) : strong('No Courses')
+
       course_comment
+    end
+  end
+
+  def student_number
+    div do
+      strong 'Student Number: '
+      code attendee.student_number
+      hr
     end
   end
 
@@ -135,39 +141,6 @@ class Attendee::ShowCell < ::ShowCell
       else
         para strong 'None'
       end
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_stay_cost_panel
-    panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeAttendeeStays.call(attendee: attendee)
-
-      temporary_stay_individual_dorms_cost_list if result.success?
-      cell('cost_adjustment/summary', self, result: result).call
-    end
-  end
-
-  def temporary_stay_individual_dorms_cost_list
-    stays = attendee.stays
-    return if stays.empty?
-
-    h4 'Individual Stays:'
-    dl do
-      stays.each do |stay|
-        dt { join_stay_dates(stay) }
-        dd { temporary_stay_individual_dorms_cost_list_item(stay) }
-      end
-    end
-  end
-
-  def temporary_stay_individual_dorms_cost_list_item(stay)
-    result = SingleAttendeeStayCost.call(stay: stay)
-    if result.success?
-      text_node humanized_money_with_symbol result.total
-    else
-      div(class: 'flash flash_error') { result.error }
     end
   end
 end

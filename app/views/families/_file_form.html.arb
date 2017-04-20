@@ -16,11 +16,12 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multi
   fieldset class: 'actions' do
     ol do
       li class: 'action input_action' do
-        submit_tag 'Submit', data: { disable_with: 'This may take some time…' }
+        text_node submit_tag 'Submit', data: { disable_with: 'This may take some time…' }
       end
       li class: 'cancel' do
         link_to 'Cancel', families_path
       end
+      li { cell('widget/spinner', self, size: 24, classes: 'hide') }
     end
   end
 end

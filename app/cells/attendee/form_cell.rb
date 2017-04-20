@@ -40,13 +40,12 @@ class Attendee::FormCell < ::FormCell
 
   def attendee_inputs
     inputs 'Basic', class: 'basic' do
+      input :conference_status
       person_cell.call(:family_selector_or_hidden)
 
-      input :student_number
       input :first_name
       input_last_name
 
-      input :conference_status
       input :tshirt_size
       input :gender, as: :select, collection: gender_select
       datepicker_input(model, :birthdate)
@@ -99,16 +98,17 @@ class Attendee::FormCell < ::FormCell
     collection = [:course_attendances, object.course_attendances]
 
     panel 'Courses' do
+      inputs class: 'course-inputs' do
+        input :student_number
+        input :ibs_comment, input_html: { rows: 4 }
+      end
+
       has_many :course_attendances, heading: nil, collection:
           collection, new_record: 'Add New Course' do |f|
         f.input :course
         f.input :grade, collection: course_grade_select
         f.input :seminary_credit
         f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
-      end
-
-      inputs class: 'ibs-comment-input' do
-        input :ibs_comment, input_html: { rows: 4 }
       end
     end
   end

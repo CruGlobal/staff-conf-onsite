@@ -16,8 +16,6 @@ class Seminary < ApplicationRecord
   end
 
   def self.default
-    Rails.cache.fetch(:default_seminary, expires_in: 1.week) do
-      Seminary.find_by(code: 'IBS')
-    end
+    @default ||= Seminary.find_by(code: 'IBS')
   end
 end

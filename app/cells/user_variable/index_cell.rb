@@ -1,7 +1,6 @@
 class UserVariable::IndexCell < ::IndexCell
   def show
     selectable_column
-    id_column
 
     column :code
     column(:type) { |var| user_variable_type(var) }

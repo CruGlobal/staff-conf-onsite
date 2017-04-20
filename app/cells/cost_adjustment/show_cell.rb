@@ -3,7 +3,6 @@ class CostAdjustment::ShowCell < ::ShowCell
 
   def show
     attributes_table do
-      row :id
       row_person
       row_type
       row_price

@@ -54,7 +54,7 @@ module ChildcareHelper
           labels.each { |week_label| li { week_label } }
         end
       else
-        span I18n.t('activerecord.attributes.child.childcare_week_numbers.none')
+        span I18n.t('activerecord.attributes.child.hot_lunch_week_numbers.none')
       end
     end
   end

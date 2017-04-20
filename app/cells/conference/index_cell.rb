@@ -2,7 +2,6 @@ class Conference::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column_name
     column_price
     column_description

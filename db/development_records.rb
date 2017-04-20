@@ -45,6 +45,27 @@ class SeedDevelopmentRecords
     'XTrack Training Team'
   ].freeze
 
+  HOUSING_FACILITIES = [
+    'Academic Village -E (private bathroom, with A/C)',
+    'Academic Village -H (private bathroom, with A/C)',
+    'Alpine (private bathroom, with A/C)',
+    'Alpine (suite style, with A/C)',
+    'Corbett (suite style, no A/C)',
+    'Durward (community bathroom, no A/C)',
+    'Parmelee (suite style, no A/C)',
+    'Piñon (private bathroom, with A/C)',
+    'Piñon (suite style, with A/C)',
+    'Summit (suite style, with A/C)',
+    'Westfall (community bathroom, no A/C)',
+    'Alpine (community bathroom with A/C)',
+    'Piñon (community bathroom with A/C)',
+    'Rams Park',
+    'Rams Village East',
+    'Rams Village West',
+    'The Summit On College',
+    'University Village'
+  ].freeze
+
   def initialize
     FactoryGirl.find_definitions
   end
@@ -53,6 +74,7 @@ class SeedDevelopmentRecords
     create_users
     create_courses
     create_conferences
+    create_housing_facilities
   end
 
   private
@@ -75,5 +97,10 @@ class SeedDevelopmentRecords
 
   def create_conferences
     CONFERENCES.each { |name| create :conference, name: name }
+  end
+
+  def create_housing_facilities
+    require_relative '../app/models/cost_code_charge'
+    HOUSING_FACILITIES.each { |name| create :housing_facility, name: name }
   end
 end

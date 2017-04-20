@@ -131,7 +131,11 @@ module Import
     end
 
     def housing_roommates_details
-      format('%s <%s>', housing_roommates, housing_roommates_email)
+      if housing_roommates_email.present?
+        format('%s <%s>', housing_roommates, housing_roommates_email)
+      else
+        housing_roommates
+      end
     end
 
     def family_record
@@ -174,18 +178,10 @@ module Import
         end
     end
 
-    def birthdate
-      @birthdate || calculate_birthdate
-    end
-
     private
 
     def true_string?(str)
       str.try(:downcase) == 'yes' || TRUE_VALUES.include?(str)
-    end
-
-    def calculate_birthdate
-      UserVariable[:child_age_cutoff] - age.to_i.years if age.present?
     end
   end
 end

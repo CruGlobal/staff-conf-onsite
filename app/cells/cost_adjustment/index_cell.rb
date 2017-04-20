@@ -2,7 +2,6 @@ class CostAdjustment::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column_person
     column_type
     column_price

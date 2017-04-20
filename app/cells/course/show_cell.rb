@@ -14,7 +14,6 @@ class Course::ShowCell < ::ShowCell
 
   def course_attributes_table
     attributes_table do
-      row :id
       row :name
       row :instructor
       row(:price) { |c| humanized_money_with_symbol(c.price) }

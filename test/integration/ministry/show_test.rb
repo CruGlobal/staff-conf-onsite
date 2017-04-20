@@ -10,7 +10,7 @@ class Ministry::ShowTest < IntegrationTest
     visit ministry_path(@ministry)
 
     assert_selector '#page_title', text: @ministry.name
-    assert_show_rows :id, :code, :name, :parent, :created_at, :updated_at
+    assert_show_rows :code, :name, :parent, :created_at, :updated_at
     assert_active_admin_comments
   end
 

@@ -12,21 +12,20 @@
 class CreateHousingUnits
   include Interactor
 
+  RowRecord = Struct.new(:record, :import)
   Error = Class.new(StandardError)
-  TRUE_VALUES = ReadSpreadsheet::TRUE_VALUES
+
+  before do
+    @housing_facilities = HousingFacility.all.includes(:housing_units)
+  end
 
   # Create each {HousingUnit} referenced in the given sheets.
   #
   # @return [Interactor::Context]
   def call
-    all_units = housing_facility.housing_units.to_a
-    names = parse_sheets
-    new_names = names - all_units.map(&:name)
-
-    HousingFacility.transaction do
-      possibly_delete_existing(all_units, names)
-      create_units(new_names)
-    end
+    import_models = parse_sheets
+    row_records = build_models(import_models)
+    save_all!(row_records)
   rescue Error => e
     context.fail! message: e.message
   end
@@ -35,40 +34,50 @@ class CreateHousingUnits
 
   def parse_sheets
     context.sheets.flat_map do |rows|
-      rows.flat_map { |row| row.compact.map(&method(:parse_cell)) }
-    end.compact.uniq
-  end
-
-  def parse_cell(cell)
-    case cell
-    when Numeric
-      cell.to_i.to_s
-    else
-      cell.to_s.strip
+      rows.each_with_index.map(&method(:create_from_row))
     end
   end
 
-  def possibly_delete_existing(units, names_to_keep)
-    if delete_existing?
-      remove_units = units.reject { |u| names_to_keep.include?(u.name) }
-      remove_units.each(&:destroy!)
+  def create_from_row(row, index)
+      Import::HousingUnit.from_array(index + 1, row)
+  end
+
+  def build_models(import_models)
+    import_models.map do |import|
+      begin
+        facility = find_facility(import.facility_name)
+        unless import.exists_in?(facility)
+          RowRecord.new(
+            import.build_record(facility),
+            import
+          )
+        end
+      rescue => e
+        raise Error, format('Row #%d: %p', import.row, e.message)
+      end
+    end.compact
+  end
+
+  def find_facility(name)
+    @housing_facilities.find { |f| f.name == name }.tap do |facility|
+      if facility.nil?
+        raise Error, format('Could not find HousingFacility: %p', name)
+      end
     end
   end
 
-  def create_units(names)
-    names.map { |name| create_unit(name) }.each(&:save!)
-  end
-
-  def create_unit(name)
-    housing_facility.housing_units.build(name: name)
-  end
-
-  def housing_facility
-    @housing_facility ||=
-      HousingFacility.includes(:housing_units).find(context.housing_facility_id)
-  end
-
-  def delete_existing?
-    TRUE_VALUES.include?(context.delete_existing)
+  def save_all!(row_records)
+    HousingFacility.transaction do
+      row_records.each do |row_record|
+        record = row_record.record
+        begin
+          record.save!
+        rescue => e
+          raise Error, format('Row #%d: Could not persist %s, %p. %s',
+                              row_record.import.row, record.class.name,
+                              record.audit_name, e.message)
+        end
+      end
+    end
   end
 end

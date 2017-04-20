@@ -19,7 +19,7 @@ ActiveAdmin.register Ministry do
 
   collection_action :import_ministries, method: :post do
     res =
-      ImportMinistriesSpreadsheet.call(
+      Ministry::ImportSpreadsheet.call(
         ActionController::Parameters.new(params).
           require(:spreadsheet_import_ministries).
           permit(:file, :skip_first)
@@ -34,7 +34,7 @@ ActiveAdmin.register Ministry do
 
   collection_action :import_hierarchy, method: :post do
     res =
-      ImportMinistryHierarchySpreadsheet.call(
+      Ministry::ImportHierarchySpreadsheet.call(
         ActionController::Parameters.new(params).
           require(:spreadsheet_import_hierarchy).
           permit(:file, :skip_first)

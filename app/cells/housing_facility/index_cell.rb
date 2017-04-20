@@ -2,7 +2,6 @@ class HousingFacility::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     column :name
     column(:housing_type) { |hf| hf.housing_type.titleize }
     column :cost_code

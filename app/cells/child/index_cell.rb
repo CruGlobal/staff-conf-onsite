@@ -2,7 +2,6 @@ class Child::IndexCell < ::IndexCell
   def show
     selectable_column
 
-    column :id
     personal_columns
     column(:grade_level) { |c| grade_level_label(c) }
     column(:childcare) { |c| childcare_column(c) }
@@ -20,7 +19,7 @@ class Child::IndexCell < ::IndexCell
     column :last_name
     column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     column(:gender) { |c| gender_name(c.gender) }
-    column :birthdate
+    column(:birthdate) { |c| birthdate_label(c) }
     column(:age, sortable: :birthdate) { |c| age(c) }
   end
 
@@ -32,6 +31,7 @@ class Child::IndexCell < ::IndexCell
   end
 
   def childcare_column(child)
+    return if child.too_old_for_childcare?
     collection = childcare_select_name_only
 
     model.active_admin_form_for child do |f|
@@ -39,9 +39,7 @@ class Child::IndexCell < ::IndexCell
         f.input :childcare_id,
                 as: :select,
                 collection: collection,
-                include_blank: true,
                 label: false,
-                prompt: 'please select',
                 input_html: { 'data-path' => child_path(child) }
       end
     end

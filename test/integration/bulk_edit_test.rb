@@ -16,7 +16,7 @@ class BulkEditTest < IntegrationTest
     create_login_user :finance
 
     visit families_path
-    assert_selector '.resource_selection_toggle_cell'
+    refute_selector '.resource_selection_toggle_cell'
   end
 
   test 'Select-all toggle is not available for general user' do

@@ -31,8 +31,8 @@ class HousingFacility::IndexTest < IntegrationTest
   test '#index columns' do
     visit_housing_facility :index
 
-    assert_index_columns :selectable, :id, :name, :housing_type, :cost_code,
-                         :cafeteria, :street, :city, :state, :country_code, 
+    assert_index_columns :selectable, :name, :housing_type, :cost_code,
+                         :cafeteria, :street, :city, :state, :country_code,
                          :zip, :units, :created_at, :updated_at, :actions
   end
 

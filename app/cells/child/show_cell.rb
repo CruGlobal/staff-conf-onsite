@@ -20,6 +20,7 @@ class Child::ShowCell < ::ShowCell
     child_attributes_table
     duration_table
     childcare_table
+    temporary_childcare_cost_panel
     temporary_hot_lunch_cost_panel
     person_cell.call(:rec_pass_cost_panel)
   end
@@ -33,7 +34,6 @@ class Child::ShowCell < ::ShowCell
 
   def child_attributes_table
     attributes_table do
-      row :id
       personal_attributes
       row(:grade_level) { |c| grade_level_label(c) }
       row :parent_pickup
@@ -50,7 +50,7 @@ class Child::ShowCell < ::ShowCell
     row :last_name
     row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     row(:gender) { |c| gender_name(c.gender) }
-    row :birthdate
+    row(:birthdate) { |c| birthdate_label(c) }
     row(:age, sortable: :birthdate) { |c| age_label(c) }
   end
 
@@ -81,7 +81,7 @@ class Child::ShowCell < ::ShowCell
   #       the future.
   def temporary_stay_cost_panel
     panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeChildStays.call(child: child)
+      result = Stay::ChargeChild.call(child: child)
 
       if result.success?
         temporary_stay_individual_dorms_cost_list
@@ -106,7 +106,7 @@ class Child::ShowCell < ::ShowCell
   end
 
   def temporary_stay_individual_dorms_cost_list_item(stay)
-    result = SingleChildDormitoryStayCost.call(child: child, stay: stay)
+    result = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
     if result.success?
       text_node humanized_money_with_symbol result.total
     else
@@ -133,9 +133,16 @@ class Child::ShowCell < ::ShowCell
     end
   end
 
+  def temporary_childcare_cost_panel
+    panel 'Childcare Costs (Temporary panel for demo)', class: 'TODO_panel' do
+      result = Childcare::ChargeCosts.call(child: child)
+      cell('cost_adjustment/summary', self, result: result).call
+    end
+  end
+
   def temporary_hot_lunch_cost_panel
     panel 'Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = ChargeChildHotLunchCost.call(child: child)
+      result = HotLunch::ChargeChildCost.call(child: child)
       cell('cost_adjustment/summary', self, result: result).call
     end
   end
