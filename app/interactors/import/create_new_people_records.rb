@@ -44,9 +44,25 @@ module Import
     end
 
     def existing_people
-      @imports.each_with_index.map do |import, index|
-        find_existing_person(import, index, create_if_missing: false)
+      @imports.map do |import|
+        existing_family(import).record.people.find do |p|
+          p.birthdate == import.birthdate && p.first_name == import.first_name
+        end
       end.compact
+    end
+
+    def existing_family(import)
+      tag = import.family_tag
+
+      if @families.key?(tag)
+        @families[tag]
+      else
+        primary_person =
+          @imports.find do |p|
+            p.family_tag == tag && p.primary_family_member?
+          end
+        (primary_person || import).family_record
+      end
     end
 
     def create_from_import(import, index)
@@ -67,15 +83,15 @@ module Import
       RowRecord.new(person, row)
     end
 
-    def find_existing_person(import, row, create_if_missing: true)
-      family = find_or_create_family(import, row, create_if_missing: create_if_missing)
+    def find_existing_person(import, row)
+      family = find_or_create_family(import, row)
 
       family.record.people.find do |p|
         p.birthdate == import.birthdate && p.first_name == import.first_name
       end
     end
 
-    def find_or_create_family(import, row, create_if_missing: true)
+    def find_or_create_family(import, row)
       tag = import.family_tag
       return @families[tag] if @families.key?(tag)
 
@@ -83,12 +99,7 @@ module Import
         @imports.find { |p| p.family_tag == tag && p.primary_family_member? }
       primary_person ||= import # fallback if primary is missing (unusual)
 
-      family =
-        if create_if_missing
-          primary_person.family_record || create_family(primary_person)
-        else
-          primary_person.family_record
-        end
+      family = primary_person.family_record || create_family(primary_person)
       @families[primary_person.family_tag] = RowRecord.new(family, row)
     end
 
