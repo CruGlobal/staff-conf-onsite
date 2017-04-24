@@ -46,7 +46,7 @@ module Import
     def existing_people
       @imports.map do |import|
         family = existing_family(import)
-        return if family.nil?
+        next if family.nil?
         family.people.find do |p|
           p.birthdate == import.birthdate && p.first_name == import.first_name
         end
