@@ -15,7 +15,7 @@ class UserVariable::FormCell < ::FormCell
   private
 
   def input_code
-    if new_record? || policy.create?
+    if new_record?
       input :code
       input :short_name, as: :hidden, input_html: { value: SecureRandom.uuid }
     else
@@ -24,7 +24,7 @@ class UserVariable::FormCell < ::FormCell
   end
 
   def input_value_type
-    if new_record? || policy.create?
+    if new_record?
       input :value_type
     else
       input :value_type, input_html: { disabled: true }
