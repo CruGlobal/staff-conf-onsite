@@ -45,7 +45,7 @@ module Import
 
     def existing_people
       @imports.each_with_index.map do |import, index|
-        find_existing_person(import, index)
+        find_existing_person(import, index, create_if_missing: false)
       end.compact
     end
 
@@ -67,15 +67,15 @@ module Import
       RowRecord.new(person, row)
     end
 
-    def find_existing_person(import, row)
-      family = find_or_create_family(import, row)
+    def find_existing_person(import, row, create_if_missing: true)
+      family = find_or_create_family(import, row, create_if_missing: create_if_missing)
 
       family.record.people.find do |p|
         p.birthdate == import.birthdate && p.first_name == import.first_name
       end
     end
 
-    def find_or_create_family(import, row)
+    def find_or_create_family(import, row, create_if_missing: true)
       tag = import.family_tag
       return @families[tag] if @families.key?(tag)
 
@@ -83,7 +83,12 @@ module Import
         @imports.find { |p| p.family_tag == tag && p.primary_family_member? }
       primary_person ||= import # fallback if primary is missing (unusual)
 
-      family = primary_person.family_record || create_family(primary_person)
+      family =
+        if create_if_missing
+          primary_person.family_record || create_family(primary_person)
+        else
+          primary_person.family_record
+        end
       @families[primary_person.family_tag] = RowRecord.new(family, row)
     end
 
