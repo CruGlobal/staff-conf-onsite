@@ -1,7 +1,7 @@
 ActiveAdmin.register UserVariable do
   page_cells do |page|
     page.index
-    page.show
+    page.show title: ->(var) { format('Variable %p', var.code) }
     page.form
   end
 

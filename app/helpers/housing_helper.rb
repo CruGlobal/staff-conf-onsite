@@ -74,13 +74,15 @@ module HousingHelper
   # @param form [Formtastic::FormBuilder]
   # @param attribute_name [Symbol] the name of the attribute to populate
   def select_housing_unit_widget(form, attribute_name = :housing_unit)
+    units = HousingUnit.all.natural_order_asc
+
     form.input(
       attribute_name,
       as: :select,
-      collection: HousingUnit.all.map { |u| [u.name, u.id] },
+      collection: units.map { |u| [u.name, u.id] },
       input_html: {
         'data-housing_unit-id' => true,
-        'data-labels' => Hash[HousingUnit.all.map { |u| [u.id, u.name] }].to_json,
+        'data-labels' => Hash[units.map { |u| [u.id, u.name] }].to_json,
         'data-hierarchy' => housing_unit_hierarchy.to_json
       }
     )
@@ -99,7 +101,7 @@ module HousingHelper
       hierarchy.each do |type, facilities|
         h[type] ||= {}
         facilities.each do |facility, units|
-          h[type][facility.name] ||= units.order(:name).map(&:id)
+          h[type][facility.name] ||= units.natural_order_asc.map(&:id)
         end
       end
     end
