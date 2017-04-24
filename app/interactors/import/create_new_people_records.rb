@@ -55,7 +55,7 @@ module Import
       tag = import.family_tag
 
       if @families.key?(tag)
-        @families[tag]
+        @families[tag].record
       else
         primary_person =
           @imports.find do |p|
