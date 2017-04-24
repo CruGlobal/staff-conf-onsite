@@ -6,6 +6,8 @@ class Family::ShowCell < ::ShowCell
       column { left_column }
       column { right_column }
     end
+
+    cell('family/finances', self, family: family).call if current_user.finance?
     active_admin_comments
   end
 
@@ -14,17 +16,11 @@ class Family::ShowCell < ::ShowCell
   def left_column
     family_attributes_table
     housing_preference_table
-    temporary_childcare_costs_panel
-    temporary_rec_pass_costs_panel
-    temporary_hot_lunch_costs_panel
   end
 
   def right_column
     attendees_list
-    temporary_conference_costs_panel
-    stays_cell.call(:attendees_costs_panel)
     children_list
-    stays_cell.call(:children_costs_panel)
   end
 
   def stays_cell
@@ -124,33 +120,6 @@ class Family::ShowCell < ::ShowCell
       else
         strong 'None'
       end
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_rec_pass_costs_panel
-    panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = RecPass::SumFamilyCost.call(family: family)
-      cell('cost_adjustment/summary', self, result: result).call
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_childcare_costs_panel
-    panel 'Childcare Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = Childcare::SumFamilyCost.call(family: family)
-      cell('cost_adjustment/summary', self, result: result).call
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_hot_lunch_costs_panel
-    panel 'Children Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = HotLunch::SumFamilyCost.call(family: family)
-      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 end

@@ -15,15 +15,6 @@ class Person::ShowCell < ::ShowCell
     end
   end
 
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def rec_pass_cost_panel
-    panel 'Rec Pass Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = RecPass::ChargePersonCost.call(person: person)
-      cell('cost_adjustment/summary', self, result: result).call
-    end
-  end
-
   private
 
   def person

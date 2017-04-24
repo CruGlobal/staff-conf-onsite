@@ -7,6 +7,7 @@ class Child::ShowCell < ::ShowCell
       column { right_column }
     end
 
+    cell('child/finances', self, child: child).call if current_user.finance?
     active_admin_comments
   end
 
@@ -20,15 +21,11 @@ class Child::ShowCell < ::ShowCell
     child_attributes_table
     duration_table
     childcare_table
-    temporary_childcare_cost_panel
-    temporary_hot_lunch_cost_panel
-    person_cell.call(:rec_pass_cost_panel)
   end
 
   def right_column
     person_cell.call(:stays)
     person_cell.call(:cost_adjustments)
-    temporary_stay_cost_panel
     person_cell.call(:meal_exemptions)
   end
 
@@ -74,76 +71,6 @@ class Child::ShowCell < ::ShowCell
         row(:hot_lunch_weeks) { |c| hot_lunch_weeks_list(c) }
         row :childcare_comment
       end
-    end
-  end
-
-  # TODO: This is for client-demo purposes. This will be part of some report in
-  #       the future.
-  def temporary_stay_cost_panel
-    panel 'Housing Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = Stay::ChargeChild.call(child: child)
-
-      if result.success?
-        temporary_stay_individual_dorms_cost_list
-        temporary_stay_cost_table(result)
-      else
-        div(class: 'flash flash_error') { result.error }
-      end
-    end
-  end
-
-  def temporary_stay_individual_dorms_cost_list
-    dorm_stays = child.stays.select { |s| s.housing_type == 'dormitory' }
-    return if dorm_stays.empty?
-
-    h4 'Dormatory Stays:'
-    dl do
-      dorm_stays.each do |stay|
-        dt { join_stay_dates(stay) }
-        dd { temporary_stay_individual_dorms_cost_list_item(stay) }
-      end
-    end
-  end
-
-  def temporary_stay_individual_dorms_cost_list_item(stay)
-    result = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
-    if result.success?
-      text_node humanized_money_with_symbol result.total
-    else
-      div(class: 'flash flash_error') { result.error }
-    end
-  end
-
-  def temporary_stay_cost_table(result)
-    table do
-      temporary_stay_cost_table_head
-      tr do
-        td { humanized_money_with_symbol result.subtotal }
-        td { humanized_money_with_symbol result.total_adjustments * -1 }
-        td { humanized_money_with_symbol result.total }
-      end
-    end
-  end
-
-  def temporary_stay_cost_table_head
-    tr do
-      th { 'Sub-Total' }
-      th { 'Adjustments' }
-      th { 'Total' }
-    end
-  end
-
-  def temporary_childcare_cost_panel
-    panel 'Childcare Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = Childcare::ChargeCosts.call(child: child)
-      cell('cost_adjustment/summary', self, result: result).call
-    end
-  end
-
-  def temporary_hot_lunch_cost_panel
-    panel 'Hot Lunch Costs (Temporary panel for demo)', class: 'TODO_panel' do
-      result = HotLunch::ChargeChildCost.call(child: child)
-      cell('cost_adjustment/summary', self, result: result).call
     end
   end
 end

@@ -7,6 +7,9 @@ class Attendee::ShowCell < ::ShowCell
       column { right_column }
     end
 
+    if current_user.finance?
+      cell('attendee/finances', self, attendee: attendee).call
+    end
     active_admin_comments
   end
 
@@ -16,22 +19,15 @@ class Attendee::ShowCell < ::ShowCell
     @person_cell ||= cell('person/show', model, person: attendee)
   end
 
-  def cost_cell
-    @cost_cell ||= cell('attendee/cost', model, attendee: attendee)
-  end
-
   def left_column
     attendee_attributes_table
     conferences_panel
-    cost_cell.call(:temporary_conference_cost_panel)
     attendances_panel
-    person_cell.call(:rec_pass_cost_panel)
   end
 
   def right_column
     person_cell.call(:stays)
     person_cell.call(:cost_adjustments)
-    cost_cell.call(:temporary_stay_cost_panel)
     person_cell.call(:meal_exemptions)
   end
 

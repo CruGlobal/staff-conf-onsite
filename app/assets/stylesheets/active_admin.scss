@@ -16,6 +16,7 @@
 @import "widgets/spinner";
 @import "widgets/spreadsheets";
 @import "widgets/typography";
+@import "widgets/adjustments-table";
 
 // Specific Models
 // =================================
@@ -50,6 +51,7 @@
 }
 
 // To demo temporary work
-.TODO_panel {
+.TODO_panel,
+.finances_panel {
   border: 2px solid yellow;
 }
