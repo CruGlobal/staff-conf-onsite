@@ -44,9 +44,27 @@ module Import
     end
 
     def existing_people
-      @imports.each_with_index.map do |import, index|
-        find_existing_person(import, index)
+      @imports.map do |import|
+        family = existing_family(import)
+        next if family.nil?
+        family.people.find do |p|
+          p.birthdate == import.birthdate && p.first_name == import.first_name
+        end
       end.compact
+    end
+
+    def existing_family(import)
+      tag = import.family_tag
+
+      if @families.key?(tag)
+        @families[tag].record
+      else
+        primary_person =
+          @imports.find do |p|
+            p.family_tag == tag && p.primary_family_member?
+          end
+        (primary_person || import).family_record
+      end
     end
 
     def create_from_import(import, index)
