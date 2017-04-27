@@ -18,11 +18,8 @@ module Support
       actual = result.send(key)
 
       assert (expected == actual),
-        format(
-          "Expected context.error: %p\n  Actual context.error: %p",
-          expected,
-          actual
-        )
+        format("Expected context.%s: %p\n  Actual context.%s: %p",
+               key, expected, key, actual)
     end
   end
 end

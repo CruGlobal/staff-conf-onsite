@@ -2,7 +2,10 @@
 #
 # [+context.attendee+ [+Attendee+]]
 class Childcare::SumCosts
+  extend Forwardable
   include Interactor
+
+  def_delegator :context, :child
 
   before do
     context.charges ||= Hash.new { |h, v| h[v] = Money.empty }
@@ -12,21 +15,29 @@ class Childcare::SumCosts
     context.charges[:childcare_jr_sr] += each_charge.inject(Money.empty, :+)
     context.charges[:childcare_jr_sr] += deposit_charge
 
-    context.cost_adjustments = context.child.cost_adjustments
+    context.cost_adjustments = child.cost_adjustments
   end
 
   private
 
   def each_charge
-    context.child.childcare_weeks.map { |index| charge(index) }
+    child.childcare_weeks.map { |index| charge(index) }
   end
 
   def charge(index)
-    UserVariable[:"childcare_week_#{index}"]
+    UserVariable[age_group_symbol("week_#{index}")]
+  end
+
+  def age_group_symbol(suffix)
+    format('%s_%s', age_group_prefix, suffix).to_sym
+  end
+
+  def age_group_prefix
+    child.age_group == :childcare ? :childcare : :junior_senior
   end
 
   def deposit_charge
-    if context.child.childcare_deposit?
+    if child.childcare_deposit?
       UserVariable[:childcare_deposit]
     else
       Money.empty

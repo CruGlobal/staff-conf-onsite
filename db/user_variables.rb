@@ -6,10 +6,8 @@ class SeedUserVariables
       description: 'Child Age Cut-off Date' },
     childcare_first_day: { value_type: :date, code: :CFD, value: '2017-07-01',
       description: 'The first day of the first week of ChildCare' },
-    childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
-      description: 'This is the non-refundable registration fee for any child' \
-                   ' registered for either childcare or JrSr High programs.' },
 
+    # Childcare Weeks
     childcare_week_0: { value_type: :money, code: :CCWK1, value: 1_00,
       description: 'Week 1 Childcare' },
     childcare_week_1: { value_type: :money, code: :CCWK2, value: 1_00,
@@ -20,6 +18,21 @@ class SeedUserVariables
       description: 'Week 4 Childcare' },
     childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00,
       description: 'Staff Conference Childcare' },
+    childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
+      description: 'This is the non-refundable registration fee for any child' \
+                   ' registered for either childcare or JrSr High programs.' },
+
+    # Jr/Sr Weeks
+    junior_senior__week_0: { value_type: :money, code: :JRSRWK1, value: 1_00,
+      description: 'Week 1 Junior Senior' },
+    junior_senior__week_1: { value_type: :money, code: :JRSRWK2, value: 1_00,
+      description: 'Week 2 Junior Senior' },
+    junior_senior__week_2: { value_type: :money, code: :JRSRWK3, value: 1_00,
+      description: 'Week 3 Junior Senior' },
+    junior_senior__week_3: { value_type: :money, code: :JRSRWK4, value: 1_00,
+      description: 'Week 4 Junior Senior' },
+    junior_senior__week_4: { value_type: :money, code: :JRSRWKSC, value: 1_00,
+      description: 'Staff Conference Junior Senior' },
 
     # Hot Lunches
     hot_lunch_week_0: { value_type: :money, code: :HL1, value: 1_00,
