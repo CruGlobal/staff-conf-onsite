@@ -7,8 +7,8 @@ class HousingUnit < ApplicationRecord
   validates :name, uniqueness: { scope: :housing_facility_id, message:
    'should be unique per facility' }
 
-  scope :natural_order_asc, -> { order(self.natural_order) }
-  scope :natural_order_desc, -> { order(self.natural_order(:desc)) }
+  scope :natural_order_asc, -> { order(natural_order) }
+  scope :natural_order_desc, -> { order(natural_order(:desc)) }
 
   def self.hierarchy
     hierarchy = {}

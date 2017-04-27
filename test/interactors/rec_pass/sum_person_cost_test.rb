@@ -3,6 +3,7 @@ require 'test_helper'
 class RecPass::SumPersonRecPassCostTest < InteractorTestCase
   setup do
     @person = create :attendee
+    @dorm_unit = create :dormitory_unit
     @date = Date.parse('2017-01-01')
 
     @service = RecPass::SumPersonCost.new(person: @person)
@@ -32,6 +33,28 @@ class RecPass::SumPersonRecPassCostTest < InteractorTestCase
     @result = run_service
 
     assert_context expected(123_45 * 2), @result, :charges
+  end
+
+  test '1 day, in a dorm' do
+    update_dates(@date, @date)
+    create :stay, housing_unit: @dorm_unit, person: @person, arrived_at: @date,
+                  departed_at: @date
+    @person.reload
+
+    @result = run_service
+
+    assert_context expected(0), @result, :charges
+  end
+
+  test '2 days, 1 in a dorm' do
+    update_dates(@date, @date + 1.day)
+    create :stay, housing_unit: @dorm_unit, person: @person, arrived_at: @date,
+                  departed_at: @date
+    @person.reload
+
+    @result = run_service
+
+    assert_context expected(123_45 * 1), @result, :charges
   end
 
   private

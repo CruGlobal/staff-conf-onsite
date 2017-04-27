@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
-  before do
-    SeedSeminaries.new.call
+  def around(&blk)
+    stub_default_seminary(&blk)
   end
 
   test 'single primary person, should create new Attendee' do
@@ -44,6 +44,10 @@ class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
   end
 
   private
+
+  def stub_default_seminary(&blk)
+    Seminary.stub(:default, create(:seminary), &blk)
+  end
 
   def import_spreadsheet(filename)
     spreadsheet =
