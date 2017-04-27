@@ -31,6 +31,10 @@ class Stay < ApplicationRecord
     housing_unit.try(:housing_facility)
   end
 
+  def dormitory?
+    housing_type == 'dormitory'
+  end
+
   def on_campus
     housing_facility.present? && housing_facility.on_campus
   end

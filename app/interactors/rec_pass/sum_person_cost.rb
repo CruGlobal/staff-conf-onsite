@@ -52,6 +52,6 @@ class RecPass::SumPersonCost
   end
 
   def in_dorm_at?(date)
-    stays.for_date(date).any? { |s| s.housing_type == 'dormitory' }
+    stays.for_date(date).any?(&:dormitory?)
   end
 end

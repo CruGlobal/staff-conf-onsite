@@ -4,7 +4,7 @@
 class HotLunch::SumChildCost
   include Interactor
 
-  AGE_RANGE = 4..5
+  AGE_RANGE = 3..4
 
   before do
     context.charges ||= Hash.new { |h, v| h[v] = Money.empty }
@@ -28,15 +28,15 @@ class HotLunch::SumChildCost
   end
 
   def hot_lunch_costs
-    hot_lunch_on_campus_indexes.map do |index|
+    hot_lunch_in_dorm_indexes.map do |index|
       UserVariable["hot_lunch_week_#{index}"]
     end
   end
 
   # @see Childcare#CHILDCARE_WEEKS
-  def hot_lunch_on_campus_indexes
+  def hot_lunch_in_dorm_indexes
     hot_lunch_start_dates.
-      map { |index, date| index if in_non_dorm?(date) }.
+      map { |index, date| index if in_dorm_at?(date) }.
       compact
   end
 
@@ -49,9 +49,7 @@ class HotLunch::SumChildCost
     ]
   end
 
-  def in_non_dorm?(date)
-    context.child.stays.for_date(date).any? do |s|
-      s.housing_type != 'dormitory'
-    end
+  def in_dorm_at?(date)
+    context.child.stays.for_date(date).any?(&:dormitory?)
   end
 end
