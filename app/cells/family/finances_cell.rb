@@ -3,6 +3,7 @@ class Family::FinancesCell < ::ShowCell
     'Conferences' => Conference::SumFamilyCost,
     'Rec Pass' => RecPass::SumFamilyCost,
     'Childcare' => Childcare::SumFamilyCost,
+    'Junior/Senior' => JuniorSenior::SumFamilyCost,
     'Hot Lunches' => HotLunch::SumFamilyCost,
     'Attendee Housing' => Stay::SumFamilyAttendeesCost,
     'Children Housing' => Stay::SumFamilyChildrenCost

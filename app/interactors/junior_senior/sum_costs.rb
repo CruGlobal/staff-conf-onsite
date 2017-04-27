@@ -1,4 +1,4 @@
-class Childcare::SumCosts < BaseChildcareSumCosts
+class JuniorSenior::SumCosts < BaseChildcareSumCosts
   before do
     context.charges ||= Hash.new { |h, v| h[v] = Money.empty }
   end
@@ -6,6 +6,6 @@ class Childcare::SumCosts < BaseChildcareSumCosts
   protected
 
   def age_group
-    :childcare
+    :junior_senior
   end
 end

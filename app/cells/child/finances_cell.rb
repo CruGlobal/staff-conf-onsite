@@ -1,11 +1,4 @@
 class Child::FinancesCell < ::ShowCell
-  COSTS = {
-    'Housing' => Stay::ChargeChild,
-    'Rec Pass' => RecPass::ChargePersonCost,
-    'Childcare' => Childcare::ChargeCosts,
-    'Hot Lunches' => HotLunch::ChargeChildCost
-  }.freeze
-
   property :child
 
   def show
@@ -19,8 +12,26 @@ class Child::FinancesCell < ::ShowCell
 
   def cost_results
     @results ||= Hash[
-      COSTS.map { |name, service| [name, service.call(child: child)] }
+      cost_groups.map { |name, service| [name, service.call(child: child)] }
     ]
+  end
+
+  def cost_groups
+    if child.age_group == :childcare
+      {
+        'Housing' => Stay::ChargeChild,
+        'Rec Pass' => RecPass::ChargePersonCost,
+        'Childcare' => Childcare::ChargeCosts,
+        'Hot Lunches' => HotLunch::ChargeChildCost
+      }
+    else
+      {
+        'Housing' => Stay::ChargeChild,
+        'Rec Pass' => RecPass::ChargePersonCost,
+        'Junior/Senior' => JuniorSenior::ChargeCosts,
+        'Hot Lunches' => HotLunch::ChargeChildCost
+      }
+    end
   end
 
   def individual_dorms_cost_list

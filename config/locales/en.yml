@@ -109,7 +109,8 @@ en:
           books: "Books"
           rec_center: "Recreation Center"
           lunch: "Lunch Charges"
-          childcare_jr_sr: "Childcare/JrSr"
+          childcare: "Childcare"
+          junior_senior: "Junior/Senior"
       course:
         ibs_code: "IBS ID"
         grades:

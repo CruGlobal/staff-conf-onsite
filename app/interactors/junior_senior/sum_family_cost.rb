@@ -1,4 +1,4 @@
-class Childcare::SumFamilyCost
+class JuniorSenior::SumFamilyCost
   include Interactor
 
   before do
@@ -9,7 +9,7 @@ class Childcare::SumFamilyCost
 
   def call
     children.each do |child|
-      result = Childcare::ChargeCosts.call(child: child)
+      result = JuniorSenior::ChargeCosts.call(child: child)
 
       if result.success?
         add_to_context(result)
@@ -28,6 +28,6 @@ class Childcare::SumFamilyCost
   end
 
   def children
-    context.family.children.select { |c| c.age_group == :childcare }
+    context.family.children.select { |c| c.age_group != :childcare }
   end
 end

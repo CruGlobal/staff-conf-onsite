@@ -23,15 +23,15 @@ class SeedUserVariables
                    ' registered for either childcare or JrSr High programs.' },
 
     # Jr/Sr Weeks
-    junior_senior__week_0: { value_type: :money, code: :JRSRWK1, value: 1_00,
+    junior_senior_week_0: { value_type: :money, code: :JRSRWK1, value: 1_00,
       description: 'Week 1 Junior Senior' },
-    junior_senior__week_1: { value_type: :money, code: :JRSRWK2, value: 1_00,
+    junior_senior_week_1: { value_type: :money, code: :JRSRWK2, value: 1_00,
       description: 'Week 2 Junior Senior' },
-    junior_senior__week_2: { value_type: :money, code: :JRSRWK3, value: 1_00,
+    junior_senior_week_2: { value_type: :money, code: :JRSRWK3, value: 1_00,
       description: 'Week 3 Junior Senior' },
-    junior_senior__week_3: { value_type: :money, code: :JRSRWK4, value: 1_00,
+    junior_senior_week_3: { value_type: :money, code: :JRSRWK4, value: 1_00,
       description: 'Week 4 Junior Senior' },
-    junior_senior__week_4: { value_type: :money, code: :JRSRWKSC, value: 1_00,
+    junior_senior_week_4: { value_type: :money, code: :JRSRWKSC, value: 1_00,
       description: 'Staff Conference Junior Senior' },
 
     # Hot Lunches
