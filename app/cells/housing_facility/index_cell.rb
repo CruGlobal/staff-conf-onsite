@@ -1,5 +1,6 @@
 class HousingFacility::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :name
@@ -11,8 +12,6 @@ class HousingFacility::IndexCell < ::IndexCell
     address_columns
     units_column
     timestamp_columns
-
-    actions
   end
 
   private

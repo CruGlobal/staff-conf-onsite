@@ -1,5 +1,6 @@
 class CostAdjustment::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column_person
@@ -9,8 +10,6 @@ class CostAdjustment::IndexCell < ::IndexCell
     column_description
     column :created_at
     column :updated_at
-
-    actions
   end
 
   private

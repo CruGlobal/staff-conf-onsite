@@ -1,5 +1,6 @@
 class Ministry::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :code
@@ -8,8 +9,6 @@ class Ministry::IndexCell < ::IndexCell
     members_column
     column :created_at
     column :updated_at
-
-    actions
   end
 
   private

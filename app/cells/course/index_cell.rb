@@ -1,5 +1,6 @@
 class Course::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column_name
@@ -12,8 +13,6 @@ class Course::IndexCell < ::IndexCell
     column_attendees
     column :created_at
     column :updated_at
-
-    actions
   end
 
   private

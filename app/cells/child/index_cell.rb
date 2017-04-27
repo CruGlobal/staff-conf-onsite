@@ -1,5 +1,6 @@
 class Child::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     personal_columns
@@ -8,8 +9,6 @@ class Child::IndexCell < ::IndexCell
     column :parent_pickup
     column :needs_bed
     date_columns
-
-    actions
   end
 
   private

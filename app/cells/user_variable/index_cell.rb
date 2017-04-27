@@ -1,5 +1,6 @@
 class UserVariable::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :code
@@ -7,7 +8,5 @@ class UserVariable::IndexCell < ::IndexCell
     column(:value) { |var| user_variable_label(var) }
     column(:description) { |var| html_summary(var.description) }
     column :updated_at
-
-    actions
   end
 end

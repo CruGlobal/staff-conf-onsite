@@ -1,5 +1,6 @@
 class Family::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column('Family', sortable: :last_name) { |f| family_label(f) }
@@ -8,8 +9,6 @@ class Family::IndexCell < ::IndexCell
     column(:registration_comment) { |f| html_summary(f.registration_comment) }
     column :created_at
     column :updated_at
-
-    actions
   end
 
   private

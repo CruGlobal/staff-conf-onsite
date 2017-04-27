@@ -1,5 +1,6 @@
 class Seminary::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :name
@@ -7,8 +8,6 @@ class Seminary::IndexCell < ::IndexCell
     column_course_price
     column :created_at
     column :updated_at
-
-    actions
   end
 
   private

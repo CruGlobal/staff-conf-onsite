@@ -1,5 +1,6 @@
 class Childcare::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :name
@@ -8,7 +9,5 @@ class Childcare::IndexCell < ::IndexCell
     column :room
     column :created_at
     column :updated_at
-
-    actions
   end
 end

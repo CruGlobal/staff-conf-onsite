@@ -1,5 +1,6 @@
 class CostCode::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column :name
@@ -7,7 +8,5 @@ class CostCode::IndexCell < ::IndexCell
     column :min_days
     column :created_at
     column :updated_at
-
-    actions
   end
 end

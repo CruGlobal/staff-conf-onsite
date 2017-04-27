@@ -1,5 +1,6 @@
 class Attendee::IndexCell < ::IndexCell
   def show
+    actions
     selectable_column
 
     column(:student_number) { |a| code a.student_number }
@@ -8,8 +9,6 @@ class Attendee::IndexCell < ::IndexCell
     column :department
     column :seminary
     date_columns
-
-    actions
   end
 
   private
