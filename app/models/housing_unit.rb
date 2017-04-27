@@ -1,6 +1,6 @@
 class HousingUnit < ApplicationRecord
   belongs_to :housing_facility
-  has_many :stays, dependent: :destroy
+  has_many :stays, dependent: :restrict_with_exception
   has_many :people, through: :stays
 
   validates :housing_facility_id, presence: true

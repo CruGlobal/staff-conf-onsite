@@ -23,6 +23,18 @@ class Child < Person
   validate :hot_lunch_weeks_must_match_childcare_weeks!
   validate :hot_lunch_age_range!
 
+  def self.childcare_grade_levels
+    GRADE_LEVELS.first(grade5_index + 1)
+  end
+
+  def self.senior_grade_levels
+    GRADE_LEVELS.last(GRADE_LEVELS.size - (grade5_index + 1))
+  end
+
+  def self.grade5_index
+    GRADE_LEVELS.index('grade5')
+  end
+
   # @return [Array<Fixnum>] a list of indexes from the
   #   {Childcare::CHILDCARE_WEEKS} array
   def childcare_weeks
@@ -44,23 +56,11 @@ class Child < Person
   def age_group
     if grade_level.nil? || grade_level == 'postHighSchool'
       :post_high_school
-    elsif Child.childcare_grade_levels.include? grade_level
+    elsif self.class.childcare_grade_levels.include?(grade_level)
       :childcare
     else
       :junior_senior
     end
-  end
-
-  def self.childcare_grade_levels
-    GRADE_LEVELS.first(Child.grade5_index + 1)
-  end
-
-  def self.senior_grade_levels
-    GRADE_LEVELS.last(GRADE_LEVELS.size - (Child.grade5_index + 1))
-  end
-
-  def self.grade5_index
-    GRADE_LEVELS.index('grade5')
   end
 
   def post_high_school?

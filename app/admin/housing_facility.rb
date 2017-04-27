@@ -42,4 +42,17 @@ ActiveAdmin.register HousingFacility do
       redirect_to new_spreadsheet_housing_facilities_path, flash: { error: res.message }
     end
   end
+
+  controller do
+    rescue_from ActiveRecord::DeleteRestrictionError,
+                with: :redirect_delete_restriction
+
+    private
+
+    def redirect_delete_restriction(_exception)
+      redirect_to housing_facility_path(params[:id]),
+                  alert: 'Could not delete this Facility because people are' \
+                         ' currently assigned to it.'
+    end
+  end
 end

@@ -12,4 +12,17 @@ ActiveAdmin.register HousingUnit do
   belongs_to :housing_facility
 
   permit_params :name
+
+  controller do
+    rescue_from ActiveRecord::DeleteRestrictionError,
+                with: :redirect_delete_restriction
+
+    private
+
+    def redirect_delete_restriction(_exception)
+      redirect_to housing_facility_housing_unit_path(params[:housing_facility_id], params[:id]),
+                  alert: 'Could not delete this Unit because people are' \
+                         ' currently assigned to it.'
+    end
+  end
 end
