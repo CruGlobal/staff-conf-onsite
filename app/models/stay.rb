@@ -42,7 +42,11 @@ class Stay < ApplicationRecord
 
   # @return [Integer] the length of the stay, in days
   def duration
-    [(departed_at - arrived_at).to_i, min_days].max
+    if departed_at.present? && arrived_at.present?
+      [(departed_at - arrived_at).to_i, min_days].max
+    else
+      0
+    end
   end
 
   # @return [Integer] if this stay is in a dormitory, the total duration of all
