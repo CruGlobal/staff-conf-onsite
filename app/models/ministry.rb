@@ -1,8 +1,9 @@
 class Ministry < ApplicationRecord
   has_paper_trail
 
-  has_many :people
-  has_many :children, class_name: 'Ministry', foreign_key: 'parent_id'
+  has_many :people, dependent: :nullify
+  has_many :children, class_name: 'Ministry', foreign_key: 'parent_id',
+                      dependent: :destroy
   belongs_to :parent, class_name: 'Ministry'
 
   validates :code, uniqueness: true
