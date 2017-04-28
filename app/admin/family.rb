@@ -19,7 +19,8 @@ ActiveAdmin.register Family do
                   :location3, :confirmed_at, :comment
                 ]
 
-  filter :last_name_or_people_first_name_cont, label: 'Last Name or Family Member Name'
+  filter :last_name_or_people_first_name_cont,
+         label: 'Last Name or Family Member Name'
   filter :address1
   filter :address2
   filter :city
@@ -32,10 +33,14 @@ ActiveAdmin.register Family do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, Family)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :import_spreadsheet, method: :post do
+    return head :forbidden unless authorized?(:import, Family)
+
     res =
       Import::ImportPeopleFromSpreadsheet.call(
         ActionController::Parameters.new(params).

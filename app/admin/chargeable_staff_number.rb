@@ -18,11 +18,15 @@ ActiveAdmin.register ChargeableStaffNumber do
   filter :created_at
 
   action_item :import_staff_numbers, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, ChargeableStaffNumber)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   collection_action :import_spreadsheet, method: :post do
+    return head :forbidden unless authorized?(:import, ChargeableStaffNumber)
+
     res =
       ImportChargeableStaffNumbersSpreadsheet.call(
         ActionController::Parameters.new(params).

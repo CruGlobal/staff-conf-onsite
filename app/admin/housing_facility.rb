@@ -24,11 +24,15 @@ ActiveAdmin.register HousingFacility do
   filter :updated_at
 
   action_item :import_rooms, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, HousingFacility)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   collection_action :import_spreadsheet, method: :post do
+    return head :forbidden unless authorized?(:import, HousingFacility)
+
     res =
       ImportHousingUnitsSpreadsheet.call(
         ActionController::Parameters.new(params).
@@ -39,7 +43,8 @@ ActiveAdmin.register HousingFacility do
       redirect_to housing_facilities_path,
                   notice: 'Housing Units imported successfully.'
     else
-      redirect_to new_spreadsheet_housing_facilities_path, flash: { error: res.message }
+      redirect_to new_spreadsheet_housing_facilities_path,
+                  flash: { error: res.message }
     end
   end
 
@@ -50,9 +55,8 @@ ActiveAdmin.register HousingFacility do
     private
 
     def redirect_delete_restriction(_exception)
-      redirect_to housing_facility_path(params[:id]),
-                  alert: 'Could not delete this Facility because people are' \
-                         ' currently assigned to it.'
+      msg = 'Could not delete this Facility because people are assigned to it.'
+      redirect_to housing_facility_path(params[:id]), alert: msg
     end
   end
 end

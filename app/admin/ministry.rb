@@ -14,10 +14,14 @@ ActiveAdmin.register Ministry do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, Ministry)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :import_ministries, method: :post do
+    return head :forbidden unless authorized?(:import, Ministry)
+
     res =
       Ministry::ImportSpreadsheet.call(
         ActionController::Parameters.new(params).
@@ -33,6 +37,8 @@ ActiveAdmin.register Ministry do
   end
 
   collection_action :import_hierarchy, method: :post do
+    return head :forbidden unless authorized?(:import, Ministry)
+
     res =
       Ministry::ImportHierarchySpreadsheet.call(
         ActionController::Parameters.new(params).
