@@ -54,8 +54,11 @@ class Attendee::ShowCell < ::ShowCell
     tr do
       th { 'Last Changed At' }
       td do
-        at = attendee.conference_status_changed_at
-        at.present? ? at : span('Never', class: :empty)
+        if attendee.conference_status_changed_at.present?
+          format_attribute(attendee, :conference_status_changed_at)
+        else
+          span('Never', class: :empty)
+        end
       end
     end
   end

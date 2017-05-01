@@ -33,6 +33,6 @@ class Attendee < Person
   end
 
   def touch_conference_status_changed
-    self.conference_status_changed_at = send(:current_time_from_proper_timezone)
+    self.conference_status_changed_at = Time.zone.now
   end
 end
