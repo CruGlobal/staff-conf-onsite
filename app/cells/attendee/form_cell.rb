@@ -65,8 +65,8 @@ class Attendee::FormCell < ::FormCell
 
   def duration_inputs
     inputs 'Requested Arrival/Departure' do
-      datepicker_input(model, :arrived_at)
-      datepicker_input(model, :departed_at)
+      datepicker_input(model, :arrived_at, label: 'Arrival')
+      datepicker_input(model, :departed_at, label: 'Departure')
     end
   end
 
@@ -80,8 +80,8 @@ class Attendee::FormCell < ::FormCell
 
   def rec_center_pass_inputs
     inputs 'Rec Center Pass' do
-      datepicker_input(model, :rec_center_pass_started_at)
-      datepicker_input(model, :rec_center_pass_expired_at)
+      datepicker_input(model, :rec_center_pass_started_at, label: 'Start')
+      datepicker_input(model, :rec_center_pass_expired_at, label: 'End')
     end
   end
 
