@@ -2,6 +2,7 @@ class UserVariable < ActiveRecord::Base
   enum value_type: [:string, :money, :date, :number, :html]
 
   validates :code, :short_name, :value_type, :value, presence: true
+  validates :code, :short_name, uniqueness: true
 
   after_save { self.class.empty_cache! }
 
