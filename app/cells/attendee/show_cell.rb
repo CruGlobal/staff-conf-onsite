@@ -20,20 +20,48 @@ class Attendee::ShowCell < ::ShowCell
   end
 
   def left_column
+    conference_status_table
     attendee_attributes_table
-    conferences_panel
-    attendances_panel
   end
 
   def right_column
+    conferences_panel
+    attendances_panel
     person_cell.call(:stays)
     person_cell.call(:cost_adjustments)
     person_cell.call(:meal_exemptions)
   end
 
+  def conference_status_table
+    panel 'Conference Status' do
+      div class: 'attributes_table' do
+        table do
+          conference_status_table_status_row
+          conference_status_table_changed_at_row
+        end
+      end
+    end
+  end
+
+  def conference_status_table_status_row
+    tr do
+      th { 'Status' }
+      td { attendee.conference_status }
+    end
+  end
+
+  def conference_status_table_changed_at_row
+    tr do
+      th { 'Last Changed At' }
+      td do
+        at = attendee.conference_status_changed_at
+        at.present? ? at : span('Never', class: :empty)
+      end
+    end
+  end
+
   def attendee_attributes_table
     attributes_table do
-      row :conference_status
       personal_rows
       contact_rows
       ministry_row

@@ -40,7 +40,8 @@ class Attendee::FormCell < ::FormCell
 
   def attendee_inputs
     inputs 'Basic', class: 'basic inputs' do
-      input :conference_status
+      input :conference_status, as: :select,
+                                collection: conference_status_select(attendee)
       person_cell.call(:family_selector_or_hidden)
 
       input :first_name

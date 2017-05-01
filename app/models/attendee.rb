@@ -1,7 +1,16 @@
 class Attendee < Person
   include FamilyMember
 
+  CONFERENCE_STATUSES = [
+    'Registered',
+    'Expected',
+    'Exempt',
+    'Checked-In',
+    'Cru17 Not Required'
+  ].freeze
+
   after_initialize :set_default_seminary
+  before_save :touch_conference_status_changed, if: :conference_status_changed?
 
   belongs_to :family
   belongs_to :seminary
@@ -21,5 +30,9 @@ class Attendee < Person
 
   def set_default_seminary
     self.seminary_id ||= Seminary.default.try(:id)
+  end
+
+  def touch_conference_status_changed
+    self.conference_status_changed_at = send(:current_time_from_proper_timezone)
   end
 end

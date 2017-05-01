@@ -109,4 +109,13 @@ module PersonHelper
       I18n.t("#{I18N_CHILD_PREFIX}.grade_levels.#{obj}")
     end
   end
+
+  # @param current [String, Person] the current value, or a {Person} to extract
+  #   their current status from
+  def conference_status_select(current = nil)
+    status = current.is_a?(Person) ? current.conference_status : current
+    status = nil if Attendee::CONFERENCE_STATUSES.include?(status)
+
+    (Array(status) + Attendee::CONFERENCE_STATUSES).map { |s| [s, s] }
+  end
 end
