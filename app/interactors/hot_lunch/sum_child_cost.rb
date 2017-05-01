@@ -36,7 +36,7 @@ class HotLunch::SumChildCost
   # @see Childcare#CHILDCARE_WEEKS
   def hot_lunch_in_dorm_indexes
     hot_lunch_start_dates.
-      map { |index, date| index if in_dorm_at?(date) }.
+      map { |index, date| index unless in_dorm_at?(date) }.
       compact
   end
 
