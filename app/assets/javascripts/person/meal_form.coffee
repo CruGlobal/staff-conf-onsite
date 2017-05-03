@@ -55,7 +55,9 @@ invertMealCheckboxes = ($meals) ->
 updateAddToggle = ($input, exists) ->
   cssClass = "status_tag #{if exists then 'yes' else 'no'}"
 
-  $input.removeClass().addClass("meal_exemptions_attributes__add_toggle #{cssClass}")
+  $input.
+    removeClass().
+    addClass("meal_exemptions_attributes__add_toggle #{cssClass}")
   $input.text(if exists then labels.yes else labels.no)
 
 
@@ -95,8 +97,8 @@ addNewMealButton = (personType, $meals, $table, nextIndex, types) ->
 #
 # @param {string} personType - "attendee" or "child"
 # @param {jQuery} $row       - the jQuery row to add the new column to
-# @param {string} type       - the Meal#meal_type of the exemption in this column
-#   (ie: Breakfast, Lunch, or Dinner)
+# @param {string} type       - the Meal#meal_type of the exemption in this
+#   column (ie: Breakfast, Lunch, or Dinner)
 # @param {number} index      - the query string row index of this MealExemption
 #   record.
 # @param [Date} date         - the date of the new Meal Exemption record

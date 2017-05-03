@@ -41,6 +41,9 @@ en:
       user_variable:
         one: "Variable"
         other: "Variables"
+      ibs_course:
+        one: "IBS Course"
+        other: "IBS Courses"
 
     attributes:
       person:
