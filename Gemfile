@@ -39,7 +39,7 @@ gem 'chosen-rails', '~> 1.5.2'
 gem 'money-rails', '~> 1.7'
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
-gem 'axlsx', '~> 2.0.1'
+gem 'axlsx', '~> 2.1.0.pre'
 gem 'cells-rails', '~> 0.0.7'
 
 # Frontend Scripts
@@ -75,6 +75,7 @@ group :development, :test do
   gem 'bundler-audit', '~> 0.5'           # Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'pry-rails', '~> 0.3.5'
+  gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
 
   # Documentation
   gem 'yard', '~> 0.9.5'

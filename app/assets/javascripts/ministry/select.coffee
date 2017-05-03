@@ -52,8 +52,8 @@ class DataMinistrySelectWidget
     @createSelectCallback($menu)
 
 
-  # Hides the original selector. The new UI element will change it's value, so it
-  # will continue to exist, but remain hidden.
+  # Hides the original selector. The new UI element will change it's value, so
+  # it will continue to exist, but remain hidden.
   # The jQuery "Chosen" UI is likely handling the "flat selector". We are taking
   # over this role, so remove it
   hideSelector: ->
