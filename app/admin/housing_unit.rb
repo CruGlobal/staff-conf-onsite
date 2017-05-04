@@ -11,7 +11,7 @@ ActiveAdmin.register HousingUnit do
 
   belongs_to :housing_facility
 
-  permit_params :name
+  permit_params :name, :occupancy_type
 
   controller do
     rescue_from ActiveRecord::DeleteRestrictionError,

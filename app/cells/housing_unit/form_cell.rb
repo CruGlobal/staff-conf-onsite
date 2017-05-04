@@ -6,6 +6,7 @@ class HousingUnit::FormCell < ::FormCell
 
     inputs do
       input :name
+      input :occupancy_type
     end
 
     actions
