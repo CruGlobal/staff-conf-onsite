@@ -151,7 +151,7 @@ class HousingUnitSelectWidget
     $hint = $('<p class="inline-hints" />').insertAfter($target)
     update = ->
       date = $(this).val()
-      $target.val(date)
+      $target.val(date) unless $target.val().length
       $hint.text("#{hintPrefix} #{date}")
 
     $inputs = $("input[name='attendee[#{type}]'], input[name='child[#{type}]']")

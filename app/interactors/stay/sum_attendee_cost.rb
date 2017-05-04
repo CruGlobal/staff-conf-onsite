@@ -1,6 +1,8 @@
 # == Context Input
 #
 # [+context.attendee+ [+Attendee+]]
+# [+context.housing_type+ [+#to_s+]]
+#   An optional {Stay#housing_type} to filter by
 class Stay::SumAttendeeCost
   include Interactor
 
@@ -9,12 +11,22 @@ class Stay::SumAttendeeCost
   end
 
   def call
-    context.attendee.stays.each(&method(:sum_stay_cost))
+    stays.each(&method(:sum_stay_cost))
 
     context.cost_adjustments = context.attendee.cost_adjustments
   end
 
   private
+
+  def stays
+    if context.housing_type.present?
+      context.attendee.stays.select do |s|
+        s.housing_type == context.housing_type
+      end
+    else
+      context.attendee.stays
+    end
+  end
 
   def sum_stay_cost(stay)
     result = Stay::SingleAttendeeCost.call(stay: stay)

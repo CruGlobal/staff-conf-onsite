@@ -5,7 +5,8 @@ class Family::FinancesCell < ::ShowCell
     'Childcare' => Childcare::SumFamilyCost,
     'Junior/Senior' => JuniorSenior::SumFamilyCost,
     'Hot Lunches' => HotLunch::SumFamilyCost,
-    'Attendee Housing' => Stay::SumFamilyAttendeesCost,
+    'Adult Apartment Housing' => Stay::SumFamilyAttendeesApartmentCost,
+    'Adult Dormitory Housing' => Stay::SumFamilyAttendeesDormitoryCost,
     'Children Housing' => Stay::SumFamilyChildrenCost
   }.freeze
 

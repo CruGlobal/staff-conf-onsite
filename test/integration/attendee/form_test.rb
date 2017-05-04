@@ -92,8 +92,8 @@ class Attendee::FormTest < IntegrationTest
         fill_in 'Last name',      with: attr[:last_name]
         select 'Male', from: 'Gender'
 
-        fill_in 'Rec Center Pass Start Date', with: attr[:rec_center_pass_started_at]
-        fill_in 'Rec Center Pass End Date',   with: attr[:rec_center_pass_expired_at]
+        fill_in 'Start', with: attr[:rec_center_pass_started_at]
+        fill_in 'End',   with: attr[:rec_center_pass_expired_at]
       end
 
       click_button 'Create Attendee'

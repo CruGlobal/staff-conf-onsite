@@ -1,7 +1,8 @@
 class Attendee::FinancesCell < ::ShowCell
   COSTS = {
     'Conferences' => Conference::ChargeCosts,
-    'Housing' => Stay::ChargeAttendee,
+    'Apartment Housing' => Stay::ChargeAttendeeApartment,
+    'Dormitory Housing' => Stay::ChargeAttendeeDormitory,
     'Rec Pass' => RecPass::ChargePersonCost
   }.freeze
 
@@ -9,7 +10,7 @@ class Attendee::FinancesCell < ::ShowCell
 
   def show
     panel 'Finances', class: 'finances_panel' do
-      individual_dorms_cost_list if cost_results['Housing'].success?
+      individual_dorms_cost_list if any_housing_costs?
       cell('cost_adjustment/summary_table', self, results: cost_results).call
     end
   end
@@ -47,6 +48,12 @@ class Attendee::FinancesCell < ::ShowCell
       text_node humanized_money_with_symbol result.total
     else
       div(class: 'flash flash_error') { result.error }
+    end
+  end
+
+  def any_housing_costs?
+    ['Apartment Housing', 'Dormitory Housing'].any? do |name|
+      cost_results[name].success?
     end
   end
 end

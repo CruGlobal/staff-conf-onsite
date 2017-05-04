@@ -1,3 +1,8 @@
+# == Context Input
+#
+# [+context.family+ [+Family+]]
+# [+context.housing_type+ [+#to_s+]]
+#   An optional {Stay#housing_type} to filter by
 class Stay::SumFamilyAttendeesCost
   include Interactor
 
@@ -9,7 +14,8 @@ class Stay::SumFamilyAttendeesCost
 
   def call
     context.family.attendees.each do |attendee|
-      result = Stay::ChargeAttendee.call(attendee: attendee)
+      result = Stay::ChargeAttendee.call(attendee: attendee,
+                                         housing_type: context.housing_type)
 
       if result.success?
         add_to_context(result)

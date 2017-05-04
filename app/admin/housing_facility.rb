@@ -21,8 +21,6 @@ ActiveAdmin.register HousingFacility do
   filter :state
   filter :country_code, as: :select, collection: country_select
   filter :zip
-  filter :csu_dorm_code
-  filter :csu_dorm_block
   filter :created_at
   filter :updated_at
 
@@ -52,12 +50,11 @@ ActiveAdmin.register HousingFacility do
   end
 
   controller do
-    rescue_from ActiveRecord::DeleteRestrictionError,
-                with: :redirect_delete_restriction
+    rescue_from ActiveRecord::DeleteRestrictionError, with: :delete_restriction
 
     private
 
-    def redirect_delete_restriction(_exception)
+    def delete_restriction(_exception)
       msg = 'Could not delete this Facility because people are assigned to it.'
       redirect_to housing_facility_path(params[:id]), alert: msg
     end
