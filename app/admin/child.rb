@@ -40,6 +40,8 @@ ActiveAdmin.register Child do
   filter :childcare_class
 
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    if authorized?(:import, Family)
+      link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    end
   end
 end
