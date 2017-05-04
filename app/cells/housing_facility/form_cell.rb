@@ -4,6 +4,7 @@ class HousingFacility::FormCell < ::FormCell
 
     detail_inputs
     address_inputs
+    csu_inputs
 
     actions
   end
@@ -27,6 +28,13 @@ class HousingFacility::FormCell < ::FormCell
       input :state
       input :zip
       input :country_code, as: :select, collection: country_select
+    end
+  end
+
+  def csu_inputs
+    inputs 'CSU' do
+      input :csu_dorm_code
+      input :csu_dorm_block
     end
   end
 end

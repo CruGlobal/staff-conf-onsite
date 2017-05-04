@@ -130,6 +130,8 @@ en:
         zip: "Zip Code"
       housing_facility:
         country_code: "Country"
+        csu_dorm_code: "CSU Dorm Code"
+        csu_dorm_block: "CSU Dorm Block"
         zip: "Zip Code"
         housing_types:
           dormitory: "Dormitory"

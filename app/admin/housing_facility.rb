@@ -9,7 +9,8 @@ ActiveAdmin.register HousingFacility do
   end
 
   permit_params :name, :housing_type, :cost_code_id, :cafeteria, :street,
-                :city, :state, :country_code, :zip, :on_campus
+                :city, :state, :country_code, :zip, :on_campus, :csu_dorm_code,
+                :csu_dorm_block
 
   filter :name
   filter :cost_code
@@ -20,6 +21,8 @@ ActiveAdmin.register HousingFacility do
   filter :state
   filter :country_code, as: :select, collection: country_select
   filter :zip
+  filter :csu_dorm_code
+  filter :csu_dorm_block
   filter :created_at
   filter :updated_at
 

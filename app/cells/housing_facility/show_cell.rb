@@ -5,6 +5,7 @@ class HousingFacility::ShowCell < ::ShowCell
     attributes_table do
       detail_rows
       address_rows
+      csu_rows
       timestamp_rows
     end
   end
@@ -25,6 +26,11 @@ class HousingFacility::ShowCell < ::ShowCell
     row :street
     row(:country_code) { |hf| country_name(hf.country_code) }
     row :zip
+  end
+
+  def csu_rows
+    row :csu_dorm_code
+    row :csu_dorm_block
   end
 
   def timestamp_rows
