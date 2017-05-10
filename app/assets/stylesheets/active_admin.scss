@@ -1,4 +1,5 @@
-// SASS variable overrides must be declared before loading up Active Admin's styles.
+// SASS variable overrides must be declared before loading up Active Admin's
+// styles.
 //
 // To view the variables that Active Admin provides, take a look at
 // `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
@@ -10,6 +11,7 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+@import "compass";
 
 @import "widgets/buttons";
 @import "widgets/inputs";
@@ -17,6 +19,7 @@
 @import "widgets/spreadsheets";
 @import "widgets/typography";
 @import "widgets/adjustments-table";
+@import "widgets/upload-job";
 
 // Specific Models
 // =================================

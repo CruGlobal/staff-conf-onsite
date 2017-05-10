@@ -9,6 +9,10 @@
 #= require widgets/ckeditor
 #= require widgets/spinner
 #
+#  Forms ------------------------------
+#= require jquery.form.4.2.1
+#= require widgets/upload-job-forms
+#
 #  Date Inputs ------------------------
 #= require widgets/dates
 #

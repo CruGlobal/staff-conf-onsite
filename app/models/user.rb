@@ -10,6 +10,8 @@ class User < ApplicationRecord
     define_method("#{r}?") { role == r }
   end
 
+  has_many :upload_jobs
+
   validates :guid, presence: true
   validates :role, inclusion: { in: ROLES }
 

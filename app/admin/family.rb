@@ -41,16 +41,17 @@ ActiveAdmin.register Family do
   collection_action :import_spreadsheet, method: :post do
     return head :forbidden unless authorized?(:import, Family)
 
-    res =
-      Import::ImportPeopleFromSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:import_spreadsheet).permit(:file)
-      )
+    import_params =
+      ActionController::Parameters.new(params).require(:import_spreadsheet).
+        permit(:file)
 
-    if res.success?
-      redirect_to families_path, notice: 'People imported successfully.'
-    else
-      redirect_to new_spreadsheet_families_path, flash: { error: res.message }
+    job = UploadJob.create_with_copy!(user_id: current_user.id,
+                                      path: import_params[:file].path)
+    ImportPeopleFromSpreadsheetJob.perform_later(job.id)
+
+    respond_to do |format|
+      format.html { redirect_to new_spreadsheet_families_path, notice: 'async job started' }
+      format.json { render json: job }
     end
   end
 end

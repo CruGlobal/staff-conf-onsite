@@ -1,6 +1,6 @@
 module Import
   class ImportPeopleFromSpreadsheet
-    include Interactor::Organizer
+    include Interactor::UploadJobOrganizer
 
     organize ReadSpreadsheet,
              ParsePeopleFromSpreadsheet,

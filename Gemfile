@@ -8,6 +8,7 @@ gem 'redis-rails', '~> 5.0.1'
 gem 'redis-namespace', '~> 1.5.2'
 gem 'newrelic_rpm', '~> 3.16.2.321'
 gem 'good_migrations', '~> 0.0.2'
+gem 'sidekiq', '~> 5.0'
 
 # Error Reporting
 gem 'rollbar', '~> 2.14'
@@ -18,8 +19,7 @@ gem 'rails', '~> 4.2.7.1'
 gem 'activeadmin', '~> 1.0.0.pre5'
 gem 'paper_trail', '~> 5.2.2'
 gem 'interactor-rails', '~> 2.0.2'
-# TODO: gem 'axlsx' requires rubycsv = 1.0. Update roo when that changes
-gem 'roo', '~> 1.13.2'
+gem 'roo', '~> 2.7'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'
@@ -32,6 +32,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 # View Helpers
+gem 'compass-rails', '~> 3.0'
 gem 'countries', '~> 1.2.5'
 gem 'phone', '~> 1.2.3'
 gem 'truncate_html', '~> 0.9.3'

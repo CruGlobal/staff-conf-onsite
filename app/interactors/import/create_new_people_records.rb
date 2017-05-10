@@ -3,7 +3,7 @@ module Import
   #
   # [+context.import_people+ [+Array<Import::Person>+]]
   class CreateNewPeopleRecords
-    include Interactor
+    include Interactor::UploadJob
     include ActionView::Helpers::OutputSafetyHelper
     include Rails.application.routes.url_helpers
 
@@ -15,6 +15,8 @@ module Import
     Error = Class.new(StandardError)
     PersonExistsError = Class.new(Error)
 
+    job_stage 'Persist New Database Records'
+
     before do
       @families = {}
       @imports = context.import_people
@@ -22,19 +24,28 @@ module Import
 
     def call
       ApplicationRecord.transaction do
-        people = @imports.each_with_index.map(&method(:create_from_import))
+        people = create_people
         persist_records!(@families.values, people)
 
         context.people = people.map(&:record)
         context.families = @families.values.map(&:record)
       end
     rescue PersonExistsError
-      context.fail!(message: existing_people_message)
+      fail_job!(message: existing_people_message)
     rescue Error => e
-      context.fail!(message: e.message)
+      fail_job!(message: e.message)
     end
 
     private
+
+    def create_people
+      count = @imports.size.to_f
+
+      @imports.each_with_index.map do |import, index|
+        update_stage(index, count, stage: 1)
+        create_from_import(import, index)
+      end
+    end
 
     def existing_people_message
       safe_join [
@@ -106,10 +117,8 @@ module Import
     end
 
     def create_family(primary)
-      Family.create!(
-        last_name: primary.last_name,
-        import_tag: primary.family_tag
-      ).tap do |family|
+      Family.create!(last_name: primary.last_name, import_tag:
+                     primary.family_tag).tap do |family|
         update_family(family, primary)
       end
     end
@@ -136,7 +145,12 @@ module Import
 
     def persist_records!(families, people)
       families.each(&method(:save_record!))
-      people.each(&method(:save_record!))
+
+      count = people.size.to_f
+      people.each_with_index do |person, index|
+        update_stage(index, count, stage: 2)
+        save_record!(person)
+      end
     end
 
     def save_record!(row_record)
@@ -164,6 +178,14 @@ module Import
       case person
       when Attendee then attendee_path(person)
       when Child then child_path(person)
+      end
+    end
+
+    def update_stage(index, count, stage:)
+      return unless index.modulo(100).zero?
+      case stage
+      when 1 then update_percentage(index / count * 0.5)
+      when 2 then update_percentage(index / count + 0.5)
       end
     end
   end

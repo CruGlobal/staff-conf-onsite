@@ -44,8 +44,6 @@ ActiveAdmin.register Attendee do
   filter :courses
   filter :arrived_at
   filter :departed_at
-  filter :created_at
-  filter :updated_at
 
   action_item :import_spreadsheet, only: :index do
     if authorized?(:import, Family)

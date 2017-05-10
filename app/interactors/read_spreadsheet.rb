@@ -23,57 +23,64 @@
 #
 # == Context Input
 #
-# [+context.file+ [+ActionDispatch::Http::UploadedFile+]]
-#   a file uploaded to the server by a {User}
+# [+context.job+ [+UploadJob+]]
+#   a job record containing a file uploaded to the server by a {User}
 #
 # == Context Output
 #
 # [+context.sheets+ [+Enumerable+]]
 #   a ruby-representation of the uploaded spreadsheet file
 class ReadSpreadsheet
-  include Interactor
+  include Interactor::UploadJob
 
   Error = Class.new(StandardError)
   TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
+
+  job_stage 'Parse Spreadsheet'
 
   # Convert the uploaded file into a list of rows, each of which is a list of
   # cells (+strings+) in that row. This service will +fail!+ if the uploaded
   # file is not a a compatible spreadsheet file.
   #
+  # Because the uploaded file is certainly a Tempfile, we unlink it afterwards.
+  #
   # @return [Interactor::Context]
   def call
-    reader = open(context.file)
+    reader = open_upload
+    update_percentage(0.25)
     sheets = reader.sheets.map { |name| reader.sheet(name) }
 
+    update_percentage(0.5)
     context.sheets =
       if skip_first_row?
         sheets.map { |sheet| sheet.drop(1) }
       else
         sheets
       end
+
+    update_percentage(0.75)
+    unlink_job_upload!
   rescue Error => e
-    context.fail! message: e.message
+    fail_job! message: e.message
   end
 
   private
 
-  def open(file)
-    path = file.tempfile.path
-
+  def open_upload
     ext =
-      case File.extname(file.original_filename)
+      case File.extname(job.path)
       when '.ods' then :ods
       when '.csv' then :csv
       when '.xls' then :xls
       when '.xlsx' then :xlsx
       else
         raise Error, [
-          "Unexpected filename: '#{file.original_filename}'.",
+          "Unexpected filename: '#{job.path}'.",
           'Extension must be .ods, .csv, .xls, or .xlsx'
         ].join(' ')
       end
 
-    Roo::Spreadsheet.open(path, extension: ext)
+    Roo::Spreadsheet.open(job.path, extension: ext)
   end
 
   def skip_first_row?
