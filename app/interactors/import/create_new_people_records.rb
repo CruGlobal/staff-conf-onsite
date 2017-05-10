@@ -185,7 +185,7 @@ module Import
       return unless index.modulo(100).zero?
       case stage
       when 1 then update_percentage(index / count * 0.5)
-      when 2 then update_percentage(index / count + 0.5)
+      when 2 then update_percentage(index / count * 0.5 + 0.5)
       end
     end
   end

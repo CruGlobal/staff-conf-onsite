@@ -15,7 +15,7 @@
 # [+context.delete_existing+ [Boolean]]
 #   whether existing {ChargeableStaffNumber} records should first be destroyed
 class CreateChargeableStaffNumbers
-  include Interactor
+  include Interactor::UploadJob
 
   Error = Class.new(StandardError)
   TRUE_VALUES = ReadSpreadsheet::TRUE_VALUES
@@ -29,7 +29,7 @@ class CreateChargeableStaffNumbers
       numbers.each(&:save!)
     end
   rescue Error => e
-    context.fail! message: e.message
+    fail_job! message: e.message
   end
 
   private
@@ -43,7 +43,11 @@ class CreateChargeableStaffNumbers
   end
 
   def parse_staff_number_rows(rows)
-    rows.map do |row|
+    count = rows.count.to_f
+
+    rows.each_with_index.map do |row, index|
+      update_percentage(index / count) if index.modulo(100).zero?
+
       staff_number = row[0].to_s.strip
 
       unless staff_number.blank?

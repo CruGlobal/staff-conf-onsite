@@ -13,7 +13,7 @@
 # [+context.delete_existing+ [Boolean]]
 #   whether existing {ChargeableStaffNumber} records should first be destroyed
 class ImportHousingUnitsSpreadsheet
-  include Interactor::Organizer
+  include Interactor::UploadJobOrganizer
 
   organize ReadSpreadsheet,
            CreateHousingUnits

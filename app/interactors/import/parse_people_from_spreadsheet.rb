@@ -14,10 +14,8 @@ module Import
     private
 
     def process_sheet(sheet)
-      # hashes = sheet_to_hashes(sheet)
       count = sheet.count
 
-      # hashes.each_with_index.map do |row, index|
       each_row_with_index(sheet).map do |row, index|
         next if index.zero?
         update_percentage(index / count) if index.modulo(100).zero?

@@ -10,7 +10,7 @@
 #   a ruby-representation of the uploaded spreadsheet file.  See
 #   {ReadSpreadsheet}
 class CreateHousingUnits
-  include Interactor
+  include Interactor::UploadJob
 
   RowRecord = Struct.new(:record, :import)
   Error = Class.new(StandardError)
@@ -26,15 +26,20 @@ class CreateHousingUnits
     import_models = parse_sheets
     row_records = build_models(import_models)
     save_all!(row_records)
-  rescue Error => e
-    context.fail! message: e.message
+  rescue => e
+    fail_job! message: e.message
   end
 
   private
 
   def parse_sheets
     context.sheets.flat_map do |rows|
-      rows.each_with_index.map(&method(:create_from_row))
+      count = rows.count.to_f
+
+      rows.each_with_index.map do |row, index|
+        update_percentage(index / count) if index.modulo(100).zero?
+        create_from_row(row, index)
+      end
     end
   end
 

@@ -22,34 +22,36 @@ ActiveAdmin.register Ministry do
   collection_action :import_ministries, method: :post do
     return head :forbidden unless authorized?(:import, Ministry)
 
-    res =
-      Ministry::ImportSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:spreadsheet_import_ministries).
-          permit(:file, :skip_first)
-      )
+    import_params =
+      ActionController::Parameters.new(params).
+        require(:spreadsheet_import_ministries).permit(:file, :skip_first)
 
-    if res.success?
-      redirect_to ministries_path, notice: 'Ministries imported successfully.'
-    else
-      redirect_to new_spreadsheet_ministries_path, flash: { error: res.message }
+    job = UploadJob.create_with_copy!(user_id: current_user.id,
+                                      path: import_params[:file].path)
+    ImportMinistriesSpreadsheetJob.perform_later(job.id,
+                                                 import_params[:skip_first])
+
+    respond_to do |format|
+      format.html { redirect_to ministries_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 
   collection_action :import_hierarchy, method: :post do
     return head :forbidden unless authorized?(:import, Ministry)
 
-    res =
-      Ministry::ImportHierarchySpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:spreadsheet_import_hierarchy).
-          permit(:file, :skip_first)
-      )
+    import_params =
+      ActionController::Parameters.new(params).
+        require(:spreadsheet_import_hierarchy).permit(:file, :skip_first)
 
-    if res.success?
-      redirect_to ministries_path, notice: 'Hierarchy imported successfully.'
-    else
-      redirect_to new_spreadsheet_ministries_path, flash: { error: res.message }
+    job = UploadJob.create_with_copy!(user_id: current_user.id,
+                                      path: import_params[:file].path)
+    ImportHierarchySpreadsheetJob.perform_later(job.id,
+                                                import_params[:skip_first])
+
+    respond_to do |format|
+      format.html { redirect_to ministries_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 end

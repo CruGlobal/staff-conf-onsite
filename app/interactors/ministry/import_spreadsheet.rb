@@ -10,7 +10,7 @@
 # [+context.file+ [+ActionDispatch::Http::UploadedFile+]]
 #   a file uploaded to the server by a {User}
 class Ministry::ImportSpreadsheet
-  include Interactor::Organizer
+  include Interactor::UploadJobOrganizer
 
   organize ReadSpreadsheet,
            Ministry::CreateOrUpdate

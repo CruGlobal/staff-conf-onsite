@@ -16,12 +16,8 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'},
 
   fieldset class: 'actions' do
     ol do
-      li class: 'action input_action' do
-        text_node submit_tag 'Submit', data: { disable_with: 'This may take some time…' }
-      end
-      li class: 'cancel' do
-        link_to 'Cancel', families_path
-      end
+      li(class: 'action input_action') { submit_tag 'Submit' }
+      li(class: 'cancel') { link_to 'Cancel', families_path }
     end
   end
 end

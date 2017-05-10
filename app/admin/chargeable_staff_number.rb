@@ -27,19 +27,19 @@ ActiveAdmin.register ChargeableStaffNumber do
   collection_action :import_spreadsheet, method: :post do
     return head :forbidden unless authorized?(:import, ChargeableStaffNumber)
 
-    res =
-      ImportChargeableStaffNumbersSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require('import_spreadsheet').
-          permit(:file, :delete_existing, :skip_first)
-      )
+    import_params =
+      ActionController::Parameters.new(params).require('import_spreadsheet').
+        permit(:file, :delete_existing, :skip_first)
 
-    if res.success?
-      redirect_to chargeable_staff_numbers_path,
-                  notice: 'Staff Numbers imported successfully.'
-    else
-      redirect_to new_spreadsheet_chargeable_staff_numbers_path,
-                  flash: { error: res.message }
+    job = UploadJob.create_with_copy!(user_id: current_user.id,
+                                      path: import_params[:file].path)
+    ImportChargeableStaffNumbersSpreadsheetJob.perform_later(
+      job.id, import_params[:delete_existing], import_params[:skip_first]
+    )
+
+    respond_to do |format|
+      format.html { redirect_to chargeable_staff_numbers_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 end

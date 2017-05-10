@@ -33,6 +33,11 @@ class UploadJob < ActiveRecord::Base
     end
   end
 
+  def success=(success)
+    super
+    self.finished = true
+  end
+
   def finished=(finish)
     super
     self.percentage = 1.0

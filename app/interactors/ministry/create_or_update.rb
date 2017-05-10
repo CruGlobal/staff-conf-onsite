@@ -14,26 +14,32 @@
 #   a ruby-representation of the uploaded spreadsheet file.  See
 #   {ReadSpreadsheet}
 class Ministry::CreateOrUpdate
-  include Interactor
+  include Interactor::UploadJob
 
   Error = Class.new(StandardError)
+
+  job_stage 'Create New Ministry Records'
 
   # Create or update each {Ministry} referenced in the given sheets.
   #
   # @return [Interactor::Context]
   def call
     Ministry.transaction do
-      context.sheets.each { |rows| parse_ministry_rows(rows) }
+      context.sheets.each(&method(:parse_ministry_rows))
       ministries.each(&:save!)
     end
   rescue Error => e
-    context.fail! message: e.message
+    fail_job! message: e.message
   end
 
   private
 
   def parse_ministry_rows(rows)
+    count = rows.count.to_f
+
     rows.each_with_index do |row, i|
+      update_percentage(i / count) if i.modulo(100).zero?
+
       row = row.map(&:strip).select(&:present?)
 
       if row.size < 2

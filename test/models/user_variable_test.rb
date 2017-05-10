@@ -9,10 +9,10 @@ class UserVariableTest < ModelTestCase
   end
 
   test 'basic get' do
-    create(:user_variable, short_name: :test, value_type: 'money',
+    create(:user_variable, short_name: :basic_get_test, value_type: 'money',
                            value: Money.new(123_45))
 
-    assert_equal Money.new(123_45), UserVariable[:test]
+    assert_equal Money.new(123_45), UserVariable[:basic_get_test]
   end
 
   test 'unknown user variable' do

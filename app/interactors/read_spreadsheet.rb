@@ -47,10 +47,10 @@ class ReadSpreadsheet
   # @return [Interactor::Context]
   def call
     reader = open_upload
-    update_percentage(0.25)
+    update_percentage(0.5)
     sheets = reader.sheets.map { |name| reader.sheet(name) }
 
-    update_percentage(0.5)
+    update_percentage(0.75)
     context.sheets =
       if skip_first_row?
         sheets.map { |sheet| sheet.drop(1) }
@@ -58,9 +58,9 @@ class ReadSpreadsheet
         sheets
       end
 
-    update_percentage(0.75)
+    update_percentage(0.95)
     unlink_job_upload!
-  rescue Error => e
+  rescue => e
     fail_job! message: e.message
   end
 

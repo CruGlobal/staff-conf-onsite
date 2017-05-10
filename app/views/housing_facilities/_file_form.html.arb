@@ -1,6 +1,7 @@
 # vim:ft=ruby:
 
-form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multipart: true} do |f|
+form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'},
+    html: {multipart: true, class: 'upload-job-js' } do |f|
   fieldset class: 'inputs' do
     ol do
       li class: 'file input' do
@@ -23,7 +24,6 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'}, html: {multi
     ol do
       li(class: 'action input_action') { submit_tag 'Submit' }
       li(class: 'cancel') { link_to 'Cancel', housing_facilities_path }
-      li { cell('widget/spinner', self, size: 24, classes: 'hide') }
     end
   end
 end

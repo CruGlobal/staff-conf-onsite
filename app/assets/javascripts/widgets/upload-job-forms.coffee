@@ -36,8 +36,9 @@ startPolling = (data, textStatus, jqXHR, $form) ->
 
 class UploadJobPoller
   constructor: (@$form, @id, data) ->
-    @createStatusMessage()
+    @createStatusContainer()
     @updateStatus(data)
+    @currentStage = null
 
 
   # Poll continuously until the job is done
@@ -54,46 +55,86 @@ class UploadJobPoller
 
 
   updateStatus: (data) ->
+    stageChanged = @stage != data.stage
+    @createNewCurrentStage(data.stage) if stageChanged
+    @stage = data.stage
+
     @finished = data.finished
     @success = data.success
-    @stage = data.stage
     @percentage = data.percentage
+
     @message = data.html_message
+    @message = 'Finished Import!' if @finished && !@message
 
-    console.log(data.percentage, data)
+    @updateStatusMessage()
+    @currentStage.update(@finished, @success, @percentage) if @currentStage
 
-    @updateStatusMessage(@stage, @percentage, @message)
+
+  updateStatusMessage: ->
+    @$jobMessage.html(@message)
+    @setJobMessageStyle()
+
+
+  createNewCurrentStage: (stage)->
+    return if stage == 'queued'
+
+    @currentStage.finish(!@finished || @success) if @currentStage
+    @currentStage = new StageStatus(stage)
+    @$statusContainer.append(@currentStage.$elem)
+
+
+  createStatusContainer: ->
+    $title = $('<h3>').text('Upload Progress')
+    $note = $('<p class="upload-job__note">').text(
+      'You can now leave this page. The import will continue.'
+    )
+
+    @$statusContainer = $('<div class="upload-job__status">')
+    @$jobMessage = $('<div class="upload-job__message">')
+
+    @$form.after(
+      $('<div class="upload-job">').append($title, $note, @$statusContainer,
+                                           @$jobMessage)
+    )
+
+
+  setJobMessageStyle: ->
+    @$jobMessage.removeClass('flash_notice flash_error')
+
+    return unless @message?.length
+
+    if @success
+      @$jobMessage.addClass('flash flash_notice')
+    else
+      @$jobMessage.addClass('flash flash_error')
+
+
+class StageStatus
+  constructor: (@stage) ->
+    @$elem = @createStatusMessage()
+    @update(false, false, 0)
 
 
   createStatusMessage: ->
-    $title = $('<h3>').text('Upload Progress')
-    $note = $('<p class="upload-job__note">').text(
-      'You can now leave this page. The upload will continue on the server.'
-    )
-
-    @$jobStatus = $('<div class="upload-job__status">')
-    @$jobMessage = $('<div class="upload-job__message">')
+    @$jobStatus = $('<div class="upload-job__status">').text(@stage)
 
     $progressContainer = $('<div class="upload-job__progress">')
     @$jobProgress = $('<div class="upload-job__progress-bar">').
                       appendTo($progressContainer)
 
-    @$form.after(
-      $('<div class="upload-job">').append($title, $note, @$jobStatus,
-                                           $progressContainer, @$jobMessage)
-    )
+    $('<div class="upload-job">').append(@$jobStatus, $progressContainer,
+                                         @$jobMessage)
 
 
-  updateStatusMessage: ->
-    if @finished
-      @$jobStatus.text('Finished.')
-    else
-      @$jobStatus.text("Current Stage: #{@stage}")
+  finish: (success) -> @update(true, success, 1)
+
+
+  update: (finished, success, percentage) ->
+    @finished = finished
+    @success = success
+    @percentage = percentage
 
     @updateJobProcessStyle()
-
-    @setJobMessageStyle()
-    @$jobMessage.html(@message)
 
 
   updateJobProcessStyle: ->
@@ -106,14 +147,3 @@ class UploadJobPoller
         @$jobProgress.addClass('upload-job__progress-bar--error')
     else
       @$jobProgress.css(width: "#{@percentage * 100.0}%")
-
-
-  setJobMessageStyle: ->
-    @$jobMessage.removeClass('flash_notice flash_error')
-
-    return unless @message?.length
-
-    if @success
-      @$jobMessage.addClass('flash flash_notice')
-    else
-      @$jobMessage.addClass('flash flash_error')

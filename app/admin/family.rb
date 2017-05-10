@@ -50,7 +50,7 @@ ActiveAdmin.register Family do
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
     respond_to do |format|
-      format.html { redirect_to new_spreadsheet_families_path, notice: 'async job started' }
+      format.html { redirect_to new_spreadsheet_families_path, notice: 'Upload Started' }
       format.json { render json: job }
     end
   end

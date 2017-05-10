@@ -1,4 +1,5 @@
 module Interactor
+  # Indicates that this interactor is not able to manage its {UploadJob}.
   UploadJobError = Class.new(StandardError)
 
   # An {Interactor} which periodically updates a {UploadJob} record, so that we
@@ -16,6 +17,7 @@ module Interactor
       end
     end
 
+    # Class methods to be mixed into the base class
     module ClassMethods
       # Set/Get a descriptive name for an Interactor, so we can better describe
       # the current stage the job is processing
@@ -27,7 +29,7 @@ module Interactor
 
     def job_from_context
       @job ||= context.job.tap do |job|
-        raise UploadJobError, 'context.job is missing' if job.nil?
+        raise UploadJobError, 'context.job is missing' unless job.present?
       end
     end
 
@@ -41,7 +43,7 @@ module Interactor
     end
 
     def update_job_stage
-      job.update!(stage: self.class.job_stage)
+      job.update!(stage: self.class.job_stage, percentage: 0)
     end
 
     def update_percentage(percentage)

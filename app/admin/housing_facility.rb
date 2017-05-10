@@ -34,18 +34,18 @@ ActiveAdmin.register HousingFacility do
   collection_action :import_spreadsheet, method: :post do
     return head :forbidden unless authorized?(:import, HousingFacility)
 
-    res =
-      ImportHousingUnitsSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require('import_spreadsheet').permit(:file, :skip_first)
-      )
+    import_params =
+      ActionController::Parameters.new(params).require('import_spreadsheet').
+        permit(:file, :skip_first)
 
-    if res.success?
-      redirect_to housing_facilities_path,
-                  notice: 'Housing Units imported successfully.'
-    else
-      redirect_to new_spreadsheet_housing_facilities_path,
-                  flash: { error: res.message }
+    job = UploadJob.create_with_copy!(user_id: current_user.id,
+                                      path: import_params[:file].path)
+    ImportHousingUnitsSpreadsheetJob.perform_later(job.id,
+                                                   import_params[:skip_first])
+
+    respond_to do |format|
+      format.html { redirect_to housing_facility_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 

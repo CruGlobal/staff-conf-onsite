@@ -50,12 +50,10 @@ class Import::ImportPeopleFromSpreadsheetTest < InteractorTestCase
   end
 
   def import_spreadsheet(filename)
-    spreadsheet =
-      fixture_file_upload(
-        filename,
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      )
+    path = Rails.root.join('test', 'fixtures', filename)
 
-    Import::ImportPeopleFromSpreadsheet.call(file: spreadsheet)
+    Import::ImportPeopleFromSpreadsheet.call(
+      job: UploadJob.create_with_copy!(path: path, user_id: 1)
+    )
   end
 end

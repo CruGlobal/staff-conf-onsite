@@ -17,7 +17,7 @@ module Interactor
 
     def job_from_context
       @job ||= context.job.tap do |job|
-        raise UploadJobError, 'context.job is missing' if job.nil?
+        raise UploadJobError, 'context.job is missing' unless job.present?
       end
     end
   end

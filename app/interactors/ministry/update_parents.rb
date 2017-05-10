@@ -8,9 +8,11 @@
 # representation expected by this service. See its documentation for a
 # description of the spreadsheet "ruby representation."
 class Ministry::UpdateParents
-  include Interactor
+  include Interactor::UploadJob
 
   Error = Class.new(StandardError)
+
+  job_stage 'Update Ministry Hierarchies'
 
   def call
     Ministry.transaction do
@@ -18,15 +20,19 @@ class Ministry::UpdateParents
       ministries.each(&:save!)
     end
   rescue Error => e
-    context.fail! message: e.message
+    fail_job! message: e.message
   end
 
   private
 
   def process_sheet(sheet)
+    count = sheet.count
+
     sheet.each_with_index do |row, row_index|
       row = row.map(&:strip).select(&:present?)
       next if row.size < 2
+
+      update_percentage(row_index / count) if row_index.modulo(100).zero?
 
       ministries = row_to_ministries(row)
       assert_ministries!(row, row_index, ministries)
