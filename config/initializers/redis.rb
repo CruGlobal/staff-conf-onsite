@@ -1,8 +1,7 @@
 require 'redis'
+require 'redis/objects'
 require 'redis/namespace'
 
-host = ENV.fetch('REDIS_PORT_6379_TCP_ADDR')
-port = ENV.fetch('REDIS_PORT_6379_TCP_PORT', 6379)
-
-redis = Redis.new(host: host, port: port)
-Redis.current = Redis::Namespace.new("cru-onsite:#{Rails.env}", redis: redis)
+redis_config = YAML.load(ERB.new(File.read(Rails.root.join('config', 'redis.yml').to_s)).result)
+host, port = redis_config[Rails.env].split(':')
+Redis.current = Redis::Namespace.new("Staff-Conf:#{Rails.env}", redis: Redis.new(host: host, port: port))

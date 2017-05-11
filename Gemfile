@@ -4,11 +4,14 @@ source 'https://rubygems.org'
 gem 'puma', '~> 3.0'
 gem 'pg', '~> 0.19.0'
 gem 'syslog-logger', '~> 1.6.8'
-gem 'redis-rails', '~> 5.0.1'
-gem 'redis-namespace', '~> 1.5.2'
 gem 'newrelic_rpm', '~> 3.16.2.321'
 gem 'good_migrations', '~> 0.0.2'
+
+# Background Processes
 gem 'sidekiq', '~> 5.0'
+gem 'redis-namespace', '~> 1.5'
+gem 'redis-objects', '~> 0.6'
+gem 'redis-rails', '~> 5.0'
 
 # Error Reporting
 gem 'rollbar', '~> 2.14'

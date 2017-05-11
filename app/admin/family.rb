@@ -19,8 +19,8 @@ ActiveAdmin.register Family do
                   :location3, :confirmed_at, :comment
                 ]
 
-  filter :last_name_or_people_first_name_cont,
-         label: 'Last Name or Family Member Name'
+  filter :last_name
+  filter :attendees_first_name_cont, label: 'Attendee Name'
   filter :address1
   filter :address2
   filter :city
