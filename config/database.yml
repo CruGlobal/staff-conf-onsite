@@ -1,29 +1,29 @@
-default: &default
+development: &dev
   adapter: postgresql
-  encoding: unicode
-  host: <%= ENV.fetch('DB_HOST', 'localhost') %>
-  pool: 5
-  timeout: 5000
+  encoding: utf8
+  reconnect: false
+  pool: <%= ENV['DB_ENV_POSTGRESQL_POOL'] || 25 %>
+  database: <%= ENV['DB_ENV_POSTGRESQL_DB'] %>
+  username: <%= ENV.fetch('DB_ENV_POSTGRESQL_USER') %>
+  password: <%= ENV.fetch('DB_ENV_POSTGRESQL_PASS') %>
+  host: <%= ENV.fetch('DB_PORT_5432_TCP_ADDR') %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
 
-development:
-  <<: *default
-  username: cru
-  database: cru_development
+
+staging:
+  <<: *dev
+
+production:
+  <<: *dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  username: cru
-  database: cru_test
+test: &test
+  <<: *dev
+  database: <%= (ENV['DB_ENV_POSTGRESQL_DB_TEST'] || ENV['DB_ENV_POSTGRESQL_DB'] + '_test') %>
+  username: <%= ENV['DB_ENV_POSTGRESQL_USER_TEST'] || ENV.fetch('DB_ENV_POSTGRESQL_USER') %>
+  password: <%= ENV['DB_ENV_POSTGRESQL_PASS_TEST'] || ENV.fetch('DB_ENV_POSTGRESQL_PASS') %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR_TEST'] || ENV.fetch('DB_PORT_5432_TCP_ADDR') %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT_TEST'] || ENV['DB_PORT_5432_TCP_PORT'] %>
 
-production: &production
-  <<: *default
-  pool: <%= ENV.fetch('DB_POOL', 25) %>
-  database: <%= ENV.fetch('DB_DATABASE') %>
-  username: <%= ENV.fetch('DB_USER') %>
-  password: <%= ENV.fetch('DB_PASS') %>
-
-staging:
-  <<: *production
