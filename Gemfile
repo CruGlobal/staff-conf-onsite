@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+source 'https://gems.contribsys.com/' do
+  gem 'sidekiq-pro'
+end
 
 # Server
 gem 'puma', '~> 3.0'
@@ -8,7 +11,8 @@ gem 'newrelic_rpm', '~> 3.16.2.321'
 gem 'good_migrations', '~> 0.0.2'
 
 # Background Processes
-gem 'sidekiq', '~> 5.0'
+gem 'sidekiq-unique-jobs'
+gem 'sidekiq-cron'
 gem 'redis-namespace', '~> 1.5'
 gem 'redis-objects', '~> 0.6'
 gem 'redis-rails', '~> 5.0'
