@@ -1,6 +1,6 @@
 class SeedSeminaries
   RECORDS = {
-    IBS: { name: 'IBS', course_price: 0 }
+    IBS: { name: 'IBS' }
   }.freeze
 
   def initialize
