@@ -2,6 +2,5 @@ require 'redis'
 require 'redis/objects'
 require 'redis/namespace'
 
-redis_config = YAML.load(ERB.new(File.read(Rails.root.join('config', 'redis.yml').to_s)).result)
-host, port = redis_config[Rails.env].split(':')
-Redis.current = Redis::Namespace.new("Staff-Conf:#{Rails.env}", redis: Redis.new(host: host, port: port))
+host = ENV.fetch('REDIS_PORT_6379_TCP_ADDR')
+Redis.current = Redis::Namespace.new("sco:#{Rails.env}", redis: Redis.new(host: host))
