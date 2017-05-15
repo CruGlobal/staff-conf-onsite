@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 # Provides the status of an upload job running in the background, so that we
 # can update the user-agent with its progress.
 #
@@ -25,11 +27,16 @@ class UploadJob < ActiveRecord::Base
 
     private
 
-    def copy_name(old_name)
-      dir, filename = File.split(old_name)
-      new_name = format('upload_job_%s', filename)
+    def copy_name(old_path)
+      filename = File.basename(old_path)
+      File.join(temp_dir, filename)
+    end
 
-      File.join(dir, new_name)
+    def temp_dir
+      @temp_dir ||=
+        Dir.mktmpdir('upload_job').tap do |dir|
+          at_exit { FileUtils.remove_entry(dir) }
+        end
     end
   end
 
