@@ -1,5 +1,6 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
+  includes :attendees
 
   partial_view(
     :index,
@@ -11,13 +12,13 @@ ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :state,
-                :zip, :country_code, :registration_comment,
-                housing_preference_attributes: [
-                  :id, :housing_type, :roommates, :beds_count, :single_room,
-                  :children_count, :bedrooms_count, :other_family,
-                  :accepts_non_air_conditioned, :location1, :location2,
-                  :location3, :confirmed_at, :comment
-                ]
+    :zip, :country_code, :registration_comment,
+    housing_preference_attributes: [
+      :id, :housing_type, :roommates, :beds_count, :single_room,
+      :children_count, :bedrooms_count, :other_family,
+      :accepts_non_air_conditioned, :location1, :location2,
+      :location3, :confirmed_at, :comment
+    ]
 
   filter :last_name
   filter :attendees_first_name, label: 'Attendee Name', as: :string
@@ -43,7 +44,7 @@ ActiveAdmin.register Family do
 
     import_params =
       ActionController::Parameters.new(params).require(:import_spreadsheet).
-        permit(:file)
+      permit(:file)
 
     job = UploadJob.create!(user_id: current_user.id,
                             filename: import_params[:file].path)

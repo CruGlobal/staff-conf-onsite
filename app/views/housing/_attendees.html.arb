@@ -1,0 +1,10 @@
+# vim:ft=ruby:
+
+@family = Family.includes(:attendees).find_by(id: params[:family_id]) if params[:family_id]
+
+if @family
+  columns do
+    column { render partial: 'attendee', collection: @family.attendees }
+  end
+end
+
