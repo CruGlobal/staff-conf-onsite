@@ -268,6 +268,15 @@ ActiveRecord::Schema.define(version: 20170515162038) do
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
 
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "housing_facility_id"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rooms", ["housing_facility_id", "number"], name: "index_rooms_on_housing_facility_id_and_number", unique: true, using: :btree
+
   create_table "seminaries", force: :cascade do |t|
     t.string   "name",                           null: false
     t.string   "code",                           null: false

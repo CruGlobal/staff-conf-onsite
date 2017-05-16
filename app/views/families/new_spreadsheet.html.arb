@@ -25,12 +25,13 @@ columns do
       para <<-EOP
         The first row must contain column header names. We use the headers to
         determine which rows map to which record attributes. They can appear in
-        any order however. The possible column headers are listed in the
-        following table.
+        any order however. The column headers are listed in the following
+        table. Each column is required, but only a few columns must have values
+        for every row. Other columns may be blank.
       EOP
 
       table class: 'example-spreadsheet' do
-        tr { th 'Column Header'; th 'Required' }
+        tr { th 'Column Header'; th 'Value Required' }
 
         tr { td 'Person Type'; td status_tag(:yes) }
         tr { td 'Family'; td status_tag(:yes) }

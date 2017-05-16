@@ -9,6 +9,7 @@ module Import
       person_type: 'Person Type',
       family_tag:  'Family',
 
+      student_number:      'Student Number',
       first_name:          'First',
       last_name:           'Last',
       name_tag_first_name: 'Name Tag Name Last',
