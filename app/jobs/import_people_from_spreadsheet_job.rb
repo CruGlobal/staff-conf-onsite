@@ -4,5 +4,9 @@ class ImportPeopleFromSpreadsheetJob < ActiveJob::Base
   def perform(upload_job_id)
     job = UploadJob.find(upload_job_id)
     Import::ImportPeopleFromSpreadsheet.call(job: job)
+  rescue => e
+    job&.fail!(e.message)
+  ensure
+    job&.unlink_file!
   end
 end

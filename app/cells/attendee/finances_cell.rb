@@ -1,16 +1,9 @@
 class Attendee::FinancesCell < ::ShowCell
-  COSTS = {
-    'Conferences' => Conference::ChargeCosts,
-    'Apartment Housing' => Stay::ChargeAttendeeApartment,
-    'Dormitory Housing' => Stay::ChargeAttendeeDormitory,
-    'Rec Pass' => RecPass::ChargePersonCost
-  }.freeze
-
   property :attendee
 
   def show
     panel 'Finances', class: 'finances_panel' do
-      individual_dorms_cost_list if any_housing_costs?
+      individual_dorms_cost_list
       cell('cost_adjustment/summary_table', self, results: cost_results).call
     end
   end
@@ -18,8 +11,22 @@ class Attendee::FinancesCell < ::ShowCell
   private
 
   def cost_results
-    @results ||= Hash[
-      COSTS.map { |name, service| [name, service.call(attendee: attendee)] }
+    @results ||= {
+      'Conferences' => Conference::ChargePersonCost.call(person: attendee),
+      'Rec Pass' => RecPass::ChargePersonCost.call(person: attendee),
+
+      'Apartment Housing' =>
+        Stay::ChargeAttendeeApartment.call(attendee: attendee),
+      'Dormitory Housing' =>
+        Stay::ChargeAttendeeDormitory.call(attendee: attendee)
+    }.freeze
+  end
+
+  def stay_cost_results
+    @stay_results ||= Hash[
+      STAY_COSTS.map do |name, service|
+        [name, service.call(attendee: attendee)]
+      end
     ]
   end
 
@@ -44,16 +51,8 @@ class Attendee::FinancesCell < ::ShowCell
 
   def individual_dorms_cost_list_item(stay)
     result = Stay::SingleAttendeeCost.call(stay: stay)
-    if result.success?
-      text_node humanized_money_with_symbol result.total
-    else
-      div(class: 'flash flash_error') { result.error }
-    end
-  end
-
-  def any_housing_costs?
-    ['Apartment Housing', 'Dormitory Housing'].any? do |name|
-      cost_results[name].success?
-    end
+    text_node humanized_money_with_symbol result.total
+  rescue => e
+    div(class: 'flash flash_error') { e.message }
   end
 end

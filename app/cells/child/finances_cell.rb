@@ -3,7 +3,7 @@ class Child::FinancesCell < ::ShowCell
 
   def show
     panel 'Finances', class: 'finances_panel' do
-      individual_dorms_cost_list if cost_results['Housing'].success?
+      individual_dorms_cost_list if child.stays.any?
       cell('cost_adjustment/summary_table', self, results: cost_results).call
     end
   end
@@ -11,27 +11,30 @@ class Child::FinancesCell < ::ShowCell
   private
 
   def cost_results
-    @results ||= Hash[
-      cost_groups.map { |name, service| [name, service.call(child: child)] }
-    ]
+    @results ||=
+      if child.age_group == :childcare
+        childcare_cost_results
+      else
+        junior_senior_cost_results
+      end
   end
 
-  def cost_groups
-    if child.age_group == :childcare
-      {
-        'Housing' => Stay::ChargeChild,
-        'Rec Pass' => RecPass::ChargePersonCost,
-        'Childcare' => Childcare::ChargeCosts,
-        'Hot Lunches' => HotLunch::ChargeChildCost
-      }
-    else
-      {
-        'Housing' => Stay::ChargeChild,
-        'Rec Pass' => RecPass::ChargePersonCost,
-        'Junior/Senior' => JuniorSenior::ChargeCosts,
-        'Hot Lunches' => HotLunch::ChargeChildCost
-      }
-    end
+  def childcare_cost_results
+    @childcare_results ||= {
+      'Housing' => Stay::ChargeChildCost.call(child: child),
+      'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
+      'Childcare' => Childcare::ChargeCosts.call(child: child),
+      'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    }
+  end
+
+  def junior_senior_cost_results
+    @junior_results ||= {
+      'Housing' => Stay::ChargeChildCost.call(child: child),
+      'Rec Pass' => RecPass::ChargePersonCost.call(child: child),
+      'Junior/Senior' => JuniorSenior::ChargeChildCost.call(child: child),
+      'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    }
   end
 
   def individual_dorms_cost_list
@@ -55,10 +58,8 @@ class Child::FinancesCell < ::ShowCell
 
   def individual_dorms_cost_list_item(stay)
     result = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
-    if result.success?
-      text_node humanized_money_with_symbol result.total
-    else
-      div(class: 'flash flash_error') { result.error }
-    end
+    text_node humanized_money_with_symbol result.total
+  rescue => e
+    div(class: 'flash flash_error') { e.message }
   end
 end

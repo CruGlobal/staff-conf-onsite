@@ -16,12 +16,7 @@ class CostAdjustment::SummaryTableCell < ::ShowCell
       results.each do |category, result|
         tr do
           td(class: 'adjustments-table__category') { category }
-
-          if result.success?
-            adjustment_cells(result)
-          else
-            adjustment_error(result)
-          end
+          adjustment_cells(result)
         end
       end
 

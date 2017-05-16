@@ -28,6 +28,7 @@ module CruConference
 
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'admin', 'concerns')
+    config.autoload_paths << Rails.root.join('app', 'services')
 
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']

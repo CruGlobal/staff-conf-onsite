@@ -1,15 +1,4 @@
 class Family::FinancesCell < ::ShowCell
-  COSTS = {
-    'Conferences' => Conference::SumFamilyCost,
-    'Rec Pass' => RecPass::SumFamilyCost,
-    'Childcare' => Childcare::SumFamilyCost,
-    'Junior/Senior' => JuniorSenior::SumFamilyCost,
-    'Hot Lunches' => HotLunch::SumFamilyCost,
-    'Adult Apartment Housing' => Stay::SumFamilyAttendeesApartmentCost,
-    'Adult Dormitory Housing' => Stay::SumFamilyAttendeesDormitoryCost,
-    'Children Housing' => Stay::SumFamilyChildrenCost
-  }.freeze
-
   property :family
 
   def show
@@ -21,8 +10,15 @@ class Family::FinancesCell < ::ShowCell
   private
 
   def cost_results
-    Hash[
-      COSTS.map { |name, service| [name, service.call(family: family)] }
-    ]
+    @results ||= {
+      'Conferences' => Conference::SumFamilyCost.call(family: family),
+      'Rec Pass' => RecPass::SumFamilyCost.call(family: family),
+      'Childcare' => Childcare::SumFamilyCost.call(family: family),
+      'Junior/Senior' => JuniorSenior::SumFamilyCost.call(family: family),
+      'Hot Lunches' => HotLunch::SumFamilyCost.call(family: family),
+      'Adult Apartment Housing' => Stay::SumFamilyAttendeesApartmentCost.call(family: family),
+      'Adult Dormitory Housing' => Stay::SumFamilyAttendeesDormitoryCost.call(family: family),
+      'Children Housing' => Stay::SumFamilyChildrenCost.call(family: family)
+    }
   end
 end
