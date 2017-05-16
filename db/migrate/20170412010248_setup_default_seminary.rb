@@ -1,7 +1,9 @@
 class SetupDefaultSeminary < ActiveRecord::Migration
   def up
-    Attendee.where(seminary_id: nil).update_all(seminary_id: Seminary.default.id)
+    seminary = Seminary.default || Seminary.create!(name: 'IBS')
+    Attendee.where(seminary_id: nil).update_all(seminary_id: seminary.id)
   end
+
   def down
   end
 end
