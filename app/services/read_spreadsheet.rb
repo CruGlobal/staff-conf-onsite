@@ -64,19 +64,19 @@ class ReadSpreadsheet < UploadService
 
   def open_upload
     ext =
-      case File.extname(job.file.current_path)
+      case File.extname(job.filename)
       when '.ods' then :ods
       when '.csv' then :csv
       when '.xls' then :xls
       when '.xlsx' then :xlsx
       else
         raise UnexpectedFilenameError, [
-          "Unexpected filename: '#{job.file.current_path}'.",
+          "Unexpected filename: '#{job.filename}'.",
           'Extension must be .ods, .csv, .xls, or .xlsx'
         ].join(' ')
       end
 
-    Roo::Spreadsheet.open(job.file.current_path, extension: ext)
+    Roo::Spreadsheet.open(job.tempfile.path, extension: ext)
   end
 
   def skip_first_row?

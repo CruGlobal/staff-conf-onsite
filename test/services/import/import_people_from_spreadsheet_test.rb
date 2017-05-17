@@ -52,7 +52,7 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     path = Rails.root.join('test', 'fixtures', filename)
 
     Import::ImportPeopleFromSpreadsheet.call(
-      job: UploadJob.create!(file: File.open(path), user_id: 1)
+      job: UploadJob.create!(filename: path, user_id: 1)
     )
   end
 end

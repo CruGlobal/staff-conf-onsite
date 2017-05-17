@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517170507) do
+ActiveRecord::Schema.define(version: 20170517181300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(version: 20170517170507) do
 
   create_table "upload_jobs", force: :cascade do |t|
     t.integer  "user_id",                         null: false
-    t.string   "file",                            null: false
+    t.string   "filename",                        null: false
     t.boolean  "finished",     default: false,    null: false
     t.boolean  "success"
     t.float    "percentage",   default: 0.0,      null: false
@@ -314,6 +314,7 @@ ActiveRecord::Schema.define(version: 20170517170507) do
     t.text     "html_message"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.binary   "file"
   end
 
   create_table "user_variables", force: :cascade do |t|
