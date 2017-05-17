@@ -16,7 +16,6 @@ gem 'sidekiq-cron'
 gem 'redis-namespace', '~> 1.5'
 gem 'redis-objects', '~> 0.6'
 gem 'redis-rails', '~> 5.0'
-gem 'carrierwave', '~> 1.1'
 
 # Error Reporting
 gem 'rollbar', '~> 2.14'

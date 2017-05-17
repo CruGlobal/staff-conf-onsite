@@ -6,15 +6,15 @@
 # "percentage" from 0.0 to 1.0. So it is possible for {#percentage} to be +1.0+
 # without the job being {#finished}
 class UploadJob < ActiveRecord::Base
-  mount_uploader :file, FileUploader
-
-  scope :done,      -> { where(percentage: 1) }
+  scope :done,      -> { where(finished: true) }
   scope :succeeded, -> { where(success: true) }
   scope :failed,    -> { where(success: false) }
 
   belongs_to :user
 
-  validates :stage, :percentage, presence: true
+  validates :filename, :stage, :percentage, presence: true
+
+  before_save :read_file
 
   def fail!(message)
     update!(finished: true, success: false, html_message: message)
@@ -45,6 +45,38 @@ class UploadJob < ActiveRecord::Base
   end
 
   def as_json(*_args)
-    super.tap { |json| json.delete('file') }
+    super.tap do |json|
+      json.delete('filename')
+      json.delete('file')
+    end
+  end
+
+  def remove_file!
+    update!(file: nil)
+    tempfile&.close
+  end
+
+  def tempfile
+    return nil unless file.present?
+
+    @tempfile ||=
+      begin
+        base = File.basename(filename)
+        ext = File.extname(filename)
+
+        Tempfile.new([base, ext]).tap do |tmp|
+          tmp.binmode
+          tmp.write(file)
+          tmp.flush
+        end
+      end
+  end
+
+  private
+
+  def read_file
+    if file.nil? && !finished? && File.readable?(filename)
+      self.file = IO.binread(filename)
+    end
   end
 end
