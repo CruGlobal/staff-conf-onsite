@@ -1,12 +1,8 @@
 ActiveAdmin.register HousingFacility do
   extend Rails.application.helpers
 
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-    page.sidebar 'Units', only: [:show, :edit]
-  end
+  partial_view :index, :show, :form,
+               sidebar: ['Units', {only: [:show, :edit]}]
 
   permit_params :name, :housing_type, :cost_code_id, :cafeteria, :street,
                 :city, :state, :country_code, :zip, :on_campus, :csu_dorm_code,

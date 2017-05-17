@@ -1,9 +1,5 @@
 ActiveAdmin.register CostCode do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
+  partial_view :index, :show, :form
 
   permit_params :name, :description, :min_days, charges_attributes: [
     :id, :_destroy, :max_days, :adult, :teen, :child, :infant, :child_meal,

@@ -18,7 +18,6 @@ class UploadJob < ActiveRecord::Base
     def create_with_copy!(attributes = {})
       old_path = attributes.fetch(:path)
       attributes[:path] = copy_name(old_path)
-      # File.write(attributes[:path], old_path)
       FileUtils.cp(old_path, attributes[:path])
 
       create!(attributes)

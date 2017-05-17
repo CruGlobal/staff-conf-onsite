@@ -24,8 +24,11 @@ module PersonHelper
   # @return [String] An HTML +<span>+ wrapping {#age}
   def age_label(dob)
     cutoff_date = UserVariable[:child_age_cutoff]
-    span title: "As of #{I18n.l(cutoff_date, format: :month)}" do
-      age(dob)
+    cutoff_title = "As of #{I18n.l(cutoff_date, format: :month)}"
+    dob_age = age(dob)
+
+    Arbre::Context.new(title: cutoff_title, age: dob_age) do
+      span(title: "As of #{cutoff_title}") { age }
     end
   end
 
@@ -33,7 +36,7 @@ module PersonHelper
     if person.birthdate.present?
       person.birthdate
     else
-      span('Empty', class: 'empty danger')
+      Arbre::Context.new { span('Empty', class: 'empty danger') }
     end
   end
 

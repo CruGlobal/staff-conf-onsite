@@ -1,9 +1,6 @@
 ActiveAdmin.register UserVariable do
-  page_cells do |page|
-    page.index
-    page.show title: ->(var) { format('Variable %p', var.code) }
-    page.form
-  end
+  partial_view :index, :form
+  partial_view show: {title: ->(var) { format('Variable %p', var.code) }}
 
   permit_params :code, :short_name, :value_type, :value, :description
 

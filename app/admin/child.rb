@@ -1,9 +1,5 @@
 ActiveAdmin.register Child do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form(Person::FormCell::OPTIONS)
-  end
+  partial_view :index, :show, form: Person::FORM_OPTIONS
 
   menu parent: 'People', priority: 3
 

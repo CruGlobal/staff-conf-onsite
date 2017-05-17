@@ -7,7 +7,6 @@
 #
 #= require ckeditor-jquery
 #= require widgets/ckeditor
-#= require widgets/spinner
 #
 #  Forms ------------------------------
 #= require jquery.form.4.2.1
