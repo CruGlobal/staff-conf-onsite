@@ -12,26 +12,9 @@ class UploadJob < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :path, :stage, :percentage, presence: true
+  validates :file, :stage, :percentage, presence: true
 
-  class << self
-    def create_with_copy!(attributes = {})
-      old_path = attributes.fetch(:path)
-      attributes[:path] = copy_name(old_path)
-      FileUtils.cp(old_path, attributes[:path])
-
-      create!(attributes)
-    end
-
-    private
-
-    def copy_name(old_name)
-      dir, filename = File.split(old_name)
-      new_name = format('upload_job_%s', filename)
-
-      File.join(dir, new_name)
-    end
-  end
+  mount_uploader :file, FileUploader
 
   def fail!(message)
     update!(finished: true, success: false, html_message: message)
@@ -61,15 +44,7 @@ class UploadJob < ActiveRecord::Base
     super([0.0, [v, 1.0].min].max)
   end
 
-  def file
-    @file ||= open(path, File::RDONLY)
-  end
-
-  def unlink_file!
-    File.unlink(path) if File.exist?(path)
-  end
-
   def as_json(*_args)
-    super.tap { |json| json.delete('path') }
+    super.tap { |json| json.delete('file') }
   end
 end

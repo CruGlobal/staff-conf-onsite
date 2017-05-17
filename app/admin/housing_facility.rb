@@ -34,8 +34,7 @@ ActiveAdmin.register HousingFacility do
       ActionController::Parameters.new(params).require('import_spreadsheet').
         permit(:file, :skip_first)
 
-    job = UploadJob.create_with_copy!(user_id: current_user.id,
-                                      path: import_params[:file].path)
+    job = UploadJob.create!(user_id: current_user.id, file: import_params[:file])
     ImportHousingUnitsSpreadsheetJob.perform_later(job.id,
                                                    import_params[:skip_first])
 

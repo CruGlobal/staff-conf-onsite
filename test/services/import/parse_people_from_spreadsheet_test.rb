@@ -48,7 +48,7 @@ class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
   def import_spreadsheet(filename)
     path = Rails.root.join('test', 'fixtures', filename)
 
-    job = UploadJob.create_with_copy!(path: path, user_id: 1)
+    job = UploadJob.create!(path: path, user_id: 1)
     spreadsheet = ReadSpreadsheet.call(job: job)
 
     Import::ParsePeopleFromSpreadsheet.call(job: job,

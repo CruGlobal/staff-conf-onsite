@@ -45,8 +45,7 @@ ActiveAdmin.register Family do
       ActionController::Parameters.new(params).require(:import_spreadsheet).
         permit(:file)
 
-    job = UploadJob.create_with_copy!(user_id: current_user.id,
-                                      path: import_params[:file].path)
+    job = UploadJob.create!(user_id: current_user.id, file: import_params[:file])
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
     respond_to do |format|
