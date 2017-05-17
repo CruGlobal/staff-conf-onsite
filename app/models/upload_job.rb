@@ -6,15 +6,15 @@
 # "percentage" from 0.0 to 1.0. So it is possible for {#percentage} to be +1.0+
 # without the job being {#finished}
 class UploadJob < ActiveRecord::Base
+  mount_uploader :file, FileUploader
+
   scope :done,      -> { where(percentage: 1) }
   scope :succeeded, -> { where(success: true) }
   scope :failed,    -> { where(success: false) }
 
   belongs_to :user
 
-  validates :file, :stage, :percentage, presence: true
-
-  mount_uploader :file, FileUploader
+  validates :stage, :percentage, presence: true
 
   def fail!(message)
     update!(finished: true, success: false, html_message: message)
