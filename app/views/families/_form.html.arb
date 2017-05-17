@@ -20,7 +20,7 @@ context.instance_exec do
     object.build_housing_preference(housing_type: 'self_provided')
   end
 
-  inputs 'Housing Preference', class: 'housing_preference_attributes' do
+  inputs 'Housing Preference', class: 'inputs housing_preference_attributes' do
     semantic_fields_for :housing_preference do |hp|
       hp.input :housing_type, as: :select, collection: housing_type_select,
         include_blank: false

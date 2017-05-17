@@ -2,22 +2,22 @@ context.instance_exec do
   show_errors_if_any(self)
 
   inputs do
-    if new_record?
+    if object.new_record?
       input :code
       input :short_name, as: :hidden, input_html: { value: SecureRandom.uuid }
     else
       input :code, as: :string, input_html: { readonly: true }
     end
 
-    if new_record?
+    if object.new_record?
       input :value_type
     else
       input :value_type, input_html: { disabled: true }
     end
 
-    if new_record?
+    if object.new_record?
       opts = {
-        label: human_attribute_name(:value),
+        label: object.class.human_attribute_name(:value),
         input_html: { value: '' },
         wrapper_html: { class: 'js-value-input' }
       }
