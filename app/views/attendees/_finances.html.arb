@@ -1,22 +1,22 @@
 panel 'Finances', class: 'finances_panel' do
   stays = attendee.stays
-  return if stays.empty?
-
-  table do
-    tr do
-      th 'Individual Stays'
-      th 'Sub-total'
-    end
-
-    stays.each do |stay|
+  if stays.any?
+    table do
       tr do
-        td { join_stay_dates(stay) }
-        td do
-          begin
-            result = Stay::SingleAttendeeCost.call(stay: stay)
-            text_node humanized_money_with_symbol result.total
-          rescue => e
-            div(class: 'flash flash_error') { e.message }
+        th 'Individual Stays'
+        th 'Sub-total'
+      end
+
+      stays.each do |stay|
+        tr do
+          td { join_stay_dates(stay) }
+          td do
+            begin
+              result = Stay::SingleAttendeeCost.call(stay: stay)
+              text_node humanized_money_with_symbol result.total
+            rescue => e
+              div(class: 'flash flash_error') { e.message }
+            end
           end
         end
       end

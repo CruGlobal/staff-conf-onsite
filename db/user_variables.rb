@@ -48,7 +48,7 @@ class SeedUserVariables
   }.freeze
 
   def initialize
-    @existing = UserVariable.cached_values.keys
+    @existing = UserVariable.keys
   end
 
   def call
