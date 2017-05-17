@@ -2,14 +2,14 @@ ActiveAdmin.register User do
   permit_params :role, :email
 
   index do
+    actions
     selectable_column
-    id_column
+
     column :role
     column :email
     column :first_name
     column :last_name
     column :created_at
-    actions
   end
 
   filter :role, as: :select, collection: User::ROLES
