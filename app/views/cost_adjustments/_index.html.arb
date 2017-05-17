@@ -1,6 +1,6 @@
 context.instance_exec do
   actions
-  selectable_column
+  selectable_column if policy.bulk_edit?
 
   column('Person') { |ca| link_to(ca.person.full_name, ca.person) }
   column('Type') { |ca| cost_type_name(ca) }

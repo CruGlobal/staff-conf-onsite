@@ -1,6 +1,6 @@
 context.instance_exec do
     actions
-    selectable_column
+    selectable_column if policy.bulk_edit?
 
     column(:name) { |c| h4 c.name }
     column(:price) { |c| humanized_money_with_symbol(c.price) }

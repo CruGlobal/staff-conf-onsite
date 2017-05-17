@@ -82,9 +82,9 @@ module Support
       element.click
 
       if value.present?
-        element.find('.active-result', text: value).click
+        element.find('.active-result', text: value, visible: false).click
       else
-        options = element.all('.active-result').to_a
+        options = element.all('.active-result', visible: false).to_a
 
         if options.any?
           option_pool_size = options.size
@@ -103,9 +103,9 @@ module Support
     #   option will be selected
     def select_option_or_random(element, value: nil)
       if value.present?
-        element.find('option', text: value).select_option
+        element.find('option', visible: false, text: value).select_option
       else
-        options = select.all('option')
+        options = select.all('option', visible: false)
         options[rand(options.size)].select_option
       end
     end

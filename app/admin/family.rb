@@ -1,10 +1,12 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
 
-  partial_view :index,
-               show: {title: ->(f) { family_label(f) }},
-               form: {title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" }},
-               sidebar: ['Family Members', only: [:edit]]
+  partial_view(
+    :index,
+    show: { title: ->(f) { family_label(f) } },
+    form: { title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" } },
+    sidebar: ['Family Members', only: [:edit]]
+  )
 
   menu parent: 'People', priority: 1
 

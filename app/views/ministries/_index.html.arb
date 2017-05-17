@@ -1,6 +1,6 @@
 context.instance_exec do
   actions
-  selectable_column
+  selectable_column if policy.bulk_edit?
 
   column :code
   column :name
