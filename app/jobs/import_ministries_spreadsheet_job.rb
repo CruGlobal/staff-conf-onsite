@@ -7,6 +7,6 @@ class ImportMinistriesSpreadsheetJob < ActiveJob::Base
   rescue => e
     job&.fail!(e.message)
   ensure
-    job&.unlink_file!
+    job&.remove_file!
   end
 end

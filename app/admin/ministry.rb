@@ -21,8 +21,7 @@ ActiveAdmin.register Ministry do
       ActionController::Parameters.new(params).
         require(:spreadsheet_import_ministries).permit(:file, :skip_first)
 
-    job = UploadJob.create_with_copy!(user_id: current_user.id,
-                                      path: import_params[:file].path)
+    job = UploadJob.create!(user_id: current_user.id, file: import_params[:file])
     ImportMinistriesSpreadsheetJob.perform_later(job.id,
                                                  import_params[:skip_first])
 
@@ -39,8 +38,7 @@ ActiveAdmin.register Ministry do
       ActionController::Parameters.new(params).
         require(:spreadsheet_import_hierarchy).permit(:file, :skip_first)
 
-    job = UploadJob.create_with_copy!(user_id: current_user.id,
-                                      path: import_params[:file].path)
+    job = UploadJob.create!(user_id: current_user.id, file: import_params[:file])
     ImportHierarchySpreadsheetJob.perform_later(job.id,
                                                 import_params[:skip_first])
 
