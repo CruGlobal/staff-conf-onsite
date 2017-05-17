@@ -27,4 +27,3 @@ Sidekiq.default_worker_options = {
   # duplicate jobs from running (if uniqueness time is too short)
   unique_job_expiration: 24.hours
 }
-

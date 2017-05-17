@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pundit
+
   # Creates an HTML representation of the given attribute, depending on what
   # type of attribute it is: +text+ as paragraphs, +boolean+ as a checkbox, etc.
   #
@@ -44,5 +46,15 @@ module ApplicationHelper
   # @param form [Formtastic Form] the form DSL object
   def show_errors_if_any(form)
     form.semantic_errors(*form.object.errors.keys)
+  end
+
+  def policy(*args)
+    if args.any?
+      super
+    elsif respond_to? :object
+      super(object)
+    else
+      super(controller.resource_class)
+    end
   end
 end

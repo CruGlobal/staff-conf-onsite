@@ -1,0 +1,7 @@
+context.instance_exec do
+  actions
+  selectable_column if policy.bulk_edit?
+
+  column :staff_number
+  column :created_at
+end

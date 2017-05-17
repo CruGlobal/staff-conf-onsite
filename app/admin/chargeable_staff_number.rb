@@ -1,18 +1,6 @@
 ActiveAdmin.register ChargeableStaffNumber do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
-
+  partial_view :index, :show, :form
   permit_params :staff_number
-
-  index do
-    selectable_column
-    column :staff_number
-    column :created_at
-    actions
-  end
 
   filter :staff_number
   filter :created_at

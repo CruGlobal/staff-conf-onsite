@@ -1,9 +1,4 @@
 ActiveAdmin.register Childcare do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
-
+  partial_view :index, :show, :form
   permit_params :name, :teachers, :location, :room
 end

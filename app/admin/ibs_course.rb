@@ -1,17 +1,6 @@
 ActiveAdmin.register CourseAttendance, as: 'IBS Course' do
   actions :index
-
-  index do
-    column('Student', sortable: 'people.last_name', &:attendee)
-    column('Student Number', sortable: 'people.student_number') do |ca|
-      ca.attendee.student_number
-    end
-    column('Class', sortable: 'course.name', &:course)
-    column('IBS ID', sortable: 'course.ibs_code') { |ca| ca.course.ibs_code }
-    column('Seminary Partner Code') { |ca| seminary_code(ca) }
-    column('Course Grade', sortable: 'course.grade', &:grade)
-    column('Grading Option') { |ca| grading_option(ca) }
-  end
+  partial_view :index
 
   controller do
     def scoped_collection

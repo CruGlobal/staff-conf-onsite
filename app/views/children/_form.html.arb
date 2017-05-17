@@ -1,0 +1,60 @@
+context.instance_exec do
+  show_errors_if_any(self)
+
+  columns do
+    column do
+      inputs 'Basic', class: 'basic' do
+        render 'people/forms/family_selector', form: self
+
+        input :first_name
+        if param_family
+          input :last_name, input_html: { value: param_family.last_name }
+        else
+          input :last_name
+        end
+
+        input :gender, as: :select, collection: gender_select
+        datepicker_input(self, :birthdate)
+        input :grade_level, as: :select, collection: grade_level_select,
+          include_blank: true
+        input :parent_pickup
+        input :needs_bed
+      end
+
+      inputs 'Rec Center Pass' do
+        datepicker_input(self, :rec_center_pass_started_at,
+                         label: 'Rec Center Pass Start Date')
+        datepicker_input(self, :rec_center_pass_expired_at,
+                         label: 'Rec Center Pass End Date')
+      end
+
+      inputs 'Requested Arrival/Departure' do
+        datepicker_input(self, :arrived_at)
+        datepicker_input(self, :departed_at)
+      end
+
+      inputs 'Childcare' do
+        input :childcare_deposit, input_html: { disabled: !policy.edit_deposit? }
+        input :childcare_weeks, label: 'Weeks of ChildCare', multiple: true,
+          hint: 'Please add all weeks needed',
+          collection: childcare_weeks_select
+
+        input :childcare_id, as: :select, label: 'Childcare Spaces',
+          collection: childcare_spaces_select
+
+        input :hot_lunch_weeks, label: 'Hot Lunch Weeks', multiple: true,
+          hint: 'Please add all weeks needed',
+          collection: childcare_weeks_select
+        input :childcare_comment, input_html: { rows: 4 }
+      end
+    end
+
+    column do
+      render 'people/forms/cost_adjustments', form: self
+      render 'people/forms/stays', form: self
+      render 'people/forms/meal_exemptions', form: self, person: child
+    end
+  end
+
+  actions
+end

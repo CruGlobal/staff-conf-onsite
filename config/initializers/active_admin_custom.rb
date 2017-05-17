@@ -9,3 +9,13 @@ require 'active_admin/comments/edit_page_helper'
 ActiveAdmin.application.view_factory.edit_page.send(
   :include, ActiveAdmin::Comments::EditPageHelper
 )
+
+# Easily Allow view partial files to render Resource actions
+# @see +lib/active_admin/partial_view_dsl.rb+
+Rails.configuration.to_prepare do
+  ActiveAdmin::ResourceDSL.class_eval do
+    def partial_view(*actions)
+      ActiveAdmin::PartialViewDSL.create_actions(self, actions)
+    end
+  end
+end
