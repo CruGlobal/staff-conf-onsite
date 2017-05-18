@@ -21,6 +21,23 @@ class Stay < ApplicationRecord
     where('arrived_at <= ? AND departed_at >= ?', date, date)
   end)
 
+  scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
+  scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
+
+  class << self
+    def min_date
+      minimum(:arrived_at)
+    end
+
+    def max_date
+      maximum(:departed_at)
+    end
+
+    def date_range
+      min_date..max_date
+    end
+  end
+
   def housing_type
     type = housing_facility.try(:housing_type)
     type || 'self_provided'

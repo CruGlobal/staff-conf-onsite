@@ -7,6 +7,13 @@ class HousingUnit < ApplicationRecord
   validates :name, uniqueness: { scope: :housing_facility_id, message:
    'should be unique per facility' }
 
+  scope :in_dormitory, (lambda do
+    where(housing_facility: HousingFacility.dormitories)
+  end)
+  scope :in_apartment, (lambda do
+    where(housing_facility: HousingFacility.apartments)
+  end)
+
   scope :natural_order_asc, -> { order(natural_order) }
   scope :natural_order_desc, -> { order(natural_order(:desc)) }
 
