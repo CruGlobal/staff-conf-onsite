@@ -12,8 +12,8 @@ class Conference::SumFamilyCost < ChargesService
   private
 
   def family_costs
-    family.people.map do |person|
-      Conference::ChargePersonCost.call(person: person)
+    family.attendees.map do |attendee|
+      Conference::ChargeAttendeeCost.call(attendee: attendee)
     end
   end
 end

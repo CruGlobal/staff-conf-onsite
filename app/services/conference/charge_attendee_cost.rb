@@ -1,8 +1,8 @@
-class Conference::ChargePersonCost < ChargesService
-  attr_accessor :person
+class Conference::ChargeAttendeeCost < ChargesService
+  attr_accessor :attendee
 
   def call
-    sum = Conference::SumPersonCost.call(person: person)
+    sum = Conference::SumAttendeeCost.call(attendee: attendee)
 
     assign_totals(
       ApplyCostAdjustments.call(charges: sum.charges,
