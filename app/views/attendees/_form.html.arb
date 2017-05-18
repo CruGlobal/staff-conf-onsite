@@ -1,0 +1,79 @@
+context.instance_exec do
+  show_errors_if_any(self)
+
+  columns do
+    column do
+      inputs 'Basic', class: 'basic inputs' do
+        input :conference_status, as: :select,
+          collection: conference_status_select(attendee)
+        render 'people/forms/family_selector', form: self
+
+        input :first_name
+
+        if param_family
+          input :last_name, input_html: { value: param_family.last_name }
+        else
+          input :last_name
+        end
+
+        input :tshirt_size
+        input :gender, as: :select, collection: gender_select
+        datepicker_input(self, :birthdate)
+        input :mobility_comment, input_html: { rows: 4 }
+        input :personal_comment, input_html: { rows: 4 }
+      end
+
+      inputs 'Requested Arrival/Departure' do
+        datepicker_input(self, :arrived_at, label: 'Arrival')
+        datepicker_input(self, :departed_at, label: 'Departure')
+      end
+
+      inputs 'Contact' do
+        input :email
+        input :phone
+        input :emergency_contact
+      end
+
+      inputs do
+        select_ministry_widget(self)
+        input :department
+        input :conferences
+        input :conference_comment, input_html: { rows: 4 }
+        input :seminary, include_blank: false
+      end
+
+      inputs 'Rec Center Pass' do
+        datepicker_input(self, :rec_center_pass_started_at, label: 'Start')
+        datepicker_input(self, :rec_center_pass_expired_at, label: 'End')
+      end
+    end
+
+    column do
+      collection = [:course_attendances, object.course_attendances]
+
+      panel 'Courses' do
+        inputs class: 'course-inputs' do
+          input :student_number
+          input :ibs_comment, input_html: { rows: 4 }
+        end
+
+        has_many :course_attendances, heading: nil, collection:
+          collection, new_record: 'Add New Course' do |f|
+          f.input :course
+          f.input :grade, collection: course_grade_select
+          f.input :seminary_credit
+          f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }
+        end
+      end
+
+      render 'people/forms/stays', form: self
+    end
+
+    column do
+      render 'people/forms/cost_adjustments', form: self
+      render 'people/forms/meal_exemptions', form: self, person: attendee
+    end
+  end
+
+  actions
+end

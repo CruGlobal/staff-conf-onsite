@@ -10,4 +10,16 @@ module CourseHelper
   def course_grade_name(grade)
     I18n.t("#{I18N_PREFIX_COURSE}.grades.#{grade}", default: grade)
   end
+
+  def seminary_code(attendance)
+    if attendance.seminary_credit
+      attendance.try(:seminary).try(:code)
+    else
+      'IBS'
+    end
+  end
+
+  def grading_option(attendance)
+    attendance.grade == 'AU' ? 'A' : 'G'
+  end
 end

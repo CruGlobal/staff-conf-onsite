@@ -2,21 +2,14 @@ class UserVariable < ActiveRecord::Base
   enum value_type: [:string, :money, :date, :number, :html]
 
   validates :code, :short_name, :value_type, :value, presence: true
-
-  after_save { self.class.empty_cache! }
+  validates :code, :short_name, uniqueness: true
 
   class << self
-    def cached_values
-      @cached_values ||= Hash[
-        all.map { |var| [var.short_name.to_sym, var.value] }
-      ]
-    end
-
     def get(short_name)
-      cached_values[short_name.to_sym].tap do |val|
+      find_by(short_name: short_name)&.value.tap do |val|
         if val.nil?
           raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
-                                      short_name, cached_values.keys)
+                                      short_name, keys)
         end
       end
     end
@@ -31,8 +24,8 @@ class UserVariable < ActiveRecord::Base
     end
     alias []= update
 
-    def empty_cache!
-      @cached_values = nil
+    def keys
+      pluck(:short_name).map(&:to_sym)
     end
   end
 

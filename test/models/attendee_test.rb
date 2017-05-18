@@ -55,4 +55,10 @@ class AttendeeTest < ModelTestCase
     refute_nil Seminary.default
     assert_equal Attendee.new.seminary, Seminary.default
   end
+
+  test 'automatically update conference_status_changed_at' do
+    old_value = @attendee.conference_status_changed_at
+    @attendee.update!(conference_status: 'some new value')
+    refute_equal old_value, @attendee.conference_status_changed_at
+  end
 end

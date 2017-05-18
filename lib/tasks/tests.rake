@@ -6,7 +6,7 @@ end
 desc 'Run the entire suit of tests and linters'
 task :default do
   border = '=' * 80
-  tasks = %w(test:unit test:integration rubocop reek bundle:audit)
+  tasks = %w(test:unit test:integration rubocop reek bundle:audit coffeelint)
 
   puts "The following Rake tasks will be run: #{tasks.to_sentence}"
   tasks.each do |task|

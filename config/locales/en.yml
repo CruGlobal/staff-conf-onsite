@@ -41,6 +41,9 @@ en:
       user_variable:
         one: "Variable"
         other: "Variables"
+      ibs_course:
+        one: "IBS Course"
+        other: "IBS Courses"
 
     attributes:
       person:
@@ -109,7 +112,8 @@ en:
           books: "Books"
           rec_center: "Recreation Center"
           lunch: "Lunch Charges"
-          childcare_jr_sr: "Childcare/JrSr"
+          childcare: "Childcare"
+          junior_senior: "Junior/Senior"
       course:
         ibs_code: "IBS ID"
         grades:
@@ -126,6 +130,8 @@ en:
         zip: "Zip Code"
       housing_facility:
         country_code: "Country"
+        csu_dorm_code: "CSU Dorm Code"
+        csu_dorm_block: "CSU Dorm Block"
         zip: "Zip Code"
         housing_types:
           dormitory: "Dormitory"

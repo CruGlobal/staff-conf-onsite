@@ -1,0 +1,11 @@
+context.instance_exec do
+  actions
+  selectable_column if policy.bulk_edit?
+
+  column :name
+  column :teachers
+  column :location
+  column :room
+  column :created_at
+  column :updated_at
+end

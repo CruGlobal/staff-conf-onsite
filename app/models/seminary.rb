@@ -3,7 +3,7 @@ class Seminary < ApplicationRecord
 
   has_paper_trail
 
-  has_many :attendees
+  has_many :attendees, dependent: :nullify
 
   monetize_attr :course_price_cents, numericality: {
     greater_than_or_equal_to: 0,

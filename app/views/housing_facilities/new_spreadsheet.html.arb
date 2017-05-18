@@ -20,7 +20,7 @@ columns do
         The given file can contain any number of rows, in which each row
         represents a Housing Unit. The firt column names the Housing Facility
         to add the new Unit to and the following three columns describe the new
-        Unit.
+        Unit. Currently the last column, "type," is ignored.
       EOP
 
       h4 'Example File'

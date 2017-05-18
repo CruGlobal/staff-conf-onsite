@@ -1,10 +1,10 @@
 class SeedSeminaries
   RECORDS = {
-    IBS: { name: 'IBS', course_price: 0 }
+    IBS: { name: 'IBS' }
   }.freeze
 
   def initialize
-    @existing = UserVariable.cached_values.keys
+    @existing = UserVariable.keys
   end
 
   def call

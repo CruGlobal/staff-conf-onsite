@@ -6,7 +6,7 @@ class Family < ApplicationRecord
   has_many :people, dependent: :destroy
   has_many :attendees
   has_many :children
-  has_one :housing_preference, autosave: true
+  has_one :housing_preference, autosave: true, dependent: :destroy
   has_one :chargeable_staff_number, primary_key: :staff_number,
                                     foreign_key: :staff_number
 

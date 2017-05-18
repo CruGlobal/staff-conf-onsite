@@ -4,38 +4,42 @@ class SeedUserVariables
       description: 'Rec Center Pass Per Day' },
     child_age_cutoff: { value_type: :date, code: :CCD, value: '2017-07-01',
       description: 'Child Age Cut-off Date' },
-    childcare_first_day: { value_type: :date, code: :CFD, value: '2017-07-01',
-      description: 'The first day of the first week of ChildCare' },
+
+    # Childcare Weekly Costs
+    childcare_week_0: { value_type: :money, code: :CCWK1,  value: 1_00, description: 'Week 1 Childcare' },
+    childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Childcare' },
+    childcare_week_2: { value_type: :money, code: :CCWK3,  value: 1_00, description: 'Week 3 Childcare' },
+    childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Childcare' },
+    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Staff Conference Childcare' },
+
     childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
       description: 'This is the non-refundable registration fee for any child' \
                    ' registered for either childcare or JrSr High programs.' },
 
-    childcare_week_0: { value_type: :money, code: :CCWK1, value: 1_00,
-      description: 'Week 1 Childcare' },
-    childcare_week_1: { value_type: :money, code: :CCWK2, value: 1_00,
-      description: 'Week 2 Childcare' },
-    childcare_week_2: { value_type: :money, code: :CCWK3, value: 1_00,
-      description: 'Week 3 Childcare' },
-    childcare_week_3: { value_type: :money, code: :CCWK4, value: 1_00,
-      description: 'Week 4 Childcare' },
-    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00,
-      description: 'Staff Conference Childcare' },
+    # Jr/Sr Weekly Costs
+    junior_senior_week_0: { value_type: :money, code: :JRSRWK1,  value: 1_00, description: 'Week 1 Junior Senior' },
+    junior_senior_week_1: { value_type: :money, code: :JRSRWK2,  value: 1_00, description: 'Week 2 Junior Senior' },
+    junior_senior_week_2: { value_type: :money, code: :JRSRWK3,  value: 1_00, description: 'Week 3 Junior Senior' },
+    junior_senior_week_3: { value_type: :money, code: :JRSRWK4,  value: 1_00, description: 'Week 4 Junior Senior' },
+    junior_senior_week_4: { value_type: :money, code: :JRSRWKSC, value: 1_00, description: 'Staff Conference Junior Senior' },
 
     # Hot Lunches
-    hot_lunch_week_0: { value_type: :money, code: :HL1, value: 1_00,
-      description: 'Cost of the Week 1 Hot Lunches' },
-    hot_lunch_week_1: { value_type: :money, code: :HL2, value: 2_00,
-      description: 'Cost of the Week 2 Hot Lunches' },
-    hot_lunch_week_2: { value_type: :money, code: :HL3, value: 4_00,
-      description: 'Cost of the Week 3 Hot Lunches' },
-    hot_lunch_week_3: { value_type: :money, code: :HL4, value: 8_00,
-      description: 'Cost of the Week 4 Hot Lunches' },
-    hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00,
-      description: 'Cost of the Staff Conference Hot Lunches' },
+    hot_lunch_week_0: { value_type: :money, code: :HL1,  value: 1_00, description: 'Cost of the Week 1 Hot Lunches' },
+    hot_lunch_week_1: { value_type: :money, code: :HL2,  value: 2_00, description: 'Cost of the Week 2 Hot Lunches' },
+    hot_lunch_week_2: { value_type: :money, code: :HL3,  value: 4_00, description: 'Cost of the Week 3 Hot Lunches' },
+    hot_lunch_week_3: { value_type: :money, code: :HL4,  value: 8_00, description: 'Cost of the Week 4 Hot Lunches' },
+    hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00, description: 'Cost of the Staff Conference Hot Lunches' },
+
+    # Hot Lunch Start Dates
+    hot_lunch_begin_0: { value_type: :date, code: :HLFDW1, value: '2017-07-01', description: 'Hot Lunch First Day of Week 1' },
+    hot_lunch_begin_1: { value_type: :date, code: :HLFDW2, value: '2017-07-08', description: 'Hot Lunch First Day of Week 2' },
+    hot_lunch_begin_2: { value_type: :date, code: :HLFDW3, value: '2017-07-15', description: 'Hot Lunch First Day of Week 3' },
+    hot_lunch_begin_3: { value_type: :date, code: :HLFDW4, value: '2017-07-22', description: 'Hot Lunch First Day of Week 4' },
+    hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
   }.freeze
 
   def initialize
-    @existing = UserVariable.cached_values.keys
+    @existing = UserVariable.keys
   end
 
   def call
@@ -45,7 +49,7 @@ class SeedUserVariables
   private
 
   def create_unless_exists(short_name, attributes = {})
-    return if @existing.include?(short_name)
+    return if UserVariable.exists?(short_name: short_name)
 
     UserVariable.create!(
       attributes.merge(short_name: short_name)

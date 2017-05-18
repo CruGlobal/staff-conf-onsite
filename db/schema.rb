@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419235719) do
+ActiveRecord::Schema.define(version: 20170517181300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,13 +151,15 @@ ActiveRecord::Schema.define(version: 20170419235719) do
     t.string   "state"
     t.string   "zip"
     t.string   "street"
-    t.string   "country_code", limit: 2
+    t.string   "country_code",   limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "housing_type",           default: 0, null: false
+    t.integer  "housing_type",             default: 0, null: false
     t.integer  "cost_code_id"
     t.string   "cafeteria"
     t.boolean  "on_campus"
+    t.string   "csu_dorm_code"
+    t.string   "csu_dorm_block"
   end
 
   add_index "housing_facilities", ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id", using: :btree
@@ -229,16 +231,16 @@ ActiveRecord::Schema.define(version: 20170419235719) do
     t.string   "childcare_grade"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "needs_bed",                  default: true
-    t.boolean  "parent_pickup",              default: true
-    t.string   "childcare_weeks",            default: ""
+    t.boolean  "needs_bed",                    default: true
+    t.boolean  "parent_pickup",                default: true
+    t.string   "childcare_weeks",              default: ""
     t.integer  "childcare_id"
-    t.string   "grade_level",                default: "postHighSchool"
+    t.string   "grade_level",                  default: "postHighSchool"
     t.date     "arrived_at"
     t.date     "departed_at"
     t.date     "rec_center_pass_started_at"
     t.date     "rec_center_pass_expired_at"
-    t.string   "hot_lunch_weeks",            default: "",               null: false
+    t.string   "hot_lunch_weeks",              default: "",               null: false
     t.integer  "seminary_id"
     t.string   "family_tag"
     t.string   "tshirt_size"
@@ -258,12 +260,22 @@ ActiveRecord::Schema.define(version: 20170419235719) do
     t.string   "conference_status"
     t.string   "name_tag_first_name"
     t.string   "name_tag_last_name"
+    t.datetime "conference_status_changed_at"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "housing_facility_id"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rooms", ["housing_facility_id", "number"], name: "index_rooms_on_housing_facility_id_and_number", unique: true, using: :btree
 
   create_table "seminaries", force: :cascade do |t|
     t.string   "name",                           null: false
@@ -274,18 +286,6 @@ ActiveRecord::Schema.define(version: 20170419235719) do
   end
 
   add_index "seminaries", ["code"], name: "index_seminaries_on_code", unique: true, using: :btree
-
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", null: false
-    t.string   "cas_ticket"
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["cas_ticket"], name: "index_sessions_on_cas_ticket", using: :btree
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "stays", force: :cascade do |t|
     t.integer  "person_id",                        null: false
@@ -303,6 +303,19 @@ ActiveRecord::Schema.define(version: 20170419235719) do
 
   add_index "stays", ["housing_unit_id"], name: "index_stays_on_housing_unit_id", using: :btree
   add_index "stays", ["person_id"], name: "index_stays_on_person_id", using: :btree
+
+  create_table "upload_jobs", force: :cascade do |t|
+    t.integer  "user_id",                         null: false
+    t.string   "filename",                        null: false
+    t.boolean  "finished",     default: false,    null: false
+    t.boolean  "success"
+    t.float    "percentage",   default: 0.0,      null: false
+    t.string   "stage",        default: "queued", null: false
+    t.text     "html_message"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.binary   "file"
+  end
 
   create_table "user_variables", force: :cascade do |t|
     t.string   "code",        null: false

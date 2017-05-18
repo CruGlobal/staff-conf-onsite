@@ -52,9 +52,8 @@ class ModelTestCase < ActiveSupport::TestCase
   after(:each)  { DatabaseCleaner.clean }
 end
 
-class InteractorTestCase < ActiveSupport::TestCase
+class ServiceTestCase < ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
-  include Support::Interactor
   include Support::UserVariable
   include ActionDispatch::TestProcess
 

@@ -24,8 +24,6 @@ class Attendee::IndexTest < IntegrationTest
       assert_text 'Courses'
       assert_text 'Requested Arrival date'
       assert_text 'Requested Departure date'
-      assert_text 'Created at'
-      assert_text 'Updated at'
     end
   end
 

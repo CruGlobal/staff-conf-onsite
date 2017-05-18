@@ -8,7 +8,8 @@ window.pageAction = (args...) ->
   func = args[len - 1]
   classes = args[0..(len - 2)]
 
-  throw 'last argument must be a function' if typeof(func) != 'function'
+  if typeof(func) != 'function'
+    throw new Error('last argument must be a function')
 
   if alreadyFired
     fire(func, classes)

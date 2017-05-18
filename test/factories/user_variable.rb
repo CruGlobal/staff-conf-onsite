@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user_variable do
     value_type { UserVariable.value_types.keys.sample }
-    short_name { Faker::File.extension }
+    sequence(:short_name) { |n| format('%s_%d', Faker::File.extension, n) }
     code { Faker::Code.asin }
     description { Faker::Lorem.paragraph(rand(1..3)) }
 

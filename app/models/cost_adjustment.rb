@@ -12,10 +12,11 @@ class CostAdjustment < ApplicationRecord
   enum cost_type: [
     :dorm_adult, :dorm_child, :apartment_rent, :facility_use, :tuition_class,
     :tuition_mpd, :tuition_track, :tuition_staff, :books, :rec_center, :lunch,
-    :childcare_jr_sr
+    :childcare, :junior_senior
   ]
 
   belongs_to :person, foreign_key: 'person_id'
+
   validates :cost_type, :person, presence: true
   validates :percent, allow_nil: true, numericality: {
     greater_than_or_equal_to: 0,

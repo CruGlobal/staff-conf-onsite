@@ -1,9 +1,5 @@
 ActiveAdmin.register Attendee do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form(Person::FormCell::OPTIONS)
-  end
+  partial_view :index, :show, form: Person::FORM_OPTIONS
 
   remove_filter :family # Adds N+1 additional quries to the index page
 
@@ -44,11 +40,11 @@ ActiveAdmin.register Attendee do
   filter :courses
   filter :arrived_at
   filter :departed_at
-  filter :created_at
-  filter :updated_at
 
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    if authorized?(:import, Family)
+      link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    end
   end
 
   controller do

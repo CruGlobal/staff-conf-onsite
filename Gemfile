@@ -1,13 +1,21 @@
 source 'https://rubygems.org'
+source 'https://gems.contribsys.com/' do
+  gem 'sidekiq-pro'
+end
 
 # Server
 gem 'puma', '~> 3.0'
 gem 'pg', '~> 0.19.0'
 gem 'syslog-logger', '~> 1.6.8'
-gem 'redis-rails', '~> 5.0.1'
-gem 'redis-namespace', '~> 1.5.2'
 gem 'newrelic_rpm', '~> 3.16.2.321'
 gem 'good_migrations', '~> 0.0.2'
+
+# Background Processes
+gem 'sidekiq-unique-jobs'
+gem 'sidekiq-cron'
+gem 'redis-namespace', '~> 1.5'
+gem 'redis-objects', '~> 0.6'
+gem 'redis-rails', '~> 5.0'
 
 # Error Reporting
 gem 'rollbar', '~> 2.14'
@@ -15,11 +23,9 @@ gem 'oj', '~> 2.18'
 
 # Framework
 gem 'rails', '~> 4.2.7.1'
-gem 'activeadmin', '~> 1.0.0.pre5'
+gem 'activeadmin', '~> 1.0.0'
 gem 'paper_trail', '~> 5.2.2'
-gem 'interactor-rails', '~> 2.0.2'
-# TODO: gem 'axlsx' requires rubycsv = 1.0. Update roo when that changes
-gem 'roo', '~> 1.13.2'
+gem 'roo', '~> 2.7'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'
@@ -32,6 +38,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 # View Helpers
+gem 'compass-rails', '~> 3.0'
 gem 'countries', '~> 1.2.5'
 gem 'phone', '~> 1.2.3'
 gem 'truncate_html', '~> 0.9.3'
@@ -39,8 +46,7 @@ gem 'chosen-rails', '~> 1.5.2'
 gem 'money-rails', '~> 1.7'
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
-gem 'axlsx', '~> 2.0.1'
-gem 'cells-rails', '~> 0.0.7'
+gem 'axlsx', '~> 2.1.0.pre'
 
 # Frontend Scripts
 gem 'turbolinks', '~> 5.0.1'
@@ -75,6 +81,7 @@ group :development, :test do
   gem 'bundler-audit', '~> 0.5'           # Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'pry-rails', '~> 0.3.5'
+  gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
 
   # Documentation
   gem 'yard', '~> 0.9.5'

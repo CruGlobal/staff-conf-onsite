@@ -23,7 +23,9 @@ showHideDynamicFields = ($form, housingType) ->
 # preferences were confirmed by an admin. Here we replace this input field with
 # a toggle button that flips this field between null and today's date.
 setupConfirmedAtToggleButton = ($form) ->
-  $input = $form.find('input[name="family[housing_preference_attributes][confirmed_at]"]')
+  $input =
+    $form.
+      find('input[name="family[housing_preference_attributes][confirmed_at]"]')
 
   $btn =
     $('<span class="confirmed_at__toggle">').

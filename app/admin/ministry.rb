@@ -1,10 +1,5 @@
 ActiveAdmin.register Ministry do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
-
+  partial_view :index, :show, :form
   permit_params :name, :code, :name, :parent_id
 
   filter :code
@@ -14,36 +9,44 @@ ActiveAdmin.register Ministry do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, Ministry)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :import_ministries, method: :post do
-    res =
-      Ministry::ImportSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:spreadsheet_import_ministries).
-          permit(:file, :skip_first)
-      )
+    return head :forbidden unless authorized?(:import, Ministry)
 
-    if res.success?
-      redirect_to ministries_path, notice: 'Ministries imported successfully.'
-    else
-      redirect_to new_spreadsheet_ministries_path, flash: { error: res.message }
+    import_params =
+      ActionController::Parameters.new(params).
+        require(:spreadsheet_import_ministries).permit(:file, :skip_first)
+
+    job = UploadJob.create!(user_id: current_user.id,
+                            filename: import_params[:file].path)
+    ImportMinistriesSpreadsheetJob.perform_later(job.id,
+                                                 import_params[:skip_first])
+
+    respond_to do |format|
+      format.html { redirect_to ministries_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 
   collection_action :import_hierarchy, method: :post do
-    res =
-      Ministry::ImportHierarchySpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:spreadsheet_import_hierarchy).
-          permit(:file, :skip_first)
-      )
+    return head :forbidden unless authorized?(:import, Ministry)
 
-    if res.success?
-      redirect_to ministries_path, notice: 'Hierarchy imported successfully.'
-    else
-      redirect_to new_spreadsheet_ministries_path, flash: { error: res.message }
+    import_params =
+      ActionController::Parameters.new(params).
+        require(:spreadsheet_import_hierarchy).permit(:file, :skip_first)
+
+    job = UploadJob.create!(user_id: current_user.id,
+                            filename: import_params[:file].path)
+    ImportHierarchySpreadsheetJob.perform_later(job.id,
+                                                import_params[:skip_first])
+
+    respond_to do |format|
+      format.html { redirect_to ministries_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 end

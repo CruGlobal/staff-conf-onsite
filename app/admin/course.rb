@@ -1,10 +1,5 @@
 ActiveAdmin.register Course do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
-
+  partial_view :index, :show, :form
   permit_params :name, :instructor, :description, :week_descriptor, :ibs_code,
                 :price, :location
 

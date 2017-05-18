@@ -3,9 +3,14 @@
 #  Widgets
 #  ====================================
 #
+#= require util/page_actions
+#
 #= require ckeditor-jquery
 #= require widgets/ckeditor
-#= require util/page_actions
+#
+#  Forms ------------------------------
+#= require jquery.form.4.2.1
+#= require widgets/upload-job-forms
 #
 #  Date Inputs ------------------------
 #= require widgets/dates
@@ -14,6 +19,7 @@
 #= require chosen-jquery
 #= require jquery.dropdown.1.6
 #= require widgets/chosen-jquery
+#= require widgets/index-per-page-selector
 #
 #  Telephone Numbers ------------------
 #= require intlTelInput
@@ -39,7 +45,6 @@
 #
 #  Family -----------------------------
 #= require family/edit
-#= require family/spreadsheet
 #
 #  HousingUnit ------------------------
 #= require housing/select_housing_unit

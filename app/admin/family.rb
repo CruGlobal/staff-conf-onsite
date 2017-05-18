@@ -1,12 +1,12 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
 
-  page_cells do |page|
-    page.index
-    page.show title: ->(f) { family_label(f) }
-    page.form title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" }
-    page.sidebar 'Family Members', only: [:edit]
-  end
+  partial_view(
+    :index,
+    show: { title: ->(f) { family_label(f) } },
+    form: { title: ->(f) { f.new_record? ? 'New Family' : "Edit #{family_label(f)}" } },
+    sidebar: ['Family Members', only: [:edit]]
+  )
 
   menu parent: 'People', priority: 1
 
@@ -19,7 +19,8 @@ ActiveAdmin.register Family do
                   :location3, :confirmed_at, :comment
                 ]
 
-  filter :last_name_or_people_first_name_cont, label: 'Last Name or Family Member Name'
+  filter :last_name
+  filter :attendees_first_name, label: 'Attendee Name', as: :string
   filter :address1
   filter :address2
   filter :city
@@ -32,20 +33,25 @@ ActiveAdmin.register Family do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', action: :new_spreadsheet
+    if authorized?(:import, Family)
+      link_to 'Import Spreadsheet', action: :new_spreadsheet
+    end
   end
 
   collection_action :import_spreadsheet, method: :post do
-    res =
-      Import::ImportPeopleFromSpreadsheet.call(
-        ActionController::Parameters.new(params).
-          require(:import_spreadsheet).permit(:file)
-      )
+    return head :forbidden unless authorized?(:import, Family)
 
-    if res.success?
-      redirect_to families_path, notice: 'People imported successfully.'
-    else
-      redirect_to new_spreadsheet_families_path, flash: { error: res.message }
+    import_params =
+      ActionController::Parameters.new(params).require(:import_spreadsheet).
+        permit(:file)
+
+    job = UploadJob.create!(user_id: current_user.id,
+                            filename: import_params[:file].path)
+    ImportPeopleFromSpreadsheetJob.perform_later(job.id)
+
+    respond_to do |format|
+      format.html { redirect_to new_spreadsheet_families_path, notice: 'Upload Started' }
+      format.json { render json: job }
     end
   end
 end

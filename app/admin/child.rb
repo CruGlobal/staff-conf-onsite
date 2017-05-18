@@ -1,9 +1,5 @@
 ActiveAdmin.register Child do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form(Person::FormCell::OPTIONS)
-  end
+  partial_view :index, :show, form: Person::FORM_OPTIONS
 
   menu parent: 'People', priority: 3
 
@@ -40,6 +36,8 @@ ActiveAdmin.register Child do
   filter :childcare_class
 
   action_item :import_spreadsheet, only: :index do
-    link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    if authorized?(:import, Family)
+      link_to 'Import Spreadsheet', new_spreadsheet_families_path
+    end
   end
 end

@@ -7,7 +7,7 @@ class HousingUnitTest < ModelTestCase
   end
 
   test 'permit create' do
-    assert_accessible :create, @housing_unit, only: :admin
+    assert_accessible :create, @housing_unit, only: [:admin, :general]
   end
 
   test 'permit read' do
@@ -15,11 +15,11 @@ class HousingUnitTest < ModelTestCase
   end
 
   test 'permit update' do
-    assert_accessible :update, @housing_unit, only: :admin
+    assert_accessible :update, @housing_unit, only: [:admin, :general]
   end
 
   test 'permit destroy' do
-    assert_accessible :destroy, @housing_unit, only: :admin
+    assert_accessible :destroy, @housing_unit, only: [:admin, :general]
   end
 
   test '.hierarchy when no Facilities exist' do

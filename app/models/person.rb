@@ -2,6 +2,19 @@ class Person < ApplicationRecord
   # The possible values for the +gender+ attribute.
   GENDERS = { f: 'Female', m: 'Male' }.freeze
 
+  FORM_OPTIONS ||= {
+    # If creating a new family-member, show the family name in the title
+    title: proc do |person|
+      label = "#{action_name.titlecase} #{person.class.name}"
+
+      if (family = person.family || param_family)
+        "#{label} (#{family_label(family)})"
+      else
+        label
+      end
+    end
+  }.freeze
+
   has_paper_trail
 
   belongs_to :family

@@ -21,6 +21,23 @@ class Stay < ApplicationRecord
     where('arrived_at <= ? AND departed_at >= ?', date, date)
   end)
 
+  scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
+  scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
+
+  class << self
+    def min_date
+      minimum(:arrived_at)
+    end
+
+    def max_date
+      maximum(:departed_at)
+    end
+
+    def date_range
+      min_date..max_date
+    end
+  end
+
   def housing_type
     type = housing_facility.try(:housing_type)
     type || 'self_provided'
@@ -31,6 +48,10 @@ class Stay < ApplicationRecord
     housing_unit.try(:housing_facility)
   end
 
+  def dormitory?
+    housing_type == 'dormitory'
+  end
+
   def on_campus
     housing_facility.present? && housing_facility.on_campus
   end
@@ -38,7 +59,11 @@ class Stay < ApplicationRecord
 
   # @return [Integer] the length of the stay, in days
   def duration
-    [(departed_at - arrived_at).to_i, min_days].max
+    if departed_at.present? && arrived_at.present?
+      [(departed_at - arrived_at).to_i, min_days].max
+    else
+      0
+    end
   end
 
   # @return [Integer] if this stay is in a dormitory, the total duration of all

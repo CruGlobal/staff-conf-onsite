@@ -1,11 +1,7 @@
 ActiveAdmin.register Conference do
-  page_cells do |page|
-    page.index
-    page.show
-    page.form
-  end
-
-  permit_params :name, :description, :start_at, :end_at, :price, :waive_off_campus_facility_fee
+  partial_view :index, :show, :form
+  permit_params :name, :description, :start_at, :end_at, :price,
+                :waive_off_campus_facility_fee
 
   filter :name
   filter :description
