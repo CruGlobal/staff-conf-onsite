@@ -24,6 +24,8 @@ class Import::CreateNewPeopleRecords < UploadService
     end
   rescue PersonExistsError
     fail_job!(message: existing_people_message)
+  rescue Import::UpdatePersonFromImport::MinistryMissing
+    raise
   rescue => e
     fail_job!(message: e.message)
   end
@@ -78,6 +80,8 @@ class Import::CreateNewPeopleRecords < UploadService
     row = index + 2
     create_person(import, row).tap { |p| set_attributes(p.record, import) }
   rescue PersonExistsError
+    raise
+  rescue Import::UpdatePersonFromImport::MinistryMissing
     raise
   rescue => e
     raise Error, format('Row #%d: %s', row, e)

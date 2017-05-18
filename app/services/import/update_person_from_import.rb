@@ -4,6 +4,8 @@ module Import
   # [+context.person+ [+::Person+]]
   # [+context.import+ [+Import::Person+]]
   class UpdatePersonFromImport < ApplicationService
+    MinistryMissing = Class.new(StandardError)
+
     attr_accessor :person, :import, :ministries
 
     before_initialize :default_ministries
@@ -72,7 +74,8 @@ module Import
     def set_attendee_associations
       person.conferences = find_conferences(@import.conference_choices)
       person.courses = find_courses(@import.ibs_courses)
-      person.ministry = find_ministry(@import.ministry_code)
+
+      assign_ministry unless @import.ministry_code.blank?
     end
 
     def find_conferences(choices)
@@ -99,8 +102,11 @@ module Import
       end
     end
 
-    def find_ministry(code)
-      ministries.find { |m| m.code == code } if code.present?
+    def assign_ministry
+      ministry = ministries.find { |m| m.code == @import.ministry_code }
+      raise MinistryMissing unless ministry.present?
+
+      person.ministry = ministry
     end
 
     def set_child_attributes
