@@ -11,5 +11,7 @@ class Import::ImportPeopleFromSpreadsheet < UploadService
   rescue Import::UpdatePersonFromImport::MinistryMissing
     list_missing = Ministry::ListMissing.call(sheets: spreadsheet.sheets)
     fail_job! message: list_missing.html_message
+  rescue
+    fail_job!
   end
 end
