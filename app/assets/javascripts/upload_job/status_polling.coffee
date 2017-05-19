@@ -22,9 +22,13 @@ class UploadJobPoller
 
 
   poll: (repeat) ->
-    $.getJSON(@job_url()).done (data) =>
-      @updateStatus(data)
-      setTimeout((=> @poll(true)), POLLING_TIME) if repeat && !@finished
+    $.getJSON(@job_url())
+      .done (data) =>
+        @updateStatus(data)
+        setTimeout((=> @poll(true)), POLLING_TIME) if repeat && !@finished
+      .fail =>
+        # Our TheKey.me auth probably expired
+        window.location.reload(true)
 
 
   job_url: -> "/upload_jobs/#{@id}/status"
