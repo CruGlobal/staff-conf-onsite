@@ -16,6 +16,10 @@ class UploadJob < ActiveRecord::Base
 
   before_save :read_file
 
+  def started?
+    finished? || stage != 'queued' || percentage != 0
+  end
+
   def fail!(message)
     update!(finished: true, success: false, html_message: message)
   end
