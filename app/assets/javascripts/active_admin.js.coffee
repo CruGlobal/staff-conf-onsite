@@ -8,10 +8,6 @@
 #= require ckeditor-jquery
 #= require widgets/ckeditor
 #
-#  Forms ------------------------------
-#= require jquery.form.4.2.1
-#= require widgets/upload-job-forms
-#
 #  Date Inputs ------------------------
 #= require widgets/dates
 #
@@ -52,6 +48,9 @@
 #  Stay -------------------------------
 #= require stay/dynamic_fields
 #
-#  UserVariable ---------------------
+#  UploadJob --------------------------
+#= require upload_job/status_polling
+#
+#  UserVariable -----------------------
 #= require user_variable/create_auto_short_name
 #= require user_variable/new_value_inputs

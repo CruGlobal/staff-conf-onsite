@@ -648,6 +648,7 @@ class SeedDevelopmentRecords
     'FL35300',
     'FL41000',
     'FL41200',
+    'FL43000',
     'FL43200',
     'FL43300',
     'FL43500',
@@ -931,6 +932,7 @@ class SeedDevelopmentRecords
     'ROU',
     'RUS',
     'RUS13',
+    'RUS16',
     'RUS6',
     'RUS7',
     'RUS9',
@@ -1098,6 +1100,6 @@ class SeedDevelopmentRecords
   end
 
   def create_ministries
-    MINISTRIES.each { |code| create :ministry, code: code }
+    MINISTRIES.each { |code| Ministry.create(name: code, code: code)  }
   end
 end

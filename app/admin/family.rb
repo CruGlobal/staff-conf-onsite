@@ -49,9 +49,6 @@ ActiveAdmin.register Family do
                             filename: import_params[:file].path)
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
-    respond_to do |format|
-      format.html { redirect_to new_spreadsheet_families_path, notice: 'Upload Started' }
-      format.json { render json: job }
-    end
+    redirect_to job
   end
 end

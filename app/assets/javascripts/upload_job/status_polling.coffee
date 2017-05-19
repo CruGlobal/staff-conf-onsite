@@ -1,41 +1,17 @@
 POLLING_TIME = 1000
 
-# $ ->
-#   $('form.upload-job-js').each ->
-#     $form = $(this)
+pageAction 'upload_jobs', 'show', ->
+  $container = $('.upload-job-js')
+  return unless $container.length
 
-#     $form.on 'submit', replaceSubmitButtons
-#     ajaxForm($form)
+  data = $container.data()
 
-
-# Replace the form's submit buttons, to avoid a double-submit.
-replaceSubmitButtons = ->
-  $(this).find('fieldset.actions > ol').replaceWith(
-    $('<ol>').append(
-      $('<li class="cancel">').append(
-        $('<a>').attr('href', window.location.href).text('New Upload Form')
-      )
-    )
-  )
-
-
-# Use jQuery.form plugin to submit form via AJAX.
-ajaxForm = ($form) ->
-  options =
-    dataType: 'json'
-    success: startPolling
-
-  $form.ajaxForm options
-
-
-# Start polling the server for updates
-startPolling = (data, textStatus, jqXHR, $form) ->
-  poller = new UploadJobPoller($form, data.id, data)
+  poller = new UploadJobPoller($container, data.id, data)
   poller.startPolling()
 
 
 class UploadJobPoller
-  constructor: (@$form, @id, data) ->
+  constructor: (@$container, @id, data) ->
     @createStatusContainer()
     @updateStatus(data)
     @currentStage = null
@@ -51,7 +27,7 @@ class UploadJobPoller
       setTimeout((=> @poll(true)), POLLING_TIME) if repeat && !@finished
 
 
-  job_url: -> "/upload_job/#{@id}"
+  job_url: -> "/upload_jobs/#{@id}/status"
 
 
   updateStatus: (data) ->
@@ -92,7 +68,7 @@ class UploadJobPoller
     @$statusContainer = $('<div class="upload-job__status">')
     @$jobMessage = $('<div class="upload-job__message">')
 
-    @$form.after(
+    @$container.empty().append(
       $('<div class="upload-job">').append($title, $note, @$statusContainer,
                                            @$jobMessage)
     )

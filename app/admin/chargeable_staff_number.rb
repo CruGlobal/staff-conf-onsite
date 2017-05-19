@@ -25,9 +25,6 @@ ActiveAdmin.register ChargeableStaffNumber do
       job.id, import_params[:delete_existing], import_params[:skip_first]
     )
 
-    respond_to do |format|
-      format.html { redirect_to chargeable_staff_numbers_path, notice: 'Upload Started' }
-      format.json { render json: job }
-    end
+    redirect_to job
   end
 end

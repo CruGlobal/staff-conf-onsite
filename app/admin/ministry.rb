@@ -26,10 +26,7 @@ ActiveAdmin.register Ministry do
     ImportMinistriesSpreadsheetJob.perform_later(job.id,
                                                  import_params[:skip_first])
 
-    respond_to do |format|
-      format.html { redirect_to ministries_path, notice: 'Upload Started' }
-      format.json { render json: job }
-    end
+    redirect_to job
   end
 
   collection_action :import_hierarchy, method: :post do
@@ -44,9 +41,6 @@ ActiveAdmin.register Ministry do
     ImportHierarchySpreadsheetJob.perform_later(job.id,
                                                 import_params[:skip_first])
 
-    respond_to do |format|
-      format.html { redirect_to ministries_path, notice: 'Upload Started' }
-      format.json { render json: job }
-    end
+    redirect_to job
   end
 end
