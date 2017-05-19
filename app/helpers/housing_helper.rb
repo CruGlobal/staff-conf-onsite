@@ -101,6 +101,7 @@ module HousingHelper
       hierarchy.each do |type, facilities|
         h[type] ||= {}
         facilities.each do |facility, units|
+          next if units.empty?
           h[type][facility.name] ||= units.natural_order_asc.map(&:id)
         end
       end
