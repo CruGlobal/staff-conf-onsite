@@ -6,8 +6,9 @@ class ImportMinistriesSpreadsheetJob < ActiveJob::Base
     return if job.started?
 
     Ministry::ImportSpreadsheet.call(job: job, skip_first: skip_first)
-  rescue => e
+  rescue Exception => e
     job&.fail!(e.message)
+    raise
   ensure
     job&.remove_file!
   end

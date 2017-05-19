@@ -8,8 +8,9 @@ class ImportChargeableStaffNumbersSpreadsheetJob < ActiveJob::Base
     ImportChargeableStaffNumbersSpreadsheet.call(
       job: job, delete_existing: delete_existing, skip_first: skip_first
     )
-  rescue => e
+  rescue Exception => e
     job&.fail!(e.message)
+    raise
   ensure
     job&.remove_file!
   end
