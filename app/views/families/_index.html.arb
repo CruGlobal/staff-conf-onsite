@@ -1,5 +1,7 @@
 context.instance_exec do
-  actions
+  actions defaults: true do |family|
+    a 'Housing', href: housing_path(family_id: family.id)
+  end
   selectable_column if policy.bulk_edit?
 
   column('Family', sortable: :last_name) { |f| family_label(f) }
