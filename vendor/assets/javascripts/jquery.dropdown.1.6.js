@@ -160,11 +160,9 @@
 
 			// No animation
 			if ( !opt.animate ) {
-
 				// Callback
 				self._afterOpen();
 				return;
-
 			}
 
 			// Set start values
@@ -181,36 +179,23 @@
 
 			// Above?
 			if ( inst.above ) {
-
 				start.y = ( elem.toggleButton.outerHeight() / 2 );
-
 			}
 
 			// Mobile?
 			var mobile = ( elem.menuWrapper.css( 'position' ) == 'fixed' ? true : false );
 
 			if ( mobile ) {
-
-				start = {
-					opacity: 0
-				};
-
-				finish = {
-					opacity: 1
-				};
+				start  = { opacity: 0 };
+				finish = { opacity: 1 };
 
 				if ( $(window).width() > $(window).height() ) {
-
 					start.y  = '100%';
 					finish.y = 0;
-
 				} else {
-
 					start.x  = '100%';
 					finish.x = 0;
-
 				}
-
 			}
 
 			// Update state
@@ -223,13 +208,10 @@
 			elem.menuWrapper.show().css( start );
 
 			if ( mobile ) {
-
 				elem.overlay.show().css( { opacity: 0 } ).transition( { opacity: 1 }, opt.speed );
-
 			}
 
 			elem.menuWrapper.transition( finish, opt.speed, function() {
-
 				// Update state
 				inst.animating = false;
 
@@ -238,9 +220,7 @@
 
 				// Callback
 				self._afterOpen();
-
 			});
-
 		},
 
 
@@ -251,7 +231,6 @@
 		 *	================================================================ */
 
 		close: function( menu ) {
-
 			var self = this;
 			var inst = self.instance,
 			    opt  = self.options,
@@ -264,22 +243,16 @@
 
 			// Close a menu
 			if ( menu ) {
-
 				self.closeMenu( menu );
 				return;
-
 			}
 
-			// Callback
-			self._beforeClose();
+			self._beforeClose(); // Callback
 
 			// No animation
 			if ( !opt.animate ) {
-
-				// Callback
-				self._afterClose();
+				self._afterClose(); // Callback
 				return;
-
 			}
 
 			// Set start values
@@ -296,36 +269,23 @@
 
 			// Above?
 			if ( inst.above ) {
-
 				finish.y = ( elem.toggleButton.outerHeight() / 2 );
-
 			}
 
 			// Mobile?
 			var mobile = ( elem.menuWrapper.css( 'position' ) == 'fixed' ? true : false );
 
 			if ( mobile ) {
-
-				start = {
-					opacity: 1
-				};
-
-				finish = {
-					opacity: 0
-				};
+				start  = { opacity: 1 };
+				finish = { opacity: 0 };
 
 				if ( $(window).width() > $(window).height() ) {
-
 					start.y  = 0;
 					finish.y = '100%';
-
 				} else {
-
 					start.x  = 0;
 					finish.x = '100%';
-
 				}
-
 			}
 
 			// Update state
@@ -338,13 +298,10 @@
 			elem.menuWrapper.show().css( start );
 
 			if ( mobile ) {
-
 				elem.overlay.transition( { opacity: 0 }, opt.speed );
-
 			}
 
 			elem.menuWrapper.transition( finish, opt.speed, function() {
-
 				// Update state
 				inst.animating = false;
 
@@ -356,9 +313,7 @@
 
 				// Callback
 				self._afterClose();
-
 			});
-
 		},
 
 
@@ -367,9 +322,7 @@
 		 *	Open a menu
 		 *
 		 *	================================================================ */
-
 		openMenu: function( menu, noAnimation ) {
-
 			var self = this;
 			var inst = self.instance,
 			    opt  = self.options,
@@ -391,11 +344,9 @@
 
 			// No animation
 			if ( noAnimation || !opt.animate || menu.uid == current.uid ) {
-
 				// Callback
 				self._afterOpenMenu( menu, current );
 				return;
-
 			}
 
 			// Set start values
@@ -420,7 +371,6 @@
 			// Animate
 			current.elem.transition({ x: '-100%' }, opt.speed );
 			menu.elem.transition( finish, opt.speed, function() {
-
 				// Update state
 				inst.animating = false;
 
@@ -429,9 +379,7 @@
 
 				// Callback
 				self._afterOpenMenu( menu, current );
-
 			});
-
 		},
 
 
@@ -440,9 +388,7 @@
 		 *	Close a menu
 		 *
 		 *	================================================================ */
-
 		closeMenu: function( menu ) {
-
 			var self = this;
 			var inst = self.instance,
 			    opt  = self.options,
@@ -460,10 +406,8 @@
 			var target = false;
 
 			if ( menu.parent ) {
-
 				var item   = self.getItem( menu.parent );
 				var target = self.getMenu( item.menu );
-
 			}
 
 			// Callback
@@ -471,14 +415,12 @@
 
 			// No animation
 			if ( !opt.animate || !target ) {
-
 				if ( !target )
 					self.close();
 
 				// Callback
 				self._afterCloseMenu( menu, target );
 				return;
-
 			}
 
 			// Set start values
@@ -503,7 +445,6 @@
 			// Animate
 			target.elem.transition({ x: 0 }, opt.speed );
 			menu.elem.transition( finish, opt.speed, function() {
-
 				// Update state
 				inst.animating = false;
 
@@ -512,9 +453,7 @@
 
 				// Callback
 				self._afterCloseMenu( menu, target );
-
 			});
-
 		},
 
 
@@ -523,9 +462,7 @@
 		 *	Resize the dropdown
 		 *
 		 *	================================================================ */
-
 		resize: function( menu, noAnimation ) {
-
 			var self = this;
 			var inst = self.instance,
 			    opt  = self.options,
@@ -629,9 +566,7 @@
 		 *	Reset the dropdown
 		 *
 		 *	================================================================ */
-
 		reset: function( clear ) {
-
 			var self = this;
 			var inst = self.instance,
 			    opt  = self.options,
@@ -647,7 +582,6 @@
 
 			// Callback
 			self._afterReset( clear, target, current );
-
 		},
 
 
