@@ -1,0 +1,20 @@
+@family = Family.find_by(id: params[:family_id]) if params[:family_id]
+
+if @family
+  per_column = @family.attendees.length / 2
+  active_admin_form_for @family, heading: nil do |f|
+    columns do
+      [(0..(per_column-1)), (per_column..-1)].each do |range|
+        column do
+          attendees = f.object.attendees[range]
+          f.semantic_fields_for :attendees, attendees do |af|
+            attendee = af.object
+            collection = [:stays, attendee.stays.order(:arrived_at)]
+            render 'people/forms/stay', form: af, stays: collection, title: attendee.full_name
+          end
+        end
+      end
+    end
+    f.submit
+  end
+end

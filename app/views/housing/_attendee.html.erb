@@ -1,7 +1,0 @@
-<div class='panel' id="my-panel">
-  <h3 class='panel-title'><%= attendee.full_name %></h3>
-  <%= form_for attendee do |f| %>
-    <%= render cell('person/form', f, person: attendee).call(:stay_subform) %>
-  <% end %>
-</div>
-

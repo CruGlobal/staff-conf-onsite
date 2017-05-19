@@ -11,6 +11,7 @@ class Family < ApplicationRecord
                                     foreign_key: :staff_number
 
   accepts_nested_attributes_for :housing_preference
+  accepts_nested_attributes_for :attendees
 
   validates :last_name, presence: true
   validates_associated :housing_preference
