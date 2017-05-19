@@ -7,12 +7,7 @@ $ ->
 
 
 setupHousingUnitSelectWidth = ($select) ->
-  hierarchy = $select.data('hierarchy')
-  labels = $select.data('labels')
-
-  return unless $select.length && hierarchy && labels
-
-  widget = new HousingUnitSelectWidget($select, hierarchy, labels)
+  widget = new HousingUnitSelectWidget($select, $housing_labels)
   widget.replaceCodeSelectWithMultiLevelSelect()
   widget.addDurationCallbacks()
 
@@ -29,7 +24,7 @@ class HousingUnitSelectWidget
   #   Facilities. A Facilities's sub-tree contains all its HousingUnits.
   # @param {Object.<number, string>} labels - A map of unit DB IDs to their
   #   name.
-  constructor: (@$select, @hierarchy, @labels) ->
+  constructor: (@$select, @labels) ->
 
 
   widget: -> @$select.data('dropdownWidget')
@@ -39,10 +34,10 @@ class HousingUnitSelectWidget
   replaceCodeSelectWithMultiLevelSelect: ->
     @hideSelector()
 
-    $menu = @createMutliLevelSelect()
+    $menu = $('.housing_unit_list:first').clone()
     @$select.after($menu)
 
-    @setupDropdownPlugin($menu, @labels[@$select.val()])
+    @setupDropdownPlugin($menu, @labels[@$select.data('value')])
     @addCallbacks($menu)
 
     $menu.select(
@@ -59,24 +54,27 @@ class HousingUnitSelectWidget
   # Creates the HTML list eelement that the jQuery Dropdown plugin takes as its
   # input.
   createMutliLevelSelect: ->
-    $list = $('<ul>')
+    $list = '<ul>';
 
     for type, facilities of @hierarchy
       if $.isEmptyObject(facilities)
-        $typeItem = $("<li>").text(type).appendTo($list)
+        $list += "<li>#{type}</li>"
       else
-        $typeItem = $("<li data-dropdown-text='#{type}'>").appendTo($list)
-        $subList = $('<ul>').appendTo($typeItem)
+        $list += "<li data-dropdown-text='#{type}'>" +
+            '<ul>'
 
         for facilityName, unitIds of facilities
-          $facilityItem =
-            $("<li data-dropdown-text='#{facilityName}'>").appendTo($subList)
-          $unitList = $('<ul>').appendTo($facilityItem)
+          $list += "<li data-dropdown-text='#{facilityName}'>" +
+              '<ul>'
 
           for id in unitIds
-            $('<li>').text(@labels[id]).appendTo($unitList)
+            $list += "<li>#{@labels[id]}</li>"
 
-    $list
+          $list += '</ul></li>'
+
+        $list += '</ul></li>'
+    $list += '</ul>'
+    $($list)
 
 
   setupDropdownPlugin: ($menu, initialSelection) ->

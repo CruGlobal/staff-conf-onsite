@@ -1,6 +1,9 @@
 @family = Family.find_by(id: params[:family_id]) if params[:family_id]
 
 if @family
+  render 'housing/housing_units_js'
+  select_housing_unit_widget(self)
+
   per_column = @family.attendees.length / 2
   active_admin_form_for @family, heading: nil do |f|
     columns do

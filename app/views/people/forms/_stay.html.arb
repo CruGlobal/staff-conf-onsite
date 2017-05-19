@@ -1,5 +1,13 @@
 form.has_many :stays, heading: nil, title: title, for: stays do |f|
-  select_housing_unit_widget(f)
+  f.input(
+    :housing_unit,
+    as: :select,
+    collection: [],
+    input_html: {
+      'data-housing_unit-id' => true,
+      'data-value' => f.object.housing_unit.try(:id)
+    }
+  )
 
   datepicker_input(f, :arrived_at)
   datepicker_input(f, :departed_at)
