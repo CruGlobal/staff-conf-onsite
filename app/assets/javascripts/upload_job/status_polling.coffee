@@ -64,7 +64,6 @@ class UploadJobPoller
 
 
   createStatusContainer: ->
-    $title = $('<h3>').text('Upload Progress')
     $note = $('<p class="upload-job__note">').text(
       'You can now leave this page. The import will continue.'
     )
@@ -73,8 +72,8 @@ class UploadJobPoller
     @$jobMessage = $('<div class="upload-job__message">')
 
     @$container.empty().append(
-      $('<div class="upload-job">').append($title, $note, @$statusContainer,
-                                           @$jobMessage)
+      $('<div class="upload-job">').append(@$statusContainer, @$jobMessage,
+                                           $note)
     )
 
 

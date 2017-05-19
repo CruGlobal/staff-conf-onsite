@@ -28,7 +28,7 @@ class Stay::ListChildCosts < ApplicationService
     costs << :single_delta if single_occupancy
 
     costs <<
-      if child.age >= 15
+      if child.age >= 18
         :adult
       elsif child.age >= 11
         :teen
