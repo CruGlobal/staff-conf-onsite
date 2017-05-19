@@ -30,15 +30,9 @@ class HousingUnitSelectWidget
   # @param {Object.<number, string>} labels - A map of unit DB IDs to their
   #   name.
   constructor: (@$select, @hierarchy, @labels) ->
-    @labelIdMap = @swapKeysWithValues(@labels)
 
 
-  # @return {Object} An object withe the keys and values swapped.
-  swapKeysWithValues: (obj) ->
-    newObj = {}
-    for k, v of obj
-      newObj[v] = k if obj.hasOwnProperty(k)
-    newObj
+  widget: -> @$select.data('dropdownWidget')
 
 
   # Creates the UI widget and replaces the HTML select element with it
@@ -109,13 +103,32 @@ class HousingUnitSelectWidget
     $decodeHtmlEntities = $('<div/>')
 
     $menu.on 'dropdown-after-select', (_, item) =>
-      id = @labelIdMap[$decodeHtmlEntities.html(item.text).text()]
+      id = @itemId(item)
 
       @$select.val(id)
-
       @$select.trigger('change')
       @$select.trigger('change:housing_type', @typeFromId(id))
-      @$select.trigger('change:housing_facility', @facilityNameFromId(id))
+      @$select.trigger('change:housing_facility', @facilityName(item))
+
+
+  itemId: (item) ->
+    for id in @facilityUnitIds(item)
+      return id if @labels[id] == item.text
+
+
+  facilityUnitIds: (item) ->
+    ancestors = @itemAncestors(item)
+    @hierarchy[ancestors[0].text][ancestors[1].text]
+
+
+  itemAncestors: (item) ->
+    ancestors = [item]
+    while item.parent
+      parent = @widget().getItem(item.parent)
+      ancestors.unshift parent
+      item = parent
+
+    ancestors
 
 
   # @return {String} The Housing Type of the Facility that the given HousingUnit
@@ -128,14 +141,11 @@ class HousingUnitSelectWidget
     null
 
 
-  # @return {String} The name of the Facility that the given HousingUnit ID
-  #   belongs to.
-  facilityNameFromId: (id) ->
-    id = parseInt(id, 10)
-    for _, facilities of @hierarchy
-      for facilityName, ids of facilities
-        return facilityName if $.inArray(id, ids) != -1
-    null
+  # @return {String} The name of the Facility that the given menu item belongs
+  #   to.
+  facilityName: (item) ->
+    ancestors = @itemAncestors(item)
+    ancestors[ancestors.length - 2].text
 
 
   addDurationCallbacks: ->
