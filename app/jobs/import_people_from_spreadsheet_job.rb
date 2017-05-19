@@ -5,7 +5,9 @@ class ImportPeopleFromSpreadsheetJob < ActiveJob::Base
     job = UploadJob.find(upload_job_id)
     Import::ImportPeopleFromSpreadsheet.call(job: job)
   rescue => e
-    job&.fail!(e.message)
+    (job || UploadJob.find_by(id: upload_job_id))&.fail!(e.message)
+  rescue Exception => e
+    job.fail!(e.message)
   ensure
     job&.remove_file!
   end
