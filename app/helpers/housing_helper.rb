@@ -66,44 +66,6 @@ module HousingHelper
     form.input(attribute, opts)
   end
 
-  # Creates a select element, used by the JavaScript code in
-  # +app/assets/javascripts/housing/select_housing_unit.coffee+ to allow the
-  # user to select a {Person peron's} housing assingment from a convenient UI
-  # widget.
-  #
-  # @param form [Formtastic::FormBuilder]
-  # @param attribute_name [Symbol] the name of the attribute to populate
-  def select_housing_unit_widget(context)
-    @select_housing_unit_widget ||= context.instance_exec do
-      ul(style: 'display:none', class: 'housing_unit_list') do
-        housing_unit_hierarchy.each do |type, facilities|
-          if facilities.present?
-            li('data-dropdown-text' => type) do
-              ul do
-                facilities.each do |facility_name, unit_ids|
-                  li('data-dropdown-text' => facility_name) do
-                    ul do
-                      unit_ids.each do |id|
-                        li housing_labels[id]
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          else
-            li type
-          end
-        end
-      end
-    end
-
-  end
-
-  def housing_labels
-    @housing_labels ||= Hash[housing_units.map { |u| [u.id, u.name] }]
-  end
-
   # A helper method that generates the Housing
   # Type-{HousingFacility}-{HousingUnit} hierarchy used by the JavaScript
   # select widget.
@@ -112,13 +74,13 @@ module HousingHelper
     @hierarchy ||= HousingUnit.hierarchy
 
     {}.tap do |h|
-      h[housing_type_label('self_provided')] ||= {}
+      h['self_provided'] ||= {}
 
       @hierarchy.each do |type, facilities|
         h[type] ||= {}
         facilities.each do |facility, units|
           next if units.empty?
-          h[type][facility.name] ||= units.natural_order_asc.map(&:id)
+          h[type][facility.id] = { name: facility.name, units: units.natural_order_asc.pluck(:name, :id) }
         end
       end
     end

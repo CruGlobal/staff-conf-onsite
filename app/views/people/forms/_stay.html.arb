@@ -1,12 +1,34 @@
 form.has_many :stays, heading: nil, title: title, for: stays do |f|
   f.input(
-    :housing_unit,
+    :housing_type,
     as: :select,
-    collection: [],
-    input_html: {
-      'data-housing_unit-id' => true,
-      'data-value' => f.object.housing_unit.try(:id)
-    }
+    collection: housing_type_select
+  )
+
+  if f.object.housing_type
+    housing_facilities = housing_unit_hierarchy[f.object.housing_type].collect do |id, hash|
+      [hash[:name], id]
+    end
+  else
+    housing_facilities = []
+  end
+
+  f.input(
+      :housing_facility_id,
+      as: :select,
+      collection: housing_facilities
+  )
+
+  if f.object.housing_facility_id
+    housing_units = housing_unit_hierarchy[f.object.housing_type][f.object.housing_facility_id][:units]
+  else
+    housing_units = []
+  end
+
+  f.input(
+    :housing_unit_id,
+    as: :select,
+    collection: housing_units
   )
 
   datepicker_input(f, :arrived_at)

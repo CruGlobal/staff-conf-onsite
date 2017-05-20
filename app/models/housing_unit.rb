@@ -22,7 +22,7 @@ class HousingUnit < ApplicationRecord
 
     facilities = HousingFacility.all.includes(:housing_units).order(:name)
     facilities.each do |facility|
-      type = facility.housing_type.titleize
+      type = facility.housing_type
       hierarchy[type] ||= {}
       hierarchy[type][facility] = facility.housing_units
     end

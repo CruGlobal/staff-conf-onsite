@@ -1,13 +1,13 @@
 pageAction 'families', 'edit', ->
   $form = $('form')
-  setupHousinTypeDynamicFields($form.find('.housing_preference_attributes'))
+  setupHousingTypeDynamicFields($form.find('.housing_preference_attributes'))
   setupConfirmedAtToggleButton($form.find('.housing_preference_attributes'))
 
 
 # Some fields are only relevant when the user chooses a certain type from the
 # Housing Type select box. We hide/show those choices whenever the select's
 # value is changed.
-setupHousinTypeDynamicFields = ($form) ->
+setupHousingTypeDynamicFields = ($form) ->
   $select = $form.find('select[name$="[housing_type]"]')
   $select.on 'change', -> showHideDynamicFields($form, $select.val())
 
