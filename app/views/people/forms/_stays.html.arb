@@ -1,4 +1,7 @@
+render 'housing/housing_units_js'
+
 form.instance_exec do
+
   collection = [:stays, object.stays.order(:arrived_at)]
 
   panel 'Housing Assignments', class: 'housing_assignments',

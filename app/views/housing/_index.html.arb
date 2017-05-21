@@ -1,19 +1,46 @@
 @family = Family.find_by(id: params[:family_id]) if params[:family_id]
 
 if @family
-  per_column = @family.attendees.length / 2
   active_admin_form_for @family, heading: nil do |f|
-    columns do
-      [(0..(per_column-1)), (per_column..-1)].each do |range|
-        column do
-          attendees = f.object.attendees[range]
-          f.semantic_fields_for :attendees, attendees do |af|
-            attendee = af.object
-            collection = [:stays, attendee.stays.order(:arrived_at)]
-            render 'people/forms/stay', form: af, stays: collection, title: attendee.full_name
+    family = f.object
+
+    columns class: 'columns housing' do
+      column do
+        panel family do
+          attributes_table_for family.housing_preference do
+            row :location1
+            row :location2
+            row :location3
+            row :beds_count
+            row :roommates
+            row :children_count
+            row :bedrooms_count
+            row :single_room
+            row :other_family
+            row :accepts_non_air_conditioned
+            row :comment
           end
         end
       end
+      family.people.order('birthdate').each do |person|
+        column do
+          f.semantic_fields_for :people, person do |pf|
+            panel person.full_name do
+              attributes_table_for person do
+                row :birthdate
+                row :age
+                row :conference_names
+                row 'Requested Dates' do |p|
+                  "#{p.arrived_at} to #{p.departed_at}"
+                end
+              end
+              collection = [:stays, person.stays.order(:arrived_at)]
+              render 'people/forms/stay', form: pf, stays: collection, title: nil
+            end
+          end
+        end
+      end
+
     end
     f.submit
   end

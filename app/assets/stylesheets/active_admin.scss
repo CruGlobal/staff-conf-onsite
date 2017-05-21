@@ -57,3 +57,18 @@
 .finances_panel {
   border: 2px solid yellow;
 }
+
+.columns.housing {
+  width: 200%;
+
+  .column {
+    width: 360px !important;
+    margin-right: 10px !important;
+  }
+}
+
+.chosen-container {
+  span {
+    font-size: 75%;
+  }
+}

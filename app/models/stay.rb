@@ -9,6 +9,8 @@ class Stay < ApplicationRecord
   belongs_to :person
   belongs_to :housing_unit
 
+  attr_accessor :housing_facility_id, :housing_type
+
   validates :person_id, :arrived_at, :departed_at, presence: true
   validates :percentage, numericality: {
     only_integer: true,
@@ -40,12 +42,17 @@ class Stay < ApplicationRecord
 
   def housing_type
     type = housing_facility.try(:housing_type)
-    type || 'self_provided'
+    type || 'dormitory'
   end
 
   def housing_facility
     # housing_unit will be nil if housing_type == 'self_provided'
     housing_unit.try(:housing_facility)
+  end
+
+  def housing_facility_id
+    # housing_unit will be nil if housing_type == 'self_provided'
+    housing_facility.try(:id)
   end
 
   def dormitory?

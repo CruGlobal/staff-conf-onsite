@@ -2,18 +2,19 @@ $ ->
   $('body').on 'DOMNodeInserted', (event) ->
     $select = $(event.target).find('[data-housing_unit-id]')
     setupHousingUnitSelectWidth($select) if $select.length
+    $(event.target).find('select[name$="[housing_type]"]').each -> setupHousingTypeFields($(this))
 
-  $('[data-housing_unit-id]').each -> setupHousingUnitSelectWidth($(this))
+  $('select[name$="[housing_type]"]').each -> setupHousingTypeFields($(this))
 
+
+  window.$menu_loaded = $.get '/housing_units_list', (data) ->
+    window.$housing_unit_hierarchy = data
+
+setupHousingTypeFields = ($select) ->
+  $select.chosen('destroy')
 
 setupHousingUnitSelectWidth = ($select) ->
-  hierarchy = $select.data('hierarchy')
-  labels = $select.data('labels')
-
-  return unless $select.length && hierarchy && labels
-
-  widget = new HousingUnitSelectWidget($select, hierarchy, labels)
-  widget.replaceCodeSelectWithMultiLevelSelect()
+#  widget = new HousingUnitSelectWidget($select, $housing_labels)
   widget.addDurationCallbacks()
 
 
@@ -29,18 +30,16 @@ class HousingUnitSelectWidget
   #   Facilities. A Facilities's sub-tree contains all its HousingUnits.
   # @param {Object.<number, string>} labels - A map of unit DB IDs to their
   #   name.
-  constructor: (@$select, @hierarchy, @labels) ->
+  constructor: (@$select, @labels) ->
 
 
-  widget: -> @$select.data('dropdownWidget')
+  widget: -> @$select.data('dropdown-widget')
 
 
   # Creates the UI widget and replaces the HTML select element with it
   replaceCodeSelectWithMultiLevelSelect: ->
-    @hideSelector()
-
-    $menu = @createMutliLevelSelect()
-    @$select.after($menu)
+    $menu = @$select.siblings('ul').first()
+    console.log($menu)
 
     @setupDropdownPlugin($menu, @labels[@$select.val()])
     @addCallbacks($menu)
@@ -48,35 +47,6 @@ class HousingUnitSelectWidget
     $menu.select(
       $menu.data('dw.plugin.dropdown').selected()
     )
-
-
-  # Hides the select element that this UI widget will control.
-  hideSelector: ->
-    @$select.chosen('destroy')
-    @$select.css('display', 'none')
-
-
-  # Creates the HTML list eelement that the jQuery Dropdown plugin takes as its
-  # input.
-  createMutliLevelSelect: ->
-    $list = $('<ul>')
-
-    for type, facilities of @hierarchy
-      if $.isEmptyObject(facilities)
-        $typeItem = $("<li>").text(type).appendTo($list)
-      else
-        $typeItem = $("<li data-dropdown-text='#{type}'>").appendTo($list)
-        $subList = $('<ul>').appendTo($typeItem)
-
-        for facilityName, unitIds of facilities
-          $facilityItem =
-            $("<li data-dropdown-text='#{facilityName}'>").appendTo($subList)
-          $unitList = $('<ul>').appendTo($facilityItem)
-
-          for id in unitIds
-            $('<li>').text(@labels[id]).appendTo($unitList)
-
-    $list
 
 
   setupDropdownPlugin: ($menu, initialSelection) ->
@@ -103,7 +73,8 @@ class HousingUnitSelectWidget
     $decodeHtmlEntities = $('<div/>')
 
     $menu.on 'dropdown-after-select', (_, item) =>
-      id = @itemId(item)
+      id = window.$housing_labels.findIndex (currentValue, i, array)->
+        currentValue == item
 
       @$select.val(id)
       @$select.trigger('change')

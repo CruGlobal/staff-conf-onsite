@@ -9,15 +9,15 @@
 containerSelector = '.has_many_container.stays'
 itemSelector = '.inputs.has_many_fields'
 
-
 $ ->
   $form = $(containerSelector)
   return unless $form.length
 
   # Pre-existing Stays
-  $form.find(itemSelector).each ->
-    setupDynamicFields($(this), false)
-    setupDurationCalculation($(this))
+  $.when($menu_loaded).then ->
+    $form.find(itemSelector).each ->
+      setupDynamicFields($(this), false)
+      setupDurationCalculation($(this))
 
   # When new Stay fields are added
   $('body').on 'DOMNodeInserted', (event) ->
@@ -36,17 +36,39 @@ $ ->
 #   the DOM, to enter a new Stay; false if this form represents a pre-existing
 #   Stay.
 setupDynamicFields = ($form, isNewForm) ->
+  $type_select = $form.find('select[name$="[housing_type]"]')
+  $facility_select = $form.find('select[name$="[housing_facility_id]"]')
+
+  $type_select.on 'change', ->
+    type = $type_select.val()
+    showOnlyTypeFields($form, type)
+    updateHousingFacilitiesSelect($form, type)
+
+  $facility_select.on 'change', ->
+    type = $type_select.val()
+    updateHousingUnitsSelect($form, type, $facility_select.val())
+
+  initializeValues($form, $type_select, isNewForm)
+
+updateHousingFacilitiesSelect = ($form, housing_type) ->
+  $select = $form.find('select[name$="[housing_facility_id]"]')
+  $select.empty() # remove old options
+  $select.append($("<option></option>"))
+  $.each $housing_unit_hierarchy[housing_type], (id, obj) ->
+    $select.append($("<option></option>").attr("value", id).text(obj.name))
+  $select.trigger("chosen:updated")
+  $select.trigger("change")
+
+updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select = $form.find('select[name$="[housing_unit_id]"]')
-
-  $facilityName = $('<p class="inline-hints" />')
-  $select.parent().append($facilityName)
-
-  # See app/assets/javascripts/housing/select_housing_unit.coffee for events
-  $select.on 'change:housing_type', (_, type) -> showOnlyTypeFields($form, type)
-  $select.on 'change:housing_facility', (_, name) -> $facilityName.text(name)
-
-  initializeValues($form, $select, $facilityName, isNewForm)
-
+  $select.empty() # remove old options
+  $select.append($("<option></option>"))
+  if $housing_unit_hierarchy[housing_type][housing_facility_id]
+    $.each $housing_unit_hierarchy[housing_type][housing_facility_id]['units'], (id, unit) ->
+      console.log(unit[1])
+      console.log(unit[0])
+      $select.append($("<option></option>").attr("value", unit[1]).text(unit[0]))
+  $select.trigger("chosen:updated")
 
 # Hides all .dynamic-field elements, except those "for" the given type.
 #
@@ -56,6 +78,19 @@ setupDynamicFields = ($form, isNewForm) ->
 showOnlyTypeFields = ($container, type) ->
   $container.find('.dynamic-field').hide()
   $container.find(".dynamic-field.for-#{type}").show()
+  $facilities_select = $container.find('select[name$="[housing_facility_id]"]')
+  $unit_select = $container.find('select[name$="[housing_unit_id]"]')
+  if type == 'self_provided'
+    # Hide housing facilities
+    $facilities_select.val('')
+    $facilities_select.closest('li').hide()
+
+    # Hide housing unit
+    $unit_select.val('')
+    $unit_select.closest('li').hide()
+  else
+    $facilities_select.closest('li').show()
+    $unit_select.closest('li').show()
 
 
 # The dynamic values are managed in response to jQuery events, but when also
@@ -68,42 +103,14 @@ showOnlyTypeFields = ($container, type) ->
 # @param {boolean} isNewForm - true if this form has been dynamically added to
 #   the DOM, to enter a new Stay; false if this form represents a pre-existing
 #   Stay.
-initializeValues = ($form, $select, $facilityName, isNewForm) ->
-  idString = $select.val() || ''
+initializeValues = ($form, $select, isNewForm) ->
+  typeString = $select.val() || ''
 
-  unless idString.length
+  unless typeString.length
     showOnlyTypeFields($form, 'self_provided')
-    selectEmptyOption($select) unless isNewForm
     return
 
-  id = parseInt(idString, 10)
-
-
-  for type, facilities of $select.data('hierarchy')
-    for facilityName, ids of facilities
-      if $.inArray(id, ids) != -1
-        showOnlyTypeFields($form, type.toLowerCase())
-        $facilityName.text(facilityName)
-
-
-# Updates the jQuery Dropdown widget to select the "empty" options. ie:
-# Self-Provided.
-#
-# @param {jQuery} $select - The HousingUnit HTML <select> element.
-selectEmptyOption = ($select) ->
-  hierarchy = $select.data('hierarchy')
-  dropdown = $select.data('dropdown-widget')
-
-  emptyOption = null
-  for type, facilities of hierarchy
-    if $.isEmptyObject(facilities)
-      emptyOption = type
-      break
-  return unless emptyOption
-
-  for uid, item of dropdown.instance.items
-    dropdown.select(item) if item.text == emptyOption
-
+  showOnlyTypeFields($form, typeString)
 
 # Adds a "calculated field" showing the number of days between the Arrival and
 # Departure dates. ie: the duration of the person's Stay.
@@ -117,8 +124,8 @@ setupDurationCalculation = ($form) ->
 
   $duration = $('<span />').text('N/A')
   $durationContainer =
-    $('<li class="inut" />').append(
-      $('<label class="label" />').text('Requested Arrival/Departure'),
+    $('<li class="input" />').append(
+      $('<label class="label" />').text('Days'),
       $duration
     )
 

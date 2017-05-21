@@ -19,7 +19,7 @@ ActiveAdmin.register Family do
                     :accepts_non_air_conditioned, :location1, :location2,
                     :location3, :confirmed_at, :comment
                 ],
-                attendees_attributes: [:id, {stays_attributes: [
+                people_attributes: [:id, {stays_attributes: [
                     :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
                     :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
                 ]}]
