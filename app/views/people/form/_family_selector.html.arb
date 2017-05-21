@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 # If creating a new family-member, do not let the family association be
 # editable.
 

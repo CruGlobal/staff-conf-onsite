@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 panel "Housing Assignments (#{person.stays.size})", class: 'stays' do
   if person.stays.any?
     attributes_table_for person.stays.order(:arrived_at) do

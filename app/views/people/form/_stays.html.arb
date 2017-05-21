@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 render 'housing/housing_units_js'
 
 form.instance_exec do
@@ -6,6 +7,6 @@ form.instance_exec do
 
   panel 'Housing Assignments', class: 'housing_assignments',
                                'data-housing_unit-container' => true do
-    render 'people/forms/stay', form: form, stays: collection, title: nil
+    render 'people/form/stay', form: form, stays: collection, title: nil
   end
 end

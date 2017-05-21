@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 @family = Family.find_by(id: params[:family_id]) if params[:family_id]
 
 if @family
@@ -35,7 +36,7 @@ if @family
                 end
               end
               collection = [:stays, person.stays.order(:arrived_at)]
-              render 'people/forms/stay', form: pf, stays: collection, title: nil
+              render 'people/form/stay', form: pf, stays: collection, title: nil
             end
           end
         end

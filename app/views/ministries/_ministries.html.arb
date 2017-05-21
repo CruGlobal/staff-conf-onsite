@@ -1,5 +1,4 @@
 # vim:ft=ruby:
-
 h2 'Import Ministries'
 
 render partial: 'file_form', locals: { action: :import_ministries }

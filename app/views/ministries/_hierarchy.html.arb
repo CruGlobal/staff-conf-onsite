@@ -1,5 +1,4 @@
 # vim:ft=ruby:
-
 h2 'Import Organizational Hierarchy'
 
 render partial: 'file_form', locals: { action: :import_hierarchy }
