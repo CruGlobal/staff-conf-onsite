@@ -23,14 +23,14 @@ module HousingHelper
   def housing_type_name(obj)
     # typecast an integer into an enum string
     type =
-        case obj
-          when ApplicationRecord
-            obj.housing_type
-          when Integer
-            HousingFacility.new(housing_type: obj).housing_type
-          else
-            raise "unexpected parameter, '#{obj.inspect}'"
-        end
+      case obj
+      when ApplicationRecord
+        obj.housing_type
+      when Integer
+        HousingFacility.new(housing_type: obj).housing_type
+      else
+        raise "unexpected parameter, '#{obj.inspect}'"
+      end
 
     I18n.t("#{I18N_PREFIX_HOUSING}.housing_types.#{type}")
   end
@@ -42,7 +42,7 @@ module HousingHelper
   # @see .dynamic_attribute_input
   def dynamic_preference_input(form, attribute, opts = {})
     dynamic_attribute_input(
-        HousingPreference::HOUSING_TYPE_FIELDS, form, attribute, opts
+      HousingPreference::HOUSING_TYPE_FIELDS, form, attribute, opts
     )
   end
 
@@ -94,9 +94,9 @@ module HousingHelper
   # @return [String] a short phrase describing how long the Stay will last
   def join_stay_dates(stay)
     dates =
-        [:arrived_at, :departed_at].map do |attr|
-          simple_format_attr(stay, attr)
-        end
+      [:arrived_at, :departed_at].map do |attr|
+        simple_format_attr(stay, attr)
+      end
     dates.join(' until ')
   end
 end

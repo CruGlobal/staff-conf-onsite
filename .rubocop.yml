@@ -22,6 +22,10 @@ Documentation:
 GuardClause:
   MinBodyLength: 3
 
+Lint/RescueException:
+  Exclude:
+    - app/jobs/**/*
+
 MethodLength:
   Severity: warning
   Max: 15
