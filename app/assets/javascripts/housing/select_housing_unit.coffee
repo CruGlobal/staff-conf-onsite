@@ -7,8 +7,8 @@ $ ->
   $('select[name$="[housing_type]"]').each -> setupHousingTypeFields($(this))
 
 
-#  window.$menu_loaded = $.get '/housing_units_list', (data) ->
-#    window.$housing_units_list = $(data)
+  window.$menu_loaded = $.get '/housing_units_list', (data) ->
+    window.$housing_unit_hierarchy = data
 
 setupHousingTypeFields = ($select) ->
   $select.chosen('destroy')

@@ -14,9 +14,10 @@ $ ->
   return unless $form.length
 
   # Pre-existing Stays
-  $form.find(itemSelector).each ->
-    setupDynamicFields($(this), false)
-    setupDurationCalculation($(this))
+  $.when($menu_loaded).then ->
+    $form.find(itemSelector).each ->
+      setupDynamicFields($(this), false)
+      setupDurationCalculation($(this))
 
   # When new Stay fields are added
   $('body').on 'DOMNodeInserted', (event) ->

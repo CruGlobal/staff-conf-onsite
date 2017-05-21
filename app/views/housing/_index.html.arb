@@ -1,8 +1,6 @@
 @family = Family.find_by(id: params[:family_id]) if params[:family_id]
 
 if @family
-  render 'housing/housing_units_js'
-
   active_admin_form_for @family, heading: nil do |f|
     family = f.object
 
@@ -31,6 +29,10 @@ if @family
               attributes_table_for person do
                 row :birthdate
                 row :age
+                row :conference_names
+                row 'Requested Dates' do |p|
+                  "#{p.arrived_at} to #{p.departed_at}"
+                end
               end
               collection = [:stays, person.stays.order(:arrived_at)]
               render 'people/forms/stay', form: pf, stays: collection, title: nil
