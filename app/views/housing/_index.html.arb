@@ -49,4 +49,10 @@ if @family
     end
     f.submit
   end
+else
+  columns do
+    column do
+      render 'autocomplete'
+    end
+  end
 end

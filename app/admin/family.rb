@@ -1,6 +1,6 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
-  includes :attendees
+  includes :attendees, :housing_preference
 
   partial_view(
     :index,
@@ -56,5 +56,19 @@ ActiveAdmin.register Family do
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
     redirect_to job
+  end
+
+  controller do
+    def update
+      update! do |format|
+        format.html do
+          if request.referrer.include?('housing')
+            redirect_to '/housing'
+          else
+            redirect_to families_path
+          end
+        end
+      end
+    end
   end
 end

@@ -72,6 +72,7 @@ setupNewStayDefaults = ($container) ->
 setupDynamicFields = ($form, isNewForm) ->
   $type_select = $form.find('select[name$="[housing_type]"]')
   $facility_select = $form.find('select[name$="[housing_facility_id]"]')
+  $unit_select = $form.find('select[name$="[housing_unit_id]"]')
 
   $type_select.on 'change', ->
     type = $type_select.val()
@@ -80,7 +81,10 @@ setupDynamicFields = ($form, isNewForm) ->
 
   $facility_select.on 'change', ->
     type = $type_select.val()
-    updateHousingUnitsSelect($form, type, $facility_select.val())
+    updateHousingUnitsSelect($form, type, $(this).val())
+
+  $unit_select.on 'change', ->
+    updateHousingUnitMoreLink($form, $facility_select.val(), $(this))
 
   initializeValues($form, $type_select, isNewForm)
 
@@ -210,4 +214,11 @@ addDurationCallback = ($container, $person_attributes, type, hintPrefix) ->
   $target.on('change', update)
   $target.each(update)
 
+updateHousingUnitMoreLink = ($container, $housing_facility_id, $housing_unit) ->
+  $hint = $housing_unit.siblings('p')
+  update = ->
+    $hint.html("<a href='/housing_facilities/#{$housing_facility_id}/housing_units/#{$housing_unit.val()}' target='_blank'>Unit Info</a>")
+
+  $housing_unit.on('change', update)
+  $housing_unit.each(update)
 
