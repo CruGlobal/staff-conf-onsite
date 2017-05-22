@@ -9,7 +9,7 @@ class Stay < ApplicationRecord
   belongs_to :person
   belongs_to :housing_unit
 
-  attr_accessor :housing_facility_id, :housing_type
+  attr_accessor :housing_facility_id, :housing_type, :housing_unit_id_value
 
   validates :person_id, :arrived_at, :departed_at, presence: true
   validates :percentage, numericality: {
@@ -53,6 +53,11 @@ class Stay < ApplicationRecord
   def housing_facility_id
     # housing_unit will be nil if housing_type == 'self_provided'
     housing_facility.try(:id)
+  end
+
+  # This is used to populate a hidden field on the formtastic form.
+  def housing_unit_id_value
+    housing_unit_id
   end
 
   def dormitory?
