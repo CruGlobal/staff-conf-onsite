@@ -13,7 +13,6 @@ $ ->
   $form = $(containerSelector)
   return unless $form.length
 
-
   #  Fetch data for housing lists
   window.$menu_loaded = $.get '/housing_units_list', (data) ->
     window.$housing_unit_hierarchy = data
@@ -52,7 +51,9 @@ setupNewStayDefaults = ($container) ->
   $housingTypeEnum = ['dormitory', 'apartment', 'self_provided']
 
   $housing_type = $housingTypeEnum[$family.housing_type]
-  $container.find('select[name$="[housing_type]"]').val($housing_type)
+  $ht_field = $container.find('select[name$="[housing_type]"]')
+  $ht_field.val($housing_type)
+  $ht_field.trigger('change')
 
   for id, obj of $housing_unit_hierarchy[$housing_type]
     if obj.name == $family.location1
@@ -85,7 +86,6 @@ setupDynamicFields = ($form, isNewForm) ->
 
 setInitialHousingValues = ($container, $housing_type) ->
   $facility = updateHousingFacilitiesSelect($container, $housing_type)
-  console.log($facility.data('value'))
   $facility.val($facility.data('value'))
   $facility.trigger("chosen:updated")
   $facility.trigger("change")
