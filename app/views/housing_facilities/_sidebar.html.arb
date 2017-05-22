@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   h4 strong link_to("All Units (#{housing_facility.housing_units.size})",
                     housing_facility_housing_units_path(housing_facility))

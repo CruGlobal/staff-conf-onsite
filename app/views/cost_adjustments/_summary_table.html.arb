@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 table class: 'adjustments-table' do
   tr do
     th { 'Category' }

@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 panel 'Finances', class: 'finances_panel' do
   stays = attendee.stays
   if stays.any?
@@ -28,8 +29,8 @@ panel 'Finances', class: 'finances_panel' do
     'Rec Pass' => RecPass::ChargePersonCost.call(person: attendee),
 
     'Apartment Housing' =>
-    Stay::ChargeAttendeeApartment.call(attendee: attendee),
-      'Dormitory Housing' =>
-    Stay::ChargeAttendeeDormitory.call(attendee: attendee)
+      Stay::ChargeAttendeeApartment.call(attendee: attendee),
+    'Dormitory Housing' =>
+      Stay::ChargeAttendeeDormitory.call(attendee: attendee)
   }.freeze
 end

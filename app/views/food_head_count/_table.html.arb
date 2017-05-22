@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 def count_row(count)
   td(count, class: ('chosen-disabled' if count.zero?))
 end

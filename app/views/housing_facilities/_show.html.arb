@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   attributes_table do
     row :name

@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   actions
   selectable_column if policy.bulk_edit?

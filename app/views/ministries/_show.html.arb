@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   columns do
     column do
@@ -16,44 +17,10 @@ context.instance_exec do
 
     column do
       if ministry.ancestors.any? || ministry.children.any?
-        panel 'Hierarchy', class: 'hierarchy' do
-          div class: 'ministry__hierarchy' do
-            if ministry.ancestors.any?
-              ul class: 'ministry__hierarchy__ancestors' do
-                ministry.ancestors.each do |m|
-                  li(class: 'ministry__hierarchy__ancestor') { link_to m, m }
-                end
-              end
-            end
-
-            div(class: 'ministry__hierarchy__this') { ministry }
-
-            if ministry.children.any?
-              ul class: 'ministry__hierarchy__children' do
-                ministry.children.each do |child|
-                  li class: 'ministry__hierarchy__child' do
-                    link_to child, child
-                  end
-                end
-              end
-            end
-          end
-        end
+        render 'ministries/show/hierarchy', context: self
       end
 
-      num_members = ministry.people.size
-
-      panel "Members (#{num_members})", class: 'members' do
-        if num_members.positive?
-          ul do
-            ministry.people.each do |p|
-              li { link_to(p.full_name, p) }
-            end
-          end
-        else
-          strong('None')
-        end
-      end
+      render 'ministries/show/members', context: self
     end
   end
 end

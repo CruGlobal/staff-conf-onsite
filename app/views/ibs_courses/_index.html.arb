@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   column('Student', sortable: 'people.last_name', &:attendee)
   column('Student Number', sortable: 'people.student_number') do |ca|

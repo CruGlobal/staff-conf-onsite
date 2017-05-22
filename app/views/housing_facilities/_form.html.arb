@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   show_errors_if_any(self)
 
