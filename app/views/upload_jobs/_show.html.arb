@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 @data = Hash[
   upload_job.as_json.map do |key, value|
     ["data-#{key}", value]

@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 panel 'Finances', class: 'finances_panel' do
   if child.stays.any?
     stays = child.stays
@@ -14,7 +15,8 @@ panel 'Finances', class: 'finances_panel' do
             td { join_stay_dates(stay) }
             td do
               begin
-                result = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
+                result = Stay::SingleChildDormitoryCost.call(child: child,
+                                                             stay: stay)
                 text_node humanized_money_with_symbol result.total
               rescue => e
                 div(class: 'flash flash_error') { e.message }

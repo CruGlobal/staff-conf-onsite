@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 form.instance_exec do
   panel 'Cost Adjustments', class: 'cost_adjustments',
                             'data-housing_unit-container' => true do

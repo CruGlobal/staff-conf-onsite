@@ -1,109 +1,14 @@
+# vim:ft=ruby:
 context.instance_exec do
   columns do
     column do
-      panel 'Conference Status' do
-        div class: 'attributes_table' do
-          table do
-            tr do
-              th { 'Status' }
-              td { attendee.conference_status }
-            end
-
-            tr do
-              th { 'Last Changed At' }
-              td do
-                if attendee.conference_status_changed_at.present?
-                  format_attribute(attendee, :conference_status_changed_at)
-                else
-                  span('Never', class: :empty)
-                end
-              end
-            end
-          end
-        end
-      end
-
-      attributes_table do
-        row :first_name
-        row :last_name
-        row :tshirt_size
-        row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
-        row(:birthdate) { |a| birthdate_label(a) }
-        row(:age, sortable: :birthdate) { |a| age_label(a) }
-        row(:gender) { |a| gender_name(a.gender) }
-        row :mobility_comment
-        row :personal_comment
-
-        row(:email) { |a| mail_to(a.email) }
-        row(:phone) { |a| format_phone(a.phone) }
-        row :emergency_contact
-
-        row(:ministry) do |a|
-          if a.ministry_id.present?
-            link_to a.ministry.to_s, ministry_path(a.ministry_id)
-          end
-        end
-
-        row :seminary
-        row :department
-
-        row :rec_center_pass_started_at
-        row :rec_center_pass_expired_at
-
-        row :arrived_at
-        row :departed_at
-        row :created_at
-        row :updated_at
-      end
+      render 'attendees/show/conference_status', context: self
+      render 'attendees/show/attributes', context: self
     end
 
     column do
-      panel "Conferences (#{attendee.conferences.size})", class: 'conferences' do
-        if attendee.conferences.any?
-          ul do
-            attendee.conferences.each { |c| li { link_to(c.name, c) } }
-          end
-        else
-          strong('None')
-        end
-
-        div class: 'attendance-comment' do
-          h4 'Comments'
-          if attendee.conference_comment.present?
-            para attendee.conference_comment
-          else
-            para strong 'None'
-          end
-        end
-      end
-
-      panel 'Courses', class: 'attendances' do
-        div do
-          strong 'Student Number: '
-          code attendee.student_number
-          hr
-        end
-
-        attendances = attendee.course_attendances.includes(:course)
-        if attendances.any?
-          table_for attendances.sort_by { |a| a.course.name } do
-            column :course
-            column :grade
-            column :seminary_credit
-          end
-        else
-          strong('No Courses')
-        end
-
-        div class: 'attendance-comment' do
-          h4 'IBS Comments'
-          if attendee.ibs_comment.present?
-            para attendee.ibs_comment
-          else
-            para strong 'None'
-          end
-        end
-      end
+      render 'attendees/show/conferences', context: self
+      render 'attendees/show/courses', context: self
 
       render 'people/stays', person: attendee
       render 'people/cost_adjustments', person: attendee

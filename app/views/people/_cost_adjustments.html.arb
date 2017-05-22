@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 panel "Cost Adjustments (#{person.cost_adjustments.size})", class: 'cost_adjustments' do
   if person.cost_adjustments.any?
     ul do

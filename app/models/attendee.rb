@@ -29,6 +29,7 @@ class Attendee < Person
   def conference_names
     conferences.pluck(:name).join(', ')
   end
+
   protected
 
   def set_default_seminary

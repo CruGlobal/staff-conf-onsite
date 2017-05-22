@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 form action: food_head_count_path, method: :get, class: 'filter_form' do
   div class: 'select input optional filter_form_field filter_select' do
     label 'Cafeteria', class: 'label', for: 'cafeteria_filter'
