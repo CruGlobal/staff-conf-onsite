@@ -7,6 +7,7 @@ if @family
     columns class: 'columns housing' do
       column do
         panel family do
+          span id: 'family_attributes', 'data-attributes' => family.housing_preference.attributes.to_json
           attributes_table_for family.housing_preference do
             row :location1
             row :location2
@@ -22,17 +23,16 @@ if @family
           end
         end
       end
+
       family.people.order('birthdate').each do |person|
         column do
-          f.semantic_fields_for :people, person do |pf|
+          f.semantic_fields_for :people, person, data: '{a: 1}' do |pf|
             panel person.full_name do
+              span id: "person_#{person.id}", 'data-attributes' => person.attributes.to_json
               attributes_table_for person do
                 row :birthdate
                 row :age
                 row :conference_names
-                row 'Requested Dates' do |p|
-                  "#{p.arrived_at} to #{p.departed_at}"
-                end
               end
               collection = [:stays, person.stays.order(:arrived_at)]
               render 'people/forms/stay', form: pf, stays: collection, title: nil

@@ -15,6 +15,7 @@ context.instance_exec do
   column :zip
 
   column(:registration_comment) { |f| html_summary(f.registration_comment) }
+  column(:comment) { |f| html_summary(f.housing_preference.try(:comment)) }
   column :created_at
   column :updated_at
 end

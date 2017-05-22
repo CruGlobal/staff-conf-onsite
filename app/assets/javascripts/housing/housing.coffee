@@ -13,19 +13,52 @@ $ ->
   $form = $(containerSelector)
   return unless $form.length
 
+
+  #  Fetch data for housing lists
+  window.$menu_loaded = $.get '/housing_units_list', (data) ->
+    window.$housing_unit_hierarchy = data
+
   # Pre-existing Stays
   $.when($menu_loaded).then ->
     $form.find(itemSelector).each ->
-      setupDynamicFields($(this), false)
-      setupDurationCalculation($(this))
+      $container = $(this)
+      setupDynamicFields($container, false)
+      setupDurationCalculation($container)
+
+  $('select[name$="[housing_type]"]').each ->
+    $select = $(this)
+    setupHousingDefaults($select.closest('.has_many_fields'))
+
 
   # When new Stay fields are added
-  $('body').on 'DOMNodeInserted', (event) ->
+  $(containerSelector).on 'DOMNodeInserted', (event) ->
+    $container = $(event.target)
     if $(event.target).is("#{containerSelector} #{itemSelector}")
-      setupDynamicFields($(event.target), true)
-      setupDurationCalculation($(event.target))
-      setupDurationHints($(event.target))
+      setupDynamicFields($container, true)
+      setupNewStayDefaults($container)
+      setupDurationCalculation($container)
 
+setupHousingDefaults = ($container) ->
+  $person_id = $container.closest('div.column').find('input[name$="[id]"]')
+  $person = $('#person_' + $person_id.val()).data('attributes')
+
+  addDurationCallback($container, $person, 'arrived_at', 'Person Arrives:')
+  addDurationCallback($container, $person, 'departed_at', 'Person Departs:')
+
+setupNewStayDefaults = ($container) ->
+  setupHousingDefaults($container)
+
+  $family = $('#family_attributes').data('attributes')
+  $housingTypeEnum = ['dormitory', 'apartment', 'self_provided']
+
+  $housing_type = $housingTypeEnum[$family.housing_type]
+  $container.find('select[name$="[housing_type]"]').val($housing_type)
+
+  for id, obj of $housing_unit_hierarchy[$housing_type]
+    if obj.name == $family.location1
+      $facility = $container.find('select[name$="[housing_facility_id]"]')
+      $facility.val(id)
+      $facility.trigger("chosen:updated")
 
 # Some fields are only relevant when the user chooses a certain type from the
 # Housing Type select box. We hide/show those choices whenever the select's
@@ -81,7 +114,7 @@ showOnlyTypeFields = ($container, type) ->
   $facilities_select = $container.find('select[name$="[housing_facility_id]"]')
   $unit_select = $container.find('select[name$="[housing_unit_id]"]')
   if type == 'self_provided'
-    # Hide housing facilities
+# Hide housing facilities
     $facilities_select.val('')
     $facilities_select.closest('li').hide()
 
@@ -149,9 +182,20 @@ setupDurationCalculation = ($form) ->
 
 
 julianDayNumber = (date) ->
-  # See http://stackoverflow.com/a/11760121/603806 for an explanation of this
-  # calculation
+# See http://stackoverflow.com/a/11760121/603806 for an explanation of this
+# calculation
   Math.floor((date / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5)
 
+addDurationCallback = ($container, $person_attributes, type, hintPrefix) ->
+  $target = $container.find("input[name$='[#{type}]']")
 
-setupDurationHints = ($form) ->
+  $hint = $('<p class="inline-hints" />').insertAfter($target)
+  update = ->
+    date = $person_attributes[type]
+    $target.val(date) unless $target.val().length
+    $hint.text("#{hintPrefix} #{date}")
+
+  $target.on('change', update)
+  $target.each(update)
+
+
