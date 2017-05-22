@@ -34,6 +34,7 @@ if @family
                 row :birthdate
                 row :age
                 row :conference_names
+                row :needs_bed
               end
               collection = [:stays, person.stays.order(:arrived_at)]
               render 'people/form/stay', form: pf, stays: collection, title: nil

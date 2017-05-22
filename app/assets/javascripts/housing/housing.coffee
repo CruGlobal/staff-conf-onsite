@@ -39,7 +39,7 @@ $ ->
       setupDurationCalculation($container)
 
 setupHousingDefaults = ($container) ->
-  $person_id = $container.closest('div.column').find('input[name$="[id]"]')
+  $person_id = $container.closest('div.column').find('input[name$="[id]"]:not([id*="stays"])')
   $person = $('#person_' + $person_id.val()).data('attributes')
 
   addDurationCallback($container, $person, 'arrived_at', 'Person Arrives:')
@@ -58,7 +58,7 @@ setupNewStayDefaults = ($container) ->
     if obj.name == $family.location1
       $facility = $container.find('select[name$="[housing_facility_id]"]')
       $facility.val(id)
-      $facility.trigger("chosen:updated")
+      $facility.trigger("change")
 
 # Some fields are only relevant when the user chooses a certain type from the
 # Housing Type select box. We hide/show those choices whenever the select's
@@ -83,14 +83,26 @@ setupDynamicFields = ($form, isNewForm) ->
 
   initializeValues($form, $type_select, isNewForm)
 
-updateHousingFacilitiesSelect = ($form, housing_type) ->
+setInitialHousingValues = ($container, $housing_type) ->
+  $facility = updateHousingFacilitiesSelect($container, $housing_type)
+  console.log($facility.data('value'))
+  $facility.val($facility.data('value'))
+  $facility.trigger("chosen:updated")
+  $facility.trigger("change")
+
+  $housing_unit = $container.find('select[name$="[housing_unit_id]"]')
+  $housing_unit.val($housing_unit.data('value'))
+  $housing_unit.trigger("chosen:updated")
+
+updateHousingFacilitiesSelect = ($form, $housing_type) ->
   $select = $form.find('select[name$="[housing_facility_id]"]')
   $select.empty() # remove old options
   $select.append($("<option></option>"))
-  $.each $housing_unit_hierarchy[housing_type], (id, obj) ->
+  $.each $housing_unit_hierarchy[$housing_type], (id, obj) ->
     $select.append($("<option></option>").attr("value", id).text(obj.name))
   $select.trigger("chosen:updated")
   $select.trigger("change")
+  $select
 
 updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select = $form.find('select[name$="[housing_unit_id]"]')
@@ -98,8 +110,6 @@ updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select.append($("<option></option>"))
   if $housing_unit_hierarchy[housing_type][housing_facility_id]
     $.each $housing_unit_hierarchy[housing_type][housing_facility_id]['units'], (id, unit) ->
-      console.log(unit[1])
-      console.log(unit[0])
       $select.append($("<option></option>").attr("value", unit[1]).text(unit[0]))
   $select.trigger("chosen:updated")
 
@@ -144,6 +154,8 @@ initializeValues = ($form, $select, isNewForm) ->
     return
 
   showOnlyTypeFields($form, typeString)
+
+  setInitialHousingValues($form, typeString)
 
 # Adds a "calculated field" showing the number of days between the Arrival and
 # Departure dates. ie: the duration of the person's Stay.

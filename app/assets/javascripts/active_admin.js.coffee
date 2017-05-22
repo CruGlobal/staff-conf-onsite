@@ -44,6 +44,7 @@
 #
 #  Housing ------------------------
 #= require housing/housing.coffee
+#= require housing/validations.coffee
 #
 #  UploadJob --------------------------
 #= require upload_job/status_polling
