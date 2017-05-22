@@ -10,6 +10,9 @@ if @family
         panel family do
           span id: 'family_attributes', 'data-attributes' => family.housing_preference.attributes.to_json
           attributes_table_for family.housing_preference do
+            row :housing_type do |hp|
+              housing_type_label(hp.housing_type)
+            end
             row :location1
             row :location2
             row :location3
