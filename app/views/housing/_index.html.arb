@@ -8,7 +8,11 @@ if @family
     columns class: 'columns housing' do
       column do
         panel family do
+          span id: 'family_attributes', 'data-attributes' => family.housing_preference.attributes.to_json
           attributes_table_for family.housing_preference do
+            row :housing_type do |hp|
+              housing_type_label(hp.housing_type)
+            end
             row :location1
             row :location2
             row :location3
@@ -23,17 +27,24 @@ if @family
           end
         end
       end
-      family.people.order('birthdate').each do |person|
+
+      if family.primary_person
+        people = [family.primary_person] + family.people.order('birthdate').where('id <> ?', family.primary_person_id)
+      else
+        people = family.people.order('birthdate')
+      end
+      people.each do |person|
         column do
-          f.semantic_fields_for :people, person do |pf|
-            panel person.full_name do
+          f.semantic_fields_for :people, person, data: '{a: 1}' do |pf|
+            panel_title = person.full_name
+            panel_title += ' (PRIMARY)' if family.primary_person_id == person.id
+            panel panel_title do
+              span id: "person_#{person.id}", 'data-attributes' => person.attributes.to_json
               attributes_table_for person do
                 row :birthdate
                 row :age
                 row :conference_names
-                row 'Requested Dates' do |p|
-                  "#{p.arrived_at} to #{p.departed_at}"
-                end
+                row :needs_bed
               end
               collection = [:stays, person.stays.order(:arrived_at)]
               render 'people/form/stay', form: pf, stays: collection, title: nil
@@ -44,5 +55,11 @@ if @family
 
     end
     f.submit
+  end
+else
+  columns do
+    column do
+      render 'autocomplete'
+    end
   end
 end

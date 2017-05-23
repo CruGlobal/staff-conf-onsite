@@ -5,6 +5,7 @@ context.instance_exec do
   inputs 'Basic Info' do
     input :last_name
     input :staff_number
+    input :primary_person_id, as: :select, collection: self.object.people.order(:birthdate), include_blank: false
   end
 
   inputs 'Address' do

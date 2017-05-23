@@ -26,6 +26,8 @@
 #= require jquery.price_format.2.0
 #= require widgets/price_format-jquery
 #
+#= require jquery-ui/autocomplete
+#
 #
 #  Specific Models
 #  ====================================
@@ -42,11 +44,9 @@
 #  Family -----------------------------
 #= require family/edit
 #
-#  HousingUnit ------------------------
-#= require housing/select_housing_unit
-#
-#  Stay -------------------------------
-#= require stay/dynamic_fields
+#  Housing ------------------------
+#= require housing/housing.coffee
+#= require housing/validations.coffee
 #
 #  UploadJob --------------------------
 #= require upload_job/status_polling

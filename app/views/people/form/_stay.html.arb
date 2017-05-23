@@ -2,26 +2,13 @@
 form.has_many :stays, heading: nil, title: title, for: stays do |f|
   f.input(:housing_type, as: :select, collection: housing_type_select)
 
-  housing_facilities =
-    if f.object.housing_type
-      housing_unit_hierarchy[f.object.housing_type].map do |id, hash|
-        [hash[:name], id]
-      end
-    else
-      []
-    end
+  f.input(:housing_facility_id, as: :select, collection: [], input_html: { data: { value: f.object.housing_facility_id } })
 
-  f.input(:housing_facility_id, as: :select, collection: housing_facilities)
-
-  housing_units =
-    if f.object.housing_facility_id
-      housing_type = housing_unit_hierarchy[f.object.housing_type]
-      housing_type[f.object.housing_facility_id][:units]
-    else
-      []
-    end
-
-  f.input(:housing_unit_id, as: :select, collection: housing_units)
+  f.input(:housing_unit_id, as: :select, collection: [], input_html: { data: { value: f.object.housing_unit_id } },
+      hint: f.object.housing_unit_id ?
+          link_to('Unit Info', housing_facility_housing_unit_path(f.object.housing_facility_id, f.object.housing_unit_id), target: '_blank') :
+          link_to('Unit Info', '#', onclick: 'return false')
+  )
 
   datepicker_input(f, :arrived_at)
   datepicker_input(f, :departed_at)

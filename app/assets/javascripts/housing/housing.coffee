@@ -13,19 +13,53 @@ $ ->
   $form = $(containerSelector)
   return unless $form.length
 
+  #  Fetch data for housing lists
+  window.$menu_loaded = $.get '/housing_units_list', (data) ->
+    window.$housing_unit_hierarchy = data
+
   # Pre-existing Stays
   $.when($menu_loaded).then ->
     $form.find(itemSelector).each ->
-      setupDynamicFields($(this), false)
-      setupDurationCalculation($(this))
+      $container = $(this)
+      setupDynamicFields($container, false)
+      setupDurationCalculation($container)
+
+  $('select[name$="[housing_type]"]').each ->
+    $select = $(this)
+    setupHousingDefaults($select.closest('.has_many_fields'))
+
 
   # When new Stay fields are added
-  $('body').on 'DOMNodeInserted', (event) ->
+  $(containerSelector).on 'DOMNodeInserted', (event) ->
+    $container = $(event.target)
     if $(event.target).is("#{containerSelector} #{itemSelector}")
-      setupDynamicFields($(event.target), true)
-      setupDurationCalculation($(event.target))
-      setupDurationHints($(event.target))
+      setupDynamicFields($container, true)
+      setupNewStayDefaults($container)
+      setupDurationCalculation($container)
 
+setupHousingDefaults = ($container) ->
+  $person_id = $container.closest('div.column').find('input[name$="[id]"]:not([id*="stays"])')
+  $person = $('#person_' + $person_id.val()).data('attributes')
+
+  addDurationCallback($container, $person, 'arrived_at', 'Person Arrives:')
+  addDurationCallback($container, $person, 'departed_at', 'Person Departs:')
+
+setupNewStayDefaults = ($container) ->
+  setupHousingDefaults($container)
+
+  $family = $('#family_attributes').data('attributes')
+  $housingTypeEnum = ['dormitory', 'apartment', 'self_provided']
+
+  $housing_type = $housingTypeEnum[$family.housing_type]
+  $ht_field = $container.find('select[name$="[housing_type]"]')
+  $ht_field.val($housing_type)
+  $ht_field.trigger('change')
+
+  for id, obj of $housing_unit_hierarchy[$housing_type]
+    if obj.name == $family.location1
+      $facility = $container.find('select[name$="[housing_facility_id]"]')
+      $facility.val(id)
+      $facility.trigger("change")
 
 # Some fields are only relevant when the user chooses a certain type from the
 # Housing Type select box. We hide/show those choices whenever the select's
@@ -38,6 +72,7 @@ $ ->
 setupDynamicFields = ($form, isNewForm) ->
   $type_select = $form.find('select[name$="[housing_type]"]')
   $facility_select = $form.find('select[name$="[housing_facility_id]"]')
+  $unit_select = $form.find('select[name$="[housing_unit_id]"]')
 
   $type_select.on 'change', ->
     type = $type_select.val()
@@ -46,18 +81,32 @@ setupDynamicFields = ($form, isNewForm) ->
 
   $facility_select.on 'change', ->
     type = $type_select.val()
-    updateHousingUnitsSelect($form, type, $facility_select.val())
+    updateHousingUnitsSelect($form, type, $(this).val())
+
+  $unit_select.on 'change', ->
+    updateHousingUnitMoreLink($form, $facility_select.val(), $(this))
 
   initializeValues($form, $type_select, isNewForm)
 
-updateHousingFacilitiesSelect = ($form, housing_type) ->
+setInitialHousingValues = ($container, $housing_type) ->
+  $facility = updateHousingFacilitiesSelect($container, $housing_type)
+  $facility.val($facility.data('value'))
+  $facility.trigger("chosen:updated")
+  $facility.trigger("change")
+
+  $housing_unit = $container.find('select[name$="[housing_unit_id]"]')
+  $housing_unit.val($housing_unit.data('value'))
+  $housing_unit.trigger("chosen:updated")
+
+updateHousingFacilitiesSelect = ($form, $housing_type) ->
   $select = $form.find('select[name$="[housing_facility_id]"]')
   $select.empty() # remove old options
   $select.append($("<option></option>"))
-  $.each $housing_unit_hierarchy[housing_type], (id, obj) ->
+  $.each $housing_unit_hierarchy[$housing_type], (id, obj) ->
     $select.append($("<option></option>").attr("value", id).text(obj.name))
   $select.trigger("chosen:updated")
   $select.trigger("change")
+  $select
 
 updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select = $form.find('select[name$="[housing_unit_id]"]')
@@ -65,8 +114,6 @@ updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select.append($("<option></option>"))
   if $housing_unit_hierarchy[housing_type][housing_facility_id]
     $.each $housing_unit_hierarchy[housing_type][housing_facility_id]['units'], (id, unit) ->
-      console.log(unit[1])
-      console.log(unit[0])
       $select.append($("<option></option>").attr("value", unit[1]).text(unit[0]))
   $select.trigger("chosen:updated")
 
@@ -81,7 +128,7 @@ showOnlyTypeFields = ($container, type) ->
   $facilities_select = $container.find('select[name$="[housing_facility_id]"]')
   $unit_select = $container.find('select[name$="[housing_unit_id]"]')
   if type == 'self_provided'
-    # Hide housing facilities
+# Hide housing facilities
     $facilities_select.val('')
     $facilities_select.closest('li').hide()
 
@@ -111,6 +158,8 @@ initializeValues = ($form, $select, isNewForm) ->
     return
 
   showOnlyTypeFields($form, typeString)
+
+  setInitialHousingValues($form, typeString)
 
 # Adds a "calculated field" showing the number of days between the Arrival and
 # Departure dates. ie: the duration of the person's Stay.
@@ -149,9 +198,27 @@ setupDurationCalculation = ($form) ->
 
 
 julianDayNumber = (date) ->
-  # See http://stackoverflow.com/a/11760121/603806 for an explanation of this
-  # calculation
+# See http://stackoverflow.com/a/11760121/603806 for an explanation of this
+# calculation
   Math.floor((date / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5)
 
+addDurationCallback = ($container, $person_attributes, type, hintPrefix) ->
+  $target = $container.find("input[name$='[#{type}]']")
 
-setupDurationHints = ($form) ->
+  $hint = $('<p class="inline-hints" />').insertAfter($target)
+  update = ->
+    date = $person_attributes[type]
+    $target.val(date) unless $target.val().length
+    $hint.text("#{hintPrefix} #{date}")
+
+  $target.on('change', update)
+  $target.each(update)
+
+updateHousingUnitMoreLink = ($container, $housing_facility_id, $housing_unit) ->
+  $hint = $housing_unit.siblings('p')
+  update = ->
+    $hint.html("<a href='/housing_facilities/#{$housing_facility_id}/housing_units/#{$housing_unit.val()}' target='_blank'>Unit Info</a>")
+
+  $housing_unit.on('change', update)
+  $housing_unit.each(update)
+
