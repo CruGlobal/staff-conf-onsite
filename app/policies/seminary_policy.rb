@@ -1,3 +1,3 @@
 # The security policy for accessing {Seminary} records.
-class SeminaryPolicy < GeneralPolicy
+class SeminaryPolicy < FinancePolicy
 end
