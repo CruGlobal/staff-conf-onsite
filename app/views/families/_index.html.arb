@@ -9,7 +9,6 @@ context.instance_exec do
   column(:staff_number) { |f| code f.staff_number }
 
   column :address1
-  column :address2
   column :city
   column :state
   column(:country_code) { |f| country_name(f.country_code) }
