@@ -28,10 +28,13 @@ if @family
         end
       end
 
-      family.people.order('birthdate').each do |person|
+      people = [family.primary_person] + family.people.order('birthdate').where('id <> ?', family.primary_person_id)
+      people.each do |person|
         column do
           f.semantic_fields_for :people, person, data: '{a: 1}' do |pf|
-            panel person.full_name do
+            panel_title = person.full_name
+            panel_title += ' (PRIMARY)' if family.primary_person_id == person.id
+            panel panel_title do
               span id: "person_#{person.id}", 'data-attributes' => person.attributes.to_json
               attributes_table_for person do
                 row :birthdate
