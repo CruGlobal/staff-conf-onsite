@@ -5,7 +5,12 @@ context.instance_exec do
   inputs 'Basic Info' do
     input :last_name
     input :staff_number
-    input :primary_person_id, as: :select, collection: self.object.people.order(:birthdate), include_blank: false
+    input :primary_person_id, as: :select, include_blank: false,
+                              collection: self.object.people.order(:birthdate)
+
+    semantic_fields_for :housing_preference do |hp|
+      hp.input :comment, input_html: { rows: 4 }
+    end
   end
 
   inputs 'Address' do
@@ -17,7 +22,6 @@ context.instance_exec do
       include_blank: false
     input :zip
   end
-
   render 'families/form/housing_preference', form: self
 
   actions

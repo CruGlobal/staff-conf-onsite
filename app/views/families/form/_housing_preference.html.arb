@@ -23,7 +23,5 @@ form.instance_exec do
 
       datepicker_input(hp, :confirmed_at)
     end
-
-    input :registration_comment, input_html: { rows: 4 }
   end
 end

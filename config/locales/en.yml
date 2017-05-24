@@ -139,6 +139,7 @@ en:
           apartment: "Apartment"
           self_provided: "Self-Provided"
       housing_preference:
+        comment: "Housing Comments"
         roommates: "Preferred Roommates"
         beds_count: "# of Beds"
         single_room: "Requests a single room"

@@ -14,7 +14,6 @@ context.instance_exec do
   column(:country_code) { |f| country_name(f.country_code) }
   column :zip
 
-  column(:registration_comment) { |f| html_summary(f.registration_comment) }
   column(:comment) { |f| html_summary(f.housing_preference&.comment) }
   column :created_at
   column :updated_at

@@ -11,10 +11,6 @@ context.instance_exec do
         end
       end
 
-      row(:registration_comment) do
-        html_full(family.registration_comment) || strong('N/A')
-      end
-      row :comment
       row :confirmed_at do |hp|
         if hp.confirmed_at.present?
           status_tag :yes,
