@@ -35,6 +35,8 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Max: 50
+  Exclude:
+    - app/admin/*.rb
 
 Metrics/ClassLength:
   Max: 150

@@ -26,7 +26,7 @@ class UploadJobPoller
       .done (data) =>
         @updateStatus(data)
         setTimeout((=> @poll(true)), POLLING_TIME) if repeat && !@finished
-      .fail =>
+      .fail ->
         # Our TheKey.me auth probably expired
         window.location.reload(true)
 

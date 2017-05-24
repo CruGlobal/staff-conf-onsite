@@ -38,7 +38,8 @@ $ ->
       setupDurationCalculation($container)
 
 setupHousingDefaults = ($container) ->
-  $person_id = $container.closest('div.column').find('input[name$="[id]"]:not([id*="stays"])')
+  $person_id = $container.closest('div.column').
+                          find('input[name$="[id]"]:not([id*="stays"])')
   $person = $('#person_' + $person_id.val()).data('attributes')
 
   addDurationCallback($container, $person, 'arrived_at', 'Person Arrives:')
@@ -113,8 +114,11 @@ updateHousingUnitsSelect = ($form, housing_type, housing_facility_id) ->
   $select.empty() # remove old options
   $select.append($("<option></option>"))
   if $housing_unit_hierarchy[housing_type][housing_facility_id]
-    $.each $housing_unit_hierarchy[housing_type][housing_facility_id]['units'], (id, unit) ->
-      $select.append($("<option></option>").attr("value", unit[1]).text(unit[0]))
+    units = $housing_unit_hierarchy[housing_type][housing_facility_id]['units']
+    $.each units, (id, unit) ->
+      $select.append(
+        $("<option></option>").attr("value", unit[1]).text(unit[0])
+      )
   $select.trigger("chosen:updated")
 
 # Hides all .dynamic-field elements, except those "for" the given type.
@@ -217,7 +221,10 @@ addDurationCallback = ($container, $person_attributes, type, hintPrefix) ->
 updateHousingUnitMoreLink = ($container, $housing_facility_id, $housing_unit) ->
   $hint = $housing_unit.siblings('p')
   update = ->
-    $hint.html("<a href='/housing_facilities/#{$housing_facility_id}/housing_units/#{$housing_unit.val()}' target='_blank'>Unit Info</a>")
+    housing_path = "/housing_facilities/#{$housing_facility_id}"
+    unit_path = "#{housing_path}/housing_units/#{$housing_unit.val()}"
+
+    $hint.html("<a href='#{unit_path}' target='_blank'>Unit Info</a>")
 
   $housing_unit.on('change', update)
   $housing_unit.each(update)

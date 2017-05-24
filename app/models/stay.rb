@@ -41,8 +41,7 @@ class Stay < ApplicationRecord
   end
 
   def housing_type
-    type = housing_facility.try(:housing_type)
-    type || 'dormitory'
+    housing_facility.try(:housing_type) || 'self_provided'
   end
 
   def housing_facility

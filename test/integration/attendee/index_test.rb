@@ -22,18 +22,15 @@ class Attendee::IndexTest < IntegrationTest
       assert_text 'Department'
       assert_text 'Ministry'
       assert_text 'Courses'
-      assert_text 'Requested Arrival date'
-      assert_text 'Requested Departure date'
     end
   end
 
   test '#index columns' do
     visit attendees_path
 
-    assert_index_columns :selectable, :student_number, :first_name, :last_name,
-                         :family, :birthdate, :age, :gender, :email, :phone,
-                         :emergency_contact, :department, :arrived_at,
-                         :departed_at, :created_at, :updated_at, :actions
+    assert_index_columns :selectable, :first_name, :last_name, :family,
+                         :birthdate, :age, :gender, :email, :phone,
+                         :department, :created_at, :updated_at, :actions
   end
 
   test '#index items' do
