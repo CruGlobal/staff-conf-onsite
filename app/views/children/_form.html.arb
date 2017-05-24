@@ -34,7 +34,7 @@ context.instance_exec do
         datepicker_input(self, :departed_at)
       end
 
-      render 'people/form/cost_adjustments', form: self
+      render 'children/form/childcare', form: self
     end
 
     column do
