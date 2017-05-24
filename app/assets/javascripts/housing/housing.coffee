@@ -10,15 +10,24 @@ containerSelector = '.has_many_container.stays'
 itemSelector = '.inputs.has_many_fields'
 
 $ ->
+
+  # Set up search form
+  search = $('#housing_search_form').detach()
+  return unless search
+
+  $('#titlebar_left').append(search)
+  $('#housing_search_form').show()
+
   $form = $(containerSelector)
-  return unless $form.length
 
   #  Fetch data for housing lists
   window.$menu_loaded = $.get '/housing_units_list', (data) ->
-    window.$housing_unit_hierarchy = data
+    window.$housing_unit_hierarchy = data.housing
+    window.$housing_families = data.families
 
   # Pre-existing Stays
   $.when($menu_loaded).then ->
+    $( "#search" ).autocomplete('option', 'source', $housing_families)
     $form.find(itemSelector).each ->
       $container = $(this)
       setupDynamicFields($container, false)

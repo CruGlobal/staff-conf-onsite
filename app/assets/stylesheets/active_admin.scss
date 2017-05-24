@@ -74,9 +74,22 @@
 }
 
 body.housing {
+  #title_bar {
+    z-index: 0;
+  }
+
   #search {
     width: 500px;
-    height: 40px;
+    height: 30px;
     font-size: 150%;
+    margin-left: 30px
+  }
+
+  #housing_search_form, h2 {
+    float: left;
+  }
+
+  #title_bar h2 {
+    padding-top: 5px;
   }
 }
