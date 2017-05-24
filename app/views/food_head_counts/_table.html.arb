@@ -24,11 +24,11 @@ table do
   end
 
   tbody do
-    date_counts.each_with_index do |(date, daily_counts), row_index|
-      daily_counts.each_with_index.each do |(cafeteria, counts), date_index|
+    date_counts.rows.each_with_index do |(date, daily), row_index|
+      daily.counts.each_with_index.each do |(cafeteria, counts), date_index|
         tr(class: row_index.odd? ? :odd : :even) do
           if date_index.zero?
-            td(rowspan: daily_counts.size) { strong l(date, format: :month) }
+            td(rowspan: daily.counts.size) { strong l(date, format: :month) }
           end
 
           td cafeteria

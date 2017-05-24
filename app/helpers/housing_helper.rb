@@ -80,7 +80,10 @@ module HousingHelper
         h[type] ||= {}
         facilities.each do |facility, units|
           next if units.empty?
-          h[type][facility.id] = { name: facility.name, units: units.natural_order_asc.pluck(:name, :id) }
+          h[type][facility.id] = {
+            name: facility.name,
+            units: units.natural_order_asc.pluck(:name, :id)
+          }
         end
       end
     end

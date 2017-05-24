@@ -13,6 +13,9 @@ class HousingUnit < ApplicationRecord
   scope :in_apartment, (lambda do
     where(housing_facility: HousingFacility.apartments)
   end)
+  scope :with_cafeteria, (lambda do |cafe|
+    where(housing_facility: HousingFacility.where(cafeteria: cafe))
+  end)
 
   scope :natural_order_asc, -> { order(natural_order) }
   scope :natural_order_desc, -> { order(natural_order(:desc)) }

@@ -25,6 +25,9 @@ class Stay < ApplicationRecord
 
   scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
   scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
+  scope :with_cafeteria, (lambda do |cafe|
+    where(housing_unit: HousingUnit.with_cafeteria(cafe))
+  end)
 
   # housing_unit will be nil if housing_type == 'self_provided'
   delegate :housing_facility, to: :housing_unit, allow_nil: true
