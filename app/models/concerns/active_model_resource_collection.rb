@@ -6,11 +6,17 @@
 #  * +#each+: to enumerate over each record
 #  * +#total_count+: return the total number of records (ie: no pagination)
 #
-# Each item returned by +#each+ should implement +#id+. It can return anything.
-module ActiveModelResource
+# Each item returned by +#each+ should...:
+#
+#  * Implement +#id+. It's value can be anything, but it must be something.
+#  * Extend {ActiveModel::Serializers::Xml} and implement +#attributes+. This
+#    method should return a Hash of attribute names and their values.
+module ActiveModelResourceCollection
   extend ActiveSupport::Concern
 
   included do
+    include ActiveModel::Serializers::Xml
+
     attr_writer :current_page, :limit_value
   end
 
@@ -62,7 +68,7 @@ module ActiveModelResource
   end
 
   def total_pages
-    total_count / limit_value
+    [1, total_count / limit_value].max
   end
 
   def except(*_opts)
@@ -71,5 +77,9 @@ module ActiveModelResource
 
   def group_values
     nil
+  end
+
+  def attributes
+    { rows: each.to_a }
   end
 end

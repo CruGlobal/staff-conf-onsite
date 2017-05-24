@@ -2,7 +2,7 @@ module FoodHeadCount
   class Table
     include ActiveModel::Model
     include ActiveRecord::AttributeAssignment
-    include ActiveModelResource
+    include ActiveModelResourceCollection
     include Enumerable
 
     delegate :each, to: :rows

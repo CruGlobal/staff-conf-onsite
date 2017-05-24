@@ -28,7 +28,10 @@ class FoodHeadCount::CreateTable < ApplicationService
     cafes = cafeteria.present? ? [cafeteria] : HousingFacility.cafeterias
 
     date_range.each do |date|
-      cafes.each { |c| head_counts.add(sum_date_cost(date, c).head_count) }
+      cafes.each do |c|
+        head_count = sum_date_cost(date, c).head_count
+        head_counts.add(head_count) unless head_count.zero?
+      end
     end
   end
 

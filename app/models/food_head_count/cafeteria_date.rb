@@ -2,8 +2,10 @@ module FoodHeadCount
   class CafeteriaDate
     include ActiveModel::Model
     include ActiveRecord::AttributeAssignment
+    include ActiveModel::Serializers::Xml
 
     attr_accessor :date, :cafeteria, :id
+    delegate :zero?, to: :total
 
     AGE_GROUPS = %i(adult teen child).freeze
     MEAL_TYPES = %i(breakfast lunch dinner).freeze
@@ -22,6 +24,16 @@ module FoodHeadCount
     def increment(age, meal)
       attr = [age, meal].join('_').to_sym
       send("#{attr}=", (send(attr) || 0) + 1)
+    end
+
+    def total
+      MEAL_COUNTS.inject(0) { |sum, name| sum + send(name) }
+    end
+
+    def attributes
+      Hash[
+        (%i(id date cafeteria) + MEAL_COUNTS).map { |name| [name, send(name)] }
+      ]
     end
 
     private
