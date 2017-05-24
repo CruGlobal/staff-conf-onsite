@@ -1,4 +1,6 @@
 # vim:ft=ruby:
+render 'autocomplete'
+
 @family = Family.find_by(id: params[:family_id]) if params[:family_id]
 
 if @family
@@ -57,9 +59,5 @@ if @family
     f.submit
   end
 else
-  columns do
-    column do
-      render 'autocomplete'
-    end
-  end
+
 end
