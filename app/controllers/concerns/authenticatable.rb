@@ -72,18 +72,18 @@ module Authenticatable
     # @return [Object, nil] The value of the given attribute name from the {User
     #   current user's} data from the CAS service.
     def cas_attr(attr)
-      cas_extra_attributes.try(:[], attr)
+      cas_extra_attributes&.[](attr)
     end
 
     # @return [String, nil] The {User User's} email, from the CAS service.
     def cas_email
-      session['cas'].try(:[], 'user')
+      session['cas']&.[]('user')
     end
 
     private
 
     def cas_extra_attributes
-      session['cas'].try(:[], 'extra_attributes')
+      session['cas']&.[]('extra_attributes')
     end
   end
 end

@@ -41,9 +41,9 @@ class Stay::SingleChildDormitoryCost < ApplicationService
   private
 
   def stay_charge(stay)
-    cost_code = stay.housing_facility.try(:cost_code)
+    cost_code = stay.housing_facility&.cost_code
 
-    if (charge = cost_code.try(:charge, days: stay.total_duration))
+    if (charge = cost_code&.charge(days: stay.total_duration))
       daily_costs = daily_costs(child, charge, stay.single_occupancy)
       daily_costs.inject(:+) * stay.duration
     else

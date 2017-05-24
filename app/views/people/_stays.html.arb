@@ -5,7 +5,7 @@ panel "Housing Assignments (#{person.stays.size})", class: 'stays' do
       row(:housing_type) { |stay| strong housing_type_label(stay.housing_type) }
 
       row(:housing_facility) do |stay|
-        facility = stay.housing_unit.try(:housing_facility)
+        facility = stay.housing_unit&.housing_facility
         link_to facility.name, housing_facility_path(facility) if facility
       end
 

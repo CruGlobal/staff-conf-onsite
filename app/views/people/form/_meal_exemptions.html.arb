@@ -19,7 +19,7 @@ form.instance_exec do
       end
 
       tbody do
-        index = (MealExemption.last.try(:id) || -1) + 1
+        index = (MealExemption.last&.id || -1) + 1
 
         person.meal_exemptions.order_by_date.each do |date, types|
           render 'people/form/meal_exemption_row', form: self, date: date,

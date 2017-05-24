@@ -5,7 +5,7 @@ context.instance_exec do
       attributes_table do
         row :name
         row(:price) { |c| humanized_money_with_symbol(c.price) }
-        row(:description) { |c| c.description.try(:html_safe) }
+        row(:description) { |c| c.description&.html_safe }
         row :start_at
         row :end_at
         row :waive_off_campus_facility_fee

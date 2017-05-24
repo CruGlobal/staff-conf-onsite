@@ -3,7 +3,7 @@
 # editable.
 
 form.instance_exec do
-  if (family_id = object.family_id || param_family.try(:id)).present?
+  if (family_id = object.family_id || param_family&.id).present?
     object.family_id = family_id
   end
 

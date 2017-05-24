@@ -124,11 +124,11 @@ module Import
     end
 
     def gender=(gender)
-      @gender = gender.try(:downcase) || 'm'
+      @gender = gender&.downcase || 'm'
     end
 
     def country_code
-      ISO3166::Country.find_country_by_alpha3(country).try(:alpha2)
+      ISO3166::Country.find_country_by_alpha3(country)&.alpha2
     end
 
     def housing_roommates_details
@@ -161,7 +161,7 @@ module Import
           match
         elsif group.present?
           # go in reverse to match "Grade 10" before "Grade 1"
-          AGE_GROUPS.reverse_each.find { |k, _| group.include?(k) }.try(:last)
+          AGE_GROUPS.reverse_each.find { |k, _| group.include?(k) }&.last
         end
     end
 
@@ -172,7 +172,7 @@ module Import
 
     def housing_type=(type)
       @housing_type =
-        case type.try(:downcase)
+        case type&.downcase
         when /dorm/ then :dormitory
         when /apartment/ then :apartment
         else :self_provided
@@ -182,7 +182,7 @@ module Import
     private
 
     def true_string?(str)
-      str.try(:downcase) == 'yes' || TRUE_VALUES.include?(str)
+      str&.downcase == 'yes' || TRUE_VALUES.include?(str)
     end
   end
 end
