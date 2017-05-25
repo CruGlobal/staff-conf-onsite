@@ -7,10 +7,6 @@ context.instance_exec do
     input :staff_number
     input :primary_person_id, as: :select, include_blank: false,
                               collection: self.object.people.order(:birthdate)
-
-    semantic_fields_for :housing_preference do |hp|
-      hp.input :comment, input_html: { rows: 4 }
-    end
   end
 
   inputs 'Address' do
