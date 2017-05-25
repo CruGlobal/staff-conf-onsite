@@ -12,6 +12,7 @@ namespace :import do
   task housing: :environment do
     table = CSV.table(Rails.root.join('tmp','june-4-17-assignments.csv'))
     missing_rooms = []
+    missing_people = []
 
     FACILITIES = {
       'corbett' => HousingFacility.find_by(name: 'Corbett (suite style, no A/C)'),
@@ -37,14 +38,7 @@ namespace :import do
                             row[:last_name].strip.downcase).first
 
       unless person
-        msg = "Couldn't find: #{row[:first_name]} #{row[:last_name]}. "
-        unless ['jones', 'johnson'].include?(row[:last_name].downcase)
-          people = Person.where('lower(last_name) = ?',
-                                row[:last_name].strip.downcase).order(:first_name)
-        end
-
-        msg += 'Did you mean: ' + people.collect {|p| [p.first_name, p.last_name].join(' ')}.join(' - ') if people.present?
-        puts msg
+        missing_people << "#{row[:first_name]} #{row[:last_name]}"
         next
       end
 
@@ -54,6 +48,7 @@ namespace :import do
       raise row[:block].inspect unless FACILITIES[row[:block].downcase]
       unless room
         missing_rooms << row[:room_name]
+        # raise row.inspect
         next
       end
 
@@ -61,15 +56,99 @@ namespace :import do
       notes += "#{row[:license_plate]}\n" if row[:license_plate].present?
       notes += "#{row[:notes]}\n"
 
-      person.stays.where(
+      stay = person.stays.where(
           arrived_at: df(row[:arrival_date], row),
           departed_at: df(row[:departure_date], row)
-      ).first_or_create!(
-           housing_unit_id: room.id,
-           comment: notes
-      )
+      ).first_or_initialize
+      stay.housing_unit_id = room.id
+      stay.comment = notes
+      stay.save!
     end
-    puts "Andy doesn't know about the following rooms: #{missing_rooms.join(', ')}"
+    puts "Wrong rooms: #{missing_rooms.uniq.join(', ')}"
+    puts "Missing people: #{missing_people.join(', ')}"
+  end
+
+  def facility_lookup(name, apt, rooms)
+    facility_name = ''
+    case name.downcase
+      when 'aggie village'
+        a = 'Aggie Village - '
+        b = apt.split(' ').first
+        if rooms.to_s.downcase == 'studio'
+          c = 'Studio'
+        else
+          c = "#{rooms} Bedroom"
+        end
+        facility_name = "#{a}#{b} #{c}"
+      when 'rams park'
+        facility_name = "Rams Park #{rooms} Bedroom"
+      when "ram's village"
+        a = 'Rams Village '
+        b = apt.split(' ').first
+        facility_name = "#{a}#{b} #{rooms} Bedroom"
+      when 'state on campus'
+        facility_name = "State on Campus #{rooms} Bedroom"
+      when 'university village'
+        facility_name = "University Village #{rooms} Bedroom"
+      else
+        puts "No clue: #{name} -> #{apt} -> #{rooms}"
+    end
+    HousingFacility.find_by(name: facility_name)
+  end
+
+  task apartments: :environment do
+    table = CSV.table(Rails.root.join('tmp','apartments.csv'))
+    missing_apts = []
+
+
+    table.each do |row|
+      next unless row[:complex]
+      raise row.inspect unless row[:arrive] && row[:depart]# && row[:first_name] && row[:last_name]
+      facility = facility_lookup(row[:complex].to_s, row[:assigned_apt], row[:assigned_brs])
+      raise row.inspect unless facility
+
+      family = Family.find_by('lower(import_tag) = ?', row[:group_id].downcase) if row[:group_id].present?
+      unless family
+        family = Person.joins(:family)
+                     .where('((lower(first_name) = :first AND lower(people.last_name) = :last) OR
+                             (lower(name_tag_last_name) = :first AND lower(name_tag_first_name) = :last))
+                           ',
+                            {first: row[:first].to_s.strip.downcase,
+                             last: row[:last].strip.downcase}
+                     ).first.try(:family)
+      end
+
+      person = family.primary_person || family.people.order(:birthdate).first if family
+
+      unless person
+        msg = "Couldn't find: #{row[:first]} #{row[:last]} "
+        puts msg
+        next
+      end
+
+      apt_name = row[:assigned_apt].to_s.split(' ').last
+      case row[:complex]
+        when "Ram's Village"
+          apt_name = apt_name.sub(/(\w)(\d+)/, '\1-\2')
+        when "University Village"
+          apt_name = apt_name.sub(/(\d+)(\w)/, '\1-\2')
+      end
+
+      apt = facility.housing_units.find_by(name: apt_name)
+      unless apt
+        # raise row.inspect
+        missing_apts << row[:assigned_apt]
+        next
+      end
+
+      stay = person.stays.where(
+          arrived_at: df(row[:arrive], row),
+          departed_at: df(row[:depart], row)
+      ).first_or_initialize
+      stay.housing_unit_id = apt.id
+      stay.save! if stay.changed?
+    end
+    puts "Missing apts: #{missing_apts.join(', ')}"
   end
 
   desc 'Import comments'
