@@ -48,8 +48,10 @@ if @family
             row :comment do |hp|
               hp.comment.gsub('Attendee Comment: ', '')
             end
-            row :mobility_issues do
-              mobility_comments.html_safe
+            if mobility_comments.present?
+              row :mobility_issues do
+                mobility_comments.html_safe
+              end
             end
             if personal_comments.present?
               row :personal_comments do

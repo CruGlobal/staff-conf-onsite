@@ -1,0 +1,23 @@
+context.instance_exec do
+  result = report.result
+
+  div do
+    a 'Download as csv', href: download_report_path(report)
+  end
+
+  table do
+    thead do
+      tr do
+        result.columns.each(&method(:th))
+      end
+    end
+    tbody do
+      result.each do |row|
+        tr do
+          row.values.each(&method(:td))
+        end
+      end
+    end
+  end
+
+end
