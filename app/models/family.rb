@@ -6,10 +6,12 @@ class Family < ApplicationRecord
   has_many :people, dependent: :destroy
   has_many :attendees
   has_many :children
-  belongs_to :primary_person, class_name: 'Person', foreign_key: :primary_person_id
+  has_many :payments
   has_one :housing_preference, autosave: true, dependent: :destroy
   has_one :chargeable_staff_number, primary_key: :staff_number,
                                     foreign_key: :staff_number
+  belongs_to :primary_person, class_name: 'Person',
+                              foreign_key: :primary_person_id
 
   accepts_nested_attributes_for :housing_preference
   accepts_nested_attributes_for :people

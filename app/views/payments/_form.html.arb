@@ -1,0 +1,17 @@
+# vim:ft=ruby:
+context.instance_exec do
+  show_errors_if_any(self)
+
+  inputs do
+    input :family
+    input :cost_type, as: :select, collection: cost_type_select
+    money_input_widget(self, :price)
+    input :business_unit
+    input :operating_unit
+    input :department_id
+    input :project_id
+    input :reference
+  end
+
+  actions
+end

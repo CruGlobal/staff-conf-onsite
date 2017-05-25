@@ -2,24 +2,24 @@
 # to Create, Update, or Destroy records. General users will still be able to
 # read these records.
 class FinancePolicy < ApplicationPolicy
-  def index?
-    true
-  end
-
   def show?
     true
   end
 
-  def create?
-    user.finance? || user.admin?
+  def index?
+    show?
   end
 
   def update?
     user.finance? || user.admin?
   end
 
+  def create?
+    update?
+  end
+
   def destroy?
-    user.finance? || user.admin?
+    update?
   end
 
   def scope
