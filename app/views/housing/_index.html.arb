@@ -43,10 +43,13 @@ if @family
             panel panel_title do
               span id: "person_#{person.id}", 'data-attributes' => person.attributes.to_json
               attributes_table_for person do
-                row :birthdate
+                row :conference_status
                 row :age
                 row :conference_names
                 row :needs_bed
+                row :dates do
+                  join_stay_dates(person)
+                end
               end
               collection = [:stays, person.stays]
               render 'people/form/stay', form: pf, stays: collection, title: nil
