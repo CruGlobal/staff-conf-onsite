@@ -45,7 +45,9 @@ if @family
             row :single_room
             row :other_family
             row :accepts_non_air_conditioned
-            row :comment
+            row :comment do |hp|
+              hp.comment.gsub('Attendee Comment: ', '')
+            end
             row :mobility_issues do
               mobility_comments.html_safe
             end

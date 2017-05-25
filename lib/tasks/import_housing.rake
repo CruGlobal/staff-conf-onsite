@@ -71,4 +71,38 @@ namespace :import do
     end
     puts "Andy doesn't know about the following rooms: #{missing_rooms.join(', ')}"
   end
+
+  desc 'Import comments'
+  task housing: :environment do
+    table = CSV.table(Rails.root.join('tmp','export.csv'))
+    table.each do |row|
+      if row[:housing_comments].to_s.length >= 255
+        family = Family.find_by(import_tag: row[:family])
+        if family.housing_preference.comment.length == 255
+          family.housing_preference.update_column(:comment, row[:housing_comments])
+        end
+      end
+      columns = {
+          mobility_needs_comment: :mobility_comment,
+          personal_comments: :personal_comment,
+          conference_comments: :conference_comment,
+          childcare_comments: :childcare_comment,
+          ibs_comments: :ibs_comment
+      }
+      columns.each do |key, db_column|
+        if row[key].to_s.length >= 255
+          family = Family.find_by(import_tag: row[:family])
+          next unless family
+          person = family.people.find_by(first_name: row[:first], last_name: row[:last])
+          raise row.inspect unless person
+          if person.send(db_column).length == 255
+            person.update_column(db_column, row[key])
+            puts row[key]
+            puts person.id
+            puts key
+          end
+        end
+      end
+    end
+  end
 end
