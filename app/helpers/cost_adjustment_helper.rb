@@ -9,6 +9,12 @@ module CostAdjustmentHelper
     end
   end
 
+  # Like {#cost_type_select}, but the second value is the enum's ordinal value,
+  # and not its symbol value. ie: +2+ instead of +:apartment_rent+
+  def cost_type_ord_select
+    CostAdjustment.cost_types.map { |_, value| [cost_type_name(value), value] }
+  end
+
   # @param obj [ApplicationRecord, Fixnum, String] either a record with a +cost_type+
   #   field, the ordinal value of the +CostAdjustment#cost_type+ enum,
   #   or the categorical (String) value of the +CostAdjustment#cost_type+ enum

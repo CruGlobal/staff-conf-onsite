@@ -11,7 +11,8 @@ context.instance_exec do
       render 'attendees/show/courses', context: self
 
       render 'people/stays', person: attendee
-      render 'people/cost_adjustments', person: attendee
+      render 'cost_adjustments/list_panel',
+             cost_adjustments: attendee.cost_adjustments
       render 'people/meal_exemptions', person: attendee
     end
   end

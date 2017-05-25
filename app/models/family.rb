@@ -34,6 +34,10 @@ class Family < ApplicationRecord
     chargeable_staff_number.present?
   end
 
+  def cost_adjustments
+    people.flat_map(&:cost_adjustments)
+  end
+
   private
 
   def remove_blank_housing_preference

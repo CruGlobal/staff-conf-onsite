@@ -46,12 +46,6 @@ en:
         other: "IBS Courses"
 
     attributes:
-      person:
-        course_attendance: "Course"
-        arrived_at: "Requested Arrival"
-        departed_at: "Requested Departure"
-        rec_center_pass_started_at: "Rec Center Pass Start Date"
-        rec_center_pass_expired_at: "Rec Center Pass End Date"
       chargeable_staff_number:
         staff_number: "Staff ID"
       childcares:
@@ -153,6 +147,21 @@ en:
         location2: "Preferred Location #2"
         location3: "Preferred Location #3"
         confirmed_at: "Confirmed by Admin"
+      payment:
+        project_code: "Project ID"
+        department_code: "Department ID"
+        payment_types:
+          pre_paid: "Pre-Paid"
+          credit_card: "Credit Card"
+          cash_check: "Cash/Check"
+          business_account: "Business Account"
+          staff_code: "Staff ID"
+      person:
+        course_attendance: "Course"
+        arrived_at: "Requested Arrival"
+        departed_at: "Requested Departure"
+        rec_center_pass_started_at: "Rec Center Pass Start Date"
+        rec_center_pass_expired_at: "Rec Center Pass End Date"
       stay:
         arrived_at: "Arrival"
         departed_at: "Departure"

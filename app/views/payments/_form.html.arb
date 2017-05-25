@@ -4,12 +4,13 @@ context.instance_exec do
 
   inputs do
     input :family
+    input :payment_type, as: :select, collection: payment_type_select
     input :cost_type, as: :select, collection: cost_type_select
     money_input_widget(self, :price)
     input :business_unit
     input :operating_unit
-    input :department_id
-    input :project_id
+    input :department_code
+    input :project_code
     input :reference
   end
 

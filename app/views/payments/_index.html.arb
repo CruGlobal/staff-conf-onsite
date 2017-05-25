@@ -12,8 +12,8 @@ context.instance_exec do
 
   column :business_unit
   column :operating_unit
-  column :department_id
-  column :project_id
+  column :department_code
+  column :project_code
   column :reference
 
   column :created_at

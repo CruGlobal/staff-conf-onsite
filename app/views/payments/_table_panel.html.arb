@@ -1,0 +1,31 @@
+panel "Payments (#{payments.size})" do
+  table do
+    thead do
+      tr do
+        th 'Payment Type'
+        th 'Cost Type'
+        th 'Price'
+        th 'Buisness Unit'
+        th 'Operating Unit'
+        th 'Department ID'
+        th 'Project ID'
+        th 'Reference'
+      end
+    end
+
+    tbody do
+      payments.each do |pay|
+        tr do
+          td { payment_type_name(pay) }
+          td { cost_type_name(pay) }
+          td { humanized_money_with_symbol(pay.price) if pay.price.present? }
+          td { pay.business_unit }
+          td { pay.operating_unit }
+          td { pay.department_code }
+          td { pay.project_code }
+          td { pay.reference }
+        end
+      end
+    end
+  end
+end
