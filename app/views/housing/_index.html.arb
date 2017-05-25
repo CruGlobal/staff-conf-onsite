@@ -31,9 +31,9 @@ if @family
       end
 
       if family.primary_person
-        people = [family.primary_person] + family.people.order('birthdate').where('id <> ?', family.primary_person_id)
+        people = [family.primary_person] + family.people.includes(:stays).order('birthdate').where('id <> ?', family.primary_person_id)
       else
-        people = family.people.order('birthdate')
+        people = family.people.includes(:stays).order('birthdate')
       end
       people.each do |person|
         column do
@@ -48,7 +48,7 @@ if @family
                 row :conference_names
                 row :needs_bed
               end
-              collection = [:stays, person.stays.order(:arrived_at)]
+              collection = [:stays, person.stays]
               render 'people/form/stay', form: pf, stays: collection, title: nil
             end
           end

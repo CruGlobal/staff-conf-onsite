@@ -29,6 +29,8 @@ class Stay < ApplicationRecord
     where(housing_unit: HousingUnit.with_cafeteria(cafe))
   end)
 
+  default_scope { order :arrived_at }
+
   # housing_unit will be nil if housing_type == 'self_provided'
   delegate :housing_facility, to: :housing_unit, allow_nil: true
 
