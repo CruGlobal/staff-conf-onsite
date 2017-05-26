@@ -7,6 +7,7 @@
 #
 #= require ckeditor-jquery
 #= require widgets/ckeditor
+#= require jquery.dirtyforms
 #
 #  Date Inputs ------------------------
 #= require widgets/dates
