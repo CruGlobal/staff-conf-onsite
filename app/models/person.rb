@@ -27,6 +27,8 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :stays, :cost_adjustments, allow_destroy: true
 
+  after_create :ensure_primary_person
+
   validates :rec_center_pass_started_at, presence: true, if: :rec_center_pass_expired_at?
   validates :rec_center_pass_expired_at, presence: true, if: :rec_center_pass_started_at?
 
@@ -73,5 +75,11 @@ class Person < ApplicationRecord
 
     birthdate.month > cutoff.month ||
       birthdate.month == cutoff.month && birthdate.day > cutoff.day
+  end
+
+  def ensure_primary_person
+    unless family.primary_person_id
+      family.update_column(:primary_person_id, id)
+    end
   end
 end
