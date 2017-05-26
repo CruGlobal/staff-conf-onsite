@@ -5,15 +5,15 @@ context.instance_exec do
     a 'Download as csv', href: download_report_path(report)
   end
 
-  table do
+  table class: 'index_table' do
     thead do
       tr do
         result.columns.each(&method(:th))
       end
     end
     tbody do
-      result.each do |row|
-        tr do
+      result.to_hash.each_with_index do |row, i|
+        tr class: i % 2 == 1 ? 'even' : '' do
           row.values.each(&method(:td))
         end
       end
