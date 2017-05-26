@@ -10,7 +10,6 @@ containerSelector = '.has_many_container.stays'
 itemSelector = '.inputs.has_many_fields'
 
 $ ->
-
   # Set up search form
   search = $('#housing_search_form').detach()
   return unless search

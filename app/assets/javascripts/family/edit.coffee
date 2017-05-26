@@ -1,4 +1,4 @@
-pageAction 'families', 'edit', ->
+pageAction 'families', 'form', ->
   $form = $('form')
   setupHousingTypeDynamicFields($form.find('.housing_preference_attributes'))
   setupConfirmedAtToggleButton($form.find('.housing_preference_attributes'))
