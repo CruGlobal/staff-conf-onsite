@@ -16,9 +16,9 @@ class HousingPreference < ApplicationRecord
 
   enum housing_type: [:dormitory, :apartment, :self_provided]
 
-  belongs_to :family
+  belongs_to :family, inverse_of: :housing_preference
 
-  validates :family_id, :housing_type, presence: true
+  validates :family, :housing_type, presence: true
   validates :children_count, :bedrooms_count,
             allow_nil: true,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }

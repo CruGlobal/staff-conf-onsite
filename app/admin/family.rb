@@ -58,6 +58,7 @@ ActiveAdmin.register Family do
   end
 
   controller do
+
     def update
       update! do |format|
         format.html do

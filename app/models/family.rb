@@ -7,7 +7,7 @@ class Family < ApplicationRecord
   has_many :attendees
   has_many :children
   belongs_to :primary_person, class_name: 'Person', foreign_key: :primary_person_id
-  has_one :housing_preference, autosave: true, dependent: :destroy
+  has_one :housing_preference, autosave: true, dependent: :destroy, inverse_of: :family
   has_one :chargeable_staff_number, primary_key: :staff_number,
                                     foreign_key: :staff_number
 
