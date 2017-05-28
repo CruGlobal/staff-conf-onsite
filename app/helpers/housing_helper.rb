@@ -99,8 +99,8 @@ module HousingHelper
     dates =
       [:arrived_at, :departed_at].map do |attr|
         next unless stay.send(attr)
-        simple_format_attr(stay, attr)
+        stay.send(attr).to_s(:db)
       end
-    dates.compact.present? ? dates.join(' until ') : ''
+    dates.compact.present? ? dates.join(' to ') : ''
   end
 end

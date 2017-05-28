@@ -17,6 +17,9 @@ $ ->
 
   $('#titlebar_left').append(search)
   $('#housing_search_form').show()
+  $('#search').on 'keypress', (e) ->
+    if (e.which == 13)
+      return false
 
   $form = $(containerSelector)
 

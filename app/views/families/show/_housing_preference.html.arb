@@ -11,6 +11,8 @@ context.instance_exec do
         end
       end
 
+      row('Comments') { |hp| simple_format_attr(hp, :comment) }
+
       row :confirmed_at do |hp|
         if hp.confirmed_at.present?
           status_tag :yes,

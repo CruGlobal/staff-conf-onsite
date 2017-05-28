@@ -16,10 +16,6 @@ context.instance_exec do
         row(:country_code) { |f| country_name(f.country_code) }
         row :zip
 
-        row 'Housing Comments' do |f|
-          simple_format_attr(f.housing_preference, :comment)
-        end
-
         row :created_at
         row :updated_at
       end

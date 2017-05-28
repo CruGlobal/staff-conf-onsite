@@ -21,6 +21,8 @@ form.instance_exec do
       dynamic_preference_input(hp, :location2)
       dynamic_preference_input(hp, :location3)
 
+      hp.input :comment, input_html: { rows: 4 }
+
       datepicker_input(hp, :confirmed_at)
     end
   end

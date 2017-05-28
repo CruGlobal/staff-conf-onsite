@@ -81,7 +81,7 @@ ActiveAdmin.register Family do
       update! do |format|
         format.html do
           if request.referer.include?('housing')
-            redirect_to housing_path
+            redirect_to housing_path(family_id: @family.id)
           else
             redirect_to families_path
           end
