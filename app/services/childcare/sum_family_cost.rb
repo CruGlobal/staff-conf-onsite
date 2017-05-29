@@ -12,7 +12,7 @@ class Childcare::SumFamilyCost < ChargesService
   private
 
   def family_costs
-    children.map { |child| Childcare::SumPersonCost.call(child: child) }
+    children.map { |child| Childcare::SumChildCost.call(child: child) }
   end
 
   def children

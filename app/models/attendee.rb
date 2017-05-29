@@ -26,10 +26,14 @@ class Attendee < Person
   validates :family_id, presence: true
   validates_associated :course_attendances, :meal_exemptions
 
+  def conference_names
+    conferences.pluck(:name).join(', ')
+  end
+
   protected
 
   def set_default_seminary
-    self.seminary_id ||= Seminary.default.try(:id)
+    self.seminary_id ||= Seminary.default&.id
   end
 
   def touch_conference_status_changed

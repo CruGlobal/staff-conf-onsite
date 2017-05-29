@@ -1,10 +1,11 @@
+# vim:ft=ruby:
 context.instance_exec do
   show_errors_if_any(self)
 
   columns do
     column do
       inputs 'Basic', class: 'basic' do
-        render 'people/forms/family_selector', form: self
+        render 'people/form/family_selector', form: self
 
         input :first_name
         if param_family
@@ -33,26 +34,13 @@ context.instance_exec do
         datepicker_input(self, :departed_at)
       end
 
-      inputs 'Childcare' do
-        input :childcare_deposit, input_html: { disabled: !policy.edit_deposit? }
-        input :childcare_weeks, label: 'Weeks of ChildCare', multiple: true,
-          hint: 'Please add all weeks needed',
-          collection: childcare_weeks_select
-
-        input :childcare_id, as: :select, label: 'Childcare Spaces',
-          collection: childcare_spaces_select
-
-        input :hot_lunch_weeks, label: 'Hot Lunch Weeks', multiple: true,
-          hint: 'Please add all weeks needed',
-          collection: childcare_weeks_select
-        input :childcare_comment, input_html: { rows: 4 }
-      end
+      render 'children/form/childcare', form: self
     end
 
     column do
-      render 'people/forms/cost_adjustments', form: self
-      render 'people/forms/stays', form: self
-      render 'people/forms/meal_exemptions', form: self, person: child
+      render 'people/form/cost_adjustments', form: self
+      render 'people/form/stays', form: self
+      render 'people/form/meal_exemptions', form: self, person: child
     end
   end
 

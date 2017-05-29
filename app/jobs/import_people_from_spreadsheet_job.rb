@@ -3,9 +3,12 @@ class ImportPeopleFromSpreadsheetJob < ActiveJob::Base
 
   def perform(upload_job_id)
     job = UploadJob.find(upload_job_id)
+    return if job.started?
+
     Import::ImportPeopleFromSpreadsheet.call(job: job)
-  rescue => e
+  rescue Exception => e
     job&.fail!(e.message)
+    raise
   ensure
     job&.remove_file!
   end

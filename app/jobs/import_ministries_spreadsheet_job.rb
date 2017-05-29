@@ -3,9 +3,12 @@ class ImportMinistriesSpreadsheetJob < ActiveJob::Base
 
   def perform(upload_job_id, skip_first)
     job = UploadJob.find(upload_job_id)
+    return if job.started?
+
     Ministry::ImportSpreadsheet.call(job: job, skip_first: skip_first)
-  rescue => e
+  rescue Exception => e
     job&.fail!(e.message)
+    raise
   ensure
     job&.remove_file!
   end

@@ -1,11 +1,11 @@
 POLLING_TIME = 1000
 
-$ ->
-  $('form.upload-job-js').each ->
-    $form = $(this)
+# $ ->
+#   $('form.upload-job-js').each ->
+#     $form = $(this)
 
-    $form.on 'submit', replaceSubmitButtons
-    ajaxForm($form)
+#     $form.on 'submit', replaceSubmitButtons
+#     ajaxForm($form)
 
 
 # Replace the form's submit buttons, to avoid a double-submit.

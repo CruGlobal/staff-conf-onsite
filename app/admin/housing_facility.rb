@@ -39,10 +39,7 @@ ActiveAdmin.register HousingFacility do
     ImportHousingUnitsSpreadsheetJob.perform_later(job.id,
                                                    import_params[:skip_first])
 
-    respond_to do |format|
-      format.html { redirect_to housing_facility_path, notice: 'Upload Started' }
-      format.json { render json: job }
-    end
+    redirect_to job
   end
 
   controller do

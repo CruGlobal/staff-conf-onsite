@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   actions
   selectable_column if policy.bulk_edit?
@@ -8,11 +9,6 @@ context.instance_exec do
   column :cafeteria
   column :on_campus
 
-  column :street
-  column :city
-  column :state
-  column(:country_code) { |hf| country_name(hf.country_code) }
-  column :zip
   column 'Units' do |hf|
     link_to hf.housing_units.count, housing_facility_housing_units_path(hf)
   end

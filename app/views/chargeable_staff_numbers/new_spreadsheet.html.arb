@@ -1,5 +1,4 @@
 # vim:ft=ruby:
-
 h2 'Import Chargeable Staff IDs'
 
 columns do
@@ -19,8 +18,8 @@ columns do
       h4 'File Format'
 
       para <<-EOP
-        The given file can contain any number of rows, each containing a Staff ID
-        in the first column.
+        The given file can contain any number of rows, each containing a Staff
+        ID in the first column.
       EOP
 
       h4 'Example File'
@@ -35,7 +34,7 @@ columns do
 
       h4 'Header Row'
 
-      para "Use the 'Skip Header Row' option if the first row contains a title. ex:"
+      para "Use 'Skip Header Row' if the first row contains a title. ex:"
 
       table class: 'ministry__upload__example-spreadsheet' do
         tr { td strong 'Chargeable Staff IDs' }

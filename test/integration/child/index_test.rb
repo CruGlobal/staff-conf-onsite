@@ -17,10 +17,10 @@ class Child::IndexTest < IntegrationTest
       assert_text 'Last name'
       assert_text 'Birthdate'
       assert_text 'Gender'
-      assert_text 'Parent pickup'
+      assert_text 'PM Car Line'
       assert_text 'Needs bed'
-      assert_text 'Requested Arrival date'
-      assert_text 'Requested Departure date'
+      assert_text 'Requested Arrival'
+      assert_text 'Requested Departure'
     end
   end
 
@@ -54,10 +54,8 @@ class Child::IndexTest < IntegrationTest
   test '#index columns' do
     visit children_path
 
-    assert_index_columns :selectable, :first_name, :last_name, :family,
-                         :gender, :birthdate, :age, :grade_level,
-                         :parent_pickup, :needs_bed, :arrived_at, :departed_at,
-                         :created_at, :updated_at, :actions
+    assert_index_columns :selectable, :first_name, :last_name, :family, :gender,
+                         :birthdate, :age, :grade_level, :needs_bed, :actions
   end
 
   test '#index items' do

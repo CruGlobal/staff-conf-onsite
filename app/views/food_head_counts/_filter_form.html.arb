@@ -1,0 +1,27 @@
+# vim:ft=ruby:
+form action: food_head_counts_path, method: :get, class: 'filter_form' do
+  div class: 'select input optional filter_form_field filter_select' do
+    label 'Cafeteria', class: 'label', for: 'cafeteria_filter'
+    select id: 'cafeteria_filter', name: :cafeteria do
+      options = HousingFacility.distinct.pluck(:cafeteria).map(&:to_s)
+      options.sort.each do |cafeteria|
+        option cafeteria, value: cafeteria, selected: (cafeteria == params[:cafeteria])
+      end
+    end
+  end
+
+  div class: 'date_range input optional stringish filter_form_field filter_date_range' do
+    label 'Date Range', class: 'label'
+    input size: 12, class: 'datepicker', maxlength: 10, type: :text,
+      name: :start_at, value: params[:start_at]
+    span '-', class: 'seperator'
+    input size: 12, class: 'datepicker', maxlength: 10, type: :text,
+      name: :end_at, value: params[:end_at]
+  end
+
+  div class: 'buttons' do
+    input type: :submit, name: :commit, value: 'Filter'
+    a 'Clear Filters', href: food_head_counts_path, class: 'clear_filters_btn'
+  end
+end
+

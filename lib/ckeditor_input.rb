@@ -14,13 +14,8 @@ class CkeditorInput
 
   def input_html_options
     super.tap do |opts|
-      opts[:class] = Array(opts[:class].try(:split)).push('ckeditor_input').uniq.join(' ')
-      # opts[:class] = 'ckeditor_input'
-      # if opts.key?(:class)
-      #   opts[:class] += ' ckeditor_input'
-      # else
-      #   opts[:class] = 'ckeditor_input'
-      # end
+      opts[:class] =
+        Array((opts[:class] || []).split).push('ckeditor_input').uniq.join(' ')
     end
   end
 end

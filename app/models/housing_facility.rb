@@ -13,6 +13,12 @@ class HousingFacility < ApplicationRecord
   scope :dormitories, -> { where(housing_type: 'dormitory') }
   scope :apartments,  -> { where(housing_type: 'apartment') }
 
+  class << self
+    def cafeterias
+      distinct.pluck(:cafeteria).compact.sort
+    end
+  end
+
   def audit_name
     "#{super}: #{name}"
   end

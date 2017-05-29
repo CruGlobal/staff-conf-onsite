@@ -12,6 +12,6 @@ class HotLunch::SumFamilyCost < ChargesService
   private
 
   def family_costs
-    family.children.each { |c| HotLunch::ChargeChildCost.call(child: c) }
+    family.children.map { |c| HotLunch::ChargeChildCost.call(child: c) }
   end
 end

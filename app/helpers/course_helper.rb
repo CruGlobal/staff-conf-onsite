@@ -13,7 +13,7 @@ module CourseHelper
 
   def seminary_code(attendance)
     if attendance.seminary_credit
-      attendance.try(:seminary).try(:code)
+      attendance&.seminary&.code
     else
       'IBS'
     end

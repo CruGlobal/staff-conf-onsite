@@ -5,7 +5,7 @@ Rollbar.configure do |config|
   # TODO: This access_token is for a temporary ballistiq Rollbar project. Once
   #       we have a real CRU access_token, this should be read from the ENV
   #       using the dotenv gem.
-  config.access_token = 'de96d615d6b54ee3939bc20fe41dd4e5'
+  config.access_token = '8d1dfabb69014aa7907d84a14f98f89c'
 
   # Here we'll disable in 'test':
   config.enabled = false if Rails.env.development? || Rails.env.test?

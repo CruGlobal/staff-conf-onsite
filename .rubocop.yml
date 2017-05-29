@@ -22,6 +22,10 @@ Documentation:
 GuardClause:
   MinBodyLength: 3
 
+Lint/RescueException:
+  Exclude:
+    - app/jobs/**/*
+
 MethodLength:
   Severity: warning
   Max: 15
@@ -31,6 +35,8 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Max: 50
+  Exclude:
+    - app/admin/*.rb
 
 Metrics/ClassLength:
   Max: 150

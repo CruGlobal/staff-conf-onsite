@@ -66,53 +66,41 @@ module HousingHelper
     form.input(attribute, opts)
   end
 
-  # Creates a select element, used by the JavaScript code in
-  # +app/assets/javascripts/housing/select_housing_unit.coffee+ to allow the
-  # user to select a {Person peron's} housing assingment from a convenient UI
-  # widget.
-  #
-  # @param form [Formtastic::FormBuilder]
-  # @param attribute_name [Symbol] the name of the attribute to populate
-  def select_housing_unit_widget(form, attribute_name = :housing_unit)
-    units = HousingUnit.all.natural_order_asc
-
-    form.input(
-      attribute_name,
-      as: :select,
-      collection: units.map { |u| [u.name, u.id] },
-      input_html: {
-        'data-housing_unit-id' => true,
-        'data-labels' => Hash[units.map { |u| [u.id, u.name] }].to_json,
-        'data-hierarchy' => housing_unit_hierarchy.to_json
-      }
-    )
-  end
-
   # A helper method that generates the Housing
   # Type-{HousingFacility}-{HousingUnit} hierarchy used by the JavaScript
   # select widget.
   # @see .select_housing_unit_widget
   def housing_unit_hierarchy
-    hierarchy ||= HousingUnit.hierarchy
+    @hierarchy ||= HousingUnit.hierarchy
 
     {}.tap do |h|
-      h[housing_type_label('self_provided')] ||= {}
+      h['self_provided'] ||= {}
 
-      hierarchy.each do |type, facilities|
+      @hierarchy.each do |type, facilities|
         h[type] ||= {}
         facilities.each do |facility, units|
-          h[type][facility.name] ||= units.natural_order_asc.map(&:id)
+          next if units.empty?
+          h[type][facility.id] = {
+            name: facility.name,
+            units: units.natural_order_asc.pluck(:name, :id)
+          }
         end
       end
     end
+  end
+
+  # @return [Array] All the housing units sorted by natural_order
+  def housing_units
+    @housing_units ||= HousingUnit.all.natural_order_asc
   end
 
   # @return [String] a short phrase describing how long the Stay will last
   def join_stay_dates(stay)
     dates =
       [:arrived_at, :departed_at].map do |attr|
-        simple_format_attr(stay, attr)
+        next unless stay.send(attr)
+        stay.send(attr).to_s(:db)
       end
-    dates.join(' until ')
+    dates.compact.present? ? dates.join(' to ') : ''
   end
 end

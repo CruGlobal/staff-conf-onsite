@@ -61,11 +61,11 @@ class Stay::SingleAttendeeCost < ApplicationService
   end
 
   def sum_daily_cost(stay)
-    cost_code = stay.housing_facility.try(:cost_code)
+    cost_code = stay.housing_facility&.cost_code
 
     return Money.empty if stay.no_charge?
 
-    if (charge = cost_code.try(:charge, days: stay.total_duration))
+    if (charge = cost_code&.charge(days: stay.total_duration))
       if stay.housing_type == 'dormitory' && stay.single_occupancy?
         charge.adult + charge.single_delta
       else

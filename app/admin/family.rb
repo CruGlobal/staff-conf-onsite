@@ -1,5 +1,6 @@
 ActiveAdmin.register Family do
   extend Rails.application.helpers
+  includes :attendees, :housing_preference
 
   partial_view(
     :index,
@@ -11,13 +12,18 @@ ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :state,
-                :zip, :country_code, :registration_comment,
+                :zip, :country_code, :primary_person_id,
                 housing_preference_attributes: [
                   :id, :housing_type, :roommates, :beds_count, :single_room,
                   :children_count, :bedrooms_count, :other_family,
                   :accepts_non_air_conditioned, :location1, :location2,
                   :location3, :confirmed_at, :comment
-                ]
+                ],
+                people_attributes: [:id, { stays_attributes: [
+                  :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
+                  :single_occupancy, :no_charge, :waive_minimum, :percentage,
+                  :comment
+                ] }]
 
   filter :last_name
   filter :attendees_first_name, label: 'Attendee Name', as: :string
@@ -27,7 +33,6 @@ ActiveAdmin.register Family do
   filter :state
   filter :country_code, as: :select, collection: country_select
   filter :zip
-  filter :registration_comment
   filter :created_at
   filter :updated_at
 
@@ -49,9 +54,21 @@ ActiveAdmin.register Family do
                             filename: import_params[:file].path)
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
-    respond_to do |format|
-      format.html { redirect_to new_spreadsheet_families_path, notice: 'Upload Started' }
-      format.json { render json: job }
+    redirect_to job
+  end
+
+  controller do
+
+    def update
+      update! do |format|
+        format.html do
+          if request.referer.include?('housing')
+            redirect_to housing_path(family_id: @family.id)
+          else
+            redirect_to families_path
+          end
+        end
+      end
     end
   end
 end

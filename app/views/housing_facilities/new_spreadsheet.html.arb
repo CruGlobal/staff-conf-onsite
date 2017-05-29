@@ -1,5 +1,4 @@
 # vim:ft=ruby:
-
 h2 'Import Housing Units'
 
 columns do

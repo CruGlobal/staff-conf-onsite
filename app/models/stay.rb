@@ -9,6 +9,8 @@ class Stay < ApplicationRecord
   belongs_to :person
   belongs_to :housing_unit
 
+  attr_accessor :housing_facility_id, :housing_type, :housing_unit_id_value
+
   validates :person_id, :arrived_at, :departed_at, presence: true
   validates :percentage, numericality: {
     only_integer: true,
@@ -23,6 +25,17 @@ class Stay < ApplicationRecord
 
   scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
   scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
+  scope :with_cafeteria, (lambda do |cafe|
+    where(housing_unit: HousingUnit.with_cafeteria(cafe))
+  end)
+
+  default_scope { order :arrived_at }
+
+  # housing_unit will be nil if housing_type == 'self_provided'
+  delegate :housing_facility, to: :housing_unit, allow_nil: true
+
+  # housing_unit will be nil if housing_type == 'self_provided'
+  delegate :housing_facility_id, to: :housing_unit, allow_nil: true
 
   class << self
     def min_date
@@ -39,13 +52,12 @@ class Stay < ApplicationRecord
   end
 
   def housing_type
-    type = housing_facility.try(:housing_type)
-    type || 'self_provided'
+    housing_facility&.housing_type || 'self_provided'
   end
 
-  def housing_facility
-    # housing_unit will be nil if housing_type == 'self_provided'
-    housing_unit.try(:housing_facility)
+  # This is used to populate a hidden field on the formtastic form.
+  def housing_unit_id_value
+    housing_unit_id
   end
 
   def dormitory?
@@ -78,7 +90,7 @@ class Stay < ApplicationRecord
 
   # @return [Integer] the minimum allowed length of a stay, in days
   def min_days
-    waive_minimum? ? 1 : (housing_facility.try(:min_days) || 1)
+    waive_minimum? ? 1 : (housing_facility&.min_days || 1)
   end
 
   # @return [Float] the percentage of this stay's cost which must be paid by

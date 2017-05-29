@@ -227,6 +227,8 @@ ActiveAdmin.setup do |config|
   #     end
   #   end
 
+  config.download_links = %i(csv xml json xlsx)
+
   # == Download Links
   #
   # You can disable download links on resource listing pages,

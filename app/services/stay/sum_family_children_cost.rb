@@ -12,6 +12,6 @@ class Stay::SumFamilyChildrenCost < ChargesService
   private
 
   def family_costs
-    family.children.map { |c| Stay::ChargeChild.call(child: c) }
+    family.children.map { |c| Stay::ChargeChildCost.call(child: c) }
   end
 end

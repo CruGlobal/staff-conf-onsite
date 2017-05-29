@@ -57,3 +57,39 @@
 .finances_panel {
   border: 2px solid yellow;
 }
+
+.columns.housing {
+  width: 200%;
+
+  .column {
+    width: 360px !important;
+    margin-right: 10px !important;
+  }
+}
+
+.chosen-container {
+  span {
+    font-size: 75%;
+  }
+}
+
+body.housing {
+  #title_bar {
+    z-index: 0;
+  }
+
+  #search {
+    width: 500px;
+    height: 30px;
+    font-size: 150%;
+    margin-left: 30px
+  }
+
+  #housing_search_form, h2 {
+    float: left;
+  }
+
+  #title_bar h2 {
+    padding-top: 5px;
+  }
+}

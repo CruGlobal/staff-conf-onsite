@@ -1,0 +1,15 @@
+# vim:ft=ruby:
+# If creating a new family-member, do not let the family association be
+# editable.
+
+form.instance_exec do
+  if (family_id = object.family_id || param_family&.id).present?
+    object.family_id = family_id
+  end
+
+  if policy.update_family?
+    input :family, as: :select, collection: family_select
+  elsif family_id.present?
+    input :family_id, as: :hidden
+  end
+end

@@ -1,3 +1,17 @@
+# The resulting table of Daily Food Head Counts. Each element is a sub-table of
+# {FoodHeadCount::CafeteriaDate} for that date. Each +CafeteriaDate+ contains
+# the various meal counts for a single date/cafeteria pair.
+#
+# @example
+#   2017-01-02:
+#     'McDonalds':
+#       adult_breakfast: 15
+#       adult_lunch:      0
+#       adult_dinner:     8
+#     'Burger King':
+#       teen_breakfast:   0
+#       teen_dinner:      2
+#       child_breakfast: 11
 class FoodHeadCount::CreateTable < ApplicationService
   # An optional cafeteria by which to filter the count
   attr_accessor :cafeteria
@@ -10,29 +24,19 @@ class FoodHeadCount::CreateTable < ApplicationService
   # dorm stay will be used
   attr_accessor :end_at
 
-  # The resulting table of Daily Food Head Counts. Each key is a date and each
-  # value is a sub-table of "cafeteria head-counts" for that date.
-  #
-  # In the cafeteria head-counts sub-titles, each key is the name of the
-  # cafeteria and each value is a map of "meal types" to the number of meals of
-  # that type, for that cafeteria, for that day.
-  #
-  # @example
-  #   2017-01-02:
-  #     'McDonalds':
-  #       adult_breakfast: 15
-  #       adult_lunch:      0
-  #       adult_dinner:     8
-  #     'Burger King':
-  #       teen_breakfast:   0
-  #       teen_dinner:      2
-  #       child_breakfast: 11
-  attr_reader :table
-
   def call
-    @table ||= Hash[
-      date_range.map { |date| [date, sum_date_cost(date).counts] }
-    ]
+    cafes = cafeteria.present? ? [cafeteria] : HousingFacility.cafeterias
+
+    date_range.each do |date|
+      cafes.each do |c|
+        head_count = sum_date_cost(date, c).head_count
+        head_counts.add(head_count) unless head_count.zero?
+      end
+    end
+  end
+
+  def head_counts
+    @head_counts ||= FoodHeadCount::Table.new
   end
 
   private
@@ -44,10 +48,15 @@ class FoodHeadCount::CreateTable < ApplicationService
   end
 
   def stay_date_scope
-    @stay_date_scope ||= Stay.in_dormitory
+    @stay_date_scope ||=
+      if cafeteria.present?
+        Stay.in_dormitory.with_cafeteria(cafeteria)
+      else
+        Stay.in_dormitory
+      end
   end
 
-  def sum_date_cost(date)
-    FoodHeadCount::SumDateCost.call(date: date, cafeteria: cafeteria)
+  def sum_date_cost(date, cafe)
+    FoodHeadCount::SumDateCost.call(date: date, cafeteria: cafe)
   end
 end

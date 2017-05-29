@@ -7,10 +7,7 @@
 #
 #= require ckeditor-jquery
 #= require widgets/ckeditor
-#
-#  Forms ------------------------------
-#= require jquery.form.4.2.1
-#= require widgets/upload-job-forms
+#= require jquery.dirtyforms
 #
 #  Date Inputs ------------------------
 #= require widgets/dates
@@ -30,6 +27,8 @@
 #= require jquery.price_format.2.0
 #= require widgets/price_format-jquery
 #
+#= require jquery-ui/autocomplete
+#
 #
 #  Specific Models
 #  ====================================
@@ -46,12 +45,13 @@
 #  Family -----------------------------
 #= require family/edit
 #
-#  HousingUnit ------------------------
-#= require housing/select_housing_unit
+#  Housing ------------------------
+#= require housing/housing.coffee
+#= require housing/validations.coffee
 #
-#  Stay -------------------------------
-#= require stay/dynamic_fields
+#  UploadJob --------------------------
+#= require upload_job/status_polling
 #
-#  UserVariable ---------------------
+#  UserVariable -----------------------
 #= require user_variable/create_auto_short_name
 #= require user_variable/new_value_inputs

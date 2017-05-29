@@ -3,7 +3,7 @@ module ActiveAdmin
     module ResourceControllerExtension
       def self.included(base)
         base.send :alias_method_chain, :index, :xlsx
-        base.send :respond_to, :xlsx
+        base.send :respond_to, :xlsx, only: :index
       end
 
       # patching the index method to allow the xlsx format.
