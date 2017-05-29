@@ -1,63 +1,16 @@
+# vim:ft=ruby:
 @finances = FamilyFinances::CreateTable.call(family: family)
 
 columns do
   column do
     h2 'Attendees'
-
     @finances.attendee_reports.each do |report|
-      attendee = report.attendee
-
-      panel link_to(attendee.full_name, attendee) do
-        render 'family_finances/table', title: 'On Campus Assignments',
-                                        collection: report.on_campus_stays
-        render 'family_finances/table', title: 'Off Campus Assignments',
-                                        collection: report.off_campus_stays
-        render 'family_finances/adjustments', price: report.stay_adjustments
-
-        render 'family_finances/table', title: 'Courses (TODO: not counted toward subtotal yet)',
-                                        collection: report.courses
-
-        render 'family_finances/table', title: 'Conferences',
-                                        collection: report.conferences
-        render 'family_finances/adjustments',
-          price: report.conference_adjustments
-
-        render 'family_finances/table', title: 'Rec Center',
-                                        collection: report.rec_center
-        render 'family_finances/adjustments',
-          price: report.rec_center_adjustments
-
-        render 'family_finances/subtotal', price: report.subtotal
-      end
+      render 'families/reports/attendee', report: report
     end
 
     h2 'Children'
-
     @finances.children_reports.each do |report|
-      child = report.child
-
-      panel link_to(child.full_name, child) do
-        render 'family_finances/table', title: 'On Campus Assignments',
-                                        collection: report.on_campus_stays
-        render 'family_finances/adjustments', price: report.stay_adjustments
-
-        render 'family_finances/table', title: 'Chidcare Weeks',
-                                        collection: report.childcare
-        render 'family_finances/adjustments',
-          price: report.childcare_adjustments
-
-        render 'family_finances/table', title: 'Hot Lunch Weeks',
-                                        collection: report.hot_lunches
-        render 'family_finances/adjustments',
-          price: report.hot_lunch_adjustments
-
-        render 'family_finances/table', title: 'Rec Center',
-                                        collection: report.rec_center
-        render 'family_finances/adjustments',
-          price: report.rec_center_adjustments
-
-        render 'family_finances/subtotal', price: report.subtotal
-      end
+      render 'families/reports/child', report: report
     end
 
     # panel 'Children' do

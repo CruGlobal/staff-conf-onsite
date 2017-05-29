@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 return unless policy.show_finances?
 
 columns(class: 'finances-table finances-table__adjustments') do

@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 div class: 'finances-table' do
   h4 title, class: 'finances-table__title'
 
