@@ -14,7 +14,11 @@ class Course < ApplicationRecord
   validates :name, :instructor, :week_descriptor, :ibs_code, :location,
             presence: true
 
+  def to_s
+    name
+  end
+
   def audit_name
-    "#{super}: #{name}"
+    "#{super}: #{to_s}"
   end
 end

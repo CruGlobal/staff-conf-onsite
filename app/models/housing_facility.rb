@@ -27,4 +27,8 @@ class HousingFacility < ApplicationRecord
     self[:on_campus].present? ? self[:on_campus] : dormitory?
   end
   alias on_campus? on_campus
+
+  def to_s
+    name
+  end
 end

@@ -1,0 +1,11 @@
+return unless policy.show_finances?
+
+columns(class: 'finances-table finances-table__subtotal') do
+  column { raw '&nbsp;' }
+
+  column(class: 'column finances-table__price') do
+    strong 'Subtotal: '
+    text_node humanized_money_with_symbol price
+  end
+end
+

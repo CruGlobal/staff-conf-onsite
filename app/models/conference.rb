@@ -13,7 +13,11 @@ class Conference < ApplicationRecord
 
   validates :name, presence: true
 
+  def to_s
+    name
+  end
+
   def audit_name
-    "#{super}: #{name}"
+    "#{super}: #{to_s}"
   end
 end

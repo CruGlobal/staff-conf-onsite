@@ -4,17 +4,19 @@ class HotLunch::SumChildCost < ChargesService
   attr_accessor :child
 
   def call
-    charges[:lunch] += hot_lunch_costs.inject(Money.empty, :+)
+    charges[:lunch] += week_charges.values.inject(Money.empty, :+)
     self.cost_adjustments = child.cost_adjustments
   end
 
-  private
-
-  def hot_lunch_costs
-    applicable_hot_lunch_indexes.map do |index|
-      UserVariable["hot_lunch_week_#{index}"]
-    end
+  def week_charges
+    @hot_lunch_costs ||= Hash[
+      applicable_hot_lunch_indexes.map do |index|
+        [index, UserVariable["hot_lunch_week_#{index}"]]
+      end
+    ]
   end
+
+  private
 
   # Charges are applicable unless the child was in a dorm at the start of the
   # week. One exception: for children of {#REQUIRED_AGES}, charges are always

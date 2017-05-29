@@ -3,4 +3,8 @@ class FamilyPolicy < GeneralPolicy
   def import?
     user.admin?
   end
+
+  def show_finances?
+    user.admin? || user.finance?
+  end
 end

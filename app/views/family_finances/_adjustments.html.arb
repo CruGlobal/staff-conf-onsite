@@ -1,0 +1,9 @@
+return unless policy.show_finances?
+
+columns(class: 'finances-table finances-table__adjustments') do
+  column { em 'Adjustments' }
+
+  column(class: 'column finances-table__price') do
+    humanized_money_with_symbol price * -1
+  end
+end

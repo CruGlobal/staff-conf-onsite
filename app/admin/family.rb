@@ -71,7 +71,6 @@ ActiveAdmin.register Family do
   end
 
   member_action :finances do
-    return head :forbidden unless authorized?(:show, Payment)
     family = Family.find(params[:id])
     render :finances, locals: { family: family }
   end

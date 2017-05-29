@@ -1,0 +1,17 @@
+div class: 'finances-table' do
+  h4 title, class: 'finances-table__title'
+
+  if collection.any?
+    collection.each { |row| render 'family_finances/row', row: row }
+  else
+    columns do
+      column { em 'None...' }
+
+      if policy.show_finances?
+        column(class: 'column finances-table__price') do
+          humanized_money_with_symbol 0
+        end
+      end
+    end
+  end
+end

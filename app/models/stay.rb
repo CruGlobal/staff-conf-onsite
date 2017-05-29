@@ -25,6 +25,9 @@ class Stay < ApplicationRecord
 
   scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
   scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
+  scope :in_self_provided, -> { where(housing_unit: nil) }
+  scope :not_in_self_provided, -> { where.not(housing_unit: nil) }
+
   scope :with_cafeteria, (lambda do |cafe|
     where(housing_unit: HousingUnit.with_cafeteria(cafe))
   end)
@@ -97,6 +100,12 @@ class Stay < ApplicationRecord
   #   the Attendee, expressed as a decimal between 0 and 1.
   def must_pay_ratio
     percentage / 100.0
+  end
+
+  def to_s
+    where = housing_unit&.to_s || 'Self-Provided'
+
+    format('%s, %s – %s', where, arrived_at, departed_at)
   end
 
   private

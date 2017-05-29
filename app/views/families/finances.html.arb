@@ -1,83 +1,132 @@
+@finances = FamilyFinances::CreateTable.call(family: family)
+
 columns do
   column do
-    panel 'Attendees' do
-      family.attendees.each do |attendee|
-        h4 link_to(attendee.full_name, attendee)
+    h2 'Attendees'
 
-        render 'cost_adjustments/summary_table', results: {
-          'Conferences' => Conference::ChargeAttendeeCost.call(attendee: attendee),
-          'Rec Pass' => RecPass::ChargePersonCost.call(person: attendee),
-        }.freeze
+    @finances.attendee_reports.each do |report|
+      attendee = report.attendee
 
-        hr
+      panel link_to(attendee.full_name, attendee) do
+        render 'family_finances/table', title: 'On Campus Assignments',
+                                        collection: report.on_campus_stays
+        render 'family_finances/table', title: 'Off Campus Assignments',
+                                        collection: report.off_campus_stays
+        render 'family_finances/adjustments', price: report.stay_adjustments
+
+        render 'family_finances/table', title: 'Courses (TODO: not counted toward subtotal yet)',
+                                        collection: report.courses
+
+        render 'family_finances/table', title: 'Conferences',
+                                        collection: report.conferences
+        render 'family_finances/adjustments',
+          price: report.conference_adjustments
+
+        render 'family_finances/table', title: 'Rec Center',
+                                        collection: report.rec_center
+        render 'family_finances/adjustments',
+          price: report.rec_center_adjustments
+
+        render 'family_finances/subtotal', price: report.subtotal
       end
     end
 
-    panel 'Children' do
-      family.children.each do |child|
-        h4 link_to(child.full_name, child)
+    h2 'Children'
 
-        results ||=
-          if child.age_group == :childcare
-            {
-              'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
-              'Childcare' => Childcare::ChargeChildCost.call(child: child),
-              'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
-            }
-          else
-            {
-              'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
-              'Junior/Senior' => JuniorSenior::ChargeChildCost.call(child: child),
-              'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
-            }
-          end
+    @finances.children_reports.each do |report|
+      child = report.child
 
-        render 'cost_adjustments/summary_table', results: results
+      panel link_to(child.full_name, child) do
+        render 'family_finances/table', title: 'On Campus Assignments',
+                                        collection: report.on_campus_stays
+        render 'family_finances/adjustments', price: report.stay_adjustments
 
-        hr
+        render 'family_finances/table', title: 'Chidcare Weeks',
+                                        collection: report.childcare
+        render 'family_finances/adjustments',
+          price: report.childcare_adjustments
+
+        render 'family_finances/table', title: 'Hot Lunch Weeks',
+                                        collection: report.hot_lunches
+        render 'family_finances/adjustments',
+          price: report.hot_lunch_adjustments
+
+        render 'family_finances/table', title: 'Rec Center',
+                                        collection: report.rec_center
+        render 'family_finances/adjustments',
+          price: report.rec_center_adjustments
+
+        render 'family_finances/subtotal', price: report.subtotal
       end
     end
 
-    panel 'Housing' do
-      family.attendees.each do |attendee|
-        h4 link_to(attendee.full_name, attendee)
+    # panel 'Children' do
+    #   family.children.each do |child|
+    #     h4 link_to(child.full_name, child)
 
-        render 'cost_adjustments/summary_table', results: {
-          'Apartment Housing' =>
-            Stay::ChargeAttendeeApartment.call(attendee: attendee),
-          'Dormitory Housing' =>
-            Stay::ChargeAttendeeDormitory.call(attendee: attendee)
-        }.freeze
+    #     results ||=
+    #       if child.age_group == :childcare
+    #         {
+    #           'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
+    #           'Childcare' => Childcare::ChargeChildCost.call(child: child),
+    #           'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    #         }
+    #       else
+    #         {
+    #           'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
+    #           'Junior/Senior' => JuniorSenior::ChargeChildCost.call(child: child),
+    #           'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    #         }
+    #       end
 
-        hr
-      end
+    #     render 'cost_adjustments/summary_table', results: results
 
-      family.children.each do |child|
-        h4 link_to(child.full_name, child)
+    #     hr
+    #   end
+    # end
 
-        @results ||=
-          if child.age_group == :childcare
-            {
-              'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
-              'Childcare' => Childcare::ChargeChildCost.call(child: child),
-              'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
-            }
-          else
-            {
-              'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
-              'Junior/Senior' => JuniorSenior::ChargeChildCost.call(child: child),
-              'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
-            }
-          end
+    # panel 'Housing' do
+    #   family.attendees.each do |attendee|
+    #     h4 link_to(attendee.full_name, attendee)
 
-        render 'cost_adjustments/summary_table', results: {
-          'Housing' => Stay::ChargeChildCost.call(child: child),
-        }
+    #     render 'cost_adjustments/summary_table', results: {
+    #       'Apartment Housing' =>
+    #       Stay::ChargeAttendeeApartment.call(attendee: attendee),
+    #         'Dormitory Housing' =>
+    #       Stay::ChargeAttendeeDormitory.call(attendee: attendee)
+    #     }.freeze
 
-        hr
-      end
-    end
+    #     hr
+    #   end
+
+    #   family.children.each do |child|
+    #     h4 link_to(child.full_name, child)
+
+    #     @results ||=
+    #       if child.age_group == :childcare
+    #         {
+    #           'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
+    #           'Childcare' => Childcare::ChargeChildCost.call(child: child),
+    #           'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    #         }
+    #       else
+    #         {
+    #           'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
+    #           'Junior/Senior' => JuniorSenior::ChargeChildCost.call(child: child),
+    #           'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
+    #         }
+    #       end
+
+    #     render 'cost_adjustments/summary_table', results: {
+    #       'Housing' => Stay::ChargeChildCost.call(child: child),
+    #     }
+
+    #     hr
+    #   end
+    # end
   end
+
+  next unless policy.show_finances?
 
   column do
     panel 'Staff Number' do
