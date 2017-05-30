@@ -17,10 +17,6 @@ ActiveAdmin.register FoodHeadCount::Table, as: 'Food Head Count' do
     column :adult_lunch
     column :adult_dinner
 
-    column :teen_breakfast
-    column :teen_lunch
-    column :teen_dinner
-
     column :child_breakfast
     column :child_lunch
     column :child_dinner
