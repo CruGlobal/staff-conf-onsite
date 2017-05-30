@@ -6,9 +6,8 @@ panel link_to(report.attendee.full_name, report.attendee) do
     collection: report.off_campus_stays
   render 'family_finances/adjustments', price: report.stay_adjustments
 
-  render 'family_finances/table', title: 'Courses (TODO: not counted toward subtotal yet)',
-    collection: report.courses
-  # TODO: render 'family_finances/adjustments', price: report.course_adjustments
+  render 'family_finances/table', title: 'Classes', collection: report.courses
+  render 'family_finances/adjustments', price: report.course_adjustments
 
   render 'family_finances/table', title: 'Conferences',
     collection: report.conferences

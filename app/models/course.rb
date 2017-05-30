@@ -19,6 +19,6 @@ class Course < ApplicationRecord
   end
 
   def audit_name
-    "#{super}: #{to_s}"
+    "#{super}: #{self}"
   end
 end

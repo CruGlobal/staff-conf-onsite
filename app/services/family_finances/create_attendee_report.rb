@@ -3,7 +3,7 @@ module FamilyFinances
     attr_accessor :attendee
 
     def cost_reports
-      [stays_cost, conferences_cost, rec_center_cost]
+      [stays_cost, courses_cost, conferences_cost, rec_center_cost]
     end
 
     def on_campus_stays
@@ -19,10 +19,15 @@ module FamilyFinances
     end
 
     def campus_facility_use
+      # TODO: https://www.pivotaltracker.com/story/show/139317971
     end
 
     def courses
       course_scope.flat_map(&method(:create_course_row))
+    end
+
+    def course_adjustments
+      courses_cost.total_adjustments
     end
 
     def conferences
@@ -78,6 +83,10 @@ module FamilyFinances
 
     def stays_cost
       @stays_cost ||= Stay::ChargeAttendeeCost.call(attendee: attendee)
+    end
+
+    def courses_cost
+      @courses_cost ||= Course::ChargeAttendeeCost.call(attendee: attendee)
     end
 
     def conferences_cost

@@ -1,6 +1,7 @@
 # vim:ft=ruby:
 panel 'Finances', class: 'finances_panel' do
   render 'cost_adjustments/summary_table', results: {
+    'Classes' => Course::SumFamilyCost.call(family: family),
     'Conferences' => Conference::SumFamilyCost.call(family: family),
     'Rec Pass' => RecPass::SumFamilyCost.call(family: family),
     'Childcare' => Childcare::SumFamilyCost.call(family: family),
