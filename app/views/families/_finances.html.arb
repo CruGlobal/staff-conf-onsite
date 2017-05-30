@@ -10,6 +10,7 @@ panel 'Finances', class: 'finances_panel' do
       Stay::SumFamilyAttendeesApartmentCost.call(family: family),
     'Adult Dormitory Housing' =>
       Stay::SumFamilyAttendeesDormitoryCost.call(family: family),
-    'Children Housing' => Stay::SumFamilyChildrenCost.call(family: family)
+    'Children Housing' => Stay::SumFamilyChildrenCost.call(family: family),
+    'Facility Use Fee' => FacilityUseFee::SumFamilyCost.call(family: family)
   }
 end
