@@ -152,7 +152,7 @@ namespace :import do
   end
 
   desc 'Import comments'
-  task housing: :environment do
+  task comments: :environment do
     table = CSV.table(Rails.root.join('tmp','export.csv'))
     table.each do |row|
       if row[:housing_comments].to_s.length >= 255
@@ -181,6 +181,18 @@ namespace :import do
             puts key
           end
         end
+      end
+    end
+  end
+
+  desc 'Import Single room requested'
+  task single: :environment do
+    table = CSV.table(Rails.root.join('tmp','export.csv'))
+    table.each do |row|
+      if row[:single_room_requested].to_s == 'Yes'
+        family = Family.find_by(import_tag: row[:family])
+        puts row.inspect unless family
+        family.housing_preference.update_column(:single_room, true)
       end
     end
   end
