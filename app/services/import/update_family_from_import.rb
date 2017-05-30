@@ -28,7 +28,7 @@ class Import::UpdateFamilyFromImport < ApplicationService
   def update_housing_preference
     housing_preference.assign_attributes(
       housing_type: import.housing_type,
-      single_room: import.housing_single_room,
+      single_room: import.housing_single_room == 'Yes',
       roommates: import.housing_roommates_details,
       accepts_non_air_conditioned: import.housing_accepts_non_ac,
       location1: import.housing_location1,
