@@ -1,9 +1,5 @@
-class Stay::SumFamilyAttendeesCost < ChargesService
+class StaffConference::SumFamilyCost < ChargesService
   attr_accessor :family
-
-  # +#to_s+
-  #   An optional {Stay#housing_type} to filter by
-  attr_accessor :housing_type
 
   def call
     family_costs.each do |cost|
@@ -17,8 +13,7 @@ class Stay::SumFamilyAttendeesCost < ChargesService
 
   def family_costs
     family.attendees.map do |attendee|
-      Stay::ChargeAttendeeCost.call(attendee: attendee,
-                                    housing_type: housing_type)
+      StaffConference::ChargeAttendeeCost.call(attendee: attendee)
     end
   end
 end

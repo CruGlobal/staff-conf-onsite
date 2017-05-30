@@ -1,9 +1,9 @@
-# == Context Input
-#
-# [+context.family+ [+Family+]]
-# [+context.import+ [+Import::Person+]]
 class Import::UpdateFamilyFromImport < ApplicationService
-  attr_accessor :family, :import
+  # +Family+
+  attr_accessor :family
+
+  # +Import::Person+
+  attr_accessor :import
 
   def call
     update_family

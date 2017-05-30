@@ -3,7 +3,8 @@ module FamilyFinances
     attr_accessor :attendee
 
     def cost_reports
-      [stays_cost, courses_cost, conferences_cost, rec_center_cost]
+      [stays_cost, courses_cost, staff_conference_cost, conferences_cost,
+       rec_center_cost]
     end
 
     def on_campus_stays
@@ -28,6 +29,14 @@ module FamilyFinances
 
     def course_adjustments
       courses_cost.total_adjustments
+    end
+
+    def staff_conference
+      staff_conference_scope.flat_map(&method(:create_conference_row))
+    end
+
+    def staff_conference_adjustments
+      staff_conference_cost.total_adjustments
     end
 
     def conferences
@@ -73,8 +82,12 @@ module FamilyFinances
       [create_row(course.to_s, course.price), seminary]
     end
 
+    def staff_conference_scope
+      attendee.conferences.where(staff_conference: true)
+    end
+
     def conference_scope
-      attendee.conferences
+      attendee.conferences.where(staff_conference: false)
     end
 
     def create_conference_row(conf)
@@ -87,6 +100,11 @@ module FamilyFinances
 
     def courses_cost
       @courses_cost ||= Course::ChargeAttendeeCost.call(attendee: attendee)
+    end
+
+    def staff_conference_cost
+      @staff_conference_cost ||=
+        StaffConference::ChargeAttendeeCost.call(attendee: attendee)
     end
 
     def conferences_cost

@@ -9,7 +9,12 @@ panel link_to(report.attendee.full_name, report.attendee) do
   render 'family_finances/table', title: 'Classes', collection: report.courses
   render 'family_finances/adjustments', price: report.course_adjustments
 
-  render 'family_finances/table', title: 'Conferences',
+  render 'family_finances/table', title: 'Staff Conference',
+    collection: report.staff_conference
+  render 'family_finances/adjustments',
+    price: report.staff_conference_adjustments
+
+  render 'family_finances/table', title: 'Other Conferences',
     collection: report.conferences
   render 'family_finances/adjustments',
     price: report.conference_adjustments

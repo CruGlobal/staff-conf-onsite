@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525000416) do
+ActiveRecord::Schema.define(version: 20170530170320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,9 +64,10 @@ ActiveRecord::Schema.define(version: 20170525000416) do
     t.text     "description"
     t.date     "start_at"
     t.date     "end_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.boolean  "waive_off_campus_facility_fee"
+    t.boolean  "staff_conference",              default: false, null: false
   end
 
   create_table "cost_adjustments", force: :cascade do |t|
@@ -285,6 +286,15 @@ ActiveRecord::Schema.define(version: 20170525000416) do
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "category",                       null: false
+    t.string   "name",                           null: false
+    t.text     "query",                          null: false
+    t.string   "role",       default: "general", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.integer  "housing_facility_id"

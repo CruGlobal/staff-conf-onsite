@@ -1,4 +1,4 @@
-class Conference::SumAttendeeCost < ChargesService
+class StaffConference::SumAttendeeCost < ChargesService
   attr_accessor :attendee
 
   def call
@@ -13,6 +13,6 @@ class Conference::SumAttendeeCost < ChargesService
   end
 
   def non_staff_conferences
-    attendee.conferences.reject(&:staff_conference?)
+    attendee.conferences.select(&:staff_conference?)
   end
 end

@@ -15,7 +15,6 @@ class CreateChargeableStaffNumbers < UploadService
   # whether existing {ChargeableStaffNumber} records should first be destroyed
   attr_accessor :delete_existing
 
-  # @return [Interactor::Context]
   def call
     ChargeableStaffNumber.transaction do
       ChargeableStaffNumber.delete_all if delete_existing?

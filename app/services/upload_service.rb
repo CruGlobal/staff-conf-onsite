@@ -1,6 +1,8 @@
 class UploadService < ApplicationService
   UploadJobError = Class.new(StandardError)
 
+  # +UploadJob+
+  #   a job record containing a file uploaded to the server by a {User}
   attr_accessor :job
 
   after_initialize :update_job_stage

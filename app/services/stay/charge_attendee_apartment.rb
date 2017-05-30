@@ -1,6 +1,3 @@
-# == Context Input
-#
-# [+context.attendee+ [+Attendee+]]
 class Stay::ChargeAttendeeApartment < ChargesService
   attr_accessor :attendee
 

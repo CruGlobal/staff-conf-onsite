@@ -1,6 +1,3 @@
-# == Context Input
-#
-# [+context.child+ [+Child+]]
 class Stay::SumChildCost < ChargesService
   attr_accessor :child
 

@@ -1,12 +1,15 @@
 module Import
-  # == Context Input
-  #
-  # [+context.person+ [+::Person+]]
-  # [+context.import+ [+Import::Person+]]
   class UpdatePersonFromImport < ApplicationService
     MinistryMissing = Class.new(StandardError)
 
-    attr_accessor :person, :import, :ministries
+    # +Person+
+    attr_accessor :person
+
+    # +Import::Person+
+    attr_accessor :import
+
+    # +Array<Ministry>+
+    attr_accessor :ministries
 
     before_initialize :default_ministries
 

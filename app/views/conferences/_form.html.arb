@@ -8,6 +8,8 @@ context.instance_exec do
     input :description
     datepicker_input(self, :start_at)
     datepicker_input(self, :end_at)
+
+    input :staff_conference
     input :waive_off_campus_facility_fee
   end
 
