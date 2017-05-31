@@ -26,6 +26,7 @@ form.has_many :stays, heading: nil, title: title, for: stays do |f|
   dynamic_stay_input(f, :percentage)
   dynamic_stay_input(f, :single_occupancy)
   dynamic_stay_input(f, :no_charge)
+  dynamic_stay_input(f, :no_bed)
   dynamic_stay_input(f, :waive_minimum)
 
   f.input :comment, input_html: { rows: 4 }
