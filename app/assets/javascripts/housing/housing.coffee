@@ -35,10 +35,12 @@ $ ->
       setupDynamicFields($container, false)
       setupDurationCalculation($container)
 
+    # All that excitement makes the form feel dirty
+    $('form').dirtyForms('setClean');
+
   $('select[name$="[housing_type]"]').each ->
     $select = $(this)
     setupHousingDefaults($select.closest('.has_many_fields'))
-
 
   # When new Stay fields are added
   $(containerSelector).on 'DOMNodeInserted', (event) ->
