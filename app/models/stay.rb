@@ -1,6 +1,7 @@
 class Stay < ApplicationRecord
   HOUSING_TYPE_FIELDS = {
     single_occupancy: [:dormitory].freeze,
+    no_bed: [:dormitory].freeze,
     no_charge: [:apartment].freeze,
     waive_minimum: [:apartment].freeze,
     percentage: [:apartment].freeze
