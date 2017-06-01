@@ -26,7 +26,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def departure_date
     unless @departure_date
-      departure = attendee.stays.maximum(:departed_at)
+      departure = attendee.stays.in_apartment.maximum(:departed_at)
       departure ||= attendee.departed_at if off_campus?
       @departure_date = departure - 1.day if departure
       @departure_date = UserVariable['FUFEND'] if @departure_date && @departure_date > UserVariable['FUFEND']
@@ -36,7 +36,12 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part1
     if arrival_date && arrival_date < split_date
-      Money.us_dollar((split_date - arrival_date).to_i * UserVariable['FUFP1'])
+      part1 = Money.us_dollar((split_date - arrival_date).to_i * UserVariable['FUFP1'])
+      # Subtrack out dorm stays
+      attendee.stays.in_dormitory.where('arrived_at < ?', split_date).each do |stay|
+        part1 -= ([stay.departed_at, split_date].min - stay.arrived_at).to_i * UserVariable['FUFP1']
+      end
+      part1
     else
       Money.empty
     end
@@ -44,7 +49,12 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part2
     if departure_date && departure_date >= split_date
-      Money.us_dollar((departure_date - split_date).to_i * UserVariable['FUFP2'])
+      part2 = Money.us_dollar((departure_date - split_date).to_i * UserVariable['FUFP2'])
+      # Subtrack out dorm stays
+      attendee.stays.in_dormitory.where('departed_at > ?', split_date).each do |stay|
+        part2 -= (stay.departed_at - [stay.arrived_at, split_date].max).to_i * UserVariable['FUFP2']
+      end
+      part2
     else
       Money.empty
     end
