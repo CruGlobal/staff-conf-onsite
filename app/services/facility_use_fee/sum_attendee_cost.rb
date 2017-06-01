@@ -19,6 +19,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     unless @arrival_date
       @arrival_date = attendee.stays.in_apartment.minimum(:arrived_at)
       @arrival_date ||= attendee.arrived_at if off_campus?
+      @arrival_date = UserVariable['FUFSTART'] if @arrival_date && @arrival_date < UserVariable['FUFSTART']
     end
     @arrival_date
   end
@@ -28,6 +29,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
       departure = attendee.stays.maximum(:departed_at)
       departure ||= attendee.departed_at if off_campus?
       @departure_date = departure - 1.day if departure
+      @departure_date = UserVariable['FUFEND'] if @departure_date && @departure_date > UserVariable['FUFEND']
     end
     @departure_date
   end
