@@ -31,6 +31,8 @@ panel 'Finances', class: 'finances_panel' do
     'Apartment Housing' =>
       Stay::ChargeAttendeeApartment.call(attendee: attendee),
     'Dormitory Housing' =>
-      Stay::ChargeAttendeeDormitory.call(attendee: attendee)
+      Stay::ChargeAttendeeDormitory.call(attendee: attendee),
+    'Facility Use Fee' =>
+        FacilityUseFee::ChargeAttendeeCost.call(attendee: attendee)
   }.freeze
 end
