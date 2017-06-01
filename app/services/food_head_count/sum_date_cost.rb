@@ -37,14 +37,13 @@ class FoodHeadCount::SumDateCost < ApplicationService
   def person_type(person)
     age = person.age
 
-    if person.is_a?(Attendee)
+    case
+    when age >= 11
       :adult
-    elsif age >= 15
-      :adult
-    elsif age >= 11
-      :teen
-    elsif age >= 5
+    when age >= 5
       :child
+    else
+      nil
     end
   end
 

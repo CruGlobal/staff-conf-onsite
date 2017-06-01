@@ -46,7 +46,7 @@ if @family
             row :other_family
             row :accepts_non_air_conditioned
             row :comment do |hp|
-              hp.comment.gsub('Attendee Comment: ', '')
+              hp.comment.to_s.gsub('Attendee Comment: ', '')
             end
             if mobility_comments.present?
               row :mobility_issues do

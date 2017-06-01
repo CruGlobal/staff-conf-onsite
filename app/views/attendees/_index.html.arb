@@ -13,8 +13,6 @@ context.instance_exec do
   column(:email) { |a| mail_to(a.email) }
   column(:phone) { |a| format_phone(a.phone) }
 
-  column :department
-
   column :created_at
   column :updated_at
 end

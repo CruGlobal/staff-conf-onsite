@@ -9,8 +9,8 @@ context.instance_exec do
     column(:gender) { |c| gender_name(c.gender) }
     column(:birthdate) { |c| birthdate_label(c) }
     column(:age, sortable: :birthdate) { |c| age(c) }
-
     column(:grade_level) { |c| grade_level_label(c) }
+
     column(:childcare) do |child|
       unless child.too_old_for_childcare?
         collection = Childcare.all.order(:name).map { |c| [c.name, c.id] }
@@ -26,5 +26,4 @@ context.instance_exec do
         end
       end
     end
-    column :needs_bed
 end

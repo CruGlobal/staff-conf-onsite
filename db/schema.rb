@@ -11,12 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525140950) do
+ActiveRecord::Schema.define(version: 20170531130814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
-  enable_extension "uuid-ossp"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -310,6 +308,7 @@ ActiveRecord::Schema.define(version: 20170525140950) do
     t.datetime "created_at",       precision: 6,                 null: false
     t.datetime "updated_at",       precision: 6,                 null: false
     t.text     "comment"
+    t.boolean  "no_bed",                         default: false, null: false
   end
 
   add_index "stays", ["housing_unit_id"], name: "index_stays_on_housing_unit_id", using: :btree
