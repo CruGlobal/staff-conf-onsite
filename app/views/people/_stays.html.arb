@@ -1,5 +1,5 @@
 # vim:ft=ruby:
-panel "Housing Assignments (#{person.stays.size})", class: 'stays' do
+panel link_to("Housing Assignments (#{person.stays.size})", housing_path(family_id: person.family_id)), class: 'stays' do
   if person.stays.any?
     attributes_table_for person.stays.order(:arrived_at) do
       row(:housing_type) { |stay| strong housing_type_label(stay.housing_type) }

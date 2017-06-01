@@ -10,8 +10,8 @@ class HousingFacility < ApplicationRecord
 
   delegate :min_days, :max_days, to: :cost_code
 
-  scope :dormitories, -> { where(housing_type: 'dormitory') }
-  scope :apartments,  -> { where(housing_type: 'apartment') }
+  scope :dormitories, -> { where(housing_type: HousingFacility.housing_types[:dormitory]) }
+  scope :apartments,  -> { where(housing_type: HousingFacility.housing_types[:apartment]) }
 
   class << self
     def cafeterias
