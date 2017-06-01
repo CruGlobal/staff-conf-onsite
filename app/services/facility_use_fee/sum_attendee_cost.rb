@@ -43,7 +43,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def part2
-    if departure_date && departure_date >= departure_date
+    if departure_date && departure_date >= split_date
       Money.us_dollar((departure_date - split_date).to_i * UserVariable['FUFP2'])
     else
       Money.empty
@@ -55,6 +55,6 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def off_campus?
-    ['apartment', 'self_provided'].include?(attendee.family.housing_preference.housing_type)
+    %w(apartment self_provided).include?(attendee.family.housing_preference.housing_type)
   end
 end
