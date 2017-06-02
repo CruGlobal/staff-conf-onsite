@@ -55,11 +55,17 @@ setupHousingDefaults = ($container) ->
                           find('input[name$="[id]"]:not([id*="stays"])')
   $person = $('#person_' + $person_id.val()).data('attributes')
 
+  #  Adults always need a bed.
+  if $person.type != 'Child'
+    $('input[name$="[no_bed]"]', $container).closest('li').remove()
+
   addDurationCallback($container, $person, 'arrived_at', 'Person Arrives:')
   addDurationCallback($container, $person, 'departed_at', 'Person Departs:')
 
+  $person
+
 setupNewStayDefaults = ($container) ->
-  setupHousingDefaults($container)
+  $person = setupHousingDefaults($container)
 
   $family = $('#family_attributes').data('attributes')
   $housingTypeEnum = ['dormitory', 'apartment', 'self_provided']
@@ -68,6 +74,10 @@ setupNewStayDefaults = ($container) ->
   $ht_field = $container.find('select[name$="[housing_type]"]')
   $ht_field.val($housing_type)
   $ht_field.trigger('change')
+
+  # Default no_bed to checked if the person record has false for needs_bed.
+  if !$person.needs_bed
+    $('input[name$="[no_bed]"]', $container).attr('checked', 'checked')
 
   for id, obj of $housing_unit_hierarchy[$housing_type]
     if obj.name == $family.location1

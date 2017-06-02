@@ -79,6 +79,10 @@ class Stay < ApplicationRecord
     end
   end
 
+  def needs_bed?
+    !no_bed?
+  end
+
   # @return [Integer] if this stay is in a dormitory, the total duration of all
   #   stays in this facility, otherwise the same as {#duration}
   def total_duration
