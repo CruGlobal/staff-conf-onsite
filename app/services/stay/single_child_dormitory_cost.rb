@@ -45,7 +45,7 @@ class Stay::SingleChildDormitoryCost < ApplicationService
 
     if (charge = cost_code&.charge(days: stay.total_duration))
       daily_costs = daily_costs(child, charge, stay.single_occupancy, stay)
-      daily_costs.inject(:+) * stay.duration
+      (daily_costs.inject(:+) || Money.empty) * stay.duration
     else
       fail_no_cost_code!(stay, stay.duration)
     end
@@ -53,7 +53,7 @@ class Stay::SingleChildDormitoryCost < ApplicationService
 
   def daily_costs(child, charge, single, stay)
     result = Stay::ListChildCosts.call(child: child, single_occupancy: single, stay: stay)
-    result.costs.map { |cost| charge.send(cost) }
+    result.costs.compact.map { |cost| charge.send(cost) }
   end
 
   def fail_no_cost_code!(stay, days)
