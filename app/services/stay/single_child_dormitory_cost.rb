@@ -44,15 +44,15 @@ class Stay::SingleChildDormitoryCost < ApplicationService
     cost_code = stay.housing_facility&.cost_code
 
     if (charge = cost_code&.charge(days: stay.total_duration))
-      daily_costs = daily_costs(child, charge, stay.single_occupancy)
+      daily_costs = daily_costs(child, charge, stay.single_occupancy, stay)
       daily_costs.inject(:+) * stay.duration
     else
       fail_no_cost_code!(stay, stay.duration)
     end
   end
 
-  def daily_costs(child, charge, single)
-    result = Stay::ListChildCosts.call(child: child, single_occupancy: single)
+  def daily_costs(child, charge, single, stay)
+    result = Stay::ListChildCosts.call(child: child, single_occupancy: single, stay: stay)
     result.costs.map { |cost| charge.send(cost) }
   end
 

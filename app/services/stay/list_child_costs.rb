@@ -9,7 +9,7 @@
 # [+context.single_occupancy+ [+Boolean+]]
 #   if the person has opted to take an entire dormitory room for themselves
 class Stay::ListChildCosts < ApplicationService
-  attr_accessor :child, :costs, :single_occupancy
+  attr_accessor :child, :costs, :single_occupancy, :stay
 
   # - Use "ADULT $/DAY" column if child's age is >=15 years old
   # - Use "TEEN $/DAY" column if child's age is >= 11 and < 15 years old
@@ -32,7 +32,7 @@ class Stay::ListChildCosts < ApplicationService
         :adult
       elsif child.age >= 11
         :teen
-      elsif child.needs_bed?
+      elsif stay.needs_bed?
         child.age >= 5 ? :child : :infant
       else
         :child_meal

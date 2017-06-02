@@ -22,7 +22,7 @@ ActiveAdmin.register Family do
                 people_attributes: [:id, { stays_attributes: [
                   :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
                   :single_occupancy, :no_charge, :waive_minimum, :percentage,
-                  :comment
+                  :comment, :no_bed
                 ] }]
 
   filter :last_name
