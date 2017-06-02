@@ -25,3 +25,5 @@
 vendor/ruby
 .idea
 /public/uploads
+
+scratch
