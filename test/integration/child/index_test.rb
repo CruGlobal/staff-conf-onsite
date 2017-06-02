@@ -55,7 +55,7 @@ class Child::IndexTest < IntegrationTest
     visit children_path
 
     assert_index_columns :selectable, :first_name, :last_name, :family, :gender,
-                         :birthdate, :age, :grade_level, :needs_bed, :actions
+                         :birthdate, :age, :grade_level, :actions
   end
 
   test '#index items' do
