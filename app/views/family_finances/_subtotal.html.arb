@@ -1,7 +1,7 @@
 # vim:ft=ruby:
 return unless policy.show_finances?
 
-columns(class: 'finances-table finances-table__subtotal') do
+columns(class: 'columns finances-table finances-table__subtotal') do
   column { raw '&nbsp;' }
 
   column(class: 'column finances-table__price') do

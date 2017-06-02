@@ -1,6 +1,9 @@
 class Payment < ApplicationRecord
   include Monetizable
 
+  DESCRIPTION_ATTRIBUTES = %i(business_unit operating_unit department_code
+                              project_code reference).freeze
+
   monetize_attr :price_cents, numericality: {
     greater_than_or_equal_to: -1_000_000,
     less_than_or_equal_to:     1_000_000
@@ -14,4 +17,9 @@ class Payment < ApplicationRecord
   belongs_to :family
 
   validates :family_id, :payment_type, :cost_type, :price_cents, presence: true
+
+  # @return [String] A slash delimited list of payment details
+  def description
+    DESCRIPTION_ATTRIBUTES.map(&method(:send)).select(&:present?).join(' / ')
+  end
 end

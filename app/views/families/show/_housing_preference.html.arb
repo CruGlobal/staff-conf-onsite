@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   panel 'Housing Preference' do
     attributes_table_for family.housing_preference do

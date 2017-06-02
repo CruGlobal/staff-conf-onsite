@@ -72,7 +72,9 @@ ActiveAdmin.register Family do
 
   member_action :finances do
     family = Family.find(params[:id])
-    render :finances, locals: { family: family }
+    finances = FamilyFinances::CreateTable.call(family: family)
+
+    render :finances, locals: { family: family, finances: finances }
   end
 
   controller do

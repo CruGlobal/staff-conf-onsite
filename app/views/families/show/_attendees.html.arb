@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 context.instance_exec do
   attendees = family.attendees.load
 

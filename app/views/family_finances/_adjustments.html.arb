@@ -1,7 +1,7 @@
 # vim:ft=ruby:
-return unless policy.show_finances?
+return unless policy.show_finances? && price.nonzero?
 
-columns(class: 'finances-table finances-table__adjustments') do
+columns(class: 'columns finances-table finances-table__adjustments') do
   column { em 'Adjustments' }
 
   column(class: 'column finances-table__price') do
