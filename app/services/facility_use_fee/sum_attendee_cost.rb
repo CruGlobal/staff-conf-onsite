@@ -11,7 +11,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def facility_use_fees
     facility_use_fees = part1 + part2
-    # facility_use_fees < 0 ? 0 : facility_use_fees
+    facility_use_fees < 0 ? 0 : facility_use_fees
   end
 
   private
