@@ -12,7 +12,7 @@
 #       teen_breakfast:   0
 #       teen_dinner:      2
 #       child_breakfast: 11
-class FoodHeadCount::CreateTable < ApplicationService
+class FoodHeadCount::Report < ApplicationService
   # An optional cafeteria by which to filter the count
   attr_accessor :cafeteria
 

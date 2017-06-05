@@ -1,10 +1,6 @@
 # The {ReadSpreadsheet} service can convert an uploaded file into the
 # representation expected by this service. See its documentation for a
 # description of the spreadsheet "ruby representation."
-#
-# == Context Input
-#
-# [+context.sheets+ [+Enumerable+]]
 class CreateHousingUnits < UploadService
   RowRecord = Struct.new(:record, :import)
   Error = Class.new(StandardError)
@@ -16,8 +12,6 @@ class CreateHousingUnits < UploadService
   attr_accessor :skip_first
 
   # Create each {HousingUnit} referenced in the given sheets.
-  #
-  # @return [Interactor::Context]
   def call
     import_models = parse_sheets
     row_records = build_models(import_models)

@@ -11,9 +11,31 @@ class Conference < ApplicationRecord
   has_many :conference_attendances, dependent: :destroy
   has_many :attendees, through: :conference_attendances
 
-  validates :name, presence: true
+  validates :name, :staff_conference, presence: true
+
+  after_save :only_one_staff_conference!
+
+  class << self
+    def staff_conference
+      find_by!(staff_conference: true)
+    end
+  end
+
+  def to_s
+    name
+  end
 
   def audit_name
-    "#{super}: #{name}"
+    "#{super}: #{self}"
+  end
+
+  private
+
+  def only_one_staff_conference!
+    return unless staff_conference?
+
+    self.class.
+      where.not(id: id).where(staff_conference: true).
+      find_each { |c| c.update!(staff_conference: false) }
   end
 end

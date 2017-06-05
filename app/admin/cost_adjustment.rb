@@ -6,6 +6,7 @@ ActiveAdmin.register CostAdjustment do
   permit_params :person_id, :cost_type, :price, :percent, :description
 
   filter :person
+  filter :cost_type, as: :select, collection: -> { cost_type_ord_select }
   filter :description
   filter :created_at
   filter :updated_at

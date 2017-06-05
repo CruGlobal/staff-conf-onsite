@@ -1,11 +1,3 @@
-# == Context Input
-#
-# [+context.child+ [+Child+]]
-# [+context.stay+ [+Stay+]]
-#
-# == Context Output
-#
-# [+context.total+ [+Money+]]
 class Stay::SingleChildDormitoryCost < ApplicationService
   NoCostCodeError = Class.new(StandardError)
 

@@ -1,5 +1,3 @@
-# == Context Input
-#
 class Import::CreateNewPeopleRecords < UploadService
   include ActionView::Helpers::OutputSafetyHelper
   include Rails.application.routes.url_helpers

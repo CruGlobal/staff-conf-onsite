@@ -2,14 +2,14 @@
 # given child. The list of symbols returned will all be method names of
 # {CostCodeCharge}, so they can be passed to such an object to obtain the
 # actual dollar amounts.
-#
-# == Context Input
-#
-# [+context.child+ [+Child+]]
-# [+context.single_occupancy+ [+Boolean+]]
-#   if the person has opted to take an entire dormitory room for themselves
 class Stay::ListChildCosts < ApplicationService
-  attr_accessor :child, :costs, :single_occupancy, :stay
+  attr_accessor :child
+  attr_accessor :costs
+  attr_accessor :stay
+
+  # +Boolean+
+  #   if the person has opted to take an entire dormitory room for themselves
+  attr_accessor :single_occupancy
 
   # - Use "ADULT $/DAY" column if child's age is >=15 years old
   # - Use "TEEN $/DAY" column if child's age is >= 11 and < 15 years old

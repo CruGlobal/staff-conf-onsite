@@ -7,7 +7,7 @@ end
 gem 'puma', '~> 3.0'
 gem 'pg', '~> 0.19.0'
 gem 'syslog-logger', '~> 1.6.8'
-gem 'newrelic_rpm', '~> 3.16.2.321'
+gem 'newrelic_rpm', '~> 4.0'
 gem 'good_migrations', '~> 0.0.2'
 
 # Background Processes
@@ -22,7 +22,7 @@ gem 'rollbar', '~> 2.14'
 gem 'oj', '~> 2.18'
 
 # Framework
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 4.2'
 gem 'activeadmin', '~> 1.0.0'
 gem 'paper_trail', '~> 5.2.2'
 gem 'roo', '~> 2.7'

@@ -10,16 +10,16 @@ class AdminOnlyPolicy < ApplicationPolicy
     true
   end
 
-  def create?
-    user.admin?
-  end
-
   def update?
     user.admin?
   end
 
+  def create?
+    update?
+  end
+
   def destroy?
-    user.admin?
+    update?
   end
 
   def scope

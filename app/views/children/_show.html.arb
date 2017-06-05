@@ -41,7 +41,8 @@ context.instance_exec do
 
     column do
       render 'people/stays', person: child
-      render 'people/cost_adjustments', person: child
+      render 'cost_adjustments/list_panel',
+             cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
     end
   end

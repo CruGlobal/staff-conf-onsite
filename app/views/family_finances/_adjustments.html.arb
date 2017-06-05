@@ -1,0 +1,10 @@
+# vim:ft=ruby:
+return unless policy.show_finances? && price.nonzero?
+
+tr(class: 'finances-table__adjustments') do
+  td { em 'Adjustments' }
+
+  td(class: 'finances-table__price') do
+    humanized_money_with_symbol price * -1
+  end
+end

@@ -24,7 +24,7 @@ ActiveAdmin.register FoodHeadCount::Table, as: 'Food Head Count' do
 
   controller do
     def scoped_collection
-      FoodHeadCount::CreateTable.call(
+      FoodHeadCount::Report.call(
         params.permit(:cafeteria, :start_at, :end_at)
       ).head_counts
     end

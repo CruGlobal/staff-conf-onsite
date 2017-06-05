@@ -6,28 +6,29 @@
 #      cost. ex: $100 - ($100 * (5% + 10% + 10%)) = $75
 #   2. The price-based adjustments are then summed and subtracted from that
 #      result. ex: $75 - ($10 + $5) = $60
-#
-# == Context Input
-#
-# [+context.charges+ [+Hash<String, Money>+]]
-#   Each key is one of {CostAdjustment#cost_types} and each value is the total
-#   cost in that category. The types are used to determine which adjustments
-#   apply to each charge
-# [+context.cost_adjustments+ [+Array<CostAdjustment>+]]
-#
-# == Context Output
-#
-# [+context.total_adjustments+ [+Money+]]
-#   The total dollar-amount of all adjustments
-# [+context.subtotal+ [+Money+]]
-#   The total of all charges, before the {CostAdjustment cost adjustments} are
-#   applied
-# [+context.total+ [+Money+]]
-#   The total of all charges, after the {CostAdjustment cost adjustments} are
-#   applied
 class ApplyCostAdjustments < ChargesService
-  attr_accessor :charges, :cost_adjustments, :total_adjustments, :subtotal,
-                :total
+  # +Hash<String, Money>+
+  #   Each key is one of {CostAdjustment#cost_types} and each value is the
+  #   total cost in that category. The types are used to determine which
+  #   adjustments apply to each charge
+  attr_accessor :charges
+
+  # +Array<CostAdjustment>+
+  attr_accessor :cost_adjustments
+
+  # +Money+
+  #   The total dollar-amount of all adjustments
+  attr_accessor :total_adjustments
+
+  # +Money+
+  #   The total of all charges, before the {CostAdjustment cost adjustments} are
+  #   applied
+  attr_accessor :subtotal
+
+  # +Money+
+  #   The total of all charges, after the {CostAdjustment cost adjustments} are
+  #   applied
+  attr_accessor :total
 
   after_initialize :default_values
 
