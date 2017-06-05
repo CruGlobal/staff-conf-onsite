@@ -25,15 +25,15 @@ class Stay::ListChildCosts < ApplicationService
   private
 
   def append_costs(child, costs = [])
-    costs << :single_delta if single_occupancy
+    age = child.age
 
+    costs << :single_delta if single_occupancy
     costs <<
-      case
-      when child.age >= 18
+      if age >= 18
         :adult
-      when child.age >= 11
+      elsif age >= 11
         :teen
-      when child.age >= 5
+      elsif age >= 5
         stay.needs_bed? ? :child : :child_meal
       else
         stay.needs_bed? ? :infant : nil

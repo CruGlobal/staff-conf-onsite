@@ -7,6 +7,8 @@ ActiveAdmin.register Report do
 
   member_action :download, method: :get do
     report = Report.find(params[:id])
-    send_data(report.to_csv, filename: "#{report.name}-#{Date.today}.csv")
+    date = Time.zone.today
+
+    send_data(report.to_csv, filename: "#{report.name}-#{date}.csv")
   end
 end

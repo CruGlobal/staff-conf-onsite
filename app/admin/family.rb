@@ -58,23 +58,23 @@ ActiveAdmin.register Family do
 
   action_item :finances, only: [:show, :edit] do
     if authorized?(:show, Payment)
-      link_to 'Financies', finances_family_path(family)
+      link_to 'Summary', summary_family_path(family)
     end
   end
 
-  action_item :new_payment, only: :finances do
+  action_item :new_payment, only: :summary do
     link_to 'New Payment', new_family_payment_path(params[:id])
   end
 
-  action_item :link_back, only: :finances do
+  action_item :link_back, only: :summary do
     link_to 'Back to Family', action: :show
   end
 
-  member_action :finances do
+  member_action :summary do
     family = Family.find(params[:id])
     finances = FamilyFinances::Report.call(family: family)
 
-    render :finances, locals: { family: family, finances: finances }
+    render :summary, locals: { family: family, finances: finances }
   end
 
   member_action :checkin, method: :post do
@@ -87,13 +87,12 @@ ActiveAdmin.register Family do
       family.check_in!
       redirect_to family_path(family.id), notice: 'Checked-in!'
     else
-      redirect_to finances_family_path(family.id),
+      redirect_to summary_family_path(family.id),
                   alert: "The family's balance must be zero to check-in."
     end
   end
 
   controller do
-
     def update
       update! do |format|
         format.html do

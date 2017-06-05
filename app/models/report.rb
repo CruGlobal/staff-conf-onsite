@@ -1,6 +1,5 @@
 require 'csv'
 class Report < ActiveRecord::Base
-
   def result
     @result ||= Report.connection.select_all(query)
   end
@@ -14,5 +13,4 @@ class Report < ActiveRecord::Base
       end
     end
   end
-
 end
