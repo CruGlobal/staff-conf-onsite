@@ -38,6 +38,10 @@ class Family < ApplicationRecord
     people.flat_map(&:cost_adjustments)
   end
 
+  def check_in!
+    self.class.transaction { attendees.each(&:check_in!) }
+  end
+
   private
 
   def remove_blank_housing_preference

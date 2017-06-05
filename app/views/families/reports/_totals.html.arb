@@ -3,12 +3,12 @@ panel 'Total' do
   table(class: 'totals-table') do
     tbody do
       tr do
-        td 'Total Charges'
+        td 'Charges'
         td humanized_money_with_symbol(finances.subtotal),
           class: 'totals-table__amount'
       end
       tr do
-        td 'Total Payments'
+        td 'Payments'
         td humanized_money_with_symbol(finances.paid),
           class: 'totals-table__amount'
       end

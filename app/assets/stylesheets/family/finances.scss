@@ -1,5 +1,5 @@
 .finances-table {
-  margin-bottom: 2em;
+  margin: 0 !important;
 
   .columns {}
   .column {
@@ -23,6 +23,10 @@
   &__subtotal {
     text-align: right;
     font-size: 1.1em;
+
+    td {
+      padding-top: 3em;
+    }
   }
 }
 

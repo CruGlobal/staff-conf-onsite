@@ -72,9 +72,24 @@ ActiveAdmin.register Family do
 
   member_action :finances do
     family = Family.find(params[:id])
-    finances = FamilyFinances::CreateTable.call(family: family)
+    finances = FamilyFinances::Report.call(family: family)
 
     render :finances, locals: { family: family, finances: finances }
+  end
+
+  member_action :checkin, method: :post do
+    return head :forbidden unless authorized?(:checkin, Family)
+
+    family = Family.find(params[:id])
+    finances = FamilyFinances::Report.call(family: family)
+
+    if finances.remaining_balance.zero?
+      family.check_in!
+      redirect_to family_path(family.id), notice: 'Checked-in!'
+    else
+      redirect_to finances_family_path(family.id),
+                  alert: "The family's balance must be zero to check-in."
+    end
   end
 
   controller do

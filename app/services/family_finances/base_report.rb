@@ -6,7 +6,7 @@ module FamilyFinances
 
     protected
 
-    def create_row(description, cost)
+    def row(description, cost)
       Row.new(description: description.to_s, price: cost)
     end
   end

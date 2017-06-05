@@ -1,9 +1,9 @@
 # vim:ft=ruby:
-columns do
-  column { row.description }
+tr do
+  td(colspan: policy.show_finances? ? 1 : 2) { row.description }
 
   if policy.show_finances?
-    column(class: 'column finances-table__price') do
+    td(class: 'finances-table__price') do
       humanized_money_with_symbol row.price
     end
   end

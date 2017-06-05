@@ -1,10 +1,10 @@
 # vim:ft=ruby:
 return unless policy.show_finances?
 
-columns(class: 'columns finances-table finances-table__subtotal') do
-  column { raw '&nbsp;' }
+tr(class: 'finances-table__subtotal') do
+  td { raw '&nbsp;' }
 
-  column(class: 'column finances-table__price') do
+  td(class: 'finances-table__price') do
     strong 'Subtotal: '
     text_node humanized_money_with_symbol price
   end

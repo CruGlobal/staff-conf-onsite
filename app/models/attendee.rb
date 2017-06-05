@@ -1,11 +1,13 @@
 class Attendee < Person
   include FamilyMember
 
+  CONFERENCE_STATUS_CHECKED_IN = 'Checked-In'.freeze
+
   CONFERENCE_STATUSES = [
     'Registered',
     'Expected',
     'Exempt',
-    'Checked-In',
+    CONFERENCE_STATUS_CHECKED_IN,
     'Cru17 Not Required'
   ].freeze
 
@@ -28,6 +30,10 @@ class Attendee < Person
 
   def conference_names
     conferences.pluck(:name).join(', ')
+  end
+
+  def check_in!
+    update!(conference_status: CONFERENCE_STATUS_CHECKED_IN)
   end
 
   protected

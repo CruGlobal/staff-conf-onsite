@@ -1,23 +1,25 @@
 # vim:ft=ruby:
 panel link_to(report.child.full_name, report.child) do
-  render 'family_finances/table', title: 'On Campus Assignments',
-    collection: report.on_campus_stays
-  render 'family_finances/adjustments', price: report.stay_adjustments
+  table class: 'finances-table' do
+    render 'family_finances/line_items', title: 'On Campus Assignments',
+      collection: report.on_campus_stays
+    render 'family_finances/adjustments', price: report.stay_adjustments
 
-  render 'family_finances/table', title: 'Chidcare Weeks',
-    collection: report.childcare
-  render 'family_finances/adjustments',
-    price: report.childcare_adjustments
+    render 'family_finances/line_items', title: 'Chidcare Weeks',
+      collection: report.childcare
+    render 'family_finances/adjustments',
+      price: report.childcare_adjustments
 
-  render 'family_finances/table', title: 'Hot Lunch Weeks',
-    collection: report.hot_lunches
-  render 'family_finances/adjustments',
-    price: report.hot_lunch_adjustments
+    render 'family_finances/line_items', title: 'Hot Lunch Weeks',
+      collection: report.hot_lunches
+    render 'family_finances/adjustments',
+      price: report.hot_lunch_adjustments
 
-  render 'family_finances/table', title: 'Rec Center',
-    collection: report.rec_center
-  render 'family_finances/adjustments',
-    price: report.rec_center_adjustments
+    render 'family_finances/line_items', title: 'Rec Center',
+      collection: report.rec_center
+    render 'family_finances/adjustments',
+      price: report.rec_center_adjustments
 
-  render 'family_finances/subtotal', price: report.subtotal
+    render 'family_finances/subtotal', price: report.subtotal
+  end
 end

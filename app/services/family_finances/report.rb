@@ -1,17 +1,17 @@
 module FamilyFinances
-  class CreateTable < ApplicationService
+  class Report < ApplicationService
     attr_accessor :family
 
     delegate :staff_number, :chargeable_staff_number?, to: :family
 
     def attendee_reports
       @attendee_reports ||=
-        family.attendees.map { |a| CreateAttendeeReport.call(attendee: a) }
+        family.attendees.map { |a| AttendeeReport.call(attendee: a) }
     end
 
     def children_reports
       @children_reports ||=
-        family.children.map { |c| CreateChildReport.call(child: c) }
+        family.children.map { |c| ChildReport.call(child: c) }
     end
 
     def subtotal
@@ -24,7 +24,7 @@ module FamilyFinances
     end
 
     def paid
-      family.payments.inject(Money.empty) { |sum, p| sum += p.price }
+      family.payments.inject(Money.empty) { |sum, p| sum + p.price }
     end
 
     def unpaid

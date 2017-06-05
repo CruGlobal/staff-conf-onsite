@@ -1,5 +1,5 @@
 # vim:ft=ruby:
-panel "Cost Adjustments (#{cost_adjustments.size})", class: 'cost_adjustments' do
+panel "Cost Adjustments (#{cost_adjustments.size})", class: 'finances-table' do
   if cost_adjustments.any?
     table do
       thead do
@@ -15,7 +15,7 @@ panel "Cost Adjustments (#{cost_adjustments.size})", class: 'cost_adjustments' d
           tr do
             td cost_type_name(ca)
             td simple_format_attr(ca, :description)
-            td cost_adjustment_amount(ca)
+            td cost_adjustment_amount(ca), class: 'finances-table__price'
           end
       end
       end

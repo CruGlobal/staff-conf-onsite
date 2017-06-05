@@ -1,4 +1,6 @@
 class ApplicationService
+  extend Forwardable
+
   include ActiveModel::Model
   include ActiveModel::Callbacks
 
