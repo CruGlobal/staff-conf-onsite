@@ -12,7 +12,7 @@ ActiveAdmin.register User do
     column :created_at
   end
 
-  filter :role, as: :select, collection: User::ROLES
+  filter :role, as: :select, collection: -> { User::ROLES }
   filter :email
   filter :first_name
   filter :last_name

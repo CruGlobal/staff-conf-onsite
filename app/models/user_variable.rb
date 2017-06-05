@@ -1,4 +1,4 @@
-class UserVariable < ActiveRecord::Base
+class UserVariable < ApplicationRecord
   enum value_type: [:string, :money, :date, :number, :html]
 
   validates :code, :short_name, :value_type, :value, presence: true

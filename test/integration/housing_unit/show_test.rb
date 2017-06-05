@@ -36,7 +36,7 @@ class HousingUnit::ShowTest < IntegrationTest
     within('.panel.stays', text: "Assignments (#{@housing_unit.stays.size})") do
       assert_selector 'ol li a', text: stay.person.full_name
 
-      dates = "#{stay.arrived_at.strftime('%B %-d')} until #{stay.departed_at.strftime('%B %-d')}"
+      dates = "#{stay.arrived_at.to_s(:db)} to #{stay.departed_at.to_s(:db)}"
       assert_text dates
     end
   end

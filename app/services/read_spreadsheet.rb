@@ -20,21 +20,15 @@
 # This service expects this spreadsheet to be an +Enumerable+ of "sheets",
 # where each sheet is an +Enumerable+ or "rows," where each row is an
 # +Enumerable+ of "cells" in that row, and each cell is a +String+.
-#
-# == Context Input
-#
-# [+context.job+ [+UploadJob+]]
-#   a job record containing a file uploaded to the server by a {User}
-#
-# == Context Output
-#
-# [+context.sheets+ [+Enumerable+]]
-#   a ruby-representation of the uploaded spreadsheet file
 class ReadSpreadsheet < UploadService
   UnexpectedFilenameError = Class.new(StandardError)
   TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
 
-  attr_accessor :sheets, :skip_first
+  # +Enumerable+
+  #   a ruby-representation of the uploaded spreadsheet file
+  attr_accessor :sheets
+
+  attr_accessor :skip_first
 
   job_stage 'Parse Spreadsheet'
 
@@ -43,8 +37,6 @@ class ReadSpreadsheet < UploadService
   # file is not a a compatible spreadsheet file.
   #
   # Because the uploaded file is certainly a Tempfile, we unlink it afterwards.
-  #
-  # @return [Interactor::Context]
   def call
     reader = open_upload
     update_percentage(0.5)

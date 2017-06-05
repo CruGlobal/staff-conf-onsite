@@ -7,22 +7,17 @@
 # The {ReadSpreadsheet} service can convert an uploaded file into the
 # representation expected by this service. See its documentation for a
 # description of the spreadsheet "ruby representation."
-#
-# == Context Input
-#
-# [+context.sheets+ [+Enumerable+]]
-#   a ruby-representation of the uploaded spreadsheet file.  See
-#   {ReadSpreadsheet}
 class Ministry::CreateOrUpdate < UploadService
   TooFewColumnsError = Class.new(StandardError)
 
+  # +Enumerable+
+  #   A ruby-representation of the uploaded spreadsheet file.  See
+  #   {ReadSpreadsheet}
   attr_accessor :sheets
 
   job_stage 'Create New Ministry Records'
 
   # Create or update each {Ministry} referenced in the given sheets.
-  #
-  # @return [Interactor::Context]
   def call
     Ministry.transaction do
       sheets.each(&method(:parse_ministry_rows))

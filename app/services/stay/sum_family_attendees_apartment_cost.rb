@@ -1,6 +1,3 @@
-# == Context Input
-#
-# [+context.family+ [+Family+]]
 class Stay::SumFamilyAttendeesApartmentCost < ChargesService
   attr_accessor :family
 

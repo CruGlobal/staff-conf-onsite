@@ -1,0 +1,31 @@
+# vim:ft=ruby:
+panel link_to(report.attendee.full_name, report.attendee) do
+  table class: 'finances-table' do
+    render 'family_finances/line_items', title: 'On Campus Assignments',
+      collection: report.on_campus_stays
+    render 'family_finances/line_items', title: 'Off Campus Assignments',
+      collection: report.off_campus_stays
+    render 'family_finances/adjustments', price: report.stay_adjustments
+
+    render 'family_finances/line_items', title: 'Classes',
+      collection: report.courses
+    render 'family_finances/adjustments', price: report.course_adjustments
+
+    render 'family_finances/line_items', title: 'Staff Conference',
+      collection: report.staff_conference
+    render 'family_finances/adjustments',
+      price: report.staff_conference_adjustments
+
+    render 'family_finances/line_items', title: 'Other Conferences',
+      collection: report.conferences
+    render 'family_finances/adjustments',
+      price: report.conference_adjustments
+
+    render 'family_finances/line_items', title: 'Rec Center',
+      collection: report.rec_center
+    render 'family_finances/adjustments',
+      price: report.rec_center_adjustments
+
+    render 'family_finances/subtotal', price: report.subtotal
+  end
+end

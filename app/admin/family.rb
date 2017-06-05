@@ -1,5 +1,4 @@
 ActiveAdmin.register Family do
-  extend Rails.application.helpers
   includes :attendees, :housing_preference
 
   partial_view(
@@ -31,7 +30,7 @@ ActiveAdmin.register Family do
   filter :address2
   filter :city
   filter :state
-  filter :country_code, as: :select, collection: country_select
+  filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
   filter :created_at
   filter :updated_at
@@ -55,6 +54,42 @@ ActiveAdmin.register Family do
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
 
     redirect_to job
+  end
+
+  action_item :finances, only: [:show, :edit] do
+    if authorized?(:show, Payment)
+      link_to 'Financies', finances_family_path(family)
+    end
+  end
+
+  action_item :new_payment, only: :finances do
+    link_to 'New Payment', new_family_payment_path(params[:id])
+  end
+
+  action_item :link_back, only: :finances do
+    link_to 'Back to Family', action: :show
+  end
+
+  member_action :finances do
+    family = Family.find(params[:id])
+    finances = FamilyFinances::Report.call(family: family)
+
+    render :finances, locals: { family: family, finances: finances }
+  end
+
+  member_action :checkin, method: :post do
+    return head :forbidden unless authorized?(:checkin, Family)
+
+    family = Family.find(params[:id])
+    finances = FamilyFinances::Report.call(family: family)
+
+    if finances.remaining_balance.zero?
+      family.check_in!
+      redirect_to family_path(family.id), notice: 'Checked-in!'
+    else
+      redirect_to finances_family_path(family.id),
+                  alert: "The family's balance must be zero to check-in."
+    end
   end
 
   controller do

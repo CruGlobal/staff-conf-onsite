@@ -4,16 +4,19 @@ class ChargesService < ApplicationService
 
   after_initialize :default_values
 
+  # @param other [ChargesService]
   def assign_totals(other)
     self.total_adjustments = other.total_adjustments
     self.subtotal = other.subtotal
     self.total = other.total
+    self.cost_adjustments = other.cost_adjustments
   end
 
   private
 
   def default_values
     self.charges ||= Hash.new { |h, v| h[v] = Money.empty }
+    self.cost_adjustments ||= []
 
     self.total_adjustments ||= Money.empty
     self.subtotal ||= Money.empty

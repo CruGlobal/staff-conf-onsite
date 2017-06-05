@@ -15,7 +15,7 @@ ActiveAdmin.register HousingFacility do
   filter :street
   filter :city
   filter :state
-  filter :country_code, as: :select, collection: country_select
+  filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
   filter :created_at
   filter :updated_at

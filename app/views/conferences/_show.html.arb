@@ -6,9 +6,13 @@ context.instance_exec do
         row :name
         row(:price) { |c| humanized_money_with_symbol(c.price) }
         row(:description) { |c| c.description&.html_safe }
+
         row :start_at
         row :end_at
+
+        row :staff_conference
         row :waive_off_campus_facility_fee
+
         row :created_at
         row :updated_at
       end

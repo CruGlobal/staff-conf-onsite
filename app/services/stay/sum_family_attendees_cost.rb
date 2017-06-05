@@ -1,10 +1,9 @@
-# == Context Input
-#
-# [+context.family+ [+Family+]]
-# [+context.housing_type+ [+#to_s+]]
-#   An optional {Stay#housing_type} to filter by
 class Stay::SumFamilyAttendeesCost < ChargesService
-  attr_accessor :family, :housing_type
+  attr_accessor :family
+
+  # +#to_s+
+  #   An optional {Stay#housing_type} to filter by
+  attr_accessor :housing_type
 
   def call
     family_costs.each do |cost|

@@ -30,7 +30,7 @@ class Attendee::IndexTest < IntegrationTest
 
     assert_index_columns :selectable, :first_name, :last_name, :family,
                          :birthdate, :age, :gender, :email, :phone,
-                         :department, :created_at, :updated_at, :actions
+                         :created_at, :updated_at, :actions
   end
 
   test '#index items' do

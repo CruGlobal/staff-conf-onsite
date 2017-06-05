@@ -1,0 +1,36 @@
+# vim:ft=ruby:
+h2 'Attendees'
+finances.attendee_reports.each do |report|
+  render 'families/reports/attendee', report: report
+end
+
+h2 'Children'
+finances.children_reports.each do |report|
+  render 'families/reports/child', report: report
+end
+
+if policy.show_finances?
+  render 'cost_adjustments/table_panel',
+    cost_adjustments: family.cost_adjustments
+  render 'payments/table_panel', payments: family.payments
+end
+
+render 'families/reports/totals', finances: finances
+
+form_for family, url: checkin_family_path(family.id), method: :post do
+  fieldset class: 'checkin actions' do
+    ol do
+      if finances.remaining_balance.zero?
+        li class: 'action input_action' do
+          input type: :submit, value: 'Check-in'
+        end
+      end
+      li class: 'cancel' do
+        a 'Print', href: 'javascript:window.print()'
+      end
+      li class: 'cancel' do
+        a 'Cancel', href: family_path(family.id)
+      end
+    end
+  end
+end

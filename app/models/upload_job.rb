@@ -5,7 +5,7 @@
 # steps, so an upload's job has multiple "stages", each of which will move its
 # "percentage" from 0.0 to 1.0. So it is possible for {#percentage} to be +1.0+
 # without the job being {#finished}
-class UploadJob < ActiveRecord::Base
+class UploadJob < ApplicationRecord
   scope :done,      -> { where(finished: true) }
   scope :succeeded, -> { where(success: true) }
   scope :failed,    -> { where(success: false) }

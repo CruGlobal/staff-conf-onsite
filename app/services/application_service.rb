@@ -1,4 +1,6 @@
 class ApplicationService
+  extend Forwardable
+
   include ActiveModel::Model
   include ActiveModel::Callbacks
 
@@ -14,5 +16,9 @@ class ApplicationService
 
   def initialize(*_args)
     run_callbacks(:initialize) { super }
+  end
+
+  def call
+    # Empty implementation which may be overridden by implementors
   end
 end

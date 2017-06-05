@@ -25,7 +25,12 @@ panel 'Finances', class: 'finances_panel' do
   end
 
   render 'cost_adjustments/summary_table', results: {
-    'Conferences' => Conference::ChargeAttendeeCost.call(attendee: attendee),
+    'Staff Conference' =>
+      StaffConference::ChargeAttendeeCost.call(attendee: attendee),
+    'Other Conferences' =>
+      Conference::ChargeAttendeeCost.call(attendee: attendee),
+
+    'Classes' => Course::ChargeAttendeeCost.call(attendee: attendee),
     'Rec Pass' => RecPass::ChargePersonCost.call(person: attendee),
 
     'Apartment Housing' =>
