@@ -1,7 +1,7 @@
 # vim:ft=ruby:
-panel "Cost Adjustments (#{cost_adjustments.size})", class: 'finances-table' do
+panel "Cost Adjustments (#{cost_adjustments.size})" do
   if cost_adjustments.any?
-    table do
+    table(class: 'finances-table') do
       thead do
         tr do
           th 'Cost Type'
@@ -20,10 +20,8 @@ panel "Cost Adjustments (#{cost_adjustments.size})", class: 'finances-table' do
       end
       end
     end
-    ul do
-    end
   else
-    strong('None')
+    strong 'None'
   end
 end
 
