@@ -1,8 +1,7 @@
 class ApplicationService
-  extend Forwardable
-
   include ActiveModel::Model
   include ActiveModel::Callbacks
+  extend Forwardable
 
   define_model_callbacks :initialize
 

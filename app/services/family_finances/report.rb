@@ -2,7 +2,7 @@ module FamilyFinances
   class Report < ApplicationService
     attr_accessor :family
 
-    delegate :staff_number, :chargeable_staff_number?, to: :family
+    def_delegators :family, :staff_number, :chargeable_staff_number?
 
     def attendee_reports
       @attendee_reports ||=
