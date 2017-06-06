@@ -13,6 +13,7 @@ class Ministry::UpdateParents < UploadService
   attr_accessor :sheets
 
   job_stage 'Update Ministry Hierarchies'
+  i18n_scope :ministry
 
   def call
     Ministry.transaction do
@@ -57,10 +58,9 @@ class Ministry::UpdateParents < UploadService
     nil_index = ministries.index(nil)
     return unless nil_index.present?
 
-    raise MinistryDoesNotExistError, [
-      "Row ##{row_index + 1}, Column ##{nil_index + 1} references a ministry",
-      "('#{row[nil_index]}') which doesn't exist in the system."
-    ].join(' ')
+    raise MinistryDoesNotExistError,
+          t('errors.no_ministry_code', row: row_index + 1, col: nil_index + 1,
+                                       code: row[nil_index])
   end
 
   def assign_parents(ministries)

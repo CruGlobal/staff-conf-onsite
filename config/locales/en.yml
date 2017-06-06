@@ -181,9 +181,36 @@ en:
     dashboard:
       title: "Dashboard"
       welcome: "Welcome to the Onsite Staff Administration"
-      call_to_action: To add new records, please use the menu at the top of the
-                      page
+      call_to_action: "To add new records, please use the menu at the top of the page."
       updated: "Recently Updated"
+
+  services:
+    family_finances:
+      childcare_deposit: "Deposit"
+      rec_pass: "Pass"
+      seminary:
+        credit: "Seminary Credit: YES"
+        no_credit: "Seminary Credit: NO"
+    housing_unit:
+      errors:
+        no_facility: "Could not find HousingFacility: %{name}"
+    import:
+      errors:
+        existing_people: "The imported file contains people that already exist in the database:"
+        no_conference: "Could not find Conference, %{name}"
+        no_course: "Could not find Class, %{name}"
+    ministry:
+      errors:
+        too_few_columns: "Row #%{row} has too few columns. '%{line}'"
+        no_ministry: "The import file contains Ministries which do not exist in the database:"
+        no_ministry_code: "Row #%{row}, Column #%{col} references a ministry ('%{code}') which doesn't exist in the system."
+    spreadsheet:
+      errors:
+        unexpected_filename: "Unexpected filename: '%{name}'. Extension must be .ods, .csv, .xls, or .xlsx"
+    stay:
+      errors:
+        no_cost_code: "%{stay} does not have an associated cost code which can be applied to a stay of %{duration} days"
+        no_facility_type: "%{name} has an unknown facility type: '%{type}'"
 
   date:
     formats:

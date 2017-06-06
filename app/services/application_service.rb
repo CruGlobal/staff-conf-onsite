@@ -3,6 +3,8 @@ class ApplicationService
   include ActiveModel::Callbacks
   extend Forwardable
 
+  I18N_SCOPE = [:services].freeze
+
   define_model_callbacks :initialize
 
   class << self
@@ -10,6 +12,11 @@ class ApplicationService
     # before returning the new service object.
     def call(*args)
       new(*args).tap(&:call)
+    end
+
+    def i18n_scope(scope = nil)
+      @scope = scope if scope.present?
+      @scope
     end
   end
 
@@ -19,5 +26,15 @@ class ApplicationService
 
   def call
     # Empty implementation which may be overridden by implementors
+  end
+
+  protected
+
+  def t(*args)
+    opts = args.extract_options!
+    opts[:scope] =
+      I18N_SCOPE + Array(self.class.i18n_scope) + Array(opts[:scope])
+
+    I18n.t(*args, opts)
   end
 end

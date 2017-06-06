@@ -11,6 +11,7 @@ class Import::CreateNewPeopleRecords < UploadService
   PersonExistsError = Class.new(Error)
 
   job_stage 'Persist New Database Records'
+  i18n_scope 'import'
 
   # +Array<Import::Person>+
   attr_accessor :imports
@@ -44,10 +45,7 @@ class Import::CreateNewPeopleRecords < UploadService
   end
 
   def existing_people_message
-    safe_join [
-      'The imported file contains people that already exist in the database:',
-      existing_people_list
-    ]
+    safe_join [t('error.existing_people'), existing_people_list]
   end
 
   def existing_people

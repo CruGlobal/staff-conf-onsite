@@ -88,7 +88,7 @@ module Import
         begin
           Conference.find_by!(name: name)
         rescue ActiveRecord::ActiveRecordError
-          raise format('Could not find Conference, %p', name)
+          raise t('errors.no_conference', name: name.inspect)
         end
       end
     end
@@ -100,7 +100,7 @@ module Import
         begin
           Course.find_by!(name: name)
         rescue ActiveRecord::ActiveRecordError
-          raise format('Could not find Class, %p', name)
+          raise t('errors.no_course', name: name.inspect)
         end
       end
     end

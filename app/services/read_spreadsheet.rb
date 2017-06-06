@@ -31,6 +31,7 @@ class ReadSpreadsheet < UploadService
   attr_accessor :skip_first
 
   job_stage 'Parse Spreadsheet'
+  i18n_scope :spreadsheet
 
   # Convert the uploaded file into a list of rows, each of which is a list of
   # cells (+strings+) in that row. This service will +fail!+ if the uploaded
@@ -62,10 +63,8 @@ class ReadSpreadsheet < UploadService
       when '.xls' then :xls
       when '.xlsx' then :xlsx
       else
-        raise UnexpectedFilenameError, [
-          "Unexpected filename: '#{job.filename}'.",
-          'Extension must be .ods, .csv, .xls, or .xlsx'
-        ].join(' ')
+        raise UnexpectedFilenameError,
+              t('errors.unexpected_filename', name: job.filename)
       end
 
     Roo::Spreadsheet.open(job.tempfile.path, extension: ext)

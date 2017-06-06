@@ -3,6 +3,8 @@ class Stay::SingleChildDormitoryCost < ApplicationService
 
   attr_accessor :child, :stay, :total
 
+  i18n_scope :stay
+
   # First, for ALL dorm housing assignments (in case there's more than one),
   # add up the TOTAL number of days living in a dorm. Call this the TOTAL Days.
   #
@@ -49,9 +51,8 @@ class Stay::SingleChildDormitoryCost < ApplicationService
   end
 
   def fail_no_cost_code!(stay, days)
-    raise NoCostCodeError,
-          format('%p does not have an associated cost code which can be ' \
-                 ' applied to a stay of %d days',
-                 (stay.housing_facility || stay), days)
+    stay = (stay.housing_facility || stay).inspect
+
+    raise NoCostCodeError, t('errors.no_cost_code', stay: stay, duration: days)
   end
 end

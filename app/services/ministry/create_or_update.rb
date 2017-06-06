@@ -16,6 +16,7 @@ class Ministry::CreateOrUpdate < UploadService
   attr_accessor :sheets
 
   job_stage 'Create New Ministry Records'
+  i18n_scope 'ministry'
 
   # Create or update each {Ministry} referenced in the given sheets.
   def call
@@ -39,7 +40,7 @@ class Ministry::CreateOrUpdate < UploadService
 
       if row.size < 2
         raise TooFewColumnsError,
-              "Row ##{i + 1} has too few columns. '#{row.join(', ')}'"
+              t('errors.too_few_columns', i + 1, row.join(', '))
       end
 
       create_or_update(row[0], row[1])

@@ -4,6 +4,8 @@ class Stay::SingleAttendeeCost < ApplicationService
 
   attr_accessor :stay, :type, :total
 
+  i18n_scope :stay
+
   # If the housing facility for this individual assignment is an apartment,
   # look for the "DO NO CHARGE FOR THIS ASSIGNMENT" flag - if YES, the charge =
   # $0, and quit.
@@ -77,10 +79,10 @@ class Stay::SingleAttendeeCost < ApplicationService
   end
 
   def fail_no_cost_code!(stay)
+    stay = (stay.housing_facility || stay).inspect
+
     raise NoCostCodeError,
-          format('%p does not have an associated cost code which can be ' \
-                 'applied to a stay of %d days',
-                 (stay.housing_facility || stay), stay.duration)
+          t('errors.no_cost_code', stay: stay, duration: stay.duration)
   end
 
   def charge_type(stay)
@@ -91,9 +93,9 @@ class Stay::SingleAttendeeCost < ApplicationService
   end
 
   def fail_no_charge_type!(stay)
+    name = (stay.housing_facility || stay).inspect
     raise NoCostTypeError,
-          format('%p has an unknown facility type: "%s"',
-                 (stay.housing_facility || stay), stay.housing_type)
+          t('errors.no_facility_type', name: name, type: stay.housing_type)
   end
 
   def must_pay(stay, cost)

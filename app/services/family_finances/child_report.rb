@@ -10,6 +10,8 @@ module FamilyFinances
     def_delegator :hot_lunches_cost, :total_adjustments,
                   :hot_lunch_adjustments
 
+    i18n_scope 'family_finances'
+
     def cost_reports
       [stays_cost, childcares_cost, hot_lunches_cost, rec_center_cost]
     end
@@ -23,7 +25,7 @@ module FamilyFinances
     end
 
     def rec_center
-      Array(row('Pass', rec_center_cost.total))
+      Array(row(t('rec_pass'), rec_center_cost.total))
     end
 
     def hot_lunches
@@ -65,7 +67,7 @@ module FamilyFinances
 
     def deposit_charge
       if child.childcare_deposit?
-        row('Deposit', childcares_cost.sum.deposit_charge)
+        row(t('childcare_deposit'), childcares_cost.sum.deposit_charge)
       end
     end
 

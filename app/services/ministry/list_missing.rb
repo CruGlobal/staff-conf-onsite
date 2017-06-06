@@ -4,15 +4,14 @@ class Ministry::ListMissing < ApplicationService
   attr_accessor :sheets, :skip_first
   attr_reader :codes
 
+  i18n_scope :ministry
+
   def call
     @codes = spreadsheet_ministry_codes - ministry_codes
   end
 
   def html_message
-    safe_join [
-      'The import file contains Ministries which do not exist in the database:',
-      html_list
-    ]
+    safe_join [t('errors.no_ministry'), html_list]
   end
 
   def html_list

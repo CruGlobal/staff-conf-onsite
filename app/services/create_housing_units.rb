@@ -11,6 +11,8 @@ class CreateHousingUnits < UploadService
 
   attr_accessor :skip_first
 
+  i18n_scope :housing_unit
+
   # Create each {HousingUnit} referenced in the given sheets.
   def call
     import_models = parse_sheets
@@ -56,9 +58,7 @@ class CreateHousingUnits < UploadService
 
   def find_facility(name)
     housing_facilities.find { |f| f.name == name }.tap do |facility|
-      if facility.nil?
-        raise Error, format('Could not find HousingFacility: %s', name)
-      end
+      raise Error, t('errors.no_facility', name: name) if facility.nil?
     end
   end
 

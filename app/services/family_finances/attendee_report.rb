@@ -9,6 +9,8 @@ module FamilyFinances
     def_delegator :staff_conference_cost, :total_adjustments,
                   :staff_conference_adjustments
 
+    i18n_scope 'family_finances'
+
     def cost_reports
       [stays_cost, courses_cost, staff_conference_cost, conferences_cost,
        rec_center_cost]
@@ -35,7 +37,7 @@ module FamilyFinances
     end
 
     def rec_center
-      Array(row('Pass', rec_center_cost.total))
+      Array(row(t('rec_pass'), rec_center_cost.total))
     end
 
     def campus_facility_use
@@ -51,9 +53,9 @@ module FamilyFinances
     def course_row(attendance)
       seminary =
         if attendance.seminary_credit?
-          row('Seminary Credit: YES', attendee.seminary.course_price)
+          row(t('seminary.credit'), attendee.seminary.course_price)
         else
-          row('Seminary Credit: NO', 0)
+          row(t('seminary.no_credit'), 0)
         end
 
       [row(attendance.course.to_s, attendance.course.price), seminary]
