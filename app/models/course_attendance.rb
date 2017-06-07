@@ -7,4 +7,6 @@ class CourseAttendance < ApplicationRecord
   validates :attendee_id, uniqueness: {
     scope: :course_id, message: 'may only sign up for a class once'
   }
+
+  delegate :seminary, to: :attendee
 end
