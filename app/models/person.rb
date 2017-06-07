@@ -37,11 +37,18 @@ class Person < ApplicationRecord
   validates_associated :stays
 
   def full_name
-    "#{first_name} #{last_name}"
+    [first_name, last_name].compact.join(' ')
   end
 
   def audit_name
     "#{super}: #{full_name}"
+  end
+
+  def full_name_tag
+    first = name_tag_first_name.present? ? name_tag_first_name : first_name
+    last  = name_tag_last_name.present?  ? name_tag_last_name  : last_name
+
+    [first, last].compact.join(' ')
   end
 
   def age

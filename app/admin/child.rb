@@ -12,8 +12,8 @@ ActiveAdmin.register Child do
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
     :name_tag_first_name, :name_tag_last_name, :childcare_deposit,
     :childcare_comment, :rec_center_pass_started_at,
-    :rec_center_pass_expired_at, childcare_weeks: [], hot_lunch_weeks: [],
-    cost_adjustments_attributes: [
+    :rec_center_pass_expired_at,
+    childcare_weeks: [], hot_lunch_weeks: [], cost_adjustments_attributes: [
       :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
     ],
     meal_exemptions_attributes: [
