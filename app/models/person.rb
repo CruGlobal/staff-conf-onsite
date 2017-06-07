@@ -86,7 +86,7 @@ class Person < ApplicationRecord
 
   def ensure_primary_person
     unless family.primary_person_id.present?
-      family.update!(:primary_person_id, id)
+      family.update!(primary_person_id: id)
     end
   end
 end
