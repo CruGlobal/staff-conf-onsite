@@ -5,6 +5,9 @@ context.instance_exec do
       attributes_table do
         row :first_name
         row :last_name
+        row :name_tag_first_name
+        row :name_tag_last_name
+
         row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
         row(:gender) { |c| gender_name(c.gender) }
         row(:birthdate) { |c| birthdate_label(c) }

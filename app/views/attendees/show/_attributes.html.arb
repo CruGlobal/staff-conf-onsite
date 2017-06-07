@@ -2,6 +2,9 @@ context.instance_exec do
   attributes_table do
     row :first_name
     row :last_name
+    row :name_tag_first_name
+    row :name_tag_last_name
+
     row :tshirt_size
     row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
     row(:birthdate) { |a| birthdate_label(a) }

@@ -162,6 +162,8 @@ en:
         departed_at: "Requested Departure"
         rec_center_pass_started_at: "Rec Center Pass Start Date"
         rec_center_pass_expired_at: "Rec Center Pass End Date"
+        name_tag_first_name: "First name (Name tag)"
+        name_tag_last_name: "Last name (Name tag)"
       stay:
         arrived_at: "Arrival"
         departed_at: "Departure"

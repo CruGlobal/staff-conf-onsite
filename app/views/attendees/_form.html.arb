@@ -17,6 +17,9 @@ context.instance_exec do
           input :last_name
         end
 
+        input :name_tag_first_name
+        input :name_tag_last_name
+
         input :tshirt_size
         input :gender, as: :select, collection: gender_select
         datepicker_input(self, :birthdate)

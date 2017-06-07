@@ -14,8 +14,12 @@ context.instance_exec do
           input :last_name
         end
 
+        input :name_tag_first_name
+        input :name_tag_last_name
+
         input :gender, as: :select, collection: gender_select
         datepicker_input(self, :birthdate)
+
         input :grade_level, as: :select, collection: grade_level_select,
           include_blank: true
         input :parent_pickup
