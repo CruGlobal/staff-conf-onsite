@@ -1,0 +1,17 @@
+h2 'Attendees'
+finances.attendee_reports.each do |report|
+  render 'families/reports/attendee', report: report
+end
+
+h2 'Children'
+finances.children_reports.each do |report|
+  render 'families/reports/child', report: report
+end
+
+if policy.show_finances?
+  render 'cost_adjustments/table_panel',
+         cost_adjustments: family.cost_adjustments
+  render 'payments/table_panel', payments: family.payments
+end
+
+render 'families/reports/totals', finances: finances
