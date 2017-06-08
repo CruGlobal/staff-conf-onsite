@@ -12,7 +12,11 @@ class Childcare::Signin::Base < PdfService
   protected
 
   def children
-    childcare.children.order(:last_name, :first_name)
+    if childcare.children.any?
+      childcare.children.order(:last_name, :first_name)
+    else
+      [Child.new]
+    end
   end
 
   def name_cell(child)

@@ -12,14 +12,14 @@ ActiveAdmin.register Childcare do
     link_to 'Roster (PDF)', action: :roster
   end
 
-  sidebar 'Sign-In Sheets' do
+  sidebar 'Sign-In Sheets', only: :show do
     ul do
       li { link_to 'Portrait (PDF)', action: :signin_portrait }
       li { link_to 'Landscape (PDF)', action: :signin_landscape }
     end
   end
 
-  sidebar 'Rosters' do
+  sidebar 'Rosters', only: :show do
     ul do
       Childcare::CHILDCARE_WEEKS.each_with_index do |name, index|
         li { link_to "#{name} (PDF)", action: :roster, week: index }
