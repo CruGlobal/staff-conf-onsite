@@ -25,7 +25,12 @@ module FamilyFinances
     end
 
     def rec_center
-      Array(row(t('rec_pass'), rec_center_cost.total))
+      return [] unless child.rec_pass?
+
+      label = t('rec_pass',
+                start: l(child.rec_center_pass_started_at, format: :month),
+                finish: l(child.rec_center_pass_expired_at, format: :month))
+      Array(row(label, rec_center_cost.total))
     end
 
     def hot_lunches

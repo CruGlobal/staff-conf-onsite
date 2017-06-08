@@ -37,4 +37,8 @@ class ApplicationService
 
     I18n.t(*args, opts)
   end
+
+  def l(*args)
+    I18n.l(*args)
+  end
 end

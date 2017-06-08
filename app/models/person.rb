@@ -66,6 +66,10 @@ class Person < ApplicationRecord
     stays.for_date(date).any?(&:on_campus?)
   end
 
+  def rec_pass?
+    rec_center_pass_started_at.present? && rec_center_pass_expired_at.present?
+  end
+
   private
 
   def age_from_birthdate

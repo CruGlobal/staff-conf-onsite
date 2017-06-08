@@ -189,7 +189,7 @@ en:
   services:
     family_finances:
       childcare_deposit: "Deposit"
-      rec_pass: "Pass"
+      rec_pass: "Pass: %{start} - %{finish}"
       seminary:
         credit: "Seminary Credit: YES"
         no_credit: "Seminary Credit: NO"
