@@ -2,7 +2,7 @@
 title = format('%s (Name Tag: %s)', report.attendee.full_name,
                                     report.attendee.full_name_tag)
 
-panel link_to(title, report.attendee) do
+panel title do
   table class: 'finances-table' do
     render 'family_finances/line_items', title: 'On Campus Assignments',
       collection: report.on_campus_stays

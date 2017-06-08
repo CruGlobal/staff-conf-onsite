@@ -41,6 +41,7 @@ class Family < ApplicationRecord
 
   def check_in!
     self.class.transaction { attendees.each(&:check_in!) }
+    FamilyMailer.summary(self).deliver_now
   end
 
   private
