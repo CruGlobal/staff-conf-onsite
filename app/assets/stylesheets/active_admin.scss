@@ -47,14 +47,16 @@
 @import "widgets/dropdown";
 @import "jquery.dropdown.1.6/dropdown";
 
+.print-only {
+  display: none;
+}
+
 .sidebar_section {
   h4 {
     margin-bottom: 0.5em;
   }
 }
 
-// To demo temporary work
-.TODO_panel,
 .finances_panel {
   border: 2px solid yellow;
 }

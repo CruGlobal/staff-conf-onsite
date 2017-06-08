@@ -1,10 +1,8 @@
 # vim:ft=ruby:
 tr do
-  td(colspan: policy.show_finances? ? 1 : 2) { row.description }
+  td { row.description }
 
-  if policy.show_finances?
-    td(class: 'finances-table__price') do
-      humanized_money_with_symbol row.price
-    end
+  td(class: "finances-table__price #{'print-only' unless policy.show_finances?}") do
+    humanized_money_with_symbol row.price
   end
 end
