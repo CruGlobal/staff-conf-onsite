@@ -9,4 +9,3 @@ tr(class: 'finances-table__subtotal') do
     text_node humanized_money_with_symbol price
   end
 end
-
