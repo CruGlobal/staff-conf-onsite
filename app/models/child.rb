@@ -88,6 +88,18 @@ class Child < Person
     self[:hot_lunch_weeks] = arr && arr.select(&:present?).sort.join(',')
   end
 
+  # @return [Array<Date>] the days this child is paying for a hot lunch
+  def hot_lunch_dates
+    start_dates =
+      hot_lunch_weeks.map do |week_offset|
+        UserVariable["hot_lunch_begin_#{week_offset}"]
+      end
+
+    start_dates.flat_map do |date|
+      Array.new(7) { |idx| date + idx.days }
+    end
+  end
+
   private
 
   def hot_lunch_weeks_must_match_childcare_weeks!

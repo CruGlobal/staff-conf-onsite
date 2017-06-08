@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
   before_validation :fetch_cas_attributes, on: :create unless Rails.env.test?
 
+  def full_name
+    [first_name, last_name].compact.join(' ')
+  end
+
   private
 
   def fetch_cas_attributes
