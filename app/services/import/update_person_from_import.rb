@@ -38,8 +38,8 @@ module Import
         personal_comment: @import.personal_comment,
         arrived_at: @import.arrived_at,
         departed_at: @import.departed_at,
-        rec_center_pass_started_at: @import.rec_center_pass_started_at,
-        rec_center_pass_expired_at: @import.rec_center_pass_expired_at
+        rec_pass_start_at: @import.rec_pass_start_at,
+        rec_pass_end_at: @import.rec_pass_end_at
       )
     end
 

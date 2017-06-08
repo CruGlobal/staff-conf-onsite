@@ -26,8 +26,8 @@ context.instance_exec do
     row :seminary
     row :department
 
-    row :rec_center_pass_started_at
-    row :rec_center_pass_expired_at
+    row :rec_pass_start_at
+    row :rec_pass_end_at
 
     row :arrived_at
     row :departed_at

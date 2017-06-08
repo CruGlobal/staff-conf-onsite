@@ -11,14 +11,12 @@ FactoryGirl.define do
     end
     gender { Person::GENDERS.keys.sample }
 
-    [:arrived_at, :departed_at, :rec_center_pass_started_at].each do |attr|
+    [:arrived_at, :departed_at, :rec_pass_start_at].each do |attr|
       add_attribute(attr) { maybe { random_future_date } }
     end
 
-    rec_center_pass_expired_at do
-      if rec_center_pass_started_at
-        random_future_date(rec_center_pass_started_at)
-      end
+    rec_pass_end_at do
+      random_future_date(rec_pass_start_at) if rec_pass_start_at
     end
 
     grade_level { Child::GRADE_LEVELS.sample }

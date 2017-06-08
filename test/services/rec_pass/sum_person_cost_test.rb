@@ -60,9 +60,6 @@ class RecPass::SumPersonRecPassCostTest < ServiceTestCase
   private
 
   def update_dates(start, finish)
-    @person.update!(
-      rec_center_pass_started_at: start,
-      rec_center_pass_expired_at: finish
-    )
+    @person.update!(rec_pass_start_at: start, rec_pass_end_at: finish)
   end
 end

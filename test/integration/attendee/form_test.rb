@@ -15,7 +15,7 @@ class Attendee::FormTest < IntegrationTest
     assert_edit_fields :student_number, :first_name, :last_name, :gender,
                        :birthdate, :arrived_at, :departed_at, :email, :phone,
                        :emergency_contact, :ministry_id, :department,
-                       :rec_center_pass_started_at, :rec_center_pass_expired_at,
+                       :rec_pass_start_at, :rec_pass_end_at,
                        record: @attendee
 
     assert_active_admin_comments
@@ -92,8 +92,8 @@ class Attendee::FormTest < IntegrationTest
         fill_in 'Last name',      with: attr[:last_name]
         select 'Male', from: 'Gender'
 
-        fill_in 'Start', with: attr[:rec_center_pass_started_at]
-        fill_in 'End',   with: attr[:rec_center_pass_expired_at]
+        fill_in 'Start', with: attr[:rec_pass_start_at]
+        fill_in 'End',   with: attr[:rec_pass_end_at]
       end
 
       click_button 'Create Attendee'

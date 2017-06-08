@@ -29,8 +29,8 @@ class Person < ApplicationRecord
 
   after_create :ensure_primary_person
 
-  validates :rec_center_pass_started_at, presence: true, if: :rec_center_pass_expired_at?
-  validates :rec_center_pass_expired_at, presence: true, if: :rec_center_pass_started_at?
+  validates :rec_pass_start_at, presence: true, if: :rec_pass_end_at?
+  validates :rec_pass_end_at, presence: true, if: :rec_pass_start_at?
 
   validates :family_id, presence: true
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
@@ -67,7 +67,7 @@ class Person < ApplicationRecord
   end
 
   def rec_pass?
-    rec_center_pass_started_at.present? && rec_center_pass_expired_at.present?
+    rec_pass_start_at.present? && rec_pass_end_at.present?
   end
 
   private

@@ -47,8 +47,8 @@ context.instance_exec do
       end
 
       inputs 'Rec Center Pass' do
-        datepicker_input(self, :rec_center_pass_started_at, label: 'Start')
-        datepicker_input(self, :rec_center_pass_expired_at, label: 'End')
+        datepicker_input(self, :rec_pass_start_at, label: 'Start')
+        datepicker_input(self, :rec_pass_end_at, label: 'End')
       end
     end
 

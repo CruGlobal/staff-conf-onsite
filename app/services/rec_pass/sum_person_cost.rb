@@ -25,7 +25,7 @@ class RecPass::SumPersonCost < ChargesService
   end
 
   def dates
-    [person.rec_center_pass_started_at, person.rec_center_pass_expired_at]
+    [person.rec_pass_start_at, person.rec_pass_end_at]
   end
 
   def rec_center_cost

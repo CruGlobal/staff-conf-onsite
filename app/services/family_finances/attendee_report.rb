@@ -40,8 +40,8 @@ module FamilyFinances
       return [] unless attendee.rec_pass?
 
       label = t('rec_pass',
-                start: l(attendee.rec_center_pass_started_at, format: :month),
-                finish: l(attendee.rec_center_pass_expired_at, format: :month))
+                start: l(attendee.rec_pass_start_at, format: :month),
+                finish: l(attendee.rec_pass_end_at, format: :month))
       Array(row(label, rec_center_cost.total))
     end
 

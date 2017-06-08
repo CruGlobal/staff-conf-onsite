@@ -63,8 +63,8 @@ module Import
       ibs_courses:  'IBS Courses',
       ibs_comment: 'IBS Comments',
 
-      rec_center_pass_started_at: 'RecPass Start Date',
-      rec_center_pass_expired_at: 'RecPass End Date',
+      rec_pass_start_at: 'RecPass Start Date',
+      rec_pass_end_at: 'RecPass End Date',
 
       ministry_code:     'Ministry Code',
       hired_at:          'Hire Date',

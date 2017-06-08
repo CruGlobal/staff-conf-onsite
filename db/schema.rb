@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531130814) do
+ActiveRecord::Schema.define(version: 20170608230842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,8 +257,8 @@ ActiveRecord::Schema.define(version: 20170531130814) do
     t.string   "grade_level"
     t.date     "arrived_at"
     t.date     "departed_at"
-    t.date     "rec_center_pass_started_at"
-    t.date     "rec_center_pass_expired_at"
+    t.date     "rec_pass_start_at"
+    t.date     "rec_pass_end_at"
     t.string   "hot_lunch_weeks",              default: "",    null: false
     t.integer  "seminary_id"
     t.string   "family_tag"
