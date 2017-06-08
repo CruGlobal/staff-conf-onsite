@@ -1,25 +1,22 @@
 class Childcare::Roster < PdfService
-  attr_accessor :childcare
-  attr_accessor :date
-
-  TITLE_SIZE_FACTOR = 2.5
-  HEADER_SIZE_FACTOR = 1.5
+  COLUMNS = ['Last Name', 'First Name', 'Gender', 'Hot Lunch?',
+             'PM Car Line'].freeze
 
   # @see http://fontawesome.io/icon/square-o
-  HOT_LUNCH_NO  = "\uf096".freeze
+  ICON_NO  = "\uf096".freeze
 
   # @see http://fontawesome.io/icon/check-square-o
-  HOT_LUNCH_YES = "\uf046".freeze
+  ICON_YES = "\uf046".freeze
 
-  def render
+  attr_accessor :childcare
+  attr_accessor :week
+
+  def call
     font 'Comic Sans'
 
-    header
-    children_table
-
-    repeat(:all) { footer }
-
-    render_pdf
+    repeat(:all) { header }
+    wrap_table   { children_table }
+    repeat(:all) { printed_at_footer }
   end
 
   def metadata
@@ -31,19 +28,20 @@ class Childcare::Roster < PdfService
   private
 
   def header
-    text childcare.name, align: :center, style: :bold,
-                         size: font_size * TITLE_SIZE_FACTOR
+    text childcare.name, align: :center, style: :bold, size: title_font_size
     header_table
+    move_down 0.25.in
   end
 
   def header_table
     data = [
       ['Location:', childcare.location],
       ['Room #:', childcare.room],
-      ['Counselors:', childcare.teachers]
+      ['Counselors:', childcare.teachers],
+      ['When:', Childcare::CHILDCARE_WEEKS[week]]
     ]
 
-    font_size(font_size * HEADER_SIZE_FACTOR) do
+    font_size header_font_size do
       table data, position: :center, cell_style: { border_width: 0 } do
         column(0).align = :right
         column(0).width = 2.in
@@ -53,26 +51,20 @@ class Childcare::Roster < PdfService
   end
 
   def children_table
+    data = [COLUMNS] + table_rows
+
     move_down 0.5.in
 
-    table children_data, header: true, position: :center, width: bounds.width do
+    table data, header: true, position: :center, width: bounds.width do
       cells.borders = []
 
       row(0).font_style = :bold
       row(0).borders = [:bottom]
       row(0).border_width = 2
 
-      column(2..3).align = :center
-      column(3).rows(1..-1).font = 'FontAwesome'
+      column(2..-1).align = :center
+      column(3..-1).rows(1..-1).font = 'FontAwesome'
     end
-  end
-
-  def children_data
-    [table_header] + table_rows
-  end
-
-  def table_header
-    ['Last Name', 'First Name', 'Gender', 'Hot Lunch?']
   end
 
   def table_rows
@@ -81,7 +73,8 @@ class Childcare::Roster < PdfService
         child.last_name,
         child.first_name,
         child.gender&.upcase,
-        hot_lunch?(child) ? HOT_LUNCH_YES : HOT_LUNCH_NO
+        hot_lunch?(child) ? ICON_YES : ICON_NO,
+        child.parent_pickup? ? ICON_YES : ICON_NO
       ]
     end
   end
@@ -91,15 +84,6 @@ class Childcare::Roster < PdfService
   end
 
   def hot_lunch?(child)
-    child.hot_lunch_dates.include?(date)
-  end
-
-  def footer(padding: 5.mm)
-    canvas do
-      text_box format('Printed: %s ', creation_date),
-               align: :right,
-               at: [0, bounds.bottom + font_size + padding],
-               width: bounds.width - padding
-    end
+    child.hot_lunch_weeks.include?(week)
   end
 end
