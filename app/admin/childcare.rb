@@ -8,10 +8,6 @@ ActiveAdmin.register Childcare do
   filter :created_at
   filter :updated_at
 
-  action_item :roster, only: :show do
-    link_to 'Roster (PDF)', action: :roster
-  end
-
   sidebar 'Sign-In Sheets', only: :show do
     ul do
       li { link_to 'Portrait (PDF)', action: :signin_portrait }
