@@ -1,5 +1,5 @@
+.bundle/config
 .git
-vendor/cache
 log/*
 tmp
 cache
@@ -12,3 +12,4 @@ public/uploads
 public/dev-assets
 .idea
 vendor/ruby
+vendor/cache
