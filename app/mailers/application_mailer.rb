@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "sco@cru.org"
+  default from: 'cru17.info@cru.org'
   layout 'mailer'
 end
