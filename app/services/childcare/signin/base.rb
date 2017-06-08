@@ -4,8 +4,9 @@ class Childcare::Signin::Base < PdfService
   def call
     font 'Comic Sans'
 
-    repeat(:all) { header }
-    wrap_table   { children_table }
+    header
+    children_table
+
     repeat(:all) { printed_at_footer }
   end
 
