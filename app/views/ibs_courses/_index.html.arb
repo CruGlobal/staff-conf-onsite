@@ -5,7 +5,7 @@ context.instance_exec do
     ca.attendee.student_number
   end
   column('Class', sortable: 'course.name', &:course)
-  column('IBS ID', sortable: 'course.ibs_code') { |ca| ca.course.ibs_code }
+  column('IBS ID', sortable: 'course.ibs_code') { |ca| ca.course.try(:ibs_code) }
   column('Seminary Partner Code') { |ca| seminary_code(ca) }
   column('Course Grade', sortable: 'course.grade', &:grade)
   column('Grading Option') { |ca| grading_option(ca) }
