@@ -6,7 +6,11 @@ class FamilyMailer < ApplicationMailer
     finance_user = User.find_by(role: 'finance')
     @policy = Pundit.policy(finance_user, family)
 
-    emails = family.attendees.pluck(:email)
-    mail(to: 'josh.starcher@cru.org', subject: 'Cru17 Financial Summary')
+    if Rails.env.production?
+      emails = family.attendees.pluck(:email)
+    else
+      emails = 'josh.starcher@cru.org'
+    end
+    mail(to: emails, subject: 'Cru17 Financial Summary')
   end
 end
