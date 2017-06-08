@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <link rel="stylesheet" media="all" href="<%= stylesheet_url('active_admin', host: ActionController::Base.asset_host) %>" />
+    <link rel="stylesheet" media="all" href="<%= stylesheet_url('active_admin_print', host: ActionController::Base.asset_host) %>" />
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
