@@ -1,5 +1,6 @@
 class Childcare::Signin::Base < PdfService
   attr_accessor :childcare
+  attr_accessor :week
 
   def call
     font 'Comic Sans'
@@ -14,7 +15,9 @@ class Childcare::Signin::Base < PdfService
 
   def children
     if childcare.children.any?
-      childcare.children.order(:last_name, :first_name)
+      childcare.children.order(:last_name, :first_name).select do |child|
+        child.childcare_weeks.include?(week)
+      end
     else
       [Child.new]
     end

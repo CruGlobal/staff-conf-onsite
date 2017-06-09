@@ -81,7 +81,9 @@ class Childcare::Roster < PdfService
   end
 
   def children
-    childcare.children.order(:last_name, :first_name)
+    childcare.children.order(:last_name, :first_name).select do |child|
+      child.childcare_weeks.include?(week)
+    end
   end
 
   def hot_lunch?(child)
