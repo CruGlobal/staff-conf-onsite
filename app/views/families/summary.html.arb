@@ -4,10 +4,10 @@ render 'family_summary', finances: finances, family: family
 form_for family, url: checkin_family_path(family.id), method: :post do
   fieldset class: 'checkin actions' do
     ol do
-      if finances.remaining_balance.zero?
-        li class: 'action input_action' do
-          input type: :submit, value: family.checked_in? ? 'Re-Send Summary' : 'Check-in'
-        end
+      li class: 'action input_action' do
+        input type: :submit, value: family.checked_in? ? 'Re-Send Summary' : 'Check-in'
+      end
+      if family.checked_in?
         li class: 'cancel' do
           a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
         end
