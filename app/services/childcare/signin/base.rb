@@ -28,13 +28,17 @@ class Childcare::Signin::Base < PdfService
     "#{child.last_name}\n#{nbsp + nbsp + nbsp}#{child.first_name}"
   end
 
-  private
-
   def header
-    text childcare.name, align: :center, style: :bold, size: title_font_size
+    text header_text, align: :center, style: :bold, size: title_font_size
     header_table
     move_down 0.25.in
   end
+
+  def header_text
+    childcare.name
+  end
+
+  private
 
   def header_table
     font_size header_font_size do

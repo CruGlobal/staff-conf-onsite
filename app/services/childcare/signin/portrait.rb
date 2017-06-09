@@ -3,11 +3,15 @@ class Childcare::Signin::Portrait < Childcare::Signin::Base
 
   def metadata
     super.tap do |meta|
-      meta[:Title] = format('Sign-in (portrait): %s', childcare.name)
+      meta[:Title] = page_title
     end
   end
 
   protected
+
+  def page_title
+    format('Sign-in (portrait): %s', childcare.name)
+  end
 
   # @return [Array<String>] the column names
   def columns

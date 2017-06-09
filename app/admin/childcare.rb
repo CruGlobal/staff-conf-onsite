@@ -16,7 +16,6 @@ ActiveAdmin.register Childcare do
           span link_to 'Portrait', params.merge(action: :signin_portrait, week: index)
           span link_to 'Landscape', params.merge(action: :signin_landscape, week: index)
           span link_to 'Roster', params.merge(action: :roster, week: index)
-          span link_to 'Checklist', params.merge(action: :checklist, week: index)
         end
       end
     end
@@ -30,7 +29,7 @@ ActiveAdmin.register Childcare do
           span link_to 'Portrait', params.merge(action: :signin_portraits, week: index)
           span link_to 'Landscape', params.merge(action: :signin_landscapes, week: index)
           span link_to 'Roster', params.merge(action: :rosters, week: index)
-          span link_to 'Checklist', params.merge(action: :checklists, week: index)
+          span link_to 'Car Line', params.merge(action: :car_lines, week: index)
         end
       end
     end
@@ -70,11 +69,11 @@ ActiveAdmin.register Childcare do
     end
   end
 
-  collection_action :checklists do
+  collection_action :car_lines do
     if week_param.present?
-      roster = AggregatePdfService.call(Childcare::Checklist, collection,
-                                        key: :childcare, week: week_param,
-                                        author: current_user)
+      roster = Childcare::Signin::CarLine.call(childcares: collection,
+                                               week: week_param,
+                                               author: current_user)
       send_data(roster.render, type: 'application/pdf', disposition: :inline)
     else
       redirect_to_invalid_week
@@ -109,17 +108,6 @@ ActiveAdmin.register Childcare do
     if week_param.present?
       roster = Childcare::Roster.call(childcare: Childcare.find(params[:id]),
                                       week: week_param, author: current_user)
-
-      send_data(roster.render, type: 'application/pdf', disposition: :inline)
-    else
-      redirect_to_invalid_week
-    end
-  end
-
-  member_action :checklist do
-    if week_param.present?
-      roster = Childcare::Checklist.call(childcare: Childcare.find(params[:id]),
-                                         week: week_param, author: current_user)
 
       send_data(roster.render, type: 'application/pdf', disposition: :inline)
     else
