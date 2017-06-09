@@ -44,6 +44,7 @@
 #
 #  Family -----------------------------
 #= require family/edit
+#= require family/summary
 #
 #  Housing ------------------------
 #= require housing/housing.coffee

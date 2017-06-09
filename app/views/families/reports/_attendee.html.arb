@@ -2,7 +2,7 @@
 title = format('%s (Name Tag: %s)', report.attendee.full_name,
                                     report.attendee.full_name_tag)
 
-panel title do
+panel content_tag(:span, title, class: 'title', data: { id: report.attendee.id, type: report.attendee.type }) do
   table class: 'finances-table' do
     render 'family_finances/line_items', title: 'On Campus Assignments',
       collection: report.on_campus_stays
