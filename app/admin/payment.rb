@@ -6,7 +6,6 @@ ActiveAdmin.register Payment do
   permit_params :family_id, :payment_type, :cost_type, :price, :business_unit,
                 :operating_unit, :department_code, :project_code, :reference
 
-  filter :family
   filter :payment_type, as: :select, collection: -> { payment_type_ord_select }
   filter :cost_type,    as: :select, collection: -> { cost_type_ord_select }
   filter :business_unit
