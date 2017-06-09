@@ -139,7 +139,7 @@ class Family::Nametag < PdfService
   end
 
   def render_name_barcode(attendee)
-    single_line(attendee.full_name_tag.upcase, :barcode_label, align: :center)
+    single_line(attendee.full_name.upcase, :barcode_label, align: :center)
     single_line(barcode(attendee.full_name), :barcode,
                 align: :center, at: [0, -STYLES[:barcode_label][:size]])
   end
