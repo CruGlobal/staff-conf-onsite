@@ -14,12 +14,14 @@ class Childcare::Signin::Base < PdfService
   protected
 
   def children
-    children =
-      childcare.children.order(:last_name, :first_name).select do |child|
-        child.childcare_weeks.include?(week)
-      end
+    @children ||= begin
+      children =
+        childcare.children.order(:last_name, :first_name).select do |child|
+          child.childcare_weeks.include?(week)
+        end
 
-    children.any? ? children : [Child.new]
+      children.any? ? children : [Child.new]
+    end
   end
 
   def name_cell(child)

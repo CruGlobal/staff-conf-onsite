@@ -63,8 +63,13 @@ class Childcare::Checklist < PdfService
   end
 
   def children
-    childcare.children.order(:last_name, :first_name).select do |child|
-      child.childcare_weeks.include?(week)
+    @children ||= begin
+      children =
+        childcare.children.order(:last_name, :first_name).select do |child|
+          child.childcare_weeks.include?(week)
+        end
+
+      children.any? ? children : [Child.new]
     end
   end
 end
