@@ -111,7 +111,7 @@ class Family::Nametag < PdfService
   end
 
   def render_location(opts = {})
-    location = [family.city, family.state].join(', ').upcase
+    location = [family.city, family.state].select(&:present?).join(', ').upcase
     single_line(location, :location, opts)
   end
 
@@ -154,7 +154,7 @@ class Family::Nametag < PdfService
   end
 
   def barcode(str)
-    format('+%s+', str.to_s.upcase.gsub(INVALID_BARCODE_REGEX,
+    format('*%s*', str.to_s.upcase.gsub(INVALID_BARCODE_REGEX,
                                         INVALID_BARCODE_REPLACEMENT))
   end
 end
