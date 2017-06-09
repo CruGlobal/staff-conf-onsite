@@ -33,7 +33,10 @@ class Attendee < Person
   end
 
   def check_in!
-    update!(conference_status: CONFERENCE_STATUS_CHECKED_IN) unless checked_in?
+    unless checked_in?
+      self.conference_status = CONFERENCE_STATUS_CHECKED_IN
+      save(validate: false)
+    end
   end
 
   def checked_in?
