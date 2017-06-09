@@ -28,9 +28,8 @@ ActiveAdmin.register Attendee do
     ]
   )
 
-  filter :student_number
-  filter :first_name
   filter :last_name
+  filter :first_name
   filter :birthdate
   filter :gender
   filter :email
