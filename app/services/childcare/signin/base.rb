@@ -8,7 +8,8 @@ class Childcare::Signin::Base < PdfService
     header
     children_table
 
-    repeat(:all) { printed_at_footer }
+    printed_at_footer
+    page_numbers_footer
   end
 
   protected

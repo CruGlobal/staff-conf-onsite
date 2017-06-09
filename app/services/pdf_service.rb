@@ -127,13 +127,22 @@ class PdfService < ApplicationService
     font_size * HEADER_SIZE_FACTOR
   end
 
-  def printed_at_footer(padding: 5.mm)
-    canvas do
-      text_box format('Printed: %s ', creation_date),
-               align: :right,
-               at: [0, bounds.bottom + font_size + padding],
-               width: bounds.width - padding
+  def printed_at_footer(padding: 3.mm)
+    m = page.margins
+    left = m[:left] + padding
+    bottom = m[:bottom] - padding
+    width = bounds.width - padding * 2
+
+    repeat(:all) do
+      canvas do
+        text_box format('Printed: %s ', creation_date),
+                 align: :right, at: [left, bottom], width: width
+      end
     end
+  end
+
+  def page_numbers_footer(padding: 3.mm)
+    number_pages 'page <page> of <total>', at: [padding, -padding]
   end
 
   private
