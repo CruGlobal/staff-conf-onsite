@@ -154,7 +154,7 @@ class Family::Nametag < PdfService
   end
 
   def barcode(str)
-    format('+%s+', str.to_s.upcase.gsub(INVALID_BARCODE_REGEX,
+    format('*%s*', str.to_s.upcase.gsub(INVALID_BARCODE_REGEX,
                                         INVALID_BARCODE_REPLACEMENT))
   end
 end
