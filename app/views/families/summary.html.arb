@@ -6,7 +6,7 @@ form_for family, url: checkin_family_path(family.id), method: :post do
     ol do
       if finances.remaining_balance.zero?
         li class: 'action input_action' do
-          input type: :submit, value: 'Check-in'
+          input type: :submit, value: family.checked_in? ? 'Check-in' : 'Re-Send Summary'
         end
         li class: 'cancel' do
           a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
