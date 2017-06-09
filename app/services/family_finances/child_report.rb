@@ -21,7 +21,7 @@ module FamilyFinances
     end
 
     def childcare
-      child.childcare_weeks.map(&method(:childcare_row)) << deposit_charge
+      (child.childcare_weeks.map(&method(:childcare_row)) << deposit_charge).compact
     end
 
     def rec_center
