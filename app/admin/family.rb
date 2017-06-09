@@ -61,7 +61,7 @@ ActiveAdmin.register Family do
   end
 
   action_item :nametag, only: [:show, :edit] do
-    link_to 'Nametags (PDF)', nametag_family_path(family) if family.checked_in?
+    link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank' if family.checked_in?
   end
 
   action_item :new_payment, only: :summary do
