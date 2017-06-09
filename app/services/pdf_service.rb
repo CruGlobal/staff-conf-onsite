@@ -36,6 +36,7 @@ class PdfService < ApplicationService
     move_down
     repeat
     stamp
+    start_new_page
     table
     text
     text_box
@@ -45,6 +46,7 @@ class PdfService < ApplicationService
   def_delegator :document, :render, :render_pdf
 
   attr_accessor :author
+  attr_writer :document
 
   after_initialize :update_font_families
 
