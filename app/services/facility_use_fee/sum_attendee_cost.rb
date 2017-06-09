@@ -13,9 +13,10 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   private
 
-  # We start charging a Facility Use Fee on the first day of your stay in official housing.
-  # If you're not using Cru provided housing, we use whatever you put as your arrival date
-  # when registering online.
+  # We start charging a Facility Use Fee on the first day of your stay in
+  # official housing.
+  # If you're not using Cru provided housing, we use whatever you put as your
+  # arrival date when registering online.
   # If your start date is before facility_use_start, we use that value instead.
   def start_date
     unless @start_date
@@ -28,8 +29,8 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     @start_date ||= UserVariable[:facility_use_start]
   end
 
-  # The last day we charge FUF is either the day before you said you're leaving, or the facility_use_end variable,
-  # whichever is sooner.
+  # The last day we charge FUF is either the day before you said you're
+  # leaving, or the facility_use_end variable, whichever is sooner.
   def end_date
     unless @end_date
       departure = attendee.departed_at
@@ -57,8 +58,10 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part2
     if end_date && end_date >= split_date
-      # The reason for the +1 in the code below is that the charge needs to account for start -> end date *inclusive*
-      # When you subtract start from end, it effectively doesn't count the last day.
+      # The reason for the +1 in the code below is that the charge needs to
+      # account for start -> end date *inclusive*
+      # When you subtract start from end, it effectively doesn't count the last
+      # day.
       part2 = Money.us_dollar((end_date - split_date + 1).to_i * UserVariable[:facility_use_after])
       # Subtrack out dorm stays
       attendee.stays.in_dormitory.where('departed_at > ?', split_date).each do |stay|
@@ -76,6 +79,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def off_campus?
-    %w(apartment self_provided).include?(attendee.family.housing_preference.housing_type)
+    type = attendee.family.housing_preference.housing_type
+    %w(apartment self_provided).include?(type)
   end
 end

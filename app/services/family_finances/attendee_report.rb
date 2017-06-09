@@ -3,6 +3,8 @@ module FamilyFinances
     attr_accessor :attendee
 
     def_delegator :stays_cost, :total_adjustments, :stay_adjustments
+    def_delegator :facility_use_cost, :total_adjustments,
+                  :facility_use_adjustments
     def_delegator :courses_cost, :total_adjustments, :course_adjustments
     def_delegator :rec_center_cost, :total_adjustments, :rec_center_adjustments
     def_delegator :conferences_cost, :total_adjustments, :conference_adjustments
@@ -12,8 +14,8 @@ module FamilyFinances
     i18n_scope 'family_finances'
 
     def cost_reports
-      [stays_cost, courses_cost, staff_conference_cost, conferences_cost,
-       rec_center_cost]
+      [stays_cost, facility_use_cost, courses_cost, staff_conference_cost,
+       conferences_cost, rec_center_cost]
     end
 
     def on_campus_stays
@@ -46,7 +48,7 @@ module FamilyFinances
     end
 
     def campus_facility_use
-      # TODO: https://www.pivotaltracker.com/story/show/139317971
+      Array(row(t('facility_use'), facility_use_cost.subtotal))
     end
 
     private
@@ -106,6 +108,11 @@ module FamilyFinances
 
     def rec_center_cost
       @rec_center_cost ||= RecPass::ChargePersonCost.call(person: attendee)
+    end
+
+    def facility_use_cost
+      @facility_use_cost ||=
+        FacilityUseFee::ChargeAttendeeCost.call(attendee: attendee)
     end
   end
 end
