@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # The possible values of the +role+ attribute.
-  ROLES = %w(general finance admin).freeze
+  ROLES = %w(general finance admin read_only).freeze
 
   # Create scope and predicate method for each role. ex:
   # - +User.finance.first+
