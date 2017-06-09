@@ -111,7 +111,8 @@ class Family::Nametag < PdfService
   end
 
   def render_location(opts = {})
-    single_line([family.city, family.state].join(', '), :location, opts)
+    location = [family.city, family.state].join(', ').upcase
+    single_line(location, :location, opts)
   end
 
   def render_nametag_back(attendee)
@@ -138,18 +139,14 @@ class Family::Nametag < PdfService
   end
 
   def render_name_barcode(attendee)
-    single_line(barcode(attendee.full_name_tag), :barcode_label, align: :center)
+    single_line(attendee.full_name_tag.upcase, :barcode_label, align: :center)
     single_line(barcode(attendee.full_name_tag), :barcode,
                 align: :center, at: [0, -STYLES[:barcode_label][:size]])
-
-    # font FONTS[:barcode], STYLES[:barcode] do
-    #   text barcode(attendee.full_name_tag), align: :center
-    # end
   end
 
   def render_staff_number_barcode
     font FONTS[:barcode_label], STYLES[:barcode_label] do
-      text barcode(family.staff_number), align: :center
+      text family.staff_number.upcase, align: :center
     end
     font FONTS[:barcode], STYLES[:barcode] do
       text barcode(family.staff_number), align: :center
@@ -157,6 +154,7 @@ class Family::Nametag < PdfService
   end
 
   def barcode(str)
-    str.to_s.upcase.gsub(INVALID_BARCODE_REGEX, INVALID_BARCODE_REPLACEMENT)
+    format('+%s+', str.to_s.upcase.gsub(INVALID_BARCODE_REGEX,
+                                        INVALID_BARCODE_REPLACEMENT))
   end
 end
