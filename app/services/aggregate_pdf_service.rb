@@ -33,6 +33,8 @@ class AggregatePdfService < PdfService
     else
       text 'No records found.'
     end
+
+    print_aggregate_footers
   end
 
   private
@@ -40,8 +42,24 @@ class AggregatePdfService < PdfService
   def render_collection
     collection.each_with_index do |record, index|
       start_new_page unless index.zero?
+      doc = service.call(service_options(record))
 
-      service.call(options.merge(key => record, document: document))
+      @print_page_numbers_footer = doc.page_numbers_footer?
+      @print_printed_at_footer = doc.printed_at_footer?
+    end
+  end
+
+  def service_options(record)
+    options.merge(key => record, document: document, aggregrate_pdf: true)
+  end
+
+  def print_aggregate_footers
+    if @print_printed_at_footer
+      printed_at_footer(padding: @print_printed_at_footer)
+    end
+
+    if @print_page_numbers_footer
+      page_numbers_footer(padding: @print_page_numbers_footer)
     end
   end
 end

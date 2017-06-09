@@ -49,6 +49,7 @@ class PdfService < ApplicationService
 
   attr_accessor :author
   attr_writer :document
+  attr_accessor :aggregrate_pdf
 
   after_initialize :update_font_families
 
@@ -128,6 +129,9 @@ class PdfService < ApplicationService
   end
 
   def printed_at_footer(padding: 3.mm)
+    @printed_at_footer = padding
+    return if aggregrate_pdf
+
     m = page.margins
     left = m[:left] + padding
     bottom = m[:bottom] - padding
@@ -141,8 +145,19 @@ class PdfService < ApplicationService
     end
   end
 
+  def printed_at_footer?
+    @printed_at_footer
+  end
+
   def page_numbers_footer(padding: 3.mm)
+    @page_numbers_footer = padding
+    return if aggregrate_pdf
+
     number_pages 'page <page> of <total>', at: [padding, -padding]
+  end
+
+  def page_numbers_footer?
+    @page_numbers_footer
   end
 
   private
