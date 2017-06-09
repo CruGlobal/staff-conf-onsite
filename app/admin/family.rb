@@ -62,6 +62,10 @@ ActiveAdmin.register Family do
     end
   end
 
+  action_item :nametag, only: [:show, :edit] do
+    link_to 'Nametags (PDF)', nametag_family_path(family) if family.checked_in?
+  end
+
   action_item :new_payment, only: :summary do
     link_to 'New Payment', new_family_payment_path(params[:id])
   end
@@ -90,6 +94,24 @@ ActiveAdmin.register Family do
       redirect_to summary_family_path(family.id),
                   alert: "The family's balance must be zero to check-in."
     end
+  end
+
+  collection_action :nametags do
+    applicable = collection.select(&:checked_in?)
+    roster = AggregatePdfService.call(Family::Nametag, applicable,
+                                      key: :family, author: current_user)
+    send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  end
+
+  member_action :nametag do
+    roster = Family::Nametag.call(family: Family.find(params[:id]),
+                                  author: current_user)
+
+    send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  end
+
+  sidebar 'Nametags', only: :index do
+    link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
   end
 
   controller do

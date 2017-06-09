@@ -9,11 +9,14 @@ form_for family, url: checkin_family_path(family.id), method: :post do
           input type: :submit, value: 'Check-in'
         end
         li class: 'cancel' do
+          a 'Nametags (PDF)', href: nametag_family_path(family)
+        end
+        li class: 'cancel' do
           a 'Print', href: 'javascript:window.print()'
         end
       end
       li class: 'cancel' do
-        a 'Cancel', href: family_path(family.id)
+        a 'Cancel', href: family_path(family)
       end
     end
   end

@@ -28,7 +28,7 @@ module FamilyFinances
     end
 
     def unpaid
-      @unpaid ||= subtotal - paid
+      @unpaid ||= [Money.empty, subtotal - paid].max
     end
 
     def staff_number_balance

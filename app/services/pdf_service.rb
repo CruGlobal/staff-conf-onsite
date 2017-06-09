@@ -1,12 +1,29 @@
 require 'prawn/measurement_extensions'
 
 class PdfService < ApplicationService
+  include Prawn::View
+
   TITLE_SIZE_FACTOR = 2.5
   HEADER_SIZE_FACTOR = 1.25
 
   # @see +app/assets/fonts/+
   # @see https://github.com/prawnpdf/prawn/tree/master/lib/prawn/font/
   EXTRA_FONTS = {
+    'Arial' => {
+      normal: 'Arial.ttf',
+      bold: 'Arial-Bold.ttf',
+      italic: 'Arial-Italic.ttf',
+      bold_italic: 'Arial-BoldItalic.ttf'
+    }.freeze,
+    'Arial Narrow' => {
+      normal: 'ArialNarrow.ttf',
+      bold: 'ArialNarrow-Bold.ttf',
+      italic: 'ArialNarrow-Italic.ttf',
+      bold_italic: 'ArialNarrow-BoldItalic.ttf'
+    }.freeze,
+    'Barcode' => {
+      normal: 'free3of9.ttf'
+    }.freeze,
     'Comic Sans' => {
       normal: 'ComicSans.ttf',
       bold:   'ComicSans-Bold.ttf'
@@ -20,29 +37,14 @@ class PdfService < ApplicationService
     'FontAwesome' => {
       normal: 'FontAwesome.ttf',
       bold: 'FontAwesome.ttf'
+    }.freeze,
+    'Gotham' => {
+      light: 'Gotham-Light.ttf',
+      normal: 'Gotham-Book.ttf',
+      bold: 'Gotham-Bold.ttf'
     }.freeze
   }.freeze
 
-  PRAWN_METHODS = %i(
-    bounding_box
-    bounds
-    canvas
-    create_stamp
-    cursor
-    draw_text
-    font
-    font_families
-    font_size
-    move_down
-    repeat
-    stamp
-    start_new_page
-    table
-    text
-    text_box
-  ).freeze
-
-  def_delegators :document, *PRAWN_METHODS
   def_delegator :document, :render, :render_pdf
 
   attr_accessor :author
@@ -55,6 +57,11 @@ class PdfService < ApplicationService
       @page_layout = layout if layout.present?
       @page_layout || :portrait
     end
+
+    def document_options(options = nil)
+      @document_options = options if options.present?
+      @document_options || {}
+    end
   end
 
   def render
@@ -62,8 +69,11 @@ class PdfService < ApplicationService
   end
 
   def document
-    @document ||= Prawn::Document.new(info: metadata,
-                                      page_layout: self.class.page_layout)
+    @document ||=
+      Prawn::Document.new({
+        info: metadata,
+        page_layout: page_layout
+      }.merge(document_options))
   end
 
   def metadata
@@ -79,6 +89,14 @@ class PdfService < ApplicationService
   end
 
   protected
+
+  def page_layout
+    self.class.page_layout
+  end
+
+  def document_options
+    self.class.document_options
+  end
 
   def shy
     Prawn::Text::SHY

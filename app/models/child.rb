@@ -23,16 +23,18 @@ class Child < Person
   validate :hot_lunch_weeks_must_match_childcare_weeks!
   validate :hot_lunch_age_range!
 
-  def self.childcare_grade_levels
-    GRADE_LEVELS.first(grade5_index + 1)
-  end
+  class << self
+    def childcare_grade_levels
+      GRADE_LEVELS.first(grade5_index + 1)
+    end
 
-  def self.senior_grade_levels
-    GRADE_LEVELS.last(GRADE_LEVELS.size - (grade5_index + 1))
-  end
+    def senior_grade_levels
+      GRADE_LEVELS.last(GRADE_LEVELS.size - (grade5_index + 1))
+    end
 
-  def self.grade5_index
-    GRADE_LEVELS.index('grade5')
+    def grade5_index
+      GRADE_LEVELS.index('grade5')
+    end
   end
 
   # @return [Array<Fixnum>] a list of indexes from the

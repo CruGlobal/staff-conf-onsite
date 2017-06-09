@@ -44,11 +44,16 @@ class Person < ApplicationRecord
     "#{super}: #{full_name}"
   end
 
-  def full_name_tag
-    first = name_tag_first_name.present? ? name_tag_first_name : first_name
-    last  = name_tag_last_name.present?  ? name_tag_last_name  : last_name
+  def first_name_tag
+    name_tag_first_name.present? ? name_tag_first_name : first_name
+  end
 
-    [first, last].compact.join(' ')
+  def last_name_tag
+    name_tag_last_name.present? ? name_tag_last_name : last_name
+  end
+
+  def full_name_tag
+    [first_name_tag, last_name_tag].select(&:present?).join(' ')
   end
 
   def age

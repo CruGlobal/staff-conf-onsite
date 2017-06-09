@@ -9,7 +9,7 @@ class Attendee < Person
   ].freeze
 
   CONFERENCE_STATUSES =
-    (%w[Registered Expected] + CONFERENCE_STATUS_ACCEPTED).freeze
+    (%w(Registered Expected) + CONFERENCE_STATUS_ACCEPTED).freeze
 
   after_initialize :set_default_seminary
   before_save :touch_conference_status_changed, if: :conference_status_changed?
