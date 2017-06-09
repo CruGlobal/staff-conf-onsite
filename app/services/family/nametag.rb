@@ -24,7 +24,7 @@ class Family::Nametag < PdfService
   STYLES = {
     first_name: { style: :normal, color: '000000', size: 38 }.freeze,
     last_name: { style: :normal, color: 'fbad3a', size: 38 }.freeze,
-    location: { color: '8c8c8c', size: 14 }.freeze,
+    location: { style: :bold, color: '8c8c8c', size: 14 }.freeze,
     contact: { color: '000000', size: 12 }.freeze,
     barcode: { color: '000000', size: 24 }.freeze,
     barcode_label: { color: '000000', size: 10 }.freeze
