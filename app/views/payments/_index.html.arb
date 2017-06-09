@@ -10,6 +10,7 @@ context.instance_exec do
     humanized_money_with_symbol(p.price) if p.price.present?
   end
 
+  column :comment
   column :business_unit
   column :operating_unit
   column :department_code

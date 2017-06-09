@@ -1,8 +1,8 @@
 class Payment < ApplicationRecord
   include Monetizable
 
-  DESCRIPTION_ATTRIBUTES = %i(business_unit operating_unit department_code
-                              project_code reference).freeze
+  DESCRIPTION_ATTRIBUTES = %i(comment business_unit operating_unit
+                              department_code project_code reference).freeze
 
   monetize_attr :price_cents, numericality: {
     greater_than_or_equal_to: -1_000_000,

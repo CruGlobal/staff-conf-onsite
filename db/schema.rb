@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609152601) do
+ActiveRecord::Schema.define(version: 20170609195310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 20170609152601) do
     t.string   "reference"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "comment"
   end
 
   add_index "payments", ["cost_type"], name: "index_payments_on_cost_type", using: :btree
