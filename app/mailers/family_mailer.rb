@@ -1,4 +1,7 @@
 class FamilyMailer < ApplicationMailer
+  add_template_helper(ApplicationHelper)
+  add_template_helper(CostAdjustmentHelper)
+
   def summary(family)
     @family = family
     @finances = FamilyFinances::Report.call(family: family)
