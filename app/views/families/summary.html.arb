@@ -8,9 +8,9 @@ form_for family, url: checkin_family_path(family.id), method: :post do
         li class: 'action input_action' do
           input type: :submit, value: 'Check-in'
         end
-      end
-      li class: 'cancel' do
-        a 'Print', href: 'javascript:window.print()'
+        li class: 'cancel' do
+          a 'Print', href: 'javascript:window.print()'
+        end
       end
       li class: 'cancel' do
         a 'Cancel', href: family_path(family.id)

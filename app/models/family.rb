@@ -44,6 +44,10 @@ class Family < ApplicationRecord
     FamilyMailer.summary(self).deliver_now
   end
 
+  def checked_in?
+    attendees.any? && attendees.all?(&:checked_in?)
+  end
+
   private
 
   def remove_blank_housing_preference
