@@ -14,8 +14,8 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     @person = Attendee.last
     assert_equal 'Duane', @person.first_name
     assert_equal 'Abbott', @person.last_name
-    assert_equal 'Abbott', @person.name_tag_first_name
-    assert_equal 'Duane', @person.name_tag_last_name
+    assert_equal 'Duane', @person.name_tag_first_name
+    assert_equal 'Abbott', @person.name_tag_last_name
     assert_equal 'm', @person.gender
     assert_equal Date.parse('1967-05-10'), @person.birthdate
     assert_equal 'White', @person.ethnicity

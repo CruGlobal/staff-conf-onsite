@@ -13,8 +13,8 @@ class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Abbott-65ad', @person.family_tag
     assert_equal 'Duane', @person.first_name
     assert_equal 'Abbott', @person.last_name
-    assert_equal 'Abbott', @person.name_tag_first_name
-    assert_equal 'Duane', @person.name_tag_last_name
+    assert_equal 'Duane', @person.name_tag_first_name
+    assert_equal 'Abbott', @person.name_tag_last_name
     assert_equal 'm', @person.gender
     assert_equal '0638533', @person.staff_number
     assert_equal Date.parse('1967-05-10'), @person.birthdate

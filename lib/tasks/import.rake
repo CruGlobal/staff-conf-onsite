@@ -111,7 +111,7 @@ namespace :import do
       unless family
         family = Person.joins(:family)
                      .where('((lower(first_name) = :first AND lower(people.last_name) = :last) OR
-                             (lower(name_tag_last_name) = :first AND lower(name_tag_first_name) = :last))
+                             (lower(name_tag_last_name) = :last AND lower(name_tag_first_name) = :first))
                            ',
                             {first: row[:first].to_s.strip.downcase,
                              last: row[:last].strip.downcase}
