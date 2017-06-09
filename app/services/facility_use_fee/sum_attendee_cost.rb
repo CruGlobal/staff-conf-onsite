@@ -16,7 +16,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   # We start charging a Facility Use Fee on the first day of your stay in official housing.
   # If you're not using Cru provided housing, we use whatever you put as your arrival date
   # when registering online.
-  # If your start date is before FUFSTART, we use that value instead.
+  # If your start date is before facility_use_start, we use that value instead.
   def start_date
     unless @start_date
       @start_date = attendee.stays.in_apartment.minimum(:arrived_at)
@@ -25,10 +25,10 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
         @start_date = UserVariable[:facility_use_start]
       end
     end
-    @start_date
+    @start_date ||= UserVariable[:facility_use_start]
   end
 
-  # The last day we charge FUF is either the day before you said you're leaving, or the FUFEND variable,
+  # The last day we charge FUF is either the day before you said you're leaving, or the facility_use_end variable,
   # whichever is sooner.
   def end_date
     unless @end_date
@@ -38,7 +38,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
         @end_date = UserVariable[:facility_use_end]
       end
     end
-    @end_date
+    @end_date ||= UserVariable[:facility_use_end]
   end
 
   def part1
