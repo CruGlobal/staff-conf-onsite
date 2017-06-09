@@ -21,8 +21,8 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     unless @start_date
       @start_date = attendee.stays.in_apartment.minimum(:arrived_at)
       @start_date ||= attendee.arrived_at
-      if @start_date && @start_date < UserVariable[:facility_use_start]
-        @start_date = UserVariable[:facility_use_start]
+      if @start_date && @start_date < UserVariable[:FUFSTART]
+        @start_date = UserVariable[:FUFSTART]
       end
     end
     @start_date
@@ -34,8 +34,8 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     unless @end_date
       departure = attendee.departed_at
       @end_date = departure - 1.day if departure
-      if @start_date && (!@end_date || @end_date > UserVariable[:facility_use_end])
-        @end_date = UserVariable[:facility_use_end]
+      if @start_date && (!@end_date || @end_date > UserVariable[:FUFEND])
+        @end_date = UserVariable[:FUFEND]
       end
     end
     @end_date
@@ -43,11 +43,11 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part1
     if start_date && start_date < split_date
-      part1 = Money.us_dollar((split_date - start_date).to_i * UserVariable[:facility_use_before])
+      part1 = Money.us_dollar((split_date - start_date).to_i * UserVariable[:FUFP1])
       # Subtract out dorm stays
       attendee.stays.in_dormitory.where('arrived_at < ?', split_date).each do |stay|
-        days = ([stay.departed_at, split_date].min - [stay.arrived_at, UserVariable[:facility_use_start]].max).to_i
-        part1 -= days * UserVariable[:facility_use_before]
+        days = ([stay.departed_at, split_date].min - [stay.arrived_at, UserVariable[:FUFSTART]].max).to_i
+        part1 -= days * UserVariable[:FUFP1]
       end
       part1
     else
@@ -59,11 +59,11 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     if end_date && end_date >= split_date
       # The reason for the +1 in the code below is that the charge needs to account for start -> end date *inclusive*
       # When you subtract start from end, it effectively doesn't count the last day.
-      part2 = Money.us_dollar((end_date - split_date + 1).to_i * UserVariable[:facility_use_after])
+      part2 = Money.us_dollar((end_date - split_date + 1).to_i * UserVariable[:FUFP2])
       # Subtrack out dorm stays
       attendee.stays.in_dormitory.where('departed_at > ?', split_date).each do |stay|
-        days = ([UserVariable[:facility_use_end], stay.departed_at].min - [stay.arrived_at, split_date].max).to_i + 1
-        part2 -= days * UserVariable[:facility_use_after]
+        days = ([UserVariable[:FUFEND], stay.departed_at].min - [stay.arrived_at, split_date].max).to_i + 1
+        part2 -= days * UserVariable[:FUFP2]
       end
       part2
     else
@@ -72,7 +72,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def split_date
-    UserVariable[:facility_use_split]
+    UserVariable[:FUFSPLIT]
   end
 
   def off_campus?

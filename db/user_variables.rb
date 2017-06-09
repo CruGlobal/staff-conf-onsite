@@ -6,15 +6,15 @@ class SeedUserVariables
       description: 'Child Age Cut-off Date' },
 
     # Facility Use
-    facility_use_start: { value_type: :date, code: :FUFSTART, value: '2017-07-01',
+    FUFSTART: { value_type: :date, code: :FUFSTART, value: '2017-07-01',
       description: 'The first possible chargeable date for Facility Use Fee. If the attendee arrives before this date, the fee isn\'t charged until this date' },
-    facility_use_end: { value_type: :date, code: :FUFEND, value: '2017-12-31',
+    FUFEND: { value_type: :date, code: :FUFEND, value: '2017-12-31',
       description: 'The last possible chargeable date for Facility Use Fee. If the attendee leaves after this date, the fee is charged only up to this date.' },
-    facility_use_split: { value_type: :date, code: :FUFSPLIT, value: '2017-12-31',
+    FUFSPLIT: { value_type: :date, code: :FUFSPLIT, value: '2017-12-31',
       description: 'Facility usage fee - split date' },
-    facility_use_before: { value_type: :money, code: :FUFP1, value: 1_00,
+    FUFP1: { value_type: :money, code: :FUFP1, value: 1_00,
       description: 'Daily FUF rate before the split' },
-    facility_use_after: { value_type: :money, code: :FUFP2, value: 2_00,
+    FUFP2: { value_type: :money, code: :FUFP2, value: 2_00,
       description: 'Daily FUF rate after the split' },
 
     # Childcare Weekly Costs
