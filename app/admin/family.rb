@@ -56,10 +56,8 @@ ActiveAdmin.register Family do
     redirect_to job
   end
 
-  action_item :finances, only: [:show, :edit] do
-    if authorized?(:show, Payment)
-      link_to 'Summary', summary_family_path(family)
-    end
+  action_item :summary, only: [:show, :edit] do
+    link_to 'Summary', summary_family_path(family)
   end
 
   action_item :nametag, only: [:show, :edit] do
