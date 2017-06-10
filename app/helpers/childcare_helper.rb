@@ -1,8 +1,12 @@
 module ChildcareHelper
+  I18N_PREFIX_CHILDCARE = 'activerecord.attributes.childcares'.freeze
+
   # @return [Array<[label, id]>] the {Childcare::CHILDCARE_WEEKS childcare
   #   weeks} +<select>+ options acceptable for +options_for_select+
   def childcare_weeks_select
-    Childcare::CHILDCARE_WEEKS.each_with_index.map.to_a
+    Childcare::CHILDCARE_WEEKS.each_with_index.map do |_, index|
+      [childcare_weeks_label(index), index]
+    end
   end
 
   # @return [Array<[label, id]>] the {Childcare} +<select>+ options acceptable
@@ -62,7 +66,7 @@ module ChildcareHelper
   # @return [String] a string describing the Childcare week represented by the
   #   given integer
   def childcare_weeks_label(index)
-    Childcare::CHILDCARE_WEEKS[index]
+    I18n.t("#{I18N_PREFIX_CHILDCARE}.weeks.week#{index}")
   end
 
   # @return [String] a description of the given childcare level, based on the

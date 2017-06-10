@@ -10,8 +10,8 @@ ActiveAdmin.register Childcare do
 
   sidebar 'Sign-In Sheets', only: :show do
     dl do
-      Childcare::CHILDCARE_WEEKS.each_with_index do |name, index|
-        dt name
+      Childcare::CHILDCARE_WEEKS.each_with_index do |_, index|
+        dt childcare_weeks_label(index)
         dd do
           span link_to 'Portrait', params.merge(action: :signin_portrait, week: index)
           span link_to 'Landscape', params.merge(action: :signin_landscape, week: index)
@@ -23,8 +23,8 @@ ActiveAdmin.register Childcare do
 
   sidebar 'Sign-In Sheets', only: :index do
     dl do
-      Childcare::CHILDCARE_WEEKS.each_with_index do |name, index|
-        dt name
+      Childcare::CHILDCARE_WEEKS.each_with_index do |_, index|
+        dt childcare_weeks_label(index)
         dd do
           span link_to 'Portrait', params.merge(action: :signin_portraits, week: index)
           span link_to 'Landscape', params.merge(action: :signin_landscapes, week: index)
