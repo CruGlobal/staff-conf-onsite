@@ -3,7 +3,7 @@ require 'prawn/measurement_extensions'
 class PdfService < ApplicationService
   include Prawn::View
 
-  TITLE_SIZE_FACTOR = 2.5
+  TITLE_SIZE_FACTOR = 2.2
   HEADER_SIZE_FACTOR = 1.25
 
   # @see +app/assets/fonts/+

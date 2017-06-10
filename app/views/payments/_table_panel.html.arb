@@ -14,8 +14,7 @@ panel "Payments (#{payments.size})" do
       payments.each do |pay|
         tr do
           td do
-            link_to(payment_type_name(pay),
-                    family_payment_path(pay.family, pay))
+            payment_type_name(pay)
           end
           td { cost_type_name(pay) }
           td { pay.description }
