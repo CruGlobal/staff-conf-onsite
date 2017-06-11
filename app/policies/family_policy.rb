@@ -9,6 +9,6 @@ class FamilyPolicy < GeneralPolicy
   end
 
   def checkin?
-    show_finances?
+    true
   end
 end
