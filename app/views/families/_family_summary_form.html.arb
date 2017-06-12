@@ -10,7 +10,7 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
           p 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
         end
       end
-      if family.checked_in?
+      if family.checked_in? || current_user.finance? || current_user.admin?
         li class: 'cancel' do
           a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
         end
@@ -19,7 +19,7 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
         # end
       end
       li class: 'cancel' do
-        a 'Cancel', href: families_path
+        a 'Back to Families', href: families_path
       end
     end
   end

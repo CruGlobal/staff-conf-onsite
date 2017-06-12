@@ -8,7 +8,7 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
       collection: report.on_campus_stays
     render 'family_finances/adjustments', price: report.stay_adjustments
 
-    render 'family_finances/line_items', title: 'Chidcare Weeks',
+    render 'family_finances/line_items', title: 'Childcare Weeks',
       collection: report.childcare
     render 'family_finances/adjustments',
       price: report.childcare_adjustments
