@@ -204,6 +204,8 @@ en:
     family_finances:
       childcare_deposit: "Deposit"
       facility_use: "Fee"
+      no_fee: "No Fee"
+      unknown_housing: "Unknown Housing"
       rec_pass: "Pass: %{start} - %{finish}"
       seminary:
         credit: "Seminary Credit: YES"

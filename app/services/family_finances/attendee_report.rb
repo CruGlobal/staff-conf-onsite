@@ -48,7 +48,14 @@ module FamilyFinances
     end
 
     def campus_facility_use
-      Array(row(t('facility_use'), facility_use_cost.subtotal))
+      # If their fee is $0, we want the label to be 'No Fee'
+      label = facility_use_cost.subtotal > 0 ? t('facility_use') : t('no_fee')
+
+      # If they don't have arrival/departure dates or housing, we want to surface that.
+      if attendee.no_dates?
+        label = t('unknown_housing')
+      end
+      Array(row(label, facility_use_cost.subtotal))
     end
 
     private

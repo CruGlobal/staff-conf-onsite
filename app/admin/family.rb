@@ -87,7 +87,7 @@ ActiveAdmin.register Family do
 
     if finances.remaining_balance.zero?
       family.check_in!
-      redirect_to family_path(family.id), notice: 'Checked-in!'
+      redirect_to summary_family_path(family.id), notice: 'Checked-in!'
     else
       redirect_to summary_family_path(family.id),
                   alert: "The family's balance must be zero to check-in."

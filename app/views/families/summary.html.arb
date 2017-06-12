@@ -17,9 +17,9 @@ form_for family, url: checkin_family_path(family.id), method: :post do
         li class: 'cancel' do
           a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
         end
-        li class: 'cancel' do
-          a 'Print', href: 'javascript:window.print()'
-        end
+        # li class: 'cancel' do
+        #   a 'Print', href: 'javascript:window.print()'
+        # end
       end
       li class: 'cancel' do
         a 'Cancel', href: family_path(family)

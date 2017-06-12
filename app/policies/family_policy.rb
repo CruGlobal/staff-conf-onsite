@@ -11,4 +11,8 @@ class FamilyPolicy < GeneralPolicy
   def checkin?
     true
   end
+
+  def destroy?
+    user.admin? || user.finance?
+  end
 end
