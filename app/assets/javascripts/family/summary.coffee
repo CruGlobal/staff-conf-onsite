@@ -8,3 +8,7 @@ $ ->
     url += span.data('id')
     link = '<a href="' + url + '">' + span.html() + '</a>'
     span.replaceWith(link)
+
+  $('.summary.families form').on 'submit', ->
+    button = $('#checkin_button input', this)
+    button.replaceWith('Processing...')

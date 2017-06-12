@@ -82,14 +82,19 @@ ActiveAdmin.register Family do
   member_action :checkin, method: :post do
     return head :forbidden unless authorized?(:checkin, Family)
 
-    family = Family.find(params[:id])
-    finances = FamilyFinances::Report.call(family: family)
+    @family = Family.find(params[:id])
+    @finances = FamilyFinances::Report.call(family: @family)
 
-    if finances.remaining_balance.zero?
-      family.check_in!
-      redirect_to summary_family_path(family.id), notice: 'Checked-in!'
+    if @finances.remaining_balance.zero?
+      @family.check_in!
+      respond_to do |format|
+        format.html do
+          redirect_to summary_family_path(@family.id), notice: 'Checked-in!'
+        end
+        format.js
+      end
     else
-      redirect_to summary_family_path(family.id),
+      redirect_to summary_family_path(@family.id),
                   alert: "The family's balance must be zero to check-in."
     end
   end

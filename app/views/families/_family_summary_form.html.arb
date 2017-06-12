@@ -1,0 +1,26 @@
+form_for family, url: checkin_family_path(family.id), method: :post, remote: true do
+  fieldset class: 'checkin actions' do
+    ol do
+      if finances.remaining_balance.zero?
+        li class: 'action input_action', id: 'checkin_button' do
+          input type: :submit, value: (family.checked_in? ? 'Re-Send Summary' : 'Check-in')
+        end
+      else
+        li class: 'action input_action' do
+          p 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
+        end
+      end
+      if family.checked_in?
+        li class: 'cancel' do
+          a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
+        end
+        # li class: 'cancel' do
+        #   a 'Print', href: 'javascript:window.print()'
+        # end
+      end
+      li class: 'cancel' do
+        a 'Cancel', href: families_path
+      end
+    end
+  end
+end
