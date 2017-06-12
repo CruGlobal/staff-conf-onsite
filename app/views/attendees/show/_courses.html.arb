@@ -8,7 +8,7 @@ context.instance_exec do
 
     attendances = attendee.course_attendances.includes(:course)
     if attendances.any?
-      table_for attendances.sort_by { |a| a.course.name } do
+      table_for attendances.sort_by { |a| a.course.try(:name) } do
         column :course
         column :grade
         column :seminary_credit

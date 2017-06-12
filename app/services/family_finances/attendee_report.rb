@@ -72,7 +72,7 @@ module FamilyFinances
           row(t('seminary.no_credit'), 0)
         end
 
-      [row(attendance.course.to_s, attendance.course.price), seminary]
+      [row(attendance.course.to_s, attendance.course.try(:price)), seminary]
     end
 
     def conference_row(conf)
