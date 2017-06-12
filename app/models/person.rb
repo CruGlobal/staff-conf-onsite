@@ -17,7 +17,7 @@ class Person < ApplicationRecord
 
   has_paper_trail
 
-  belongs_to :family
+  belongs_to :family, inverse_of: :people, required: true
   belongs_to :ministry
 
   has_many :cost_adjustments, dependent: :destroy
@@ -32,7 +32,6 @@ class Person < ApplicationRecord
   validates :rec_pass_start_at, presence: true, if: :rec_pass_end_at?
   validates :rec_pass_end_at, presence: true, if: :rec_pass_start_at?
 
-  validates :family_id, inclusion: { in: Family.pluck(:id) }
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
   validates_associated :stays
 
