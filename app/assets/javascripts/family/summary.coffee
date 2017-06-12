@@ -5,7 +5,7 @@ $ ->
       url = '/children/'
     else
       url = '/attendees/'
-    url += span.data('id')
+    url += span.data('id') + '/edit'
     link = '<a href="' + url + '">' + span.html() + '</a>'
     span.replaceWith(link)
 
