@@ -48,6 +48,10 @@ class Family < ApplicationRecord
     attendees.any? && attendees.all?(&:checked_in?)
   end
 
+  def everyone_has_birthdates?
+    people.all? { |p| p.birthdate.present? }
+  end
+
   private
 
   def remove_blank_housing_preference
