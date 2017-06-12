@@ -22,11 +22,6 @@ $ ->
 
   $form = $(containerSelector)
 
-  #  Fetch data for housing lists
-  window.$menu_loaded = $.get '/housing_units_list', (data) ->
-    window.$housing_unit_hierarchy = data.housing
-    window.$housing_families = data.families
-
   # Pre-existing Stays
   $.when($menu_loaded).then ->
     $( "#search" ).autocomplete('option', 'source', $housing_families)

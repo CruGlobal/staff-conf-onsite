@@ -32,7 +32,7 @@ class Person < ApplicationRecord
   validates :rec_pass_start_at, presence: true, if: :rec_pass_end_at?
   validates :rec_pass_end_at, presence: true, if: :rec_pass_start_at?
 
-  validates :family_id, presence: true
+  validates :family_id, inclusion: { in: Family.pluck(:id) }
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
   validates_associated :stays
 
