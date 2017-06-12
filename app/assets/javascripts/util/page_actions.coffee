@@ -33,4 +33,4 @@ bodyMatch = (cl) ->
 $ ->
   alreadyFired = true
   fire(r.func, r.classes) for r in registry
-  $('form:not(#housing_search_form)').dirtyForms()
+  $('form:not(#housing_search_form, #collection_selection)').dirtyForms()

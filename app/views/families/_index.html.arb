@@ -1,4 +1,6 @@
 # vim:ft=ruby:
+render 'autocomplete'
+
 context.instance_exec do
   actions defaults: true do |family|
     a 'Housing', href: housing_path(family_id: family.id)
