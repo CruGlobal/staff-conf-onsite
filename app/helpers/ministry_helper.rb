@@ -38,4 +38,23 @@ module MinistryHelper
       end
     end
   end
+
+  def ministries_with_labels
+    hierarchy = Ministry.hierarchy
+    ministries = []
+    add_ministries_for_level(nil, hierarchy, ministries)
+    ministries
+  end
+
+  def add_ministries_for_level(ministry, children, ministries, label_prefix = nil)
+    if ministry
+      label = [label_prefix, ministry.to_s].compact.join(' -> ')
+      ministries << { label: label, value: ministry.id }
+    else
+      label = nil
+    end
+    children.each do |ministry, children|
+      add_ministries_for_level(ministry, children, ministries, label)
+    end
+  end
 end

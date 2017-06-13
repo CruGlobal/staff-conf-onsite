@@ -43,4 +43,8 @@ ActiveAdmin.register Ministry do
 
     redirect_to job
   end
+
+  collection_action :list, method: :get do
+    expires_in 1.hour, public: true
+  end
 end

@@ -62,3 +62,6 @@
 window.$menu_loaded = $.get '/housing_units_list', (data) ->
   window.$housing_unit_hierarchy = data.housing
   window.$housing_families = data.families
+
+window.$ministries_loaded = $.get '/ministries/list', (data) ->
+  window.$ministries = data.ministries
