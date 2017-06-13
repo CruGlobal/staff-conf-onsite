@@ -93,7 +93,7 @@ class Person < ApplicationRecord
   end
 
   def ensure_primary_person
-    unless family.primary_person_id.present?
+    if !family.primary_person_id.present? && is_a?(Attendee)
       family.update!(primary_person_id: id)
     end
   end
