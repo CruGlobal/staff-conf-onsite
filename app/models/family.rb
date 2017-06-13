@@ -52,6 +52,10 @@ class Family < ApplicationRecord
     people.all? { |p| p.birthdate.present? }
   end
 
+  def everyone_has_email?
+    attendees.all? { |p| p.email.present? }
+  end
+
   private
 
   def remove_blank_housing_preference
