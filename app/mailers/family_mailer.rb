@@ -11,7 +11,7 @@ class FamilyMailer < ApplicationMailer
     @policy = Pundit.policy(finance_user, family)
 
     if Rails.env.production?
-      emails = family.attendees.pluck(:email)
+      emails = family.attendees.pluck(:email).select(&:present?).compact
     else
       emails = 'josh.starcher@cru.org'
     end

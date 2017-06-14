@@ -48,6 +48,10 @@ class Attendee < Person
     arrived_at.blank? && departed_at.blank? && stays.empty?
   end
 
+  def exempt?
+    conference_status == 'Exempt'
+  end
+
   protected
 
   def set_default_seminary

@@ -10,10 +10,6 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
           li class: 'action input_action' do
             p 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
-        when !family.everyone_has_email?
-          li class: 'action input_action' do
-            p 'All attendees must have an email address to check in. &nbsp;&nbsp;&nbsp;'.html_safe
-          end
         else
           li class: 'action input_action', id: 'checkin_button' do
             input type: :submit, value: (family.checked_in? ? 'Re-Send Summary' : 'Check-in')

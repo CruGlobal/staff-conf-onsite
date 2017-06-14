@@ -41,7 +41,7 @@ class Family < ApplicationRecord
 
   def check_in!
     self.class.transaction { attendees.each(&:check_in!) }
-    FamilyMailer.summary(self).deliver_now
+    FamilyMailer.summary(self).deliver_now if anyone_has_email?
   end
 
   def checked_in?
@@ -52,8 +52,8 @@ class Family < ApplicationRecord
     people.all? { |p| p.birthdate.present? }
   end
 
-  def everyone_has_email?
-    attendees.all? { |p| p.email.present? }
+  def anyone_has_email?
+    attendees.any? { |p| p.email.present? }
   end
 
   private

@@ -7,6 +7,8 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def facility_use_fees
+    return 0 if attendee.exempt?
+
     facility_use_fees = part1 + part2
     facility_use_fees.negative? ? 0 : facility_use_fees
   end

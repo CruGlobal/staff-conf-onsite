@@ -40,6 +40,7 @@ ActiveAdmin.register Attendee do
   filter :courses
   filter :arrived_at
   filter :departed_at
+  filter :conference_status, as: :select
 
   action_item :import_spreadsheet, only: :index do
     if authorized?(:import, Family)

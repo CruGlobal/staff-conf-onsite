@@ -26,6 +26,7 @@ ActiveAdmin.register Family do
 
   filter :last_name
   filter :attendees_first_name, label: 'Attendee Name', as: :string
+  filter :staff_number
   filter :address1
   filter :address2
   filter :city
