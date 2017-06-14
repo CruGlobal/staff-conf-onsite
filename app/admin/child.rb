@@ -3,6 +3,9 @@ ActiveAdmin.register Child do
 
   menu parent: 'People', priority: 3
 
+  scope :all, default: true
+  scope :in_childcare
+
   # We create through Families#show
   config.remove_action_item :new
   config.remove_action_item :new_show
