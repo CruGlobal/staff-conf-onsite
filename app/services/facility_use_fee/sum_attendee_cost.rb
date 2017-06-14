@@ -46,10 +46,11 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part1
     if start_date && start_date < split_date
-      part1 = Money.us_dollar((split_date - start_date).to_i * UserVariable[:facility_use_before])
+      part1_end_date = end_date > split_date ? split_date : end_date
+      part1 = Money.us_dollar((part1_end_date - start_date).to_i * UserVariable[:facility_use_before])
       # Subtract out dorm stays
-      attendee.stays.in_dormitory.where('arrived_at < ?', split_date).each do |stay|
-        days = ([stay.departed_at, split_date].min - [stay.arrived_at, UserVariable[:facility_use_start]].max).to_i
+      attendee.stays.in_dormitory.where('arrived_at < ?', part1_end_date).each do |stay|
+        days = ([stay.departed_at, part1_end_date].min - [stay.arrived_at, UserVariable[:facility_use_start]].max).to_i
         part1 -= days * UserVariable[:facility_use_before]
       end
       part1
@@ -60,14 +61,15 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def part2
     if end_date && end_date >= split_date
+      part2_start_date = start_date < split_date ? split_date : start_date
       # The reason for the +1 in the code below is that the charge needs to
       # account for start -> end date *inclusive*
       # When you subtract start from end, it effectively doesn't count the last
       # day.
-      part2 = Money.us_dollar((end_date - split_date + 1).to_i * UserVariable[:facility_use_after])
+      part2 = Money.us_dollar((end_date - part2_start_date + 1).to_i * UserVariable[:facility_use_after])
       # Subtrack out dorm stays
-      attendee.stays.in_dormitory.where('departed_at > ?', split_date).each do |stay|
-        days = ([UserVariable[:facility_use_end], stay.departed_at].min - [stay.arrived_at, split_date].max).to_i + 1
+      attendee.stays.in_dormitory.where('departed_at > ?', part2_start_date).each do |stay|
+        days = ([UserVariable[:facility_use_end], stay.departed_at].min - [stay.arrived_at, part2_start_date].max).to_i + 1
         part2 -= days * UserVariable[:facility_use_after]
       end
       part2
