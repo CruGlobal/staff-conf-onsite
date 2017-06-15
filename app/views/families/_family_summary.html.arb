@@ -3,7 +3,7 @@ finances.attendee_reports.each do |report|
   render 'families/reports/attendee', report: report
 end
 
-h2 'Children'
+h2 'Children' if finances.children_reports.present?
 finances.children_reports.each do |report|
   render 'families/reports/child', report: report
 end
