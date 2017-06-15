@@ -96,3 +96,21 @@ body.housing {
     padding-top: 5px;
   }
 }
+
+.index_as_table {
+  $page_padding: 60px;
+  $main_content_margin: 300px;
+  $table_margin: 15px;
+  $border-color: #e8e8e8;
+  $shadow-length: 10px;
+
+  $margin: $page_padding + $main_content_margin + $table_margin;
+
+  max-width: calc(100vw - #{$margin});
+  overflow: { x: scroll; y: hidden; }
+
+  @media(max-width: 1330px) {
+    border: 1px solid $border-color;
+    box-shadow: $shadow-length 0px $shadow-length -$shadow-length/2 $border-color;
+  }
+}
