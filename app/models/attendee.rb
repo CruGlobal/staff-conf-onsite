@@ -44,7 +44,6 @@ class Attendee < Person
     CONFERENCE_STATUS_ACCEPTED.include?(conference_status)
   end
 
-
   def no_dates?
     arrived_at.blank? && departed_at.blank? && stays.empty?
   end

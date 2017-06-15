@@ -1,5 +1,5 @@
 module ChildcareHelper
-  I18N_PREFIX_CHILDCARE = 'activerecord.attributes.childcares'.freeze
+  I18N_PREFIX_CHILDCARE = 'activerecord.attributes.childcare'.freeze
 
   # @return [Array<[label, id]>] the {Childcare::CHILDCARE_WEEKS childcare
   #   weeks} +<select>+ options acceptable for +options_for_select+
@@ -12,7 +12,9 @@ module ChildcareHelper
   # @return [Array<[label, id]>] the {Childcare} +<select>+ options acceptable
   #   for +options_for_select+
   def childcare_spaces_select
-    Childcare.all.order(:name).map { |c| [chilcare_spaces_label(c), c.id] }
+    Childcare.all.order(:position, :name).map do |c|
+      [chilcare_spaces_label(c), c.id]
+    end
   end
 
   def chilcare_spaces_label(childcare)

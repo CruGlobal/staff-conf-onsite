@@ -48,25 +48,6 @@ en:
     attributes:
       chargeable_staff_number:
         staff_number: "Staff ID"
-      childcares:
-        room: "Room Number"
-        weeks:
-          week0: "Week 1"
-          week1: "Week 2"
-          week2: "Week 3"
-          week3: "Week 4"
-          week4: "Cru17"
-      cost_code:
-        min_days: "Minimum Stay"
-      cost_code_charge:
-        max_days: "Maximum Stay"
-        adult: "Adult $/day"
-        teen: "Teen $/day"
-        child: "Child $/day"
-        infant: "Infant $/day"
-        child_meal: "Child Meal Only $/day"
-        single_delta: "Single Upcharge $/day"
-        _destroy: "Delete this record!"
       child:
         childcare: "Childcare Class"
         childcare_suffixes:
@@ -100,6 +81,17 @@ en:
           grade13: "Grade 13 (Recently graduated High School)"
           postHighSchool: "Post High School"
         parent_pickup: "PM Car Line"
+      childcare:
+        position: 'Record Order'
+        room: "Room Number"
+        weeks:
+          week0: "Week 1"
+          week1: "Week 2"
+          week2: "Week 3"
+          week3: "Week 4"
+          week4: "Cru17"
+      conference:
+        position: 'Record Order'
       cost_adjustment:
         cost_types:
           dorm_adult: "Adult Dorm (room & board) Charges"
@@ -115,10 +107,22 @@ en:
           lunch: "Lunch Charges"
           childcare: "Childcare"
           junior_senior: "Junior/Senior"
+      cost_code:
+        min_days: "Minimum Stay"
+      cost_code_charge:
+        max_days: "Maximum Stay"
+        adult: "Adult $/day"
+        teen: "Teen $/day"
+        child: "Child $/day"
+        infant: "Infant $/day"
+        child_meal: "Child Meal Only $/day"
+        single_delta: "Single Upcharge $/day"
+        _destroy: "Delete this record!"
       course:
         ibs_code: "IBS ID"
         grades:
           AU: 'AU (Auditing)'
+        position: 'Record Order'
       course_attendance:
         course: "Class"
         grade: "Final Grade"

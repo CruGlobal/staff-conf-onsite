@@ -1,4 +1,5 @@
 class FamilyMailer < ApplicationMailer
+  DEFAULT_EMAIL = 'josh.starcher@cru.org'.freeze
   add_template_helper(ApplicationHelper)
   add_template_helper(CostAdjustmentHelper)
   add_template_helper(PaymentHelper)
@@ -10,11 +11,12 @@ class FamilyMailer < ApplicationMailer
     finance_user = User.find_by(role: 'finance')
     @policy = Pundit.policy(finance_user, family)
 
-    if Rails.env.production?
-      emails = family.attendees.pluck(:email).select(&:present?).compact
-    else
-      emails = 'josh.starcher@cru.org'
-    end
+    emails =
+      if Rails.env.production?
+        family.attendees.pluck(:email).select(&:present?).compact
+      else
+        DEFAULT_EMAIL
+      end
     mail(to: emails, subject: 'Cru17 Financial Summary')
   end
 end

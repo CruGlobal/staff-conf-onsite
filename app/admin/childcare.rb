@@ -1,4 +1,6 @@
 ActiveAdmin.register Childcare do
+  acts_as_list
+
   partial_view :index, :show, :form
   permit_params :name, :teachers, :location, :room
 

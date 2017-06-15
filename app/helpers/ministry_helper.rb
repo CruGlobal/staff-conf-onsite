@@ -53,8 +53,8 @@ module MinistryHelper
     else
       label = nil
     end
-    children.each do |ministry, children|
-      add_ministries_for_level(ministry, children, ministries, label)
+    children.each do |min, ch|
+      add_ministries_for_level(min, ch, ministries, label)
     end
   end
 end

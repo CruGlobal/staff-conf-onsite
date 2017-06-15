@@ -1,7 +1,8 @@
 class Conference < ApplicationRecord
-  has_paper_trail
-
   include Monetizable
+
+  acts_as_list
+  has_paper_trail
 
   monetize_attr :price_cents, numericality: {
     greater_than_or_equal_to: -1_000_000,
@@ -33,7 +34,7 @@ class Conference < ApplicationRecord
   private
 
   def only_one_staff_conference!
-    return unless staff_conference?
+    return unless staff_conference_changed? && staff_conference?
 
     self.class.
       where.not(id: id).where(staff_conference: true).

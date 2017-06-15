@@ -13,7 +13,8 @@ context.instance_exec do
 
     column(:childcare) do |child|
       unless child.too_old_for_childcare?
-        collection = Childcare.all.order(:name).map { |c| [c.name, c.id] }
+        collection =
+          Childcare.all.order(:position, :name).map { |c| [c.name, c.id] }
 
         active_admin_form_for child do |f|
           f.inputs do

@@ -41,7 +41,7 @@ context.instance_exec do
       inputs do
         input :ministry_id, as: :string, hint: object.ministry || 'No Ministry Selected'
         input :department
-        input :conferences
+        input :conferences, collection: conferences_select
         input :conference_comment, input_html: { rows: 4 }
         input :seminary, include_blank: false
       end

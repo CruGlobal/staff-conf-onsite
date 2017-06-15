@@ -26,6 +26,7 @@ gem 'rails', '~> 4.2'
 gem 'activeadmin', '~> 1.0.0'
 gem 'paper_trail', '~> 5.2.2'
 gem 'roo', '~> 2.7'
+gem 'acts_as_list', '~> 0.9'
 
 # Authentication
 gem 'rack-cas', '~> 0.15.0'

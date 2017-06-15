@@ -19,3 +19,7 @@ Rails.configuration.to_prepare do
     end
   end
 end
+
+# Allows users to reorder records
+# @see +lib/active_admin/acts_as_list.rb+
+ActiveAdmin::ActsAsList.setup

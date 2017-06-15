@@ -9,7 +9,8 @@ class Child < Person
   belongs_to :family
   belongs_to :childcare
 
-  scope :in_childcare, -> { where("childcare_weeks is NULL or childcare_weeks = ''")}
+  scope :in_childcare,
+        -> { where("childcare_weeks is NULL or childcare_weeks = ''") }
 
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 

@@ -3,7 +3,10 @@
 #  Widgets
 #  ====================================
 #
+#= require util/index_records_count
+#= require util/ordinals
 #= require util/page_actions
+#= require util/query_string
 #
 #= require ckeditor-jquery
 #= require widgets/ckeditor
@@ -57,6 +60,9 @@
 #  UserVariable -----------------------
 #= require user_variable/create_auto_short_name
 #= require user_variable/new_value_inputs
+#
+#  ActsAsList -------------------------
+#= require acts_as_list/reorder
 
 #  Fetch data for housing lists (this is needed on multiple pages)
 window.$menu_loaded = $.get '/housing_units_list', (data) ->

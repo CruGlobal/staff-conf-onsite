@@ -1,7 +1,8 @@
 class Course < ApplicationRecord
-  has_paper_trail
-
   include Monetizable
+
+  acts_as_list
+  has_paper_trail
 
   monetize_attr :price_cents, numericality: {
     greater_than_or_equal_to: -1_000_000,
