@@ -19,11 +19,11 @@ module FamilyFinances
     end
 
     def on_campus_stays
-      stay_scope.select(&:on_campus?).map(&method(:stay_row))
+      stay_scope.select(&:dormitory?).map(&method(:stay_row))
     end
 
     def off_campus_stays
-      stay_scope.reject(&:on_campus?).map(&method(:stay_row))
+      stay_scope.reject(&:dormitory?).map(&method(:stay_row))
     end
 
     def courses
