@@ -45,7 +45,7 @@ class Stay::SingleAttendeeCost < ApplicationService
   def call
     type, total = sum_stay_cost(stay)
     self.type = type
-    self.total = total
+    self.total = total || Money.empty
   end
 
   private

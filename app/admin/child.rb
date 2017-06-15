@@ -3,6 +3,8 @@ ActiveAdmin.register Child do
 
   menu parent: 'People', priority: 3
 
+  includes :family
+
   scope :all, default: true
   scope :in_kidscare
 
