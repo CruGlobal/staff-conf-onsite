@@ -3,7 +3,8 @@ ActiveAdmin.register CourseAttendance, as: 'IBS Course' do
   partial_view :index
 
   csv do
-    column('Student', sortable: 'people.last_name') { |ca| ca.attendee.to_s }
+    column('ID') { |ca| ca.id }
+    column('Student', sortable: 'people.last_name') { |ca| ca.attendee.full_name }
     column('Student Number', sortable: 'people.student_number') do |ca|
       ca.attendee.student_number
     end
