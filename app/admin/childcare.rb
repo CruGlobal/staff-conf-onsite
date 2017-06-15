@@ -18,6 +18,7 @@ ActiveAdmin.register Childcare do
           span link_to 'Portrait', params.merge(action: :signin_portrait, week: index)
           span link_to 'Landscape', params.merge(action: :signin_landscape, week: index)
           span link_to 'Roster', params.merge(action: :roster, week: index)
+          span link_to 'Car Line', params.merge(action: :car_line, week: index)
         end
       end
     end
@@ -111,6 +112,17 @@ ActiveAdmin.register Childcare do
       roster = Childcare::Roster.call(childcare: Childcare.find(params[:id]),
                                       week: week_param, author: current_user)
 
+      send_data(roster.render, type: 'application/pdf', disposition: :inline)
+    else
+      redirect_to_invalid_week
+    end
+  end
+
+  member_action :car_line do
+    if week_param.present?
+      roster = Childcare::Signin::CarLine.call(childcares: Childcare.find(params[:id]),
+                                               week: week_param,
+                                               author: current_user)
       send_data(roster.render, type: 'application/pdf', disposition: :inline)
     else
       redirect_to_invalid_week

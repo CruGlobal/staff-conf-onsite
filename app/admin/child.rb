@@ -31,7 +31,6 @@ ActiveAdmin.register Child do
 
   filter :first_name
   filter :last_name
-  # filter :childcare_weeks_present, as: :select, collection: ['Yes', 'No']
   filter :birthdate
   filter :gender
   filter :parent_pickup
