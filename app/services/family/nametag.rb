@@ -123,14 +123,14 @@ class Family::Nametag < PdfService
       render_contact_lines
     end
 
-    if attendee.is_a?(Attendee)
-      bounding_box [0, top - 2.5.in], width: width do
-        render_name_barcode(attendee)
-      end
+    return unless attendee.is_a?(Attendee)
 
-      bounding_box [0, top - 3.3.in], width: width do
-        render_staff_number_barcode
-      end
+    bounding_box [0, top - 2.5.in], width: width do
+      render_name_barcode(attendee)
+    end
+
+    bounding_box [0, top - 3.3.in], width: width do
+      render_staff_number_barcode
     end
   end
 

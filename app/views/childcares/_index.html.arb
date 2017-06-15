@@ -3,6 +3,7 @@ context.instance_exec do
   actions
   selectable_column if policy.bulk_edit?
 
+  column :position
   column :name
   column :teachers
   column :location

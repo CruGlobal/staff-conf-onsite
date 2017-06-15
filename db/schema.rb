@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609195310) do
+ActiveRecord::Schema.define(version: 20170615045326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20170609195310) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "room"
+    t.integer  "position"
   end
 
   create_table "conference_attendances", force: :cascade do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170609195310) do
     t.datetime "updated_at",                                    null: false
     t.boolean  "waive_off_campus_facility_fee"
     t.boolean  "staff_conference",              default: false, null: false
+    t.integer  "position"
   end
 
   create_table "cost_adjustments", force: :cascade do |t|
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(version: 20170609195310) do
     t.string   "week_descriptor", null: false
     t.integer  "ibs_code",        null: false
     t.string   "location",        null: false
+    t.integer  "position"
   end
 
   create_table "families", force: :cascade do |t|

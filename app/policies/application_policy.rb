@@ -57,6 +57,11 @@ class ApplicationPolicy
     user.admin?
   end
 
+  # @return [Boolean] if the user may change the sort order for these records
+  def reposition?
+    true
+  end
+
   # @!group Destroy
 
   # @return [Boolean] if the user may destroy these records

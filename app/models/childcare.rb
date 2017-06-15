@@ -1,4 +1,5 @@
 class Childcare < ApplicationRecord
+  acts_as_list
   has_paper_trail
 
   belongs_to :family

@@ -1,4 +1,6 @@
 ActiveAdmin.register Conference do
+  acts_as_list
+
   partial_view :index, :show, :form
   permit_params :name, :description, :start_at, :end_at, :price,
                 :waive_off_campus_facility_fee, :staff_conference

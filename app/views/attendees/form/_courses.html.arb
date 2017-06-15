@@ -10,7 +10,7 @@ form.instance_exec do
 
     has_many :course_attendances, heading: nil, collection:
       collection, new_record: 'Add New Course' do |f|
-      f.input :course, include_blank: false
+      f.input :course, include_blank: false, collection: courses_select
       f.input :grade, collection: course_grade_select
       f.input :seminary_credit
       f.input :_destroy, as: :boolean, wrapper_html: { class: 'destroy' }

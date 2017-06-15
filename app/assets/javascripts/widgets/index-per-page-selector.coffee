@@ -27,15 +27,11 @@ perPageDropdownItems = ->
 # Returns a subset of LIMITS containing only those numbers less than the total
 # number of records
 applicableLimits = ->
-  count = recordsCount()
+  count = indexRecordsCount()
   limits = (limit for limit in LIMITS when limit < count)
   limits.push(count)
   limits
 
-# Return the total number of records
-recordsCount = ->
-  count = $('.pagination_information b').last().text() || '0'
-  parseInt(count.match(/\d+/)[0], 10)
 
 createItem = (limit, label) ->
   uri = document.URL
@@ -58,15 +54,5 @@ updateQueryStringParameter = (uri, key, value) ->
 
 # Return the current number of items shown
 currentPerPage = ->
-  initial = Math.min(30, recordsCount())
-  parseInt(getUrlParameter('per_page') || "#{initial}", 10)
-
-getUrlParameter = (selectedParam) ->
-  pageURL = decodeURIComponent(window.location.search.substring(1))
-  params = pageURL.split('&')
-
-  for param in params
-    parameterName = param.split('=')
-
-    if parameterName[0] == selectedParam
-      return if parameterName[1] == undefined then true else parameterName[1]
+  initial = Math.min(30, indexRecordsCount())
+  parseInt(query_param('per_page') || "#{initial}", 10)
