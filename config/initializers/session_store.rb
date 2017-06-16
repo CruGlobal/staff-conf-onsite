@@ -8,5 +8,5 @@ Rails.application.config.session_store(
     db: 2,
     namespace: 'sco:session:'
   }],
-  expire_after: 2.days
+  expire_after: 8.hours
 )
