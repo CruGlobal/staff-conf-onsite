@@ -14,7 +14,7 @@ class Childcare::Signin::CarLine < Childcare::Signin::Portrait
 
   def children
     @children ||= begin
-      children = Child.where(childcare: childcares)
+      children = Child.where(childcare: childcares, parent_pickup: true)
       children =
         children.order(:last_name, :first_name).select do |child|
           child.childcare_weeks.include?(week)
