@@ -4,7 +4,7 @@ module FoodHeadCount
     include ActiveRecord::AttributeAssignment
     include ActiveModel::Serializers::Xml
 
-    attr_accessor :date, :cafeteria, :id
+    attr_accessor :date, :id
     delegate :zero?, to: :total
 
     AGE_GROUPS = %i(adult child).freeze
@@ -32,7 +32,7 @@ module FoodHeadCount
 
     def attributes
       Hash[
-        (%i(id date cafeteria) + MEAL_COUNTS).map { |name| [name, send(name)] }
+        (%i(id date) + MEAL_COUNTS).map { |name| [name, send(name)] }
       ]
     end
 

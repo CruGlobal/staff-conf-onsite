@@ -8,10 +8,6 @@ ActiveAdmin.register FoodHeadCount::Table, as: 'Food Head Count' do
 
   index do
     column(:date) { |food| I18n.l(food.date, format: :month) }
-    column(:cafeteria) do |food|
-      link_to food.cafeteria,
-              housing_facilities_path('q[cafeteria_equals]' => food.cafeteria)
-    end
 
     column :adult_breakfast
     column :adult_lunch

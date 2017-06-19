@@ -7,7 +7,6 @@ table do
   thead do
     tr do
       th 'Date'
-      th 'Cafeteria'
 
       th 'Adult Breakfast'
       th 'Adult Lunch'
@@ -25,13 +24,11 @@ table do
 
   tbody do
     date_counts.rows.each_with_index do |(date, daily), row_index|
-      daily.counts.each_with_index.each do |(cafeteria, counts), date_index|
+      daily.counts.each_with_index.each do |counts, date_index|
         tr(class: row_index.odd? ? :odd : :even) do
           if date_index.zero?
             td(rowspan: daily.counts.size) { strong l(date, format: :month) }
           end
-
-          td cafeteria
 
           count_row counts[:adult_breakfast]
           count_row counts[:adult_lunch]

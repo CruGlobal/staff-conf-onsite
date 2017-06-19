@@ -13,9 +13,6 @@
 #       teen_dinner:      2
 #       child_breakfast: 11
 class FoodHeadCount::Report < ApplicationService
-  # An optional cafeteria by which to filter the count
-  attr_accessor :cafeteria
-
   # An optional start date. If missing, the {Stay#arrived_at} of the oldest
   # dorm stay will be used
   attr_accessor :start_at
@@ -25,13 +22,9 @@ class FoodHeadCount::Report < ApplicationService
   attr_accessor :end_at
 
   def call
-    cafes = cafeteria.present? ? [cafeteria] : HousingFacility.cafeterias
-
     date_range.each do |date|
-      cafes.each do |c|
-        head_count = sum_date_cost(date, c).head_count
-        head_counts.add(head_count) unless head_count.zero?
-      end
+      head_count = sum_date_cost(date).head_count
+      head_counts.add(head_count) unless head_count.zero?
     end
   end
 
@@ -44,19 +37,14 @@ class FoodHeadCount::Report < ApplicationService
   def date_range
     return 0...0 if stay_date_scope.empty?
 
-    (start_at || stay_date_scope.min_date)..(end_at || stay_date_scope.max_date)
+    (start_at || Date.today)..(end_at || stay_date_scope.max_date)
   end
 
   def stay_date_scope
-    @stay_date_scope ||=
-      if cafeteria.present?
-        Stay.in_dormitory.with_cafeteria(cafeteria)
-      else
-        Stay.in_dormitory
-      end
+    @stay_date_scope ||= Stay.in_dormitory
   end
 
-  def sum_date_cost(date, cafe)
-    FoodHeadCount::SumDateCost.call(date: date, cafeteria: cafe)
+  def sum_date_cost(date)
+    FoodHeadCount::SumDateCost.call(date: date)
   end
 end
