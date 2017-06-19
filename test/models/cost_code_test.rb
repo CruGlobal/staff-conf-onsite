@@ -42,7 +42,8 @@ class CostCodeTest < ModelTestCase
   end
 
   test 'permit read' do
-    assert_accessible :show, @cost_code, only: [:admin, :finance, :general]
+    assert_accessible :show, @cost_code,
+      only: [:admin, :finance, :general, :read_only]
   end
 
   test 'permit update' do

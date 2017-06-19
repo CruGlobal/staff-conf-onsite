@@ -12,7 +12,6 @@ class Attendee::IndexTest < IntegrationTest
     visit attendees_path
 
     within('.filter_form') do
-      assert_text 'Student number'
       assert_text 'First name'
       assert_text 'Last name'
       assert_text 'Birthdate'

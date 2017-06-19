@@ -7,7 +7,12 @@ class Attendee::FormTest < IntegrationTest
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now,
-                     rec_center_daily: Money.new(1_00)
+                     rec_center_daily: Money.new(1_00),
+                     facility_use_start: 3.months.ago,
+                     facility_use_split: 2.months.ago,
+                     facility_use_end: 1.month.ago,
+                     facility_use_before: Money.new(1_00),
+                     facility_use_after: Money.new(2_00)
 
   test '#edit fields' do
     visit edit_attendee_path(@attendee)
@@ -52,7 +57,7 @@ class Attendee::FormTest < IntegrationTest
     visit edit_attendee_path(@attendee)
 
     within('.basic.inputs') do
-      assert_selector 'select[name="attendee[family_id]"]'
+      assert_selector '[name="attendee[family_id]"]'
     end
   end
 

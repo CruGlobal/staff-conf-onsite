@@ -1,7 +1,7 @@
 # README
 
 This project provides an [ActiveAdmin](http://activeadmin.info/) interface for
-CRU staff to enter details for the CRU Conference.
+Cru staff to enter details for the Cru Conference.
 
 ## Development
 
