@@ -31,7 +31,7 @@ $ ->
       setupDurationCalculation($container)
 
     # All that excitement makes the form feel dirty
-    $('form').dirtyForms('setClean')
+    $('form').dirtyForms('setClean');
 
   $('select[name$="[housing_type]"]').each ->
     $select = $(this)

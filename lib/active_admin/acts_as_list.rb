@@ -1,6 +1,4 @@
 module ActiveAdmin
-  # Marks up an ActiveAdmin Resource so that it can be reordered with the
-  # ActsAsList gem.
   module ActsAsList
     module_function
 
@@ -8,7 +6,6 @@ module ActiveAdmin
       ::ActiveAdmin::ResourceDSL.send(:include, ControllerActions)
     end
 
-    # Methods to add to the ResourceDSL
     module ControllerActions
       def acts_as_list(attr = :position)
         config.sort_order = "#{attr}_asc"

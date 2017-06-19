@@ -77,7 +77,7 @@ class ApplicationPolicy
   # @!endgroup
 
   def scope
-    @scope ||= Pundit.policy_scope!(user, record.class)
+    Pundit.policy_scope!(user, record.class)
   end
 
   Scope = Struct.new(:user, :scope) do

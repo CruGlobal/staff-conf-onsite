@@ -9,16 +9,16 @@ class GeneralPolicy < ApplicationPolicy
     true
   end
 
+  def create?
+    !user.read_only?
+  end
+
   def update?
     !user.read_only?
   end
 
-  def create?
-    update?
-  end
-
   def destroy?
-    update?
+    !user.read_only?
   end
 
   def scope

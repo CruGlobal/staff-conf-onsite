@@ -7,7 +7,6 @@ context.instance_exec do
       inputs 'Basic', class: 'basic inputs' do
         input :conference_status, as: :select,
           collection: conference_status_select(attendee), include_blank: false
-
         render 'people/form/family_selector', form: self
 
         input :first_name

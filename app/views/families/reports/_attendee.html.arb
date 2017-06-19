@@ -12,7 +12,6 @@ panel content_tag(:span, title, class: 'title',
     if report.attendee.email.blank?
       h4 'MISSING EMAIL ADDRESS', style: 'color:red'
     end
-
     render 'family_finances/line_items', title: 'On Campus Assignments',
       collection: report.on_campus_stays
     render 'family_finances/line_items', title: 'Off Campus Assignments',

@@ -3,8 +3,7 @@ $ ->
     $form = $(this)
     clean = true
     $form.find('select[name$="[housing_unit_id]"]').each ->
-      housing_type =
-        $(this).closest('fieldset').find('select[name$="[housing_type]"]').val()
+      housing_type = $(this).closest('fieldset').find('select[name$="[housing_type]"]').val()
       if $(this).val() == '' && housing_type != 'self_provided'
         alert('All stays must have a housing unit selected')
         clean = false

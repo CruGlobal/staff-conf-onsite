@@ -16,8 +16,7 @@ class HousingFacilityTest < ModelTestCase
   end
 
   test 'permit read' do
-    assert_accessible :show, @housing_facility,
-      only: [:admin, :finance, :general, :read_only]
+    assert_accessible :show, @housing_facility, only: [:admin, :finance, :general]
   end
 
   test 'permit update' do

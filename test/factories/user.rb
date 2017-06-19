@@ -15,9 +15,5 @@ FactoryGirl.define do
     factory :finance_user do
       role 'finance'
     end
-
-    factory :read_only_user do
-      role 'read_only'
-    end
   end
 end

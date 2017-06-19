@@ -27,8 +27,6 @@ FactoryGirl.define do
       random_future_date(rec_pass_start_at) if rec_pass_start_at
     end
 
-    conference_status { Attendee::CONFERENCE_STATUSES.sample }
-
     factory :attendee_with_meal_exemptions do
       transient do
         count 20
