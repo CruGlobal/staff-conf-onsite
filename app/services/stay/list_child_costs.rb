@@ -33,10 +33,16 @@ class Stay::ListChildCosts < ApplicationService
         :adult
       elsif age >= 11
         :teen
-      elsif age >= 5
-        stay.needs_bed? ? :child : :child_meal
       else
-        stay.needs_bed? ? :infant : nil
+        child_cost(child)
       end
+  end
+
+  def child_cost(child)
+    if child.age >= 5
+      stay.needs_bed? ? :child : :child_meal
+    else
+      stay.needs_bed? ? :infant : nil
+    end
   end
 end

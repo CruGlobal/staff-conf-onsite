@@ -19,6 +19,7 @@ module Support
       @general_user ||= create :general_user
       @finance_user ||= create :finance_user
       @admin_user ||= create :admin_user
+      @read_only_user ||= create :read_only_user
     end
 
     # Asserts that +only+ cetain {User::ROLES user roles} have permission to

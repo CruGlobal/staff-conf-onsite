@@ -7,27 +7,20 @@ class FamilyTest < ModelTestCase
   end
 
   test 'permit create' do
-    assert_permit @general_user, @family, :create
-    assert_permit @finance_user, @family, :create
-    assert_permit @admin_user, @family, :create
+    assert_accessible :create, @family, only: [:admin, :finance, :general]
   end
 
   test 'permit read' do
-    assert_permit @general_user, @family, :show
-    assert_permit @finance_user, @family, :show
-    assert_permit @admin_user, @family, :show
+    assert_accessible :show, @family,
+      only: [:admin, :finance, :general, :read_only]
   end
 
   test 'permit update' do
-    assert_permit @general_user, @family, :update
-    assert_permit @finance_user, @family, :update
-    assert_permit @admin_user, @family, :update
+    assert_accessible :update, @family, only: [:admin, :finance, :general]
   end
 
   test 'permit destroy' do
-    assert_permit @general_user, @family, :destroy
-    assert_permit @finance_user, @family, :destroy
-    assert_permit @admin_user, @family, :destroy
+    assert_accessible :destroy, @family, only: [:admin, :finance]
   end
 
   test '#chargeable_staff_number?' do

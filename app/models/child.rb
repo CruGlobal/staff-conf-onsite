@@ -9,7 +9,10 @@ class Child < Person
   belongs_to :family
   belongs_to :childcare
 
-  scope :in_kidscare, -> { where("childcare_weeks is NOT NULL AND childcare_weeks <> '' and grade_level IN(?)", childcare_grade_levels)}
+  scope :in_kidscare, (lambda do
+    where(['childcare_weeks is NOT NULL', "childcare_weeks <> ''",
+           'grade_level IN(?)'].join(' AND '), childcare_grade_levels)
+  end)
 
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 

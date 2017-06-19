@@ -44,6 +44,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
     @end_date ||= UserVariable[:facility_use_end]
   end
 
+  # rubocop:disable Metrics/AbcSize
   def part1
     if start_date && start_date < split_date
       part1_end_date = end_date > split_date ? split_date : end_date
@@ -69,7 +70,10 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
       part2 = Money.us_dollar((end_date - part2_start_date + 1).to_i * UserVariable[:facility_use_after])
       # Subtrack out dorm stays
       attendee.stays.in_dormitory.where('departed_at > ?', part2_start_date).each do |stay|
-        days = ([UserVariable[:facility_use_end], stay.departed_at].min - [stay.arrived_at, part2_start_date].max).to_i + 1
+        start_at = [stay.arrived_at, part2_start_date].max
+        end_at = [UserVariable[:facility_use_end], stay.departed_at].min
+
+        days = (end_at - start_at).to_i + 1
         part2 -= days * UserVariable[:facility_use_after]
       end
       part2
