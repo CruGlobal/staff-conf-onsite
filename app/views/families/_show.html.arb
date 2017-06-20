@@ -29,7 +29,7 @@ context.instance_exec do
     end
   end
 
-  render partial: 'finances', family: family if current_user.finance?
+  render partial: 'finances', family: family if current_user.finance? || current_user.admin?  
 
   active_admin_comments
 end
