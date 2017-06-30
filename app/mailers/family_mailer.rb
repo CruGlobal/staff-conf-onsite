@@ -19,4 +19,16 @@ class FamilyMailer < ApplicationMailer
       end
     mail(to: emails, subject: 'Cru17 Financial Summary')
   end
+
+  def media_release(family)
+    @family = family
+
+    emails =
+        if Rails.env.production?
+          family.attendees.pluck(:email).select(&:present?).compact
+        else
+          DEFAULT_EMAIL
+        end
+    mail(to: emails, from: 'cru17.mediaReleases@cru.org', subject: 'IMPORTANT: Please Read')
+  end
 end

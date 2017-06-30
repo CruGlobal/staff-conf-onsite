@@ -41,7 +41,10 @@ class Family < ApplicationRecord
 
   def check_in!
     self.class.transaction { attendees.each(&:check_in!) }
-    FamilyMailer.summary(self).deliver_now if anyone_has_email?
+    if anyone_has_email?
+      FamilyMailer.summary(self).deliver_now
+      FamilyMailer.media_release(self).deliver_now
+    end
   end
 
   def checked_in?
