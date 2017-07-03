@@ -6,12 +6,14 @@ class UserVariable < ApplicationRecord
 
   class << self
     def get(short_name)
-      find_by(short_name: short_name)&.value.tap do |val|
-        if val.nil?
-          raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
-                                      short_name, keys)
+      @@variables ||= {}
+      @@variables[short_name] ||=
+        find_by(short_name: short_name)&.value.tap do |val|
+          if val.nil?
+            raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
+                                        short_name, keys)
+          end
         end
-      end
     end
     alias [] get
 

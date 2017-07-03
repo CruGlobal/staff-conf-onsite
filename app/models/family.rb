@@ -11,7 +11,7 @@ class Family < ApplicationRecord
                                inverse_of: :family
   has_one :chargeable_staff_number, primary_key: :staff_number,
                                     foreign_key: :staff_number
-  belongs_to :primary_person, class_name: 'Person',
+  belongs_to :primary_person, class_name: 'Attendee',
                               foreign_key: :primary_person_id
 
   accepts_nested_attributes_for :housing_preference

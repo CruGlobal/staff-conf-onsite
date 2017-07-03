@@ -41,13 +41,6 @@ class FoodHeadCount::Report < ApplicationService
   attr_accessor :end_at
 
   def call
-    # date_range.each do |date|
-    #   head_counts.add(FoodHeadCount::Row.new(date, Person))
-    #   head_counts.add(FoodHeadCount::Row.new(date, Person.corbett))
-    #   head_counts.add(FoodHeadCount::Row.new(date, Person.durrell))
-    #   head_counts.add(FoodHeadCount::Row.new(date, Person.rams_horn))
-    # end
-
     @all = {}
     @corbett = {}
     @durrell = {}
@@ -57,12 +50,17 @@ class FoodHeadCount::Report < ApplicationService
       @corbett = {date: date, cafeteria: 'Corbett', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @durrell = {date: date, cafeteria: 'Durrell', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @rams_horm = {date: date, cafeteria: "Ram's Horn", adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
+
       Stay.for_date(date).on_campus.includes([{housing_unit: :housing_facility}, :person]).each do |s|
         add_meals(date, s)
       end
-      head_counts.add(FoodHeadCount::Row.new(@corbett))
-      head_counts.add(FoodHeadCount::Row.new(@durrell))
-      head_counts.add(FoodHeadCount::Row.new(@rams_horm))
+
+      # everyone is in the same cafeteria until July 15
+      if date >= Date.parse('2017-07-15')
+        head_counts.add(FoodHeadCount::Row.new(@corbett))
+        head_counts.add(FoodHeadCount::Row.new(@durrell))
+        head_counts.add(FoodHeadCount::Row.new(@rams_horm))
+      end
       head_counts.add(FoodHeadCount::Row.new(@all))
     end
   end
@@ -101,6 +99,7 @@ class FoodHeadCount::Report < ApplicationService
 
   def add_meal(date, stay, person, key)
     @all[key] += 1
+
     conference = person.conferences.detect { |c| c.start_at <= date && c.end_at >= date }
 
     # Figure out what cafetria they're eating at and add it there too

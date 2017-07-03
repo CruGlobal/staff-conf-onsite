@@ -8,6 +8,8 @@ class Child < Person
 
   belongs_to :family
   belongs_to :childcare
+  has_one :primary_person, through: :family, source: :primary_person
+  # has_many :conferences, through: :primary_person, source: :conferences
 
   scope :in_kidscare, (lambda do
     where(['childcare_weeks is NOT NULL', "childcare_weeks <> ''",
@@ -43,7 +45,7 @@ class Child < Person
   end
 
   def conferences
-    family.primary_person.conferences
+    family.attendees.collect(&:conferences).flatten.uniq
   end
 
   # @return [Array<Fixnum>] a list of indexes from the
