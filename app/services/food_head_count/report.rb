@@ -53,17 +53,17 @@ class FoodHeadCount::Report < ApplicationService
     @durrell = {}
     @rams_horm = {}
     date_range.each do |date|
-      @all = {date: date, cafeteria: '', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
+      @all = {date: date, cafeteria: 'Total', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @corbett = {date: date, cafeteria: 'Corbett', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @durrell = {date: date, cafeteria: 'Durrell', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @rams_horm = {date: date, cafeteria: "Ram's Horn", adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       Stay.for_date(date).on_campus.includes([{housing_unit: :housing_facility}, :person]).each do |s|
         add_meals(date, s)
       end
-      head_counts.add(FoodHeadCount::Row.new(@all))
       head_counts.add(FoodHeadCount::Row.new(@corbett))
       head_counts.add(FoodHeadCount::Row.new(@durrell))
       head_counts.add(FoodHeadCount::Row.new(@rams_horm))
+      head_counts.add(FoodHeadCount::Row.new(@all))
     end
   end
 
