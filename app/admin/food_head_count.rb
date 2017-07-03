@@ -1,5 +1,5 @@
 ActiveAdmin.register FoodHeadCount::Table, as: 'Food Head Count' do
-  config.per_page = 100
+  config.paginate = false
   actions :index
 
   # The default filters raise an error when using ActiveModel instead of
