@@ -42,6 +42,10 @@ class Child < Person
     end
   end
 
+  def conferences
+    family.primary_person.conferences
+  end
+
   # @return [Array<Fixnum>] a list of indexes from the
   #   {Childcare::CHILDCARE_WEEKS} array
   def childcare_weeks

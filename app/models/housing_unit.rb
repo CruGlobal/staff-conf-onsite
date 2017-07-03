@@ -10,6 +10,9 @@ class HousingUnit < ApplicationRecord
   scope :in_dormitory, (lambda do
     where(housing_facility: HousingFacility.dormitories)
   end)
+  scope :on_campus, (lambda do
+    where('housing_facilities.on_campus' => true).joins(:housing_facility)
+  end)
   scope :in_apartment, (lambda do
     where(housing_facility: HousingFacility.apartments)
   end)

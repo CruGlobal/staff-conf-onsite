@@ -11,7 +11,7 @@ module FoodHeadCount
       def columns
         [
           column(:date, :date),
-          CafeteriaDate::MEAL_COUNTS.map { |count| column(count, :integer) }
+          Row::MEAL_COUNTS.map { |count| column(count, :integer) }
         ].flatten
       end
     end

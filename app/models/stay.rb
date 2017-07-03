@@ -9,6 +9,7 @@ class Stay < ApplicationRecord
 
   belongs_to :person
   belongs_to :housing_unit
+  delegate :housing_facility, to: :housing_unit
 
   attr_accessor :housing_facility_id, :housing_type, :housing_unit_id_value
 
@@ -25,6 +26,7 @@ class Stay < ApplicationRecord
   end)
 
   scope :in_dormitory, -> { where(housing_unit: HousingUnit.in_dormitory) }
+  scope :on_campus, -> { where(housing_unit: HousingUnit.on_campus) }
   scope :in_apartment, -> { where(housing_unit: HousingUnit.in_apartment) }
   scope :in_self_provided, -> { where(housing_unit: nil) }
   scope :not_in_self_provided, -> { where.not(housing_unit: nil) }

@@ -9,6 +9,7 @@ ActiveAdmin.register FoodHeadCount::Table, as: 'Food Head Count' do
   index do
     column(:date) { |food| I18n.l(food.date, format: :month) }
 
+    column :cafeteria
     column :adult_breakfast
     column :adult_lunch
     column :adult_dinner

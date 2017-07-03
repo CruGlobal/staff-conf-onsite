@@ -14,6 +14,7 @@ class Conference < ApplicationRecord
 
   validates :name, presence: true
   validates :staff_conference, inclusion: { in: [true, false] }
+  validates :start_at, :end_at, presence: true
 
   after_save :only_one_staff_conference!
 
