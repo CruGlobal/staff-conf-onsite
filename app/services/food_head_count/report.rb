@@ -51,7 +51,7 @@ class FoodHeadCount::Report < ApplicationService
       @durrell = {date: date, cafeteria: 'Durrell', adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
       @rams_horm = {date: date, cafeteria: "Ram's Horn", adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0, child_breakfast: 0, child_lunch: 0, child_dinner: 0}
 
-      Stay.for_date(date).on_campus.includes([{housing_unit: :housing_facility}, :person]).each do |s|
+      Stay.for_date(date).in_dormitory.includes([{housing_unit: :housing_facility}, :person]).each do |s|
         add_meals(date, s)
       end
 
@@ -125,6 +125,6 @@ class FoodHeadCount::Report < ApplicationService
   end
 
   def stay_date_scope
-    @stay_date_scope ||= Stay.on_campus
+    @stay_date_scope ||= Stay.in_dormitory
   end
 end
