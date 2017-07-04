@@ -86,9 +86,8 @@ class FoodHeadCount::Report < ApplicationService
         # Only dinner
         add_meal(date, stay, person, d_key)
       when date == stay.departed_at
-        # No Dinner
+        # No Dinner or lunch
         add_meal(date, stay, person, b_key)
-        add_meal(date, stay, person, l_key)
       else
         add_meal(date, stay, person, b_key)
         add_meal(date, stay, person, l_key)
