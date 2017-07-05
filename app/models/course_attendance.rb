@@ -1,5 +1,5 @@
 class CourseAttendance < ApplicationRecord
-  enum grade: %w(AU A A- B+ B B- C+ C C- D F)
+  enum grade: %w(AU A A- B+ B B- C+ C C- D F W)
 
   belongs_to :course
   belongs_to :attendee
