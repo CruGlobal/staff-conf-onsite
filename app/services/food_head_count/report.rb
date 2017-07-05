@@ -19,7 +19,9 @@ class FoodHeadCount::Report < ApplicationService
       'Missional Team Leader Spouse',
       'XTrack Training Team',
       'XTrack Participant',
-      'Colorado Operations Summer Mission'
+      'Colorado Operations Summer Mission',
+      'New Staff Training',
+      'New Staff Orientation'
   ]
 
   CORBETT_DORMS = [
@@ -99,11 +101,11 @@ class FoodHeadCount::Report < ApplicationService
   def add_meal(date, stay, person, key)
     @all[key] += 1
 
-    conference = person.conferences.detect { |c| c.start_at <= date && c.end_at >= date }
+    conferences = person.conferences.collect(&:name)
 
     # Figure out what cafetria they're eating at and add it there too
     case
-      when CORBETT_CONFERENCES.include?(conference) || CORBETT_DORMS.include?(stay.housing_facility.name)
+      when (CORBETT_CONFERENCES & conferences).present? || CORBETT_DORMS.include?(stay.housing_facility.name)
         @corbett[key] += 1
       when RAMS_HORN_DORMS.include?(stay.housing_facility.name)
         @rams_horm[key] += 1
