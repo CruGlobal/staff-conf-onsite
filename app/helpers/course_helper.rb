@@ -7,16 +7,6 @@ module CourseHelper
     Course.all.order(:position).map { |c| [c.name, c.id] }
   end
 
-  def course_grade_select
-    CourseAttendance.grades.keys.map do |grade|
-      [course_grade_name(grade), grade]
-    end
-  end
-
-  def course_grade_name(grade)
-    I18n.t("#{I18N_PREFIX_COURSE}.grades.#{grade}", default: grade)
-  end
-
   def seminary_code(attendance)
     if attendance.seminary_credit
       attendance&.seminary&.code
