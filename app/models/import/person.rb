@@ -144,7 +144,7 @@ module Import
     end
 
     def housing_single_room=(str)
-      @single_room = true_string?(str)
+      @housing_single_room = true_string?(str)
     end
 
     def housing_accepts_non_ac=(str)
