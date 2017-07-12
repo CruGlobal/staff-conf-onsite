@@ -11,7 +11,7 @@ ActiveAdmin.register Family do
   menu parent: 'People', priority: 1
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :state,
-                :zip, :country_code, :primary_person_id,
+                :zip, :country_code, :primary_person_id, :license_plates, :handicap,
                 housing_preference_attributes: [
                   :id, :housing_type, :roommates, :beds_count, :single_room,
                   :children_count, :bedrooms_count, :other_family,
