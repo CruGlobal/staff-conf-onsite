@@ -8,6 +8,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def facility_use_fees
     return 0 if attendee.exempt?
+    return 0 if attendee.conferences.any?(&:waive_off_campus_facility_fee)
 
     facility_use_fees = part1 + part2
     facility_use_fees.negative? ? 0 : facility_use_fees
