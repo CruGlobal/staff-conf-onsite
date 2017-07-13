@@ -1,7 +1,7 @@
 context.instance_exec do
   children = family.children.load
 
-  panel 'Children' do
+  panel 'Family Members' do
     if children.any?
       ul do
         children.each do |p|
@@ -12,7 +12,7 @@ context.instance_exec do
       strong 'None'
     end
     div do
-      a 'New Child', href: new_child_path(family_id: family.id)
+      a 'New Child or Family Member', href: new_child_path(family_id: family.id)
     end
   end
 end
