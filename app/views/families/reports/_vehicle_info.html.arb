@@ -1,5 +1,5 @@
 # vim:ft=ruby:
-panel 'Vehicle Information' do
+panel 'Vehicle Information', class: 'hide-on-email' do
   table(class: 'vehicle-table') do
     tbody do
       tr { th 'License Plate(s)', colspan: 2, class: 'finances-table__title' }
