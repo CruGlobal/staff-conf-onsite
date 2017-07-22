@@ -80,6 +80,146 @@ ActiveAdmin.register Family do
     render :summary, locals: { family: family, finances: finances }
   end
 
+  collection_action :balance_due do
+    csv_string = CSV.generate do |csv|
+      csv << %w(FamilyID Last First Email Phone Amount)
+      Family.includes(:chargeable_staff_number).order(:last_name).each do |f|
+        next if f.chargeable_staff_number?
+
+        finances = FamilyFinances::Report.call(family: f)
+        balance = finances.subtotal - finances.paid
+        next if balance == 0
+
+        csv << [f.id, f.last_name, f.first_name, f.email, f.phone, balance]
+      end
+    end
+
+    send_data(csv_string, filename: "Balance Due - #{Date.today.to_s(:db)}.csv")
+  end
+
+  collection_action :finance_track_dump do
+    csv_string = CSV.generate do |csv|
+      csv << %w(FamilyID Last First StaffId Checked-in StaffConf Xtrack NST NSO MTL MTLSpouse MPD Legacy CW)
+      Family.includes(:chargeable_staff_number, {attendees: :conferences}).order(:last_name).each do |f|
+        row = [f.id, f.last_name, f.first_name, "_#{f.staff_number}", f.checked_in?]
+
+        row << StaffConference::SumFamilyCost.call(family: f).total
+
+        xtrack = nst = nso = mtl = mtl_spouse = mpd = legacy = cw = 0
+
+        f.attendees.each do |attendee|
+          attendee.conferences.reject(&:staff_conference?).each do |conference|
+            next if conference.price.zero?
+            sum = Conference::SumAttendeeCost.call(attendee: attendee)
+            amount = ApplyCostAdjustments.call(charges: sum.charges,
+                                      cost_adjustments: sum.cost_adjustments).total
+            case
+              when conference.name == 'XTrack Participant'
+                xtrack += amount
+              when conference.name == 'New Staff Training'
+                nst += amount
+              when conference.name == 'New Staff Orientation'
+                nso += amount
+              when conference.name == 'Missional Team Leader Training Participant'
+                mtl += amount
+              when conference.name == 'Missional Team Leader Spouse'
+                mtl_spouse += amount
+              when conference.name =~ /MPD.*/
+                mpd += amount
+              when conference.name == 'Legacy Track (Staff 60 years of age and older)'
+                legacy += amount
+              when conference.name =~ /Connection Weekend Attendee.*/
+                cw += amount
+            end
+          end
+        end
+
+        row += [xtrack, nst, nso, mtl, mtl_spouse, mpd, legacy, cw]
+
+        csv << row
+      end
+    end
+
+    send_data(csv_string, filename: "Finance Track Dump - #{Date.today.to_s(:db)}.csv")
+  end
+
+  collection_action :finance_full_dump do
+    csv_string = CSV.generate do |csv|
+      csv << ['Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
+              'Child Dorm','Child Dorm Adj','Childcare','Childcare Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
+              'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
+              'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
+              'Rec Pass Adj','Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct']
+      Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
+                      {children: :cost_adjustments})
+          .order(:last_name).each do |family|
+
+        finances = FamilyFinances::Report.call(family: family)
+
+        totals = Stay::SumFamilyAttendeesDormitoryCost.call(family: family)
+        adult_dorm = totals.total
+        adult_dorm_adj = totals.total_adjustments
+
+        totals = Stay::SumFamilyAttendeesApartmentCost.call(family: family)
+        adult_apt = totals.total
+        adult_apt_adj = totals.total_adjustments
+
+        totals = Stay::SumFamilyChildrenCost.call(family: family)
+        child_dorm = totals.total
+        child_dorm_adj = totals.total_adjustments
+
+        totals = Childcare::SumFamilyCost.call(family: family)
+        childcare = totals.total
+        childcare_adj = totals.total_adjustments
+
+        totals = HotLunch::SumFamilyCost.call(family: family)
+        hot_lunch = totals.total
+        hot_lunch_adj = totals.total_adjustments
+
+        totals = JuniorSenior::SumFamilyCost.call(family: family)
+        jrsr = totals.total
+        jrsr_adj = totals.total_adjustments
+
+        totals = FacilityUseFee::SumFamilyCost.call(family: family)
+        fuf = totals.total
+        fuf_adj = totals.total_adjustments
+
+        totals = Course::SumFamilyCost.call(family: family)
+        class_tuition = totals.total
+        class_tuition_adj = totals.total_adjustments
+
+        totals = Conference::SumFamilyCost.call(family: family)
+        track_tuition = totals.total
+        track_tuition_adj = totals.total_adjustments
+
+        totals = StaffConference::SumFamilyCost.call(family: family)
+        ussc_tuition = totals.total
+        ussc_tuition_adj = totals.total_adjustments
+
+        totals = RecPass::SumFamilyCost.call(family: family)
+        rec = totals.total
+        rec_adj = totals.total_adjustments
+
+        pre_paid = family.payments.to_a.select(&:pre_paid?).inject(0) {|sum, p| sum + p.price}
+        ministry_payment = family.payments.to_a.select {|p| p.business_account? || p.staff_code?}
+                               .inject(0) {|sum, p| sum + p.price}
+        cash_check = family.payments.to_a.select(&:cash_check?).inject(0) {|sum, p| sum + p.price}
+        credit_card = family.payments.to_a.select(&:credit_card?).inject(0) {|sum, p| sum + p.price}
+        staff_code = finances.unpaid
+
+        csv << [
+          family.first_name, family.last_name, "_#{family.staff_number}", family.checked_in?,
+          adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_adj, childcare, childcare_adj,
+          hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
+          track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, pre_paid, ministry_payment,
+          cash_check, credit_card, staff_code
+        ]
+      end
+    end
+
+    send_data(csv_string, filename: "Finance Full Dump - #{Date.today.to_s(:db)}.csv")
+  end
+
   member_action :checkin, method: :post do
     return head :forbidden unless authorized?(:checkin, Family)
 
