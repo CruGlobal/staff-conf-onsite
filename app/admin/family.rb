@@ -82,7 +82,7 @@ ActiveAdmin.register Family do
 
   collection_action :balance_due do
     csv_string = CSV.generate do |csv|
-      csv << %w(FamilyID Last First Email Phone Amount)
+      csv << %w(FamilyID Last First Email Phone Amount Checked-in)
       Family.includes(:chargeable_staff_number).order(:last_name).each do |f|
         next if f.chargeable_staff_number?
 
@@ -90,7 +90,7 @@ ActiveAdmin.register Family do
         balance = finances.subtotal - finances.paid
         next if balance == 0
 
-        csv << [f.id, f.last_name, f.first_name, f.email, f.phone, balance]
+        csv << [f.id, f.last_name, f.first_name, f.email, f.phone, balance, f.checked_in?]
       end
     end
 
