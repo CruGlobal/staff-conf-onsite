@@ -208,7 +208,7 @@ ActiveAdmin.register Family do
         staff_code = finances.unpaid
 
         csv << [
-          family.first_name, family.last_name, "_#{family.staff_number}", family.checked_in?,
+          family.last_name, family.first_name, "_#{family.staff_number}", family.checked_in?,
           adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_adj, childcare, childcare_adj,
           hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
           track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, pre_paid, ministry_payment,
