@@ -145,11 +145,13 @@ ActiveAdmin.register Family do
 
   collection_action :finance_full_dump do
     csv_string = CSV.generate do |csv|
-      csv << ['Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
+      csv << ['FamilyID', 'Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
               'Child Dorm','Child Dorm Adj','Childcare','Childcare Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
               'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
               'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
-              'Rec Pass Adj','Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct']
+              'Rec Pass Adj','Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
+              'Business Unit', 'Operating Unit', 'Department', 'Project', 'Reference'
+      ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
                       {children: :cost_adjustments})
           .order(:last_name).each do |family|
@@ -201,18 +203,20 @@ ActiveAdmin.register Family do
         rec_adj = totals.total_adjustments
 
         pre_paid = family.payments.to_a.select(&:pre_paid?).inject(0) {|sum, p| sum + p.price}
-        ministry_payment = family.payments.to_a.select {|p| p.business_account? || p.staff_code?}
-                               .inject(0) {|sum, p| sum + p.price}
+        ministry_payments = family.payments.to_a.select {|p| p.business_account? || p.staff_code?}
+        ministry_payment_amount = ministry_payments.inject(0) {|sum, p| sum + p.price}
         cash_check = family.payments.to_a.select(&:cash_check?).inject(0) {|sum, p| sum + p.price}
         credit_card = family.payments.to_a.select(&:credit_card?).inject(0) {|sum, p| sum + p.price}
         staff_code = finances.unpaid
 
         csv << [
-          family.last_name, family.first_name, "_#{family.staff_number}", family.checked_in?,
+          family.id, family.last_name, family.first_name, "_#{family.staff_number}", family.checked_in?,
           adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_adj, childcare, childcare_adj,
           hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
-          track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, pre_paid, ministry_payment,
-          cash_check, credit_card, staff_code
+          track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, pre_paid, ministry_payment_amount,
+          cash_check, credit_card, staff_code, ministry_payments.collect(&:business_unit).join(', '),
+          ministry_payments.collect(&:operating_unit).join(', '), ministry_payments.collect(&:department_code).join(', '),
+          ministry_payments.collect(&:project_code).join(', '), ministry_payments.collect(&:reference).join(', ')
         ]
       end
     end
