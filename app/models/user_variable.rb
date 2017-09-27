@@ -1,5 +1,5 @@
 class UserVariable < ApplicationRecord
-  enum value_type: [:string, :money, :date, :number, :html]
+  enum value_type: %i[string money date number html]
 
   validates :code, :short_name, :value_type, :value, presence: true
   validates :code, :short_name, uniqueness: true
@@ -75,7 +75,7 @@ class UserVariable < ApplicationRecord
       raise ArgumentError, 'contains no digits' unless value =~ /\d/
       Monetize.parse!(value)
     end
-  rescue => e
+  rescue StandardError => e
     raise ArgumentError,
           format('%p is not a valid amount of money: %p', value, e)
   end
@@ -94,7 +94,7 @@ class UserVariable < ApplicationRecord
     else
       load_date(value)
     end
-  rescue
+  rescue StandardError
     raise ArgumentError, "#{value} is not a valid date"
   end
 
@@ -110,7 +110,7 @@ class UserVariable < ApplicationRecord
       Float(value) # for the exception
       load_number(value)
     end
-  rescue
+  rescue StandardError
     raise ArgumentError, "#{value} is not a number"
   end
 

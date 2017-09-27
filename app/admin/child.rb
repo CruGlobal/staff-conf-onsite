@@ -17,15 +17,15 @@ ActiveAdmin.register Child do
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
     :name_tag_first_name, :name_tag_last_name, :childcare_deposit,
     :childcare_comment, :rec_pass_start_at, :rec_pass_end_at,
-    childcare_weeks: [], hot_lunch_weeks: [], cost_adjustments_attributes: [
-      :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
+    childcare_weeks: [], hot_lunch_weeks: [], cost_adjustments_attributes: %i[
+      id _destroy description person_id price percent cost_type
     ],
-    meal_exemptions_attributes: [
-      :id, :_destroy, :date, :meal_type
+    meal_exemptions_attributes: %i[
+      id _destroy date meal_type
     ],
-    stays_attributes: [
-      :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-      :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
+    stays_attributes: %i[
+      id _destroy housing_unit_id arrived_at departed_at single_occupancy
+      no_charge waive_minimum percentage comment
     ]
   )
 

@@ -61,7 +61,7 @@ class UploadJob < ApplicationRecord
   end
 
   def tempfile
-    return nil unless file.present?
+    return nil if file.blank?
 
     @tempfile ||=
       begin

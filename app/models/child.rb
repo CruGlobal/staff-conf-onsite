@@ -1,10 +1,10 @@
 class Child < Person
   include FamilyMember
 
-  GRADE_LEVELS = %w(
+  GRADE_LEVELS = %w[
     age0 age1 age2 age3 age4 age5 grade1 grade2 grade3 grade4 grade5 grade6
     grade7 grade8 grade9 grade10 grade11 grade12 grade13 postHighSchool
-  ).freeze
+  ].freeze
 
   belongs_to :family
   belongs_to :childcare
@@ -60,7 +60,7 @@ class Child < Person
   #   {Childcare::CHILDCARE_WEEKS} array
   def childcare_weeks=(arr)
     arr ||= []
-    self[:childcare_weeks] = arr && arr.select(&:present?).sort.join(',')
+    self[:childcare_weeks] = arr&.select(&:present?)&.sort&.join(',')
   end
 
   # @return [Symbol] the school "age group" this child belongs to.
@@ -98,7 +98,7 @@ class Child < Person
   #   lunch
   def hot_lunch_weeks=(arr)
     arr ||= []
-    self[:hot_lunch_weeks] = arr && arr.select(&:present?).sort.join(',')
+    self[:hot_lunch_weeks] = arr&.select(&:present?)&.sort&.join(',')
   end
 
   # @return [Array<Date>] the days this child is paying for a hot lunch

@@ -24,7 +24,7 @@ class Ministry::CreateOrUpdate < UploadService
       sheets.each(&method(:parse_ministry_rows))
       ministries.each(&:save!)
     end
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 

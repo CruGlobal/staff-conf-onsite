@@ -49,7 +49,7 @@ class ReadSpreadsheet < UploadService
     self.sheets = read_sheets.map { |sheet| sheet.drop(1) } if skip_first_row?
 
     update_percentage(0.95)
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 

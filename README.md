@@ -67,6 +67,21 @@ associated with that file are automatically run.
 bundle exec guard
 ```
 
+### Integration Tests
+
+To test that the site actually works correctly in a user's browser, the
+integration tests will open an instance of
+[Chrome](https://www.google.com/chrome), and have a "robot" automatically
+similate a user's actions. For speed and convenience, this is done using
+"headless Chrome," a version of Chrome which doesn't actually open a visible
+window; however, if your integration tests are failing, it may be useful to see
+what the robot is actually doing. You may switch to using a visible Chrome
+window, instead of headless Chrome, with this command:
+
+```sh
+bin/rake test:integration CAPYBARA_DRIVER=chrome
+```
+
 ## Application Concepts
 
 ### Authentication

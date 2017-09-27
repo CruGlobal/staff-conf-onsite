@@ -4,9 +4,9 @@ class Family < ApplicationRecord
   has_paper_trail
 
   has_many :people, dependent: :destroy
-  has_many :attendees
-  has_many :children
-  has_many :payments
+  has_many :attendees, dependent: :destroy
+  has_many :children, dependent: :destroy
+  has_many :payments, dependent: :destroy
   has_one :housing_preference, autosave: true, dependent: :destroy,
                                inverse_of: :family
   has_one :chargeable_staff_number, primary_key: :staff_number,
@@ -62,8 +62,6 @@ class Family < ApplicationRecord
   private
 
   def remove_blank_housing_preference
-    if housing_preference && housing_preference.housing_type.blank?
-      self.housing_preference = nil
-    end
+    self.housing_preference = nil if housing_preference&.housing_type&.blank?
   end
 end

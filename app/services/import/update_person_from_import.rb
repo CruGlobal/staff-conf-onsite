@@ -78,11 +78,11 @@ module Import
       person.conferences = find_conferences(@import.conference_choices)
       person.courses = find_courses(@import.ibs_courses)
 
-      assign_ministry unless @import.ministry_code.blank?
+      assign_ministry if @import.ministry_code.present?
     end
 
     def find_conferences(choices)
-      return [] unless choices.present?
+      return [] if choices.blank?
 
       choices.split(/\s*,\s*/).map do |name|
         begin
@@ -94,7 +94,7 @@ module Import
     end
 
     def find_courses(courses)
-      return [] unless courses.present?
+      return [] if courses.blank?
 
       courses.split(/\s*,\s*/).map do |name|
         begin
@@ -107,7 +107,7 @@ module Import
 
     def assign_ministry
       ministry = ministries.find { |m| m.code == @import.ministry_code }
-      raise MinistryMissing unless ministry.present?
+      raise MinistryMissing if ministry.blank?
 
       person.ministry = ministry
     end

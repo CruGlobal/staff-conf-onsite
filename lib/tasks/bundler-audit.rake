@@ -5,7 +5,7 @@ namespace :bundle do
 
   task :audit do
     ignored =
-      File.open("#{Rails.root}/.bundle-audit-ignored").
+      File.open(Rails.root.join('.bundle-audit-ignored')).
         each_line.
         map { |line| line.sub(/#.+/, '').strip }.
         select(&:present?).

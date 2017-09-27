@@ -24,11 +24,13 @@ class FamilyMailer < ApplicationMailer
     @family = family
 
     emails =
-        if Rails.env.production?
-          family.attendees.pluck(:email).select(&:present?).compact
-        else
-          DEFAULT_EMAIL
-        end
-    mail(to: emails, from: 'cru17.mediaReleases@cru.org', subject: 'IMPORTANT: Please Read')
+      if Rails.env.production?
+        family.attendees.pluck(:email).select(&:present?).compact
+      else
+        DEFAULT_EMAIL
+      end
+    mail(to: emails,
+         from: 'cru17.mediaReleases@cru.org',
+         subject: 'IMPORTANT: Please Read')
   end
 end
