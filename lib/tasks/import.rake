@@ -102,15 +102,13 @@ namespace :import do
       raise row.inspect unless facility
 
       family = Family.find_by('lower(import_tag) = ?', row[:group_id].downcase) if row[:group_id].present?
-      unless family
-        family =
-          Person.joins(:family).
-            where('((lower(first_name) = :first AND lower(people.last_name) = :last) OR
-                   (lower(name_tag_last_name) = :last AND lower(name_tag_first_name) = :first))',
-                  first: row[:first].to_s.strip.downcase, last: row[:last].strip.downcase).
-            first.
-            try(:family)
-      end
+      family ||=
+        Person.joins(:family).
+          where('((lower(first_name) = :first AND lower(people.last_name) = :last) OR
+                 (lower(name_tag_last_name) = :last AND lower(name_tag_first_name) = :first))',
+                first: row[:first].to_s.strip.downcase, last: row[:last].strip.downcase).
+          first.
+          try(:family)
 
       person = family.primary_person || family.people.order(:birthdate).first if family
 

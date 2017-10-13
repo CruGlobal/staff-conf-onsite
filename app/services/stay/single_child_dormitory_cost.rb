@@ -46,7 +46,8 @@ class Stay::SingleChildDormitoryCost < ApplicationService
   end
 
   def daily_costs(child, charge, single, stay)
-    result = Stay::ListChildCosts.call(child: child, single_occupancy: single, stay: stay)
+    result = Stay::ListChildCosts.call(child: child, single_occupancy: single,
+                                       stay: stay)
     result.costs.compact.map { |cost| charge.send(cost) }
   end
 

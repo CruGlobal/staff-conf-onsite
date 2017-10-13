@@ -1,4 +1,4 @@
-class ImportPeopleFromSpreadsheetJob < ApplicationJob::Base
+class ImportPeopleFromSpreadsheetJob < ApplicationJob
   queue_as :default
 
   def perform(upload_job_id)

@@ -9,7 +9,7 @@ class CostCode < ApplicationRecord
 
   validates_associated :charges
 
-  # @param [Integer] days The length of the person's stay, in days
+  # @param days [Integer] The length of the person's stay, in days
   # @return [CostCodeCharge, nil] The charges applied to a stay of the given
   #   number of days
   def charge(days:)

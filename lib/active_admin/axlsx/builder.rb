@@ -8,15 +8,17 @@ module ActiveAdmin
 
       attr_writer :i18n_scope
 
-      # @param resource_class The resource this builder generate column information for.
-      # @param [Hash] options the options for this builder
-      # @option [Hash] :header_style - a hash of style properties to apply
-      #   to the header row. Any properties specified will be merged with the default
+      # @param resource_class The resource this builder generate column
+      #   information for.
+      # @param options [Hash] The options for this builder
+      # @option :header_style [Hash] a hash of style properties to apply to the
+      #   header row. Any properties specified will be merged with the default
       #   header styles. @see Axlsx::Styles#add_style
-      # @option [Array] :i18n_scope - the I18n scope to use when looking
-      #   up localized column headers.
+      # @option :i18n_scope [Array] the I18n scope to use when looking up
+      #   localized column headers
       # @yield Any block given will evaluated against this instance of Builder.
-      #   That means you can call any method on the builder from withing that block.
+      #   That means you can call any method on the builder from withing that
+      #   block.
       # @example
       #   ActiveAdmin::Axlsx:Builder.new(Post, i18n: [:axlsx]) do
       #     delete_columns :id, :created_at, :updated_at
@@ -104,8 +106,8 @@ module ActiveAdmin
       end
 
       # Add a column
-      # @param [Symbol] name The name of the column.
-      # @param [Proc] block A block of code that is executed on the resource
+      # @param name [Symbol] The name of the column.
+      # @param block [Proc] A block of code that is executed on the resource
       #                     when generating row data for this column.
       def column(name, &block)
         @columns << Column.new(name, block)

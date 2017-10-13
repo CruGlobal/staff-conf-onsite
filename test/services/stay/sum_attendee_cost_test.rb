@@ -160,6 +160,17 @@ class Stay::SumAttendeeCostTest < ServiceTestCase
     assert_equal Money.new(1_00 * 101), @service.charges['dorm_adult']
   end
 
+  test 'no charge type' do
+    @attendee.stays.create! housing_unit: @dorm_unit, arrived_at: @arrived_at,
+                            departed_at: (@arrived_at + 5.days)
+
+    @dormitory.stub :housing_type, 'unknown' do
+      assert_raise Stay::SingleAttendeeCost::NoCostTypeError do
+        @service.call
+      end
+    end
+  end
+
   private
 
   def create_cost_code(charge_args)

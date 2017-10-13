@@ -30,7 +30,7 @@ class ApplyCostAdjustments < ChargesService
   #   applied
   attr_accessor :total
 
-  after_initialize :default_values
+  after_initialize :zero_totals
 
   def call
     charges.each(&method(:add_to_total))
@@ -39,24 +39,33 @@ class ApplyCostAdjustments < ChargesService
 
   private
 
-  def default_values
+  def zero_totals
     self.total_adjustments ||= Money.empty
     self.subtotal ||= Money.empty
     self.total ||= Money.empty
   end
 
+  # @param type [Symbol] The cost type of the charge being added
+  # @param charge [Money] The amount of money being charged
   def add_to_total(type, charge)
     type = type.to_s
     adjustments = cost_adjustments.select { |c| c.cost_type == type }
     increment_totals(charge, realize_adjustments(charge, adjustments))
   end
 
+  # Adjusts the [#total_adjustments], [#subtotal], and [#total] based off the
+  # given +charge+ and +adjust+ amounts.
+  #
+  # @param charge [Money] The amount of money being charged
+  # @param adjust [Money] The amount to be deducted from the given charge
   def increment_totals(charge, adjust)
     self.total_adjustments += adjust
     self.subtotal += charge
     self.total += [Money.empty, charge - adjust].max
   end
 
+  # @return [Money] The total amount of all adjustments, converting
+  #   percentage-based adjuments based off the goven charge
   def realize_adjustments(charge, adjustments)
     percent_reduction = charge * total_percent(adjustments)
     price_reduction   = select_prices(adjustments).inject(Money.empty, &:+)

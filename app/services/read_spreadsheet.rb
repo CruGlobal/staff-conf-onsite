@@ -28,6 +28,8 @@ class ReadSpreadsheet < UploadService
   #   a ruby-representation of the uploaded spreadsheet file
   attr_accessor :sheets
 
+  # +Boolean+
+  #   if the spreadsheet contains a header row that should be skipped
   attr_accessor :skip_first
 
   job_stage 'Parse Spreadsheet'

@@ -84,6 +84,8 @@ group :development, :test do
   gem 'reek', '~> 4.7'                    # Linter
   gem 'rubocop', '~> 0.50'                # Linter
   gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
+  gem 'simplecov', '~> 0.15',             # test coverage
+      require: false
   gem 'webmock', '~> 2.1'                 # Stub HTTP requests
 
   # Documentation

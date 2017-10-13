@@ -5,6 +5,8 @@
 # +Ministry+, its +name+ will be updated with the name given in the
 # spreadsheet.
 class ImportHousingUnitsSpreadsheet < UploadService
+  # +Boolean+
+  #   if the spreadsheet contains a header row that should be skipped
   attr_accessor :skip_first
 
   def call
