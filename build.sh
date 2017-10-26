@@ -12,7 +12,7 @@ docker build \
     --build-arg DB_ENV_POSTGRESQL_USER=postgres \
     --build-arg DB_PORT_5432_TCP_ADDR=$PROJECT_NAME-postgres \
     --build-arg REDIS_PORT_6379_TCP_ADDR=$PROJECT_NAME-redis \
-    -t 056154071827.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:$GIT_COMMIT-$BUILD_NUMBER .
+    -t 056154071827.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:$ENVIRONMENT-$BUILD_NUMBER .
 
 docker stop $PROJECT_NAME-redis $PROJECT_NAME-postgres && docker rm $PROJECT_NAME-redis $PROJECT_NAME-postgres
 docker network rm $PROJECT_NAME
