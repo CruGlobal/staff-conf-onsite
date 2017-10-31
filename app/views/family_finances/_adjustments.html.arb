@@ -1,5 +1,6 @@
 # vim:ft=ruby:
 return unless policy.show_finances? && price.nonzero?
+tr { th 'Stay Adjustments', colspan: 2, class: 'finances-table__title' }
 
 tr(class: 'finances-table__adjustments') do
   td { em 'Adjustments' }

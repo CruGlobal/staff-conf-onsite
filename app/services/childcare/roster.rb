@@ -1,5 +1,5 @@
 class Childcare::Roster < PdfService
-  COLUMNS = ['Last Name', 'First Name', 'Gender', 'Hot Lunch?',
+  COLUMNS = ['', 'Last Name', 'First Name', 'Gender', 'Hot Lunch?',
              'PM Car Line'].freeze
 
   # @see http://fontawesome.io/icon/square-o
@@ -70,8 +70,9 @@ class Childcare::Roster < PdfService
   end
 
   def table_rows
-    children.map do |child|
+    children.each_with_index.map do |child, i|
       [
+        i + 1,
         child.last_name,
         child.first_name,
         child.gender&.upcase,
