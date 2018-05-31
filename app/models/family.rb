@@ -27,6 +27,18 @@ class Family < ApplicationRecord
     family_label(self)
   end
 
+  def first_name
+    (primary_person || attendees.first).try(:first_name)
+  end
+
+  def email
+    (primary_person || attendees.first).try(:email)
+  end
+
+  def phone
+    (primary_person || attendees.first).try(:phone)
+  end
+
   def audit_name
     "#{super}: #{family_label(self)}"
   end
