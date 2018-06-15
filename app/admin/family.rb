@@ -12,16 +12,16 @@ ActiveAdmin.register Family do
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :state,
                 :zip, :country_code, :primary_person_id, :license_plates, :handicap,
-                housing_preference_attributes: [
-                  :id, :housing_type, :roommates, :beds_count, :single_room,
-                  :children_count, :bedrooms_count, :other_family,
-                  :accepts_non_air_conditioned, :location1, :location2,
-                  :location3, :confirmed_at, :comment
+                housing_preference_attributes: %i[
+                  id housing_type roommates beds_count single_room
+                  children_count bedrooms_count other_family
+                  accepts_non_air_conditioned location1 location2 location3
+                  confirmed_at comment
                 ],
-                people_attributes: [:id, { stays_attributes: [
-                  :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-                  :single_occupancy, :no_charge, :waive_minimum, :percentage,
-                  :comment, :no_bed
+                people_attributes: [:id, { stays_attributes: %i[
+                  id _destroy housing_unit_id arrived_at departed_at
+                  single_occupancy no_charge waive_minimum percentage comment
+                  no_bed
                 ] }]
 
   filter :last_name
@@ -57,11 +57,11 @@ ActiveAdmin.register Family do
     redirect_to job
   end
 
-  action_item :summary, only: [:show, :edit] do
+  action_item :summary, only: %i[show edit] do
     link_to 'Summary', summary_family_path(family)
   end
 
-  action_item :nametag, only: [:show, :edit] do
+  action_item :nametag, only: %i[show edit] do
     link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank' if family.checked_in?
   end
 

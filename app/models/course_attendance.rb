@@ -11,6 +11,6 @@ class CourseAttendance < ApplicationRecord
   delegate :seminary, to: :attendee
 
   def self.grades
-    %w(AU A A- B+ B B- C+ C C- D F W)
+    %w[AU A A- B+ B B- C+ C C- D F W]
   end
 end

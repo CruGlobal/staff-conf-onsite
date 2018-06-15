@@ -12,8 +12,6 @@ class RecPass::SumFamilyCost < ChargesService
   private
 
   def family_costs
-    family.people.map do |person|
-      RecPass::ChargePersonCost.call(person: person)
-    end
+    family.people.map { |p| RecPass::ChargePersonCost.call(person: p) }
   end
 end

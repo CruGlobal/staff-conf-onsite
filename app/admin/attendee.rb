@@ -16,15 +16,15 @@ ActiveAdmin.register Attendee do
     :tshirt_size, :mobility_comment, :personal_comment, :name_tag_first_name,
     :name_tag_last_name, :conference_comment, :arrived_at, :departed_at,
     :ibs_comment,
-    conference_ids: [], cost_adjustments_attributes: [
-      :id, :_destroy, :description, :person_id, :price, :percent, :cost_type
-    ], course_attendances_attributes: [
-      :id, :_destroy, :course_id, :seminary_credit, :grade
-    ], meal_exemptions_attributes: [
-      :id, :_destroy, :date, :meal_type
-    ], stays_attributes: [
-      :id, :_destroy, :housing_unit_id, :arrived_at, :departed_at,
-      :single_occupancy, :no_charge, :waive_minimum, :percentage, :comment
+    conference_ids: [], cost_adjustments_attributes: %i[
+      id _destroy description person_id price percent cost_type
+    ], course_attendances_attributes: %i[
+      id _destroy course_id seminary_credit grade
+    ], meal_exemptions_attributes: %i[
+      id _destroy date meal_type
+    ], stays_attributes: %i[
+      id _destroy housing_unit_id arrived_at departed_at
+      single_occupancy no_charge waive_minimum percentage comment
     ]
   )
 

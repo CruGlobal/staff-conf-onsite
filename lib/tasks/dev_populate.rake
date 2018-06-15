@@ -1,5 +1,5 @@
 require 'factory_girl'
-require Rails.root.join('test/support/stub_cas.rb')
+require Rails.root.join('test', 'support', 'stub_cas.rb')
 
 def create_dummies(model, *args, count: 1)
   puts "Creating #{count} #{model.to_s.pluralize(count)} records#{" (args: #{args})" if args.any?}..."
@@ -27,11 +27,10 @@ namespace :dev do
       # FactoryGirl randomly selects the day for MealExemptions. If it happens
       # to create a duplicate exemption, just try it again.
       if e.record.is_a?(MealExemption) && e.message =~ /one meal type per day/
-        puts 'Trying again...'
-        retry
-      else
         raise
       end
+      puts 'Trying again...'
+      retry
     end
   end
 end

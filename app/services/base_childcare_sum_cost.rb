@@ -8,6 +8,8 @@ class BaseChildcareSumCost < ChargesService
     self.cost_adjustments = child.cost_adjustments
   end
 
+  # @return Hash[Integer, Money] a map of week numbers to the child's fee for
+  #   that week
   def week_charges
     @week_charges ||=
       Hash[child.childcare_weeks.map { |index| [index, charge(index)] }]
@@ -23,6 +25,8 @@ class BaseChildcareSumCost < ChargesService
 
   protected
 
+  # The only difference in calculating this cost between "children" and
+  # "juniors and seniors" is the +UserVariable+ used for the weekly rate.
   def age_group
     raise NotImplementedError
   end

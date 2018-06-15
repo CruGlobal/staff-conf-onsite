@@ -28,7 +28,7 @@ class Childcare::Signin::Portrait < Childcare::Signin::Base
     children.flat_map do |child|
       [
         [{ content: name_cell(child), rowspan: 3 }, 'Time', 'Time'],
-        %w(Signature Signature),
+        %w[Signature Signature],
         ['Print Name', 'Print Name']
       ]
     end

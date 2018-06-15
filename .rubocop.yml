@@ -44,6 +44,12 @@ Metrics/ClassLength:
 Metrics/LineLength:
   Max: 120
 
+Naming/FileName:
+  Exclude:
+    - bundler-audit.rake
+    - Gemfile
+    - Guardfile
+
 Style/AndOr:
   Enabled: false
 

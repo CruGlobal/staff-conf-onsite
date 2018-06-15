@@ -16,6 +16,6 @@ class JuniorSenior::SumFamilyCost < ChargesService
   end
 
   def children
-    family.children.select { |c| c.age_group != :childcare }
+    family.children.reject { |c| c.age_group == :childcare }
   end
 end

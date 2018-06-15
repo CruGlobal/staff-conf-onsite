@@ -1,20 +1,20 @@
 class HousingPreference < ApplicationRecord
   HOUSING_TYPE_FIELDS = {
-    roommates: [:dormitory].freeze,
-    beds_count: [:dormitory].freeze,
-    single_room: [:dormitory].freeze,
+    roommates: %i[dormitory].freeze,
+    beds_count: %i[dormitory].freeze,
+    single_room: %i[dormitory].freeze,
 
-    children_count: [:apartment].freeze,
-    bedrooms_count: [:apartment].freeze,
-    other_family: [:apartment].freeze,
-    accepts_non_air_conditioned: [:apartment].freeze,
+    children_count: %i[apartment].freeze,
+    bedrooms_count: %i[apartment].freeze,
+    other_family: %i[apartment].freeze,
+    accepts_non_air_conditioned: %i[apartment].freeze,
 
-    location1: [:apartment, :dormitory].freeze,
-    location2: [:apartment, :dormitory].freeze,
-    location3: [:apartment, :dormitory].freeze
+    location1: %i[apartment dormitory].freeze,
+    location2: %i[apartment dormitory].freeze,
+    location3: %i[apartment dormitory].freeze
   }.freeze
 
-  enum housing_type: [:dormitory, :apartment, :self_provided]
+  enum housing_type: %i[dormitory apartment self_provided]
 
   belongs_to :family, inverse_of: :housing_preference
 

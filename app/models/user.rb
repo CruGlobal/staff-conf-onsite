@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # The possible values of the +role+ attribute.
-  ROLES = %w(general finance admin read_only).freeze
+  ROLES = %w[general finance admin read_only].freeze
 
   # Create scope and predicate method for each role. ex:
   # - +User.finance.first+
@@ -10,7 +10,7 @@ class User < ApplicationRecord
     define_method("#{r}?") { role == r }
   end
 
-  has_many :upload_jobs
+  has_many :upload_jobs, dependent: :destroy
 
   validates :guid, presence: true
   validates :role, inclusion: { in: ROLES }

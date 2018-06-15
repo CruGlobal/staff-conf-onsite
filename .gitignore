@@ -25,6 +25,7 @@
 vendor/ruby
 .idea
 /public/uploads
+/coverage/
 
 scratch
 .DS_Store

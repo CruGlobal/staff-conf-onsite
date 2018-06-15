@@ -3,13 +3,13 @@ class CostCode < ApplicationRecord
 
   has_many :charges, class_name: 'CostCodeCharge', foreign_key: 'cost_code_id',
                      dependent: :destroy
-  has_many :housing_facilities
+  has_many :housing_facilities, dependent: :destroy
 
   accepts_nested_attributes_for :charges, allow_destroy: true
 
   validates_associated :charges
 
-  # @param [Integer] days The length of the person's stay, in days
+  # @param days [Integer] The length of the person's stay, in days
   # @return [CostCodeCharge, nil] The charges applied to a stay of the given
   #   number of days
   def charge(days:)
