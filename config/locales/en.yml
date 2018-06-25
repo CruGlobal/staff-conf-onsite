@@ -46,6 +46,18 @@ en:
         other: "IBS Courses"
 
     attributes:
+      accounting_report/table:
+        intentional_blank: ""
+        spouse_first_name: "Spouse"
+        bus_unit: "MOOO"
+      accounting_report/row:
+        intentional_blank: ""
+        spouse_first_name: "Spouse"
+        bus_unit: "MOOO"
+      accounting_report:
+        intentional_blank: ""
+        spouse_first_name: "Spouse"
+        bus_unit: "MOOO"
       chargeable_staff_number:
         staff_number: "Staff ID"
       child:

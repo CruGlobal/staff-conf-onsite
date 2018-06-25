@@ -57,6 +57,10 @@ ActiveAdmin.register Family do
     redirect_to job
   end
 
+  action_item :accounting_report, only: %i[show edit] do
+    link_to 'Accounting Report', family_accounting_reports_path(family)
+  end
+
   action_item :summary, only: %i[show edit] do
     link_to 'Summary', summary_family_path(family)
   end
