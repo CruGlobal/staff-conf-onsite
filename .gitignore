@@ -29,3 +29,5 @@ vendor/ruby
 
 scratch
 .DS_Store
+
+coverage
