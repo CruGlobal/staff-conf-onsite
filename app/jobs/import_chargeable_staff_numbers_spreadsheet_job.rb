@@ -1,4 +1,4 @@
-class ImportChargeableStaffNumbersSpreadsheetJob < ActiveJob::Base
+class ImportChargeableStaffNumbersSpreadsheetJob < ApplicationJob
   queue_as :default
 
   def perform(upload_job_id, delete_existing, skip_first)

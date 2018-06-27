@@ -25,7 +25,7 @@ class Import::CreateNewPeopleRecords < UploadService
     fail_job!(message: existing_people_message)
   rescue Import::UpdatePersonFromImport::MinistryMissing
     raise
-  rescue => e
+  rescue StandardError => e
     fail_job!(message: e.message)
   end
 
@@ -79,7 +79,7 @@ class Import::CreateNewPeopleRecords < UploadService
     raise
   rescue Import::UpdatePersonFromImport::MinistryMissing
     raise
-  rescue => e
+  rescue StandardError => e
     raise Error, format('Row #%d: %s', row, e)
   end
 

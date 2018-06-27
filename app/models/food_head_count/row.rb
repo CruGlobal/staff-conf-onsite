@@ -6,8 +6,8 @@ module FoodHeadCount
 
     attr_accessor :date, :id, :cafeteria
 
-    AGE_GROUPS = %i(adult child).freeze
-    MEAL_TYPES = %i(breakfast lunch dinner).freeze
+    AGE_GROUPS = %i[adult child].freeze
+    MEAL_TYPES = %i[breakfast lunch dinner].freeze
     MEAL_COUNTS =
       AGE_GROUPS.flat_map do |age|
         MEAL_TYPES.map do |meal|
@@ -21,7 +21,7 @@ module FoodHeadCount
 
     def attributes
       Hash[
-        (%i(id date) + MEAL_COUNTS).map { |name| [name, send(name)] }
+        (%i[id date] + MEAL_COUNTS).map { |name| [name, send(name)] }
       ]
     end
   end

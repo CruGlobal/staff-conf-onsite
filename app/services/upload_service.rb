@@ -22,7 +22,7 @@ class UploadService < ApplicationService
 
   def fail_job!(message: nil)
     return if job.failed?
-    raise UploadJobError unless message.present?
+    raise UploadJobError if message.blank?
 
     job.fail!(message)
     raise UploadJobError, message

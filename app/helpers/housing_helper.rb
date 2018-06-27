@@ -97,7 +97,7 @@ module HousingHelper
   # @return [String] a short phrase describing how long the Stay will last
   def join_stay_dates(stay)
     dates =
-      [:arrived_at, :departed_at].map do |attr|
+      %i[arrived_at departed_at].map do |attr|
         next unless stay.send(attr)
         stay.send(attr).to_s(:db)
       end

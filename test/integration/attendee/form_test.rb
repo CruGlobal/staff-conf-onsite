@@ -6,11 +6,11 @@ class Attendee::FormTest < IntegrationTest
     @attendee = create :attendee
   end
 
-  stub_user_variable child_age_cutoff: 6.months.from_now,
+  stub_user_variable child_age_cutoff: 6.months.from_now.to_date,
                      rec_center_daily: Money.new(1_00),
-                     facility_use_start: 3.months.ago,
-                     facility_use_split: 2.months.ago,
-                     facility_use_end: 1.month.ago,
+                     facility_use_start: 3.months.ago.to_date,
+                     facility_use_split: 2.months.ago.to_date,
+                     facility_use_end: 1.month.ago.to_date,
                      facility_use_before: Money.new(1_00),
                      facility_use_after: Money.new(2_00)
 

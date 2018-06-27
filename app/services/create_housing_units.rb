@@ -18,7 +18,7 @@ class CreateHousingUnits < UploadService
     import_models = parse_sheets
     row_records = build_models(import_models)
     save_all!(row_records)
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 
@@ -50,7 +50,7 @@ class CreateHousingUnits < UploadService
             import
           )
         end
-      rescue => e
+      rescue StandardError => e
         raise Error, format('Row #%d: %p', import.row, e.message)
       end
     end.compact
@@ -72,7 +72,7 @@ class CreateHousingUnits < UploadService
         record = row_record.record
         begin
           record.save!
-        rescue => e
+        rescue StandardError => e
           raise Error, format('Row #%d: Could not persist %s, %p. %s',
                               row_record.import.row, record.class.name,
                               record.audit_name, e.message)

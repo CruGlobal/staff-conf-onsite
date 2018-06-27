@@ -19,6 +19,12 @@ class Childcare::SumChildCostTest < ServiceTestCase
     assert_equal Money.empty, @service.charges[:childcare]
   end
 
+  test '0 weeks + deposit' do
+    @child.update!(childcare_weeks: [], childcare_deposit: true)
+    @service.call
+    assert_equal Money.new(32_00), @service.charges[:childcare]
+  end
+
   test '1 week' do
     @child.update!(childcare_weeks: [3])
     @service.call

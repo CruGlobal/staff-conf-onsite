@@ -22,7 +22,7 @@ module TextHelper
     else
       ''
     end
-  rescue
+  rescue StandardError
     number
   end
 

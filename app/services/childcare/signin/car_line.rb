@@ -2,7 +2,7 @@ class Childcare::Signin::CarLine < Childcare::Signin::Portrait
   attr_accessor :childcares
   attr_accessor :week
 
-  i18n_scope [:childcare, :car_line]
+  i18n_scope %i[childcare car_line]
 
   def page_title
     t('document.title')

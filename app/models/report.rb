@@ -1,5 +1,5 @@
 require 'csv'
-class Report < ActiveRecord::Base
+class Report < ApplicationRecord
   def result
     @result ||= Report.connection.select_all(query)
   end
