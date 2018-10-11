@@ -25,7 +25,7 @@ gem 'rollbar', '~> 2.14'
 gem 'activeadmin', '~> 1.0.0'
 gem 'acts_as_list', '~> 0.9'
 gem 'paper_trail', '~> 5.2.2'
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.10'
 gem 'roo', '~> 2.7'
 
 # Authentication
@@ -41,7 +41,7 @@ gem 'uglifier', '>= 1.3.0'
 # View Helpers
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
-gem 'axlsx', '~> 2.1.0.pre'
+gem 'axlsx', '~> 3.0.0.pre'
 gem 'chosen-rails', '~> 1.5.2'
 gem 'compass-rails', '~> 3.0'
 gem 'countries', '~> 1.2.5'
@@ -76,6 +76,7 @@ group :development, :test do
   gem 'faker', '~> 1.6'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
+  gem 'minitest', '~> 5.10.2'
   gem 'minitest-around', '~> 0.4'         # Minitest around callback
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
