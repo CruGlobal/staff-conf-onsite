@@ -1,3 +1,5 @@
+require 'datadog/statsd'
+
 require Rails.root.join('config', 'initializers', 'redis').to_s
 
 redis = { url: 'redis://' + ENV['REDIS_PORT_6379_TCP_ADDR'],
@@ -27,3 +29,7 @@ Sidekiq.default_worker_options = {
   # duplicate jobs from running (if uniqueness time is too short)
   unique_job_expiration: 24.hours
 }
+
+unless Rails.env.development? || Rails.env.test?
+  Sidekiq::Pro.dogstatsd = -> { Datadog::Statsd.new(ENV['DATADOG_HOST'], ENV['DATADOG_PORT']) }
+end
