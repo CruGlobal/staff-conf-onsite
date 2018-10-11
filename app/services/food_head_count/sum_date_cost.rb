@@ -24,11 +24,9 @@ class FoodHeadCount::SumDateCost < ApplicationService
 
   def count_meals_for_stay(stay)
     type = person_type(stay.person)
-    return unless type.present?
+    return if type.blank?
 
-    applicable_meals(stay).each do |meal|
-      head_count.increment(type, meal)
-    end
+    applicable_meals(stay).each { |meal| head_count.increment(type, meal) }
   end
 
   def person_type(person)

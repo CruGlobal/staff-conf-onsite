@@ -228,7 +228,7 @@ ActiveAdmin.setup do |config|
   #     end
   #   end
 
-  config.download_links = %i(csv xml json xlsx)
+  config.download_links = %i[csv xml json xlsx]
 
   # == Download Links
   #

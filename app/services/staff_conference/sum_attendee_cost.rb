@@ -9,10 +9,10 @@ class StaffConference::SumAttendeeCost < ChargesService
   private
 
   def conferences_price
-    non_staff_conferences.map(&:price).inject(Money.empty, &:+)
+    staff_conferences.map(&:price).inject(Money.empty, &:+)
   end
 
-  def non_staff_conferences
+  def staff_conferences
     attendee.conferences.select(&:staff_conference?)
   end
 end

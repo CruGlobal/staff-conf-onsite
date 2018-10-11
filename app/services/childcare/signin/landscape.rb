@@ -28,7 +28,7 @@ class Childcare::Signin::Landscape < Childcare::Signin::Base
           'Time', 'Time',
           { content: '', rowspan: 3 }
         ],
-        %w(Signature Signature),
+        %w[Signature Signature],
         ['Print Name', 'Print Name']
       ]
     end

@@ -16,7 +16,7 @@
 !/log/.keep
 /tmp
 /.byebug_history
-/.env.local
+/.env.*
 
 # Ignore documentation
 /.yardoc/
@@ -25,6 +25,7 @@
 vendor/ruby
 .idea
 /public/uploads
+/coverage/
 
 scratch
 .DS_Store

@@ -5,6 +5,7 @@ require 'active_admin/axlsx/dsl'
 require 'active_admin/axlsx/resource_extension'
 require 'active_admin/axlsx/resource_controller_extension'
 
+# Provides .xlsx download support for ActiveAdmin
 class Railtie < ::Rails::Railtie
   config.before_initialize do
     if Mime::Type.lookup_by_extension(:xlsx).nil?

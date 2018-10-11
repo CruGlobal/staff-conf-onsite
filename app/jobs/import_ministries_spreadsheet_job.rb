@@ -1,4 +1,4 @@
-class ImportMinistriesSpreadsheetJob < ActiveJob::Base
+class ImportMinistriesSpreadsheetJob < ApplicationJob
   queue_as :default
 
   def perform(upload_job_id, skip_first)

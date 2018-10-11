@@ -22,7 +22,7 @@ class CreateChargeableStaffNumbers < UploadService
       numbers = sheets.flat_map { |rows| parse_staff_number_rows(rows) }
       numbers.each(&:save!)
     end
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 
@@ -44,7 +44,7 @@ class CreateChargeableStaffNumbers < UploadService
 
       staff_number = row[0].to_s.strip
 
-      unless staff_number.blank?
+      if staff_number.present?
         scope.find_or_create_by(staff_number: staff_number)
       end
     end.compact

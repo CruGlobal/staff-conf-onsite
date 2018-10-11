@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :ministry do
-    name { "Ministry of #{Faker::Commerce.department}" }
+    sequence(:name) { |n| "Ministry of #{Faker::Commerce.department} (#{n})" }
     code do
       existing = Ministry.all.pluck(:code)
 

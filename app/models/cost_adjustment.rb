@@ -9,10 +9,9 @@ class CostAdjustment < ApplicationRecord
   }
 
   # MPD means "Ministry Partner Development"
-  enum cost_type: [
-    :dorm_adult, :dorm_child, :apartment_rent, :facility_use, :tuition_class,
-    :tuition_mpd, :tuition_track, :tuition_staff, :books, :rec_center, :lunch,
-    :childcare, :junior_senior
+  enum cost_type: %i[
+    dorm_adult dorm_child apartment_rent facility_use tuition_class tuition_mpd
+    tuition_track tuition_staff books rec_center lunch childcare junior_senior
   ]
 
   belongs_to :person, foreign_key: 'person_id'

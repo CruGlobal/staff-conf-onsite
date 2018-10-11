@@ -20,7 +20,7 @@ class Ministry::UpdateParents < UploadService
       sheets.each { |sheet| process_sheet(sheet) }
       ministries.each(&:save!)
     end
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 
@@ -33,13 +33,17 @@ class Ministry::UpdateParents < UploadService
       row = row.map(&:strip).select(&:present?)
       next if row.size < 2
 
-      update_percentage(row_index / count) if row_index.modulo(100).zero?
-
-      ministries = row_to_ministries(row)
-      assert_ministries!(row, row_index, ministries)
-
-      assign_parents(ministries)
+      assign_parents_from_row(row, row_index, count)
     end
+  end
+
+  def assign_parents_from_row(row, row_index, count)
+    update_percentage(row_index / count) if row_index.modulo(100).zero?
+
+    ministries = row_to_ministries(row)
+    assert_ministries!(row, row_index, ministries)
+
+    assign_parents(ministries)
   end
 
   def row_to_ministries(row)
@@ -56,7 +60,7 @@ class Ministry::UpdateParents < UploadService
 
   def assert_ministries!(row, row_index, ministries)
     nil_index = ministries.index(nil)
-    return unless nil_index.present?
+    return if nil_index.blank?
 
     raise MinistryDoesNotExistError,
           t('errors.no_ministry_code', row: row_index + 1, col: nil_index + 1,

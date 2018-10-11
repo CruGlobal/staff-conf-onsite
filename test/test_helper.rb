@@ -1,5 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 
+# Must appear before the Application code is required
+require 'simplecov'
+SimpleCov.start
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'

@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   Include:
     - Rakefile
@@ -28,13 +30,13 @@ Lint/RescueException:
 
 MethodLength:
   Severity: warning
-  Max: 15
+  Max: 25
 
 Metrics/AbcSize:
   Max: 20
 
 Metrics/BlockLength:
-  Max: 50
+  Max: 200
   Exclude:
     - app/admin/*.rb
 
@@ -42,7 +44,13 @@ Metrics/ClassLength:
   Max: 150
 
 Metrics/LineLength:
-  Max: 120
+  Max: 130
+
+Naming/FileName:
+  Exclude:
+    - bundler-audit.rake
+    - Gemfile
+    - Guardfile
 
 Style/AndOr:
   Enabled: false

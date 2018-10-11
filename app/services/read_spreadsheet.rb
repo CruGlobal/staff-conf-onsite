@@ -28,6 +28,8 @@ class ReadSpreadsheet < UploadService
   #   a ruby-representation of the uploaded spreadsheet file
   attr_accessor :sheets
 
+  # +Boolean+
+  #   if the spreadsheet contains a header row that should be skipped
   attr_accessor :skip_first
 
   job_stage 'Parse Spreadsheet'
@@ -49,7 +51,7 @@ class ReadSpreadsheet < UploadService
     self.sheets = read_sheets.map { |sheet| sheet.drop(1) } if skip_first_row?
 
     update_percentage(0.95)
-  rescue => e
+  rescue StandardError => e
     fail_job! message: e.message
   end
 

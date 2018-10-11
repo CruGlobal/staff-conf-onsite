@@ -7,11 +7,12 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   end
 
   def facility_use_fees
-    return 0 if attendee.exempt?
-    return 0 if attendee.conferences.any?(&:waive_off_campus_facility_fee)
-
-    facility_use_fees = part1 + part2
-    facility_use_fees.negative? ? 0 : facility_use_fees
+    if attendee.exempt? || attendee.conferences.any?(&:waive_off_campus_facility_fee)
+      0
+    else
+      facility_use_fees = part1 + part2
+      facility_use_fees.negative? ? 0 : facility_use_fees
+    end
   end
 
   private
@@ -89,6 +90,6 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
 
   def off_campus?
     type = attendee.family.housing_preference.housing_type
-    %w(apartment self_provided).include?(type)
+    %w[apartment self_provided].include?(type)
   end
 end
