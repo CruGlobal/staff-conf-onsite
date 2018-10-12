@@ -18,8 +18,10 @@ gem 'sidekiq-cron'
 gem 'sidekiq-unique-jobs'
 
 # Error Reporting
+gem 'ddtrace'
+gem 'dogstatsd-ruby'
 gem 'oj', '~> 2.18'
-gem 'rollbar', '~> 2.14'
+gem 'rollbar', '~> 2.18'
 
 # Framework
 gem 'activeadmin', '~> 1.0.0'
