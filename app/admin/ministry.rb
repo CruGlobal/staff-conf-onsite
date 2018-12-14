@@ -9,9 +9,7 @@ ActiveAdmin.register Ministry do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    if authorized?(:import, Ministry)
-      link_to 'Import Spreadsheet', action: :new_spreadsheet
-    end
+    link_to 'Import Spreadsheet', action: :new_spreadsheet if authorized?(:import, Ministry)
   end
 
   collection_action :import_ministries, method: :post do
