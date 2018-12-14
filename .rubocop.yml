@@ -48,7 +48,6 @@ Metrics/LineLength:
 
 Naming/FileName:
   Exclude:
-    - bundler-audit.rake
     - Gemfile
     - Guardfile
 
@@ -58,7 +57,7 @@ Style/AndOr:
 Style/ClassAndModuleChildren:
   Enabled: False
 
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing
 
 Style/FrozenStringLiteralComment:
@@ -68,5 +67,5 @@ Style/Lambda:
   Exclude:
       - config/**/*
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
