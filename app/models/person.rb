@@ -25,6 +25,7 @@ class Person < ApplicationRecord
   has_many :stays, dependent: :destroy
   has_many :housing_units, through: :stays
   has_many :housing_facilities, through: :housing_units
+  has_one :childcare_medical_history, dependent: :destroy
 
   scope :corbett, (lambda do
     where("housing_facilities.name LIKE 'Corbett%' OR
