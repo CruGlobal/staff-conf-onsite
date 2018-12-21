@@ -60,6 +60,9 @@ gem 'jquery-rails', '~> 4.2'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'turbolinks', '~> 5.0.1'
 
+# Interface with DocuSign
+gem 'docusign_rest', '~> 0.4.4'
+
 # We don't require Nokogiri directly, only through other gems (like axlsx).
 # However, due to CVE-2016-4658, we need to ensure we're using at least v1.7.1.
 #
@@ -71,7 +74,6 @@ group :development, :test do
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter
-  gem 'byebug', '~> 9.0'                  # Debugger
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'factory_girl', '~> 4.7'            # Test object factories
@@ -83,6 +85,7 @@ group :development, :test do
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
   gem 'pry-rails', '~> 0.3.5'
+  gem 'pry-byebug', '~> 3.6.0'            # Debugger
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
   gem 'reek', '~> 5.2'                    # Linter
   gem 'rubocop', '~> 0.60'                # Linter
