@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710190755) do
+ActiveRecord::Schema.define(version: 20181221001726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20170710190755) do
   end
 
   add_index "chargeable_staff_numbers", ["staff_number"], name: "index_chargeable_staff_numbers_on_staff_number", using: :btree
+
+  create_table "childcare_envelopes", force: :cascade do |t|
+    t.string   "envelope_id",  null: false
+    t.string   "status",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "recipient_id", null: false
+    t.integer  "child_id",     null: false
+  end
+
+  add_index "childcare_envelopes", ["envelope_id"], name: "index_childcare_envelopes_on_envelope_id", using: :btree
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -388,5 +399,7 @@ ActiveRecord::Schema.define(version: 20170710190755) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "childcare_envelopes", "people", column: "child_id"
+  add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
   add_foreign_key "people", "seminaries"
 end
