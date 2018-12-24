@@ -32,4 +32,11 @@ class ChildcareEnvelopeTest < ModelTestCase
     refute @subject.valid?
     assert_not_nil @subject.errors[:child], 'is not part of the recipients family'
   end
+
+  test '#normalize_status' do
+    @subject.status = " DELIVERED  "
+    @subject.valid?
+    
+    assert_equal 'delivered', @subject.status
+  end
 end

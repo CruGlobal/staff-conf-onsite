@@ -10,9 +10,17 @@ class ChildcareEnvelope < ApplicationRecord
   validates :envelope_id, :status, presence: true
   validate :must_belong_to_same_family
 
+  before_validation :normalize_status
+
   def must_belong_to_same_family
     if child.family_id != recipient.family_id
       errors.add(:child, "is not part of the recipients family")
     end
+  end
+
+  private
+
+  def normalize_status
+    self.status = status && status.strip.downcase
   end
 end
