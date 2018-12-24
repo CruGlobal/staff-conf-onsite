@@ -176,4 +176,28 @@ class ChildTest < ModelTestCase
     @child.hot_lunch_weeks = nil
     assert_empty @child.hot_lunch_weeks
   end
+
+  test '#completed_envelope?' do
+    refute @child.completed_envelope?
+
+    create :childcare_envelope, child: @child, status: 'voided'
+    @child.reload
+    refute @child.completed_envelope?
+
+    create :childcare_envelope, child: @child, status: 'completed'
+    @child.reload
+    assert @child.completed_envelope?
+  end
+
+  test '#pending_envelope?' do
+    refute @child.pending_envelope?
+
+    create :childcare_envelope, child: @child, status: 'completed'
+    @child.reload
+    refute @child.pending_envelope?
+    
+    create :childcare_envelope, child: @child, status: 'delivered'
+    @child.reload
+    assert @child.pending_envelope?
+  end
 end

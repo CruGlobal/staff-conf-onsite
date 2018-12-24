@@ -114,6 +114,16 @@ class Child < Person
     end
   end
 
+  def completed_envelope?
+    childcare_envelopes.map(&:status).include?(ChildcareEnvelope::COMPLETED_ENVELOPE_STATUS)
+  end
+
+  def pending_envelope?
+    existing_envelopes_status = childcare_envelopes.map(&:status) 
+    pending_envelopes_status = existing_envelopes_status - ChildcareEnvelope::FINAL_ENVELOPE_STATUSES
+    pending_envelopes_status.any?
+  end
+
   private
 
   def hot_lunch_weeks_must_match_childcare_weeks!
