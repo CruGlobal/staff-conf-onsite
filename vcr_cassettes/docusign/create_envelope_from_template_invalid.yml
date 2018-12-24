@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://demo.docusign.net/restapi/v2/accounts/123456/envelopes
+    body:
+      encoding: UTF-8
+      string: '{"status":"sent","emailBlurb":null,"emailSubject":"Test Docusign Envelope","templateId":"12324324","enableWetSign":null,"brandId":null,"eventNotification":{},"templateRoles":[{"name":"test_recipient","email":"test_recipient@example.com","roleName":null,"tabs":{"textTabs":[],"checkboxTabs":[],"numberTabs":[],"radioGroupTabs":[],"fullNameTabs":[],"dateTabs":[]}}],"customFields":null,"allowReassign":null}'
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"docusign_test@example.com","Password":"1234abcd","IntegratorKey":"aabbccdd"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '160'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Docusign-Tracetoken:
+      - ef3458d4-0355-4d5f-b87a-58cba7865b51
+      Date:
+      - Fri, 28 Dec 2018 20:02:13 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"errorCode\": \"INVALID_REQUEST_PARAMETER\",\r\n  \"message\":
+        \"The request contained at least one invalid parameter. Invalid value specified
+        for 'templateId'\"\r\n}"
+    http_version: 
+  recorded_at: Fri, 28 Dec 2018 20:02:13 GMT
+recorded_with: VCR 4.0.0
