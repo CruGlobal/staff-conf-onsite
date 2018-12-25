@@ -114,3 +114,40 @@ role, with a real CAS account:
   * **General**: `jon.sangster+general@ballistiq.com`
 
 Each account uses the password `CRUstaff2016`
+
+### Docusign
+
+Docusign is a 3rd party service that provides digital signatures.
+The app uses the service by sending data Docusign via api which is pre filled 
+into an existing template on Docusign. Then this `envelope` is sent to the 
+recipient that we determined. 
+The recipient then receives an email to view this document (envelope) and can 
+electronically sign it knowing that the document can't be tampered.
+
+To test sending real DocuSign documents on dev, you need to:
+1. [Create a free developer account](https://go.docusign.com/sandbox/productshot/)
+2. Create a template on the DocuSign web ui by going to templates on the main menu.
+3. On template setup add a signing role, and some fields to be pre filled.
+4. Add your docusign credentials to your env.local file
+5. Edit the service .rb for the envelope you want to serve to add your template id,
+and other particular customizations.
+
+> **Ensure you set yourself or a test email as the recipient!**
+
+
+### Docusign: Recording new VCR cassettes (Testing)
+
+To remove any personal data tied to the developers DocuSign account, the vcr cassettes
+where slightly modified from their original recording:
+
+* The `docusign_rest.rb` file on initializers includes test env dummy credentials.
+* The cassette file uri account has been changed from its real vale to `123456` ie:
+>     uri: https://demo.docusign.net/restapi/v2/accounts/123456/envelopes/aaabbbccc
+* The cassettes original authentication header has been changed to the dummy creds:
+>     X-Docusign-Authentication:
+>     - '{"Username":"docusign_test@example.com","Password":"1234abcd","IntegratorKey":"aabbccdd"}'
+
+To record a new VCR cassette:
+* Comment out the test environment docusign credentials on the `docusign_rest.rb` file.
+* Record as usual (with your valid credentials, this assumes you have a demo account).
+* Update your account specific values to the dummy ones as explained above.
