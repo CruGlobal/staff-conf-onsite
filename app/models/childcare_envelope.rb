@@ -1,8 +1,8 @@
 class ChildcareEnvelope < ApplicationRecord
-  ENVELOPE_STATUSES = ['sent', 'delivered', 'completed', 'declined', 'voided'].freeze
-  FAILED_ENVELOPE_STATUSES = ['declined', 'voided'].freeze
+  ENVELOPE_STATUSES = %w[sent delivered completed declined voided].freeze
+  FAILED_ENVELOPE_STATUSES = %w[declined voided].freeze
   COMPLETED_ENVELOPE_STATUS = 'completed'.freeze
-  FINAL_ENVELOPE_STATUSES = (FAILED_ENVELOPE_STATUSES + [COMPLETED_ENVELOPE_STATUS]).freeze
+  IN_PROCESS_ENVELOPE_STATUSES = %w[sent delivered].freeze
 
   belongs_to :child
   belongs_to :recipient, class_name: 'Attendee'
@@ -14,7 +14,7 @@ class ChildcareEnvelope < ApplicationRecord
 
   def must_belong_to_same_family
     if child.family_id != recipient.family_id
-      errors.add(:child, "is not part of the recipients family")
+      errors.add(:child, 'is not part of the recipients family')
     end
   end
 

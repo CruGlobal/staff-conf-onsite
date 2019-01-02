@@ -119,9 +119,7 @@ class Child < Person
   end
 
   def pending_envelope?
-    existing_envelopes_status = childcare_envelopes.map(&:status) 
-    pending_envelopes_status = existing_envelopes_status - ChildcareEnvelope::FINAL_ENVELOPE_STATUSES
-    pending_envelopes_status.any?
+    childcare_envelopes.map(&:status).any? { |s| ChildcareEnvelope::IN_PROCESS_ENVELOPE_STATUSES.include?(s) }
   end
 
   private
