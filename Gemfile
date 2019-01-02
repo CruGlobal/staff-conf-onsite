@@ -70,7 +70,7 @@ gem 'docusign_rest', '~> 0.4.4'
 gem 'nokogiri', '>= 1.7.1'
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.1.1'
+  gem 'dotenv-rails', '~> 2.5.0'
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter

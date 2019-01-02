@@ -149,10 +149,10 @@ GEM
     dogstatsd-ruby (4.0.0)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (2.1.2)
-    dotenv-rails (2.1.2)
-      dotenv (= 2.1.2)
-      railties (>= 3.2, < 5.1)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     equalizer (0.0.11)
     erubis (2.7.0)
     et-orbi (1.0.4)
@@ -512,7 +512,7 @@ DEPENDENCIES
   ddtrace
   docusign_rest (~> 0.4.4)
   dogstatsd-ruby
-  dotenv-rails (~> 2.1.1)
+  dotenv-rails (~> 2.5.0)
   factory_girl (~> 4.7)
   faker (~> 1.6)
   good_migrations (~> 0.0.2)
