@@ -26,6 +26,13 @@ class ChildcareEnvelopeTest < ModelTestCase
     assert_not_nil @subject.errors[:status], "can't be blank"
   end
 
+  test 'invalid with an unknown status' do
+    @subject.status = 'preparing'
+
+    refute @subject.valid?
+    assert_not_nil @subject.errors[:status], 'is not included in the list'
+  end
+
   test 'invalid if recipient and child do not belong to the same family' do
     @child.family_id = 2
 

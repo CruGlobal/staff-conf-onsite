@@ -8,6 +8,7 @@ class ChildcareEnvelope < ApplicationRecord
   belongs_to :recipient, class_name: 'Attendee'
 
   validates :envelope_id, :status, presence: true
+  validates :status, inclusion: { in: ENVELOPE_STATUSES }
   validate :must_belong_to_same_family
 
   before_validation :normalize_status
