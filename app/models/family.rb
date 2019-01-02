@@ -7,6 +7,7 @@ class Family < ApplicationRecord
   has_many :attendees, dependent: :destroy
   has_many :children, dependent: :destroy
   has_many :payments, dependent: :destroy
+  has_many :childcare_envelopes, through: :children
   has_one :housing_preference, autosave: true, dependent: :destroy,
                                inverse_of: :family
   has_one :chargeable_staff_number, primary_key: :staff_number,

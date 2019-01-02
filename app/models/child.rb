@@ -10,6 +10,7 @@ class Child < Person
   belongs_to :childcare
   has_one :primary_person, through: :family, source: :primary_person
   # has_many :conferences, through: :primary_person, source: :conferences
+  has_many :childcare_envelopes, dependent: :nullify
 
   scope :in_kidscare, (lambda do
     where(['childcare_weeks is NOT NULL', "childcare_weeks <> ''",
