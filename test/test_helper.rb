@@ -21,7 +21,7 @@ Support::StubCas.stub_requests
 FactoryGirl.find_definitions
 
 VCR.configure do |config|
-  config.cassette_library_dir = "vcr_cassettes"
+  config.cassette_library_dir = "test/vcr_cassettes"
   config.hook_into :webmock
 end
 
