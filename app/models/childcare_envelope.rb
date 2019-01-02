@@ -1,4 +1,4 @@
-class ChildcareEnvelope < ActiveRecord::Base
+class ChildcareEnvelope < ApplicationRecord
   belongs_to :child
   belongs_to :recipient, class_name: 'Attendee'
 
