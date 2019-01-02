@@ -42,6 +42,7 @@ class FoodHeadCount::Report < ApplicationService
   # dorm stay will be used
   attr_accessor :end_at
 
+  # rubocop:disable Metrics/AbcSize
   def call
     common = { adult_breakfast: 0, adult_lunch: 0, adult_dinner: 0,
                child_breakfast: 0, child_lunch: 0, child_dinner: 0 }
@@ -68,6 +69,7 @@ class FoodHeadCount::Report < ApplicationService
       head_counts.add(FoodHeadCount::Row.new(all))
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def add_meals(date, s)
     person = s.person

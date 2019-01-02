@@ -27,7 +27,7 @@ gem 'rollbar', '~> 2.18'
 gem 'activeadmin', '~> 1.0.0'
 gem 'acts_as_list', '~> 0.9'
 gem 'paper_trail', '~> 5.2.2'
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 4.2.11'
 gem 'roo', '~> 2.7'
 
 # Authentication
@@ -84,8 +84,8 @@ group :development, :test do
   gem 'minitest-reporters', '~> 1.1'      # Test output format
   gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
-  gem 'reek', '~> 4.7'                    # Linter
-  gem 'rubocop', '~> 0.50'                # Linter
+  gem 'reek', '~> 5.2'                    # Linter
+  gem 'rubocop', '~> 0.60'                # Linter
   gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false

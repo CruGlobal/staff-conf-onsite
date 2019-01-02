@@ -80,7 +80,8 @@ if @family
       end
 
       if family.primary_person
-        people = [family.primary_person] + family.people.includes(:stays).order('birthdate').where('id <> ?', family.primary_person_id)
+        people = [family.primary_person] +
+                 family.people.includes(:stays).order('birthdate').where('id <> ?', family.primary_person_id)
       else
         people = family.people.includes(:stays).order('birthdate')
       end
