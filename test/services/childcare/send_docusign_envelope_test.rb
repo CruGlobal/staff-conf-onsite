@@ -24,7 +24,7 @@ class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
   end
 
   test 'if child already has an envelope marked as completed' do
-    @completed = create :childcare_envelope, child: @child, recipient: @attendee, status: 'completed'
+    @completed = create :childcare_envelope, :completed, child: @child, recipient: @attendee
 
     VCR.use_cassette('docusign/childcare_send_valid_payload') do
       before = ChildcareEnvelope.count

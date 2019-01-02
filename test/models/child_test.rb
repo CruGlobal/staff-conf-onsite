@@ -180,11 +180,11 @@ class ChildTest < ModelTestCase
   test '#completed_envelope?' do
     refute @child.completed_envelope?
 
-    create :childcare_envelope, child: @child, status: 'voided'
+    create :childcare_envelope, :voided, child: @child
     @child.reload
     refute @child.completed_envelope?
 
-    create :childcare_envelope, child: @child, status: 'completed'
+    create :childcare_envelope, :completed, child: @child
     @child.reload
     assert @child.completed_envelope?
   end
@@ -192,11 +192,11 @@ class ChildTest < ModelTestCase
   test '#pending_envelope?' do
     refute @child.pending_envelope?
 
-    create :childcare_envelope, child: @child, status: 'completed'
+    create :childcare_envelope, :completed, child: @child
     @child.reload
     refute @child.pending_envelope?
     
-    create :childcare_envelope, child: @child, status: 'delivered'
+    create :childcare_envelope, :delivered, child: @child
     @child.reload
     assert @child.pending_envelope?
   end
