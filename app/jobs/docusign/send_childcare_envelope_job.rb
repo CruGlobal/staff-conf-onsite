@@ -3,14 +3,14 @@ class Docusign::SendChildcareEnvelopeJob < ApplicationJob
 
   # Stop from retrying if valid envelope already exists
   rescue_from(Childcare::SendDocusignEnvelope::SendEnvelopeError) do |exception|
-    Rollbar.error "[#{self.class.name}] Something went wrong with you job: #{exception.to_s}"       
-    Rails.logger.error "[#{self.class.name}] Something went wrong with you job: #{exception.to_s}"       
+    Rollbar.error "[#{self.class.name}] Something went wrong with you job: #{exception}"
+    Rails.logger.error "[#{self.class.name}] Something went wrong with you job: #{exception}"
   end
-  
+
   # Stop from retrying if error on docusign configuration
   rescue_from(Docusign::CreateEnvelopeFromTemplate::DocusignError) do |exception|
-    Rollbar.error "[#{self.class.name}] Something went wrong with you job: #{exception.to_s}"       
-    Rails.logger.error "[#{self.class.name}] Something went wrong with you job: #{exception.to_s}"       
+    Rollbar.error "[#{self.class.name}] Something went wrong with you job: #{exception}"
+    Rails.logger.error "[#{self.class.name}] Something went wrong with you job: #{exception}"
   end
 
   def perform(child)

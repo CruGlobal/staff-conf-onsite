@@ -8,6 +8,7 @@ AllCops:
     - bin/**/*
     - test/**/*
     - lib/active_admin/axlsx/**/*
+    - tmp/**/*
 
   TargetRubyVersion:
     2.3

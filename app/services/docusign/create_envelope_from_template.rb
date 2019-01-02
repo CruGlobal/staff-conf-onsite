@@ -1,6 +1,6 @@
 class Docusign::CreateEnvelopeFromTemplate < ApplicationService
   DocusignError = Class.new(StandardError)
-  
+
   attr_reader :payload
 
   def initialize(payload)

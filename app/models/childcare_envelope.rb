@@ -21,6 +21,6 @@ class ChildcareEnvelope < ApplicationRecord
   private
 
   def normalize_status
-    self.status = status && status.strip.downcase
+    self.status = status&.strip&.downcase
   end
 end

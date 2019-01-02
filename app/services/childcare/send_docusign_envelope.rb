@@ -8,7 +8,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   SIGNER_ROLE            = 'Parent'.freeze
 
   attr_reader :child, :recipient
-  
+
   def initialize(child)
     @recipient = child.family.primary_person
     @child = child
@@ -16,7 +16,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def call
     raise SendEnvelopeError, 'Valid envelope already exists for child' if valid_envelope_exists?
-    
+
     payload = build_payload(recipient.full_name, recipient.email, child)
     result = Docusign::CreateEnvelopeFromTemplate.new(payload).call
 
@@ -59,6 +59,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   # Create a list of child or childform attributes that need to be passed to document
   # Check that column name is same as template name, otherwise match
   # For each attribute, create { label: attr_name, value: attr_value }
+  # rubocop:disable Lint/UnusedMethodArgument
   def build_text_tabs(child)
     [
       {
@@ -71,4 +72,5 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 end

@@ -84,16 +84,16 @@ group :development, :test do
   gem 'minitest-around', '~> 0.4'         # Minitest around callback
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
-  gem 'pry-rails', '~> 0.3.5'
   gem 'pry-byebug', '~> 3.6.0'            # Debugger
+  gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
   gem 'reek', '~> 5.2'                    # Linter
   gem 'rubocop', '~> 0.60'                # Linter
   gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false
-  gem 'webmock', '~> 2.1'                 # Stub HTTP requests
   gem 'vcr', '~> 4.0.0'                   # Record/Reply HTTP Requests
+  gem 'webmock', '~> 2.1'                 # Stub HTTP requests
 
   # Documentation
   gem 'yard', '~> 0.9.5'
