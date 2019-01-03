@@ -20,11 +20,6 @@ Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 Support::StubCas.stub_requests
 FactoryGirl.find_definitions
 
-VCR.configure do |config|
-  config.cassette_library_dir = "test/vcr_cassettes"
-  config.hook_into :webmock
-end
-
 class ControllerTestCase < ActionController::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::UserVariable

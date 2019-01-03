@@ -2,15 +2,6 @@ require 'test_helper'
 
 class Docusign::CreateEnvelopeFromTemplateTest < ServiceTestCase
 
-  def setup
-    VCR.configure do |c|
-      c.filter_sensitive_data("<DOCUSIGN_USER_NAME>") { ENV['DOCUSIGN_USER_NAME'] }
-      c.filter_sensitive_data("<DOCUSIGN_PASSWORD>") { ENV['DOCUSIGN_PASSWORD'] }
-      c.filter_sensitive_data("<DOCUSIGN_INTEGRATOR_KEY>") { ENV['DOCUSIGN_INTEGRATOR_KEY'] }
-      c.filter_sensitive_data("<DOCUSIGN_ACCOUNT_ID>") { ENV['DOCUSIGN_ACCOUNT_ID'] }
-    end
-  end
-
   test 'with a valid payload returns a response with envelope id and status' do
     VCR.use_cassette('docusign/create_envelope_from_template_valid') do
       result = Docusign::CreateEnvelopeFromTemplate.new(valid_payload).call
