@@ -1,13 +1,6 @@
 require 'test_helper'
 
 class Docusign::CreateEnvelopeFromTemplateTest < ServiceTestCase
-  def setup
-    VCR.turn_on!
-  end
-
-  def teardown
-    VCR.turn_off!
-  end
 
   test 'with a valid payload returns a response with envelope id and status' do
     VCR.use_cassette('docusign/create_envelope_from_template_valid') do

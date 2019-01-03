@@ -3,16 +3,11 @@ require 'test_helper'
 class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
   
   def setup
-    VCR.turn_on!
     @family = create :family
     @attendee = create :attendee, family: @family, first_name: 'Test', last_name: 'Recipient', email: 'test@example.com'
     @child = create :child, family: @family
     @family.primary_person = @attendee
     @family.save
-  end
-
-  def teardown
-    VCR.turn_off!
   end
 
   test 'valid payload' do
