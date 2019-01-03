@@ -122,6 +122,10 @@ class Child < Person
     childcare_envelopes.pluck(:status).any? { |s| ChildcareEnvelope::IN_PROCESS_ENVELOPE_STATUSES.include?(s) }
   end
 
+  def send_docusign_envelope
+    Docusign::SendChildcareEnvelopeJob.perform_later(self)
+  end
+
   private
 
   def hot_lunch_weeks_must_match_childcare_weeks!
