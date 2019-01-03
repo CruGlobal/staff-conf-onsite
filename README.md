@@ -138,16 +138,15 @@ and other particular customizations.
 ### Docusign: Recording new VCR cassettes (Testing)
 
 To remove any personal data tied to the developers DocuSign account, the vcr cassettes
-where slightly modified from their original recording:
+where slightly modified from their original recording by using vcr's filter sensitive
+data option.
 
-* The `docusign_rest.rb` file on initializers includes test env dummy credentials.
-* The cassette file uri account has been changed from its real vale to `123456` ie:
->     uri: https://demo.docusign.net/restapi/v2/accounts/123456/envelopes/aaabbbccc
-* The cassettes original authentication header has been changed to the dummy creds:
->     X-Docusign-Authentication:
->     - '{"Username":"docusign_test@example.com","Password":"1234abcd","IntegratorKey":"aabbccdd"}'
-
-To record a new VCR cassette:
-* Comment out the test environment docusign credentials on the `docusign_rest.rb` file.
-* Record as usual (with your valid credentials, this assumes you have a demo account).
-* Update your account specific values to the dummy ones as explained above.
+To record new VCR cassettes of existing tests:
+> This assumes you have a free DocuSign demo account
+* Create an `.env.test.local` file, and add your DocuSign credentials overwriting the 
+`.env.test` ones.
+* Delete (or rename) any existing VCR cassette used on the test.
+* Run test as usual.
+* A new cassette will be created and your real credentials will be overwritten by the 
+placeholder defined on the filter.
+* Run tests again to ensure all worked as expected.

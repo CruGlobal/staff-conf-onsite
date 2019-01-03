@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: post
-    uri: https://demo.docusign.net/restapi/v2/accounts/123456/envelopes
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes
     body:
       encoding: UTF-8
       string: '{"status":"sent","emailBlurb":null,"emailSubject":"Test Docusign Envelope","templateId":"12324324","enableWetSign":null,"brandId":null,"eventNotification":{},"templateRoles":[{"name":"test_recipient","email":"test_recipient@example.com","roleName":null,"tabs":{"textTabs":[],"checkboxTabs":[],"numberTabs":[],"radioGroupTabs":[],"fullNameTabs":[],"dateTabs":[]}}],"customFields":null,"allowReassign":null}'
     headers:
       X-Docusign-Authentication:
-      - '{"Username":"docusign_test@example.com","Password":"1234abcd","IntegratorKey":"aabbccdd"}'
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
       Accept:
       - json
       Content-Type:
@@ -29,9 +29,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       X-Docusign-Tracetoken:
-      - ef3458d4-0355-4d5f-b87a-58cba7865b51
+      - 32bd6878-a495-4670-975c-0528363d1d06
       Date:
-      - Fri, 28 Dec 2018 20:02:13 GMT
+      - Thu, 03 Jan 2019 00:29:54 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
     body:
@@ -40,5 +40,5 @@ http_interactions:
         \"The request contained at least one invalid parameter. Invalid value specified
         for 'templateId'\"\r\n}"
     http_version: 
-  recorded_at: Fri, 28 Dec 2018 20:02:13 GMT
+  recorded_at: Thu, 03 Jan 2019 00:29:54 GMT
 recorded_with: VCR 4.0.0

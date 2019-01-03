@@ -3,6 +3,13 @@ require 'test_helper'
 class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
   
   def setup
+    VCR.configure do |c|
+      c.filter_sensitive_data("<DOCUSIGN_USER_NAME>") { ENV['DOCUSIGN_USER_NAME'] }
+      c.filter_sensitive_data("<DOCUSIGN_PASSWORD>") { ENV['DOCUSIGN_PASSWORD'] }
+      c.filter_sensitive_data("<DOCUSIGN_INTEGRATOR_KEY>") { ENV['DOCUSIGN_INTEGRATOR_KEY'] }
+      c.filter_sensitive_data("<DOCUSIGN_ACCOUNT_ID>") { ENV['DOCUSIGN_ACCOUNT_ID'] }
+    end
+
     @family = create :family
     @attendee = create :attendee, family: @family, first_name: 'Test', last_name: 'Recipient', email: 'test@example.com'
     @child = create :child, family: @family
@@ -25,15 +32,6 @@ class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
       before = ChildcareEnvelope.count
       exception = assert_raise(Childcare::SendDocusignEnvelope::SendEnvelopeError) { Childcare::SendDocusignEnvelope.call(@child) }
       assert_equal('Valid envelope already exists for child', exception.message )
-      assert_equal(before, ChildcareEnvelope.count)
-    end
-  end
-
-  test 'with invalid template' do
-    VCR.use_cassette('docusign/childcare_send_invalid_template') do
-      before = ChildcareEnvelope.count
-      exception = assert_raise(Docusign::CreateEnvelopeFromTemplate::DocusignError) { Childcare::SendDocusignEnvelope.call(@child) }
-      assert_equal('Invalid template ID.', exception.message )
       assert_equal(before, ChildcareEnvelope.count)
     end
   end

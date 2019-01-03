@@ -2,16 +2,17 @@
 http_interactions:
 - request:
     method: post
-    uri: https://demo.docusign.net/restapi/v2/accounts/123456/envelopes
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes
     body:
       encoding: UTF-8
       string: '{"status":"sent","emailBlurb":"Envelope body content here","emailSubject":"Testing
         docusign status","templateId":"6dc20541-a4e1-4c25-9406-c1709a9c9527","enableWetSign":null,"brandId":null,"eventNotification":{},"templateRoles":[{"name":"Test
-        Recipient","email":"test@example.com","roleName":"Parent","tabs":{"textTabs":[{"tabLabel":"Salary","name":"Salary","value":"100000","documentId":null,"selected":null,"locked":null},{"tabLabel":"Position
-        Title","name":"Position Title","value":"CFO","documentId":null,"selected":null,"locked":null}],"checkboxTabs":[],"numberTabs":[],"radioGroupTabs":[],"fullNameTabs":[],"dateTabs":[]}}],"customFields":null,"allowReassign":null}'
+        Recipient","email":"test@example.com","roleName":"Parent","tabs":{"textTabs":[{"tabLabel":"Alergies","name":null,"value":"Peanut
+        Butter","documentId":null,"selected":null,"locked":null},{"tabLabel":"Favourite
+        Game","name":null,"value":"Tag","documentId":null,"selected":null,"locked":null}],"checkboxTabs":[],"numberTabs":[],"radioGroupTabs":[],"fullNameTabs":[],"dateTabs":[]}}],"customFields":null,"allowReassign":null}'
     headers:
       X-Docusign-Authentication:
-      - '{"Username":"docusign_test@example.com","Password":"1234abcd","IntegratorKey":"aabbccdd"}'
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
       Accept:
       - json
       Content-Type:
@@ -32,22 +33,22 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       X-Ratelimit-Reset:
-      - '1545681600'
+      - '1546477200'
       X-Ratelimit-Limit:
       - '1000'
       X-Ratelimit-Remaining:
-      - '998'
+      - '996'
       X-Docusign-Tracetoken:
-      - 7cf553ee-342b-4430-893f-4ece0f7a2db9
+      - a251bd99-a9b4-4ee8-9b4f-b82f45532e35
       Date:
-      - Mon, 24 Dec 2018 19:43:56 GMT
+      - Thu, 03 Jan 2019 00:33:37 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
     body:
       encoding: UTF-8
-      string: "{\r\n  \"envelopeId\": \"f7757bbb-4e72-49a0-881a-a15e0d2dae8d\",\r\n
-        \ \"uri\": \"/envelopes/f7757bbb-4e72-49a0-881a-a15e0d2dae8d\",\r\n  \"statusDateTime\":
-        \"2018-12-24T19:43:57.1630000Z\",\r\n  \"status\": \"sent\"\r\n}"
+      string: "{\r\n  \"envelopeId\": \"6f858aef-00d1-4c6b-9836-1bd80cccfa28\",\r\n
+        \ \"uri\": \"/envelopes/6f858aef-00d1-4c6b-9836-1bd80cccfa28\",\r\n  \"statusDateTime\":
+        \"2019-01-03T00:33:37.6300000Z\",\r\n  \"status\": \"sent\"\r\n}"
     http_version: 
-  recorded_at: Mon, 24 Dec 2018 19:43:57 GMT
+  recorded_at: Thu, 03 Jan 2019 00:33:37 GMT
 recorded_with: VCR 4.0.0
