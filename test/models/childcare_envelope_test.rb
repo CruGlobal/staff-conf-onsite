@@ -2,8 +2,7 @@ require 'test_helper'
 
 class ChildcareEnvelopeTest < ModelTestCase
 
-  def setup
-    super
+  setup do
     @attendee = build :attendee
     @child = build :child, family: @attendee.family
     @subject = ChildcareEnvelope.new(envelope_id: "1234", status: "sent", recipient: @attendee, child: @child)

@@ -2,8 +2,7 @@ require 'test_helper'
 
 class Docusign::VoidChildcareEnvelopeJobTest < JobTestCase
 
-  def setup
-    super
+  setup do
     @envelope = create(:childcare_envelope, :sent)
   end
 

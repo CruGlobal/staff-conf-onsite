@@ -2,8 +2,7 @@ require 'test_helper'
 
 class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
   
-  def setup
-    super
+  setup do
     @family = create :family
     @attendee = create :attendee, family: @family, first_name: 'Test', last_name: 'Recipient', email: 'test@example.com'
     @child = create :child, family: @family

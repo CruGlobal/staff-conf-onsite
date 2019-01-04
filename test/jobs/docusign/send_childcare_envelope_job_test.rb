@@ -2,8 +2,7 @@ require 'test_helper'
 
 class Docusign::SendChildcareEnvelopeJobTest < JobTestCase
 
-  def setup
-    super
+  setup do
     @attendee = build_stubbed(:attendee, last_name: 'Testerman')
     @child = build_stubbed(:child, family: @attendee.family)
     @attendee.family.primary_person = @attendee
