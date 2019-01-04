@@ -2,6 +2,7 @@ require 'test_helper'
 
 class Docusign::CheckEnvelopeStatusTest < ServiceTestCase
   def setup
+    super
     @envelope_id = 'd56a61b1-ac74-43ae-81f0-63e592890f93'
   end
 
