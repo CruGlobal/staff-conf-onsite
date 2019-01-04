@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes/87840103-e43d-4817-be24-20b733552604
+    body:
+      encoding: UTF-8
+      string: '{"status":"voided","voidedReason":"Envelope voided via admin page"}'
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '140'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Ratelimit-Reset:
+      - '1546560000'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '996'
+      X-Docusign-Tracetoken:
+      - 5540e371-7d4f-4542-a8c2-ee77fb849037
+      Date:
+      - Thu, 03 Jan 2019 23:52:54 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"errorCode\": \"ENVELOPE_CANNOT_VOID_INVALID_STATE\",\r\n  \"message\":
+        \"Only envelopes in the 'Sent' or 'Delivered' states may be voided.\"\r\n}"
+    http_version: 
+  recorded_at: Thu, 03 Jan 2019 23:52:55 GMT
+recorded_with: VCR 4.0.0
