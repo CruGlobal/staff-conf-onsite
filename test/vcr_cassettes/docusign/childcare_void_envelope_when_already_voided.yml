@@ -29,15 +29,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       X-Ratelimit-Reset:
-      - '1546560000'
+      - '1546563600'
       X-Ratelimit-Limit:
       - '1000'
       X-Ratelimit-Remaining:
-      - '996'
+      - '993'
       X-Docusign-Tracetoken:
-      - 5540e371-7d4f-4542-a8c2-ee77fb849037
+      - 0f0317b6-c11b-4d5d-8b65-db60168c7456
       Date:
-      - Thu, 03 Jan 2019 23:52:54 GMT
+      - Fri, 04 Jan 2019 00:27:27 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
     body:
@@ -45,5 +45,70 @@ http_interactions:
       string: "{\r\n  \"errorCode\": \"ENVELOPE_CANNOT_VOID_INVALID_STATE\",\r\n  \"message\":
         \"Only envelopes in the 'Sent' or 'Delivered' states may be voided.\"\r\n}"
     http_version: 
-  recorded_at: Thu, 03 Jan 2019 23:52:55 GMT
+  recorded_at: Fri, 04 Jan 2019 00:27:28 GMT
+- request:
+    method: get
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes/87840103-e43d-4817-be24-20b733552604
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '1636'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Ratelimit-Reset:
+      - '1546563600'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '992'
+      X-Docusign-Tracetoken:
+      - ee5a604d-51ad-478a-a55a-ae5942fc2be7
+      Date:
+      - Fri, 04 Jan 2019 00:27:28 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"status\": \"voided\",\r\n  \"documentsUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/documents\",\r\n
+        \ \"recipientsUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/recipients\",\r\n
+        \ \"attachmentsUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/attachments\",\r\n
+        \ \"envelopeUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604\",\r\n
+        \ \"emailSubject\": \"Testing docusign status\",\r\n  \"emailBlurb\": \"Envelope
+        body content here\",\r\n  \"envelopeId\": \"87840103-e43d-4817-be24-20b733552604\",\r\n
+        \ \"customFieldsUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/custom_fields\",\r\n
+        \ \"autoNavigation\": \"true\",\r\n  \"envelopeIdStamping\": \"true\",\r\n
+        \ \"notificationUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/notification\",\r\n
+        \ \"enableWetSign\": \"true\",\r\n  \"allowMarkup\": \"false\",\r\n  \"allowReassign\":
+        \"true\",\r\n  \"createdDateTime\": \"2018-12-21T19:17:40.7700000Z\",\r\n
+        \ \"lastModifiedDateTime\": \"2019-01-03T23:52:38.1170000Z\",\r\n  \"initialSentDateTime\":
+        \"2018-12-21T19:17:41.7870000Z\",\r\n  \"sentDateTime\": \"2018-12-21T19:17:41.7870000Z\",\r\n
+        \ \"voidedDateTime\": \"2019-01-03T23:52:38.1170000Z\",\r\n  \"voidedReason\":
+        \"Envelope voided via admin page\",\r\n  \"statusChangedDateTime\": \"2019-01-03T23:52:38.1170000Z\",\r\n
+        \ \"documentsCombinedUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/documents/combined\",\r\n
+        \ \"certificateUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/documents/certificate\",\r\n
+        \ \"templatesUri\": \"/envelopes/87840103-e43d-4817-be24-20b733552604/templates\",\r\n
+        \ \"purgeState\": \"unpurged\",\r\n  \"is21CFRPart11\": \"false\",\r\n  \"signerCanSignOnMobile\":
+        \"true\",\r\n  \"isSignatureProviderEnvelope\": \"false\",\r\n  \"allowViewHistory\":
+        \"true\"\r\n}"
+    http_version: 
+  recorded_at: Fri, 04 Jan 2019 00:27:28 GMT
 recorded_with: VCR 4.0.0

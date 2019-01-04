@@ -10,7 +10,24 @@ class Childcare::VoidDocusignEnvelope < ApplicationService
   def call
     raise VoidEnvelopeError, 'Envelope is not voidable.' unless envelope.voidable?
 
-    result = Docusign::VoidEnvelope.new(envelope.envelope_id).call
-    envelope.update(status: 'voided') if result
+    begin
+      result = Docusign::VoidEnvelope.new(envelope.envelope_id).call
+      envelope.update(status: 'voided') if result
+    rescue Docusign::VoidEnvelope::DocusignError => exception
+      update_status_from_docusign if status_outdated?(exception)
+      Rollbar.error(exception)
+      Rails.logger.error "[#{self.class.name}] Something went wrong with you job: #{exception}"
+    end
+  end
+
+  private
+
+  def status_outdated?(exception)
+    exception.message == "Only envelopes in the 'Sent' or 'Delivered' states may be voided."
+  end
+
+  def update_status_from_docusign
+    current_status = Docusign::CheckEnvelopeStatus.new(envelope.envelope_id).call
+    envelope.update(status: current_status) if current_status
   end
 end
