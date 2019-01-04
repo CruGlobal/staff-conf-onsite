@@ -19,6 +19,10 @@ class ChildcareEnvelope < ApplicationRecord
     end
   end
 
+  def voidable?
+    IN_PROCESS_ENVELOPE_STATUSES.include?(status)
+  end
+
   private
 
   def normalize_status

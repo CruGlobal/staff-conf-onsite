@@ -46,4 +46,14 @@ class ChildcareEnvelopeTest < ModelTestCase
     
     assert_equal 'delivered', @subject.status
   end
+
+  test '#voidable?' do
+    assert @subject.voidable?
+
+    @subject.status = 'completed'
+    refute @subject.voidable?
+
+    @subject.status = 'voided'
+    refute @subject.voidable?
+  end
 end
