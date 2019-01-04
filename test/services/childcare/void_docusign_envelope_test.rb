@@ -22,7 +22,7 @@ class Childcare::VoidDocusignEnvelopeTest < ServiceTestCase
     @envelope = build :childcare_envelope, :sent, envelope_id: '87840103-e43d-4817-be24-20b733552604'
 
     VCR.use_cassette('docusign/childcare_void_envelope_when_already_voided') do
-      refute Childcare::VoidDocusignEnvelope.new(@envelope).call
+      assert Childcare::VoidDocusignEnvelope.new(@envelope).call
       assert_equal('voided', @envelope.status)
     end
   end
