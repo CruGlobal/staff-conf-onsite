@@ -26,6 +26,8 @@ class Childcare::VoidDocusignEnvelope < ApplicationService
     exception.message == "Only envelopes in the 'Sent' or 'Delivered' states may be voided."
   end
 
+  # Update local envelope status if status is out of sync between app and docusign
+  # because a change is done directly on the docusign page.
   def update_status_from_docusign
     current_status = Docusign::CheckEnvelopeStatus.new(envelope.envelope_id).call
     envelope.update(status: current_status) if current_status
