@@ -11,6 +11,7 @@ require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
+require 'vcr'
 
 Minitest::Reporters.use!
 
@@ -57,6 +58,19 @@ class ModelTestCase < ActiveSupport::TestCase
 end
 
 class ServiceTestCase < ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+  include Support::UserVariable
+  include ActionDispatch::TestProcess
+
+  self.use_transactional_fixtures = false
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+    DatabaseCleaner.start
+  end
+  after(:each)  { DatabaseCleaner.clean }
+end
+
+class JobTestCase < ActiveJob::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::UserVariable
   include ActionDispatch::TestProcess

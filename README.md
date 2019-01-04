@@ -114,3 +114,39 @@ role, with a real CAS account:
   * **General**: `jon.sangster+general@ballistiq.com`
 
 Each account uses the password `CRUstaff2016`
+
+### Docusign
+
+Docusign is a 3rd party service that provides digital signatures.
+The app uses the service by sending data Docusign via api which is pre filled 
+into an existing template on Docusign. Then this `envelope` is sent to the 
+recipient that we determined. 
+The recipient then receives an email to view this document (envelope) and can 
+electronically sign it knowing that the document can't be tampered.
+
+To test sending real DocuSign documents on dev, you need to:
+1. [Create a free developer account](https://go.docusign.com/sandbox/productshot/)
+2. Create a template on the DocuSign web ui by going to templates on the main menu.
+3. On template setup add a signing role, and some fields to be pre filled.
+4. Add your docusign credentials to your env.local file
+5. Edit the service .rb for the envelope you want to serve to add your template id,
+and other particular customizations.
+
+> **Ensure you set yourself or a test email as the recipient!**
+
+
+### Docusign: Recording new VCR cassettes (Testing)
+
+To remove any personal data tied to the developers DocuSign account, the vcr cassettes
+where slightly modified from their original recording by using vcr's filter sensitive
+data option.
+
+To record new VCR cassettes of existing tests:
+> This assumes you have a free DocuSign demo account
+* Create an `.env.test.local` file, and add your DocuSign credentials overwriting the 
+`.env.test` ones.
+* Delete (or rename) any existing VCR cassette used on the test.
+* Run test as usual.
+* A new cassette will be created and your real credentials will be overwritten by the 
+placeholder defined on the filter.
+* Run tests again to ensure all worked as expected.

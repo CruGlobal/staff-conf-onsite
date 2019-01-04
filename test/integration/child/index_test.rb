@@ -5,6 +5,7 @@ class Child::IndexTest < IntegrationTest
     @user = create_login_user
     @child = create :child, :childcare
     @childcare = create :childcare
+    VCR.turn_off!
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now
