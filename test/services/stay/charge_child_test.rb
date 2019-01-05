@@ -24,9 +24,8 @@ class Stay::ChargeChildCostTest < ServiceTestCase
 
   stub_user_variable child_age_cutoff: 6.months.from_now
 
-
   test 'adult with price cost adjustment' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
 
     create :cost_adjustment, price_cents: 200, person: @child, cost_type: :dorm_child
     @service.call
@@ -34,11 +33,27 @@ class Stay::ChargeChildCostTest < ServiceTestCase
   end
 
   test 'adult with percent cost adjustment' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
 
     create :cost_adjustment, percent: 50, person: @child, cost_type: :dorm_child
     @service.call
     assert_equal Money.new(111 * 5 / 2), @service.total
+  end
+
+  test 'teen with price cost adjustment' do
+    @child.update!(birthdate: 11.years.ago)
+
+    create :cost_adjustment, price_cents: 200, person: @child, cost_type: :dorm_child
+    @service.call
+    assert_equal Money.new(222 * 5 - 200), @service.total
+  end
+
+  test 'teen with percent cost adjustment' do
+    @child.update!(birthdate: 11.years.ago)
+
+    create :cost_adjustment, percent: 50, person: @child, cost_type: :dorm_child
+    @service.call
+    assert_equal Money.new(222 * 5 / 2), @service.total
   end
 
   test 'infant with many cost adjustments' do
