@@ -73,7 +73,10 @@ module Import
       strategy:          'Strategy',
       assignment_length: 'Assignment Length',
       pay_chartfield:    'Pay Chartfield',
-      conference_status: 'Conference Status'
+      conference_status: 'Conference Status',
+
+      allergy:           'Forms CC MH Allergy',
+      food_intolerance:  'Forms CC MH Food Intolerance'
     }.freeze
 
     attr_accessor(*SPREADSHEET_TITLES.keys)

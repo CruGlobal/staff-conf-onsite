@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218181748) do
+ActiveRecord::Schema.define(version: 20190108180329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(version: 20181218181748) do
 
   create_table "childcare_medical_histories", force: :cascade do |t|
     t.text     "allergy"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "person_id"
+    t.text     "food_intolerance"
   end
 
   add_index "childcare_medical_histories", ["person_id"], name: "index_childcare_medical_histories_on_person_id", using: :btree

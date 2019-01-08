@@ -1,0 +1,26 @@
+module Import
+  module Attributes
+    class UpdateChildcareMedicalHistory < ApplicationService
+      # +Person+
+      attr_accessor :person
+
+      # +Import::Person+
+      attr_accessor :import
+
+      # +ChildcareMedicalHistory+
+      attr_accessor :childcare_medical_history
+
+      def call
+        set_childcare_medical_history_attributes
+      end
+
+      private
+
+      def set_childcare_medical_history_attributes
+        person.childcare_medical_history.assign_attributes(
+            allergy: import.allergy
+        )
+      end
+    end
+  end
+end
