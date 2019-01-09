@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108180329) do
+ActiveRecord::Schema.define(version: 20190108194154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,10 +41,37 @@ ActiveRecord::Schema.define(version: 20190108180329) do
 
   create_table "childcare_medical_histories", force: :cascade do |t|
     t.text     "allergy"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "person_id"
     t.text     "food_intolerance"
+    t.string   "chronic_health"
+    t.text     "chronic_health_addl"
+    t.text     "medications"
+    t.string   "immunizations"
+    t.string   "health_misc"
+    t.text     "restrictions"
+    t.text     "vip_meds"
+    t.text     "vip_dev"
+    t.text     "vip_strengths"
+    t.text     "vip_challenges"
+    t.text     "vip_mobility"
+    t.text     "vip_walk"
+    t.string   "vip_comm"
+    t.text     "vip_comm_addl"
+    t.text     "vip_comm_small"
+    t.text     "vip_comm_large"
+    t.text     "vip_comm_directions"
+    t.string   "vip_stress"
+    t.text     "vip_stress_addl"
+    t.text     "vip_stress_behavior"
+    t.text     "vip_calm"
+    t.text     "vip_hobby"
+    t.text     "vip_buddy"
+    t.text     "vip_addl_info"
+    t.string   "sunscreen_self"
+    t.string   "sunscreen_assisted"
+    t.string   "sunscreen_provided"
   end
 
   add_index "childcare_medical_histories", ["person_id"], name: "index_childcare_medical_histories_on_person_id", using: :btree

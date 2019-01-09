@@ -75,8 +75,35 @@ module Import
       pay_chartfield:    'Pay Chartfield',
       conference_status: 'Conference Status',
 
-      allergy:           'Forms CC MH Allergy',
-      food_intolerance:  'Forms CC MH Food Intolerance'
+      allergy:              'Forms CC MH Allergy',
+      food_intolerance:     'Forms CC MH Food Intolerance',
+      chronic_health:       'Forms CC MH Chronic Health',
+      chronic_health_addl:  'Forms CC MH Chronic Health Addl',
+      medications:          'Forms CC MH Medications',
+      immunizations:        'Forms CC MH Immunizations',
+      health_misc:          'Forms CC MH Health Misc',
+      restrictions:         'Forms CC MH Restrictions',
+      vip_meds:             'Forms CC VIP Meds',
+      vip_dev:              'Forms CC VIP Dev',
+      vip_strengths:        'Forms CC VIP Strengths',
+      vip_challenges:       'Forms CC VIP Challenges',
+      vip_mobility:         'Forms CC VIP Mobility',
+      vip_walk:             'Forms CC VIP Walk',
+      vip_comm:             'Forms CC VIP Comm',
+      vip_comm_addl:        'Forms CC VIP Comm Addl',
+      vip_comm_small:       'Forms CC VIP Comm Small',
+      vip_comm_large:       'Forms CC VIP Comm Large',
+      vip_comm_directions:  'Forms CC VIP Comm Directions',
+      vip_stress:           'Forms CC VIP Stress',
+      vip_stress_addl:      'Forms CC VIP Stress Addl',
+      vip_stress_behavior:  'Forms CC VIP StressBehavior',
+      vip_calm:             'Forms CC VIP Calm',
+      vip_hobby:            'Forms CC VIP Hobby',
+      vip_buddy:            'Forms CC VIP Buddy',
+      vip_addl_info:        'Forms CC VIP AddlInfo',
+      sunscreen_self:       'Forms CC Sunscreen Self',
+      sunscreen_assisted:   'Forms CC Sunscreen Assisted',
+      sunscreen_provided:   'Forms CC Sunscreen Provided'
     }.freeze
 
     attr_accessor(*SPREADSHEET_TITLES.keys)
