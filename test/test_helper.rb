@@ -12,6 +12,7 @@ require 'rack_session_access/capybara'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
 require 'vcr'
+require "mocha/mini_test"
 
 Minitest::Reporters.use!
 

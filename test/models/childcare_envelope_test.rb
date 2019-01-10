@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ChildcareEnvelopeTest < ModelTestCase
 
-  def setup
-    @attendee = build :attendee, family_id: 1
-    @child = build :child, family_id: 1
+  setup do
+    @attendee = build :attendee
+    @child = build :child, family: @attendee.family
     @subject = ChildcareEnvelope.new(envelope_id: "1234", status: "sent", recipient: @attendee, child: @child)
   end
 
@@ -45,5 +45,15 @@ class ChildcareEnvelopeTest < ModelTestCase
     @subject.valid?
     
     assert_equal 'delivered', @subject.status
+  end
+
+  test '#voidable?' do
+    assert @subject.voidable?
+
+    @subject.status = 'completed'
+    refute @subject.voidable?
+
+    @subject.status = 'voided'
+    refute @subject.voidable?
   end
 end

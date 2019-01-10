@@ -80,10 +80,12 @@ group :development, :test do
   gem 'faker', '~> 1.6'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
+  gem 'm', '~> 1.5.0'                     # Allow to run individual tests
   gem 'minitest', '~> 5.10.2'
   gem 'minitest-around', '~> 0.4'         # Minitest around callback
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
+  gem 'mocha', '~> 1.7.0'                 # Test mocking and stubbing
   gem 'pry-byebug', '~> 3.6.0'            # Debugger
   gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
