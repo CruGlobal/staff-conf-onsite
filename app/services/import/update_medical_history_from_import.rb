@@ -8,13 +8,14 @@ module Import
     attr_accessor :import
 
     def call
-      set_medical_history_attributes
+      set_childcare_medical_history_attributes
+      set_student_medical_history_attributes
     end
 
     private
 
-    def set_medical_history_attributes
-      medicalHistory = ChildcareMedicalHistory.new(
+    def set_childcare_medical_history_attributes
+      childcareMedicalHistory = ChildcareMedicalHistory.new(
         allergy: @import.allergy,
         food_intolerance: @import.food_intolerance,
         chronic_health: @import.chronic_health,
@@ -45,7 +46,68 @@ module Import
         sunscreen_assisted: @import.sunscreen_assisted,
         sunscreen_provided: @import.sunscreen_provided
       )
-      person.childcare_medical_history = medicalHistory
+      person.childcare_medical_history = childcareMedicalHistory
+    end
+
+    def set_student_medical_history_attributes
+      studentMedicalHistory = CruStudentMedicalHistory.new(
+        parent_agree: @import.parent_agree,
+        gsky_lunch: @import.gsky_lunch,
+        gsky_signout: @import.gsky_signout,
+        gsky_sibling_signout: @import.gsky_sibling_signout,
+        gsky_sibling: @import.gsky_sibling,
+        gsky_small_group_friend: @import.gsky_small_group_friend,
+        gsky_musical: @import.gsky_musical,
+        gsky_activities: @import.gsky_activities,
+        gsky_gain: @import.gsky_gain,
+        gsky_growth: @import.gsky_growth,
+        gsky_addl_info: @import.gsky_addl_info,
+        gsky_challenges: @import.gsky_challenges,
+        gsky_large_groups: @import.gsky_large_groups,
+        gsky_small_groups: @import.gsky_small_groups,
+        gsky_leader: @import.gsky_leader,
+        gsky_follower: @import.gsky_follower,
+        gsky_friends: @import.gsky_friends,
+        gsky_hesitant: @import.gsky_hesitant,
+        gsky_active: @import.gsky_active,
+        gsky_reserved: @import.gsky_reserved,
+        gsky_boundaries: @import.gsky_boundaries,
+        gsky_authority: @import.gsky_authority,
+        gsky_adapts: @import.gsky_adapts,
+        gsky_allergies: @import.gsky_allergies,
+        med_allergies: @import.med_allergies,
+        food_allergies: @import.food_allergies,
+        other_allergies: @import.other_allergies,
+        health_concerns: @import.health_concerns,
+        asthma: @import.asthma,
+        migraines: @import.migraines,
+        severe_allergy: @import.severe_allergy,
+        anorexia: @import.anorexia,
+        diabetes: @import.diabetes,
+        altitude: @import.altitude,
+        concerns_misc: @import.concerns_misc,
+        cs_health_misc: @import.cs_health_misc,
+        cs_vip_meds: @import.cs_vip_meds,
+        cs_vip_dev: @import.cs_vip_dev,
+        cs_vip_strengths: @import.cs_vip_strengths,
+        cs_vip_challenges: @import.cs_vip_challenges,
+        cs_vip_mobility: @import.cs_vip_mobility,
+        cs_vip_walk: @import.cs_vip_walk,
+        cs_vip_comm: @import.cs_vip_comm,
+        cs_vip_comm_addl: @import.cs_vip_comm_addl,
+        cs_vip_comm_small: @import.cs_vip_comm_small,
+        cs_vip_comm_large: @import.cs_vip_comm_large,
+        cs_vip_comm_directions: @import.cs_vip_comm_directions,
+        cs_vip_stress: @import.cs_vip_stress,
+        cs_vip_stress_addl: @import.cs_vip_stress_addl,
+        cs_vip_stress_behavior: @import.cs_vip_stress_behavior,
+        cs_vip_calm: @import.cs_vip_calm,
+        cs_vip_sitting: @import.cs_vip_sitting,
+        cs_vip_hobby: @import.cs_vip_hobby,
+        cs_vip_buddy: @import.cs_vip_buddy,
+        cs_vip_addl_info: @import.cs_vip_addl_info
+      )
+      person.cru_student_medical_history = studentMedicalHistory
     end
 
   end

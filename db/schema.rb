@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108194154) do
+ActiveRecord::Schema.define(version: 20190110162420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,6 +170,69 @@ ActiveRecord::Schema.define(version: 20190108194154) do
     t.string   "location",        null: false
     t.integer  "position"
   end
+
+  create_table "cru_student_medical_histories", force: :cascade do |t|
+    t.string   "parent_agree"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "person_id"
+    t.string   "gsky_lunch"
+    t.string   "gsky_signout"
+    t.string   "gsky_sibling_signout"
+    t.string   "gsky_sibling"
+    t.text     "gsky_small_group_friend"
+    t.string   "gsky_musical"
+    t.text     "gsky_activities"
+    t.text     "gsky_gain"
+    t.text     "gsky_growth"
+    t.text     "gsky_addl_info"
+    t.string   "gsky_challenges"
+    t.string   "gsky_large_groups"
+    t.string   "gsky_small_groups"
+    t.string   "gsky_leader"
+    t.string   "gsky_follower"
+    t.string   "gsky_friends"
+    t.string   "gsky_hesitant"
+    t.string   "gsky_active"
+    t.string   "gsky_reserved"
+    t.string   "gsky_boundaries"
+    t.string   "gsky_authority"
+    t.string   "gsky_adapts"
+    t.string   "gsky_allergies"
+    t.string   "med_allergies"
+    t.string   "food_allergies"
+    t.string   "other_allergies"
+    t.string   "health_concerns"
+    t.string   "asthma"
+    t.string   "migraines"
+    t.string   "severe_allergy"
+    t.string   "anorexia"
+    t.string   "diabetes"
+    t.string   "altitude"
+    t.string   "concerns_misc"
+    t.string   "cs_health_misc"
+    t.text     "cs_vip_meds"
+    t.text     "cs_vip_dev"
+    t.text     "cs_vip_strengths"
+    t.text     "cs_vip_challenges"
+    t.text     "cs_vip_mobility"
+    t.text     "cs_vip_walk"
+    t.string   "cs_vip_comm"
+    t.text     "cs_vip_comm_addl"
+    t.text     "cs_vip_comm_small"
+    t.text     "cs_vip_comm_large"
+    t.text     "cs_vip_comm_directions"
+    t.string   "cs_vip_stress"
+    t.text     "cs_vip_stress_addl"
+    t.text     "cs_vip_stress_behavior"
+    t.text     "cs_vip_calm"
+    t.text     "cs_vip_sitting"
+    t.text     "cs_vip_hobby"
+    t.text     "cs_vip_buddy"
+    t.text     "cs_vip_addl_info"
+  end
+
+  add_index "cru_student_medical_histories", ["person_id"], name: "index_cru_student_medical_histories_on_person_id", using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "city"
@@ -426,5 +489,6 @@ ActiveRecord::Schema.define(version: 20190108194154) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "childcare_medical_histories", "people"
+  add_foreign_key "cru_student_medical_histories", "people"
   add_foreign_key "people", "seminaries"
 end
