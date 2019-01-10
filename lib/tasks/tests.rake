@@ -17,7 +17,9 @@ task :default do
 end
 
 Rake::TestTask.new('test:unit') do |t|
-  t.pattern = 'test/{controllers,jobs,lib,mailers,models,services}/**/*_test.rb'
+  t.test_files = FileList['test/**/*_test.rb'].exclude(
+    'test/integration/**/*_test.rb'
+  )
   t.description = 'Run quicker unit tests'
   t.libs << 'test'
   t.warning = false
