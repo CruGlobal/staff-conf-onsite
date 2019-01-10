@@ -89,7 +89,7 @@ class Stay::SumChildCostTest < ServiceTestCase
     @child.update!(birthdate: 4.years.ago)
     @child.stays.last.update!(no_bed: true)
     @service.call
-    assert_equal Money.new(555 * 5), @service.charges[:dorm_child]
+    assert_equal Money.empty, @service.charges[:dorm_child]
   end
 
   test 'adult staying at 2 dormitories' do
