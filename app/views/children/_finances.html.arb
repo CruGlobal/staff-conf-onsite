@@ -14,13 +14,11 @@ panel 'Finances', class: 'finances_panel' do
           tr do
             td { join_stay_dates(stay) }
             td do
-              begin
-                result = Stay::SingleChildDormitoryCost.call(child: child,
-                                                             stay: stay)
-                text_node humanized_money_with_symbol result.total
-              rescue => e
-                div(class: 'flash flash_error') { e.message }
-              end
+              result = Stay::SingleChildDormitoryCost.call(child: child,
+                                                           stay: stay)
+              text_node humanized_money_with_symbol result.total
+            rescue => e
+              div(class: 'flash flash_error') { e.message }
             end
           end
         end
