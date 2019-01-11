@@ -68,11 +68,9 @@ module Import
         return [] if choices.blank?
 
         choices.split(/\s*,\s*/).map do |name|
-          begin
-            Conference.find_by!(name: name)
-          rescue ActiveRecord::ActiveRecordError
-            raise t('errors.no_conference', name: name.inspect)
-          end
+          Conference.find_by!(name: name)
+        rescue ActiveRecord::ActiveRecordError
+          raise t('errors.no_conference', name: name.inspect)
         end
       end
 
@@ -80,11 +78,9 @@ module Import
         return [] if courses.blank?
 
         courses.split(/\s*,\s*/).map do |name|
-          begin
-            Course.find_by!(name: name)
-          rescue ActiveRecord::ActiveRecordError
-            raise t('errors.no_course', name: name.inspect)
-          end
+          Course.find_by!(name: name)
+        rescue ActiveRecord::ActiveRecordError
+          raise t('errors.no_course', name: name.inspect)
         end
       end
 

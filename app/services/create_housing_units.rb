@@ -42,17 +42,15 @@ class CreateHousingUnits < UploadService
 
   def build_models(import_models)
     import_models.map do |import|
-      begin
-        facility = find_facility(import.facility_name)
-        unless import.exists_in?(facility)
-          RowRecord.new(
-            import.build_record(facility),
-            import
-          )
-        end
-      rescue StandardError => e
-        raise Error, format('Row #%d: %p', import.row, e.message)
+      facility = find_facility(import.facility_name)
+      unless import.exists_in?(facility)
+        RowRecord.new(
+          import.build_record(facility),
+          import
+        )
       end
+    rescue StandardError => e
+      raise Error, format('Row #%d: %p', import.row, e.message)
     end.compact
   end
 
