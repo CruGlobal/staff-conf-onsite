@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes
+    body:
+      encoding: UTF-8
+      string: '{"status":"sent","emailBlurb":"This is just a test","emailSubject":"Test
+        Docusign Envelope","templateId":"6dc20541-a4e1-4c25-9406-c1709a9c9527","enableWetSign":null,"brandId":null,"eventNotification":{},"templateRoles":[{"name":"test_recipient","email":"test_recipient@example.com","roleName":"Signer","tabs":{"textTabs":[],"checkboxTabs":[],"numberTabs":[],"radioGroupTabs":[],"fullNameTabs":[],"dateTabs":[]}}],"customFields":null,"allowReassign":null}'
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '195'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Ratelimit-Reset:
+      - '1546477200'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '998'
+      X-Docusign-Tracetoken:
+      - 6c5a456b-4be8-41ac-acd3-c63f0644d645
+      Date:
+      - Thu, 03 Jan 2019 00:29:53 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"envelopeId\": \"ba1894c0-c7c0-42c2-84a5-8c22483b2034\",\r\n
+        \ \"uri\": \"/envelopes/ba1894c0-c7c0-42c2-84a5-8c22483b2034\",\r\n  \"statusDateTime\":
+        \"2019-01-03T00:29:53.1830000Z\",\r\n  \"status\": \"sent\"\r\n}"
+    http_version: 
+  recorded_at: Thu, 03 Jan 2019 00:29:53 GMT
+recorded_with: VCR 4.0.0

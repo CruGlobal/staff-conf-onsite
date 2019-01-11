@@ -43,9 +43,7 @@ ActiveAdmin.register Attendee do
   filter :conference_status, as: :select
 
   action_item :import_spreadsheet, only: :index do
-    if authorized?(:import, Family)
-      link_to 'Import Spreadsheet', new_spreadsheet_families_path
-    end
+    link_to 'Import Spreadsheet', new_spreadsheet_families_path if authorized?(:import, Family)
   end
 
   controller do

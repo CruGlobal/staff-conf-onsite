@@ -3,7 +3,10 @@ require 'test_helper'
 class HousingFacility::FormTest < IntegrationTest
   include Support::HousingFacility
 
-  before { prepare_for_testing }
+  before do
+    prepare_for_testing
+    VCR.turn_off!
+  end
 
   [:new, :edit].each do |action|
     test("##{action} navigation") do

@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://demo.docusign.net/restapi/v2/accounts/<DOCUSIGN_ACCOUNT_ID>/envelopes/123-abc
+    body:
+      encoding: UTF-8
+      string: '{"status":"voided","voidedReason":"Envelope voided via admin page"}'
+    headers:
+      X-Docusign-Authentication:
+      - '{"Username":"<DOCUSIGN_USER_NAME>","Password":"<DOCUSIGN_PASSWORD>","IntegratorKey":"<DOCUSIGN_INTEGRATOR_KEY>"}'
+      Accept:
+      - json
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Docusign-Tracetoken:
+      - 2ba0fc8e-fff8-4ae3-99a6-17305798e121
+      Date:
+      - Thu, 03 Jan 2019 23:40:19 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"errorCode\": \"INVALID_REQUEST_PARAMETER\",\r\n  \"message\":
+        \"The request contained at least one invalid parameter. Invalid value specified
+        for envelopeId.\"\r\n}"
+    http_version: 
+  recorded_at: Thu, 03 Jan 2019 23:40:19 GMT
+recorded_with: VCR 4.0.0

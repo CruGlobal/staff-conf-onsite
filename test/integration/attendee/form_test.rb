@@ -4,6 +4,7 @@ class Attendee::FormTest < IntegrationTest
   before do
     @user = create_login_user
     @attendee = create :attendee
+    VCR.turn_off!
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now.to_date,

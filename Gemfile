@@ -27,7 +27,7 @@ gem 'rollbar', '~> 2.18'
 gem 'activeadmin', '~> 1.0.0'
 gem 'acts_as_list', '~> 0.9'
 gem 'paper_trail', '~> 5.2.2'
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 4.2.11'
 gem 'roo', '~> 2.7'
 
 # Authentication
@@ -60,6 +60,9 @@ gem 'jquery-rails', '~> 4.2'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'turbolinks', '~> 5.0.1'
 
+# Interface with DocuSign
+gem 'docusign_rest', '~> 0.4.4'
+
 # We don't require Nokogiri directly, only through other gems (like axlsx).
 # However, due to CVE-2016-4658, we need to ensure we're using at least v1.7.1.
 #
@@ -67,28 +70,31 @@ gem 'turbolinks', '~> 5.0.1'
 gem 'nokogiri', '>= 1.7.1'
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.1.1'
+  gem 'dotenv-rails', '~> 2.5.0'
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter
-  gem 'byebug', '~> 9.0'                  # Debugger
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'factory_girl', '~> 4.7'            # Test object factories
   gem 'faker', '~> 1.6'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
+  gem 'm', '~> 1.5.0'                     # Allow to run individual tests
   gem 'minitest', '~> 5.10.2'
   gem 'minitest-around', '~> 0.4'         # Minitest around callback
   gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
+  gem 'mocha', '~> 1.7.0'                 # Test mocking and stubbing
+  gem 'pry-byebug', '~> 3.6.0'            # Debugger
   gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
-  gem 'reek', '~> 4.7'                    # Linter
-  gem 'rubocop', '~> 0.50'                # Linter
+  gem 'reek', '~> 5.2'                    # Linter
+  gem 'rubocop', '~> 0.60'                # Linter
   gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false
+  gem 'vcr', '~> 4.0.0'                   # Record/Reply HTTP Requests
   gem 'webmock', '~> 2.1'                 # Stub HTTP requests
 
   # Documentation
