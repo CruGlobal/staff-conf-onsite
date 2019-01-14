@@ -50,4 +50,31 @@ class PrecheckEmailsControllerTest < ControllerTestCase
     assert_equal "Cru19 Precheck Modification Request", last_email.subject
     assert_redirected_to precheck_email_rejected_path
   end
+
+  test 'confirm action without an auth param gets error page' do
+    post :confirm
+    assert_response :success
+    assert_template :error
+  end
+
+  test 'confirm action with an invalid auth token get error page' do
+    post :confirm, auth_token: "sdfsdf"
+    assert_response :success
+    assert_template :error
+  end
+
+  test 'confirm action with a valid token checks in family, sends precheck confirmed email and deletes token' do
+    token = create(:precheck_email_token)
+    
+    assert_difference('PrecheckEmailToken.count', -1) do
+      assert_emails 1 do
+        post :confirm, auth_token: token.token
+      end
+    end
+    
+    assigns(:family)
+    last_email = ActionMailer::Base.deliveries.last
+    assert_equal "Cru19 - Precheck Completed", last_email.subject
+    assert_redirected_to precheck_email_confirmed_path
+  end
 end

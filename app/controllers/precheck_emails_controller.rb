@@ -1,11 +1,26 @@
+# TODO: Mark as pre checked complete on confirm action
+
 class PrecheckEmailsController < ApplicationController
-  before_action :find_token, only: %i[new reject]
+  before_action :find_token, only: %i[new confirm reject]
 
   def new
     render 'error' and return unless @token
 
     @family = @token.family
   end
+
+  def confirm
+    render 'error' and return unless @token
+
+    @family = @token.family
+    # TODO: Mark as pre checked complete
+    if PrecheckMailer.precheck_completed(@family).deliver_now
+      @token.delete
+    end
+    redirect_to precheck_email_confirmed_path
+  end
+
+  def confirmed; end
 
   def reject
     render 'error' and return unless @token

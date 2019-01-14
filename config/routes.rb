@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/monitors/lb', to: 'monitors#service_online'
 
   get  '/precheck_email',           to: 'precheck_emails#new'
+  get  '/precheck_email/confirmed', to: 'precheck_emails#confirmed', as: :precheck_email_confirmed
   get  '/precheck_email/rejected',  to: 'precheck_emails#rejected', as: :precheck_email_rejected
+  post '/precheck_email/confirm',   to: 'precheck_emails#confirm', as: :precheck_email_confirm
   post '/precheck_email/reject',    to: 'precheck_emails#reject', as: :precheck_email_reject
 end
