@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20190110162420) do
   end
 
   add_index "childcare_medical_histories", ["person_id"], name: "index_childcare_medical_histories_on_person_id", using: :btree
+  create_table "childcare_envelopes", force: :cascade do |t|
+    t.string   "envelope_id",  null: false
+    t.string   "status",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "recipient_id", null: false
+    t.integer  "child_id",     null: false
+  end
+
+  add_index "childcare_envelopes", ["envelope_id"], name: "index_childcare_envelopes_on_envelope_id", using: :btree
+
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -490,5 +501,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
 
   add_foreign_key "childcare_medical_histories", "people"
   add_foreign_key "cru_student_medical_histories", "people"
+  add_foreign_key "childcare_envelopes", "people", column: "child_id"
+  add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
   add_foreign_key "people", "seminaries"
 end

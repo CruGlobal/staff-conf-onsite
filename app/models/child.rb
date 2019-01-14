@@ -10,6 +10,7 @@ class Child < Person
   belongs_to :childcare
   has_one :primary_person, through: :family, source: :primary_person
   # has_many :conferences, through: :primary_person, source: :conferences
+  has_many :childcare_envelopes, dependent: :nullify
 
   scope :in_kidscare, (lambda do
     where(['childcare_weeks is NOT NULL', "childcare_weeks <> ''",
@@ -111,6 +112,14 @@ class Child < Person
     start_dates.flat_map do |date|
       Array.new(7) { |idx| date + idx.days }
     end
+  end
+
+  def completed_envelope?
+    childcare_envelopes.pluck(:status).include?(ChildcareEnvelope::COMPLETED_ENVELOPE_STATUS)
+  end
+
+  def pending_envelope?
+    childcare_envelopes.pluck(:status).any? { |s| ChildcareEnvelope::IN_PROCESS_ENVELOPE_STATUSES.include?(s) }
   end
 
   private

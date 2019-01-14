@@ -38,9 +38,7 @@ ActiveAdmin.register Family do
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'
   action_item :import_spreadsheet, only: :index do
-    if authorized?(:import, Family)
-      link_to 'Import Spreadsheet', action: :new_spreadsheet
-    end
+    link_to 'Import Spreadsheet', action: :new_spreadsheet if authorized?(:import, Family)
   end
 
   collection_action :import_spreadsheet, method: :post do
@@ -114,6 +112,7 @@ ActiveAdmin.register Family do
         f.attendees.each do |attendee|
           attendee.conferences.reject(&:staff_conference?).each do |conference|
             next if conference.price.zero?
+
             sum = Conference::SumAttendeeCost.call(attendee: attendee)
             amount = ApplyCostAdjustments.call(charges: sum.charges,
                                       cost_adjustments: sum.cost_adjustments).total
@@ -128,11 +127,11 @@ ActiveAdmin.register Family do
                 mtl += amount
               when conference.name == 'Missional Team Leader Spouse'
                 mtl_spouse += amount
-              when conference.name =~ /MPD.*/
+              when /MPD.*/.match?(conference.name)
                 mpd += amount
               when conference.name == 'Legacy Track (Staff 60 years of age and older)'
                 legacy += amount
-              when conference.name =~ /Connection Weekend Attendee.*/
+              when /Connection Weekend Attendee.*/.match?(conference.name)
                 cw += amount
             end
           end

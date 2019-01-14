@@ -6,9 +6,7 @@ ActiveAdmin.register ChargeableStaffNumber do
   filter :created_at
 
   action_item :import_staff_numbers, only: :index do
-    if authorized?(:import, ChargeableStaffNumber)
-      link_to 'Import Spreadsheet', action: :new_spreadsheet
-    end
+    link_to 'Import Spreadsheet', action: :new_spreadsheet if authorized?(:import, ChargeableStaffNumber)
   end
 
   collection_action :new_spreadsheet, title: 'Import Spreadsheet'

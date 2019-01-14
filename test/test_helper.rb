@@ -1,16 +1,28 @@
 ENV['RAILS_ENV'] ||= 'test'
 
-# Must appear before the Application code is required
-require 'simplecov'
-SimpleCov.start
+# Code coverage is enabled by default when running tests.
+# Since it slows down test running, it's possible to disable by adding
+# CODE_COVERAGE=disable into your local .env.test file (this file is not
+# tracked in git).
+unless ENV['CODE_COVERAGE'] == 'disable'
+  # Must appear before the Application code is required
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require File.expand_path('../../config/environment', __FILE__)
+
+# Prevent database truncation if the environment is not test
+abort("The Rails environment is running in #{Rails.env} mode!") unless Rails.env.test?
+
 require 'rails/test_help'
 require 'webmock/minitest'
 require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
+require 'vcr'
+require 'mocha/minitest'
 
 Minitest::Reporters.use!
 
@@ -57,6 +69,19 @@ class ModelTestCase < ActiveSupport::TestCase
 end
 
 class ServiceTestCase < ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+  include Support::UserVariable
+  include ActionDispatch::TestProcess
+
+  self.use_transactional_fixtures = false
+  before(:each) do
+    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+    DatabaseCleaner.start
+  end
+  after(:each)  { DatabaseCleaner.clean }
+end
+
+class JobTestCase < ActiveJob::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::UserVariable
   include ActionDispatch::TestProcess

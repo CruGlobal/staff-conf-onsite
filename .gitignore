@@ -16,7 +16,10 @@
 !/log/.keep
 /tmp
 /.byebug_history
-/.env.*
+/.env.development.local
+/.env.test.local
+/.env.production.local
+/.env.local
 
 # Ignore documentation
 /.yardoc/

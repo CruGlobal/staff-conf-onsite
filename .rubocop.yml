@@ -1,9 +1,6 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  Include:
-    - Rakefile
-    - config.ru
   Exclude:
     - db/**/*
     - script/**/*
@@ -11,9 +8,10 @@ AllCops:
     - bin/**/*
     - test/**/*
     - lib/active_admin/axlsx/**/*
+    - tmp/**/*
 
   TargetRubyVersion:
-    2.3
+    2.5
 
 Rails:
   Enabled: true
@@ -48,7 +46,6 @@ Metrics/LineLength:
 
 Naming/FileName:
   Exclude:
-    - bundler-audit.rake
     - Gemfile
     - Guardfile
 
@@ -58,8 +55,8 @@ Style/AndOr:
 Style/ClassAndModuleChildren:
   Enabled: False
 
-Style/DotPosition:
-  EnforcedStyle: trailing
+Style/FormatStringToken:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -68,5 +65,20 @@ Style/Lambda:
   Exclude:
       - config/**/*
 
-Style/MultilineMethodCallIndentation:
+Style/Semicolon:
+  Exclude:
+    - 'app/views/families/new_spreadsheet/**/*'
+    - 'app/views/ministries/**/*'
+    - 'app/views/housing_facilities/new_spreadsheet.html.arb'
+
+Layout/AlignHash:
+  Enabled: false
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
