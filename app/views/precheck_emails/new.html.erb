@@ -1,0 +1,17 @@
+<div class='precheck-container'>
+  <%= image_tag(image_url('logo.png', host: ActionController::Base.asset_host), class: 'logo') %>
+
+  <h1 class="greeting">Hello <%= @family.last_name %> family!</h1>
+  <p>If your personal details and your conference cost breakdown are correct, please click below to confirm your precheck.</p>
+  <%= button_to "Confirm Precheck", precheck_email_confirm_path(auth_token: @token), class: "btn btn-confirm" %>
+  <br>
+  <br>
+  <p>Otherwise, if you would like to request a change or if there is a mistake on your profile or the charges, please add a message below and click the Request Changes button to notify us.</p>
+
+  <%= form_tag precheck_email_reject_path(auth_token: @token) do %>
+    <%= text_area_tag(:message,'',rows: 10, placeholder: "Include your change request or message on this box") %>
+    <br>
+    <%= submit_tag("Request Changes", class: "btn btn-cancel") %>
+  <% end %>
+
+</div>
