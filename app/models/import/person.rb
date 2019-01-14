@@ -1,5 +1,5 @@
 module Import
-  class Person
+  class Person # rubocop:disable Metrics/ClassLength
     include ActiveModel::Model
     include ActiveRecord::AttributeAssignment
 

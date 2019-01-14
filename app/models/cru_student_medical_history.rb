@@ -1,3 +1,3 @@
-class CruStudentMedicalHistory < ActiveRecord::Base
+class CruStudentMedicalHistory < ApplicationRecord
   belongs_to :person
 end

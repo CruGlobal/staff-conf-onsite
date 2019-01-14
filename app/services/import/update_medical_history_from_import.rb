@@ -1,6 +1,5 @@
 module Import
   class UpdateMedicalHistoryFromImport < ApplicationService
-
     # +Person+
     attr_accessor :person
 
@@ -14,8 +13,8 @@ module Import
 
     private
 
-    def set_childcare_medical_history_attributes
-      childcareMedicalHistory = ChildcareMedicalHistory.new(
+    def set_childcare_medical_history_attributes # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      childcare_medical_history = ChildcareMedicalHistory.new(
         allergy: @import.allergy,
         food_intolerance: @import.food_intolerance,
         chronic_health: @import.chronic_health,
@@ -46,11 +45,11 @@ module Import
         sunscreen_assisted: @import.sunscreen_assisted,
         sunscreen_provided: @import.sunscreen_provided
       )
-      person.childcare_medical_history = childcareMedicalHistory
+      person.childcare_medical_history = childcare_medical_history
     end
 
-    def set_student_medical_history_attributes
-      studentMedicalHistory = CruStudentMedicalHistory.new(
+    def set_student_medical_history_attributes # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      student_medical_history = CruStudentMedicalHistory.new(
         parent_agree: @import.parent_agree,
         gsky_lunch: @import.gsky_lunch,
         gsky_signout: @import.gsky_signout,
@@ -107,8 +106,7 @@ module Import
         cs_vip_buddy: @import.cs_vip_buddy,
         cs_vip_addl_info: @import.cs_vip_addl_info
       )
-      person.cru_student_medical_history = studentMedicalHistory
+      person.cru_student_medical_history = student_medical_history
     end
-
   end
 end

@@ -1,3 +1,3 @@
-class ChildcareMedicalHistory < ActiveRecord::Base
+class ChildcareMedicalHistory < ApplicationRecord
   belongs_to :person
 end
