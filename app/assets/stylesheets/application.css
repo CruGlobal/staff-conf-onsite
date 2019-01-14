@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require ./active_admin
+ *= require ./precheck
  *= require ./login
  */
