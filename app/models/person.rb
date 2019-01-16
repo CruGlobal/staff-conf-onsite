@@ -25,8 +25,6 @@ class Person < ApplicationRecord
   has_many :stays, dependent: :destroy
   has_many :housing_units, through: :stays
   has_many :housing_facilities, through: :housing_units
-  has_one :childcare_medical_history, dependent: :destroy
-  has_one :cru_student_medical_history, dependent: :destroy
 
   scope :corbett, (lambda do
     where("housing_facilities.name LIKE 'Corbett%' OR
@@ -136,6 +134,11 @@ class Person < ApplicationRecord
   def ensure_primary_person
     if family.primary_person_id.blank? && is_a?(Attendee)
       family.update!(primary_person_id: id)
+    end
+  end
+
+  def child?
+    if person.type == 'Child'
     end
   end
 end

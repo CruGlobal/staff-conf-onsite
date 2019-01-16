@@ -1,4 +1,4 @@
-class Import::CreateNewPeopleRecords < UploadService
+class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::OutputSafetyHelper
   include Rails.application.routes.url_helpers
 
@@ -37,8 +37,6 @@ class Import::CreateNewPeopleRecords < UploadService
 
   def create_people
     count = imports.size.to_f
-    # STDERR.puts "Start of create_people"
-
     imports.each_with_index.map do |import, index|
       update_stage(index, count, stage: 1)
       create_from_import(import, index)
@@ -135,7 +133,9 @@ class Import::CreateNewPeopleRecords < UploadService
   end
 
   def update_medical_history(person, import)
-    Import::UpdateMedicalHistoryFromImport.call(person: person, import: import)
+    if person.child?
+      Import::UpdateMedicalHistoryFromImport.call(person: person, import: import)
+    end
   end
 
   def ministries

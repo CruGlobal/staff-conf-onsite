@@ -1,3 +1,3 @@
 class ChildcareMedicalHistory < ApplicationRecord
-  belongs_to :person
+  belongs_to :child
 end

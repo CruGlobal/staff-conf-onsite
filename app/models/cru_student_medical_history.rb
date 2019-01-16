@@ -1,3 +1,3 @@
 class CruStudentMedicalHistory < ApplicationRecord
-  belongs_to :person
+  belongs_to :child
 end

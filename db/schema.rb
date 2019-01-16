@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190110162420) do
+ActiveRecord::Schema.define(version: 20190116162529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
     t.text     "allergy"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.integer  "person_id"
+    t.integer  "child_id"
     t.text     "food_intolerance"
     t.string   "chronic_health"
     t.text     "chronic_health_addl"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
     t.string   "sunscreen_provided"
   end
 
-  add_index "childcare_medical_histories", ["person_id"], name: "index_childcare_medical_histories_on_person_id", using: :btree
+  add_index "childcare_medical_histories", ["child_id"], name: "index_childcare_medical_histories_on_child_id", using: :btree
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
     t.string   "parent_agree"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "person_id"
+    t.integer  "child_id"
     t.string   "gsky_lunch"
     t.string   "gsky_signout"
     t.string   "gsky_sibling_signout"
@@ -243,7 +243,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
     t.text     "cs_vip_addl_info"
   end
 
-  add_index "cru_student_medical_histories", ["person_id"], name: "index_cru_student_medical_histories_on_person_id", using: :btree
+  add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "city"
@@ -501,7 +501,7 @@ ActiveRecord::Schema.define(version: 20190110162420) do
 
   add_foreign_key "childcare_envelopes", "people", column: "child_id"
   add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
-  add_foreign_key "childcare_medical_histories", "people"
-  add_foreign_key "cru_student_medical_histories", "people"
+  add_foreign_key "childcare_medical_histories", "people", column: "child_id"
+  add_foreign_key "cru_student_medical_histories", "people", column: "child_id"
   add_foreign_key "people", "seminaries"
 end
