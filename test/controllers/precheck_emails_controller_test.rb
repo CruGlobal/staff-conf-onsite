@@ -3,6 +3,12 @@ require 'test_helper'
 class PrecheckEmailsControllerTest < ControllerTestCase
   include ActionMailer::TestHelper
 
+  setup do
+    create(:user_variable, short_name: :CONFID, value_type: 'string', value: 'MyConfName')
+    create(:user_variable, short_name: :CONFEMAIL, value_type: 'string', value: 'my_conf_email@example.org')
+    create(:user_variable, short_name: :SUPPORTEMAIL, value_type: 'string', value: 'support@example.org')
+  end
+
   test 'new action without an auth param gets error page' do
     get :new
     assert_response :success
@@ -47,7 +53,7 @@ class PrecheckEmailsControllerTest < ControllerTestCase
     
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal "Cru19 Precheck Modification Request", last_email.subject
+    assert_equal "MyConfName - Precheck Modification Request", last_email.subject
     assert_redirected_to precheck_email_rejected_path
   end
 
@@ -74,7 +80,7 @@ class PrecheckEmailsControllerTest < ControllerTestCase
     
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal "Cru19 - Precheck Completed", last_email.subject
+    assert_equal "MyConfName - Precheck Completed", last_email.subject
     assert_redirected_to precheck_email_confirmed_path
   end
 end
