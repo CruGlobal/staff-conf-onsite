@@ -1,0 +1,92 @@
+.precheck-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; 
+
+  /* For devices larger than 400px */
+  @media (min-width: 400px) {
+    .precheck-container {
+      width: 85%;
+      padding: 0; }
+  }
+
+  p {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+  }
+
+  .centered {
+    text-align: center;
+  }
+
+  .logo {
+    display: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    width: 200px    
+  }
+
+  .greeting {
+    margin-top: 40px;
+  }
+
+  textarea {
+    width: calc(100% - 20px);
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+
+  textarea::placeholder {
+    opacity: 0.6;
+  }
+
+  .btn {
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  .btn-confirm {
+    background-image: linear-gradient(180deg, #06b0cc, #005765);
+    border-color: #005765;
+    background-color: #005765;
+  }
+
+  .btn-confirm:hover {
+    background-color: #005765;
+    background-image: linear-gradient(180deg, #30c9e0, #006e80) !important;
+  }
+
+  .btn-cancel {
+    background-image: linear-gradient(180deg, #f71c1c, #6f0000);
+    border-color: #6f0000;
+    background-color: #a50d0d;
+  }
+
+  .btn-cancel:hover {
+    background-color: #005765;
+    background-image: linear-gradient(180deg, #fd3030, #9e0303) !important;
+  }
+
+  .error-logo {
+    display: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    width: 300px
+  }
+
+  .error-title {
+    margin-top: 40px;
+    text-decoration: underline;
+  }
+}
+
+
+
+
