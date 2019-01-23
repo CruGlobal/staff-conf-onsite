@@ -39,6 +39,7 @@ context.instance_exec do
       end
 
       render 'children/form/childcare', form: self
+
     end
 
     column do

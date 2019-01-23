@@ -1,0 +1,31 @@
+form.instance_exec do
+  inputs 'Medical History', class: 'childcare' do
+    input :allergy
+    input :food_intolerance
+    input :chronic_health
+    input :medications
+    input :immunizations
+    input :health_misc
+    input :restrictions
+    input :vip_dev
+    input :vip_strengths
+    input :vip_challenges
+    input :vip_mobility
+    input :vip_walk
+    input :vip_comm
+    input :vip_comm_addl
+    input :vip_comm_small
+    input :vip_comm_large
+    input :vip_comm_directions
+    input :vip_stress
+    input :vip_stress_addl
+    input :vip_stress_behavior
+    input :vip_calm
+    input :vip_hobby
+    input :vip_buddy
+    input :vip_addl_info
+    input :sunscreen_self
+    input :sunscreen_assisted
+    input :sunscreen_provided
+  end
+end
