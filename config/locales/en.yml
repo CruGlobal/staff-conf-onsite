@@ -200,6 +200,34 @@ en:
           date: 'Date'
           number: 'Number'
           html: 'HTML'
+      childcare_medical_history:
+        allergy: "Allergies"
+        food_intolerance: "Food Intolerances"
+        chronic_health: "Chronic Health Issues"
+        medications: "Medications Taken Regularly"
+        immunizations: "Current Immunizations"
+        health_misc: "Misc Health Issues"
+        restrictions: "Participation Restrictions"
+        vip_dev: "Health And Developmental Needs"
+        vip_strengths: "Strengths"
+        vip_challenges: "Challenges"
+        vip_mobility: "Equipment Needs For Mobility"
+        vip_walk: "Walk Without Assistance"
+        vip_comm: "Ways of Communicating"
+        vip_comm_addl: "Other Communication Forms"
+        vip_comm_small: "Words Or Actions Help them Participate In Small Groups"
+        vip_comm_large: "Words Or Actions Help them Participate In Large Groups"
+        vip_comm_directions: "What Helps Your Child Follow Directions"
+        vip_stress: "Causes Stress"
+        vip_stress_addl: "Other Situations That Cause Stress"
+        vip_stress_behavior: "Stress Behavior"
+        vip_calm: "What Helps To Calm"
+        vip_hobby: "Favorite Activity, Hobby Or Interest"
+        vip_buddy: "Buddy -  Someone that would be helpful to place them in the same group"
+        vip_addl_info: "Anything Else You Would Like Us To Know"
+        sunscreen_self: "Sunscreen Self"
+        sunscreen_assisted: "Sunscreen Assisted"
+        sunscreen_provided: "Sunscreen Provided"
 
   active_admin:
     dashboard:

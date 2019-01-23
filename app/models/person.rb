@@ -137,8 +137,4 @@ class Person < ApplicationRecord
     end
   end
 
-  def child?
-    if person.type == 'Child'
-    end
-  end
 end

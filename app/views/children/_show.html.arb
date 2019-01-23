@@ -40,6 +40,38 @@ context.instance_exec do
           row :childcare_comment
         end
       end
+
+      panel 'Medical History', class: 'childcare' do
+        attributes_table_for child.childcare_medical_history do
+           row :allergy
+           row :food_intolerance
+           row :chronic_health
+           row :medications
+           row :immunizations
+           row :health_misc
+           row :restrictions
+           row :vip_dev
+           row :vip_strengths
+           row :vip_challenges
+           row :vip_mobility
+           row :vip_walk
+           row :vip_comm
+           row :vip_comm_addl
+           row :vip_comm_small
+           row :vip_comm_large
+           row :vip_comm_directions
+           row :vip_stress
+           row :vip_stress_addl
+           row :vip_stress_behavior
+           row :vip_calm
+           row :vip_hobby
+           row :vip_buddy
+           row :vip_addl_info
+           row :sunscreen_self
+           row :sunscreen_assisted
+           row :sunscreen_provided
+        end
+      end
     end
 
     column do
@@ -47,6 +79,72 @@ context.instance_exec do
       render 'cost_adjustments/list_panel',
              cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
+
+      panel 'Student Misc', class: 'childcare' do
+        attributes_table_for child.cru_student_medical_history do
+           row "Parent Agrees" do |csmh| csmh.parent_agree end
+           row "Their Own Lunch" do |csmh| csmh.gsky_lunch end
+           row "Self Sign Out" do |csmh| csmh.gsky_signout end
+           row "Sibling Sign Out" do |csmh| csmh.gsky_sibling_signout end
+           row "Sibling" do |csmh| csmh.gsky_sibling end
+           row "Like To Be In Small Group With This Friend" do |csmh| csmh.gsky_small_group_friend end
+           row "Musical" do |csmh| csmh.gsky_musical end
+           row "What Activities Is Your Student Involved In" do |csmh| csmh.gsky_activities end
+           row "Desire For Your Student To Gain From The CruStu/Getaway Program" do |csmh| csmh.gsky_gain end
+           row "How Can We Help Your Student In The Area Of Spiritual Growth" do |csmh| csmh.gsky_growth end
+           row "Anything Else You Think We Should Know About Your Student" do |csmh| csmh.gsky_addl_info end
+           row "Student Challenges" do |csmh| csmh.gsky_challenges end
+           row "Large Groups" do |csmh| csmh.gsky_large_groups end
+           row "Small Groups" do |csmh| csmh.gsky_small_groups end
+           row "Leader" do |csmh| csmh.gsky_leader end
+           row "Follower" do |csmh| csmh.gsky_follower end
+           row "Friends" do |csmh| csmh.gsky_friends end
+           row "Hesitant" do |csmh| csmh.gsky_hesitant end
+           row "Active" do |csmh| csmh.gsky_active end
+           row "Reserved" do |csmh| csmh.gsky_reserved end
+           row "Boundries" do |csmh| csmh.gsky_boundaries end
+           row "Authority" do |csmh| csmh.gsky_authority end
+           row "Adapts" do |csmh| csmh.gsky_adapts end
+        end
+      end
+
+      panel 'Student Medical History', class: 'childcare' do
+        attributes_table_for child.cru_student_medical_history do
+           row "Allergies" do |csmh| csmh.gsky_allergies end
+           row "Medical Allergies" do |csmh| csmh.med_allergies end
+           row "Food Allergies" do |csmh| csmh.food_allergies end
+           row "Other Allergies" do |csmh| csmh.other_allergies end
+           row "Health Concerns" do |csmh| csmh.health_concerns end
+           row "Asthma" do |csmh| csmh.asthma end
+           row "Migraines" do |csmh| csmh.migraines end
+           row "Severe Allergy" do |csmh| csmh.severe_allergy end
+           row "Anorexia" do |csmh| csmh.anorexia end
+           row "Diabetes" do |csmh| csmh.diabetes end
+           row "Altitude" do |csmh| csmh.altitude end
+           row "Miscellaneous Concerns" do |csmh| csmh.concerns_misc end
+           row "Miscellaneous Health" do |csmh| csmh.cs_health_misc end
+           row "List Medication Your Student Would Need During Program Activities" do |csmh| csmh.cs_vip_meds end
+           row "Student’s Health Or Developmental Needs" do |csmh| csmh.cs_vip_dev end
+           row "Student’s Strengths" do |csmh| csmh.cs_vip_strengths end
+           row "Student’s Challenges" do |csmh| csmh.cs_vip_challenges end
+           row "Equipment Student Needs For Mobility" do |csmh| csmh.cs_vip_mobility end
+           row "Student Is Able To Walk Without Assistance" do |csmh| csmh.cs_vip_walk end
+           row "Student Communication" do |csmh| csmh.cs_vip_comm end
+           row "Other Ways Student Communicates" do |csmh| csmh.cs_vip_comm_addl end
+           row "Words Or Actions Help Your Student Participate In Small Groups" do |csmh| csmh.cs_vip_comm_small end
+           row "Words Or Actions Help Your Student Participate In Large Groups" do |csmh| csmh.cs_vip_comm_large end
+           row "What Helps Your Student Follow Directions" do |csmh| csmh.cs_vip_comm_directions end
+           row "Causes Stress" do |csmh| csmh.cs_vip_stress end
+           row "What Situations Cause Stress For Your Student" do |csmh| csmh.cs_vip_stress_addl end
+           row "Student’s Stress Behavior" do |csmh| csmh.cs_vip_stress_behavior end
+           row "What Helps To Calm Your Student" do |csmh| csmh.cs_vip_calm end
+           row "How Your Student Manages Sitting In Long Meetings (2-3 hours)" do |csmh| csmh.cs_vip_sitting end
+           row "Student’s Favorite Activity, Hobby Or Interest" do |csmh| csmh.cs_vip_hobby end
+           row "Is There Someone In The Program That Would Be Helpful To Place With Your Student In The Same Group During CruStu and/or The Getaway" do |csmh| csmh.cs_vip_buddy end
+           row "Please Explain Anything Else You Would Like Us To Know About Your Student:" do |csmh| csmh.cs_vip_addl_info end
+        end
+      end
+
     end
   end
 
