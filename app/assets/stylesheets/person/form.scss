@@ -32,14 +32,12 @@
 }
 
 form fieldset.medical_history ol > li{
-  display: inline-table;
-
   label {
-    width: 30%;
+    width: 35%;
+    padding-right: 10px;
   }
 
   input[type], textarea {
-    width: calc(70% - 22px);
-    display: inline-table;
+    width: calc(65% - 32px);
   }
 }
