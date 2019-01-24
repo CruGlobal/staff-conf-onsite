@@ -1,5 +1,5 @@
 form.instance_exec do
-  inputs 'Student Misc', for: [:cru_student_medical_history, object.cru_student_medical_history] do |s|
+  inputs 'Student Misc', for: [:cru_student_medical_history, object.cru_student_medical_history], class: 'medical_history panel inputs' do |s|
      s.input :parent_agree, input_html: { rows: 4 }
      s.input :gsky_lunch
      s.input :gsky_signout

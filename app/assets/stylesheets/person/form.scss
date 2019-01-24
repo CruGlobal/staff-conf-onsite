@@ -30,3 +30,16 @@
 .course-inputs {
   margin: 0 0 2em 0;
 }
+
+form fieldset.medical_history ol > li{
+  display: inline-table;
+
+  label {
+    width: 30%;
+  }
+
+  input[type], textarea {
+    width: calc(70% - 22px);
+    display: inline-table;
+  }
+}
