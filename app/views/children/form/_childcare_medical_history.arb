@@ -1,31 +1,31 @@
 form.instance_exec do
-  inputs 'Medical History', class: 'childcare' do
-    input :allergy
-    input :food_intolerance
-    input :chronic_health
-    input :medications
-    input :immunizations
-    input :health_misc
-    input :restrictions
-    input :vip_dev
-    input :vip_strengths
-    input :vip_challenges
-    input :vip_mobility
-    input :vip_walk
-    input :vip_comm
-    input :vip_comm_addl
-    input :vip_comm_small
-    input :vip_comm_large
-    input :vip_comm_directions
-    input :vip_stress
-    input :vip_stress_addl
-    input :vip_stress_behavior
-    input :vip_calm
-    input :vip_hobby
-    input :vip_buddy
-    input :vip_addl_info
-    input :sunscreen_self
-    input :sunscreen_assisted
-    input :sunscreen_provided
+  inputs 'Medical History', for: [:childcare_medical_history, object.childcare_medical_history] do |s|
+    s.input :allergy, input_html: { rows: 5 }
+    s.input :food_intolerance, input_html: { rows: 5 }
+    s.input :chronic_health
+    s.input :medications, input_html: { rows: 5 }
+    s.input :immunizations
+    s.input :health_misc
+    s.input :restrictions, input_html: { rows: 5 }
+    s.input :vip_dev, input_html: { rows: 5 }
+    s.input :vip_strengths, input_html: { rows: 5 }
+    s.input :vip_challenges, input_html: { rows: 5 }
+    s.input :vip_mobility, input_html: { rows: 5 }
+    s.input :vip_walk, input_html: { rows: 5 }
+    s.input :vip_comm
+    s.input :vip_comm_addl, input_html: { rows: 5 }
+    s.input :vip_comm_small, input_html: { rows: 5 }
+    s.input :vip_comm_large, input_html: { rows: 5 }
+    s.input :vip_comm_directions, input_html: { rows: 5 }
+    s.input :vip_stress
+    s.input :vip_stress_addl, input_html: { rows: 5 }
+    s.input :vip_stress_behavior, input_html: { rows: 5 }
+    s.input :vip_calm, input_html: { rows: 5 }
+    s.input :vip_hobby, input_html: { rows: 5 }
+    s.input :vip_buddy, input_html: { rows: 5 }
+    s.input :vip_addl_info, input_html: { rows: 5 }
+    s.input :sunscreen_self
+    s.input :sunscreen_assisted
+    s.input :sunscreen_provided
   end
 end
