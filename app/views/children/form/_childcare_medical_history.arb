@@ -1,5 +1,6 @@
 form.instance_exec do
-  inputs 'Medical History', for: [:childcare_medical_history, object.childcare_medical_history], class: 'medical_history panel inputs' do |s|
+  inputs 'Medical History', for: [:childcare_medical_history, object.childcare_medical_history],
+         class: 'medical_history panel inputs' do |s|
     s.input :allergy, input_html: { rows: 5 }
     s.input :food_intolerance, input_html: { rows: 5 }
     s.input :chronic_health

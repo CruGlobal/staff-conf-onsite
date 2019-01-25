@@ -136,5 +136,4 @@ class Person < ApplicationRecord
       family.update!(primary_person_id: id)
     end
   end
-
 end
