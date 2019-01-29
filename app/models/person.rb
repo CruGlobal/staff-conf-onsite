@@ -136,9 +136,4 @@ class Person < ApplicationRecord
       family.update!(primary_person_id: id)
     end
   end
-
-  def child?
-    if person.type == 'Child'
-    end
-  end
 end

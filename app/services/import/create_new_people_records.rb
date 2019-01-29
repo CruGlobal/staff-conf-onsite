@@ -133,7 +133,7 @@ class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/C
   end
 
   def update_medical_history(person, import)
-    if person.child?
+    if person.is_a?(Child)
       Import::UpdateMedicalHistoryFromImport.call(person: person, import: import)
     end
   end
