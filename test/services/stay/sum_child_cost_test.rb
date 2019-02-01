@@ -24,7 +24,7 @@ class Stay::SumChildCostTest < ServiceTestCase
   stub_user_variable child_age_cutoff: 6.months.from_now
 
   test 'adult with no stays' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
     @child.stays.each(&:destroy!)
     @child.reload
 
@@ -33,7 +33,7 @@ class Stay::SumChildCostTest < ServiceTestCase
   end
 
   test 'adult' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
     @service.call
     assert_equal Money.new(111 * 5), @service.charges[:dorm_child]
   end
@@ -51,43 +51,49 @@ class Stay::SumChildCostTest < ServiceTestCase
   end
 
   test 'old child, needs bed' do
-    @child.update!(birthdate: 10.years.ago, needs_bed: true)
+    @child.update!(birthdate: 10.years.ago)
+    @child.stays.last.update!(no_bed: false)
     @service.call
     assert_equal Money.new(333 * 5), @service.charges[:dorm_child]
   end
 
   test 'young child, needs bed' do
-    @child.update!(birthdate: 5.years.ago, needs_bed: true)
+    @child.update!(birthdate: 5.years.ago)
+    @child.stays.last.update!(no_bed: false)
     @service.call
     assert_equal Money.new(333 * 5), @service.charges[:dorm_child]
   end
 
   test 'infant, needs bed' do
-    @child.update!(birthdate: 4.years.ago, needs_bed: true)
+    @child.update!(birthdate: 4.years.ago)
+    @child.stays.last.update!(no_bed: false)
     @service.call
     assert_equal Money.new(444 * 5), @service.charges[:dorm_child]
   end
 
   test 'old child, does not need bed' do
-    @child.update!(birthdate: 10.years.ago, needs_bed: false)
+    @child.update!(birthdate: 10.years.ago)
+    @child.stays.last.update!(no_bed: true)
     @service.call
     assert_equal Money.new(555 * 5), @service.charges[:dorm_child]
   end
 
   test 'young child, does not need bed' do
-    @child.update!(birthdate: 5.years.ago, needs_bed: false)
+    @child.update!(birthdate: 5.years.ago)
+    @child.stays.last.update!(no_bed: true)
     @service.call
     assert_equal Money.new(555 * 5), @service.charges[:dorm_child]
   end
 
   test 'infant, does not need bed' do
-    @child.update!(birthdate: 4.years.ago, needs_bed: false)
+    @child.update!(birthdate: 4.years.ago)
+    @child.stays.last.update!(no_bed: true)
     @service.call
-    assert_equal Money.new(555 * 5), @service.charges[:dorm_child]
+    assert_equal Money.empty, @service.charges[:dorm_child]
   end
 
   test 'adult staying at 2 dormitories' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
     @other_cost_code = create_cost_code max_days: 100, adult_cents: 112
     @other_dormitory = create :housing_facility, housing_type: :dormitory,
                                                  cost_code: @other_cost_code
@@ -101,7 +107,7 @@ class Stay::SumChildCostTest < ServiceTestCase
   end
 
   test 'adult staying at 2 units in 1 dormitory' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
     @other_unit = create :housing_unit, housing_facility: @dormitory
     @child.stays.create! housing_unit: @other_unit, arrived_at: @arrived_at,
                          departed_at: (@arrived_at + 7.days)
@@ -112,7 +118,7 @@ class Stay::SumChildCostTest < ServiceTestCase
   end
 
   test 'adult staying at 1 dormitory and 1 apartment' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
 
     @apt_cost_code = create_cost_code max_days: 100, adult_cents: 123
     @apartment = create :housing_facility, housing_type: :apartment,
@@ -127,7 +133,7 @@ class Stay::SumChildCostTest < ServiceTestCase
   end
 
   test 'adult staying at 2 dorms that cross the charge boundary' do
-    @child.update!(birthdate: 15.years.ago)
+    @child.update!(birthdate: 18.years.ago)
     @child.stays.each(&:destroy!)
     @child.reload
 
