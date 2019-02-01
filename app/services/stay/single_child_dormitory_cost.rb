@@ -15,8 +15,8 @@ class Stay::SingleChildDormitoryCost < ApplicationService
   #
   # 2) Using dorm, look up daily cost in cost code table for the TOTAL Days
   #    length of stay using the following age breakdown:
-  #    Use "ADULT $/DAY" column if child's age is >=15 years old
-  #    Use "TEEN $/DAY" column if child's age is >=11 <15 years old
+  #    Use "ADULT $/DAY" column if child's age is >=18 years old
+  #    Use "TEEN $/DAY" column if child's age is >=11 <18 years old
   #    Use "CHILD $/DAY" column if (child's age is >= 5 < 11 years old AND "Needs Bed" = YES)
   #    Use "INFANT $/DAY" column if (child's age is <5 years old AND "Needs Bed" = YES)
   #    Use "CHILD MEAL ONLY $/DAY" if (child'd age is <11 and "Needs Bed" = NO)

@@ -11,8 +11,8 @@ class Stay::ListChildCosts < ApplicationService
   #   if the person has opted to take an entire dormitory room for themselves
   attr_accessor :single_occupancy
 
-  # - Use "ADULT $/DAY" column if child's age is >=15 years old
-  # - Use "TEEN $/DAY" column if child's age is >= 11 and < 15 years old
+  # - Use "ADULT $/DAY" column if child's age is >=18 years old
+  # - Use "TEEN $/DAY" column if child's age is >= 11 and < 18 years old
   # - Use "CHILD $/DAY" column if (child's age is >= 5 < 11 years old AND "Needs
   #   Bed" = YES)
   # - Use "INFANT $/DAY" column if (child's age is <5 years old AND "Needs Bed"

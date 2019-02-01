@@ -1,0 +1,4 @@
+<%= image_tag(image_url('logo.png', host: ActionController::Base.asset_host), size: '50') %>
+
+<h3>Family <%= @family.last_name %> (staff number: <%= @family.staff_number %>) rejected the precheck process with the following message:</h3>
+<p><%= @message %></p>

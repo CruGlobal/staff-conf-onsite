@@ -80,6 +80,7 @@ group :development, :test do
   gem 'faker', '~> 1.6'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
+  gem 'letter_opener', '~> 1.7.0'         # Preview email on browser instead of sending
   gem 'm', '~> 1.5.0'                     # Allow to run individual tests
   gem 'minitest', '~> 5.10.2'
   gem 'minitest-around', '~> 0.4'         # Minitest around callback

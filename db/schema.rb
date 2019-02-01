@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181221001726) do
+ActiveRecord::Schema.define(version: 20190108004927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,16 @@ ActiveRecord::Schema.define(version: 20181221001726) do
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
 
+  create_table "precheck_email_tokens", id: false, force: :cascade do |t|
+    t.string   "token",      null: false
+    t.integer  "family_id",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "precheck_email_tokens", ["family_id"], name: "index_precheck_email_tokens_on_family_id", unique: true, using: :btree
+  add_index "precheck_email_tokens", ["token"], name: "index_precheck_email_tokens_on_token", unique: true, using: :btree
+
   create_table "reports", force: :cascade do |t|
     t.string   "category",                       null: false
     t.string   "name",                           null: false
@@ -402,4 +412,5 @@ ActiveRecord::Schema.define(version: 20181221001726) do
   add_foreign_key "childcare_envelopes", "people", column: "child_id"
   add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
   add_foreign_key "people", "seminaries"
+  add_foreign_key "precheck_email_tokens", "families"
 end

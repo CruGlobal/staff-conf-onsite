@@ -3,6 +3,7 @@ require 'test_helper'
 class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   def around(&blk)
     create :conference, name: 'Cru17'
+    create :ministry, code: 'FL33230' 
     stub_default_seminary(&blk)
   end
 
