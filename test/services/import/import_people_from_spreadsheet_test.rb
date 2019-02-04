@@ -8,11 +8,11 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   end
 
   test 'single primary person, should create new Attendee' do
-    assert_difference ->{ Attendee.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+    assert_difference ->{ Attendee.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
     end
 
-    @person = Attendee.last
+    @person = Attendee.first
     assert_equal 'Duane', @person.first_name
     assert_equal 'Abbott', @person.last_name
     assert_equal 'Duane', @person.name_tag_first_name
@@ -28,9 +28,33 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Registered', @person.conference_status
   end
 
+  test 'single child medical history, should create new Child with medical history' do
+    assert_difference ->{ Child.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
+    end
+
+
+    @child = Child.first
+    assert_equal 'Peanuts', @child.childcare_medical_history.allergy
+    assert_equal 'No Grains', @child.childcare_medical_history.restrictions
+    assert_equal 'wheelchair', @child.childcare_medical_history.vip_mobility
+  end
+
+  test 'single student medical history, should create new Child with student medical history' do
+    assert_difference ->{ Child.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
+    end
+
+
+    @student = Child.second
+    assert_equal 'Dairy', @student.cru_student_medical_history.med_allergies
+    assert_equal 'Sometimes', @student.cru_student_medical_history.migraines
+    assert_equal 'Yes', @student.cru_student_medical_history.anorexia
+  end
+
   test 'single primary person, should create Family' do
     assert_difference ->{ Family.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
     end
 
     @family = Family.last
