@@ -39,15 +39,19 @@ context.instance_exec do
       end
 
       render 'children/form/childcare', form: self
-      render 'children/form/childcare_medical_history', form: self
+      if child.age <= 5
+        render 'children/form/childcare_medical_history', form: self
+      end
     end
 
     column do
       render 'people/form/cost_adjustments', form: self
       render 'people/form/stays', form: self
       render 'people/form/meal_exemptions', form: self, person: child
-      render 'children/form/cru_student_medical_history_misc', form: self
-      render 'children/form/cru_student_medical_history', form: self
+      if child.age > 5
+        render 'children/form/cru_student_medical_history_misc', form: self
+        render 'children/form/cru_student_medical_history', form: self
+      end
     end
   end
 
