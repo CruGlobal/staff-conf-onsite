@@ -76,6 +76,11 @@ context.instance_exec do
     end
 
     column do
+      panel 'Medical History Approval', class: 'medical_history_approval' do
+        attributes_table_for child do
+          row :medical_history_approval
+        end
+      end
       render 'people/stays', person: child
       render 'cost_adjustments/list_panel',
              cost_adjustments: child.cost_adjustments

@@ -1,0 +1,6 @@
+# vim:ft=ruby:
+form.instance_exec do
+  inputs 'Medical History Approval', class: 'medical_history_approval panel inputs' do
+    input :medical_history_approval
+  end
+end

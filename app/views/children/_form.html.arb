@@ -45,6 +45,7 @@ context.instance_exec do
     end
 
     column do
+      render 'children/form/medical_history_approval', form: self
       render 'people/form/cost_adjustments', form: self
       render 'people/form/stays', form: self
       render 'people/form/meal_exemptions', form: self, person: child
