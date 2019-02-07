@@ -33,6 +33,7 @@ ActiveAdmin.register Family do
   filter :state
   filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
+  filter :precheck_status, as: :select, collection: Family.precheck_statuses
   filter :created_at
   filter :updated_at
 
