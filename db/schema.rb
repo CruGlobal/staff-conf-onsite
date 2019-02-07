@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108004927) do
+ActiveRecord::Schema.define(version: 20190116162529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,43 @@ ActiveRecord::Schema.define(version: 20190108004927) do
   end
 
   add_index "childcare_envelopes", ["envelope_id"], name: "index_childcare_envelopes_on_envelope_id", using: :btree
+
+  create_table "childcare_medical_histories", force: :cascade do |t|
+    t.text     "allergy"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "child_id"
+    t.text     "food_intolerance"
+    t.string   "chronic_health"
+    t.text     "chronic_health_addl"
+    t.text     "medications"
+    t.string   "immunizations"
+    t.string   "health_misc"
+    t.text     "restrictions"
+    t.text     "vip_meds"
+    t.text     "vip_dev"
+    t.text     "vip_strengths"
+    t.text     "vip_challenges"
+    t.text     "vip_mobility"
+    t.text     "vip_walk"
+    t.string   "vip_comm"
+    t.text     "vip_comm_addl"
+    t.text     "vip_comm_small"
+    t.text     "vip_comm_large"
+    t.text     "vip_comm_directions"
+    t.string   "vip_stress"
+    t.text     "vip_stress_addl"
+    t.text     "vip_stress_behavior"
+    t.text     "vip_calm"
+    t.text     "vip_hobby"
+    t.text     "vip_buddy"
+    t.text     "vip_addl_info"
+    t.string   "sunscreen_self"
+    t.string   "sunscreen_assisted"
+    t.string   "sunscreen_provided"
+  end
+
+  add_index "childcare_medical_histories", ["child_id"], name: "index_childcare_medical_histories_on_child_id", using: :btree
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -144,6 +181,69 @@ ActiveRecord::Schema.define(version: 20190108004927) do
     t.string   "location",        null: false
     t.integer  "position"
   end
+
+  create_table "cru_student_medical_histories", force: :cascade do |t|
+    t.string   "parent_agree"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "child_id"
+    t.string   "gsky_lunch"
+    t.string   "gsky_signout"
+    t.string   "gsky_sibling_signout"
+    t.string   "gsky_sibling"
+    t.text     "gsky_small_group_friend"
+    t.string   "gsky_musical"
+    t.text     "gsky_activities"
+    t.text     "gsky_gain"
+    t.text     "gsky_growth"
+    t.text     "gsky_addl_info"
+    t.string   "gsky_challenges"
+    t.string   "gsky_large_groups"
+    t.string   "gsky_small_groups"
+    t.string   "gsky_leader"
+    t.string   "gsky_follower"
+    t.string   "gsky_friends"
+    t.string   "gsky_hesitant"
+    t.string   "gsky_active"
+    t.string   "gsky_reserved"
+    t.string   "gsky_boundaries"
+    t.string   "gsky_authority"
+    t.string   "gsky_adapts"
+    t.string   "gsky_allergies"
+    t.string   "med_allergies"
+    t.string   "food_allergies"
+    t.string   "other_allergies"
+    t.string   "health_concerns"
+    t.string   "asthma"
+    t.string   "migraines"
+    t.string   "severe_allergy"
+    t.string   "anorexia"
+    t.string   "diabetes"
+    t.string   "altitude"
+    t.string   "concerns_misc"
+    t.string   "cs_health_misc"
+    t.text     "cs_vip_meds"
+    t.text     "cs_vip_dev"
+    t.text     "cs_vip_strengths"
+    t.text     "cs_vip_challenges"
+    t.text     "cs_vip_mobility"
+    t.text     "cs_vip_walk"
+    t.string   "cs_vip_comm"
+    t.text     "cs_vip_comm_addl"
+    t.text     "cs_vip_comm_small"
+    t.text     "cs_vip_comm_large"
+    t.text     "cs_vip_comm_directions"
+    t.string   "cs_vip_stress"
+    t.text     "cs_vip_stress_addl"
+    t.text     "cs_vip_stress_behavior"
+    t.text     "cs_vip_calm"
+    t.text     "cs_vip_sitting"
+    t.text     "cs_vip_hobby"
+    t.text     "cs_vip_buddy"
+    t.text     "cs_vip_addl_info"
+  end
+
+  add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "city"
@@ -411,6 +511,8 @@ ActiveRecord::Schema.define(version: 20190108004927) do
 
   add_foreign_key "childcare_envelopes", "people", column: "child_id"
   add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
+  add_foreign_key "childcare_medical_histories", "people", column: "child_id"
+  add_foreign_key "cru_student_medical_histories", "people", column: "child_id"
   add_foreign_key "people", "seminaries"
   add_foreign_key "precheck_email_tokens", "families"
 end

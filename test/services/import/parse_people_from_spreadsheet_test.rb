@@ -3,7 +3,7 @@ require 'test_helper'
 class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
   setup do
     @results_single_primary =
-      import_spreadsheet('people-import--single-primary.xlsx')
+      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
   end
 
   test 'single primary person, verbatim column/attribute mapping' do
