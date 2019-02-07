@@ -4,9 +4,9 @@ class Family < ApplicationRecord
   has_paper_trail
 
   enum precheck_status: [
-    'Precheck Pending Approval',
-    'Precheck Changes Requested',
-    'Precheck Approved'
+    'Pending Approval',
+    'Changes Requested',
+    'Approved'
   ]
 
   has_many :people, dependent: :destroy
