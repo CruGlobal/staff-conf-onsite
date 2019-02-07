@@ -9,7 +9,7 @@ if @family
 
     columns class: 'columns housing' do
       column do
-        panel link_to(family, family, target: '_blank') do
+        panel link_to(family, family, target: '_blank', rel: 'noopener') do
           span id: 'family_attributes', 'data-attributes' => family.housing_preference.attributes.to_json
           mobility_comments = family.people.collect do |p|
             "#{p.first_name}: #{p.mobility_comment}" if p.mobility_comment.present?
@@ -90,7 +90,7 @@ if @family
           f.semantic_fields_for :people, person, data: '{a: 1}' do |pf|
             panel_title = person.full_name
             panel_title += ' (PRIMARY)' if family.primary_person_id == person.id
-            panel link_to(panel_title, person, target: '_blank') do
+            panel link_to(panel_title, person, target: '_blank', rel: 'noopener') do
               span id: "person_#{person.id}", 'data-attributes' => person.attributes.to_json
               attributes_table_for person do
                 row :conference_status
