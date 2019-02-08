@@ -36,4 +36,10 @@ class FamilyTest < ModelTestCase
 
     refute @family.chargeable_staff_number?
   end
+
+  test 'automatically update precheck_status_changed_at' do
+    old_value = @family.precheck_status_changed_at
+    @family.update!(precheck_status: Family.precheck_statuses.keys.second)
+    refute_equal old_value, @family.precheck_status_changed_at
+  end
 end

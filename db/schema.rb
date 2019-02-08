@@ -250,17 +250,22 @@ ActiveRecord::Schema.define(version: 20190204192134) do
     t.string   "state"
     t.string   "zip"
     t.string   "address1"
-    t.string   "country_code",      limit: 2
+    t.string   "country_code",               limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "last_name",                   null: false
+    t.string   "last_name",                                        null: false
     t.string   "staff_number"
     t.string   "address2"
     t.string   "import_tag"
     t.integer  "primary_person_id"
     t.string   "license_plates"
     t.boolean  "handicap"
+    t.integer  "precheck_status",                      default: 0
+    t.datetime "precheck_status_changed_at"
   end
+
+  add_index "families", ["precheck_status"], name: "index_families_on_precheck_status", using: :btree
+  add_index "families", ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at", using: :btree
 
   create_table "housing_facilities", force: :cascade do |t|
     t.string   "name"
