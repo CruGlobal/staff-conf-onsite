@@ -2,4 +2,6 @@
 
 <h3>Confirm the following data</h3>
 
+<%= render 'families/family_summary', family: @family, finances: @finances, policy: @policy, from_email: @from_email %>
+
 <%= link_to 'Confirm Precheck or Request Changes', precheck_email_url(auth_token: @token.token) %>

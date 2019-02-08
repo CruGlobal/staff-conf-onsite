@@ -1,6 +1,6 @@
 h2 'Attendees'
 finances.attendee_reports.each do |report|
-  render 'families/reports/attendee', report: report
+  render 'families/reports/attendee', from_email: from_email ||= false, report: report
 end
 
 h2 'Children' if finances.children_reports.present?

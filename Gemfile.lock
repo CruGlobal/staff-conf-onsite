@@ -68,6 +68,10 @@ GEM
       mimemagic (~> 0.3)
       nokogiri (~> 1.8, >= 1.8.2)
       rubyzip (~> 1.2, >= 1.2.1)
+    better_errors (2.5.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bourbon (4.3.4)
@@ -154,6 +158,7 @@ GEM
       dotenv (= 2.5.0)
       railties (>= 3.2, < 6.0)
     equalizer (0.0.11)
+    erubi (1.8.0)
     erubis (2.7.0)
     et-orbi (1.0.4)
       tzinfo
@@ -511,6 +516,8 @@ DEPENDENCIES
   activeadmin (~> 1.0.0)
   acts_as_list (~> 0.9)
   axlsx (~> 3.0.0.pre)
+  better_errors
+  binding_of_caller
   bundler-audit (~> 0.5)
   chosen-rails (~> 1.5.2)
   ckeditor_rails (~> 4.6)
@@ -579,4 +586,4 @@ DEPENDENCIES
   yard (~> 0.9.5)
 
 BUNDLED WITH
-   1.16.6
+   1.17.3

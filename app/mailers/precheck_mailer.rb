@@ -12,6 +12,11 @@ class PrecheckMailer < ApplicationMailer
 
   def confirm_charges(family)
     @token = create_or_refresh_token(family)
+    @family = family
+    @finances = FamilyFinances::Report.call(family: family)
+    @from_email = true
+    finance_user = User.find_by(role: 'finance')
+    @policy = Pundit.policy(finance_user, family)
     email = if Rails.env.production?
               family.attendees.pluck(:email).select(&:present?).compact
             else
