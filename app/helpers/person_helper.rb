@@ -113,6 +113,12 @@ module PersonHelper
     end
   end
 
+  # @return [Boolean] +true+ if +age+ is less then or equal to defined +UserVariable[:young_child_age]+
+  #   the +year+ of each
+  def young_child?(age)
+    age <= UserVariable[:young_child_age]
+  end
+
   # @param current [String, Person] the current value, or a {Person} to extract
   #   their current status from
   def conference_status_select(current = nil)
