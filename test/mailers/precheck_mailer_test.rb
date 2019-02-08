@@ -1,11 +1,12 @@
 require 'test_helper'
 
 class PrecheckMailerTest < MailTestCase
+  stub_user_variable conference_id: 'MyConfName',
+                     conference_email: 'my_conf_email@example.org',
+                     support_email: 'support@example.org',
+                     conference_logo_url: 'https://www.logo.com'
 
   setup do
-    create(:user_variable, short_name: :conference_id, value_type: 'string', value: 'MyConfName')
-    create(:user_variable, short_name: :conference_email, value_type: 'string', value: 'my_conf_email@example.org')
-    create(:user_variable, short_name: :support_email, value_type: 'string', value: 'support@example.org')
     @family = build(:family)
   end
 
