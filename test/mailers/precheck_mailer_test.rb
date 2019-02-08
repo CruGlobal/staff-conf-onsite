@@ -3,9 +3,9 @@ require 'test_helper'
 class PrecheckMailerTest < MailTestCase
 
   setup do
-    create(:user_variable, short_name: :CONFID, value_type: 'string', value: 'MyConfName')
-    create(:user_variable, short_name: :CONFEMAIL, value_type: 'string', value: 'my_conf_email@example.org')
-    create(:user_variable, short_name: :SUPPORTEMAIL, value_type: 'string', value: 'support@example.org')
+    create(:user_variable, short_name: :conference_id, value_type: 'string', value: 'MyConfName')
+    create(:user_variable, short_name: :conference_email, value_type: 'string', value: 'my_conf_email@example.org')
+    create(:user_variable, short_name: :support_email, value_type: 'string', value: 'support@example.org')
     @family = build(:family)
   end
 
@@ -34,7 +34,7 @@ class PrecheckMailerTest < MailTestCase
       email = PrecheckMailer.confirm_charges(@family).deliver_now
 
       assert_not ActionMailer::Base.deliveries.empty?
-  
+
       assert_equal ['my_conf_email@example.org'], email.from
       assert_equal ['josh.starcher@cru.org'], email.to
       assert_equal 'MyConfName - Precheck Confirmation Email', email.subject

@@ -48,6 +48,11 @@ class SeedUserVariables
     hot_lunch_begin_2: { value_type: :date, code: :HLFDW3, value: '2017-07-15', description: 'Hot Lunch First Day of Week 3' },
     hot_lunch_begin_3: { value_type: :date, code: :HLFDW4, value: '2017-07-22', description: 'Hot Lunch First Day of Week 4' },
     hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
+
+    # Conference
+    conference_id:    { value_type: :string, code: :CONFID, value: 'Cru17', description: 'Conference ID' },
+    conference_email: { value_type: :string, code: :CONFEMAIL, value: 'cru17.info@cru.org', description: 'Conference email address' },
+    support_email:    { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
   }.freeze
 
   def initialize

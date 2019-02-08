@@ -4,9 +4,9 @@ class PrecheckEmailsControllerTest < ControllerTestCase
   include ActionMailer::TestHelper
 
   setup do
-    create(:user_variable, short_name: :CONFID, value_type: 'string', value: 'MyConfName')
-    create(:user_variable, short_name: :CONFEMAIL, value_type: 'string', value: 'my_conf_email@example.org')
-    create(:user_variable, short_name: :SUPPORTEMAIL, value_type: 'string', value: 'support@example.org')
+    create(:user_variable, short_name: :conference_id, value_type: 'string', value: 'MyConfName')
+    create(:user_variable, short_name: :conference_email, value_type: 'string', value: 'my_conf_email@example.org')
+    create(:user_variable, short_name: :support_email, value_type: 'string', value: 'support@example.org')
   end
 
   test 'new action without an auth param gets error page' do
@@ -44,13 +44,13 @@ class PrecheckEmailsControllerTest < ControllerTestCase
 
   test 'reject action with a valid token sends change request email and deletes token' do
     token = create(:precheck_email_token)
-    
+
     assert_difference('PrecheckEmailToken.count', -1) do
       assert_emails 1 do
         post :reject, auth_token: token.token, message: "My name is misspelled"
       end
     end
-    
+
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
     assert_equal "MyConfName - Precheck Modification Request", last_email.subject
@@ -71,13 +71,13 @@ class PrecheckEmailsControllerTest < ControllerTestCase
 
   test 'confirm action with a valid token checks in family, sends precheck confirmed email and deletes token' do
     token = create(:precheck_email_token)
-    
+
     assert_difference('PrecheckEmailToken.count', -1) do
       assert_emails 1 do
         post :confirm, auth_token: token.token
       end
     end
-    
+
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
     assert_equal "MyConfName - Precheck Completed", last_email.subject
