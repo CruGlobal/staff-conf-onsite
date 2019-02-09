@@ -114,9 +114,15 @@ module PersonHelper
   end
 
   # @return [Boolean] +true+ if +age+ is less then or equal to defined +UserVariable[:young_child_age]+
-  #   the +year+ of each
-  def young_child?(age)
-    age <= UserVariable[:young_child_age]
+  # or if the action is +edit+ ore +new+
+  def young_child?(age, action)
+    age <= UserVariable[:young_child_age] || action == 'edit' || action == 'new'
+  end
+
+  # @return [Boolean] +true+ if +age+ is greater then defined +UserVariable[:young_child_age]+
+  # or if the action is +edit+ ore +new+
+  def student?(age, action)
+    age > UserVariable[:young_child_age] || action == 'edit' || action == 'new'
   end
 
   # @param current [String, Person] the current value, or a {Person} to extract

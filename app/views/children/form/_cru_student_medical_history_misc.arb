@@ -1,28 +1,32 @@
 form.instance_exec do
-  inputs 'Student Misc', for: [:cru_student_medical_history, object.cru_student_medical_history],
-         class: 'medical_history panel inputs' do |s|
-    s.input :parent_agree, input_html: { rows: 4 }
-    s.input :gsky_lunch
-    s.input :gsky_signout
-    s.input :gsky_sibling_signout
-    s.input :gsky_sibling
-    s.input :gsky_small_group_friend, input_html: { rows: 5 }
-    s.input :gsky_musical
-    s.input :gsky_activities, input_html: { rows: 5 }
-    s.input :gsky_gain, input_html: { rows: 5 }
-    s.input :gsky_growth, input_html: { rows: 5 }
-    s.input :gsky_addl_info, input_html: { rows: 5 }
-    s.input :gsky_challenges
-    s.input :gsky_large_groups
-    s.input :gsky_small_groups
-    s.input :gsky_leader
-    s.input :gsky_follower
-    s.input :gsky_friends
-    s.input :gsky_hesitant
-    s.input :gsky_active
-    s.input :gsky_reserved
-    s.input :gsky_boundaries
-    s.input :gsky_authority
-    s.input :gsky_adapts
+  panel 'Misc CRU Student Medical History', class: 'cru_student_medical_history' do
+    collection = [:cru_student_medical_history, object.cru_student_medical_history]
+    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New Misc CRU Student Medical History',
+             class: 'has_one', collection:
+      collection do |s|
+      s.input :parent_agree, input_html: { rows: 4 }
+      s.input :gsky_lunch
+      s.input :gsky_signout
+      s.input :gsky_sibling_signout
+      s.input :gsky_sibling
+      s.input :gsky_small_group_friend, input_html: { rows: 5 }
+      s.input :gsky_musical
+      s.input :gsky_activities, input_html: { rows: 5 }
+      s.input :gsky_gain, input_html: { rows: 5 }
+      s.input :gsky_growth, input_html: { rows: 5 }
+      s.input :gsky_addl_info, input_html: { rows: 5 }
+      s.input :gsky_challenges
+      s.input :gsky_large_groups
+      s.input :gsky_small_groups
+      s.input :gsky_leader
+      s.input :gsky_follower
+      s.input :gsky_friends
+      s.input :gsky_hesitant
+      s.input :gsky_active
+      s.input :gsky_reserved
+      s.input :gsky_boundaries
+      s.input :gsky_authority
+      s.input :gsky_adapts
+    end
   end
 end
