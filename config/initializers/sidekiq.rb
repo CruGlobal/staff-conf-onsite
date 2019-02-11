@@ -18,7 +18,7 @@ Sidekiq.configure_server do |config|
 
   Rails.logger = Sidekiq::Logging.logger
 
-  config.reliable_fetch!
+  config.super_fetch!
   config.reliable_scheduler!
   config.redis = redis
 end
