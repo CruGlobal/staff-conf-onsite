@@ -2,6 +2,6 @@
 class PrecheckMailerPreview < ActionMailer::Preview
   def confirm_charges_preview
     family = Family.first
-    PrecheckMailer.confirm_charges(family)
+    PrecheckMailer.confirm_charges(family, finance_user ||= '' )
   end
 end

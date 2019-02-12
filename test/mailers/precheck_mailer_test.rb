@@ -3,6 +3,7 @@ require 'test_helper'
 class PrecheckMailerTest < MailTestCase
 
   setup do
+    @finance_user ||= create :finance_user
     create(:user_variable, short_name: :CONFID, value_type: 'string', value: 'MyConfName')
     create(:user_variable, short_name: :CONFEMAIL, value_type: 'string', value: 'my_conf_email@example.org')
     create(:user_variable, short_name: :SUPPORTEMAIL, value_type: 'string', value: 'support@example.org')
@@ -31,7 +32,7 @@ class PrecheckMailerTest < MailTestCase
   test '#confirm_charges creates a auth token for the family' do
     @family.save
     assert_difference('PrecheckEmailToken.count', +1) do
-      email = PrecheckMailer.confirm_charges(@family).deliver_now
+      email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
 
       assert_not ActionMailer::Base.deliveries.empty?
   
@@ -46,7 +47,7 @@ class PrecheckMailerTest < MailTestCase
     existing_token = create(:precheck_email_token, family: @family)
 
     assert_no_difference('PrecheckEmailToken.count') do
-      email = PrecheckMailer.confirm_charges(@family).deliver_now
+      email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
 
       assert_no_match existing_token.token, email.body.to_s
     end
