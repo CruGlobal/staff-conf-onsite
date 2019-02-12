@@ -402,6 +402,7 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.string   "name_tag_last_name"
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
+    t.boolean  "medical_history_approval",     default: false
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree

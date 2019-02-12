@@ -104,6 +104,8 @@ end
 
 group :development do
   # Development Server
+  gem 'better_errors'                     # Better Errors
+  gem 'binding_of_caller'                 # Better Errors
   gem 'spring'
   gem 'web-console', '~> 2.0'
 
