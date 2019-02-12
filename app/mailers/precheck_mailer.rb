@@ -7,7 +7,7 @@ class PrecheckMailer < ApplicationMailer
             else
               DEFAULT_EMAIL
             end
-    mail(to: email, subject: "#{UserVariable[:CONFID]} - Precheck Completed")
+    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Completed")
   end
 
   def confirm_charges(family)
@@ -17,14 +17,14 @@ class PrecheckMailer < ApplicationMailer
             else
               DEFAULT_EMAIL
             end
-    mail(to: email, subject: "#{UserVariable[:CONFID]} - Precheck Confirmation Email")
+    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Confirmation Email")
   end
 
   def changes_requested(family, message)
     @family = family
     @message = message
-    email = UserVariable[:SUPPORTEMAIL]
-    mail(to: email, subject: "#{UserVariable[:CONFID]} - Precheck Modification Request")
+    email = UserVariable[:support_email]
+    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Modification Request")
   end
 
   private
