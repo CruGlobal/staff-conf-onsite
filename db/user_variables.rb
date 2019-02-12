@@ -17,6 +17,9 @@ class SeedUserVariables
     facility_use_after: { value_type: :money, code: :FUFP2, value: 2_00,
       description: 'Daily FUF rate after the split' },
 
+    # Definition of Young Child Age
+    young_child_age: { value_type: :number, code: :YOUNGCHILDAGE,  value: 5, description: 'This is the age that determines if the medical history shown will be for a young child vs a student' },
+
     # Childcare Weekly Costs
     childcare_week_0: { value_type: :money, code: :CCWK1,  value: 1_00, description: 'Week 1 Childcare' },
     childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Childcare' },
