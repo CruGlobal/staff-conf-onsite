@@ -17,6 +17,9 @@ class SeedUserVariables
     facility_use_after: { value_type: :money, code: :FUFP2, value: 2_00,
       description: 'Daily FUF rate after the split' },
 
+    # Definition of Young Child Age
+    young_child_age: { value_type: :number, code: :YOUNGCHILDAGE,  value: 5, description: 'This is the age that determines if the medical history shown will be for a young child vs a student' },
+
     # Childcare Weekly Costs
     childcare_week_0: { value_type: :money, code: :CCWK1,  value: 1_00, description: 'Week 1 Childcare' },
     childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Childcare' },
@@ -48,6 +51,12 @@ class SeedUserVariables
     hot_lunch_begin_2: { value_type: :date, code: :HLFDW3, value: '2017-07-15', description: 'Hot Lunch First Day of Week 3' },
     hot_lunch_begin_3: { value_type: :date, code: :HLFDW4, value: '2017-07-22', description: 'Hot Lunch First Day of Week 4' },
     hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
+
+    # Conference
+    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'Conference ID' },
+    conference_email:    { value_type: :string, code: :CONFEMAIL, value: 'cru17.info@cru.org', description: 'Conference email address' },
+    support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
+    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/images/cru_logo.png', description: 'Conference logo URL' },
   }.freeze
 
   def initialize
