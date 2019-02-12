@@ -33,6 +33,7 @@ ActiveAdmin.register Family do
   filter :state
   filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
+  filter :precheck_status, as: :select, collection: Family.precheck_statuses
   filter :created_at
   filter :updated_at
 
@@ -64,7 +65,7 @@ ActiveAdmin.register Family do
   end
 
   action_item :nametag, only: %i[show edit] do
-    link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank' if family.checked_in?
+    link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank', rel: 'noopener' if family.checked_in?
   end
 
   action_item :new_payment, only: :summary do

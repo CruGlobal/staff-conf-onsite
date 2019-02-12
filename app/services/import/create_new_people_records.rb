@@ -1,4 +1,4 @@
-class Import::CreateNewPeopleRecords < UploadService
+class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::OutputSafetyHelper
   include Rails.application.routes.url_helpers
 
@@ -37,7 +37,6 @@ class Import::CreateNewPeopleRecords < UploadService
 
   def create_people
     count = imports.size.to_f
-
     imports.each_with_index.map do |import, index|
       update_stage(index, count, stage: 1)
       create_from_import(import, index)
@@ -113,8 +112,7 @@ class Import::CreateNewPeopleRecords < UploadService
   end
 
   def create_family(primary)
-    Family.create!(last_name: primary.last_name, import_tag:
-                   primary.family_tag).tap do |family|
+    Family.create!(last_name: primary.last_name, import_tag: primary.family_tag).tap do |family|
       update_family(family, primary)
     end
   end
@@ -122,6 +120,7 @@ class Import::CreateNewPeopleRecords < UploadService
   def set_attributes(person, import)
     update_family(person.family, import) if import.primary_family_member?
     update_person(person, import)
+    update_medical_history(person, import)
   end
 
   def update_family(family, import)
@@ -131,6 +130,12 @@ class Import::CreateNewPeopleRecords < UploadService
   def update_person(person, import)
     Import::UpdatePersonFromImport.call(person: person, import: import,
                                         ministries: ministries)
+  end
+
+  def update_medical_history(person, import)
+    if person.is_a?(Child)
+      Import::UpdateMedicalHistoryFromImport.call(person: person, import: import)
+    end
   end
 
   def ministries
