@@ -61,6 +61,7 @@ en:
       chargeable_staff_number:
         staff_number: "Staff ID"
       child:
+        medical_history_approval: "Medical History Approved"
         childcare: "Childcare Class"
         childcare_suffixes:
           childcare: "%{label} Childcare"
@@ -274,7 +275,7 @@ en:
         cs_vip_comm: "Student Communication"
         cs_vip_comm_addl: "Other Ways Student Communicates"
         cs_vip_comm_small: "Words Or Actions Help Your Student Participate In Small Groups"
-        cs_vip_comm_large: "ords Or Actions Help Your Student Participate In Large Groups"
+        cs_vip_comm_large: "Words Or Actions Help Your Student Participate In Large Groups"
         cs_vip_comm_directions: "What Helps Your Student Follow Directions"
         cs_vip_stress: "Causes Stress"
         cs_vip_stress_addl: "What Situations Cause Stress For Your Student"

@@ -16,7 +16,7 @@ ActiveAdmin.register Child do
     :first_name, :last_name, :birthdate, :gender, :family_id, :parent_pickup,
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
     :name_tag_first_name, :name_tag_last_name, :childcare_deposit,
-    :childcare_comment, :rec_pass_start_at, :rec_pass_end_at,
+    :childcare_comment, :rec_pass_start_at, :rec_pass_end_at, :medical_history_approval,
     childcare_weeks: [], hot_lunch_weeks: [], cost_adjustments_attributes: %i[
       id _destroy description person_id price percent cost_type
     ],
