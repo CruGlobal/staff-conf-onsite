@@ -118,3 +118,15 @@ body.housing {
     margin-bottom: 100px;
   }
 }
+
+.has_one ~ .has_many_add {
+  display: none !important;
+}
+
+.has_many_container.cru_student_medical_history, .has_many_container.childcare_medical_history {
+  padding: 0;
+  fieldset.has_one.inputs.has_many_fields {
+    box-shadow: initial;
+    margin: 0;
+  }
+}

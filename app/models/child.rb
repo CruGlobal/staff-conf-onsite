@@ -14,6 +14,9 @@ class Child < Person
   has_one :childcare_medical_history, dependent: :destroy
   has_one :cru_student_medical_history, dependent: :destroy
 
+  accepts_nested_attributes_for :childcare_medical_history
+  accepts_nested_attributes_for :cru_student_medical_history
+
   scope :in_kidscare, (lambda do
     where(['childcare_weeks is NOT NULL', "childcare_weeks <> ''",
            'grade_level IN(?)'].join(' AND '), childcare_grade_levels)

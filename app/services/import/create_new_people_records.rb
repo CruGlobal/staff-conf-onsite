@@ -44,7 +44,7 @@ class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/C
   end
 
   def existing_people_message
-    safe_join [t('error.existing_people'), existing_people_list]
+    safe_join [t('errors.existing_people'), existing_people_list]
   end
 
   def existing_people

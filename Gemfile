@@ -107,8 +107,7 @@ group :development do
   gem 'better_errors'                     # Better Errors
   gem 'binding_of_caller'                 # Better Errors
   gem 'spring'
-  gem 'web-console', '~> 2.0'
 
-  # Deployment
-  # TODO gem 'capistrano-rails'
+  # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
+  # gem 'web-console', '~> 2.0'
 end

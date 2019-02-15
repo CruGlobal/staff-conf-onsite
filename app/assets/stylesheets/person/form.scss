@@ -30,3 +30,29 @@
 .course-inputs {
   margin: 0 0 2em 0;
 }
+
+.medical_history_approval{
+  table{
+    td,th{
+      border-bottom: 0px solid #e8e8e8;
+    }
+  }
+  .panel_contents{
+    padding-bottom: 0;
+  }
+}
+
+form fieldset.medical_history ol > li{
+  label {
+    width: 35%;
+    padding-right: 10px;
+  }
+
+  input[type], textarea {
+    width: calc(65% - 32px);
+  }
+}
+
+form fieldset.medical_history_approval > ol > li.boolean label {
+  padding-left: initial;
+}

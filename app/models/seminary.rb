@@ -16,6 +16,9 @@ class Seminary < ApplicationRecord
   end
 
   def self.default
-    @default ||= Seminary.find_by(code: 'IBS')
+    @default ||= Seminary.where(code: 'IBS').first!
+  rescue ActiveRecord::RecordNotFound => error
+    Rollbar.error(error)
+    nil
   end
 end

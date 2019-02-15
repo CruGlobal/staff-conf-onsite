@@ -1,12 +1,12 @@
 require 'test_helper'
 
 class PrecheckMailerTest < MailTestCase
+  stub_user_variable conference_id: 'MyConfName',
+                     support_email: 'support@example.org',
+                     conference_logo_url: 'https://www.logo.com'
 
   setup do
-    @finance_user ||= create :finance_user
-    create(:user_variable, short_name: :CONFID, value_type: 'string', value: 'MyConfName')
-    create(:user_variable, short_name: :CONFEMAIL, value_type: 'string', value: 'my_conf_email@example.org')
-    create(:user_variable, short_name: :SUPPORTEMAIL, value_type: 'string', value: 'support@example.org')
+    @finance_user = create(:finance_user)
     @family = build(:family)
   end
 
@@ -14,7 +14,7 @@ class PrecheckMailerTest < MailTestCase
     email = PrecheckMailer.precheck_completed(@family).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['my_conf_email@example.org'], email.from
+    assert_equal ['no-reply@cru.org'], email.from
     assert_equal ['josh.starcher@cru.org'], email.to
     assert_equal 'MyConfName - Precheck Completed', email.subject
   end
@@ -23,7 +23,7 @@ class PrecheckMailerTest < MailTestCase
     email = PrecheckMailer.changes_requested(@family, "my name was mispelled").deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
-    assert_equal ['my_conf_email@example.org'], email.from
+    assert_equal ['no-reply@cru.org'], email.from
     assert_equal ['support@example.org'], email.to
     assert_equal 'MyConfName - Precheck Modification Request', email.subject
     assert_match "<p>my name was mispelled</p>", email.body.to_s
@@ -35,8 +35,8 @@ class PrecheckMailerTest < MailTestCase
       email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
 
       assert_not ActionMailer::Base.deliveries.empty?
-  
-      assert_equal ['my_conf_email@example.org'], email.from
+
+      assert_equal ['no-reply@cru.org'], email.from
       assert_equal ['josh.starcher@cru.org'], email.to
       assert_equal 'MyConfName - Precheck Confirmation Email', email.subject
     end

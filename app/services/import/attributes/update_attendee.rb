@@ -70,7 +70,7 @@ module Import
         choices.split(/\s*,\s*/).map do |name|
           Conference.find_by!(name: name)
         rescue ActiveRecord::ActiveRecordError
-          raise t('errors.no_conference', name: name.inspect)
+          raise t('import.errors.no_conference', name: name.inspect)
         end
       end
 
@@ -80,7 +80,7 @@ module Import
         courses.split(/\s*,\s*/).map do |name|
           Course.find_by!(name: name)
         rescue ActiveRecord::ActiveRecordError
-          raise t('errors.no_course', name: name.inspect)
+          raise t('import.errors.no_course', name: name.inspect)
         end
       end
 
