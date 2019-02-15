@@ -54,7 +54,6 @@ class SeedUserVariables
 
     # Conference
     conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'A string containing the name of the conference.' },
-    conference_email:    { value_type: :string, code: :CONFEMAIL, value: 'cru17.info@cru.org', description: 'Conference email address' },
     support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
     conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/images/cru_logo.png', description: 'Conference logo URL' },
   }.freeze

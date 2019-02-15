@@ -4,7 +4,6 @@ class PrecheckEmailsControllerTest < ControllerTestCase
   include ActionMailer::TestHelper
 
   stub_user_variable conference_id: 'MyConfName',
-                     conference_email: 'my_conf_email@example.org',
                      support_email: 'support@example.org',
                      conference_logo_url: 'https://www.logo.com'
 
