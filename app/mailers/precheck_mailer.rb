@@ -10,8 +10,13 @@ class PrecheckMailer < ApplicationMailer
     mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Completed")
   end
 
-  def confirm_charges(family)
+  def confirm_charges(family, finance_user)
     @token = create_or_refresh_token(family)
+    @family = family
+    @finances = FamilyFinances::Report.call(family: family)
+    @from_email = true
+    finance_user = User.find_by(role: 'finance') if finance_user.blank?
+    @policy = Pundit.policy(finance_user, family)
     email = if Rails.env.production?
               family.attendees.pluck(:email).select(&:present?).compact
             else
