@@ -2,8 +2,8 @@ class NightlyPrecheckMailerJob < ApplicationJob
   queue_as :default
 
   def perform
-    Family.precheck_pending_approval.find_each do |family|
-      next unless precheck_eligible?(family)
+    families_scope.find_each do |family|
+      next unless precheck_eligible? family
 
       PrecheckMailer.confirm_charges(family).deliver_later
     end
@@ -11,7 +11,11 @@ class NightlyPrecheckMailerJob < ApplicationJob
 
   private
 
+  def families_scope
+    Family.includes(:attendees, :chargeable_staff_number, :children, :housing_preference).precheck_pending_approval
+  end
+
   def precheck_eligible?(family)
-    PrecheckEligibilityService.new(family).eligible?
+    PrecheckEligibilityService.new(family).call
   end
 end
