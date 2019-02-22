@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190208022153) do
+ActiveRecord::Schema.define(version: 20190222195252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,6 +241,9 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.text     "cs_vip_hobby"
     t.text     "cs_vip_buddy"
     t.text     "cs_vip_addl_info"
+    t.text     "gtky_addl_challenges"
+    t.string   "gtky_is_leader"
+    t.string   "gtky_is_follower"
   end
 
   add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
@@ -403,8 +406,12 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
     t.boolean  "medical_history_approval",     default: false
+    t.string   "child_middle_name"
+    t.string   "child_country"
   end
 
+  add_index "people", ["child_country"], name: "index_people_on_child_country", using: :btree
+  add_index "people", ["child_middle_name"], name: "index_people_on_child_middle_name", using: :btree
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
