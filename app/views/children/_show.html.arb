@@ -90,34 +90,34 @@ context.instance_exec do
         panel 'Student Misc', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :parent_agree
-            row :gsky_lunch
-            row :gsky_signout
-            row :gsky_sibling_signout
-            row :gsky_sibling
-            row :gsky_small_group_friend
-            row :gsky_musical
-            row :gsky_activities
-            row :gsky_gain
-            row :gsky_growth
-            row :gsky_addl_info
-            row :gsky_challenges
-            row :gsky_large_groups
-            row :gsky_small_groups
-            row :gsky_leader
-            row :gsky_follower
-            row :gsky_friends
-            row :gsky_hesitant
-            row :gsky_active
-            row :gsky_reserved
-            row :gsky_boundaries
-            row :gsky_authority
-            row :gsky_adapts
+            row :gtky_lunch
+            row :gtky_signout
+            row :gtky_sibling_signout
+            row :gtky_sibling
+            row :gtky_small_group_friend
+            row :gtky_musical
+            row :gtky_activities
+            row :gtky_gain
+            row :gtky_growth
+            row :gtky_addl_info
+            row :gtky_challenges
+            row :gtky_large_groups
+            row :gtky_small_groups
+            row :gtky_leader
+            row :gtky_follower
+            row :gtky_friends
+            row :gtky_hesitant
+            row :gtky_active
+            row :gtky_reserved
+            row :gtky_boundaries
+            row :gtky_authority
+            row :gtky_adapts
           end
         end
 
         panel 'Student Medical History', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
-            row :gsky_allergies
+            row :gtky_allergies
             row :med_allergies
             row :food_allergies
             row :other_allergies

@@ -4,7 +4,7 @@ form.instance_exec do
     has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CRU Student Medical History',
              class: 'has_one', collection:
       collection do |s|
-      s.input :gsky_allergies
+      s.input :gtky_allergies
       s.input :med_allergies
       s.input :food_allergies
       s.input :other_allergies
