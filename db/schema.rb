@@ -265,8 +265,10 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.boolean  "handicap"
     t.integer  "precheck_status",                      default: 0
     t.datetime "precheck_status_changed_at"
+    t.string   "county"
   end
 
+  add_index "families", ["county"], name: "index_families_on_county", using: :btree
   add_index "families", ["precheck_status"], name: "index_families_on_precheck_status", using: :btree
   add_index "families", ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at", using: :btree
 
@@ -407,10 +409,8 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.datetime "conference_status_changed_at"
     t.boolean  "medical_history_approval",     default: false
     t.string   "child_middle_name"
-    t.string   "child_country"
   end
 
-  add_index "people", ["child_country"], name: "index_people_on_child_country", using: :btree
   add_index "people", ["child_middle_name"], name: "index_people_on_child_middle_name", using: :btree
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
