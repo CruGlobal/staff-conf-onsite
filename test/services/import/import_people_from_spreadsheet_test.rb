@@ -26,13 +26,13 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Staff Full Time', @person.employee_status
     assert_equal 'STFFD.LH.STAFF', @person.pay_chartfield
     assert_equal 'Registered', @person.conference_status
+    assert_equal "Men's 2XL", @person.tshirt_size
   end
 
   test 'single child medical history, should create new Child with medical history' do
     assert_difference ->{ Child.count }, +2 do
       import_spreadsheet('people-import--single-primary-medical-history.csv')
     end
-
 
     @child = Child.first
     assert_equal 'Dairy', @child.cru_student_medical_history.med_allergies
@@ -44,7 +44,6 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_difference ->{ Child.count }, +2 do
       import_spreadsheet('people-import--single-primary-medical-history.csv')
     end
-
 
     @student = Child.second
     assert_equal 'Peanuts', @student.childcare_medical_history.allergy
@@ -68,10 +67,11 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'ABCD 1234', @family.license_plates
   end
 
-  test 'import child middle name' do
+  test 'import child' do
     import_spreadsheet('people-import--single-primary-medical-history.csv')
 
     assert_equal 'Melina', Child.first.middle_name
+    assert_equal 'Child M', Child.first.tshirt_size
   end
 
   private
