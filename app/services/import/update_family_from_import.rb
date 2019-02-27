@@ -21,7 +21,8 @@ class Import::UpdateFamilyFromImport < ApplicationService
       zip: import.zip,
       address1: import.address1,
       address2: import.address2,
-      country_code: import.country_code
+      country_code: import.country_code,
+      license_plates: import.car_license_plate
     )
   end
 

@@ -65,6 +65,7 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'AR', @family.state
     assert_equal '72113', @family.zip
     assert_equal 'US', @family.country_code
+    assert_equal 'ABCD 1234', @family.license_plates
   end
 
   test 'import child middle name' do

@@ -68,6 +68,7 @@ module Import
       rec_pass_start_at: 'RecPass Start Date',
       rec_pass_end_at:   'RecPass End Date',
 
+      car_license_plate: 'Car License Plate',
       ministry_code:     'Ministry Code',
       hired_at:          'Hire Date',
       employee_status:   'Employee Status',
