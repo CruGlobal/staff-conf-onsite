@@ -3,7 +3,7 @@ require 'test_helper'
 class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
   setup do
     @results_single_primary =
-      import_spreadsheet('people-import--single-primary-medical-history.xlsx')
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
   end
 
   test 'single primary person, verbatim column/attribute mapping' do
@@ -17,7 +17,7 @@ class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Abbott', @person.name_tag_last_name
     assert_equal 'm', @person.gender
     assert_equal '0638533', @person.staff_number
-    assert_equal Date.parse('1967-05-10'), @person.birthdate
+    assert_equal Date.parse('20 Oct 1980'), @person.birthdate
     assert_equal 'White', @person.ethnicity
     assert_equal '114 Mountain Valley Dr', @person.address1
     assert_equal 'Maumelle', @person.city
@@ -27,7 +27,7 @@ class Import::ParsePeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal '5154738402', @person.phone
     assert_equal 'dabbott@familylife.com', @person.email
     assert_equal 'FL33230', @person.ministry_code
-    assert_equal Date.parse('2012-02-01'), @person.hired_at
+    assert_equal Date.parse('1 Aug 1999'), @person.hired_at
     assert_equal 'Staff Full Time', @person.employee_status
     assert_equal 'STFFD.LH.STAFF', @person.pay_chartfield
     assert_equal 'Registered', @person.conference_status

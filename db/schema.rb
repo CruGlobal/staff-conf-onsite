@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.string   "gtky_large_groups"
     t.string   "gtky_small_groups"
     t.string   "gtky_leader"
-    t.string   "gtky_follower"
+    t.string   "gtky_is_follower"
     t.string   "gtky_friends"
     t.string   "gtky_hesitant"
     t.string   "gtky_active"
@@ -243,7 +243,6 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.text     "cs_vip_addl_info"
     t.text     "gtky_addl_challenges"
     t.string   "gtky_is_leader"
-    t.string   "gtky_is_follower"
   end
 
   add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
@@ -408,11 +407,11 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
     t.boolean  "medical_history_approval",     default: false
-    t.string   "child_middle_name"
+    t.string   "middle_name"
   end
 
-  add_index "people", ["child_middle_name"], name: "index_people_on_child_middle_name", using: :btree
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
+  add_index "people", ["middle_name"], name: "index_people_on_middle_name", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree

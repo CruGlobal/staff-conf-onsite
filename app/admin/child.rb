@@ -30,7 +30,7 @@ ActiveAdmin.register Child do
     cru_student_medical_history_attributes: %i[
       id _destroy date parent_agree gtky_lunch gtky_signout gtky_sibling_signout gtky_sibling
       gtky_small_group_friend gtky_musical gtky_activities gtky_gain gtky_growth gtky_addl_info
-      gtky_challenges gtky_large_groups gtky_small_groups gtky_leader gtky_follower gtky_friends gtky_hesitant
+      gtky_challenges gtky_large_groups gtky_small_groups gtky_is_leader gtky_leader gtky_is_follower gtky_friends gtky_hesitant
       gtky_active gtky_reserved gtky_boundaries gtky_authority gtky_adapts gtky_allergies med_allergies
       food_allergies other_allergies health_concerns asthma migraines severe_allergy anorexia diabetes
       altitude concerns_misc cs_health_misc cs_vip_meds cs_vip_dev cs_vip_strengths cs_vip_challenges

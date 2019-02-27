@@ -10,6 +10,7 @@ form.instance_exec do
       s.input :gtky_sibling_signout
       s.input :gtky_sibling
       s.input :gtky_small_group_friend, input_html: { rows: 5 }
+      s.input :gtky_leader
       s.input :gtky_musical
       s.input :gtky_activities, input_html: { rows: 5 }
       s.input :gtky_gain, input_html: { rows: 5 }
@@ -18,8 +19,8 @@ form.instance_exec do
       s.input :gtky_challenges
       s.input :gtky_large_groups
       s.input :gtky_small_groups
-      s.input :gtky_leader
-      s.input :gtky_follower
+      s.input :gtky_is_leader
+      s.input :gtky_is_follower
       s.input :gtky_friends
       s.input :gtky_hesitant
       s.input :gtky_active

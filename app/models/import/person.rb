@@ -11,6 +11,7 @@ module Import
 
       student_number:      'Student Number',
       first_name:          'First',
+      child_middle_name:   'Child Middle',
       last_name:           'Last',
       name_tag_first_name: 'Name Tag Name First',
       name_tag_last_name:  'Name Tag Name Last',
@@ -29,6 +30,7 @@ module Import
       city:     'City',
       state:    'State',
       zip:      'ZIP',
+      county:   'County',
       country:  'Country',
       phone:    'Cell',
       email:    'Email',
@@ -53,18 +55,18 @@ module Import
       housing_location3:         'Housing 3rd Choice',
       housing_comment:           'Housing Comments',
 
-      grade_level:          'Age Group',
+      grade_level:        'Age Group',
       needs_bed:          'Child Needs Dorm Bed',
       childcare_deposit:  'Childcare Deposit',
       childcare_weeks:    'Child Program Weeks',
       hot_lunch_weeks:    'Hot Lunch Weeks',
       childcare_comment:  'Childcare Comments',
 
-      ibs_courses:  'IBS Courses',
+      ibs_courses: 'IBS Courses',
       ibs_comment: 'IBS Comments',
 
       rec_pass_start_at: 'RecPass Start Date',
-      rec_pass_end_at: 'RecPass End Date',
+      rec_pass_end_at:   'RecPass End Date',
 
       ministry_code:     'Ministry Code',
       hired_at:          'Hire Date',
@@ -111,16 +113,18 @@ module Import
       gtky_sibling_signout:    'Forms CS GTKY SiblingSignout',
       gtky_sibling:            'Forms CS GTKY Sibling',
       gtky_small_group_friend: 'Forms CS GTKY SmallGroupFriend',
+      gtky_leader:             'Forms CS GTKY Leader',
       gtky_musical:            'Forms CS GTKY Musical',
       gtky_activities:         'Forms CS GTKY Activities',
       gtky_gain:               'Forms CS GTKY Gain',
       gtky_growth:             'Forms CS GTKY Growth',
       gtky_addl_info:          'Forms CS GTKY AddlInfo',
       gtky_challenges:         'Forms CS GTKY Challenges',
+      gtky_addl_challenges:    'Forms CS GTKY Addl Challenges',
       gtky_large_groups:       'Forms CS GTKY LargeGroups',
       gtky_small_groups:       'Forms CS GTKY SmallGroups',
-      gtky_leader:             'Forms CS GTKY Leader',
-      gtky_follower:           'Forms CS GTKY Follower',
+      gtky_is_leader:          'Forms CS GTKY IsLeader',
+      gtky_is_follower:        'Forms CS GTKY IsFollower',
       gtky_friends:            'Forms CS GTKY Friends',
       gtky_hesitant:           'Forms CS GTKY Hesitant',
       gtky_active:             'Forms CS GTKY Active',
@@ -163,6 +167,15 @@ module Import
     }.freeze
 
     attr_accessor(*SPREADSHEET_TITLES.keys)
+
+    DATE_ATTRIBUTES = %w[
+      birthdate
+      arrived_at
+      departed_at
+      rec_pass_start_at
+      rec_pass_end_at
+      hired_at
+    ]
 
     PERSON_TYPES = {
       'Primary' => Attendee,
@@ -265,10 +278,22 @@ module Import
         end
     end
 
+    DATE_ATTRIBUTES.each do |date_attribute_name|
+      define_method date_attribute_name do
+        parse_american_date instance_variable_get("@#{date_attribute_name}")
+      end
+    end
+
     private
 
     def true_string?(str)
       str&.downcase == 'yes' || TRUE_VALUES.include?(str)
+    end
+
+    def parse_american_date(date_string)
+      return date_string unless date_string.is_a?(String)
+
+      Date.strptime date_string, '%m/%d/%Y'
     end
   end
 end

@@ -95,6 +95,7 @@ context.instance_exec do
             row :gtky_sibling_signout
             row :gtky_sibling
             row :gtky_small_group_friend
+            row :gtky_leader
             row :gtky_musical
             row :gtky_activities
             row :gtky_gain
@@ -103,8 +104,8 @@ context.instance_exec do
             row :gtky_challenges
             row :gtky_large_groups
             row :gtky_small_groups
-            row :gtky_leader
-            row :gtky_follower
+            row :gtky_is_leader
+            row :gtky_is_follower
             row :gtky_friends
             row :gtky_hesitant
             row :gtky_active

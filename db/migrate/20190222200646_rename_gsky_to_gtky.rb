@@ -15,7 +15,6 @@ class RenameGskyToGtky < ActiveRecord::Migration
     gsky_large_groups
     gsky_small_groups
     gsky_leader
-    gsky_follower
     gsky_friends
     gsky_hesitant
     gsky_active
