@@ -175,7 +175,7 @@ module Import
       rec_pass_start_at
       rec_pass_end_at
       hired_at
-    ]
+    ].freeze
 
     PERSON_TYPES = {
       'Primary' => Attendee,
