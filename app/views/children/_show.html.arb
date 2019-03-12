@@ -40,8 +40,8 @@ context.instance_exec do
         end
       end
 
-      if young_child?(child.age, action_name)
-        panel 'Medical History', class: 'medical_history' do
+      if child.childcare_medical_history&.any_attribute_present?
+        panel 'Childcare Medical History', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
             row :allergy
             row :food_intolerance
@@ -86,7 +86,7 @@ context.instance_exec do
              cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
 
-      if student?(child.age, action_name)
+      if child.cru_student_medical_history&.any_attribute_present?
         panel 'Student Misc', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :parent_agree

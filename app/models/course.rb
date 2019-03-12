@@ -12,7 +12,7 @@ class Course < ApplicationRecord
   has_many :course_attendances, dependent: :destroy
   has_many :attendees, through: :course_attendances
 
-  validates :name, :instructor, :week_descriptor, :ibs_code, :location,
+  validates :name, :instructor, :week_descriptor, :ibs_code, :location, :description,
             presence: true
 
   def to_s
