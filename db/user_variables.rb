@@ -55,7 +55,7 @@ class SeedUserVariables
     # Conference
     conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'A string containing the name of the conference.' },
     support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
-    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/images/cru_logo.png', description: 'Conference logo URL' },
+    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru19/cru19-logo-thumbnail.png', description: 'Conference logo URL' },
   }.freeze
 
   def initialize
