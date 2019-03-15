@@ -169,6 +169,8 @@ module Import
 
     attr_accessor(*SPREADSHEET_TITLES.keys)
 
+    SPREADSHEET_REQUIRED_COLUMNS = SPREADSHEET_TITLES.slice(:person_type, :family_tag, :first_name, :last_name).values.freeze
+
     DATE_ATTRIBUTES = %w[
       birthdate
       arrived_at
