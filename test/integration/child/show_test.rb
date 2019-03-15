@@ -2,9 +2,6 @@ require 'test_helper'
 
 class Child::ShowTest < IntegrationTest
   include CostAdjustmentHelper
-  # setup do
-  #   create(:young_child_age, short_name: :young_child_age , value_type: :number, value: 5)
-  # end
 
   before do
     @user = create_login_user
@@ -12,8 +9,7 @@ class Child::ShowTest < IntegrationTest
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now,
-                     rec_center_daily: Money.new(1_00),
-                     young_child_age: 5
+                     rec_center_daily: Money.new(1_00)
 
   test '#show details' do
     visit child_path(@child)
