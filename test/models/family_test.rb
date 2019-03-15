@@ -48,7 +48,7 @@ class FamilyTest < ModelTestCase
     create :family, precheck_status: :changes_requested
     create :family, precheck_status: :approved
 
-    assert_equal [pending_family, @family], Family.precheck_pending_approval.to_a
+    assert_equal [pending_family, @family].sort, Family.precheck_pending_approval.to_a.sort
   end
 
   test 'scope precheck_changes_requested' do
