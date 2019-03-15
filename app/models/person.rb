@@ -75,7 +75,7 @@ class Person < ApplicationRecord
   validates_associated :stays
 
   def full_name
-    [first_name, last_name].compact.join(' ')
+    [first_name, middle_name, last_name].compact.join(' ')
   end
 
   def audit_name

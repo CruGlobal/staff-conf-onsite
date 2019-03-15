@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190208022153) do
+ActiveRecord::Schema.define(version: 20190222205648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,34 +51,34 @@ ActiveRecord::Schema.define(version: 20190208022153) do
   add_index "childcare_envelopes", ["envelope_id"], name: "index_childcare_envelopes_on_envelope_id", using: :btree
 
   create_table "childcare_medical_histories", force: :cascade do |t|
-    t.text     "allergy"
+    t.string   "allergy"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "child_id"
-    t.text     "food_intolerance"
+    t.string   "food_intolerance"
     t.string   "chronic_health"
-    t.text     "chronic_health_addl"
-    t.text     "medications"
+    t.string   "chronic_health_addl"
+    t.string   "medications"
     t.string   "immunizations"
     t.string   "health_misc"
     t.text     "restrictions"
-    t.text     "vip_meds"
+    t.string   "vip_meds"
     t.text     "vip_dev"
-    t.text     "vip_strengths"
-    t.text     "vip_challenges"
-    t.text     "vip_mobility"
-    t.text     "vip_walk"
-    t.string   "vip_comm"
+    t.string   "vip_strengths"
+    t.string   "vip_challenges"
+    t.string   "vip_mobility"
+    t.string   "vip_walk"
+    t.text     "vip_comm"
     t.text     "vip_comm_addl"
     t.text     "vip_comm_small"
     t.text     "vip_comm_large"
     t.text     "vip_comm_directions"
     t.string   "vip_stress"
-    t.text     "vip_stress_addl"
+    t.string   "vip_stress_addl"
     t.text     "vip_stress_behavior"
     t.text     "vip_calm"
-    t.text     "vip_hobby"
-    t.text     "vip_buddy"
+    t.string   "vip_hobby"
+    t.string   "vip_buddy"
     t.text     "vip_addl_info"
     t.string   "sunscreen_self"
     t.string   "sunscreen_assisted"
@@ -187,29 +187,29 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "child_id"
-    t.string   "gsky_lunch"
-    t.string   "gsky_signout"
-    t.string   "gsky_sibling_signout"
-    t.string   "gsky_sibling"
-    t.text     "gsky_small_group_friend"
-    t.string   "gsky_musical"
-    t.text     "gsky_activities"
-    t.text     "gsky_gain"
-    t.text     "gsky_growth"
-    t.text     "gsky_addl_info"
-    t.string   "gsky_challenges"
-    t.string   "gsky_large_groups"
-    t.string   "gsky_small_groups"
-    t.string   "gsky_leader"
-    t.string   "gsky_follower"
-    t.string   "gsky_friends"
-    t.string   "gsky_hesitant"
-    t.string   "gsky_active"
-    t.string   "gsky_reserved"
-    t.string   "gsky_boundaries"
-    t.string   "gsky_authority"
-    t.string   "gsky_adapts"
-    t.string   "gsky_allergies"
+    t.string   "gtky_lunch"
+    t.string   "gtky_signout"
+    t.string   "gtky_sibling_signout"
+    t.string   "gtky_sibling"
+    t.string   "gtky_small_group_friend"
+    t.string   "gtky_musical"
+    t.string   "gtky_activities"
+    t.string   "gtky_gain"
+    t.string   "gtky_growth"
+    t.string   "gtky_addl_info"
+    t.string   "gtky_challenges"
+    t.string   "gtky_large_groups"
+    t.string   "gtky_small_groups"
+    t.string   "gtky_leader"
+    t.string   "gtky_is_follower"
+    t.string   "gtky_friends"
+    t.string   "gtky_hesitant"
+    t.string   "gtky_active"
+    t.string   "gtky_reserved"
+    t.string   "gtky_boundaries"
+    t.string   "gtky_authority"
+    t.string   "gtky_adapts"
+    t.string   "gtky_allergies"
     t.string   "med_allergies"
     t.string   "food_allergies"
     t.string   "other_allergies"
@@ -222,25 +222,27 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.string   "altitude"
     t.string   "concerns_misc"
     t.string   "cs_health_misc"
-    t.text     "cs_vip_meds"
+    t.string   "cs_vip_meds"
     t.text     "cs_vip_dev"
     t.text     "cs_vip_strengths"
-    t.text     "cs_vip_challenges"
-    t.text     "cs_vip_mobility"
-    t.text     "cs_vip_walk"
+    t.string   "cs_vip_challenges"
+    t.string   "cs_vip_mobility"
+    t.string   "cs_vip_walk"
     t.string   "cs_vip_comm"
     t.text     "cs_vip_comm_addl"
     t.text     "cs_vip_comm_small"
     t.text     "cs_vip_comm_large"
     t.text     "cs_vip_comm_directions"
     t.string   "cs_vip_stress"
-    t.text     "cs_vip_stress_addl"
+    t.string   "cs_vip_stress_addl"
     t.text     "cs_vip_stress_behavior"
     t.text     "cs_vip_calm"
     t.text     "cs_vip_sitting"
-    t.text     "cs_vip_hobby"
-    t.text     "cs_vip_buddy"
+    t.string   "cs_vip_hobby"
+    t.string   "cs_vip_buddy"
     t.text     "cs_vip_addl_info"
+    t.text     "gtky_addl_challenges"
+    t.string   "gtky_is_leader"
   end
 
   add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
@@ -262,8 +264,10 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.boolean  "handicap"
     t.integer  "precheck_status",                      default: 0
     t.datetime "precheck_status_changed_at"
+    t.string   "county"
   end
 
+  add_index "families", ["county"], name: "index_families_on_county", using: :btree
   add_index "families", ["precheck_status"], name: "index_families_on_precheck_status", using: :btree
   add_index "families", ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at", using: :btree
 
@@ -403,9 +407,11 @@ ActiveRecord::Schema.define(version: 20190208022153) do
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
     t.boolean  "medical_history_approval",     default: false
+    t.string   "middle_name"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
+  add_index "people", ["middle_name"], name: "index_people_on_middle_name", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree

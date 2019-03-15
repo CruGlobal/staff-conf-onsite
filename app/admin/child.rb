@@ -28,10 +28,10 @@ ActiveAdmin.register Child do
       sunscreen_provided
     ],
     cru_student_medical_history_attributes: %i[
-      id _destroy date parent_agree gsky_lunch gsky_signout gsky_sibling_signout gsky_sibling
-      gsky_small_group_friend gsky_musical gsky_activities gsky_gain gsky_growth gsky_addl_info
-      gsky_challenges gsky_large_groups gsky_small_groups gsky_leader gsky_follower gsky_friends gsky_hesitant
-      gsky_active gsky_reserved gsky_boundaries gsky_authority gsky_adapts gsky_allergies med_allergies
+      id _destroy date parent_agree gtky_lunch gtky_signout gtky_sibling_signout gtky_sibling
+      gtky_small_group_friend gtky_musical gtky_activities gtky_gain gtky_growth gtky_addl_info
+      gtky_challenges gtky_large_groups gtky_small_groups gtky_is_leader gtky_leader gtky_is_follower gtky_friends gtky_hesitant
+      gtky_active gtky_reserved gtky_boundaries gtky_authority gtky_adapts gtky_allergies med_allergies
       food_allergies other_allergies health_concerns asthma migraines severe_allergy anorexia diabetes
       altitude concerns_misc cs_health_misc cs_vip_meds cs_vip_dev cs_vip_strengths cs_vip_challenges
       cs_vip_mobility cs_vip_walk cs_vip_comm cs_vip_comm_addl cs_vip_comm_small cs_vip_comm_large

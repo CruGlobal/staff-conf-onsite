@@ -39,9 +39,8 @@ context.instance_exec do
       end
 
       render 'children/form/childcare', form: self
-      if young_child?(child.age, action_name)
-        render 'children/form/childcare_medical_history', form: self
-      end
+
+      render 'children/form/childcare_medical_history', form: self
     end
 
     column do
@@ -49,10 +48,9 @@ context.instance_exec do
       render 'people/form/cost_adjustments', form: self
       render 'people/form/stays', form: self
       render 'people/form/meal_exemptions', form: self, person: child
-      if student?(child.age, action_name)
-        render 'children/form/cru_student_medical_history_misc', form: self
-        render 'children/form/cru_student_medical_history', form: self
-      end
+
+      render 'children/form/cru_student_medical_history_misc', form: self
+      render 'children/form/cru_student_medical_history', form: self
     end
   end
 

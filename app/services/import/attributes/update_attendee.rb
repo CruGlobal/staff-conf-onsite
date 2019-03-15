@@ -29,7 +29,6 @@ module Import
       def set_attendee_attributes
         person.assign_attributes(
           student_number: @import.student_number,
-          tshirt_size: @import.tshirt_size,
           mobility_comment: @import.mobility_comment,
           phone: @import.phone,
           email: @import.email,
