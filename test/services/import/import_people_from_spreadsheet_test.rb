@@ -74,6 +74,18 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Child M', Child.first.tshirt_size
   end
 
+  test 'import spouses' do
+    assert_difference ->{ Family.count }, +1 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+
+    @spouse_one = Family.last.attendees.first
+    @spouse_two = Family.last.attendees.second
+
+    assert_equal @spouse_two.id, @spouse_one.spouse_id
+    assert_equal @spouse_one.id, @spouse_two.spouse_id
+  end
+
   private
 
   def stub_default_seminary(&blk)

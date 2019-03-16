@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190222205648) do
+ActiveRecord::Schema.define(version: 20190316020607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -408,11 +408,13 @@ ActiveRecord::Schema.define(version: 20190222205648) do
     t.datetime "conference_status_changed_at"
     t.boolean  "medical_history_approval",     default: false
     t.string   "middle_name"
+    t.integer  "spouse_id"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
   add_index "people", ["middle_name"], name: "index_people_on_middle_name", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
+  add_index "people", ["spouse_id"], name: "index_people_on_spouse_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
 
