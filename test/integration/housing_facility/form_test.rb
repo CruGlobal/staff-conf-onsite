@@ -5,7 +5,6 @@ class HousingFacility::FormTest < IntegrationTest
 
   before do
     prepare_for_testing
-    VCR.turn_off!
   end
 
   [:new, :edit].each do |action|
