@@ -16,6 +16,13 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - production
+    - staging
+    - test
+
 Documentation:
   Enabled: false
 

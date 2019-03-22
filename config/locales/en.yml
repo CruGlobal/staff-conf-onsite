@@ -201,6 +201,7 @@ en:
           date: 'Date'
           number: 'Number'
           html: 'HTML'
+          list: 'List'
       childcare_medical_history:
         allergy: "Allergies"
         food_intolerance: "Food Intolerances"
