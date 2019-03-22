@@ -38,6 +38,9 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'Dairy', @child.cru_student_medical_history.med_allergies
     assert_equal 'Sometimes', @child.cru_student_medical_history.migraines
     assert_equal 'Yes', @child.cru_student_medical_history.anorexia
+    assert_equal ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Eating disorder', 'Significant bullying', 'Self harm'],
+                 @child.cru_student_medical_history.gtky_challenges
+    assert_equal 'YES lunch on their own', @child.cru_student_medical_history.gtky_lunch
   end
 
   test 'single student medical history, should create new Child with student medical history' do
@@ -45,10 +48,12 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
       import_spreadsheet('people-import--single-primary-medical-history.csv')
     end
 
-    @student = Child.second
-    assert_equal 'Peanuts', @student.childcare_medical_history.allergy
-    assert_equal 'No Grains', @student.childcare_medical_history.restrictions
-    assert_equal 'wheelchair', @student.childcare_medical_history.vip_mobility
+    @child = Child.second
+    assert_equal 'Peanuts', @child.childcare_medical_history.allergy
+    assert_equal 'No Grains', @child.childcare_medical_history.restrictions
+    assert_equal 'wheelchair', @child.childcare_medical_history.vip_mobility
+    assert_equal ['Asthma', 'Other'], @child.childcare_medical_history.chronic_health
+    assert_equal 'No', @child.childcare_medical_history.sunscreen_self
   end
 
   test 'single primary person, should create Family' do

@@ -52,15 +52,12 @@ ActiveRecord::Schema.define(version: 20190405203851) do
 
   create_table "childcare_medical_histories", force: :cascade do |t|
     t.string   "allergy"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "child_id"
     t.string   "food_intolerance"
-    t.string   "chronic_health"
     t.string   "chronic_health_addl"
     t.string   "medications"
-    t.string   "immunizations"
-    t.string   "health_misc"
     t.text     "restrictions"
     t.string   "vip_meds"
     t.text     "vip_dev"
@@ -68,12 +65,10 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.string   "vip_challenges"
     t.string   "vip_mobility"
     t.string   "vip_walk"
-    t.text     "vip_comm"
     t.text     "vip_comm_addl"
     t.text     "vip_comm_small"
     t.text     "vip_comm_large"
     t.text     "vip_comm_directions"
-    t.string   "vip_stress"
     t.string   "vip_stress_addl"
     t.text     "vip_stress_behavior"
     t.text     "vip_calm"
@@ -83,6 +78,11 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.string   "sunscreen_self"
     t.string   "sunscreen_assisted"
     t.string   "sunscreen_provided"
+    t.string   "chronic_health",      default: [],              array: true
+    t.string   "immunizations",       default: [],              array: true
+    t.string   "health_misc",         default: [],              array: true
+    t.string   "vip_comm",            default: [],              array: true
+    t.string   "vip_stress",          default: [],              array: true
   end
 
   add_index "childcare_medical_histories", ["child_id"], name: "index_childcare_medical_histories_on_child_id", using: :btree
@@ -184,8 +184,8 @@ ActiveRecord::Schema.define(version: 20190405203851) do
 
   create_table "cru_student_medical_histories", force: :cascade do |t|
     t.string   "parent_agree"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "child_id"
     t.string   "gtky_lunch"
     t.string   "gtky_signout"
@@ -197,7 +197,6 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.string   "gtky_gain"
     t.string   "gtky_growth"
     t.string   "gtky_addl_info"
-    t.string   "gtky_challenges"
     t.string   "gtky_large_groups"
     t.string   "gtky_small_groups"
     t.string   "gtky_leader"
@@ -221,19 +220,16 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.string   "diabetes"
     t.string   "altitude"
     t.string   "concerns_misc"
-    t.string   "cs_health_misc"
     t.string   "cs_vip_meds"
     t.text     "cs_vip_dev"
     t.text     "cs_vip_strengths"
     t.string   "cs_vip_challenges"
     t.string   "cs_vip_mobility"
     t.string   "cs_vip_walk"
-    t.string   "cs_vip_comm"
     t.text     "cs_vip_comm_addl"
     t.text     "cs_vip_comm_small"
     t.text     "cs_vip_comm_large"
     t.text     "cs_vip_comm_directions"
-    t.string   "cs_vip_stress"
     t.string   "cs_vip_stress_addl"
     t.text     "cs_vip_stress_behavior"
     t.text     "cs_vip_calm"
@@ -243,6 +239,10 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.text     "cs_vip_addl_info"
     t.text     "gtky_addl_challenges"
     t.string   "gtky_is_leader"
+    t.string   "gtky_challenges",         default: [],              array: true
+    t.string   "cs_health_misc",          default: [],              array: true
+    t.string   "cs_vip_comm",             default: [],              array: true
+    t.string   "cs_vip_stress",           default: [],              array: true
   end
 
   add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
