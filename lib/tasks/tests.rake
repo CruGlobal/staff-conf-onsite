@@ -1,12 +1,12 @@
-# These tasks are redefined below
-%w[default test test:integration].each do |t|
+# These tasks are deleted and then redefined below
+%w[default test:units test:integration].each do |t|
   Rake.application.instance_variable_get('@tasks').delete(t)
 end
 
 desc 'Run the entire suit of tests and linters'
 task :default do
   border = '=' * 80
-  tasks = %w[test:unit test:integration rubocop reek bundle:audit coffeelint]
+  tasks = %w[rubocop reek coffeelint bundle:audit test]
 
   puts "The following Rake tasks will be run: #{tasks.to_sentence}"
   tasks.each do |task|
@@ -16,7 +16,7 @@ task :default do
   puts 'Success.'
 end
 
-Rake::TestTask.new('test:unit') do |t|
+Rake::TestTask.new('test:units') do |t|
   t.test_files = FileList['test/**/*_test.rb'].exclude(
     'test/integration/**/*_test.rb'
   )
@@ -33,6 +33,3 @@ Rake::TestTask.new('test:integration') do |t|
   t.warning = false
   t.verbose = true
 end
-
-desc 'Run unit tests and then integration tests'
-task test: %i[test:unit test:integration]

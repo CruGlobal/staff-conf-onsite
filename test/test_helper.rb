@@ -30,80 +30,46 @@ Minitest::Reporters.use!
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 
 Support::StubCas.stub_requests
+
 FactoryGirl.find_definitions
 
-class ControllerTestCase < ActionController::TestCase
+Minitest.after_run { DatabaseCleaner.clean_with :truncation }
+
+class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::UserVariable
+  include Support::DatabaseCleanerHooks
+
 end
 
+class ControllerTestCase < ActionController::TestCase; end
+
 class IntegrationTest < Capybara::Rails::TestCase
-  include FactoryGirl::Syntax::Methods
   include Support::ActiveAdmin
   include Support::Authentication
   include Support::Javascript
-  include Support::UserVariable
 
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each) do
+  before { VCR.turn_off! }
+
+  after do
     Capybara.use_default_driver
-    DatabaseCleaner.clean
+    VCR.turn_on!
   end
 end
 
 class ModelTestCase < ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
   include Support::Authentication
   include Support::Moneyable
-  include Support::UserVariable
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end
 
 class ServiceTestCase < ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end
 
 class JobTestCase < ActiveJob::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end
 
 class MailTestCase < ActionMailer::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end

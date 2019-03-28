@@ -7,6 +7,7 @@ context.instance_exec do
 
     row :tshirt_size
     row(:family) { |a| link_to family_label(a.family), family_path(a.family) }
+    row(:spouse) { |a| link_to(a.spouse.full_name, attendee_path(a.spouse)) if a.spouse }
     row(:birthdate) { |a| birthdate_label(a) }
     row(:age, sortable: :birthdate) { |a| age_label(a) }
     row(:gender) { |a| gender_name(a.gender) }
