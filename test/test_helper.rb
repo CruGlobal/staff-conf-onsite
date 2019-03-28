@@ -40,6 +40,7 @@ class ActiveSupport::TestCase
   include Support::UserVariable
   include Support::DatabaseCleanerHooks
 
+  setup { VCR.turn_off! }
 end
 
 class ControllerTestCase < ActionController::TestCase; end
@@ -49,12 +50,7 @@ class IntegrationTest < Capybara::Rails::TestCase
   include Support::Authentication
   include Support::Javascript
 
-  before { VCR.turn_off! }
-
-  after do
-    Capybara.use_default_driver
-    VCR.turn_on!
-  end
+  teardown { Capybara.use_default_driver }
 end
 
 class ModelTestCase < ActiveSupport::TestCase
@@ -64,6 +60,8 @@ end
 
 class ServiceTestCase < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
+
+  setup { VCR.turn_on! }
 end
 
 class JobTestCase < ActiveJob::TestCase
