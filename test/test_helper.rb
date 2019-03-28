@@ -23,6 +23,7 @@ require 'minitest/reporters'
 require_relative '../db/seminaries'
 require 'vcr'
 require 'mocha/minitest'
+require 'sidekiq/testing'
 
 Minitest::Reporters.use!
 

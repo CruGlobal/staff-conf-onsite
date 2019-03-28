@@ -3,10 +3,10 @@ class Family < ApplicationRecord
 
   has_paper_trail
 
-  enum precheck_status: [
-    'Pending Approval',
-    'Changes Requested',
-    'Approved'
+  enum precheck_status: %i[
+    pending_approval
+    changes_requested
+    approved
   ]
 
   has_many :people, dependent: :destroy
@@ -32,6 +32,10 @@ class Family < ApplicationRecord
 
   before_validation :remove_blank_housing_preference
   before_save :touch_precheck_status_changed, if: :precheck_status_changed?
+
+  scope :precheck_pending_approval,  -> { where(precheck_status: Family.precheck_statuses[:pending_approval]) }
+  scope :precheck_changes_requested, -> { where(precheck_status: Family.precheck_statuses[:changes_requested]) }
+  scope :precheck_approved,          -> { where(precheck_status: Family.precheck_statuses[:approved]) }
 
   # @see PersonHelper.family_label
   def to_s
