@@ -76,7 +76,7 @@ context.instance_exec do
     end
 
     column do
-      panel 'Medical History Approval', class: 'medical_history_approval' do
+      panel 'Forms Approval', class: 'medical_history_approval' do
         attributes_table_for child do
           row :medical_history_approval
         end
