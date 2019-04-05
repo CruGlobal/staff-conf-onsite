@@ -17,7 +17,7 @@ class MailInterceptorTest < MailTestCase
 
   test 'intercepting addresses take the place of recipients' do
     email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
-    assert_equal ['interceptor@example.com'], email.to
+    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
   end
 
   test 'intercepting clears copy' do
@@ -46,7 +46,7 @@ class MailInterceptorTest < MailTestCase
     UserVariable.find_by(short_name: :mail_interceptor_email_addresses).delete
 
     email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
-    assert_equal ['blind@example.com', 'blind_copy@example.com'], email.bcc
+    assert_equal ['blind@example.com', 'blind_copy_one@example.com', 'blind_copy_two@example.com'], email.bcc
   end
 
   test 'force intercepting, without variables set' do
@@ -63,9 +63,9 @@ class MailInterceptorTest < MailTestCase
   test 'force intercepting, with variables set' do
     MailInterceptor.stub :force_interception?, true do
       email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
-      assert_equal ['interceptor@example.com'], email.to
+      assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
       assert_equal [], email.cc
-      assert_equal ['blind_copy@example.com'], email.bcc
+      assert_equal ['blind_copy_one@example.com', 'blind_copy_two@example.com'], email.bcc
     end
   end
 end

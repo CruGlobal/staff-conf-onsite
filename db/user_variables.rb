@@ -55,10 +55,11 @@ class SeedUserVariables
     conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru19/cru19-logo-thumbnail.png', description: 'Conference logo URL' },
 
     # Mail
-    mail_interceptor_email_addresses: { value_type: :list, code: :MAIL_INTERCEPTOR_EMAILS, value: 'interceptor@example.com',
-      description: 'A list of email addresses. When this list of email addresses exists then all emails will be sent to this list INSTEAD of the original recipients. '\
-                   'This prevents emails from going to real users and is intended to be used for testing purposes. To disable this function you should delete this variable from the database.' },
-    mail_bcc_email_addresses: { value_type: :list, code: :MAIL_BCC_EMAILS, value: 'blind_copy@example.com',
+    mail_interceptor_email_addresses: { value_type: :list, code: :MAIL_INTERCEPTOR_EMAILS, value: 'interceptor_one@example.com, interceptor_two@example.com',
+      description: 'A list of email addresses. When this list of email addresses is not empty then all emails will be sent to this list INSTEAD of the original recipient. '\
+                   'This prevents emails from going to real users and is intended to be used for testing purposes.' },
+
+    mail_bcc_email_addresses: { value_type: :list, code: :MAIL_BCC_EMAILS, value: 'blind_copy_one@example.com, blind_copy_two@example.com',
       description: 'A list of email addresses. These email addresses will be appended to the BCC recipients. This can be used to monitor the emails that are being sent out to users.' },
   }.freeze
 
