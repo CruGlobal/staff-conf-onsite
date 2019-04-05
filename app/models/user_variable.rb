@@ -1,13 +1,14 @@
 class UserVariable < ApplicationRecord
-  enum value_type: %i[string money date number html]
+  enum value_type: %i[string money date number html list]
 
   validates :code, :short_name, :value_type, :value, presence: true
   validates :code, :short_name, uniqueness: true
 
+  after_commit { |user_variable| user_variable.class.clear_cache }
+
   class << self
     def get(short_name)
-      @@variables ||= {}
-      @@variables[short_name] ||=
+      cache[short_name] ||=
         find_by(short_name: short_name)&.value.tap do |val|
           if val.nil?
             raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
@@ -29,14 +30,27 @@ class UserVariable < ApplicationRecord
     def keys
       pluck(:short_name).map(&:to_sym)
     end
+
+    def cache
+      @@variables ||= {}
+      @@variables
+    end
+
+    def clear_cache
+      @@variables = nil
+    end
   end
 
   def value
-    @raw_value ||= type_send(:load, self[:value])
+    type_send(:load, self[:value])
+  end
+
+  def raw_value
+    self[:value]
   end
 
   def value=(raw_value)
-    @raw_value =
+    raw_value =
       if type_respond_to?(:parse)
         type_send(:parse, raw_value)
       else
@@ -44,7 +58,7 @@ class UserVariable < ApplicationRecord
       end
 
     self[:value] =
-      type_respond_to?(:dump) ? type_send(:dump, @raw_value) : @raw_value.to_s
+      type_respond_to?(:dump) ? type_send(:dump, raw_value) : raw_value.to_s
   end
 
   private
@@ -116,5 +130,20 @@ class UserVariable < ApplicationRecord
 
   def load_html(value)
     value
+  end
+
+  def parse_list(value)
+    case value
+    when Array
+      value.map(&:strip).join(', ')
+    when String
+      parse_list(load_list(value))
+    else
+      raise ArgumentError, "#{value} is not an Array or String"
+    end
+  end
+
+  def load_list(value)
+    (value || '').split(',').map(&:strip)
   end
 end

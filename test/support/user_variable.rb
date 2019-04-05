@@ -5,7 +5,11 @@ module Support
     end
 
     def stub_user_variable(variables, &blk)
-      get_result = ->(name) { variables.fetch(name) }
+      get_result = ->(name) do
+        var = variables[name]
+        raise ArgumentError if var.nil?
+        var
+      end
 
       ::UserVariable.stub :get, get_result do
         ::UserVariable.stub :[], get_result, &blk

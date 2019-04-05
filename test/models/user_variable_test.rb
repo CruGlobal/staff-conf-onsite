@@ -15,6 +15,13 @@ class UserVariableTest < ModelTestCase
     assert_equal Money.new(123_45), UserVariable[:basic_get_test]
   end
 
+  test 'get raw' do
+    var = create(:user_variable, short_name: :basic_get_test, value_type: 'money',
+                                 value: Money.new(123_45))
+
+    assert_equal '12345', var.raw_value
+  end
+
   test 'unknown user variable' do
     assert_raise(ArgumentError) { UserVariable[:something_weird] }
   end
@@ -86,5 +93,11 @@ class UserVariableTest < ModelTestCase
                            value: Money.new(123_45))
 
     assert_raise(ArgumentError) { UserVariable[:test] = 'some text' }
+  end
+
+  test 'create a list' do
+    var = create :user_variable, short_name: :list_test, code: :LIST_TEST, value_type: 'list', value: ' One, Item Two , 3,'
+    assert_equal ['One', 'Item Two', '3'], UserVariable[:list_test]
+    assert_equal 'One, Item Two, 3', var.raw_value
   end
 end

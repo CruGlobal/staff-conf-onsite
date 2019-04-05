@@ -16,6 +16,7 @@ form.instance_exec do
     input :value_number, opts.merge(as: :number)
     input :value_html, opts.merge(as: :ckeditor)
     input :value_string, opts.merge(as: :string)
+    input :value_list, opts.merge(as: :string, hint: 'Enter a comma-separated list of values')
   else
     case object.value_type
     when 'money'
@@ -26,6 +27,8 @@ form.instance_exec do
       input :value, as: :number
     when 'html'
       input :value, as: :ckeditor
+    when 'list'
+      input :value, input_html: { value: object.raw_value }
     else
       input :value
     end
