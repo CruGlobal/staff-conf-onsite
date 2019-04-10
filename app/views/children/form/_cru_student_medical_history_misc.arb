@@ -5,18 +5,19 @@ form.instance_exec do
              class: 'has_one', collection:
       collection do |s|
       s.input :parent_agree, input_html: { rows: 4 }
-      s.input :gtky_lunch
-      s.input :gtky_signout
+      s.input :gtky_lunch, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_lunch]
+      s.input :gtky_signout, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_signout]
       s.input :gtky_sibling_signout
-      s.input :gtky_sibling
+      s.input :gtky_sibling, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_sibling]
       s.input :gtky_small_group_friend, input_html: { rows: 5 }
-      s.input :gtky_leader
-      s.input :gtky_musical
+      s.input :gtky_leader, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_leader]
+      s.input :gtky_musical, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_musical]
       s.input :gtky_activities, input_html: { rows: 5 }
       s.input :gtky_gain, input_html: { rows: 5 }
       s.input :gtky_growth, input_html: { rows: 5 }
       s.input :gtky_addl_info, input_html: { rows: 5 }
-      s.input :gtky_challenges
+      s.input :gtky_challenges, as: :check_boxes,
+                                collection: CruStudentMedicalHistory.multi_selection_collections[:gtky_challenges]
       s.input :gtky_large_groups
       s.input :gtky_small_groups
       s.input :gtky_is_leader

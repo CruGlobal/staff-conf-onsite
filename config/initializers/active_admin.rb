@@ -276,4 +276,14 @@ ActiveAdmin.setup do |config|
   # of those filters by default here.
   #
   # config.include_default_association_filters = true
+
+  # == Display Name Methods
+  #
+  # Active Admin makes educated guesses when displaying objects, this is
+  # the list of methods it tries calling in order.
+  #
+  # The last value is usually `to_s`, we want to leave it as the last method.
+  # We'll add `to_sentence` as the second-last method, which will cause Array
+  # objects to be displayed in a humanize readable sentence.
+  config.display_name_methods.insert(config.display_name_methods.size - 1, :to_sentence)
 end

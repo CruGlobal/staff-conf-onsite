@@ -11,4 +11,11 @@ class CruStudentMedicalHistoryTest < ActiveSupport::TestCase
     @child.cru_student_medical_history = @cru_student
     assert_equal 'Yes', @child.cru_student_medical_history.parent_agree
   end
+
+  test 'mult select attribute' do
+    @cru_student.gtky_challenges = ['Death', 'Other']
+    @cru_student.save!
+    @cru_student.reload
+    assert_equal ['Death', 'Other'], @cru_student.gtky_challenges
+  end
 end
