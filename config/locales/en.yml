@@ -61,7 +61,7 @@ en:
       chargeable_staff_number:
         staff_number: "Staff ID"
       child:
-        medical_history_approval: "Medical History Approved"
+        medical_history_approval: "Forms Approved"
         childcare: "Childcare Class"
         childcare_suffixes:
           childcare: "%{label} Childcare"
