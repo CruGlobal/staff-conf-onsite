@@ -193,9 +193,8 @@ module Import
       'Age 2' => 'age2',
       'Age 3' => 'age3',
       'Age 4' => 'age4',
-      'Age 5 / Kindergarten' => 'age5',
-      'Age 5 - Kindergarten (Kids Camp)' => 'age5',
-      'Age 5 - Pre-Kindergarten (Kids Care)' => 'age5',
+      'Age 5 - Kindergarten (Kids Camp)' => 'age5-kindergarten',
+      'Age 5 - Pre-Kindergarten (Kids Care)' => 'age5-pre-kindergarten',
       'Grade 1' => 'grade1',
       'Grade 2' => 'grade2',
       'Grade 3' => 'grade3',
@@ -211,6 +210,7 @@ module Import
       'Grade 13' => 'grade13',
       'Post High School' => 'postHighSchool'
     }.freeze
+    raise 'Import age groups do not match Child grade levels!' unless AGE_GROUPS.values == Child::GRADE_LEVELS
 
     validates :person_type, :first_name, :last_name, :family_tag, presence: true
     validates :gender, inclusion: { in: ::Person::GENDERS.keys.map(&:to_s) }
