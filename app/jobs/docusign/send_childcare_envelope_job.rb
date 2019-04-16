@@ -13,7 +13,7 @@ class Docusign::SendChildcareEnvelopeJob < ApplicationJob
     Rails.logger.error "[#{self.class.name}] Something went wrong with your job: #{exception}"
   end
 
-  def perform(child)
-    Childcare::SendDocusignEnvelope.new(child).call
+  def perform(child, note = nil)
+    Childcare::SendDocusignEnvelope.new(child, note).call
   end
 end
