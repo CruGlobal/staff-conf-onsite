@@ -7,17 +7,18 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   DOCUSIGN_EMAIL_BODY    = 'Envelope body content here'.freeze
   SIGNER_ROLE            = 'Parent'.freeze
 
-  attr_reader :child, :recipient
+  attr_reader :recipient, :child, :note
 
-  def initialize(child)
+  def initialize(child, note = nil)
     @recipient = child.family.primary_person
     @child = child
+    @note = note
   end
 
   def call
     raise SendEnvelopeError, 'Valid envelope already exists for child' if valid_envelope_exists?
 
-    payload = build_payload(recipient.full_name, recipient.email, child)
+    payload = build_payload(recipient.full_name, recipient.email)
     result = Docusign::CreateEnvelopeFromTemplate.new(payload).call
 
     if result && result['envelopeId']
@@ -50,8 +51,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def build_docusign_email_block
     {
-      subject: DOCUSIGN_EMAIL_SUBJECT,
-      body: DOCUSIGN_EMAIL_BODY
+      subject: "Cru19 Authorization and Consent Packet for #{child.age}-#{child.full_name}",
+      body: note
     }
   end
 
