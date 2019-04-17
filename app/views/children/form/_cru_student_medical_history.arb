@@ -1,7 +1,7 @@
 form.instance_exec do
-  panel 'CRU Student Medical History', class: 'cru_student_medical_history' do
+  panel 'CruStu Medical History', class: 'cru_student_medical_history' do
     collection = [:cru_student_medical_history, object.cru_student_medical_history]
-    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CRU Student Medical History',
+    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CruStu Medical History',
              class: 'has_one', collection:
       collection do |s|
       s.input :gtky_allergies, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_allergies]
@@ -18,25 +18,6 @@ form.instance_exec do
       s.input :concerns_misc
       s.input :cs_health_misc, as: :check_boxes,
                                collection: CruStudentMedicalHistory.multi_selection_collections[:cs_health_misc]
-      s.input :cs_vip_meds, input_html: { rows: 5 }
-      s.input :cs_vip_dev, input_html: { rows: 5 }
-      s.input :cs_vip_strengths, input_html: { rows: 5 }
-      s.input :cs_vip_challenges, input_html: { rows: 5 }
-      s.input :cs_vip_mobility, input_html: { rows: 5 }
-      s.input :cs_vip_walk, input_html: { rows: 5 }
-      s.input :cs_vip_comm, as: :check_boxes, collection: CruStudentMedicalHistory.multi_selection_collections[:cs_vip_comm]
-      s.input :cs_vip_comm_addl, input_html: { rows: 5 }
-      s.input :cs_vip_comm_small, input_html: { rows: 5 }
-      s.input :cs_vip_comm_large, input_html: { rows: 5 }
-      s.input :cs_vip_comm_directions, input_html: { rows: 5 }
-      s.input :cs_vip_stress, as: :check_boxes, collection: CruStudentMedicalHistory.multi_selection_collections[:cs_vip_stress]
-      s.input :cs_vip_stress_addl, input_html: { rows: 5 }
-      s.input :cs_vip_stress_behavior, input_html: { rows: 5 }
-      s.input :cs_vip_calm, input_html: { rows: 5 }
-      s.input :cs_vip_sitting, input_html: { rows: 5 }
-      s.input :cs_vip_hobby, input_html: { rows: 5 }
-      s.input :cs_vip_buddy, input_html: { rows: 5 }
-      s.input :cs_vip_addl_info, input_html: { rows: 5 }
     end
   end
 end

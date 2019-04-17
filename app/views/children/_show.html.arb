@@ -88,9 +88,8 @@ context.instance_exec do
       render 'people/meal_exemptions', person: child
 
       if child.cru_student_medical_history&.any_attribute_present?
-        panel 'Student Misc', class: 'medical_history' do
+        panel 'CruStu Getting To Know Your Student', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
-            row :parent_agree
             row :gtky_lunch
             row :gtky_signout
             row :gtky_sibling_signout
@@ -117,7 +116,7 @@ context.instance_exec do
           end
         end
 
-        panel 'Student Medical History', class: 'medical_history' do
+        panel 'CruStu Medical History', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :gtky_allergies
             row :med_allergies
@@ -132,6 +131,11 @@ context.instance_exec do
             row :altitude
             row :concerns_misc
             row :cs_health_misc
+          end
+        end
+
+        panel 'CruStu VIP Information', class: 'medical_history' do
+          attributes_table_for child.cru_student_medical_history do
             row :cs_vip_meds
             row :cs_vip_dev
             row :cs_vip_strengths
