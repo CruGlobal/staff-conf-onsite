@@ -2,7 +2,7 @@ class Child < Person
   include FamilyMember
 
   GRADE_LEVELS = %w[
-    age0 age1 age2 age3 age4 age5-kindergarten age5-pre-kindergarten
+    age0 age1 age2 age3 age4 age5-pre-kindergarten age5-kindergarten
     grade1 grade2 grade3 grade4 grade5 grade6 grade7 grade8 grade9
     grade10 grade11 grade12 grade13 postHighSchool
   ].freeze

@@ -105,7 +105,7 @@ class ChildTest < ModelTestCase
   end
 
   test '.childcare_grade_levels' do
-    grades = %w(age0 age1 age2 age3 age4 age5-kindergarten age5-pre-kindergarten grade1 grade2 grade3 grade4 grade5)
+    grades = %w(age0 age1 age2 age3 age4 age5-pre-kindergarten age5-kindergarten grade1 grade2 grade3 grade4 grade5)
     assert_equal Child.childcare_grade_levels, grades
   end
 
