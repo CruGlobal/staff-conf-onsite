@@ -42,15 +42,22 @@ context.instance_exec do
       end
 
       if child.childcare_medical_history&.any_attribute_present?
-        panel 'Childcare Medical History', class: 'medical_history' do
+        panel 'Care/Camp Medical History', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
             row :allergy
             row :food_intolerance
             row :chronic_health
+            row :chronic_health_addl
             row :medications
             row :immunizations
             row :health_misc
             row :restrictions
+          end
+        end
+
+        panel 'Care/Camp VIP Information', class: 'medical_history' do
+          attributes_table_for child.childcare_medical_history do       
+            row :vip_meds
             row :vip_dev
             row :vip_strengths
             row :vip_challenges

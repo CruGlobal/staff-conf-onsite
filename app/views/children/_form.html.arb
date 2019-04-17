@@ -42,6 +42,7 @@ context.instance_exec do
       render 'children/form/childcare', form: self
 
       render 'children/form/childcare_medical_history', form: self
+      render 'children/form/childcare_medical_history_vip', form: self
     end
 
     column do
