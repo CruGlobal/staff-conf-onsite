@@ -41,7 +41,7 @@ context.instance_exec do
         end
       end
 
-      if child.childcare_medical_history&.any_attribute_present?
+      if child.childcare_medical_history&.any_attribute_present? && child.age_group == :childcare
         panel 'Care/Camp Medical History', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
             row :allergy
@@ -56,7 +56,7 @@ context.instance_exec do
         end
 
         panel 'Care/Camp VIP Information', class: 'medical_history' do
-          attributes_table_for child.childcare_medical_history do       
+          attributes_table_for child.childcare_medical_history do
             row :vip_meds
             row :vip_dev
             row :vip_strengths
@@ -94,7 +94,7 @@ context.instance_exec do
              cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
 
-      if child.cru_student_medical_history&.any_attribute_present?
+      if child.cru_student_medical_history&.any_attribute_present? && child.age_group == :junior_senior
         panel 'CruStu Getting To Know Your Student', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :gtky_lunch

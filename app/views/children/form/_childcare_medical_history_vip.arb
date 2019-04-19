@@ -1,8 +1,9 @@
+# vim:ft=ruby:
 form.instance_exec do
   panel 'Care/Camp VIP Information', class: 'childcare_medical_history' do
     collection = [:childcare_medical_history, object.childcare_medical_history]
-    has_many :childcare_medical_history, heading: nil, class: 'has_one', collection:
-      collection do |s|
+    has_many :childcare_medical_history, heading: nil, new_record: 'Add New Care/Camp VIP Information',
+             class: 'has_one', collection: collection do |s|
       s.input :vip_meds, input_html: { rows: 5 }
       s.input :vip_dev, input_html: { rows: 5 }
       s.input :vip_strengths, input_html: { rows: 5 }

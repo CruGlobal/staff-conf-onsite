@@ -1,9 +1,9 @@
+# vim:ft=ruby:
 form.instance_exec do
   panel 'CruStu VIP Information', class: 'cru_student_medical_history' do
     collection = [:cru_student_medical_history, object.cru_student_medical_history]
     has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CruStu VIP Information',
-             class: 'has_one', collection:
-      collection do |s|
+             class: 'has_one', collection: collection do |s|
       s.input :cs_vip_meds, input_html: { rows: 5 }
       s.input :cs_vip_dev, input_html: { rows: 5 }
       s.input :cs_vip_strengths, input_html: { rows: 5 }

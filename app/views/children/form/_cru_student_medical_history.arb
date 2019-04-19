@@ -1,9 +1,9 @@
+# vim:ft=ruby:
 form.instance_exec do
   panel 'CruStu Medical History', class: 'cru_student_medical_history' do
     collection = [:cru_student_medical_history, object.cru_student_medical_history]
     has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CruStu Medical History',
-             class: 'has_one', collection:
-      collection do |s|
+             class: 'has_one', collection: collection do |s|
       s.input :gtky_allergies, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_allergies]
       s.input :med_allergies
       s.input :food_allergies
