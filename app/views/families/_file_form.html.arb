@@ -6,8 +6,18 @@ form_for 'import_spreadsheet', url: {action: 'import_spreadsheet'},
       li class: 'file input' do
         f.label :file, 'Select a File'
         f.file_field :file
-        para class: 'inline-hints' do
-          'Must be an .ods, .csv, .xls, or .xlsx file.'
+      end
+    end
+
+    ol do
+      li 'Must be an .ods, .csv, .xls, or .xlsx file.'
+      li 'Date fields are expected to be in the format MM/DD/YYYY.'
+      li do
+        div 'If you have trouble importing a csv file please check the following things:'
+        ul do
+          li '- Ensure that the csv file was created using Unicode UTF-8 as the Text Encoding.'
+          li '- Ensure that the csv file does not contain an invisible Byte Order Mark at the beginning '\
+             '(Excel seems to add a BOM while other apps might not).'
         end
       end
     end
