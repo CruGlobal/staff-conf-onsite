@@ -35,7 +35,9 @@ FactoryGirl.define do
       end
 
       after(:create) do |attendee, params|
-        create_list(:meal_exemption, params.count, person: attendee)
+        params.count.times do
+          create(:meal_exemption, person: attendee) rescue retry
+        end
       end
     end
   end
