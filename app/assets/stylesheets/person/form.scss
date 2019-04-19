@@ -31,28 +31,16 @@
   margin: 0 0 2em 0;
 }
 
-.medical_history_approval{
-  table{
-    td,th{
-      border-bottom: 0px solid #e8e8e8;
+// Some of the childcare/student field names are very long and display poorly on anything but a widescreen display.
+// To fix this we will display the labels ontop of the inputs so that they can take up the entire width of the panel.
+form {
+  .childcare_medical_history, .cru_student_medical_history {
+    label, input[type="text"], textarea {
+      width: calc(100% - 22px);
+    }
+
+    ol.choices-group {
+      padding: 2em 0 0 0;
     }
   }
-  .panel_contents{
-    padding-bottom: 0;
-  }
-}
-
-form fieldset.medical_history ol > li{
-  label {
-    width: 35%;
-    padding-right: 10px;
-  }
-
-  input[type], textarea {
-    width: calc(65% - 32px);
-  }
-}
-
-form fieldset.medical_history_approval > ol > li.boolean label {
-  padding-left: initial;
 }

@@ -1,10 +1,9 @@
+# vim:ft=ruby:
 form.instance_exec do
-  panel 'Misc CRU Student Medical History', class: 'cru_student_medical_history' do
+  panel 'CruStu Getting To Know Your Student', class: 'cru_student_medical_history' do
     collection = [:cru_student_medical_history, object.cru_student_medical_history]
-    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New Misc CRU Student Medical History',
-             class: 'has_one', collection:
-      collection do |s|
-      s.input :parent_agree, input_html: { rows: 4 }
+    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CruStu Getting To Know Your Student',
+             class: 'has_one', collection: collection do |s|
       s.input :gtky_lunch, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_lunch]
       s.input :gtky_signout, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_signout]
       s.input :gtky_sibling_signout

@@ -41,7 +41,10 @@ context.instance_exec do
 
       render 'children/form/childcare', form: self
 
-      render 'children/form/childcare_medical_history', form: self
+      if object.age_group == :childcare
+        render 'children/form/childcare_medical_history', form: self
+        render 'children/form/childcare_medical_history_vip', form: self
+      end
     end
 
     column do
@@ -50,8 +53,11 @@ context.instance_exec do
       render 'people/form/stays', form: self
       render 'people/form/meal_exemptions', form: self, person: child
 
-      render 'children/form/cru_student_medical_history_misc', form: self
-      render 'children/form/cru_student_medical_history', form: self
+      if object.age_group == :junior_senior
+        render 'children/form/cru_student_medical_history_misc', form: self
+        render 'children/form/cru_student_medical_history', form: self
+        render 'children/form/cru_student_medical_history_vip', form: self
+      end
     end
   end
 

@@ -41,16 +41,23 @@ context.instance_exec do
         end
       end
 
-      if child.childcare_medical_history&.any_attribute_present?
-        panel 'Childcare Medical History', class: 'medical_history' do
+      if child.childcare_medical_history&.any_attribute_present? && child.age_group == :childcare
+        panel 'Care/Camp Medical History', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
             row :allergy
             row :food_intolerance
             row :chronic_health
+            row :chronic_health_addl
             row :medications
             row :immunizations
             row :health_misc
             row :restrictions
+          end
+        end
+
+        panel 'Care/Camp VIP Information', class: 'medical_history' do
+          attributes_table_for child.childcare_medical_history do
+            row :vip_meds
             row :vip_dev
             row :vip_strengths
             row :vip_challenges
@@ -87,10 +94,9 @@ context.instance_exec do
              cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
 
-      if child.cru_student_medical_history&.any_attribute_present?
-        panel 'Student Misc', class: 'medical_history' do
+      if child.cru_student_medical_history&.any_attribute_present? && child.age_group == :junior_senior
+        panel 'CruStu Getting To Know Your Student', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
-            row :parent_agree
             row :gtky_lunch
             row :gtky_signout
             row :gtky_sibling_signout
@@ -117,7 +123,7 @@ context.instance_exec do
           end
         end
 
-        panel 'Student Medical History', class: 'medical_history' do
+        panel 'CruStu Medical History', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :gtky_allergies
             row :med_allergies
@@ -132,6 +138,11 @@ context.instance_exec do
             row :altitude
             row :concerns_misc
             row :cs_health_misc
+          end
+        end
+
+        panel 'CruStu VIP Information', class: 'medical_history' do
+          attributes_table_for child.cru_student_medical_history do
             row :cs_vip_meds
             row :cs_vip_dev
             row :cs_vip_strengths
