@@ -22,11 +22,6 @@ form.instance_exec do
       s.input :vip_hobby, input_html: { rows: 5 }
       s.input :vip_buddy, input_html: { rows: 5 }
       s.input :vip_addl_info, input_html: { rows: 5 }
-      s.input :sunscreen_self, as: :radio, collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_self]
-      s.input :sunscreen_assisted, as: :radio,
-                                   collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_assisted]
-      s.input :sunscreen_provided, as: :radio,
-                                   collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_provided]
     end
   end
 end
