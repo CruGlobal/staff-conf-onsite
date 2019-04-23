@@ -14,6 +14,10 @@ Capybara.register_driver :headless_chrome do |app|
                                       desired_capabilities: capabilities)
 end
 
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
 Capybara.javascript_driver =
   if ENV.key?('CAPYBARA_DRIVER')
     ENV['CAPYBARA_DRIVER'].to_sym

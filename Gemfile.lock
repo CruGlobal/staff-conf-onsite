@@ -89,6 +89,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.22)
+      capybara (>= 1.0, < 4)
+      launchy
     childprocess (0.6.3)
       ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.5.2)
@@ -519,6 +522,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bundler-audit (~> 0.5)
+  capybara-screenshot
   chosen-rails (~> 1.5.2)
   ckeditor_rails (~> 4.6)
   coffee-rails (~> 4.1.0)
