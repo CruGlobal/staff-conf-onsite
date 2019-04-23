@@ -17,6 +17,7 @@ form.instance_exec do
       s.input :gtky_addl_info, input_html: { rows: 5 }
       s.input :gtky_challenges, as: :check_boxes,
                                 collection: CruStudentMedicalHistory.multi_selection_collections[:gtky_challenges]
+      s.input :gtky_addl_challenges, input_html: { rows: 5 }
       s.input :gtky_large_groups
       s.input :gtky_small_groups
       s.input :gtky_is_leader
