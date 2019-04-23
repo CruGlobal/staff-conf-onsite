@@ -73,6 +73,7 @@ group :development, :test do
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter
+  gem 'capybara-screenshot'
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'factory_girl', '~> 4.7'            # Test object factories

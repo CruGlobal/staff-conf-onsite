@@ -19,6 +19,7 @@ require 'rails/test_help'
 require 'webmock/minitest'
 require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
+require 'capybara-screenshot/minitest'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
 require 'vcr'
@@ -49,6 +50,7 @@ class IntegrationTest < Capybara::Rails::TestCase
   include Support::ActiveAdmin
   include Support::Authentication
   include Support::Javascript
+  include Capybara::Screenshot::MiniTestPlugin
 
   teardown { Capybara.use_default_driver }
 end
