@@ -41,7 +41,10 @@ class ActiveSupport::TestCase
   include Support::UserVariable
   include Support::DatabaseCleanerHooks
 
-  setup { VCR.turn_off! }
+  setup do
+    VCR.turn_off!
+    Rails.application.reload_routes!
+  end
 end
 
 class ControllerTestCase < ActionController::TestCase; end
@@ -51,6 +54,8 @@ class IntegrationTest < Capybara::Rails::TestCase
   include Support::Authentication
   include Support::Javascript
   include Capybara::Screenshot::MiniTestPlugin
+
+  setup { VCR.turn_off! }
 
   teardown { Capybara.use_default_driver }
 end
