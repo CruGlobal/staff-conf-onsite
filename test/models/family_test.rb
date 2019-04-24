@@ -66,4 +66,40 @@ class FamilyTest < ModelTestCase
 
     assert_equal [approved_family], Family.precheck_approved.to_a
   end
+
+  test '#update_spouses updates two attendees' do
+    attendee_one = create :attendee, family: @family
+    assert_nil attendee_one.reload.spouse
+    attendee_two = create :attendee, family: @family
+    assert_equal attendee_one.reload.spouse, attendee_two
+    assert_equal attendee_two.reload.spouse, attendee_one
+  end
+
+  test '#update_spouses sets spouse to nil if there are more than two attendees' do
+    attendee_one = create :attendee, family: @family
+    attendee_two = create :attendee, family: @family
+    assert_equal attendee_one.reload.spouse, attendee_two
+    attendee_three = create :attendee, family: @family
+    assert_nil attendee_one.reload.spouse
+    assert_nil attendee_two.reload.spouse
+    assert_nil attendee_three.reload.spouse
+  end
+
+  test '#update_spouses sets spouse to nil if there are less than two attendees' do
+    attendee_one = create :attendee, family: @family
+    attendee_two = create :attendee, family: @family
+    assert_equal attendee_one.reload.spouse, attendee_two
+    attendee_two.destroy
+    assert_nil attendee_one.reload.spouse
+  end
+
+  test '#update_spouses ignores children' do
+    attendee_one = create :attendee, family: @family
+    child_one = create :child, family: @family
+    assert_nil attendee_one.reload.spouse
+    attendee_two = create :attendee, family: @family
+    assert_equal attendee_one.reload.spouse, attendee_two
+    child_one.destroy
+    assert_equal attendee_one.reload.spouse, attendee_two
+  end
 end

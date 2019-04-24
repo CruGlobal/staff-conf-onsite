@@ -13,6 +13,8 @@ class Attendee < Person
 
   after_initialize :set_default_seminary
   before_save :touch_conference_status_changed, if: :conference_status_changed?
+  after_create  -> { family.update_spouses }
+  after_destroy -> { family.update_spouses }
 
   belongs_to :family
   belongs_to :seminary

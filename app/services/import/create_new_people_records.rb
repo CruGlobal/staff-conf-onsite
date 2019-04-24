@@ -19,7 +19,6 @@ class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/C
   def call
     ApplicationRecord.transaction do
       people = create_people
-      assign_spouses(people)
       persist_records!(families.values, people)
     end
   rescue PersonExistsError
@@ -141,26 +140,6 @@ class Import::CreateNewPeopleRecords < UploadService # rubocop:disable Metrics/C
 
   def ministries
     @ministries ||= Ministry.all
-  end
-
-  def assign_spouses(people)
-    family_records = families.values.map(&:record)
-    people_records = people.map(&:record)
-
-    family_records.each do |family_record|
-      spouses = select_attendees_in_family(family_record, people_records)
-
-      next unless spouses.size == 2
-
-      spouses.first.spouse = spouses.second
-      spouses.second.spouse = spouses.first
-    end
-  end
-
-  def select_attendees_in_family(family_record, people_records)
-    people_records.select do |person_record|
-      person_record.is_a?(Attendee) && person_record.family == family_record
-    end
   end
 
   def persist_records!(families, people)
