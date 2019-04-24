@@ -86,6 +86,15 @@ class Family < ApplicationRecord
     attendees.any? { |p| p.email.present? }
   end
 
+  def update_spouses
+    if attendees.reload.size == 2
+      attendees.first.update!(spouse: attendees.second)
+      attendees.second.update!(spouse: attendees.first)
+    else
+      attendees.each { |attendee| attendee.update!(spouse: nil) }
+    end
+  end
+
   private
 
   def remove_blank_housing_preference
