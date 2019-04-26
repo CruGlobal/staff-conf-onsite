@@ -7,8 +7,8 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     create :attendee, family: @eligible_family, arrived_at: 8.days.from_now
     create :attendee, family: @eligible_family, arrived_at: 7.days.from_now
 
-    create :child, family: @eligible_family, medical_history_approval: true
-    create :child, family: @eligible_family, medical_history_approval: true
+    create :child, family: @eligible_family, forms_approved: true, forms_approved_by: 'Tester'
+    create :child, family: @eligible_family, forms_approved: true, forms_approved_by: 'Tester'
 
     create :chargeable_staff_number, family: @eligible_family
 
@@ -61,7 +61,7 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
   end
 
   test 'not eligible if children are not all approved' do
-    @eligible_family.children.last.update! medical_history_approval: false
+    @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
     assert_equal false, service.call
   end
 
