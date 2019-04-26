@@ -52,6 +52,9 @@ context.instance_exec do
             row :immunizations
             row :health_misc
             row :restrictions
+            row :sunscreen_self
+            row :sunscreen_assisted
+            row :sunscreen_provided
           end
         end
 
@@ -75,9 +78,6 @@ context.instance_exec do
             row :vip_hobby
             row :vip_buddy
             row :vip_addl_info
-            row :sunscreen_self
-            row :sunscreen_assisted
-            row :sunscreen_provided
           end
         end
       end
@@ -109,6 +109,7 @@ context.instance_exec do
             row :gtky_growth
             row :gtky_addl_info
             row :gtky_challenges
+            row :gtky_addl_challenges
             row :gtky_large_groups
             row :gtky_small_groups
             row :gtky_is_leader

@@ -63,6 +63,7 @@ module Import
         gtky_growth: @import.gtky_growth,
         gtky_addl_info: @import.gtky_addl_info,
         gtky_challenges: @import.gtky_challenges,
+        gtky_addl_challenges: @import.gtky_addl_challenges,
         gtky_large_groups: @import.gtky_large_groups,
         gtky_small_groups: @import.gtky_small_groups,
         gtky_is_leader: @import.gtky_is_leader,
