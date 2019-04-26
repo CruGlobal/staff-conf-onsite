@@ -33,6 +33,8 @@ class Child < Person
   validates :childcare, if: :too_old_for_childcare?, absence: {
     message: 'must be blank when child is older than Grade 5'
   }
+  validates :forms_approved_by, presence: true, if: :forms_approved?
+  validates :forms_approved_by, absence: true, unless: :forms_approved?
   validates_associated :meal_exemptions
   validate :hot_lunch_weeks_must_match_childcare_weeks!
   validate :hot_lunch_age_range!

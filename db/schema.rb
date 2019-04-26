@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190405203851) do
+ActiveRecord::Schema.define(version: 20190426162641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -406,9 +406,10 @@ ActiveRecord::Schema.define(version: 20190405203851) do
     t.string   "name_tag_last_name"
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
-    t.boolean  "medical_history_approval",     default: false
+    t.boolean  "forms_approved",               default: false
     t.string   "middle_name"
     t.integer  "spouse_id"
+    t.string   "forms_approved_by"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree

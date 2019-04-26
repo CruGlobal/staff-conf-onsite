@@ -31,7 +31,7 @@ class PrecheckEligibilityService < ApplicationService
   end
 
   def children_approved?
-    children.all?(&:medical_history_approval?)
+    children.all?(&:forms_approved?)
   end
 
   def housing_preference_confirmed?

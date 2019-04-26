@@ -1,0 +1,7 @@
+# vim:ft=ruby:
+form.instance_exec do
+  inputs 'Forms Approval', class: 'forms_approved panel inputs' do
+    input :forms_approved
+    input :forms_approved_by
+  end
+end
