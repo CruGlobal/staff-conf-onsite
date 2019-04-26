@@ -1,4 +1,3 @@
-
 context.instance_exec do
   columns do
     column do
@@ -9,6 +8,7 @@ context.instance_exec do
         row :name_tag_last_name
 
         row(:family) { |c| link_to family_label(c.family), family_path(c.family) }
+        row(:tshirt_size)
         row(:gender) { |c| gender_name(c.gender) }
         row(:birthdate) { |c| birthdate_label(c) }
         row(:age, sortable: :birthdate) { |c| age_label(c) }
@@ -40,13 +40,133 @@ context.instance_exec do
           row :childcare_comment
         end
       end
+
+      if child.childcare_medical_history&.any_attribute_present? && child.age_group == :childcare
+        panel 'Care/Camp Medical History', class: 'medical_history' do
+          attributes_table_for child.childcare_medical_history do
+            row :allergy
+            row :food_intolerance
+            row :chronic_health
+            row :chronic_health_addl
+            row :medications
+            row :immunizations
+            row :health_misc
+            row :restrictions
+            row :sunscreen_self
+            row :sunscreen_assisted
+            row :sunscreen_provided
+          end
+        end
+
+        panel 'Care/Camp VIP Information', class: 'medical_history' do
+          attributes_table_for child.childcare_medical_history do
+            row :vip_meds
+            row :vip_dev
+            row :vip_strengths
+            row :vip_challenges
+            row :vip_mobility
+            row :vip_walk
+            row :vip_comm
+            row :vip_comm_addl
+            row :vip_comm_small
+            row :vip_comm_large
+            row :vip_comm_directions
+            row :vip_stress
+            row :vip_stress_addl
+            row :vip_stress_behavior
+            row :vip_calm
+            row :vip_hobby
+            row :vip_buddy
+            row :vip_addl_info
+          end
+        end
+      end
     end
 
     column do
+      panel 'Forms Approval', class: 'forms_approved' do
+        attributes_table_for child do
+          row :forms_approved
+          row :forms_approved_by
+        end
+      end
       render 'people/stays', person: child
       render 'cost_adjustments/list_panel',
              cost_adjustments: child.cost_adjustments
       render 'people/meal_exemptions', person: child
+
+      if child.cru_student_medical_history&.any_attribute_present? && child.age_group == :junior_senior
+        panel 'CruStu Getting To Know Your Student', class: 'medical_history' do
+          attributes_table_for child.cru_student_medical_history do
+            row :gtky_lunch
+            row :gtky_signout
+            row :gtky_sibling_signout
+            row :gtky_sibling
+            row :gtky_small_group_friend
+            row :gtky_leader
+            row :gtky_musical
+            row :gtky_activities
+            row :gtky_gain
+            row :gtky_growth
+            row :gtky_addl_info
+            row :gtky_challenges
+            row :gtky_addl_challenges
+            row :gtky_large_groups
+            row :gtky_small_groups
+            row :gtky_is_leader
+            row :gtky_is_follower
+            row :gtky_friends
+            row :gtky_hesitant
+            row :gtky_active
+            row :gtky_reserved
+            row :gtky_boundaries
+            row :gtky_authority
+            row :gtky_adapts
+          end
+        end
+
+        panel 'CruStu Medical History', class: 'medical_history' do
+          attributes_table_for child.cru_student_medical_history do
+            row :gtky_allergies
+            row :med_allergies
+            row :food_allergies
+            row :other_allergies
+            row :health_concerns
+            row :asthma
+            row :migraines
+            row :severe_allergy
+            row :anorexia
+            row :diabetes
+            row :altitude
+            row :concerns_misc
+            row :cs_health_misc
+          end
+        end
+
+        panel 'CruStu VIP Information', class: 'medical_history' do
+          attributes_table_for child.cru_student_medical_history do
+            row :cs_vip_meds
+            row :cs_vip_dev
+            row :cs_vip_strengths
+            row :cs_vip_challenges
+            row :cs_vip_mobility
+            row :cs_vip_walk
+            row :cs_vip_comm
+            row :cs_vip_comm_addl
+            row :cs_vip_comm_small
+            row :cs_vip_comm_large
+            row :cs_vip_comm_directions
+            row :cs_vip_stress
+            row :cs_vip_stress_addl
+            row :cs_vip_stress_behavior
+            row :cs_vip_calm
+            row :cs_vip_sitting
+            row :cs_vip_hobby
+            row :cs_vip_buddy
+            row :cs_vip_addl_info
+          end
+        end
+      end
     end
   end
 

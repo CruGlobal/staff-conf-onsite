@@ -1,0 +1,22 @@
+# vim:ft=ruby:
+form.instance_exec do
+  panel 'Care/Camp Medical History', class: 'childcare_medical_history' do
+    collection = [:childcare_medical_history, object.childcare_medical_history]
+    has_many :childcare_medical_history, heading: nil, new_record: 'Add New Care/Camp Medical History',
+             class: 'has_one', collection: collection do |s|
+      s.input :allergy, input_html: { rows: 5 }
+      s.input :food_intolerance, input_html: { rows: 5 }
+      s.input :chronic_health, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:chronic_health]
+      s.input :chronic_health_addl, input_html: { rows: 5 }
+      s.input :medications, input_html: { rows: 5 }
+      s.input :immunizations, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:immunizations]
+      s.input :health_misc, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:health_misc]
+      s.input :restrictions, input_html: { rows: 5 }
+      s.input :sunscreen_self, as: :radio, collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_self]
+      s.input :sunscreen_assisted, as: :radio,
+                                   collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_assisted]
+      s.input :sunscreen_provided, as: :radio,
+                                   collection: ChildcareMedicalHistory.single_selection_collections[:sunscreen_provided]
+    end
+  end
+end

@@ -13,9 +13,12 @@ class Attendee < Person
 
   after_initialize :set_default_seminary
   before_save :touch_conference_status_changed, if: :conference_status_changed?
+  after_create  -> { family.update_spouses }
+  after_destroy -> { family.update_spouses }
 
   belongs_to :family
   belongs_to :seminary
+  belongs_to :spouse, inverse_of: :spouse, class_name: 'Attendee'
 
   has_many :conference_attendances, dependent: :destroy
   has_many :conferences, through: :conference_attendances
@@ -26,7 +29,7 @@ class Attendee < Person
   accepts_nested_attributes_for :course_attendances, allow_destroy: true
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 
-  validates :family_id, presence: true
+  validates :family_id, :seminary_id, presence: true
   validates :conference_status, presence: true
   validates_associated :course_attendances, :meal_exemptions
 

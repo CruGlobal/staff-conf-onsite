@@ -1,5 +1,5 @@
 module Import
-  class Person
+  class Person # rubocop:disable Metrics/ClassLength
     include ActiveModel::Model
     include ActiveRecord::AttributeAssignment
 
@@ -11,6 +11,7 @@ module Import
 
       student_number:      'Student Number',
       first_name:          'First',
+      child_middle_name:   'Child Middle',
       last_name:           'Last',
       name_tag_first_name: 'Name Tag Name First',
       name_tag_last_name:  'Name Tag Name Last',
@@ -29,6 +30,7 @@ module Import
       city:     'City',
       state:    'State',
       zip:      'ZIP',
+      county:   'County',
       country:  'Country',
       phone:    'Cell',
       email:    'Email',
@@ -53,19 +55,20 @@ module Import
       housing_location3:         'Housing 3rd Choice',
       housing_comment:           'Housing Comments',
 
-      grade_level:          'Age Group',
+      grade_level:        'Age Group',
       needs_bed:          'Child Needs Dorm Bed',
       childcare_deposit:  'Childcare Deposit',
       childcare_weeks:    'Child Program Weeks',
       hot_lunch_weeks:    'Hot Lunch Weeks',
       childcare_comment:  'Childcare Comments',
 
-      ibs_courses:  'IBS Courses',
+      ibs_courses: 'IBS Courses',
       ibs_comment: 'IBS Comments',
 
       rec_pass_start_at: 'RecPass Start Date',
-      rec_pass_end_at: 'RecPass End Date',
+      rec_pass_end_at:   'RecPass End Date',
 
+      car_license_plate: 'Car License Plate',
       ministry_code:     'Ministry Code',
       hired_at:          'Hire Date',
       employee_status:   'Employee Status',
@@ -73,10 +76,109 @@ module Import
       strategy:          'Strategy',
       assignment_length: 'Assignment Length',
       pay_chartfield:    'Pay Chartfield',
-      conference_status: 'Conference Status'
+      conference_status: 'Conference Status',
+
+      allergy:              'Forms CC MH Allergy',
+      food_intolerance:     'Forms CC MH Food Intolerance',
+      chronic_health:       'Forms CC MH Chronic Health',
+      chronic_health_addl:  'Forms CC MH Chronic Health Addl',
+      medications:          'Forms CC MH Medications',
+      immunizations:        'Forms CC MH Immunizations',
+      health_misc:          'Forms CC MH Health Misc',
+      restrictions:         'Forms CC MH Restrictions',
+      vip_meds:             'Forms CC VIP Meds',
+      vip_dev:              'Forms CC VIP Dev',
+      vip_strengths:        'Forms CC VIP Strengths',
+      vip_challenges:       'Forms CC VIP Challenges',
+      vip_mobility:         'Forms CC VIP Mobility',
+      vip_walk:             'Forms CC VIP Walk',
+      vip_comm:             'Forms CC VIP Comm',
+      vip_comm_addl:        'Forms CC VIP Comm Addl',
+      vip_comm_small:       'Forms CC VIP Comm Small',
+      vip_comm_large:       'Forms CC VIP Comm Large',
+      vip_comm_directions:  'Forms CC VIP Comm Directions',
+      vip_stress:           'Forms CC VIP Stress',
+      vip_stress_addl:      'Forms CC VIP Stress Addl',
+      vip_stress_behavior:  'Forms CC VIP StressBehavior',
+      vip_calm:             'Forms CC VIP Calm',
+      vip_hobby:            'Forms CC VIP Hobby',
+      vip_buddy:            'Forms CC VIP Buddy',
+      vip_addl_info:        'Forms CC VIP AddlInfo',
+      sunscreen_self:       'Forms CC Sunscreen Self',
+      sunscreen_assisted:   'Forms CC Sunscreen Assisted',
+      sunscreen_provided:   'Forms CC Sunscreen Provided',
+
+      parent_agree:            'Forms CS ParentAgree',
+      gtky_lunch:              'Forms CS GTKY Lunch',
+      gtky_signout:            'Forms CS GTKY Signout',
+      gtky_sibling_signout:    'Forms CS GTKY SiblingSignout',
+      gtky_sibling:            'Forms CS GTKY Sibling',
+      gtky_small_group_friend: 'Forms CS GTKY SmallGroupFriend',
+      gtky_leader:             'Forms CS GTKY Leader',
+      gtky_musical:            'Forms CS GTKY Musical',
+      gtky_activities:         'Forms CS GTKY Activities',
+      gtky_gain:               'Forms CS GTKY Gain',
+      gtky_growth:             'Forms CS GTKY Growth',
+      gtky_addl_info:          'Forms CS GTKY AddlInfo',
+      gtky_challenges:         'Forms CS GTKY Challenges',
+      gtky_addl_challenges:    'Forms CS GTKY Addl Challenges',
+      gtky_large_groups:       'Forms CS GTKY LargeGroups',
+      gtky_small_groups:       'Forms CS GTKY SmallGroups',
+      gtky_is_leader:          'Forms CS GTKY IsLeader',
+      gtky_is_follower:        'Forms CS GTKY IsFollower',
+      gtky_friends:            'Forms CS GTKY Friends',
+      gtky_hesitant:           'Forms CS GTKY Hesitant',
+      gtky_active:             'Forms CS GTKY Active',
+      gtky_reserved:           'Forms CS GTKY Reserved',
+      gtky_boundaries:         'Forms CS GTKY Boundaries',
+      gtky_authority:          'Forms CS GTKY Authority',
+      gtky_adapts:             'Forms CS GTKY Adapts',
+      gtky_allergies:          'Forms CS MH Allergies',
+      med_allergies:           'Forms CS MH Med Allergies',
+      food_allergies:          'Forms CS MH Food Allergies',
+      other_allergies:         'Forms CS MH Other Allergies',
+      health_concerns:         'Forms CS MH Health Concerns',
+      asthma:                  'Forms CS MH Asthma',
+      migraines:               'Forms CS MH Migraines',
+      severe_allergy:          'Forms CS MH Severe allergy',
+      anorexia:                'Forms CS MH Anorexia',
+      diabetes:                'Forms CS MH Diabetes',
+      altitude:                'Forms CS MH Altitude',
+      concerns_misc:           'Forms CS MH Concerns Misc',
+      cs_health_misc:          'Forms CS MH Health Misc',
+      cs_vip_meds:             'Forms CS VIP Meds',
+      cs_vip_dev:              'Forms CS VIP Dev',
+      cs_vip_strengths:        'Forms CS VIP Strengths',
+      cs_vip_challenges:       'Forms CS VIP Challenges',
+      cs_vip_mobility:         'Forms CS VIP Mobility',
+      cs_vip_walk:             'Forms CS VIP Walk',
+      cs_vip_comm:             'Forms CS VIP Comm',
+      cs_vip_comm_addl:        'Forms CS VIP Comm Addl',
+      cs_vip_comm_small:       'Forms CS VIP Comm Small',
+      cs_vip_comm_large:       'Forms CS VIP Comm Large',
+      cs_vip_comm_directions:  'Forms CS VIP Comm Directions',
+      cs_vip_stress:           'Forms CS VIP Stress',
+      cs_vip_stress_addl:      'Forms CS VIP Stress Addl',
+      cs_vip_stress_behavior:  'Forms CS VIP StressBehavior',
+      cs_vip_calm:             'Forms CS VIP Calm',
+      cs_vip_sitting:          'Forms CS VIP Sitting',
+      cs_vip_hobby:            'Forms CS VIP Hobby',
+      cs_vip_buddy:            'Forms CS VIP Buddy',
+      cs_vip_addl_info:        'Forms CS VIP AddlInfo'
     }.freeze
 
     attr_accessor(*SPREADSHEET_TITLES.keys)
+
+    SPREADSHEET_REQUIRED_COLUMNS = SPREADSHEET_TITLES.slice(:person_type, :family_tag, :first_name, :last_name).values.freeze
+
+    DATE_ATTRIBUTES = %w[
+      birthdate
+      arrived_at
+      departed_at
+      rec_pass_start_at
+      rec_pass_end_at
+      hired_at
+    ].freeze
 
     PERSON_TYPES = {
       'Primary' => Attendee,
@@ -91,7 +193,8 @@ module Import
       'Age 2' => 'age2',
       'Age 3' => 'age3',
       'Age 4' => 'age4',
-      'Age 5 / Kindergarten' => 'age5',
+      'Age 5 - Pre-Kindergarten (Kids Care)' => 'age5-pre-kindergarten',
+      'Age 5 - Kindergarten (Kids Camp)' => 'age5-kindergarten',
       'Grade 1' => 'grade1',
       'Grade 2' => 'grade2',
       'Grade 3' => 'grade3',
@@ -107,6 +210,7 @@ module Import
       'Grade 13' => 'grade13',
       'Post High School' => 'postHighSchool'
     }.freeze
+    raise 'Import age groups do not match Child grade levels!' unless AGE_GROUPS.values == Child::GRADE_LEVELS
 
     validates :person_type, :first_name, :last_name, :family_tag, presence: true
     validates :gender, inclusion: { in: ::Person::GENDERS.keys.map(&:to_s) }
@@ -179,10 +283,22 @@ module Import
         end
     end
 
+    DATE_ATTRIBUTES.each do |date_attribute_name|
+      define_method date_attribute_name do
+        parse_american_date instance_variable_get("@#{date_attribute_name}")
+      end
+    end
+
     private
 
     def true_string?(str)
       str&.downcase == 'yes' || TRUE_VALUES.include?(str)
+    end
+
+    def parse_american_date(date_string)
+      return date_string unless date_string.is_a?(String)
+
+      Date.strptime date_string, '%m/%d/%Y'
     end
   end
 end

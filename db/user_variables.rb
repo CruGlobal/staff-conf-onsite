@@ -48,6 +48,19 @@ class SeedUserVariables
     hot_lunch_begin_2: { value_type: :date, code: :HLFDW3, value: '2017-07-15', description: 'Hot Lunch First Day of Week 3' },
     hot_lunch_begin_3: { value_type: :date, code: :HLFDW4, value: '2017-07-22', description: 'Hot Lunch First Day of Week 4' },
     hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
+
+    # Conference
+    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'A string containing the name of the conference.' },
+    support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
+    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru19/cru19-logo-thumbnail.png', description: 'Conference logo URL' },
+
+    # Mail
+    mail_interceptor_email_addresses: { value_type: :list, code: :MAIL_INTERCEPTOR_EMAILS, value: 'interceptor_one@example.com, interceptor_two@example.com',
+      description: 'A list of email addresses. When this list of email addresses is not empty then all emails will be sent to this list INSTEAD of the original recipient. '\
+                   'This prevents emails from going to real users and is intended to be used for testing purposes.' },
+
+    mail_bcc_email_addresses: { value_type: :list, code: :MAIL_BCC_EMAILS, value: 'blind_copy_one@example.com, blind_copy_two@example.com',
+      description: 'A list of email addresses. These email addresses will be appended to the BCC recipients. This can be used to monitor the emails that are being sent out to users.' },
   }.freeze
 
   def initialize

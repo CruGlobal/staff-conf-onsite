@@ -1,0 +1,23 @@
+# vim:ft=ruby:
+form.instance_exec do
+  panel 'CruStu Medical History', class: 'cru_student_medical_history' do
+    collection = [:cru_student_medical_history, object.cru_student_medical_history]
+    has_many :cru_student_medical_history, heading: nil, new_record: 'Add New CruStu Medical History',
+             class: 'has_one', collection: collection do |s|
+      s.input :gtky_allergies, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:gtky_allergies]
+      s.input :med_allergies
+      s.input :food_allergies
+      s.input :other_allergies
+      s.input :health_concerns, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:health_concerns]
+      s.input :asthma
+      s.input :migraines
+      s.input :severe_allergy
+      s.input :anorexia
+      s.input :diabetes
+      s.input :altitude
+      s.input :concerns_misc
+      s.input :cs_health_misc, as: :check_boxes,
+                               collection: CruStudentMedicalHistory.multi_selection_collections[:cs_health_misc]
+    end
+  end
+end

@@ -1,7 +1,7 @@
 ActiveAdmin.register MealExemption do
   extend Rails.application.helpers
 
-  permit_params :person_id, :date, :meal_type
+  permit_params :child_id, :date, :meal_type
 
   belongs_to :attendee
 

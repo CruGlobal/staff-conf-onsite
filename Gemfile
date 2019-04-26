@@ -14,7 +14,8 @@ gem 'syslog-logger', '~> 1.6.8'
 gem 'redis-namespace', '~> 1.5'
 gem 'redis-objects', '~> 0.6'
 gem 'redis-rails', '~> 5.0'
-gem 'sidekiq-cron'
+gem 'sidekiq-cron', '~> 1.1'
+gem 'sidekiq-failures'
 gem 'sidekiq-unique-jobs'
 
 # Error Reporting
@@ -64,16 +65,15 @@ gem 'turbolinks', '~> 5.0.1'
 gem 'docusign_rest', '~> 0.4.4'
 
 # We don't require Nokogiri directly, only through other gems (like axlsx).
-# However, due to CVE-2016-4658, we need to ensure we're using at least v1.7.1.
-#
-# TODO: remove this line after dependent gems update to this version of Nokogiri
-gem 'nokogiri', '>= 1.7.1'
+# However, due to CVE's, we need to ensure we're using a recent version.
+gem 'nokogiri', '~> 1.10.3'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.5.0'
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter
+  gem 'capybara-screenshot'
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'factory_girl', '~> 4.7'            # Test object factories
@@ -104,9 +104,10 @@ end
 
 group :development do
   # Development Server
+  gem 'better_errors'                     # Better Errors
+  gem 'binding_of_caller'                 # Better Errors
   gem 'spring'
-  gem 'web-console', '~> 2.0'
 
-  # Deployment
-  # TODO gem 'capistrano-rails'
+  # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
+  # gem 'web-console', '~> 2.0'
 end

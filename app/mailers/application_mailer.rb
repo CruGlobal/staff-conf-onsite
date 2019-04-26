@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: UserVariable[:CONFEMAIL]
+  default from: 'no-reply@cru.org'
+
   layout 'mailer'
 end

@@ -3,34 +3,63 @@ require 'test_helper'
 class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   def around(&blk)
     create :conference, name: 'Cru17'
-    create :ministry, code: 'FL33230' 
+    create :ministry, code: 'FL33230'
     stub_default_seminary(&blk)
   end
 
   test 'single primary person, should create new Attendee' do
-    assert_difference ->{ Attendee.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+    assert_difference ->{ Attendee.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
     end
 
-    @person = Attendee.last
+    @person = Attendee.first
     assert_equal 'Duane', @person.first_name
     assert_equal 'Abbott', @person.last_name
     assert_equal 'Duane', @person.name_tag_first_name
     assert_equal 'Abbott', @person.name_tag_last_name
     assert_equal 'm', @person.gender
-    assert_equal Date.parse('1967-05-10'), @person.birthdate
+    assert_equal Date.parse('20 Oct 1980'), @person.birthdate
     assert_equal 'White', @person.ethnicity
     assert_equal '5154738402', @person.phone
     assert_equal 'dabbott@familylife.com', @person.email
-    assert_equal Date.parse('2012-02-01'), @person.hired_at
+    assert_equal Date.parse('1 Aug 1999'), @person.hired_at
     assert_equal 'Staff Full Time', @person.employee_status
     assert_equal 'STFFD.LH.STAFF', @person.pay_chartfield
     assert_equal 'Registered', @person.conference_status
+    assert_equal "Men's 2XL", @person.tshirt_size
+  end
+
+  test 'single child medical history, should create new Child with medical history' do
+    assert_difference ->{ Child.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+
+    @child = Child.first
+    assert_equal 'Dairy', @child.cru_student_medical_history.med_allergies
+    assert_equal 'Sometimes', @child.cru_student_medical_history.migraines
+    assert_equal 'Yes', @child.cru_student_medical_history.anorexia
+    assert_equal ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Eating disorder', 'Significant bullying', 'Self harm'],
+                 @child.cru_student_medical_history.gtky_challenges
+    assert_equal 'YES lunch on their own', @child.cru_student_medical_history.gtky_lunch
+    assert_equal 'More info about additional challenges.', @child.cru_student_medical_history.gtky_addl_challenges
+  end
+
+  test 'single student medical history, should create new Child with student medical history' do
+    assert_difference ->{ Child.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+
+    @child = Child.second
+    assert_equal 'Peanuts', @child.childcare_medical_history.allergy
+    assert_equal 'No Grains', @child.childcare_medical_history.restrictions
+    assert_equal 'wheelchair', @child.childcare_medical_history.vip_mobility
+    assert_equal ['Asthma', 'Other'], @child.childcare_medical_history.chronic_health
+    assert_equal 'No', @child.childcare_medical_history.sunscreen_self
   end
 
   test 'single primary person, should create Family' do
     assert_difference ->{ Family.count }, +1 do
-      import_spreadsheet('people-import--single-primary.xlsx')
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
     end
 
     @family = Family.last
@@ -41,6 +70,26 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'AR', @family.state
     assert_equal '72113', @family.zip
     assert_equal 'US', @family.country_code
+    assert_equal 'ABCD 1234', @family.license_plates
+  end
+
+  test 'import child' do
+    import_spreadsheet('people-import--single-primary-medical-history.csv')
+
+    assert_equal 'Melina', Child.first.middle_name
+    assert_equal 'Child M', Child.first.tshirt_size
+  end
+
+  test 'import spouses' do
+    assert_difference ->{ Family.count }, +1 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+
+    @spouse_one = Family.last.attendees.first
+    @spouse_two = Family.last.attendees.second
+
+    assert_equal @spouse_two.id, @spouse_one.spouse_id
+    assert_equal @spouse_one.id, @spouse_two.spouse_id
   end
 
   private

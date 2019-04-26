@@ -70,7 +70,7 @@ module PersonHelper
   #   in the given family
   def family_attendees_sentence(family)
     if family.attendees.any?
-      family.attendees.map(&:first_name).to_sentence
+      family.attendees.map(&:first_name).sort.to_sentence
     else
       'no attendees'
     end

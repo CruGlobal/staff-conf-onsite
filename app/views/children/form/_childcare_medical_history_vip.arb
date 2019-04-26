@@ -1,0 +1,27 @@
+# vim:ft=ruby:
+form.instance_exec do
+  panel 'Care/Camp VIP Information', class: 'childcare_medical_history' do
+    collection = [:childcare_medical_history, object.childcare_medical_history]
+    has_many :childcare_medical_history, heading: nil, new_record: 'Add New Care/Camp VIP Information',
+             class: 'has_one', collection: collection do |s|
+      s.input :vip_meds, input_html: { rows: 5 }
+      s.input :vip_dev, input_html: { rows: 5 }
+      s.input :vip_strengths, input_html: { rows: 5 }
+      s.input :vip_challenges, input_html: { rows: 5 }
+      s.input :vip_mobility, input_html: { rows: 5 }
+      s.input :vip_walk, input_html: { rows: 5 }
+      s.input :vip_comm, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:vip_comm]
+      s.input :vip_comm_addl, input_html: { rows: 5 }
+      s.input :vip_comm_small, input_html: { rows: 5 }
+      s.input :vip_comm_large, input_html: { rows: 5 }
+      s.input :vip_comm_directions, input_html: { rows: 5 }
+      s.input :vip_stress, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:vip_stress]
+      s.input :vip_stress_addl, input_html: { rows: 5 }
+      s.input :vip_stress_behavior, input_html: { rows: 5 }
+      s.input :vip_calm, input_html: { rows: 5 }
+      s.input :vip_hobby, input_html: { rows: 5 }
+      s.input :vip_buddy, input_html: { rows: 5 }
+      s.input :vip_addl_info, input_html: { rows: 5 }
+    end
+  end
+end

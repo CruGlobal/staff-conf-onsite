@@ -23,11 +23,13 @@ module Import
     def set_common_attributes
       person.assign_attributes(
         first_name: @import.first_name,
+        middle_name: @import.child_middle_name,
         last_name: @import.last_name,
         name_tag_first_name: @import.name_tag_first_name,
         name_tag_last_name: @import.name_tag_last_name,
         gender: @import.gender,
         birthdate: @import.birthdate,
+        tshirt_size: @import.tshirt_size,
         personal_comment: @import.personal_comment,
         arrived_at: @import.arrived_at,
         departed_at: @import.departed_at,

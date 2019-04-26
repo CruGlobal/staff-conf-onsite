@@ -19,90 +19,62 @@ require 'rails/test_help'
 require 'webmock/minitest'
 require 'minitest/rails/capybara'
 require 'rack_session_access/capybara'
+require 'capybara-screenshot/minitest'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
 require 'vcr'
 require 'mocha/minitest'
+require 'sidekiq/testing'
 
 Minitest::Reporters.use!
 
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 
 Support::StubCas.stub_requests
+
 FactoryGirl.find_definitions
 
-class ControllerTestCase < ActionController::TestCase
+Minitest.after_run { DatabaseCleaner.clean_with :truncation }
+
+class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
   include Support::UserVariable
+  include Support::DatabaseCleanerHooks
+
+  setup do
+    VCR.turn_off!
+    Rails.application.reload_routes!
+  end
 end
 
+class ControllerTestCase < ActionController::TestCase; end
+
 class IntegrationTest < Capybara::Rails::TestCase
-  include FactoryGirl::Syntax::Methods
   include Support::ActiveAdmin
   include Support::Authentication
   include Support::Javascript
-  include Support::UserVariable
+  include Capybara::Screenshot::MiniTestPlugin
 
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each) do
-    Capybara.use_default_driver
-    DatabaseCleaner.clean
-  end
+  setup { VCR.turn_off! }
+
+  teardown { Capybara.use_default_driver }
 end
 
 class ModelTestCase < ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
   include Support::Authentication
   include Support::Moneyable
-  include Support::UserVariable
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end
 
 class ServiceTestCase < ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
 
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
+  setup { VCR.turn_on! }
 end
 
 class JobTestCase < ActiveJob::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end
 
 class MailTestCase < ActionMailer::TestCase
-  include FactoryGirl::Syntax::Methods
-  include Support::UserVariable
   include ActionDispatch::TestProcess
-
-  self.use_transactional_fixtures = false
-  before(:each) do
-    DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
-    DatabaseCleaner.start
-  end
-  after(:each)  { DatabaseCleaner.clean }
 end

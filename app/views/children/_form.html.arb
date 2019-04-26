@@ -17,6 +17,7 @@ context.instance_exec do
         input :name_tag_first_name
         input :name_tag_last_name
 
+        input :tshirt_size
         input :gender, as: :select, collection: gender_select
         datepicker_input(self, :birthdate)
 
@@ -39,12 +40,24 @@ context.instance_exec do
       end
 
       render 'children/form/childcare', form: self
+
+      if object.age_group == :childcare
+        render 'children/form/childcare_medical_history', form: self
+        render 'children/form/childcare_medical_history_vip', form: self
+      end
     end
 
     column do
+      render 'children/form/forms_approval', form: self
       render 'people/form/cost_adjustments', form: self
       render 'people/form/stays', form: self
       render 'people/form/meal_exemptions', form: self, person: child
+
+      if object.age_group == :junior_senior
+        render 'children/form/cru_student_medical_history_misc', form: self
+        render 'children/form/cru_student_medical_history', form: self
+        render 'children/form/cru_student_medical_history_vip', form: self
+      end
     end
   end
 

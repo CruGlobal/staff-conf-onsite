@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108004927) do
+ActiveRecord::Schema.define(version: 20190426162641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,43 @@ ActiveRecord::Schema.define(version: 20190108004927) do
   end
 
   add_index "childcare_envelopes", ["envelope_id"], name: "index_childcare_envelopes_on_envelope_id", using: :btree
+
+  create_table "childcare_medical_histories", force: :cascade do |t|
+    t.string   "allergy"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "child_id"
+    t.string   "food_intolerance"
+    t.string   "chronic_health_addl"
+    t.string   "medications"
+    t.text     "restrictions"
+    t.string   "vip_meds"
+    t.text     "vip_dev"
+    t.string   "vip_strengths"
+    t.string   "vip_challenges"
+    t.string   "vip_mobility"
+    t.string   "vip_walk"
+    t.text     "vip_comm_addl"
+    t.text     "vip_comm_small"
+    t.text     "vip_comm_large"
+    t.text     "vip_comm_directions"
+    t.string   "vip_stress_addl"
+    t.text     "vip_stress_behavior"
+    t.text     "vip_calm"
+    t.string   "vip_hobby"
+    t.string   "vip_buddy"
+    t.text     "vip_addl_info"
+    t.string   "sunscreen_self"
+    t.string   "sunscreen_assisted"
+    t.string   "sunscreen_provided"
+    t.string   "chronic_health",      default: [],              array: true
+    t.string   "immunizations",       default: [],              array: true
+    t.string   "health_misc",         default: [],              array: true
+    t.string   "vip_comm",            default: [],              array: true
+    t.string   "vip_stress",          default: [],              array: true
+  end
+
+  add_index "childcare_medical_histories", ["child_id"], name: "index_childcare_medical_histories_on_child_id", using: :btree
 
   create_table "childcares", force: :cascade do |t|
     t.string   "name"
@@ -145,22 +182,94 @@ ActiveRecord::Schema.define(version: 20190108004927) do
     t.integer  "position"
   end
 
+  create_table "cru_student_medical_histories", force: :cascade do |t|
+    t.string   "parent_agree"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "child_id"
+    t.string   "gtky_lunch"
+    t.string   "gtky_signout"
+    t.string   "gtky_sibling_signout"
+    t.string   "gtky_sibling"
+    t.string   "gtky_small_group_friend"
+    t.string   "gtky_musical"
+    t.string   "gtky_activities"
+    t.string   "gtky_gain"
+    t.string   "gtky_growth"
+    t.string   "gtky_addl_info"
+    t.string   "gtky_large_groups"
+    t.string   "gtky_small_groups"
+    t.string   "gtky_leader"
+    t.string   "gtky_is_follower"
+    t.string   "gtky_friends"
+    t.string   "gtky_hesitant"
+    t.string   "gtky_active"
+    t.string   "gtky_reserved"
+    t.string   "gtky_boundaries"
+    t.string   "gtky_authority"
+    t.string   "gtky_adapts"
+    t.string   "gtky_allergies"
+    t.string   "med_allergies"
+    t.string   "food_allergies"
+    t.string   "other_allergies"
+    t.string   "health_concerns"
+    t.string   "asthma"
+    t.string   "migraines"
+    t.string   "severe_allergy"
+    t.string   "anorexia"
+    t.string   "diabetes"
+    t.string   "altitude"
+    t.string   "concerns_misc"
+    t.string   "cs_vip_meds"
+    t.text     "cs_vip_dev"
+    t.text     "cs_vip_strengths"
+    t.string   "cs_vip_challenges"
+    t.string   "cs_vip_mobility"
+    t.string   "cs_vip_walk"
+    t.text     "cs_vip_comm_addl"
+    t.text     "cs_vip_comm_small"
+    t.text     "cs_vip_comm_large"
+    t.text     "cs_vip_comm_directions"
+    t.string   "cs_vip_stress_addl"
+    t.text     "cs_vip_stress_behavior"
+    t.text     "cs_vip_calm"
+    t.text     "cs_vip_sitting"
+    t.string   "cs_vip_hobby"
+    t.string   "cs_vip_buddy"
+    t.text     "cs_vip_addl_info"
+    t.text     "gtky_addl_challenges"
+    t.string   "gtky_is_leader"
+    t.string   "gtky_challenges",         default: [],              array: true
+    t.string   "cs_health_misc",          default: [],              array: true
+    t.string   "cs_vip_comm",             default: [],              array: true
+    t.string   "cs_vip_stress",           default: [],              array: true
+  end
+
+  add_index "cru_student_medical_histories", ["child_id"], name: "index_cru_student_medical_histories_on_child_id", using: :btree
+
   create_table "families", force: :cascade do |t|
     t.string   "city"
     t.string   "state"
     t.string   "zip"
     t.string   "address1"
-    t.string   "country_code",      limit: 2
+    t.string   "country_code",               limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "last_name",                   null: false
+    t.string   "last_name",                                        null: false
     t.string   "staff_number"
     t.string   "address2"
     t.string   "import_tag"
     t.integer  "primary_person_id"
     t.string   "license_plates"
     t.boolean  "handicap"
+    t.integer  "precheck_status",                      default: 0
+    t.datetime "precheck_status_changed_at"
+    t.string   "county"
   end
+
+  add_index "families", ["county"], name: "index_families_on_county", using: :btree
+  add_index "families", ["precheck_status"], name: "index_families_on_precheck_status", using: :btree
+  add_index "families", ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at", using: :btree
 
   create_table "housing_facilities", force: :cascade do |t|
     t.string   "name"
@@ -297,10 +406,16 @@ ActiveRecord::Schema.define(version: 20190108004927) do
     t.string   "name_tag_last_name"
     t.string   "name_tag_first_name"
     t.datetime "conference_status_changed_at"
+    t.boolean  "forms_approved",               default: false
+    t.string   "middle_name"
+    t.integer  "spouse_id"
+    t.string   "forms_approved_by"
   end
 
   add_index "people", ["childcare_id"], name: "index_people_on_childcare_id", using: :btree
+  add_index "people", ["middle_name"], name: "index_people_on_middle_name", using: :btree
   add_index "people", ["seminary_id"], name: "index_people_on_seminary_id", using: :btree
+  add_index "people", ["spouse_id"], name: "index_people_on_spouse_id", using: :btree
   add_index "people", ["student_number"], name: "index_people_on_student_number", using: :btree
   add_index "people", ["type"], name: "index_people_on_type", using: :btree
 
@@ -411,6 +526,8 @@ ActiveRecord::Schema.define(version: 20190108004927) do
 
   add_foreign_key "childcare_envelopes", "people", column: "child_id"
   add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
+  add_foreign_key "childcare_medical_histories", "people", column: "child_id"
+  add_foreign_key "cru_student_medical_histories", "people", column: "child_id"
   add_foreign_key "people", "seminaries"
   add_foreign_key "precheck_email_tokens", "families"
 end

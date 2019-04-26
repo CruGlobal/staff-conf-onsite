@@ -3,6 +3,12 @@ class Family < ApplicationRecord
 
   has_paper_trail
 
+  enum precheck_status: %i[
+    pending_approval
+    changes_requested
+    approved
+  ]
+
   has_many :people, dependent: :destroy
   has_many :attendees, dependent: :destroy
   has_many :children, dependent: :destroy
@@ -25,6 +31,11 @@ class Family < ApplicationRecord
   validates_associated :housing_preference
 
   before_validation :remove_blank_housing_preference
+  before_save :touch_precheck_status_changed, if: :precheck_status_changed?
+
+  scope :precheck_pending_approval,  -> { where(precheck_status: Family.precheck_statuses[:pending_approval]) }
+  scope :precheck_changes_requested, -> { where(precheck_status: Family.precheck_statuses[:changes_requested]) }
+  scope :precheck_approved,          -> { where(precheck_status: Family.precheck_statuses[:approved]) }
 
   # @see PersonHelper.family_label
   def to_s
@@ -75,9 +86,22 @@ class Family < ApplicationRecord
     attendees.any? { |p| p.email.present? }
   end
 
+  def update_spouses
+    if attendees.reload.size == 2
+      attendees.first.update!(spouse: attendees.second)
+      attendees.second.update!(spouse: attendees.first)
+    else
+      attendees.each { |attendee| attendee.update!(spouse: nil) }
+    end
+  end
+
   private
 
   def remove_blank_housing_preference
     self.housing_preference = nil if housing_preference&.housing_type&.blank?
+  end
+
+  def touch_precheck_status_changed
+    self.precheck_status_changed_at = Time.zone.now
   end
 end
