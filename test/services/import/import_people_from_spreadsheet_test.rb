@@ -41,6 +41,7 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Eating disorder', 'Significant bullying', 'Self harm'],
                  @child.cru_student_medical_history.gtky_challenges
     assert_equal 'YES lunch on their own', @child.cru_student_medical_history.gtky_lunch
+    assert_equal 'More info about additional challenges.', @child.cru_student_medical_history.gtky_addl_challenges
   end
 
   test 'single student medical history, should create new Child with student medical history' do
