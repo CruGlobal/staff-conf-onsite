@@ -14,6 +14,7 @@
 #
 #  Date Inputs ------------------------
 #= require widgets/dates
+#= require widgets/confirmed-at-toggle
 #
 #  Select Boxes -----------------------
 #= require chosen-jquery

@@ -77,6 +77,12 @@ if @family
             end
           end
         end
+
+        inputs class: 'inputs housing_preference_attributes' do
+          semantic_fields_for :housing_preference do |hp|
+            datepicker_input(hp, :confirmed_at)
+          end
+        end
       end
 
       if family.primary_person
