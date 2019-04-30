@@ -1,11 +1,14 @@
 # rubocop:disable Metrics/ClassLength
 class Childcare::SendDocusignEnvelope < ApplicationService
+  include PersonHelper
+
   SendEnvelopeError = Class.new(StandardError)
 
   # TODO: Update constants with prod templates and add vip variants.
   CARECAMP_VIP_TEMPLATE_DEV = 'f0e035d2-6a5e-4566-a62b-2e820ae64a0c'.freeze
   CRUSTU_VIP_TEMPLATE_DEV   = 'd1ad62bf-e7bb-4771-8ae6-50d170c89a15'.freeze
-  DEV_RECIPIENT             = 'test@example.com'.freeze
+  TEST_RECIPIENT            = 'cristian.guerrero@ballistiq.com'.freeze
+  TRACKING_COPY_RECIPIENT   = 'cristian.guerrero+tracking@ballistiq.com'.freeze
 
   attr_reader :recipient, :child, :note
 
@@ -33,7 +36,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def build_payload(recipient_name, recipient_email)
-    recipient_email = DEV_RECIPIENT unless Rails.env.production?
+    recipient_email = TEST_RECIPIENT unless Rails.env.production?
     {
       status: 'sent',
       email: build_docusign_email_block,
@@ -48,8 +51,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         },
         {
           embedded: false,
-          name: child.full_name,
-          email: "test+#{child.full_name.parameterize}@example.com",
+          name: tracking_copy_recipient_name,
+          email: TRACKING_COPY_RECIPIENT,
           role_name: 'Child',
           text_tabs: build_text_tabs
         }
@@ -59,9 +62,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def build_docusign_email_block
     {
-      subject: "Cru19 Authorization and Consent Packet for #{child.age}-#{child.full_name}",
+      subject: "Cru19 Authorization and Consent Packet for #{child.full_name}",
       body: note
     }
+  end
+
+  def tracking_copy_recipient_name
+    grade = child.grade_level
+    grade_translated = grade ? grade_level_label(child) : ""
+    "#{child.last_name}, #{child.first_name}, #{grade_translated}, #{child.arrived_at&.strftime('%m/%d/%Y')}"
   end
 
   def determine_docusign_template
