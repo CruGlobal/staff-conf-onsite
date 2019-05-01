@@ -62,4 +62,14 @@ ActiveAdmin.register Child do
   action_item :import_spreadsheet, only: :index do
     link_to 'Import Spreadsheet', new_spreadsheet_families_path if authorized?(:import, Family)
   end
+
+  member_action :send_docusign, method: :post do
+    child = Child.find(params[:id])
+    note = params[:message].presence
+    recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
+
+    Docusign::SendChildcareEnvelopeJob.perform_later(child, note, recipient: recipient)
+    redirect_to resource_path(params[:id]), notice: "DocuSign envelope successfully queued for delivery"
+  end
+
 end
