@@ -85,7 +85,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     elsif senior_grade?
       CRUSTU_VIP_TEMPLATE
     else
-      raise SendEnvelopeError, 'There is an error on the child record'
+      raise SendEnvelopeError, 'There is an error on the child record, possibly incomplete details'
     end
   end
 
@@ -94,15 +94,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def childcare_no_misc_health?
-    child.childcare_medical_history.health_misc == ['None of the above']
+    child&.childcare_medical_history&.health_misc == ['None of the above']
   end
 
   def senior_grade?
-    Child.childcare_grade_levels.include?(child.senior_grade_levels)
+    Child.childcare_grade_levels.include?(child.grade_level)
   end
 
   def senior_no_misc_health?
-    child.cru_student_medical_history.cs_health_misc == ['None of the above']
+    child&.cru_student_medical_history&.cs_health_misc == ['None of the above']
   end
 
   def build_text_tabs
