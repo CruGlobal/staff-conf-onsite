@@ -64,6 +64,8 @@ ActiveAdmin.register Child do
 
   member_action :send_docusign, method: :post do
     child = Child.find(params[:id])
+    redirect_to resource_path(params[:id]), alert: "DocuSign envelope already sent" and return if child.pending_envelope?
+
     note = params[:message].presence
     recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
 
