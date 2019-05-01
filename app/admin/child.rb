@@ -72,4 +72,11 @@ ActiveAdmin.register Child do
     redirect_to resource_path(params[:id]), notice: "DocuSign envelope successfully queued for delivery"
   end
 
+  member_action :void_docusign, method: :post do
+    child = Child.find(params[:id])
+    envelope = child.childcare_envelopes.last
+    Docusign::VoidChildcareEnvelopeJob.perform_later(envelope)
+
+    redirect_to resource_path(params[:id]), notice: "DocuSign envelope void request successfully queued! This can take a couple of seconds. Please refresh page to update status"
+  end
 end
