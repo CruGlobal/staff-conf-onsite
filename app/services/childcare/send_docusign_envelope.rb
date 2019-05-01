@@ -98,7 +98,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def senior_grade?
-    Child.childcare_grade_levels.include?(child.grade_level)
+    Child.senior_grade_levels.include?(child.grade_level)
   end
 
   def senior_no_misc_health?
@@ -464,7 +464,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Leader-Yes',
-        value: checkmark(smh.gtky_is_leader)
+        value: checkmark(smh.gtky_leader)
       },
       {
         label: 'Forms-CS-GTKY-Leader-No',
@@ -564,7 +564,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-IsLeader',
-        value: smh.gtky_leader
+        value: smh.gtky_is_leader
       },
       {
         label: 'Forms-CS-GTKY-IsFollower',
