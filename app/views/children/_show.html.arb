@@ -89,6 +89,7 @@ context.instance_exec do
           row :forms_approved
           row :forms_approved_by
         end
+      render 'docusign'
       end
       render 'people/stays', person: child
       render 'cost_adjustments/list_panel',
