@@ -4,11 +4,13 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  # TODO: Update constants with prod templates and add vip variants.
-  CARECAMP_VIP_TEMPLATE_DEV = 'f0e035d2-6a5e-4566-a62b-2e820ae64a0c'.freeze
-  CRUSTU_VIP_TEMPLATE_DEV   = 'd1ad62bf-e7bb-4771-8ae6-50d170c89a15'.freeze
-  TEST_RECIPIENT            = 'cristian.guerrero@ballistiq.com'.freeze
-  TRACKING_COPY_RECIPIENT   = 'cristian.guerrero+tracking@ballistiq.com'.freeze
+  # TODO: Update constants with prod templates/recipients
+  CARECAMP_VIP_TEMPLATE   = 'f6965eec-46a4-47a0-9009-e85b6f4cf02c'.freeze
+  CARECAMP_TEMPLATE       = 'eaaed38d-7b7d-4040-b6d0-885e94efe21d'.freeze
+  CRUSTU_VIP_TEMPLATE     = 'dcd093d0-9135-4098-ac3d-b67fd0ba2498'.freeze
+  CRUSTU_TEMPLATE         = '806a5a48-7d71-4bcd-87bd-1122226c327d'.freeze
+  TEST_RECIPIENT          = 'cristian.guerrero@ballistiq.com'.freeze
+  TRACKING_COPY_RECIPIENT = 'cristian.guerrero+tracking@ballistiq.com'.freeze
 
   attr_reader :recipient, :child, :note
 
@@ -74,7 +76,33 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def determine_docusign_template
-    Child.childcare_grade_levels.include?(child.grade_level) ? CARECAMP_VIP_TEMPLATE_DEV : CRUSTU_VIP_TEMPLATE_DEV
+    if childcare_grade? && childcare_no_misc_health?
+      CARECAMP_TEMPLATE
+    elsif childcare_grade?
+      CARECAMP_VIP_TEMPLATE
+    elsif senior_grade? && senior_no_misc_health?
+      CRUSTU_TEMPLATE
+    elsif senior_grade?
+      CRUSTU_VIP_TEMPLATE
+    else
+      raise SendEnvelopeError, 'There is an error on the child record'
+    end
+  end
+
+  def childcare_grade?
+    Child.childcare_grade_levels.include?(child.grade_level)
+  end
+
+  def childcare_no_misc_health?
+    child.childcare_medical_history.health_misc == ['None of the above']
+  end
+
+  def senior_grade?
+    Child.childcare_grade_levels.include?(child.senior_grade_levels)
+  end
+
+  def senior_no_misc_health?
+    child.cru_student_medical_history.cs_health_misc == ['None of the above']
   end
 
   def build_text_tabs
