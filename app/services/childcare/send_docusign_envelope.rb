@@ -14,8 +14,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   attr_reader :recipient, :child, :note
 
-  def initialize(child, note = nil)
-    @recipient = child.family.primary_person
+  def initialize(child, note = nil, recipient: nil)
+    @recipient = recipient || child.family.primary_person
     @child = child
     @note = note
   end
@@ -156,27 +156,27 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*Parent1FullName',
-        value: child.family.primary_person.full_name
+        value: recipient.full_name
       },
       {
         label: '\\*Parent1Mobile',
-        value: child.family.primary_person.phone
+        value: recipient.phone
       },
       {
         label: '\\*Parent2FullName',
-        value: child.family.primary_person&.spouse&.full_name
+        value: recipient&.spouse&.full_name
       },
       {
         label: '\\*Parent2Mobile',
-        value: child.family.primary_person&.spouse&.phone
+        value: recipient&.spouse&.phone
       },
       {
         label: 'Parent2Email',
-        value: child.family.primary_person&.spouse&.email
+        value: recipient&.spouse&.email
       },
       {
         label: 'Parent1Ministry',
-        value: child.family.primary_person.ministry.name
+        value: recipient.ministry.name
       },
       {
         label: 'Parent1Cohort',
@@ -208,7 +208,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Parent1Email',
-        value: child.family.primary_person.email
+        value: recipient.email
       }
     ]
   end
