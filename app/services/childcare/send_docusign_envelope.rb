@@ -178,7 +178,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Parent1Ministry',
-        value: recipient.main_ministry.name
+        value: recipient.main_ministry&.name
       },
       {
         label: 'Parent1Cohort',
