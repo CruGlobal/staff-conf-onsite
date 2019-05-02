@@ -176,11 +176,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Parent1Ministry',
-        value: recipient.ministry.name
+        value: recipient.main_ministry.name
       },
       {
         label: 'Parent1Cohort',
-        value: ''
+        value: get_cohort_for(recipient)
       },
       {
         label: '\\*HomeStreet',
@@ -812,6 +812,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     address += ", #{family.zip}" if family.zip
     address += " #{ISO3166::Country[family.country_code]}"
     address
+  end
+
+  def get_cohort_for(recipient)
+    recipient.cohort.name if recipient.campus_ministry_member?
   end
 
   def checkmark_if_no_allergies(allergies)
