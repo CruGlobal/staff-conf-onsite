@@ -12,3 +12,9 @@ $ ->
 
   $('.send_docusign_button').click ->
     confirm "Are you sure you want to send this recipient a DocuSign envelope?"
+
+  $('.create_new_docusign_button').click ->
+    confirm "Are you sure you want to send a new docusign
+    envelope to the recipient?
+    \n\nThe existing envelope can not be voided as it
+    was already signed by the recipient."

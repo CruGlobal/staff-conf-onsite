@@ -83,4 +83,16 @@ ActiveAdmin.register Child do
     notice: 'DocuSign envelope void request successfully queued! This
              may take a couple of seconds. Please refresh page to update status'
   end
+
+  member_action :create_new_docusign, method: :post do
+    child = Child.find(params[:id])
+    envelope = child.childcare_envelopes.last
+    envelope.delete
+
+    note = params[:message].presence
+    recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
+
+    Docusign::SendChildcareEnvelopeJob.perform_later(child, note, recipient: recipient)
+    redirect_to resource_path(params[:id]), notice: 'New DocuSign envelope successfully queued for delivery'
+  end
 end
