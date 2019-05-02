@@ -70,10 +70,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def tracking_copy_recipient_name
     grade = child.grade_level
-    grade_translated = grade ? grade_level_label(child) : ""
+    grade_translated = grade ? grade_level_label(child) : ''
     "#{child.last_name}, #{child.first_name}, #{grade_translated}, #{child.arrived_at&.strftime('%m/%d/%Y')}"
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def determine_docusign_template
     if childcare_grade? && childcare_no_misc_health?
       CARECAMP_TEMPLATE
@@ -87,6 +88,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       raise SendEnvelopeError, 'There is an error on the child record, possibly incomplete details'
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def childcare_grade?
     Child.childcare_grade_levels.include?(child.grade_level)
@@ -111,6 +113,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   # For each attribute, create { label: attr_name, value: attr_value }
   # If label is present multiple times on form, preprend \\* to label
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_general_fields
     [
       {
@@ -211,7 +214,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_cc_medical_history_fields
     return [] unless child.childcare_medical_history
 
@@ -311,7 +316,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_cc_vip_fields
     return [] unless child.childcare_medical_history
 
@@ -423,7 +430,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_cs_gtky_fields
     return [] unless child.cru_student_medical_history
 
@@ -596,10 +605,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       {
         label: 'Forms-CS-GTKY-Adapts',
         value: smh.gtky_adapts
-      },
+      }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_cs_medical_history_fields
     return [] unless child.cru_student_medical_history
 
@@ -691,7 +702,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def build_cs_vip_fields
     return [] unless child.cru_student_medical_history
 
@@ -795,6 +808,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       }
     ]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def calculate_age(birthdate)
     age = Time.zone.today.year - birthdate.year
