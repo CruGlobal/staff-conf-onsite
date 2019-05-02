@@ -61,6 +61,8 @@ class Attendee < Person
   end
 
   def cohort
+    return nil unless campus_ministry_member?
+
     ministry.ancestors[2]
   end
 
