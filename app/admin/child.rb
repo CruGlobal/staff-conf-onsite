@@ -80,6 +80,6 @@ ActiveAdmin.register Child do
 
     redirect_to resource_path(params[:id]),
     notice: 'DocuSign envelope void request successfully queued! This
-              may take a couple of seconds. Please refresh page to update status'
+             may take a couple of seconds. Please refresh page to update status'
   end
 end
