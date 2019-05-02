@@ -52,7 +52,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         },
         {
           embedded: false,
-          name: tracking_copy_recipient_name,
+          name: child_name_grade_and_arrival_date,
           email: TRACKING_COPY_RECIPIENT,
           role_name: 'Child',
           text_tabs: build_text_tabs
@@ -63,12 +63,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def build_docusign_email_block
     {
-      subject: "Cru19 Authorization and Consent Packet for #{child.full_name}",
+      subject: "Cru19 Authorization and Consent Packet for #{child_name_grade_and_arrival_date}",
       body: note
     }
   end
 
-  def tracking_copy_recipient_name
+  def child_name_grade_and_arrival_date
     grade = child.grade_level
     grade_translated = grade ? grade_level_label(child) : ''
     "#{child.last_name}, #{child.first_name}, #{grade_translated}, #{child.arrived_at&.strftime('%m/%d/%Y')}"
