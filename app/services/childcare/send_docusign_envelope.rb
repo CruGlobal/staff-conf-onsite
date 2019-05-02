@@ -4,13 +4,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  # TODO: Update constants with prod templates/recipients
-  CARECAMP_VIP_TEMPLATE   = 'f6965eec-46a4-47a0-9009-e85b6f4cf02c'.freeze
-  CARECAMP_TEMPLATE       = 'eaaed38d-7b7d-4040-b6d0-885e94efe21d'.freeze
-  CRUSTU_VIP_TEMPLATE     = 'dcd093d0-9135-4098-ac3d-b67fd0ba2498'.freeze
-  CRUSTU_TEMPLATE         = '806a5a48-7d71-4bcd-87bd-1122226c327d'.freeze
-  TEST_RECIPIENT          = 'cristian.guerrero@ballistiq.com'.freeze
-  TRACKING_COPY_RECIPIENT = 'cristian.guerrero+tracking@ballistiq.com'.freeze
+  CARECAMP_VIP_TEMPLATE   = '21502aed-387f-47fd-9b23-fb1791d981e4'.freeze
+  CARECAMP_TEMPLATE       = '832148af-f23d-475b-99f5-a290764d24b8'.freeze
+  CRUSTU_VIP_TEMPLATE     = 'd0dab3a9-3d3e-4d12-902d-9205639474ac'.freeze
+  CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
+  TEST_RECIPIENT          = 'Cru19KidsForms+DocuSignTesting@cru.org'.freeze
+  TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignTracking@cru.org'.freeze
 
   attr_reader :recipient, :child, :note
 
