@@ -4,6 +4,28 @@ if child.completed_envelope?
     td child.childcare_envelopes&.last&.recipient&.full_name
     td "Sent on: #{child.childcare_envelopes&.last&.created_at&.strftime('%b %d, %Y %H:%M')}"
   end
+  table do
+    th 'Send New DocuSign Envelope'
+  end
+  form action: create_new_docusign_child_path, method: :post do |f|
+    f.textarea name: 'message',
+               placeholder: 'Add a personalized email body message here, or leave empty to use default email body',
+               rows: 4
+    f.input hidden: true,
+            name: 'authenticity_token',
+            value: form_authenticity_token
+    br
+    f.input type: :submit,
+            value: "Send to #{child.family.primary_person&.full_name || 'Primary Parent'}",
+            class: 'create_new_docusign_button',
+            name: 'primary_parent'
+    if child.family.primary_person&.spouse
+      f.input type: :submit,
+              value: "Send to #{child.family.primary_person&.spouse&.full_name || 'Secondary Parent'}",
+              class: 'create_new_docusign_button',
+              name: 'secondary_parent'
+    end
+  end
 elsif child.pending_envelope?
   table do
     th 'Docusign Envelope Sent To'
