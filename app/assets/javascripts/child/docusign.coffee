@@ -2,9 +2,7 @@ $ ->
   return unless $('.show.children').length > 0
 
   $('#void_button').click ->
-    confirm "
-    Only pending envelopes are voidable via this page.
-    \n\nWhen voiding a sent DocuSign envelope, the
+    confirm "When voiding a sent DocuSign envelope, the
     recipient will not be able to access or sign the
     document anymore, and they will receive an automated
     email from DocuSign notifying them that the envelope
