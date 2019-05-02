@@ -64,13 +64,13 @@ ActiveAdmin.register Child do
 
   member_action :send_docusign, method: :post do
     child = Child.find(params[:id])
-    redirect_to resource_path(params[:id]), alert: "DocuSign envelope already sent" and return if child.pending_envelope?
+    redirect_to resource_path(params[:id]), alert: 'DocuSign envelope already sent' and return if child.pending_envelope?
 
     note = params[:message].presence
     recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
 
     Docusign::SendChildcareEnvelopeJob.perform_later(child, note, recipient: recipient)
-    redirect_to resource_path(params[:id]), notice: "DocuSign envelope successfully queued for delivery"
+    redirect_to resource_path(params[:id]), notice: 'DocuSign envelope successfully queued for delivery'
   end
 
   member_action :void_docusign, method: :post do
@@ -78,6 +78,8 @@ ActiveAdmin.register Child do
     envelope = child.childcare_envelopes.last
     Docusign::VoidChildcareEnvelopeJob.perform_later(envelope)
 
-    redirect_to resource_path(params[:id]), notice: "DocuSign envelope void request successfully queued! This can take a couple of seconds. Please refresh page to update status"
+    redirect_to resource_path(params[:id]),
+    notice: 'DocuSign envelope void request successfully queued! This
+              may take a couple of seconds. Please refresh page to update status'
   end
 end

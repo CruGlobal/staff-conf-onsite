@@ -65,7 +65,7 @@ class Attendee < Person
   end
 
   def campus_ministry_member?
-    ministry.ancestors.map(&:code).include?("CM")
+    ministry.ancestors.map(&:code).include?('CM')
   end
 
   protected
