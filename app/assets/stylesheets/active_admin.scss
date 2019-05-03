@@ -19,6 +19,7 @@
 @import "widgets/typography";
 @import "widgets/adjustments-table";
 @import "widgets/upload-job";
+@import "widgets/confirmed-at-toggle";
 
 // Specific Models
 // =================================
@@ -36,6 +37,8 @@
 @import "family/edit";
 @import "family/summary";
 
+// Housing
+@import "housing/index";
 
 // Telephone
 @import "intlTelInput";
