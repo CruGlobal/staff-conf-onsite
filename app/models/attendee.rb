@@ -57,7 +57,9 @@ class Attendee < Person
   end
 
   def main_ministry
-    ministry.ancestors[1]
+    return nil unless ministry
+
+    ministry.ancestors[1] || ministry
   end
 
   def cohort
@@ -67,6 +69,8 @@ class Attendee < Person
   end
 
   def campus_ministry_member?
+    return false unless ministry
+
     ministry.ancestors.map(&:code).include?('CM')
   end
 
