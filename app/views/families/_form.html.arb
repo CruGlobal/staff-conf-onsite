@@ -13,6 +13,7 @@ context.instance_exec do
     input :address1
     input :address2
     input :city
+    input :county
     input :state
     input :country_code, as: :select, collection: country_select,
       include_blank: false
