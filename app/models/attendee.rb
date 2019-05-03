@@ -56,6 +56,24 @@ class Attendee < Person
     conference_status == 'Exempt'
   end
 
+  def main_ministry
+    return nil unless ministry
+
+    ministry.ancestors[1] || ministry
+  end
+
+  def cohort
+    return nil unless campus_ministry_member?
+
+    ministry.ancestors[2]
+  end
+
+  def campus_ministry_member?
+    return false unless ministry
+
+    ministry.ancestors.map(&:code).include?('CM')
+  end
+
   protected
 
   def set_default_seminary
