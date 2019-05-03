@@ -63,4 +63,45 @@ class Child::ShowTest < IntegrationTest
     visit child_path(@child)
     within('.meal_exemptions.panel') { assert_text @meal_exemption.date.strftime("%B %-d") }
   end
+
+  test '#show send_docusign' do
+    @parent1 = create :attendee, family: @child.family
+
+    visit child_path(@child)
+    within('.forms_approved.panel') { assert_text 'Send DocuSign Envelope' }
+    within('.forms_approved.panel') { assert page.has_field?('message', type: 'textarea') }
+    within('.forms_approved.panel') { assert page.has_button?("Send to #{@parent1.full_name}") }
+  end
+
+  test '#show send_docusign with two parents' do
+    @parent1 = create :attendee, family: @child.family
+    @parent2 = create :attendee, family: @child.family, spouse: @parent1
+    @parent1.update(spouse: @parent2)
+
+    visit child_path(@child)
+    within('.forms_approved.panel') { assert_text 'Send DocuSign Envelope' }
+    within('.forms_approved.panel') { assert page.has_field?('message', type: 'textarea') }
+    within('.forms_approved.panel') { assert page.has_button?("Send to #{@parent1.full_name}") }
+    within('.forms_approved.panel') { assert page.has_button?("Send to #{@parent2.full_name}") }
+  end
+
+  test '#show void_docusign when docusign sent' do
+    @envelope = create :childcare_envelope, :sent, child: @child
+
+    visit child_path(@child)
+    within('.forms_approved.panel') { assert_text 'Docusign Envelope Sent To' }
+    within('.forms_approved.panel') { assert_text @envelope.recipient.full_name }
+    within('.forms_approved.panel') { assert page.has_button?('Void sent docusign envelope') }
+  end
+
+  test '#show create_new_docusign when docusign completed' do
+    @envelope = create :childcare_envelope, :completed, child: @child
+    @parent1 = create :attendee, family: @child.family
+
+    visit child_path(@child)
+    within('.forms_approved.panel') { assert_text 'Docusign Envelope Sent To And Completed By' }
+    within('.forms_approved.panel') { assert_text @envelope.recipient.full_name }
+    within('.forms_approved.panel') { assert page.has_field?('message', type: 'textarea') }
+    within('.forms_approved.panel') { assert page.has_button?("Send to #{@parent1.full_name}") }
+  end
 end
