@@ -61,4 +61,53 @@ class AttendeeTest < ModelTestCase
     @attendee.update!(conference_status: 'some new value')
     refute_equal old_value, @attendee.conference_status_changed_at
   end
+
+  test '#main_ministry is the 1st child of the top level ministry' do
+    @global_ministry   = build_stubbed :ministry
+    @regional_ministry = build_stubbed :ministry, parent: @global_ministry
+    @zone_ministry     = build_stubbed :ministry, parent: @regional_ministry
+    @local_ministry    = build_stubbed :ministry, parent: @zone_ministry
+    @attendee.ministry = @local_ministry
+
+    assert_equal @regional_ministry, @attendee.main_ministry
+  end
+
+  test '#main_ministry when top level or no ancestors' do
+    @global_ministry   = build_stubbed :ministry
+    @attendee.ministry = @global_ministry
+
+    assert_equal @global_ministry, @attendee.main_ministry
+  end
+
+  test '#main_ministry when attendee has no ministry defined' do
+    @attendee.update(ministry: nil)
+
+    assert_nil @attendee.main_ministry
+  end
+
+  test '#cohort is the 2nd child from the top level when attendees main ministry is campus ministry' do
+    @global_ministry   = build_stubbed :ministry
+    @regional_ministry = build_stubbed :ministry, parent: @global_ministry, code: "CM"
+    @zone_ministry     = build_stubbed :ministry, parent: @regional_ministry
+    @local_ministry    = build_stubbed :ministry, parent: @zone_ministry
+    @attendee.ministry = @local_ministry
+
+    assert_equal @zone_ministry, @attendee.cohort
+  end
+
+  test '#cohort when atendee main ministry is not campus ministry' do
+    @global_ministry   = build_stubbed :ministry
+    @regional_ministry = build_stubbed :ministry, parent: @global_ministry, code: "RANDOM"
+    @zone_ministry     = build_stubbed :ministry, parent: @regional_ministry
+    @local_ministry    = build_stubbed :ministry, parent: @zone_ministry
+    @attendee.ministry = @local_ministry
+
+    assert_nil @attendee.cohort
+  end
+
+  test '#cohort when attendee has no ministry defined' do
+    @attendee.update(ministry: nil)
+
+    assert_nil @attendee.cohort
+  end
 end
