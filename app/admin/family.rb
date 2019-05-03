@@ -10,9 +10,9 @@ ActiveAdmin.register Family do
 
   menu parent: 'People', priority: 1
 
-  permit_params :last_name, :staff_number, :address1, :address2, :city, :state,
-                :zip, :country_code, :primary_person_id, :license_plates, :handicap,
-                housing_preference_attributes: %i[
+  permit_params :last_name, :staff_number, :address1, :address2, :city, :county,
+                :state, :zip, :country_code, :primary_person_id, :license_plates,
+                :handicap, housing_preference_attributes: %i[
                   id housing_type roommates beds_count single_room
                   children_count bedrooms_count other_family
                   accepts_non_air_conditioned location1 location2 location3
@@ -30,6 +30,7 @@ ActiveAdmin.register Family do
   filter :address1
   filter :address2
   filter :city
+  filter :county
   filter :state
   filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
