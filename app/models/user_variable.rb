@@ -4,17 +4,14 @@ class UserVariable < ApplicationRecord
   validates :code, :short_name, :value_type, :value, presence: true
   validates :code, :short_name, uniqueness: true
 
-  after_commit { |user_variable| user_variable.class.clear_cache }
-
   class << self
     def get(short_name)
-      cache[short_name] ||=
-        find_by(short_name: short_name)&.value.tap do |val|
-          if val.nil?
-            raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
-                                        short_name, keys)
-          end
+      find_by(short_name: short_name)&.value.tap do |val|
+        if val.nil?
+          raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
+                                      short_name, keys)
         end
+      end
     end
     alias [] get
 
@@ -29,15 +26,6 @@ class UserVariable < ApplicationRecord
 
     def keys
       pluck(:short_name).map(&:to_sym)
-    end
-
-    def cache
-      @@variables ||= {}
-      @@variables
-    end
-
-    def clear_cache
-      @@variables = nil
     end
   end
 
