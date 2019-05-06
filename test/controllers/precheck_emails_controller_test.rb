@@ -1,11 +1,14 @@
 require 'test_helper'
 
+require_relative '../../db/user_variables'
+
 class PrecheckEmailsControllerTest < ControllerTestCase
   include ActionMailer::TestHelper
 
   stub_user_variable conference_id: 'MyConfName',
                      support_email: 'support@example.org',
-                     conference_logo_url: 'https://www.logo.com'
+                     conference_logo_url: 'https://www.logo.com',
+                     mail_interceptor_email_addresses: ['test@test.com']
 
   test 'new action without an auth param gets error page' do
     get :new

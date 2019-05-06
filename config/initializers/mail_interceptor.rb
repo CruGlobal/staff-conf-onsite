@@ -25,7 +25,7 @@ class MailInterceptor
     end
 
     def force_interception?
-      Rails.env.staging?
+      !Rails.env.production?
     end
 
     def intercept?

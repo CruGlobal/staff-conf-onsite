@@ -33,20 +33,24 @@ class MailInterceptorTest < MailTestCase
   end
 
   test 'no variables set' do
-    UserVariable.find_by(short_name: :mail_interceptor_email_addresses).delete
-    UserVariable.find_by(short_name: :mail_bcc_email_addresses).delete
+    MailInterceptor.stub :force_interception?, false do
+      UserVariable.find_by(short_name: :mail_interceptor_email_addresses).delete
+      UserVariable.find_by(short_name: :mail_bcc_email_addresses).delete
 
-    email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
-    assert_equal ['to@example.com'], email.to
-    assert_equal ['copy@example.com'], email.cc
-    assert_equal ['blind@example.com'], email.bcc
+      email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
+      assert_equal ['to@example.com'], email.to
+      assert_equal ['copy@example.com'], email.cc
+      assert_equal ['blind@example.com'], email.bcc
+    end
   end
 
   test 'no interceptor set, but bcc email addresses are set' do
-    UserVariable.find_by(short_name: :mail_interceptor_email_addresses).delete
+    MailInterceptor.stub :force_interception?, false do
+      UserVariable.find_by(short_name: :mail_interceptor_email_addresses).delete
 
-    email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
-    assert_equal ['blind@example.com', 'blind_copy_one@example.com', 'blind_copy_two@example.com'], email.bcc
+      email = TestMailer.test(to: 'to@example.com', cc: 'copy@example.com', bcc: 'blind@example.com').deliver_now
+      assert_equal ['blind@example.com', 'blind_copy_one@example.com', 'blind_copy_two@example.com'], email.bcc
+    end
   end
 
   test 'force intercepting, without variables set' do
