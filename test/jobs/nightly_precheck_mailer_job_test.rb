@@ -10,7 +10,7 @@ class NightlyPrecheckMailerJobTest < JobTestCase
   test 'queues the expected mail' do
     PrecheckEligibilityService.stubs(:new).returns(stub(call: true))
     NightlyPrecheckMailerJob.new.perform
-    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { '_aj_globalid' => "gid://cru-conference/Family/#{@pending_family.id}" }], enqueued_jobs.last[:args]
+    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { '_aj_globalid' => "gid://cru-conference/Family/#{@pending_family.id}" }, nil], enqueued_jobs.last[:args]
   end
 
   test 'only mail families in the pending approval state' do
