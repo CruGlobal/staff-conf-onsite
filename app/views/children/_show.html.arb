@@ -3,6 +3,7 @@ context.instance_exec do
     column do
       attributes_table do
         row :first_name
+        row :middle_name
         row :last_name
         row :name_tag_first_name
         row :name_tag_last_name
