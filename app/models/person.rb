@@ -74,8 +74,10 @@ class Person < ApplicationRecord
   validates :gender, inclusion: { in: GENDERS.keys.map(&:to_s) }
   validates_associated :stays
 
-  def full_name
-    [first_name, middle_name, last_name].compact.join(' ')
+  def full_name(skip_middle: false)
+    name_parts = [first_name, last_name]
+    name_parts.insert(1, middle_name) unless skip_middle
+    name_parts.select(&:present?).compact.join(' ')
   end
 
   def audit_name

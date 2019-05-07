@@ -22,7 +22,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def call
     raise SendEnvelopeError, 'Valid envelope already exists for child' if valid_envelope_exists?
 
-    payload = build_payload(recipient.full_name, recipient.email)
+    payload = build_payload(recipient.full_name(skip_middle: true), recipient.email)
     result = Docusign::CreateEnvelopeFromTemplate.new(payload).call
 
     if result && result['envelopeId']
@@ -72,7 +72,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       without_commas(child.last_name),
       without_commas(child.first_name),
-      grade_level_label(child),
+      grade_level_label(child, shorten: shorten),
       child.arrived_at&.strftime('%m/%d/%Y')
     ].join(', ')
   end
@@ -129,7 +129,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       {
         label: '\\*ChildFullName',
-        value: child.full_name
+        value: child.full_name(skip_middle: true)
       },
       {
         label: '\\*Birthdate',
@@ -169,7 +169,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*Parent1FullName',
-        value: recipient.full_name
+        value: recipient.full_name(skip_middle: true)
       },
       {
         label: '\\*Parent1Mobile',
@@ -177,7 +177,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*Parent2FullName',
-        value: recipient&.spouse&.full_name
+        value: recipient&.spouse&.full_name(skip_middle: true)
       },
       {
         label: '\\*Parent2Mobile',
