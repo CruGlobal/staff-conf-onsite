@@ -137,7 +137,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*Age',
-        value: age(child).to_s
+        value: calculate_age(child.birthdate).to_s
       },
       {
         label: '\\*AgeGroup',
@@ -820,6 +820,14 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     ]
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def calculate_age(birthdate)
+    return if birthdate.blank?
+
+    age = Time.zone.today.year - birthdate.year
+    age -= 1 if Time.zone.today < birthdate + age.years
+    age
+  end
 
   def get_full_address(family)
     address = ''
