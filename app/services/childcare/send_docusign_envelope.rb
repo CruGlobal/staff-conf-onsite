@@ -63,15 +63,22 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def build_docusign_email_block
     {
-      subject: "Cru19 Authorization and Consent Packet for #{child_name_grade_and_arrival_date}",
+      subject: "#{UserVariable[:conference_id]} Authorization and Consent Packet for #{child_name_grade_and_arrival_date}",
       body: note
     }
   end
 
   def child_name_grade_and_arrival_date
-    grade = child.grade_level
-    grade_translated = grade ? grade_level_label(child) : ''
-    "#{child.last_name}, #{child.first_name}, #{grade_translated}, #{child.arrived_at&.strftime('%m/%d/%Y')}"
+    [
+      without_commas(child.last_name),
+      without_commas(child.first_name),
+      grade_level_label(child),
+      child.arrived_at&.strftime('%m/%d/%Y')
+    ].join(', ')
+  end
+
+  def without_commas(string)
+    string.delete(',')
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
@@ -95,6 +102,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def childcare_no_misc_health?
+    return true if child&.childcare_medical_history&.health_misc.blank?
+
     child&.childcare_medical_history&.health_misc == ['None of the above']
   end
 
@@ -103,6 +112,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def senior_no_misc_health?
+    return true if child&.cru_student_medical_history&.cs_health_misc.blank?
+
     child&.cru_student_medical_history&.cs_health_misc == ['None of the above']
   end
 
@@ -122,15 +133,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*Birthdate',
-        value: child.birthdate.to_s
+        value: child.birthdate&.strftime('%m/%d/%Y').to_s
       },
       {
         label: '\\*Age',
-        value: calculate_age(child.birthdate).to_s
+        value: age(child).to_s
       },
       {
         label: '\\*AgeGroup',
-        value: child.age_group
+        value: grade_level_label(child).to_s
       },
       {
         label: 'ChildPreferredFullName',
@@ -810,12 +821,6 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def calculate_age(birthdate)
-    age = Time.zone.today.year - birthdate.year
-    age -= 1 if Time.zone.today < birthdate + age.years
-    age
-  end
-
   def get_full_address(family)
     address = ''
     address += family.address2 if family.address2
@@ -840,6 +845,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def check_if_in_list(existing_conditions, condition)
+    return '' if existing_conditions.blank?
+
     existing_conditions.include?(condition) ? 'X' : ''
   end
 
