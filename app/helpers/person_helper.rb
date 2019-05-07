@@ -102,14 +102,16 @@ module PersonHelper
   # @param obj [Person, String] either a {Person} or the value of that person's
   #   +grade_level+ attribute
   # @return [String] a description of the person's grade level.
-  def grade_level_label(obj)
+  def grade_level_label(obj, shorten: false)
     case obj
     when Person
       grade_level_label(obj.grade_level)
     when nil
       nil
     else
-      I18n.t("#{I18N_CHILD_PREFIX}.grade_levels.#{obj}")
+      key_parts = [I18N_CHILD_PREFIX, 'grade_levels', obj]
+      key_parts[1] = 'grade_levels_shortened' if shorten
+      I18n.t(key_parts.join('.'))
     end
   end
 
