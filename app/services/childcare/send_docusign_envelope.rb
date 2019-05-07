@@ -72,7 +72,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       without_commas(child.last_name),
       without_commas(child.first_name),
-      grade_level_label(child, shorten: shorten),
+      grade_level_label(child, shorten: true),
       child.arrived_at&.strftime('%m/%d/%Y')
     ].join(', ')
   end
