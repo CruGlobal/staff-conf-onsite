@@ -7,6 +7,8 @@ class PrecheckEmailsController < ApplicationController
     render 'error' and return unless @token
 
     @family = @token.family
+    @finances = FamilyFinances::Report.call(family: @family)
+    @policy = Pundit.policy(User.find_by(role: 'finance'), @family)
   end
 
   def confirm
