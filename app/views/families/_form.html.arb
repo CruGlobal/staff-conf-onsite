@@ -19,6 +19,11 @@ context.instance_exec do
       include_blank: false
     input :zip
   end
+
+  inputs 'Precheck' do
+    input :precheck_status, as: :select, include_blank: false, collection: self.object.class.precheck_statuses.keys
+  end
+
   render 'families/form/housing_preference', form: self
 
   inputs 'Car Info' do

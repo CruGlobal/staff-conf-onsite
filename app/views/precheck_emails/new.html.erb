@@ -1,26 +1,15 @@
 <div class='precheck-container'>
   <%= image_tag(UserVariable[:conference_logo_url]) %>
-
-  <h1 class="greeting">Hello <%= @family.last_name %> family!</h1>
-
-  <p>If your personal details and your conference cost breakdown are correct, please click below to confirm your precheck.</p>
-
-  <%= render 'families/family_summary', family: @family, finances: @finances, policy: @policy %>
-
-  <%= button_to "Confirm Precheck", precheck_email_confirm_path(auth_token: @token), class: "btn btn-confirm", data: { confirm: "Are you sure you reviewed your details and want to confirm your precheck?", disable_with: "Confirming" } %>
-
-  <br>
   <br>
 
-  <p>Otherwise, if you would like to request a change or if there is a mistake on your profile or the charges, please add a message below and click the Request Changes button to notify us.</p>
+  <h1 class="greeting"><%= t('.greeting', last_name: @family.last_name) %></h1>
+  <br>
 
-  <%= form_tag precheck_email_reject_path(auth_token: @token) do %>
-    <%= text_area_tag(:message,'',rows: 10, placeholder: "Include your change request or message on this box") %>
-    <br>
-    <%= submit_tag("Request Changes", class: "btn btn-cancel", data: { confirm: "Are you sure you want to request changes?", disable_with: "Processing" }) %>
+  <% if @family.pending_approval? %>
+    <%= render 'pending_approval', family: @family, token: @token, finances: @finances, policy: @policy %>
+  <% elsif @family.changes_requested? %>
+    <%= render 'changes_requested', family: @family, finances: @finances, policy: @policy %>
   <% end %>
 
   <br>
-  <br>
-
 </div>

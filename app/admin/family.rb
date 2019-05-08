@@ -12,7 +12,7 @@ ActiveAdmin.register Family do
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :county,
                 :state, :zip, :country_code, :primary_person_id, :license_plates,
-                :handicap, housing_preference_attributes: %i[
+                :handicap, :precheck_status, housing_preference_attributes: %i[
                   id housing_type roommates beds_count single_room
                   children_count bedrooms_count other_family
                   accepts_non_air_conditioned location1 location2 location3
