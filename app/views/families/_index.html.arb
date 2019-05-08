@@ -15,6 +15,7 @@ context.instance_exec do
 
   column :address1
   column :city
+  column :county
   column :state
   column(:country_code) { |f| country_name(f.country_code) }
   column :zip

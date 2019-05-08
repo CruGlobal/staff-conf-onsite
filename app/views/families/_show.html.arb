@@ -12,6 +12,7 @@ context.instance_exec do
         row :address1
         row :address2
         row :city
+        row :county
         row :state
         row(:country_code) { |f| country_name(f.country_code) }
         row :zip

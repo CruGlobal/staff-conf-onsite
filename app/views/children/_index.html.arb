@@ -4,6 +4,7 @@ context.instance_exec do
     selectable_column if policy.bulk_edit?
 
     column :first_name
+    column :middle_name
     column :last_name
     column(:family) { |c| link_to family_label(c.family), family_path(c.family) }
     column(:gender) { |c| gender_name(c.gender) }
