@@ -14,10 +14,10 @@ class PrecheckEmailsController < ApplicationController
     render 'error' and return unless @token
 
     @family = @token.family
+
     # TODO: Mark as pre checked complete
-    if PrecheckMailer.precheck_completed(@family).deliver_now
-      @token.delete
-    end
+    PrecheckMailer.precheck_completed(@family).deliver_now
+
     redirect_to precheck_email_confirmed_path
   end
 
@@ -29,9 +29,8 @@ class PrecheckEmailsController < ApplicationController
     family = @token.family
     message = params['message']
 
-    if PrecheckMailer.changes_requested(family, message).deliver_now
-      @token.delete
-    end
+    PrecheckMailer.changes_requested(family, message).deliver_now
+
     redirect_to precheck_email_rejected_path
   end
 
@@ -40,7 +39,7 @@ class PrecheckEmailsController < ApplicationController
   private
 
   def find_token
-    return unless params['auth_token']
+    return if params['auth_token'].blank?
 
     @token = PrecheckEmailToken.where(token: params['auth_token']).first
   end

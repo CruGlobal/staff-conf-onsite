@@ -41,14 +41,14 @@ class PrecheckMailerTest < MailTestCase
     end
   end
 
-  test '#confirm_charges with an existing token overwites it with a new one' do
+  test '#confirm_charges with an existing token uses the existing token' do
     @family.save
     existing_token = create(:precheck_email_token, family: @family)
 
     assert_no_difference('PrecheckEmailToken.count') do
       email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
 
-      assert_no_match existing_token.token, email.body.to_s
+      assert_match existing_token.token, email.body.to_s
     end
   end
 end
