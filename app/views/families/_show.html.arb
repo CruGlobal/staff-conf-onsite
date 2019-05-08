@@ -16,10 +16,15 @@ context.instance_exec do
         row :state
         row(:country_code) { |f| country_name(f.country_code) }
         row :zip
-        row :precheck_status
 
         row :created_at
         row :updated_at
+      end
+
+      panel 'Precheck' do
+        attributes_table_for family do
+          row :precheck_status
+        end
       end
 
       render 'families/show/housing_preference', context: self
