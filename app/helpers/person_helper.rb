@@ -28,7 +28,7 @@ module PersonHelper
     dob_age = age(dob)
 
     Arbre::Context.new(title: cutoff_title, age: dob_age) do
-      span(title: "As of #{cutoff_title}") { age }
+      span(title: cutoff_title) { age }
     end
   end
 
