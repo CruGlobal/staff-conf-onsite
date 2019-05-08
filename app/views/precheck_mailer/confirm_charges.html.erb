@@ -1,7 +1,8 @@
 <%= image_tag(UserVariable[:conference_logo_url]) %>
 
-<h3>Confirm the following data</h3>
+<br>
+<br>
 
-<%= render 'families/family_summary', family: @family, finances: @finances, policy: @policy, from_email: @from_email %>
+<h3>Conference Precheck</h3>
 
 <%= link_to 'Confirm Precheck or Request Changes', precheck_email_url(auth_token: @token.token) %>
