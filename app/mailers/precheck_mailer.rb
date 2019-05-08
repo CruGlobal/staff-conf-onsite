@@ -4,15 +4,13 @@ class PrecheckMailer < ApplicationMailer
     mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Completed")
   end
 
-  def confirm_charges(family, finance_user)
-    @token = find_token(family)
+  def confirm_charges(family)
     @family = family
+    @token = find_token(family)
     @finances = FamilyFinances::Report.call(family: family)
-    @from_email = true
-    finance_user = User.find_by(role: 'finance') if finance_user.blank?
-    @policy = Pundit.policy(finance_user, family)
-    email = family.attendees.pluck(:email).select(&:present?).compact
-    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Confirmation Email")
+    @policy = Pundit.policy(User.find_by(role: 'finance'), family)
+    to_email = family.attendees.pluck(:email).select(&:present?).compact
+    mail(to: to_email, subject: "#{UserVariable[:conference_id]} - Precheck Confirmation Email")
   end
 
   def changes_requested(family, message)
@@ -25,6 +23,6 @@ class PrecheckMailer < ApplicationMailer
   private
 
   def find_token(family)
-    family.precheck_email_token || family.create_precheck_email_token
+    family.precheck_email_token || family.create_precheck_email_token!
   end
 end
