@@ -1,12 +1,6 @@
 class PrecheckMailer < ApplicationMailer
-  DEFAULT_EMAIL = 'josh.starcher@cru.org'.freeze
-
   def precheck_completed(family)
-    email = if Rails.env.production?
-              family.attendees.pluck(:email).select(&:present?).compact
-            else
-              DEFAULT_EMAIL
-            end
+    email = family.attendees.pluck(:email).select(&:present?).compact
     mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Completed")
   end
 
@@ -17,11 +11,7 @@ class PrecheckMailer < ApplicationMailer
     @from_email = true
     finance_user = User.find_by(role: 'finance') if finance_user.blank?
     @policy = Pundit.policy(finance_user, family)
-    email = if Rails.env.production?
-              family.attendees.pluck(:email).select(&:present?).compact
-            else
-              DEFAULT_EMAIL
-            end
+    email = family.attendees.pluck(:email).select(&:present?).compact
     mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Confirmation Email")
   end
 
