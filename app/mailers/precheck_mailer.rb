@@ -5,7 +5,7 @@ class PrecheckMailer < ApplicationMailer
   end
 
   def confirm_charges(family, finance_user)
-    @token = create_or_refresh_token(family)
+    @token = find_token(family)
     @family = family
     @finances = FamilyFinances::Report.call(family: family)
     @from_email = true
@@ -24,10 +24,7 @@ class PrecheckMailer < ApplicationMailer
 
   private
 
-  def create_or_refresh_token(family)
-    if family.precheck_email_token.present?
-      family.precheck_email_token.delete
-    end
-    family.create_precheck_email_token
+  def find_token(family)
+    family.precheck_email_token || family.create_precheck_email_token
   end
 end
