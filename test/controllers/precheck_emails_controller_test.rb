@@ -46,11 +46,13 @@ class PrecheckEmailsControllerTest < ControllerTestCase
   test 'reject action with a valid token sends change request email' do
     token = create(:precheck_email_token)
 
+    assert_equal token.family.reload.precheck_status, 'pending_approval'
     assert_no_difference('PrecheckEmailToken.count') do
       assert_emails 1 do
         post :reject, auth_token: token.token, message: "My name is misspelled"
       end
     end
+    assert_equal token.family.reload.precheck_status, 'changes_requested'
 
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
@@ -73,11 +75,13 @@ class PrecheckEmailsControllerTest < ControllerTestCase
   test 'confirm action with a valid token checks in family, sends precheck confirmed email' do
     token = create(:precheck_email_token)
 
+    assert_equal token.family.reload.precheck_status, 'pending_approval'
     assert_no_difference('PrecheckEmailToken.count') do
       assert_emails 1 do
         post :confirm, auth_token: token.token
       end
     end
+    assert_equal token.family.reload.precheck_status, 'approved'
 
     assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
