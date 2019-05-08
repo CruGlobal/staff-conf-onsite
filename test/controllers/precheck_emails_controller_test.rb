@@ -43,10 +43,10 @@ class PrecheckEmailsControllerTest < ControllerTestCase
     assert_template :error
   end
 
-  test 'reject action with a valid token sends change request email and deletes token' do
+  test 'reject action with a valid token sends change request email' do
     token = create(:precheck_email_token)
 
-    assert_difference('PrecheckEmailToken.count', -1) do
+    assert_no_difference('PrecheckEmailToken.count') do
       assert_emails 1 do
         post :reject, auth_token: token.token, message: "My name is misspelled"
       end
@@ -70,10 +70,10 @@ class PrecheckEmailsControllerTest < ControllerTestCase
     assert_template :error
   end
 
-  test 'confirm action with a valid token checks in family, sends precheck confirmed email and deletes token' do
+  test 'confirm action with a valid token checks in family, sends precheck confirmed email' do
     token = create(:precheck_email_token)
 
-    assert_difference('PrecheckEmailToken.count', -1) do
+    assert_no_difference('PrecheckEmailToken.count') do
       assert_emails 1 do
         post :confirm, auth_token: token.token
       end
