@@ -8,7 +8,7 @@ class PrecheckEmailsController < ApplicationController
 
     @family = @token.family
     @finances = FamilyFinances::Report.call(family: @family)
-    @policy = Pundit.policy(User.find_by(role: 'finance'), @family)
+    @policy = build_policy
   end
 
   def confirm
@@ -16,7 +16,7 @@ class PrecheckEmailsController < ApplicationController
 
     @family = @token.family
 
-    # TODO: Mark as pre checked complete
+    @family.update!(precheck_status: :approved)
     PrecheckMailer.precheck_completed(@family).deliver_now
 
     redirect_to precheck_email_confirmed_path
@@ -28,9 +28,9 @@ class PrecheckEmailsController < ApplicationController
     render 'error' and return unless @token
 
     family = @token.family
-    message = params['message']
 
-    PrecheckMailer.changes_requested(family, message).deliver_now
+    family.update!(precheck_status: :changes_requested)
+    PrecheckMailer.changes_requested(family, params['message']).deliver_now
 
     redirect_to precheck_email_rejected_path
   end
@@ -43,5 +43,9 @@ class PrecheckEmailsController < ApplicationController
     return if params['auth_token'].blank?
 
     @token = PrecheckEmailToken.where(token: params['auth_token']).first
+  end
+
+  def build_policy
+    Pundit.policy(User.new(role: 'finance'), @family)
   end
 end
