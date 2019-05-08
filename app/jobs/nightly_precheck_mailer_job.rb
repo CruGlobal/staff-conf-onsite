@@ -5,7 +5,7 @@ class NightlyPrecheckMailerJob < ApplicationJob
     families_scope.find_each do |family|
       next unless precheck_eligible? family
 
-      PrecheckMailer.confirm_charges(family, nil).deliver_later
+      PrecheckMailer.confirm_charges(family).deliver_later
     end
   end
 

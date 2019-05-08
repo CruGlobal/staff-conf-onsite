@@ -1,4 +1,4 @@
 # vim:ft=ruby:
-render 'family_summary', finances: finances, family: family
+render 'family_summary', finances: finances, family: family, highlight_missing_data: true
 
 render 'family_summary_form', finances: finances, family: family

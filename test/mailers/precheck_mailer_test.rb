@@ -5,7 +5,6 @@ require_relative '../../db/user_variables'
 class PrecheckMailerTest < MailTestCase
   setup do
     SeedUserVariables.new.call
-    @finance_user = create(:finance_user)
     @family = create(:family_with_members)
   end
 
@@ -31,7 +30,7 @@ class PrecheckMailerTest < MailTestCase
   test '#confirm_charges creates a auth token for the family' do
     @family.save
     assert_difference('PrecheckEmailToken.count', +1) do
-      email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
+      email = PrecheckMailer.confirm_charges(@family).deliver_now
 
       assert_not ActionMailer::Base.deliveries.empty?
 
@@ -46,7 +45,7 @@ class PrecheckMailerTest < MailTestCase
     existing_token = create(:precheck_email_token, family: @family)
 
     assert_no_difference('PrecheckEmailToken.count') do
-      email = PrecheckMailer.confirm_charges(@family, @finance_user).deliver_now
+      email = PrecheckMailer.confirm_charges(@family).deliver_now
 
       assert_match existing_token.token, email.body.to_s
     end
