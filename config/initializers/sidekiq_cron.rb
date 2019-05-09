@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
+nightly_cron_schedule = '0 1 * * *'
+
 cron_jobs_hash = ActiveSupport::HashWithIndifferentAccess.new(
   production: {
   },
 
   staging: {
+    'Nightly Precheck Mailer' => {
+      class: NightlyPrecheckMailerJob.name,
+      cron:  nightly_cron_schedule
+    }
   }
 )
 

@@ -1,13 +1,12 @@
 require 'test_helper'
 
-class PrecheckMailerTest < MailTestCase
-  stub_user_variable conference_id: 'MyConfName',
-                     support_email: 'support@example.org',
-                     conference_logo_url: 'https://www.logo.com'
+require_relative '../../db/user_variables'
 
+class PrecheckMailerTest < MailTestCase
   setup do
+    SeedUserVariables.new.call
     @finance_user = create(:finance_user)
-    @family = build(:family)
+    @family = create(:family_with_members)
   end
 
   test '#precheck_completed' do
@@ -15,8 +14,8 @@ class PrecheckMailerTest < MailTestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['josh.starcher@cru.org'], email.to
-    assert_equal 'MyConfName - Precheck Completed', email.subject
+    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal 'Cru17 - Precheck Completed', email.subject
   end
 
   test '#changes_requested' do
@@ -24,8 +23,8 @@ class PrecheckMailerTest < MailTestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['support@example.org'], email.to
-    assert_equal 'MyConfName - Precheck Modification Request', email.subject
+    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal 'Cru17 - Precheck Modification Request', email.subject
     assert_match "<p>my name was mispelled</p>", email.body.to_s
   end
 
@@ -37,8 +36,8 @@ class PrecheckMailerTest < MailTestCase
       assert_not ActionMailer::Base.deliveries.empty?
 
       assert_equal ['no-reply@cru.org'], email.from
-      assert_equal ['josh.starcher@cru.org'], email.to
-      assert_equal 'MyConfName - Precheck Confirmation Email', email.subject
+      assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+      assert_equal 'Cru17 - Precheck Confirmation Email', email.subject
     end
   end
 
