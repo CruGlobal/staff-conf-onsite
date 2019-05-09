@@ -3,7 +3,7 @@
 
 <%= render 'families/family_summary', family: family, finances: finances, policy: policy %>
 
-<%= button_to t('.confirm_precheck'), precheck_email_confirm_path(auth_token: token), class: 'btn btn-confirm',
+<%= button_to t('.confirm_precheck'), precheck_confirmation_path(token: token), class: 'btn btn-confirm',
               data: { confirm: t('.confirm_precheck_confirm'), disable_with: '...' } %>
 <br>
 
@@ -12,7 +12,7 @@
 <p><%= t('.request_changes_preamble') %></p>
 <br>
 
-<%= form_tag precheck_email_reject_path(auth_token: token) do %>
+<%= form_tag precheck_rejection_path(token: token) do %>
   <%= text_area_tag(:message, '', rows: 10, placeholder: t('.request_changes_placeholder')) %>
   <br>
   <%= submit_tag(t('.request_changes'), class: 'btn btn-cancel', data: { confirm: t('.request_changes_confirm'), disable_with: '...' }) %>
