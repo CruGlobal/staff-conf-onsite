@@ -267,7 +267,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Immunizations',
-        value: checkmark(mh.immunizations.join)
+        value: checkmark(mh.immunizations&.join)
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay',
@@ -861,25 +861,25 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def checkmark(attribute)
     return '' if attribute.blank?
 
-    attribute == 'Yes' ? 'X' : ''
+    attribute.casecmp('yes').zero? ? 'X' : ''
   end
 
   def checkmark_false(attribute)
     return '' if attribute.blank?
 
-    attribute == 'No' ? 'X' : ''
+    attribute.casecmp('no').zero? ? 'X' : ''
   end
 
   def checkmark_if_yes_present(attribute)
     return '' if attribute.blank?
 
-    attribute.include?('YES') ? 'X' : ''
+    attribute.map(&:downcase).include?('yes') ? 'X' : ''
   end
 
   def checkmark_if_no_present(attribute)
     return '' if attribute.blank?
 
-    attribute.include?('NO') ? 'X' : ''
+    attribute.map(&:downcase).include?('no') ? 'X' : ''
   end
 end
 # rubocop:enable Metrics/ClassLength
