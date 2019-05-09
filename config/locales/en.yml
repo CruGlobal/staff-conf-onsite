@@ -324,9 +324,21 @@ en:
       call_to_action: "To add new records, please use the menu at the top of the page."
       updated: "Recently Updated"
 
+  layouts:
+    application:
+      title: "CruConference"
+    precheck:
+      title: "CruConference Precheck"
+      precheck: "Precheck"
+
   precheck_emails:
     new:
       greeting: "Hello %{last_name} family!"
+    not_precheck_eligible:
+      not_precheck_eligible_preamble: 'You are not eligible for precheck.'
+      placeholder: 'Include your request here'
+      confirm: 'Are you sure?'
+      submit: 'Submit'
     pending_approval:
       confirm_precheck: "Confirm Precheck"
       confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your precheck?"
