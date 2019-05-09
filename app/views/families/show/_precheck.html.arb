@@ -12,7 +12,7 @@ context.instance_exec do
       row('Precheck Page') do |family|
         family.precheck_email_token || family.create_precheck_email_token!
         link_to "Open #{family.last_name} family's precheck page",
-                precheck_email_path(auth_token: family.precheck_email_token.token),
+                precheck_status_path(token: family.precheck_email_token.token),
                 target: '_blank'
       end
     end

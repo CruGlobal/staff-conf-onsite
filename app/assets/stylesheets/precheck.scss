@@ -4,7 +4,7 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 
   /* For devices larger than 400px */
   @media (min-width: 400px) {
@@ -27,7 +27,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 2rem;
-    width: 200px    
+    width: 200px
   }
 
   .greeting {
@@ -83,7 +83,6 @@
 
   .error-title {
     margin-top: 40px;
-    text-decoration: underline;
   }
 }
 
