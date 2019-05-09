@@ -1,0 +1,7 @@
+<% if family.pending_approval? %>
+  <%= render 'pending_approval', family: family, token: token, finances: finances, policy: policy %>
+<% elsif family.changes_requested? %>
+  <%= render 'changes_requested', family: family, finances: finances, policy: policy %>
+<% elsif family.approved? %>
+  <%= render 'approved', family: family, finances: finances, policy: policy %>
+<% end %>
