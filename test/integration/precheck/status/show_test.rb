@@ -1,8 +1,8 @@
 require 'test_helper'
 
-require_relative '../../../db/user_variables'
+require_relative '../../../../db/user_variables'
 
-class PrecheckEmailsController::NewTest < IntegrationTest
+class Precheck::StatusController::ShowTest < IntegrationTest
   before do
     SeedUserVariables.new.call
 
@@ -16,23 +16,23 @@ class PrecheckEmailsController::NewTest < IntegrationTest
     create(:chargeable_staff_number, family: @eligible_family)
   end
 
-  test '#new invalid token' do
-    visit precheck_email_path(auth_token: 'invalid-token')
+  test '#show invalid token' do
+    visit precheck_status_path(token: 'invalid-token')
     assert_text 'There was an error with your request'
   end
 
-  test '#new' do
-    visit precheck_email_path(auth_token: @eligible_family.precheck_email_token.token)
+  test '#show' do
+    visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text "Hello #{@eligible_family.last_name} family!"
   end
 
-  test '#new as not eligible family' do
-    visit precheck_email_path(auth_token: @not_eligible_family.precheck_email_token.token)
+  test '#show as not eligible family' do
+    visit precheck_status_path(token: @not_eligible_family.precheck_email_token.token)
     assert_text 'You are not eligible for precheck'
   end
 
-  test '#new as not eligible family submits message' do
-    visit precheck_email_path(auth_token: @not_eligible_family.precheck_email_token.token)
+  test '#show as not eligible family submits message' do
+    visit precheck_status_path(token: @not_eligible_family.precheck_email_token.token)
 
     within('form') do
       fill_in 'message', with: 'Testing message.'
@@ -44,15 +44,15 @@ class PrecheckEmailsController::NewTest < IntegrationTest
     assert_text 'The conference team have been notified'
   end
 
-  test '#new as eligible family pending approval' do
+  test '#show as eligible family pending approval' do
     @eligible_family.update!(precheck_status: :pending_approval)
-    visit precheck_email_path(auth_token: @eligible_family.precheck_email_token.token)
+    visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text 'please click below to confirm your precheck'
   end
 
-  test '#new as eligible family with changes requested' do
+  test '#show as eligible family with changes requested' do
     @eligible_family.update!(precheck_status: :changes_requested)
-    visit precheck_email_path(auth_token: @eligible_family.precheck_email_token.token)
+    visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text 'your registration is undergoing review by our support team'
   end
 end

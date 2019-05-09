@@ -4,8 +4,13 @@ panel 'Vehicle Information', class: 'hide-on-email' do
     tbody do
       tr { th 'License Plate(s)', colspan: 2, class: 'finances-table__title' }
       tr do
-        td a(family.license_plates.present? ? family.license_plates : 'Click here to add license plate info',
-          href: edit_family_url(family), target: '_blank')
+        if family.license_plates.present?
+          td family.license_plates
+        elsif highlight_missing_data
+          td a('Click here to add license plate info', href: edit_family_url(family), target: '_blank')
+        else
+          td { em 'None...' }
+        end
       end
       tr { th 'Handicap Parking', colspan: 2, class: 'finances-table__title' }
       tr do
