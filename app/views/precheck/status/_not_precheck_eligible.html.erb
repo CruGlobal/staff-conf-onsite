@@ -1,0 +1,12 @@
+<p><%= t('.not_precheck_eligible_preamble') %></p>
+<br>
+
+<p>[More details about why the family is not precheck eligible will be inserted here]</p>
+<br>
+
+<%= form_tag precheck_rejection_path(token: token) do %>
+  <%= text_area_tag(:message, '', rows: 10, placeholder: t('.placeholder')) %>
+  <br>
+  <%= submit_tag(t('.submit'), class: 'btn btn-cancel', data: { confirm: t('.confirm'), disable_with: '...' }) %>
+<% end %>
+<br>

@@ -1,0 +1,20 @@
+context.instance_exec do
+  panel 'Precheck' do
+    attributes_table_for family do
+      row(:precheck_eligible?) { |family| precheck_eligible?(family) }
+
+      row(:precheck_status) do |family|
+        status_tag precheck_status_label(family)
+      end
+
+      row(:precheck_status_changed_at)
+
+      row('Precheck Page') do |family|
+        family.precheck_email_token || family.create_precheck_email_token!
+        link_to "Open #{family.last_name} family's precheck page",
+                precheck_status_path(token: family.precheck_email_token.token),
+                target: '_blank'
+      end
+    end
+  end
+end

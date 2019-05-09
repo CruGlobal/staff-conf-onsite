@@ -1,0 +1,10 @@
+<h2 class="greeting"><%= t('.greeting', last_name: @family.last_name) %></h2>
+<br>
+
+<% if precheck_eligible?(@family) %>
+  <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
+<% else %>
+  <%= render 'not_precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
+<% end %>
+
+<br>
