@@ -70,18 +70,30 @@ ActiveAdmin.register Child do
     note = params[:message].presence
     recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
 
-    Docusign::SendChildcareEnvelopeJob.perform_later(child, note, recipient: recipient)
-    redirect_to resource_path(params[:id]), notice: 'DocuSign envelope successfully queued for delivery'
+    begin
+      Childcare::SendDocusignEnvelope.new(child, note, recipient: recipient).call
+    rescue Childcare::SendDocusignEnvelope::SendEnvelopeError
+      notice = 'DocuSign envelope not sent because a valid envelope already exists'
+    else
+      notice = 'DocuSign envelope successfully queued for delivery'
+    end
+
+    redirect_to resource_path(params[:id]), notice: notice
   end
 
   member_action :void_docusign, method: :post do
     child = Child.find(params[:id])
     envelope = child.childcare_envelopes.last
-    Docusign::VoidChildcareEnvelopeJob.perform_later(envelope)
 
-    redirect_to resource_path(params[:id]),
-    notice: 'DocuSign envelope void request successfully queued! This
-             may take a couple of seconds. Please refresh page to update status'
+    begin
+      Childcare::VoidDocusignEnvelope.new(envelope).call
+    rescue Childcare::VoidDocusignEnvelope::VoidEnvelopeError
+      notice = 'DocuSign envelope void request failed, the envelope is already voided, declined or completed'
+    else
+      notice = 'DocuSign envelope void request successfully queued'
+    end
+
+    redirect_to resource_path(params[:id]), notice: notice
   end
 
   member_action :create_new_docusign, method: :post do
@@ -92,7 +104,14 @@ ActiveAdmin.register Child do
     note = params[:message].presence
     recipient = params[:primary_parent] ? child.family.primary_person : child.family.primary_person&.spouse
 
-    Docusign::SendChildcareEnvelopeJob.perform_later(child, note, recipient: recipient)
-    redirect_to resource_path(params[:id]), notice: 'New DocuSign envelope successfully queued for delivery'
+    begin
+      Childcare::SendDocusignEnvelope.new(child, note, recipient: recipient).call
+    rescue Childcare::SendDocusignEnvelope::SendEnvelopeError
+      notice = 'DocuSign envelope not sent because a valid envelope already exists'
+    else
+      notice = 'DocuSign envelope successfully queued for delivery'
+    end
+
+    redirect_to resource_path(params[:id]), notice: notice
   end
 end
