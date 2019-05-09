@@ -861,25 +861,25 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def checkmark(attribute)
     return '' if attribute.blank?
 
-    attribute.casecmp('yes').zero? ? 'X' : ''
+    attribute == 'Yes' ? 'X' : ''
   end
 
   def checkmark_false(attribute)
     return '' if attribute.blank?
 
-    attribute.casecmp('no').zero? ? 'X' : ''
+    attribute == 'No' ? 'X' : ''
   end
 
   def checkmark_if_yes_present(attribute)
     return '' if attribute.blank?
 
-    attribute.map(&:downcase).include?('yes') ? 'X' : ''
+    attribute.include?('YES') ? 'X' : ''
   end
 
   def checkmark_if_no_present(attribute)
     return '' if attribute.blank?
 
-    attribute.map(&:downcase).include?('no') ? 'X' : ''
+    attribute.include?('NO') ? 'X' : ''
   end
 end
 # rubocop:enable Metrics/ClassLength
