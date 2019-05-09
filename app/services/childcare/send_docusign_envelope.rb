@@ -9,7 +9,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   CRUSTU_VIP_TEMPLATE     = 'd0dab3a9-3d3e-4d12-902d-9205639474ac'.freeze
   CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
   TEST_RECIPIENT          = 'Cru19KidsForms+DocuSignTesting@cru.org'.freeze
-  TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignTracking@cru.org'.freeze
+  TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignVoid@cru.org'.freeze
 
   attr_reader :recipient, :child, :note
 
