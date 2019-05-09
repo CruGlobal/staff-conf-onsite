@@ -28,21 +28,6 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     assert_equal true, service.call
   end
 
-  test 'not eligible if family precheck_status is approved' do
-    @eligible_family.update! precheck_status: :approved
-    assert_equal false, service.call
-  end
-
-  test 'not eligible if family precheck_status is changes_requested' do
-    @eligible_family.update! precheck_status: :changes_requested
-    assert_equal false, service.call
-  end
-
-  test 'not eligible if family precheck_status is nil' do
-    @eligible_family.update! precheck_status: nil
-    assert_equal false, service.call
-  end
-
   test 'not eligible if attendees do not have an arrival date' do
     @eligible_family.attendees.each { |attendee| attendee.update!(arrived_at: nil) }
     assert_equal false, service.call

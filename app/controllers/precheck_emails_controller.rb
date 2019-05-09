@@ -1,6 +1,6 @@
-# TODO: Mark as pre checked complete on confirm action
-
 class PrecheckEmailsController < ApplicationController
+  layout 'precheck'
+
   before_action :find_token, only: %i[new confirm reject]
 
   def new
