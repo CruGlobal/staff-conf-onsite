@@ -21,18 +21,13 @@ context.instance_exec do
         row :updated_at
       end
 
-      panel 'Precheck' do
-        attributes_table_for family do
-          row :precheck_status
-        end
-      end
-
       render 'families/show/housing_preference', context: self
     end
 
     column do
       render 'families/show/attendees', context: self
       render 'families/show/children', context: self
+      render 'families/show/precheck', context: self
     end
   end
 
