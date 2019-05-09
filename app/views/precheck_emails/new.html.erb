@@ -1,15 +1,10 @@
-<div class='precheck-container'>
-  <%= image_tag(UserVariable[:conference_logo_url]) %>
-  <br>
+<h2 class="greeting"><%= t('.greeting', last_name: @family.last_name) %></h2>
+<br>
 
-  <h1 class="greeting"><%= t('.greeting', last_name: @family.last_name) %></h1>
-  <br>
+<% if precheck_eligible?(@family) %>
+  <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
+<% else %>
+  <%= render 'not_precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
+<% end %>
 
-  <% if @family.pending_approval? %>
-    <%= render 'pending_approval', family: @family, token: @token, finances: @finances, policy: @policy %>
-  <% elsif @family.changes_requested? %>
-    <%= render 'changes_requested', family: @family, finances: @finances, policy: @policy %>
-  <% end %>
-
-  <br>
-</div>
+<br>
