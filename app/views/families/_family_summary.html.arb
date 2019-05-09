@@ -10,7 +10,7 @@ finances.children_reports.each do |report|
   render 'families/reports/child', report: report, highlight_missing_data: highlight_missing_data
 end
 
-render 'families/reports/vehicle_info', family: family
+render 'families/reports/vehicle_info', family: family, highlight_missing_data: highlight_missing_data
 
 if policy.show_finances?
   render 'cost_adjustments/table_panel', cost_adjustments: family.cost_adjustments

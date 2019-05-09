@@ -20,15 +20,15 @@ context.instance_exec do
     input :zip
   end
 
-  inputs 'Precheck' do
-    input :precheck_status, as: :select, include_blank: false, collection: precheck_statuses_select_collection
-  end
-
   render 'families/form/housing_preference', form: self
 
   inputs 'Car Info' do
     input :license_plates, label: 'License plate numbers (comma separated; omit the state)', placeholder: 'i.e LV2COOK, LV2EAT'
     input :handicap, label: 'Using Handicapped parking (hanging tag required)'
+  end
+
+  inputs 'Precheck' do
+    input :precheck_status, as: :select, include_blank: false, collection: precheck_statuses_select_collection
   end
 
   actions
