@@ -8,23 +8,14 @@ class PrecheckMailerTest < MailTestCase
     @family = create(:family_with_members)
   end
 
-  test '#precheck_completed' do
-    email = PrecheckMailer.precheck_completed(@family).deliver_now
-    assert_not ActionMailer::Base.deliveries.empty?
-
-    assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
-    assert_equal 'Cru17 - Precheck Completed', email.subject
-  end
-
   test '#changes_requested' do
     email = PrecheckMailer.changes_requested(@family, "my name was mispelled").deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
-    assert_equal 'Cru17 - Precheck Modification Request', email.subject
-    assert_match "<p>my name was mispelled</p>", email.body.to_s
+    assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
+    assert_match 'my name was mispelled', email.body.to_s
   end
 
   test '#confirm_charges creates a auth token for the family' do
@@ -36,7 +27,7 @@ class PrecheckMailerTest < MailTestCase
 
       assert_equal ['no-reply@cru.org'], email.from
       assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
-      assert_equal 'Cru17 - Precheck Confirmation Email', email.subject
+      assert_equal 'Cru17 - PreCheck Eligible', email.subject
     end
   end
 
@@ -49,5 +40,17 @@ class PrecheckMailerTest < MailTestCase
 
       assert_match existing_token.token, email.body.to_s
     end
+  end
+
+  test '#report_issues' do
+    PrecheckEligibilityService.stubs(:new).returns(stub(actionable_errors: [:children_forms_not_approved]))
+    email = PrecheckMailer.report_issues(@family).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+
+    assert_equal ['no-reply@cru.org'], email.from
+    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal 'Cru17 - PreCheck Issues', email.subject
+    assert_match 'children_forms_not_approved', email.body.to_s
+    assert_match @family.precheck_email_token.token, email.body.to_s
   end
 end
