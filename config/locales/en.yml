@@ -128,7 +128,7 @@ en:
           week1: "Week 2"
           week2: "Week 3"
           week3: "Week 4"
-          week4: "Cru17"
+          week4: "%{conference}"
       conference:
         position: 'Record Order'
       cost_adjustment:
@@ -328,8 +328,8 @@ en:
     application:
       title: "CruConference"
     precheck:
-      title: "CruConference Precheck"
-      precheck: "Precheck"
+      title: "CruConference PreCheck"
+      precheck: "PreCheck"
 
   precheck:
     confirmation:
@@ -339,21 +339,51 @@ en:
     status:
       show:
         greeting: "Hello %{last_name} family!"
+        approved: "[Precheck is approved, more details about the precheck being approved will be inserted here]"
       not_precheck_eligible:
-        not_precheck_eligible_preamble: 'You are not eligible for precheck.'
+        changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our support team."
+        not_precheck_eligible_preamble: 'You are not yet eligible for PreCheck.'
         placeholder: 'Include your request here'
         confirm: 'Are you sure?'
         submit: 'Submit'
-      pending_approval:
-        confirm_precheck: "Confirm Precheck"
-        confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your precheck?"
+        eligibility_errors:
+          no_chargeable_staff_number_and_finance_balance_not_zero: 'no_chargeable_staff_number_and_finance_balance_not_zero'
+          children_forms_not_approved: 'children_forms_not_approved'
+      precheck_eligible:
+        financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your PreCheck."
+        confirm_precheck: "Confirm PreCheck"
+        confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
         request_changes_preamble: "Otherwise, if you would like to request a change or if there is a mistake on your profile or the charges, please add a message below and click the Request Changes button to notify us."
         request_changes_placeholder: "Include your change request or message on this box"
         request_changes: "Request Changes"
         request_changes_confirm: "Are you sure you want to request changes?"
-        financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your precheck."
-      changes_requested:
-        changes_requested_preamble: "You've submitted a comment or change request, your registration is undergoing review by our support team."
+
+  family_mailer:
+    summary:
+      precheck_confirmed: "Congratulations! You and your family (if applicable) have received %{conference} PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
+      onsite_confirmed: "Welcome to Summer19/%{conference}"
+
+  precheck_mailer:
+    confirm_charges:
+      subject: "%{conference} - PreCheck Eligible"
+      title: "%{conference} PreCheck"
+      body_html: "<p>Good news! Your Summer19 and/or %{conference} registration is eligible for PreCheck. This new system allows those who have PreCheck to pick up conference materials when they arrive at the Durrell Center on the CSU campus without visiting a computer check-in station.</p>
+
+      <p>To receive PreCheck, please click on the link below, review your registration choices, and click ACCEPT if they are correct.</p>
+
+      <p>If you notice that some of your choices have changed since you registered, you should click CHANGE, and we will update those options for you. After we’ve made the changes, you’ll once again receive this email so that you can choose to receive PreCheck.</p>
+
+      <p>NOTE: You will receive this email every day until you click ACCEPT or CHANGE.</p>"
+      link: "Review Registration"
+    changes_requested:
+      subject: "%{conference} PreCheck Changes Requested for Family %{family}"
+      intro: "The following family has used the PreCheck form to request changes to their registration."
+      staff_number: "Staff Number"
+      link: "Link to Admin"
+      message: "Message provided by family"
+    report_issues:
+      subject: "%{conference} - PreCheck Issues"
+      link: "Click here to contact us"
 
   services:
     childcare:
@@ -361,7 +391,7 @@ en:
         document:
           title: 'Car Line'
         header:
-          title: "Cru17 Kids Car Line Sign-In/Sign-Out"
+          title: "%{conference} Kids Car Line Sign-In/Sign-Out"
           date: "Date:"
 
     family_finances:
