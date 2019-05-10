@@ -74,10 +74,7 @@ class SeedUserVariables
   private
 
   def create_unless_exists(short_name, attributes = {})
-    return if UserVariable.exists?(short_name: short_name)
-
-    UserVariable.create!(
-      attributes.merge(short_name: short_name)
-    )
+    UserVariable.create!(attributes.merge(short_name: short_name))
+  rescue ActiveRecord::RecordInvalid
   end
 end

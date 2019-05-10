@@ -344,6 +344,9 @@ en:
         placeholder: 'Include your request here'
         confirm: 'Are you sure?'
         submit: 'Submit'
+        eligibility_errors:
+          no_chargeable_staff_number_and_finance_balance_not_zero: 'no_chargeable_staff_number_and_finance_balance_not_zero'
+          children_forms_not_approved: 'children_forms_not_approved'
       pending_approval:
         confirm_precheck: "Confirm Precheck"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your precheck?"

@@ -116,6 +116,10 @@ class Stay < ApplicationRecord
     format('%s, %s – %s', where, arrived_at, departed_at)
   end
 
+  def for_date?(date)
+    arrived_at <= date && departed_at >= date
+  end
+
   private
 
   def duration_of_all_dormitory_stays

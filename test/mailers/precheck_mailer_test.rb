@@ -50,4 +50,16 @@ class PrecheckMailerTest < MailTestCase
       assert_match existing_token.token, email.body.to_s
     end
   end
+
+  test '#report_issues' do
+    PrecheckEligibilityService.stubs(:new).returns(stub(reportable_errors: [:children_forms_not_approved]))
+    email = PrecheckMailer.report_issues(@family).deliver_now
+    assert_not ActionMailer::Base.deliveries.empty?
+
+    assert_equal ['no-reply@cru.org'], email.from
+    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal 'Cru17 - Precheck Issues', email.subject
+    assert_match '<p>children_forms_not_approved</p>', email.body.to_s
+    assert_match @family.precheck_email_token.token, email.body.to_s
+  end
 end

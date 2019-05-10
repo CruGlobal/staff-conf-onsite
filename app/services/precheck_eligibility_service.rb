@@ -3,9 +3,18 @@ class PrecheckEligibilityService < ApplicationService
 
   def call
     within_time_window? &&
-      children_approved? &&
-      chargeable_staff_number? &&
-      housing_preference_confirmed?
+      children_forms_approved? &&
+      housing_preference_confirmed? &&
+      (chargeable_staff_number? || finance_balance_is_zero?)
+  end
+
+  def reportable_errors
+    errors = []
+    if !chargeable_staff_number? && !finance_balance_is_zero?
+      errors << :no_chargeable_staff_number_and_finance_balance_not_zero
+    end
+    errors << :children_forms_not_approved unless children_forms_approved?
+    errors
   end
 
   private
@@ -28,8 +37,12 @@ class PrecheckEligibilityService < ApplicationService
     attendees.collect(&:arrived_at).compact.min
   end
 
-  def children_approved?
-    children.all?(&:forms_approved?)
+  def children_forms_approved?
+    children_requiring_forms_approval.all?(&:forms_approved?)
+  end
+
+  def children_requiring_forms_approval
+    children.select { |child| child.childcare_weeks.present? }
   end
 
   def housing_preference_confirmed?
@@ -38,5 +51,13 @@ class PrecheckEligibilityService < ApplicationService
     return true if housing_preference.self_provided?
 
     housing_preference.confirmed_at.present?
+  end
+
+  def finance_balance_is_zero?
+    finance_report.remaining_balance.zero?
+  end
+
+  def finance_report
+    @finance_report ||= FamilyFinances::Report.call(family: family)
   end
 end

@@ -1,0 +1,16 @@
+<%= image_tag(UserVariable[:conference_logo_url]) %>
+
+<br>
+<br>
+
+<h3>Conference Precheck</h3>
+
+<p><%= t('precheck.status.not_precheck_eligible.not_precheck_eligible_preamble') %></p>
+<br>
+
+<% precheck_eligibility_errors(@family).each do |error| %>
+  <p><%= t("precheck.status.not_precheck_eligible.eligibility_errors.#{error}") %></p>
+  <br>
+<% end %>
+
+<%= link_to 'Click Here', precheck_status_url(token: @token.token) %>

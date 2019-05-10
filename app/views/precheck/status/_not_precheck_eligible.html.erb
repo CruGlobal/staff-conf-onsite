@@ -1,8 +1,10 @@
 <p><%= t('.not_precheck_eligible_preamble') %></p>
 <br>
 
-<p>[More details about why the family is not precheck eligible will be inserted here]</p>
-<br>
+<% precheck_eligibility_errors(family).each do |error| %>
+  <p><%= t(".eligibility_errors.#{error}") %></p>
+  <br>
+<% end %>
 
 <%= form_tag precheck_rejection_path(token: token) do %>
   <%= text_area_tag(:message, '', rows: 10, placeholder: t('.placeholder')) %>

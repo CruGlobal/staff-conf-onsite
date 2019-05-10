@@ -4,4 +4,9 @@ class PrecheckMailerPreview < ActionMailer::Preview
     family = Family.first
     PrecheckMailer.confirm_charges(family)
   end
+
+  def report_issues_preview
+    family = Family.first
+    PrecheckMailer.report_issues(family)
+  end
 end
