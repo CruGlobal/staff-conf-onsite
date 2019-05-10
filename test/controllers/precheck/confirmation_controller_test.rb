@@ -21,14 +21,8 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
 
     assert_equal token.family.reload.precheck_status, 'pending_approval'
     assert_no_difference('PrecheckEmailToken.count') do
-      assert_emails 1 do
-        post :create, token: token.token
-      end
+      post :create, token: token.token
     end
     assert_equal token.family.reload.precheck_status, 'approved'
-
-    assigns(:family)
-    last_email = ActionMailer::Base.deliveries.last
-    assert_equal "MyConfName - Precheck Completed", last_email.subject
   end
 end

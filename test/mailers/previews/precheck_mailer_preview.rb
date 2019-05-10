@@ -4,4 +4,15 @@ class PrecheckMailerPreview < ActionMailer::Preview
     family = Family.first
     PrecheckMailer.confirm_charges(family)
   end
+
+  def changes_requested_preview
+    family = Family.first
+    message = 'Please spell my name correctly!'
+    PrecheckMailer.changes_requested(family, message)
+  end
+
+  def report_issues_preview
+    family = Family.first
+    PrecheckMailer.report_issues(family)
+  end
 end
