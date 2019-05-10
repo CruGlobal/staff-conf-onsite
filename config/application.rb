@@ -30,6 +30,12 @@ module CruConference
     config.autoload_paths << Rails.root.join('app', 'admin', 'concerns')
     config.autoload_paths << Rails.root.join('app', 'services')
 
+    config.cache_store = :redis_store, {
+      host: ENV['REDIS_PORT_6379_TCP_ADDR'],
+      namespace: "sco:#{Rails.env}:cache_store",
+      expires_in: 1.hour
+    }
+
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
