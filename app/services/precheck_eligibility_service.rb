@@ -3,27 +3,29 @@ class PrecheckEligibilityService < ApplicationService
 
   def call
     !checked_in_already? &&
+      !changes_requested? &&
       within_time_window? &&
-      children_forms_approved? &&
       housing_preference_confirmed? &&
-      (chargeable_staff_number? || finance_balance_is_zero?)
+      children_forms_approved? &&
+      finances_okay?
   end
 
   def actionable_errors
     errors = []
-    return errors if checked_in_already? || !within_time_window?
 
-    if !chargeable_staff_number? && !finance_balance_is_zero?
-      errors << :no_chargeable_staff_number_and_finance_balance_not_zero
-    end
+    return errors if checked_in_already? ||
+                     changes_requested? ||
+                     !within_time_window? ||
+                     !housing_preference_confirmed?
 
+    errors << :no_chargeable_staff_number_and_finance_balance_not_zero unless finances_okay?
     errors << :children_forms_not_approved unless children_forms_approved?
-
     errors
   end
 
   private
 
+  def_delegator :family, :changes_requested?
   def_delegator :family, :pending_approval?
   def_delegator :family, :approved?
   def_delegator :family, :attendees
@@ -62,6 +64,10 @@ class PrecheckEligibilityService < ApplicationService
     return true if housing_preference.self_provided?
 
     housing_preference.confirmed_at.present?
+  end
+
+  def finances_okay?
+    chargeable_staff_number? || finance_balance_is_zero?
   end
 
   def finance_balance_is_zero?

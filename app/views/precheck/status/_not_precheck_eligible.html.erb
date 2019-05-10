@@ -1,4 +1,10 @@
-<p><%= t('.not_precheck_eligible_preamble') %></p>
+<p>
+  <% if family.changes_requested? %>
+    <%= t('.changes_requested_preamble') %>
+  <% else %>
+    <%= t('.not_precheck_eligible_preamble') %>
+  <% end %>
+</p>
 <br>
 
 <% precheck_eligibility_errors(family).each do |error| %>

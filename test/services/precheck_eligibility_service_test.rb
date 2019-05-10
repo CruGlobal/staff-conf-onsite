@@ -50,6 +50,11 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     assert_equal false, service.call
   end
 
+  test 'not eligible if family has requested changes' do
+    @eligible_family.update!(precheck_status: :changes_requested)
+    assert_equal false, service.call
+  end
+
   test 'not eligible if attendees do not have an arrival date' do
     @eligible_family.attendees.each { |attendee| attendee.update!(arrived_at: nil) }
     assert_equal false, service.call
@@ -153,9 +158,9 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     assert_equal true, service.actionable_errors.present?
   end
 
-  test '#actionable_errors can be present if family is precheck changes_requested' do
+  test '#actionable_errors is always empty if family is precheck changes_requested' do
     family_with_actionable_errors.update!(precheck_status: :changes_requested)
-    assert_equal true, service.actionable_errors.present?
+    assert_equal [], service.actionable_errors
   end
 
   test '#actionable_errors is always empty if any attendee is checked in' do
