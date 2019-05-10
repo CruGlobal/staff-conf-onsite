@@ -26,16 +26,17 @@ class Import::UpdateFamilyFromImport < ApplicationService
     )
   end
 
-  def update_housing_preference
+  def update_housing_preference # rubocop:disable Metrics/AbcSize
     housing_preference.assign_attributes(
       housing_type: import.housing_type,
-      single_room: import.housing_single_room == 'Yes',
+      single_room: import.housing_single_room,
       roommates: import.housing_roommates_details,
       accepts_non_air_conditioned: import.housing_accepts_non_ac,
       location1: import.housing_location1,
       location2: import.housing_location2,
       location3: import.housing_location3,
-      comment: import.housing_comment
+      comment: import.housing_comment,
+      other_family: import.housing_sharing_requested
     )
 
     update_housing_preference_counts
