@@ -1,8 +1,8 @@
 <p>
   <% if @prechecked %>
-    <%= t('.precheck_confirmed') %></p>
+    <%= t('.precheck_confirmed', conference: UserVariable[:conference_id]) %></p>
   <% else %>
-    <%= t('.onsite_confirmed') %>
+    <%= t('.onsite_confirmed', conference: UserVariable[:conference_id]) %>
   <% end %>
 </p>
 
@@ -21,7 +21,7 @@
   Sincerely,
   <br>
   <br>
-  Team19
+  <%= UserVariable[:conference_id] %> Team
 </p>
 
 <%= render 'families/family_summary', family: @family, finances: @finances, policy: @policy %>

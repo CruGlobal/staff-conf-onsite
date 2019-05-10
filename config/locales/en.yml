@@ -128,7 +128,7 @@ en:
           week1: "Week 2"
           week2: "Week 3"
           week3: "Week 4"
-          week4: "Cru17"
+          week4: "%{conference}"
       conference:
         position: 'Record Order'
       cost_adjustment:
@@ -360,14 +360,14 @@ en:
 
   family_mailer:
     summary:
-      precheck_confirmed: "Congratulations! You and your family (if applicable) have received Cru19 PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
-      onsite_confirmed: "Welcome to Summer19/Cru19!"
+      precheck_confirmed: "Congratulations! You and your family (if applicable) have received %{conference} PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
+      onsite_confirmed: "Welcome to Summer19/%{conference}"
 
   precheck_mailer:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       title: "%{conference} PreCheck"
-      body_html: "<p>Good news! Your Summer19 and/or Cru19 registration is eligible for PreCheck. This new system allows those who have PreCheck to pick up conference materials when they arrive at the Durrell Center on the CSU campus without visiting a computer check-in station.</p>
+      body_html: "<p>Good news! Your Summer19 and/or %{conference} registration is eligible for PreCheck. This new system allows those who have PreCheck to pick up conference materials when they arrive at the Durrell Center on the CSU campus without visiting a computer check-in station.</p>
 
       <p>To receive PreCheck, please click on the link below, review your registration choices, and click ACCEPT if they are correct.</p>
 
@@ -391,7 +391,7 @@ en:
         document:
           title: 'Car Line'
         header:
-          title: "Cru17 Kids Car Line Sign-In/Sign-Out"
+          title: "%{conference} Kids Car Line Sign-In/Sign-Out"
           date: "Date:"
 
     family_finances:
