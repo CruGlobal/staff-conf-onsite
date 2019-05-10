@@ -33,4 +33,28 @@ class Import::PersonTest < ModelTestCase
     assert_equal 'Peanuts', medical_import.person.childcare_medical_history.allergy
     assert_equal 'Agree', medical_import.person.cru_student_medical_history.parent_agree
   end
+
+  test '#housing_type= accepts Cru-managed apartment for apartment' do
+    person = Import::Person.new
+    person.housing_type = 'Cru-managed apartment'
+    assert_equal :apartment, person.housing_type
+  end
+
+  test '#housing_type= accepts APT for apartment' do
+    person = Import::Person.new
+    person.housing_type = 'APT'
+    assert_equal :apartment, person.housing_type
+  end
+
+  test '#housing_type= accepts Dorm for dormitory' do
+    person = Import::Person.new
+    person.housing_type = 'Dorm'
+    assert_equal :dormitory, person.housing_type
+  end
+
+  test '#housing_type= falls back to self_provided' do
+    person = Import::Person.new
+    person.housing_type = 'Something else'
+    assert_equal :self_provided, person.housing_type
+  end
 end
