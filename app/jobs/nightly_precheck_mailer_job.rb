@@ -5,7 +5,7 @@ class NightlyPrecheckMailerJob < ApplicationJob
     families_scope.find_each do |family|
       if precheck_eligible?(family)
         PrecheckMailer.confirm_charges(family).deliver_later
-      elsif reportable_errors?(family)
+      elsif actionable_errors?(family)
         PrecheckMailer.report_issues(family).deliver_later
       end
     end
@@ -27,7 +27,7 @@ class NightlyPrecheckMailerJob < ApplicationJob
     eligibility_service(family).call
   end
 
-  def reportable_errors?(family)
-    eligibility_service(family).reportable_errors.present?
+  def actionable_errors?(family)
+    eligibility_service(family).actionable_errors.present?
   end
 end
