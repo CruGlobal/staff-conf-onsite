@@ -3,6 +3,10 @@ module PrecheckHelper
     PrecheckEligibilityService.new(family: family).call
   end
 
+  def precheck_eligibility_errors(family)
+    PrecheckEligibilityService.new(family: family).actionable_errors
+  end
+
   def precheck_status_label(arg)
     status = arg.is_a?(Family) ? arg.precheck_status : arg
     status.titleize
