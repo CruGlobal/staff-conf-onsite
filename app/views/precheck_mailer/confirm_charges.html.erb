@@ -1,8 +1,5 @@
-<%= image_tag(UserVariable[:conference_logo_url]) %>
+<h1><%= t('.title', conference: UserVariable[:conference_id]) %></h1>
 
-<br>
-<br>
+<%= t('.body_html') %>
 
-<h3>Conference Precheck</h3>
-
-<%= link_to 'Confirm Precheck or Request Changes', precheck_status_url(token: @token.token) %>
+<%= link_to t('.link'), precheck_status_url(token: @token.token) %>

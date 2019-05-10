@@ -358,6 +358,33 @@ en:
       changes_requested:
         changes_requested_preamble: "You've submitted a comment or change request, your registration is undergoing review by our support team."
 
+  family_mailer:
+    summary:
+      precheck_confirmed: "Congratulations! You and your family (if applicable) have received Cru19 PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
+      onsite_confirmed: "Welcome to Summer19/Cru19!"
+
+  precheck_mailer:
+    confirm_charges:
+      subject: "%{conference} - PreCheck Eligible"
+      title: "%{conference} PreCheck"
+      body_html: "<p>Good news! Your Summer19 and/or Cru19 registration is eligible for PreCheck. This new system allows those who have PreCheck to pick up conference materials when they arrive at the Durrell Center on the CSU campus without visiting a computer check-in station.</p>
+
+      <p>To receive PreCheck, please click on the link below, review your registration choices, and click ACCEPT if they are correct.</p>
+
+      <p>If you notice that some of your choices have changed since you registered, you should click CHANGE, and we will update those options for you. After we’ve made the changes, you’ll once again receive this email so that you can choose to receive PreCheck.</p>
+
+      <p>NOTE: You will receive this email every day until you click ACCEPT or CHANGE.</p>"
+      link: "Review Registration"
+    changes_requested:
+      subject: "%{conference} PreCheck Changes Requested for Family %{family}"
+      intro: "The following family has used the PreCheck form to request changes to their registration."
+      staff_number: "Staff Number"
+      link: "Link to Admin"
+      message: "Message provided by family"
+    report_issues:
+      subject: "%{conference} - PreCheck Issues"
+      link: "Click here to contact us"
+
   services:
     childcare:
       car_line:

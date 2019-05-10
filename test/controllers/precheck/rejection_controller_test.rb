@@ -27,8 +27,7 @@ class Precheck::RejectionControllerTest < ControllerTestCase
     end
     assert_equal token.family.reload.precheck_status, 'changes_requested'
 
-    assigns(:family)
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal "MyConfName - Precheck Modification Request", last_email.subject
+    assert_equal "MyConfName PreCheck Changes Requested for Family #{token.family}", last_email.subject
   end
 end

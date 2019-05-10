@@ -1,9 +1,0 @@
-<%= Conference Precheck %>
-
-<%= t('precheck.status.not_precheck_eligible.not_precheck_eligible_preamble') %>
-
-<% precheck_eligibility_errors(@family).each do |error| %>
-  <%= t("precheck.status.not_precheck_eligible.eligibility_errors.#{error}") %>
-<% end %>
-
-<%= precheck_status_url(token: @token.token) %>
