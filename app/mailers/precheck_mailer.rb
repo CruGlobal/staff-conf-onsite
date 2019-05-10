@@ -1,8 +1,5 @@
 class PrecheckMailer < ApplicationMailer
-  def precheck_completed(family)
-    email = family.attendees.pluck(:email).select(&:present?).compact
-    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Completed")
-  end
+  add_template_helper(PrecheckHelper)
 
   def confirm_charges(family)
     @family = family
@@ -10,14 +7,21 @@ class PrecheckMailer < ApplicationMailer
     @finances = FamilyFinances::Report.call(family: family)
     @policy = Pundit.policy(User.find_by(role: 'finance'), family)
     to_email = family.attendees.pluck(:email).select(&:present?).compact
-    mail(to: to_email, subject: "#{UserVariable[:conference_id]} - Precheck Confirmation Email")
+    mail(to: to_email, subject: t('.subject', conference: UserVariable[:conference_id]))
   end
 
   def changes_requested(family, message)
     @family = family
     @message = message
     email = UserVariable[:support_email]
-    mail(to: email, subject: "#{UserVariable[:conference_id]} - Precheck Modification Request")
+    mail(to: email, subject: t('.subject', conference: UserVariable[:conference_id], family: @family.to_s))
+  end
+
+  def report_issues(family)
+    @family = family
+    @token = find_token(family)
+    to_email = family.attendees.pluck(:email).select(&:present?).compact
+    mail(to: to_email, subject: t('.subject', conference: UserVariable[:conference_id]))
   end
 
   private
