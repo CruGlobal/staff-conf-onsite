@@ -279,6 +279,7 @@ module Import
         case type&.downcase
         when /dorm/ then :dormitory
         when /apartment/ then :apartment
+        when /\Aapt\z/ then :apartment
         else :self_provided
         end
     end

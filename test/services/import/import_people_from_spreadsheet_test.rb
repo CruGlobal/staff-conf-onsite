@@ -73,6 +73,23 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
     assert_equal 'ABCD 1234', @family.license_plates
   end
 
+  test 'single primary person, should create HousingPreference' do
+    assert_difference ->{ HousingPreference.count }, +1 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+
+    @family = Family.last
+    assert_equal 'apartment', @family.housing_preference.housing_type
+    assert_equal true, @family.housing_preference.single_room
+    assert_equal 'My BFF <my@bff.com>', @family.housing_preference.roommates
+    assert_equal false, @family.housing_preference.accepts_non_air_conditioned
+    assert_equal 'First choice', @family.housing_preference.location1
+    assert_equal 'Second choice', @family.housing_preference.location2
+    assert_equal 'Third choice', @family.housing_preference.location3
+    assert_equal 'This is my housing comment', @family.housing_preference.comment
+    assert_equal 'Best Family Friends', @family.housing_preference.other_family
+  end
+
   test 'import child' do
     import_spreadsheet('people-import--single-primary-medical-history.csv')
 
