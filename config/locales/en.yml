@@ -365,6 +365,7 @@ en:
     summary:
       precheck_confirmed: "Congratulations! You and your family (if applicable) have received %{conference} PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
       onsite_confirmed: "Welcome to Summer19/%{conference}"
+      subject: "%{conference} Financial Summary"
 
   precheck_mailer:
     confirm_charges:
