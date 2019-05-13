@@ -70,7 +70,6 @@ class Family < ApplicationRecord
     self.class.transaction { attendees.each(&:check_in!) }
     if anyone_has_email?
       FamilyMailer.summary(self).deliver_now
-      FamilyMailer.media_release(self).deliver_now
     end
   end
 
