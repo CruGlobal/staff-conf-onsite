@@ -13,6 +13,8 @@
 <% end %>
 
 <%= form_tag precheck_rejection_path(token: token) do %>
+  <p><%= t('.request_changes_preamble') %></p>
+
   <%= text_area_tag(:message, '', rows: 10, placeholder: t('.placeholder')) %>
   <br>
   <%= submit_tag(t('.submit'), class: 'btn btn-cancel', data: { confirm: t('.confirm'), disable_with: '...' }) %>
