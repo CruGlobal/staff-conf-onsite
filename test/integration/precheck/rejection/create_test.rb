@@ -2,7 +2,7 @@ require 'test_helper'
 
 require_relative '../../../../db/user_variables'
 
-class Precheck::ConfirmationController::CreateTest < IntegrationTest
+class Precheck::RejectionController::CreateTest < IntegrationTest
   before do
     SeedUserVariables.new.call
 
@@ -14,10 +14,16 @@ class Precheck::ConfirmationController::CreateTest < IntegrationTest
   end
 
   test '#create' do
+    enable_javascript!
+
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    click_button 'Confirm PreCheck'
-    assert_text 'Your family have been successfully confirmed as prechecked'
-    assert @eligible_family.reload.approved?
-    assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @eligible_family.attendees.first.conference_status
+    click_link 'Request Changes...'
+    fill_in 'message', with: 'Testing message.'
+    click_button 'Submit Request'
+    page.driver.browser.switch_to.alert.accept
+    wait_for_ajax!
+
+    assert_text 'Cru17 PreCheck Precheck review request received'
+    assert @eligible_family.reload.changes_requested?
   end
 end

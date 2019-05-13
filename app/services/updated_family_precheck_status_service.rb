@@ -1,17 +1,21 @@
 class UpdatedFamilyPrecheckStatusService < ApplicationService
-  attr_accessor :family
+  attr_accessor :family, :message
 
   def call
     return unless family.previous_changes[:precheck_status]
 
-    approved if family.approved?
+    send(family.precheck_status)
   end
 
   private
 
+  def pending_approval; end
+
+  def changes_requested
+    PrecheckMailer.changes_requested(family, message).deliver_now
+  end
+
   def approved
-    Attendee.transaction do
-      family.attendees.each(&:check_in!)
-    end
+    family.check_in!
   end
 end

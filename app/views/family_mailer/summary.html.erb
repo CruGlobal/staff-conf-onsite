@@ -1,5 +1,5 @@
 <p>
-  <% if @prechecked %>
+  <% if @family.approved? %>
     <%= t('.precheck_confirmed', conference: UserVariable[:conference_id]) %></p>
   <% else %>
     <%= t('.onsite_confirmed', conference: UserVariable[:conference_id]) %>
