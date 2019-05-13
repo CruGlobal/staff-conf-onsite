@@ -1,6 +1,7 @@
 class PrecheckController < ApplicationController
   layout 'precheck'
 
+  skip_before_action :authenticate_user!
   before_action :load_token, :load_family
 
   rescue_from(ActiveRecord::RecordNotFound) do |_exception|
