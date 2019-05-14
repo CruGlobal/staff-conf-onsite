@@ -24,6 +24,8 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text "Hello #{@eligible_family.last_name} family!"
+    assert_text 'please click below to confirm your PreCheck'
+    assert_text 'Remaining Balance Due $0'
   end
 
   test '#show as not eligible family' do
@@ -54,5 +56,17 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     @eligible_family.update!(precheck_status: :changes_requested)
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text 'your registration is undergoing review by our team'
+  end
+
+  test '#show too late for precheck' do
+    travel_to 5.days.from_now.end_of_day do
+      visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
+      assert_text 'please click below to confirm your PreCheck'
+    end
+
+    travel_to 6.days.from_now.beginning_of_day do
+      visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
+      assert_text 'Sorry, it is now too late to qualify for PreCheck.'
+    end
   end
 end

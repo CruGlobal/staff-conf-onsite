@@ -25,7 +25,7 @@ class MailInterceptor
     end
 
     def force_interception?
-      !Rails.env.production?
+      !Rails.env.production? && !Rails.env.test?
     end
 
     def intercept?

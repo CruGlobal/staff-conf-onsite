@@ -180,4 +180,23 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
     assert_equal [:children_forms_not_approved], service.actionable_errors
   end
+
+  test '#too_late? is false' do
+    travel_to 5.days.ago { assert_equal false, service.too_late? }
+    travel_to 4.days.from_now { assert_equal false, service.too_late? }
+    travel_to 2.years.ago { assert_equal false, service.too_late? }
+    assert_equal false, service.too_late?
+  end
+
+  test '#too_late? is true' do
+    travel_to 5.days.from_now { assert_equal true, service.too_late? }
+    travel_to 6.days.from_now { assert_equal true, service.too_late? }
+    travel_to 2.years.from_now { assert_equal true, service.too_late? }
+  end
+
+  test '#too_late? is nil' do
+    @eligible_family.attendees.update_all(arrived_at: nil)
+    @eligible_family.reload
+    assert_nil service.too_late?
+  end
 end
