@@ -17,4 +17,8 @@ module PrecheckHelper
       [precheck_status_label(name), name]
     end
   end
+
+  def too_late_for_precheck?(family)
+    PrecheckEligibilityService.new(family: family).too_late?
+  end
 end
