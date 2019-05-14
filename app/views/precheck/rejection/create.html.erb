@@ -1,2 +1,13 @@
-<h2 class="greeting centered">Precheck review request received</h2>
-<p class="centered">The conference team have been notified of your request and will contact you as soon as possible.</p>
+<h2 class="greeting"><%= t('.title') %></h2>
+<br>
+
+<p><%= t('.body') %></p>
+<br>
+
+<p><%= t('.message') %></p>
+
+<p>
+  <blockquote>
+    <%= @message %>
+  </blockquote>
+</p>

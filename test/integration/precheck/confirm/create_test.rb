@@ -16,7 +16,7 @@ class Precheck::ConfirmationController::CreateTest < IntegrationTest
   test '#create' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     click_button 'Confirm PreCheck'
-    assert_text 'Your family have been successfully confirmed as prechecked'
+    assert_text 'You and your family (if applicable) have received Cru17 PreCheck'
     assert @eligible_family.reload.approved?
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @eligible_family.attendees.first.conference_status
   end
