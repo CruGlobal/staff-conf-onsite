@@ -1,5 +1,6 @@
 <p><%= t('.financial_summary_preamble') %></p>
 <br>
+<br>
 
 <%= render 'families/family_summary', family: family, finances: finances, policy: policy %>
 
@@ -17,6 +18,3 @@
   <%= link_to t('.cancel'), '#', class: 'btn', onclick: "$('#reject').hide(); $('#confirm').show(); return false" %>
   <%= submit_tag(t('.submit_request_changes'), class: 'btn btn-cancel', data: { confirm: t('.request_changes_confirm'), disable_with: '...' }) %>
 <% end %>
-
-<br>
-<br>
