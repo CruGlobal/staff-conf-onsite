@@ -1,0 +1,15 @@
+<p><%= t('family_mailer.summary.precheck_confirmed', conference: UserVariable[:conference_id]) %></p>
+<br>
+
+<p><%= t('family_mailer.summary.contact_list_preamble') %></p>
+<br>
+
+<%= t('family_mailer.summary.contact_list_html') %>
+<br>
+<br>
+
+<p><%= t('family_mailer.summary.summary_preamble') %></p>
+<br>
+<br>
+
+<%= render 'families/family_summary', family: family, finances: finances, policy: policy %>

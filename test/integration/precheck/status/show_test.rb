@@ -28,7 +28,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
 
   test '#show as not eligible family' do
     visit precheck_status_path(token: @not_eligible_family.precheck_email_token.token)
-    assert_text 'You are not yet eligible for PreCheck'
+    assert_text 'You are not eligible for PreCheck'
   end
 
   test '#show as not eligible family submits message' do
@@ -41,7 +41,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
       end
     end
 
-    assert_text 'The conference team have been notified'
+    assert_text 'The conference team has been notified'
   end
 
   test '#show as eligible family pending approval' do
@@ -53,6 +53,6 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show as previously eligible family now has changes requested' do
     @eligible_family.update!(precheck_status: :changes_requested)
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'your registration is undergoing review by our support team'
+    assert_text 'your registration is undergoing review by our team'
   end
 end
