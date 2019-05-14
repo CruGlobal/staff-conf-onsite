@@ -2,7 +2,7 @@ class UpdatedFamilyPrecheckStatusService < ApplicationService
   attr_accessor :family, :message
 
   def call
-    return unless family.previous_changes[:precheck_status]
+    return if family.previous_changes[:precheck_status].blank? && message.blank?
 
     send(family.precheck_status)
   end
