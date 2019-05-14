@@ -1,4 +1,10 @@
-<p><%= t('family_mailer.summary.precheck_confirmed', conference: UserVariable[:conference_id]) %></p>
+<p>
+  <% if family.approved? %>
+    <%= t('family_mailer.summary.precheck_confirmed', conference: UserVariable[:conference_id]) %>
+  <% else %>
+    <%= t('family_mailer.summary.onsite_confirmed', conference: UserVariable[:conference_id]) %>
+  <% end %>
+</p>
 <br>
 
 <p><%= t('family_mailer.summary.contact_list_preamble') %></p>

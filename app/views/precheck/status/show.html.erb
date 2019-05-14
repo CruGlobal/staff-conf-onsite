@@ -1,8 +1,8 @@
 <h2 class="greeting"><%= t('.greeting', last_name: @family.last_name) %></h2>
 <br>
 
-<% if @family.approved? %>
-  <%= render 'approved', family: @family, token: @token, finances: @finances, policy: @policy %>
+<% if @family.approved? || @family.checked_in? %>
+  <%= render 'checked_in', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% elsif precheck_eligible?(@family) %>
   <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% else %>
