@@ -4,11 +4,11 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
       case
         when !finances.remaining_balance.zero?
           li class: 'action input_action' do
-            p 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
+            para 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
         when !family.everyone_has_birthdates?
           li class: 'action input_action' do
-            p 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
+            para 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
         else
           li class: 'action input_action', id: 'checkin_button' do
