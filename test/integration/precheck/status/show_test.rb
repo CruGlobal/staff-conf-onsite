@@ -58,6 +58,20 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     assert_text 'your registration is undergoing review by our team'
   end
 
+  test '#show as precheck approved' do
+    @eligible_family.update!(precheck_status: :approved)
+    visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
+    assert_text 'Congratulations! You and your family (if applicable) have received Cru17 PreCheck'
+  end
+
+  test '#show as checked in on site' do
+    @eligible_family.update!(precheck_status: :pending_approval)
+    @eligible_family.check_in!
+    visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
+    assert_text 'Welcome to Summer19/Cru17'
+    refute_text 'received Cru17 PreCheck'
+  end
+
   test '#show too late for precheck' do
     travel_to 5.days.from_now.end_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
