@@ -5,6 +5,7 @@ require_relative '../../db/user_variables'
 class PrecheckMailerTest < MailTestCase
   setup do
     SeedUserVariables.new.call
+    UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
     @family = create(:family_with_members)
   end
 
@@ -13,7 +14,7 @@ class PrecheckMailerTest < MailTestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal [UserVariable[:support_email]], email.to
     assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
     assert_match 'my name was mispelled', email.body.to_s
   end
@@ -26,7 +27,7 @@ class PrecheckMailerTest < MailTestCase
       assert_not ActionMailer::Base.deliveries.empty?
 
       assert_equal ['no-reply@cru.org'], email.from
-      assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+      assert_equal @family.attendees.map(&:email).sort, email.to.sort
       assert_equal 'Cru17 - PreCheck Eligible', email.subject
     end
   end
@@ -48,7 +49,7 @@ class PrecheckMailerTest < MailTestCase
     assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal @family.attendees.map(&:email).sort, email.to.sort
     assert_equal 'Cru17 - PreCheck Issues', email.subject
     assert_match 'children_forms_not_approved', email.body.to_s
     assert_match @family.precheck_email_token.token, email.body.to_s
