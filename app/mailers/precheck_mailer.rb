@@ -5,7 +5,8 @@ class PrecheckMailer < ApplicationMailer
     @family = family
     @token = find_token(family)
     @finances = FamilyFinances::Report.call(family: family)
-    @policy = Pundit.policy(User.find_by(role: 'finance'), family)
+    @policy = Pundit.policy(User.new(role: 'finance'), family)
+
     to_email = family.attendees.pluck(:email).select(&:present?).compact
     mail(to: to_email, subject: t('.subject', conference: UserVariable[:conference_id]))
   end

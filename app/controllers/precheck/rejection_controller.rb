@@ -1,6 +1,7 @@
 class Precheck::RejectionController < PrecheckController
   def create
     @family.update!(precheck_status: :changes_requested)
-    PrecheckMailer.changes_requested(@family, params['message']).deliver_now
+    @message = params['message']
+    UpdatedFamilyPrecheckStatusService.new(family: @family, message: @message).call
   end
 end
