@@ -5,6 +5,7 @@ require_relative '../../db/user_variables'
 class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
   setup do
     SeedUserVariables.new.call
+    UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
 
     @family = create :family, precheck_status: :pending_approval
     @attendee_one = create :attendee, family: @family, conference_status: Attendee::CONFERENCE_STATUSES.first
@@ -42,7 +43,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal @family.attendees.map(&:email).sort, email.to.sort
     assert_equal 'Cru17 Financial Summary', email.subject
     assert_match 'Congratulations! You and your family (if applicable) have received Cru17 PreCheck.', email.body.to_s
   end
@@ -66,7 +67,22 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
-    assert_equal ['interceptor_one@example.com', 'interceptor_two@example.com'], email.to
+    assert_equal [UserVariable[:support_email]], email.to
+    assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
+    assert_match 'Test 1 2 3', email.body.to_s
+  end
+
+  test 'if a message is provided always send the email' do
+    @family.update!(precheck_status: :changes_requested)
+    @family.reload
+
+    assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
+      UpdatedFamilyPrecheckStatusService.new(family: @family, message: 'Test 1 2 3').call
+    end
+
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['no-reply@cru.org'], email.from
+    assert_equal [UserVariable[:support_email]], email.to
     assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
     assert_match 'Test 1 2 3', email.body.to_s
   end
