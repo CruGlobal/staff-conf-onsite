@@ -334,16 +334,20 @@ en:
   precheck:
     confirmation:
       create:
+        title: "Congratulations!"
+        body: "You and your family (if applicable) have received %{conference} PreCheck. You should receive a confirmation email shortly with more details for your arrival."
     rejection:
       create:
+        title: "Request received."
+        body: "The conference team has been notified of your request and will contact you as soon as possible."
+        message: "The message you sent was:"
     status:
       show:
         greeting: "Hello %{last_name} family!"
-        approved: "[Precheck is approved, more details about the precheck being approved will be inserted here]"
       not_precheck_eligible:
-        changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our support team."
-        not_precheck_eligible_preamble: 'You are not yet eligible for PreCheck.'
-        request_changes_preamble: "If you would like to request help or send us a message, please type a message in the box below and click the Submit Request button to notify us."
+        changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
+        not_precheck_eligible_preamble: 'You are not eligible for PreCheck at this moment.'
+        request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request to notify us of your request."
         placeholder: 'Include your request or message in this box'
         confirm: 'Are you sure you want to send this request?'
         submit: 'Submit Request'
@@ -363,9 +367,18 @@ en:
 
   family_mailer:
     summary:
+      subject: "%{conference} Financial Summary"
       precheck_confirmed: "Congratulations! You and your family (if applicable) have received %{conference} PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
       onsite_confirmed: "Welcome to Summer19/%{conference}"
-      subject: "%{conference} Financial Summary"
+      summary_preamble: "Below is your conference registration summary."
+      contact_list_preamble: "For questions regarding:"
+      contact_list_html: '<ul>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru19.Childcare@cru.org">Cru19.Childcare@cru.org</a> </li>
+          <li>Jr. High / Sr. High Program, please contact <a href="mailto:Cru19.JrSrHigh@cru.org">Cru19.JrSrHigh@cru.org</a> </li>
+          <li>finances, please contact <a href="mailto:Cru19.Finance@cru.org">Cru19.Finance@cru.org</a></li>
+          <li>anything else, please contact <a href="mailto:Cru19.Info@cru.org">Cru19.Info@cru.org</a></li>
+        </ul>'
+      signature_html: "<p>Sincerely,<br><br>%{conference} Team</p>"
 
   precheck_mailer:
     confirm_charges:

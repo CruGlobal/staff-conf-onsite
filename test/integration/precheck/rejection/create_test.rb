@@ -23,7 +23,7 @@ class Precheck::RejectionController::CreateTest < IntegrationTest
     page.driver.browser.switch_to.alert.accept
     wait_for_ajax!
 
-    assert_text 'Cru17 PreCheck Precheck review request received'
+    assert_text 'Request received'
     assert @eligible_family.reload.changes_requested?
   end
 end

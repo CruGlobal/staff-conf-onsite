@@ -2,11 +2,9 @@
 <br>
 
 <% if @family.approved? %>
-  <%= t('.approved') %>
+  <%= render 'approved', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% elsif precheck_eligible?(@family) %>
   <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% else %>
   <%= render 'not_precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% end %>
-
-<br>
