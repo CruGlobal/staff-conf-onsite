@@ -19,6 +19,12 @@ class PrecheckEligibilityService < ApplicationService
     errors
   end
 
+  def too_late?
+    return unless last_precheck_time
+
+    Time.zone.now > last_precheck_time
+  end
+
   private
 
   def_delegator :family, :approved?
@@ -55,10 +61,19 @@ class PrecheckEligibilityService < ApplicationService
   def within_time_window?
     return false if earliest_attendee_arrival_date.blank?
 
-    earliest_precheck_date = earliest_attendee_arrival_date - 10.days
-    latest_precheck_date   = earliest_attendee_arrival_date - 2.days
+    (earliest_precheck_time..last_precheck_time).cover?(Time.zone.now)
+  end
 
-    (earliest_precheck_date..latest_precheck_date).cover? Time.zone.now
+  def earliest_precheck_time
+    return unless earliest_attendee_arrival_date
+
+    (earliest_attendee_arrival_date - 10.days).beginning_of_day
+  end
+
+  def last_precheck_time
+    return unless earliest_attendee_arrival_date
+
+    (earliest_attendee_arrival_date - 2.days).end_of_day
   end
 
   def earliest_attendee_arrival_date
