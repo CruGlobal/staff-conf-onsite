@@ -50,11 +50,11 @@
 
   .btn {
     background-image: linear-gradient(180deg, #7e7e7e, #000);
-    border-color: #005765;
-    background-color: #005765;
+    border-color: #27e833;
+    background-color: #27e833;
 
     margin-top: 20px;
-    width: 200px;
+    width: 330px;
     height: 50px;
     font-size: 1rem;
     border-radius: 200px;
@@ -75,14 +75,14 @@
   }
 
   .btn-confirm {
-    background-image: linear-gradient(180deg, #06b0cc, #005765);
-    border-color: #005765;
-    background-color: #005765;
+    background-image: linear-gradient(180deg, #27e833, #2a9131);
+    border-color: #2a9131;
+    background-color: #27e833;
   }
 
   .btn-confirm:hover {
-    background-color: #005765;
-    background-image: linear-gradient(180deg, #30c9e0, #006e80) !important;
+    background-color: #27e833;
+    background-image: linear-gradient(180deg, #27e833, #25c630) !important;
   }
 
   .btn-cancel {
@@ -92,7 +92,7 @@
   }
 
   .btn-cancel:hover {
-    background-color: #005765;
+    background-color: #27e833;
     background-image: linear-gradient(180deg, #fd3030, #9e0303) !important;
   }
 
