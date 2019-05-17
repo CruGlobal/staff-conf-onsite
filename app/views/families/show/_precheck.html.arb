@@ -1,7 +1,17 @@
 context.instance_exec do
   panel 'Precheck' do
     attributes_table_for family do
-      row(:precheck_eligible?) { |family| precheck_eligible?(family) }
+      row(:precheck_eligible?) do |family|
+        status_tag(precheck_eligible?(family))
+        if precheck_eligibility_errors(family).present?
+          div 'The following eligibility requirements were not met:'
+          ul do
+            precheck_eligibility_errors(family).each do |error|
+              li precheck_eligibility_error_label(error)
+            end
+          end
+        end
+      end
 
       row(:precheck_status) do |family|
         status_tag precheck_status_label(family)

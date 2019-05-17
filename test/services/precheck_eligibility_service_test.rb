@@ -27,7 +27,7 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
 
   def family_with_actionable_errors
     @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
-    assert_equal [:children_forms_not_approved], service.actionable_errors
+    assert_equal [:children_forms_approved?], service.actionable_errors
     @eligible_family
   end
 
@@ -125,6 +125,31 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     assert_equal true, service.call
   end
 
+  test '#errors is empty when family is eligible' do
+    assert_equal [], service.errors
+  end
+
+  test '#errors present when family is checked in' do
+    @eligible_family.check_in!
+    assert_equal [:not_checked_in_already?], service.errors
+  end
+
+  test '#errors present when family is changes requested' do
+    @eligible_family.update!(precheck_status: :changes_requested)
+    assert_equal [:not_changes_requested_status?], service.errors
+  end
+
+  test '#errors present when outside arrival window' do
+    travel_to 1.month.from_now do
+      assert_equal [:within_arrival_time_window?], service.errors
+    end
+  end
+
+  test '#errors present when housing_preference not confirmed' do
+    @eligible_family.housing_preference.update!(confirmed_at: nil)
+    assert_equal [:housing_preference_confirmed?], service.errors
+  end
+
   test '#actionable_errors is empty when family is eligible' do
     assert_equal [], service.actionable_errors
   end
@@ -173,12 +198,12 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     FamilyFinances::Report.stubs(:call).returns(stub(remaining_balance: 1))
     @eligible_family.chargeable_staff_number.destroy!
     @eligible_family.reload
-    assert_equal [:no_chargeable_staff_number_and_finance_balance_not_zero], service.actionable_errors
+    assert_equal [:chargeable_staff_number_or_zero_balance?], service.actionable_errors
   end
 
   test '#actionable_errors reports error when child forms not approved' do
     @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
-    assert_equal [:children_forms_not_approved], service.actionable_errors
+    assert_equal [:children_forms_approved?], service.actionable_errors
   end
 
   test '#too_late? is false' do
