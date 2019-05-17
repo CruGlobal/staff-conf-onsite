@@ -2,21 +2,38 @@
 # The requirements correspond closely to a flow chart diagram that was prepared by Cru:
 # https://basecamp.com/2160769/projects/12693955/uploads/45614292?enlarge=372609602#attachment_372609602
 class PrecheckEligibilityService < ApplicationService
+  PRE_ACTION_REQUIREMENTS = %i[
+    not_checked_in_already?
+    not_changes_requested_status?
+    within_arrival_time_window?
+    housing_preference_confirmed?
+  ].freeze
+
+  ACTIONABLE_REQUIREMENTS = %i[
+    chargeable_staff_number_or_zero_balance?
+    children_forms_approved?
+  ].freeze
+
+  REQUIREMENTS = PRE_ACTION_REQUIREMENTS + ACTIONABLE_REQUIREMENTS
+
   attr_accessor :family
 
   def call
     all_requirements_met?
   end
 
-  # @return Array[Symbol] a list of items the family can take action on in order to obtain precheck eligibility
+  def errors
+    REQUIREMENTS.reject do |requirement|
+      send(requirement)
+    end
+  end
+
   def actionable_errors
-    errors = []
+    return [] unless pre_action_requirements_met?
 
-    return errors unless pre_actionable_requirements_met?
-
-    errors << :no_chargeable_staff_number_and_finance_balance_not_zero unless finances_okay?
-    errors << :children_forms_not_approved unless children_forms_approved?
-    errors
+    ACTIONABLE_REQUIREMENTS.reject do |requirement|
+      send(requirement)
+    end
   end
 
   def too_late?
@@ -38,27 +55,31 @@ class PrecheckEligibilityService < ApplicationService
   def_delegator :family, :chargeable_staff_number?
 
   def all_requirements_met?
-    pre_actionable_requirements_met? &&
+    pre_action_requirements_met? &&
       actionable_requirements_met?
   end
 
-  def pre_actionable_requirements_met?
-    !checked_in_already? &&
-      !changes_requested? &&
-      within_time_window? &&
-      housing_preference_confirmed?
+  def pre_action_requirements_met?
+    PRE_ACTION_REQUIREMENTS.all? do |requirement|
+      send(requirement)
+    end
   end
 
   def actionable_requirements_met?
-    finances_okay? &&
-      children_forms_approved?
+    ACTIONABLE_REQUIREMENTS.all? do |requirement|
+      send(requirement)
+    end
   end
 
-  def checked_in_already?
-    approved? || attendees.any?(&:checked_in?)
+  def not_checked_in_already?
+    !approved? && attendees.none?(&:checked_in?)
   end
 
-  def within_time_window?
+  def not_changes_requested_status?
+    !changes_requested?
+  end
+
+  def within_arrival_time_window?
     return false if earliest_attendee_arrival_date.blank?
 
     (earliest_precheck_time..last_precheck_time).cover?(Time.zone.now)
@@ -96,7 +117,7 @@ class PrecheckEligibilityService < ApplicationService
     housing_preference.confirmed_at.present?
   end
 
-  def finances_okay?
+  def chargeable_staff_number_or_zero_balance?
     chargeable_staff_number? || finance_balance_is_zero?
   end
 
