@@ -359,11 +359,11 @@ en:
             children_forms_approved?: 'children_forms_not_approved'
       precheck_eligible:
         financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your PreCheck."
-        confirm_precheck: "Confirm PreCheck"
+        confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
         request_changes_preamble: "If you would like to request a change or if there is a mistake on your profile or charges, please type a message in the box below and click the Submit Request button to notify us."
         request_changes_placeholder: "Include your change request or message in this box"
-        request_changes: "Request Changes..."
+        request_changes: "No, I need to request changes..."
         request_changes_confirm: "Are you sure you want to request changes?"
         submit_request_changes: "Submit Request"
         cancel: "Cancel"
