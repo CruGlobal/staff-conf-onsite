@@ -3,7 +3,7 @@
 </p>
 <br>
 
-<% precheck_eligibility_errors(@family).each do |error| %>
+<% precheck_eligibility_actionable_errors(@family).each do |error| %>
   <p>
     <%= t("precheck.status.not_precheck_eligible.eligibility_errors.#{error}") %>
   </p>
