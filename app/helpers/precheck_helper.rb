@@ -4,7 +4,15 @@ module PrecheckHelper
   end
 
   def precheck_eligibility_errors(family)
+    PrecheckEligibilityService.new(family: family).errors
+  end
+
+  def precheck_eligibility_actionable_errors(family)
     PrecheckEligibilityService.new(family: family).actionable_errors
+  end
+
+  def precheck_eligibility_error_label(error)
+    error.to_s.humanize
   end
 
   def precheck_status_label(arg)
