@@ -355,8 +355,8 @@ en:
           confirm: 'Are you sure you want to send this request?'
           submit: 'Submit Request'
           eligibility_errors:
-            no_chargeable_staff_number_and_finance_balance_not_zero: 'no_chargeable_staff_number_and_finance_balance_not_zero'
-            children_forms_not_approved: 'children_forms_not_approved'
+            chargeable_staff_number_or_zero_balance?: 'no_chargeable_staff_number_and_finance_balance_not_zero'
+            children_forms_approved?: 'children_forms_not_approved'
       precheck_eligible:
         financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your PreCheck."
         confirm_precheck: "Confirm PreCheck"
