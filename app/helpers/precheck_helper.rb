@@ -17,7 +17,12 @@ module PrecheckHelper
 
   def precheck_status_label(arg)
     status = arg.is_a?(Family) ? arg.precheck_status : arg
-    status.titleize
+
+    {
+      approved: 'PreCheck Accepted by Conferee',
+      changes_requested: 'Changes Requested by Conferee',
+      pending_approval: 'Pending Conferee Acceptance'
+    }[status.to_sym]
   end
 
   def precheck_statuses_select_collection

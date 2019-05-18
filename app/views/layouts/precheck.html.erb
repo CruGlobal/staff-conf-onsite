@@ -11,7 +11,9 @@
       <%= image_tag(UserVariable[:conference_logo_url]) %>
       <br>
       <br>
-      <h1><%= [UserVariable[:conference_id], t('.precheck')].join(' ') %></h1>
+      <% unless @family&.checked_in? && !@family&.approved? %>
+        <h1><%= [UserVariable[:conference_id], t('.precheck')].join(' ') %></h1>
+      <% end%>
       <%= yield %>
     </div>
   </body>
