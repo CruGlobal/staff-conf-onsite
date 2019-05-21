@@ -141,7 +141,7 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
 
   test '#errors present when outside arrival window' do
     travel_to 1.month.from_now do
-      assert_equal [:within_arrival_time_window?], service.errors
+      assert_equal [:not_too_late?], service.errors
     end
   end
 
@@ -223,5 +223,10 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     @eligible_family.attendees.update_all(arrived_at: nil)
     @eligible_family.reload
     assert_nil service.too_late?
+  end
+
+  test '#children_without_approved_forms' do
+    @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
+    assert_equal [@eligible_family.children.last], service.children_without_approved_forms
   end
 end

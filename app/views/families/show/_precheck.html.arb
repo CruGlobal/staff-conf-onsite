@@ -4,10 +4,10 @@ context.instance_exec do
       row(:precheck_eligible?) do |family|
         status_tag(precheck_eligible?(family))
         if precheck_eligibility_errors(family).present?
-          div 'The following eligibility requirements were not met:'
+          div 'This family is not eligible due to the following reasons:'
           ul do
             precheck_eligibility_errors(family).each do |error|
-              li precheck_eligibility_error_label(error)
+              li precheck_eligibility_error_label(error, family)
             end
           end
         end
