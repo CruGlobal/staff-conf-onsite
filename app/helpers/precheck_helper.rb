@@ -12,15 +12,7 @@ module PrecheckHelper
   end
 
   def precheck_eligibility_error_label(error, family)
-    {
-      not_checked_in_already?: 'Already checked-in',
-      not_changes_requested_status?: 'Changes are requested',
-      not_too_late?: 'Too late for PreCheck',
-      not_too_early?: 'Too early for PreCheck',
-      housing_preference_confirmed?: 'Housing assignment incomplete',
-      chargeable_staff_number_or_zero_balance?: 'Balance due',
-      children_forms_approved?: "Childcare forms not yet approved (#{names_of_children_without_approved_forms(family)})"
-    }[error.to_sym]
+    t("precheck_helper.eligibility_error_label.#{error}", names_of_children: names_of_children_without_approved_forms(family))
   end
 
   def names_of_children_without_approved_forms(family)
@@ -29,12 +21,7 @@ module PrecheckHelper
 
   def precheck_status_label(arg)
     status = arg.is_a?(Family) ? arg.precheck_status : arg
-
-    {
-      approved: 'PreCheck Accepted by Conferee',
-      changes_requested: 'Changes Requested by Conferee',
-      pending_approval: 'Pending Conferee Acceptance'
-    }[status.to_sym]
+    t("precheck_helper.status_label.#{status}")
   end
 
   def precheck_statuses_select_collection

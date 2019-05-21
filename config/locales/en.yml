@@ -172,6 +172,8 @@ en:
         country_code: "Country"
         staff_number: "Staff ID"
         zip: "Zip Code"
+        precheck_status: "PreCheck Status"
+        precheck_status_changed_at: "PreCheck Status Last Changed At"
       housing_facility:
         country_code: "Country"
         csu_dorm_code: "CSU Dorm Code"
@@ -331,6 +333,18 @@ en:
       title: "CruConference PreCheck"
       precheck: "PreCheck"
 
+  families:
+    show:
+      precheck:
+        precheck: 'PreCheck'
+        not_eligible: '%{family} family is not eligible due to the following reasons:'
+        precheck_eligible?: 'Precheck Eligible?'
+        precheck_status: 'Precheck Status'
+        precheck_page: 'Precheck Page'
+        open_family_precheck_page: "Open %{family} family's PreCheck page"
+    form:
+      precheck: 'PreCheck'
+
   precheck:
     confirmation:
       create:
@@ -367,6 +381,20 @@ en:
         request_changes_confirm: "Are you sure you want to request changes?"
         submit_request_changes: "Submit Request"
         cancel: "Cancel"
+
+  precheck_helper:
+    eligibility_error_label:
+      not_checked_in_already?: 'Already checked-in'
+      not_changes_requested_status?: 'Changes are requested'
+      not_too_late?: 'Too late for PreCheck'
+      not_too_early?: 'Too early for PreCheck'
+      housing_preference_confirmed?: 'Housing assignment incomplete'
+      chargeable_staff_number_or_zero_balance?: 'Balance due'
+      children_forms_approved?: "Childcare forms not yet approved [%{names_of_children}]"
+    status_label:
+      approved: 'PreCheck Accepted by Conferee'
+      changes_requested: 'Changes Requested by Conferee'
+      pending_approval: 'Pending Conferee Acceptance'
 
   family_mailer:
     summary:
