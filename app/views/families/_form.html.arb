@@ -27,7 +27,7 @@ context.instance_exec do
     input :handicap, label: 'Using Handicapped parking (hanging tag required)'
   end
 
-  inputs 'Precheck' do
+  inputs t('.precheck') do
     input :precheck_status, as: :select, include_blank: false, collection: precheck_statuses_select_collection
   end
 
