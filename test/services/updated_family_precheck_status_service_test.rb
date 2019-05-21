@@ -38,6 +38,14 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     assert_match 'Review Registration', email.body.to_s
   end
 
+  test 'updating the family without changing the status does not send mail' do
+    @family.update!(city: "Gotham", precheck_status: :pending_approval)
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    end
+  end
+
   test 'changing to approved checks-in the attendees' do
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_one.reload.conference_status
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_two.reload.conference_status
