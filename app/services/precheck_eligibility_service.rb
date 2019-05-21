@@ -5,7 +5,8 @@ class PrecheckEligibilityService < ApplicationService
   PRE_ACTION_REQUIREMENTS = %i[
     not_checked_in_already?
     not_changes_requested_status?
-    within_arrival_time_window?
+    not_too_late?
+    not_too_early?
     housing_preference_confirmed?
   ].freeze
 
@@ -39,7 +40,11 @@ class PrecheckEligibilityService < ApplicationService
   def too_late?
     return unless last_precheck_time
 
-    Time.zone.now > last_precheck_time
+    !not_too_late?
+  end
+
+  def children_without_approved_forms
+    children_requiring_forms_approval.reject(&:forms_approved?)
   end
 
   private
@@ -79,10 +84,16 @@ class PrecheckEligibilityService < ApplicationService
     !changes_requested?
   end
 
-  def within_arrival_time_window?
-    return false if earliest_attendee_arrival_date.blank?
+  def not_too_late?
+    return unless last_precheck_time
 
-    (earliest_precheck_time..last_precheck_time).cover?(Time.zone.now)
+    Time.zone.now < last_precheck_time
+  end
+
+  def not_too_early?
+    return unless earliest_precheck_time
+
+    Time.zone.now > earliest_precheck_time
   end
 
   def earliest_precheck_time
