@@ -9,7 +9,9 @@ class UpdatedFamilyPrecheckStatusService < ApplicationService
 
   private
 
-  def pending_approval; end
+  def pending_approval
+    PrecheckMailer.confirm_charges(family).deliver_now
+  end
 
   def changes_requested
     PrecheckMailer.changes_requested(family, message).deliver_now
