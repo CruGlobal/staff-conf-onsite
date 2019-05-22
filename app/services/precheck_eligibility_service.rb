@@ -42,6 +42,10 @@ class PrecheckEligibilityService < ApplicationService
     Time.zone.now > last_precheck_time
   end
 
+  def checked_in_already?
+    !not_checked_in_already?
+  end
+
   private
 
   def_delegator :family, :approved?
