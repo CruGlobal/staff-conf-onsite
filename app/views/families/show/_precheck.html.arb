@@ -1,27 +1,27 @@
 context.instance_exec do
-  panel 'Precheck' do
+  panel t('.precheck') do
     attributes_table_for family do
-      row(:precheck_eligible?) do |family|
+      row t('.precheck_eligible?') do |family|
         status_tag(precheck_eligible?(family))
         if precheck_eligibility_errors(family).present?
-          div 'The following eligibility requirements were not met:'
+          div t('.not_eligible', family: family.last_name)
           ul do
             precheck_eligibility_errors(family).each do |error|
-              li precheck_eligibility_error_label(error)
+              li precheck_eligibility_error_label(error, family)
             end
           end
         end
       end
 
-      row(:precheck_status) do |family|
+      row t('.precheck_status') do |family|
         status_tag precheck_status_label(family)
       end
 
       row(:precheck_status_changed_at)
 
-      row('Precheck Page') do |family|
+      row t('.precheck_page') do |family|
         family.precheck_email_token || family.create_precheck_email_token!
-        link_to "Open #{family.last_name} family's precheck page",
+        link_to t('.open_family_precheck_page', family: family.last_name),
                 precheck_status_path(token: family.precheck_email_token.token),
                 target: '_blank'
       end

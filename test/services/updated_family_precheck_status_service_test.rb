@@ -12,16 +12,37 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @attendee_two = create :attendee, family: @family, conference_status: Attendee::CONFERENCE_STATUSES.first
   end
 
-  test 'changing to pending_approval does nothing' do
+  test 'changing status from changes_requested to pending_approval does not affect attendee' do
     @family.update!(precheck_status: :changes_requested)
     @family.reload.update!(precheck_status: :pending_approval)
 
-    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      assert_no_difference -> { @attendee_one.reload.updated_at } do
-        assert_no_difference -> { @attendee_two.reload.updated_at } do
-          UpdatedFamilyPrecheckStatusService.new(family: @family).call
-        end
+    assert_no_difference -> { @attendee_one.reload.updated_at } do
+      assert_no_difference -> { @attendee_two.reload.updated_at } do
+        UpdatedFamilyPrecheckStatusService.new(family: @family).call
       end
+    end
+  end
+
+  test 'changing status from changes_requested to pending_approval sends mail' do
+    @family.update!(precheck_status: :changes_requested)
+    @family.reload.update!(precheck_status: :pending_approval)
+
+    assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
+      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    end
+
+    email = ActionMailer::Base.deliveries.last
+    assert_equal ['no-reply@cru.org'], email.from
+    assert_equal [@attendee_one.email, @attendee_two.email], email.to
+    assert_equal 'Cru17 - PreCheck Eligible', email.subject
+    assert_match 'Review Registration', email.body.to_s
+  end
+
+  test 'updating the family without changing the status does not send mail' do
+    @family.update!(city: "Gotham", precheck_status: :pending_approval)
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      UpdatedFamilyPrecheckStatusService.new(family: @family).call
     end
   end
 

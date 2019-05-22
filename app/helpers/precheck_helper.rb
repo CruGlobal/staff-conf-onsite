@@ -11,18 +11,17 @@ module PrecheckHelper
     PrecheckEligibilityService.new(family: family).actionable_errors
   end
 
-  def precheck_eligibility_error_label(error)
-    error.to_s.humanize
+  def precheck_eligibility_error_label(error, family)
+    t("precheck_helper.eligibility_error_label.#{error}", names_of_children: names_of_children_without_approved_forms(family))
+  end
+
+  def names_of_children_without_approved_forms(family)
+    PrecheckEligibilityService.new(family: family).children_without_approved_forms.map(&:full_name).to_sentence
   end
 
   def precheck_status_label(arg)
     status = arg.is_a?(Family) ? arg.precheck_status : arg
-
-    {
-      approved: 'PreCheck Accepted by Conferee',
-      changes_requested: 'Changes Requested by Conferee',
-      pending_approval: 'Pending Conferee Acceptance'
-    }[status.to_sym]
+    t("precheck_helper.status_label.#{status}")
   end
 
   def precheck_statuses_select_collection
