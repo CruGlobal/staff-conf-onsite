@@ -47,17 +47,40 @@ class Precheck::RejectionControllerTest < ControllerTestCase
     assert_equal [UserVariable[:support_email]], last_email.to
   end
 
-  test '#create when precheck eligibility is too late' do
+  test '#create when already checked in' do
     token = create(:precheck_email_token)
-    @attendee = create(:attendee, family: token.family)
+    attendee = create(:attendee, family: token.family)
+    attendee.check_in!
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      post :create, token: token.token, message: "My name is misspelled"
+    end
+    assert_redirected_to precheck_status_path
+  end
+
+  test '#create when already approved' do
+    token = create(:precheck_email_token)
+    attendee = create(:attendee, family: token.family)
+    token.family.update!(precheck_status: :approved)
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      post :create, token: token.token, message: "My name is misspelled"
+    end
+    assert_equal attendee.family.reload.precheck_status, 'approved'
+    assert_redirected_to precheck_status_path
+  end
+
+  test '#create when precheck is too late' do
+    token = create(:precheck_email_token)
+    attendee = create(:attendee, family: token.family)
     PrecheckEligibilityService.stubs(:new).returns(stub("too_late?": true))
 
-    assert_equal @attendee.family.precheck_status, 'pending_approval'
+    assert_equal attendee.family.precheck_status, 'pending_approval'
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
       post :create, token: token.token
     end
-    assert_equal @attendee.family.reload.precheck_status, 'pending_approval'
+    assert_equal attendee.family.reload.precheck_status, 'pending_approval'
     assert_redirected_to precheck_status_path
   end
 end

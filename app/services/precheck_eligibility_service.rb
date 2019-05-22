@@ -47,6 +47,10 @@ class PrecheckEligibilityService < ApplicationService
     children_requiring_forms_approval.reject(&:forms_approved?)
   end
 
+  def checked_in_already?
+    !not_checked_in_already?
+  end
+
   private
 
   def_delegator :family, :approved?
