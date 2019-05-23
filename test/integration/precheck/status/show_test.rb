@@ -78,7 +78,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
       assert_text 'please click below to confirm your PreCheck'
     end
 
-    travel_to 6.days.from_now.beginning_of_day do
+    travel_to 7.days.from_now.beginning_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
       assert_text 'Sorry, it is now too late to qualify for PreCheck.'
     end
