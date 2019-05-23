@@ -66,9 +66,13 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     end
   end
 
-  test 'not eligible if 2 days before earliest attendee arrival' do
-    travel_to 6.days.from_now do
+  test 'not eligible if more than 8am the previous day before earliest attendee arrival' do
+    travel_to 6.days.from_now.beginning_of_day + 8.hours do
       assert_equal false, service.call
+    end
+
+    travel_to 6.days.from_now.beginning_of_day + 7.hours do
+      assert_equal true, service.call
     end
   end
 
