@@ -109,7 +109,7 @@ class PrecheckEligibilityService < ApplicationService
   def last_precheck_time
     return unless earliest_attendee_arrival_date
 
-    (earliest_attendee_arrival_date - 2.days).end_of_day
+    (earliest_attendee_arrival_date - 1.day).beginning_of_day + 8.hours
   end
 
   def earliest_attendee_arrival_date
