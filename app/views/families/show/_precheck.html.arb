@@ -25,7 +25,7 @@ context.instance_exec do
                 precheck_status_path(token: family.precheck_email_token.token),
                 target: '_blank'
       end
-      row t('.action_required'), &:required_team_action
+      row :required_team_action
     end
   end
 end
