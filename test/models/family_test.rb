@@ -102,4 +102,16 @@ class FamilyTest < ModelTestCase
     child_one.destroy
     assert_equal attendee_one.reload.spouse, attendee_two
   end
+
+  test '#required_team_action ignores empty strings' do
+    @family.required_team_action = ['', 'Housing']
+
+    assert ['Housing'], @family.required_team_action
+  end
+
+  test '#required_team_action defaults to empty array when nil' do
+    @family.required_team_action = nil
+
+    assert [], @family.required_team_action
+  end
 end
