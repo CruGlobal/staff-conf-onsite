@@ -336,6 +336,7 @@ en:
   families:
     show:
       precheck:
+        action_required: 'Action required by team'
         precheck: 'PreCheck'
         not_eligible: '%{family} family is not eligible due to the following reasons:'
         precheck_eligible?: 'Precheck Eligible?'
@@ -343,6 +344,7 @@ en:
         precheck_page: 'Precheck Page'
         open_family_precheck_page: "Open %{family} family's PreCheck page"
     form:
+      action_required: 'Action required by team'
       precheck: 'PreCheck'
 
   precheck:
