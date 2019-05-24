@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190522165029) do
+ActiveRecord::Schema.define(version: 20190523234427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,7 +255,7 @@ ActiveRecord::Schema.define(version: 20190522165029) do
     t.string   "country_code",               limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "last_name",                                        null: false
+    t.string   "last_name",                                         null: false
     t.string   "staff_number"
     t.string   "address2"
     t.string   "import_tag"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 20190522165029) do
     t.integer  "precheck_status",                      default: 0
     t.datetime "precheck_status_changed_at"
     t.string   "county"
+    t.string   "required_team_action",                 default: [],              array: true
   end
 
   add_index "families", ["county"], name: "index_families_on_county", using: :btree
