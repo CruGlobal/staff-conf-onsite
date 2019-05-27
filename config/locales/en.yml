@@ -170,6 +170,7 @@ en:
         address1: "Address 1"
         address2: "Address 2"
         country_code: "Country"
+        required_team_action: "Action required by team"
         staff_number: "Staff ID"
         zip: "Zip Code"
         precheck_status: "PreCheck Status"

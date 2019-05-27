@@ -3,6 +3,8 @@ class Family < ApplicationRecord
 
   has_paper_trail
 
+  REQUIRED_ACTION_TEAMS = %w[Housing Childcare Finance Info].freeze
+
   enum precheck_status: %i[
     pending_approval
     changes_requested
@@ -91,6 +93,10 @@ class Family < ApplicationRecord
     else
       attendees.each { |attendee| attendee.update!(spouse: nil) }
     end
+  end
+
+  def required_team_action=(value)
+    super Array(value).reject(&:blank?)
   end
 
   private

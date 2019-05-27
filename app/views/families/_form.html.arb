@@ -29,6 +29,7 @@ context.instance_exec do
 
   inputs t('.precheck') do
     input :precheck_status, as: :select, include_blank: false, collection: precheck_statuses_select_collection
+    input :required_team_action, as: :check_boxes, collection: Family::REQUIRED_ACTION_TEAMS
   end
 
   actions
