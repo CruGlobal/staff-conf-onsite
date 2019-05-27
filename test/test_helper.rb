@@ -43,6 +43,7 @@ class ActiveSupport::TestCase
 
   setup do
     VCR.turn_off!
+    Rails.cache.clear
     Rails.application.reload_routes!
   end
 end
