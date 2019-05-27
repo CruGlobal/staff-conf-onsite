@@ -7,6 +7,8 @@ class HousingUnit < ApplicationRecord
   validates :name, uniqueness: { scope: :housing_facility_id, message:
    'should be unique per facility' }
 
+  delegate :to_s, to: :housing_facility
+
   scope :in_dormitory, (lambda do
     where(housing_facility: HousingFacility.dormitories)
   end)
@@ -52,9 +54,5 @@ class HousingUnit < ApplicationRecord
 
       format(pattern, dir: dir, nulls: nulls)
     end
-  end
-
-  def to_s
-    format('%s: %s', housing_facility.to_s, name)
   end
 end
