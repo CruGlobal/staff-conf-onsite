@@ -65,10 +65,6 @@ ActiveAdmin.register Family do
     link_to 'Summary', summary_family_path(family)
   end
 
-  action_item :nametag, only: %i[show edit] do
-    link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank', rel: 'noopener' if family.checked_in?
-  end
-
   action_item :new_payment, only: :summary do
     link_to 'New Payment', new_family_payment_path(params[:id])
   end
@@ -249,24 +245,6 @@ ActiveAdmin.register Family do
     end
   end
 
-  collection_action :nametags do
-    applicable = collection.select(&:checked_in?)
-    roster = AggregatePdfService.call(Family::Nametag, applicable,
-                                      key: :family, author: current_user)
-    send_data(roster.render, type: 'application/pdf', disposition: :inline)
-  end
-
-  member_action :nametag do
-    roster = Family::Nametag.call(family: Family.find(params[:id]),
-                                  author: current_user)
-
-    send_data(roster.render, type: 'application/pdf', disposition: :inline)
-  end
-
-  sidebar 'Nametags', only: :index do
-    link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
-  end
-
   controller do
     def update
       update! do |format|
@@ -280,4 +258,29 @@ ActiveAdmin.register Family do
       end
     end
   end
+
+  # The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
+  # The code was intentionally left in as comments for possible future-use.
+  #
+  #   action_item :nametag, only: %i[show edit] do
+  #     link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank', rel: 'noopener' if family.checked_in?
+  #   end
+  #
+  #   collection_action :nametags do
+  #     applicable = collection.select(&:checked_in?)
+  #     roster = AggregatePdfService.call(Family::Nametag, applicable,
+  #                                       key: :family, author: current_user)
+  #     send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  #   end
+  #
+  #   member_action :nametag do
+  #     roster = Family::Nametag.call(family: Family.find(params[:id]),
+  #                                   author: current_user)
+  #
+  #     send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  #   end
+  #
+  #   sidebar 'Nametags', only: :index do
+  #     link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
+  #   end
 end
