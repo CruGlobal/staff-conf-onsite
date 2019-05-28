@@ -351,17 +351,33 @@ en:
       create:
         title: "Congratulations!"
         body: "You have received PreCheck. You will receive a confirmation email shortly with more details for your arrival."
+      show:
+        precheck_confirmed_html:
+          Congratulations! You have received <b>PreCheck</b>.
+          <br>
+          <br>
+          When you arrive for check-in, please go to the <b>Durrell Center</b> (across from Moby Arena, near the corner of Shields and Plum) where your name tags and other conference materials will be waiting for you. Look for the PreCheck signs and Team19 workers who will point you in the right direction. If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival.
+          <br>
+          <br>
+          For those attending IBS, please stop by the IBS tables for class notes and optional seminary credit.
+          <br>
+          <br>
+          Completing your check-in today means you <i>do not</i> need to return to check in again on July 19. Please keep your name tag throughout the summer, including %{conference}. You will also receive a security wristband and a clear bag for %{conference} through your track leader. 
     rejection:
       create:
-        title: "Request received."
-        body: "The conference team has been notified of your request and will contact you as soon as possible."
+        title: "We have received your request."
+        body: "Thank you for contacting us. Team19 is working hard to answer all your questions and we hope to get back to you within 24-48 hours."
         message: "The message you sent was:"
     status:
       show:
         greeting: "Hello %{last_name} family!"
       not_precheck_eligible:
         too_late_for_precheck:
-          apology: "Sorry, it is now too late to qualify for PreCheck. Please check-in when you arrive on-site."
+          apology_html:
+            We are sorry. PreCheck has closed and Team19 is working hard to prepare for your arrival.
+            <br>
+            <br>
+            Please do not worry. You will still have a great check-in experience with friendly service, shorter lines, the ability to confirm your information in person and get answers to your questions. When you arrive at CSU, look for the signs and Team19 members who will direct you to the check-in area.
         eligibility_errors_with_form:
           closing_message_html:
             We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team19 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
@@ -442,9 +458,10 @@ en:
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
           <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru19.Childcare@cru.org">Cru19.Childcare@cru.org</a> </li>
-          <li>Jr. High / Sr. High Program, please contact <a href="mailto:Cru19.JrSrHigh@cru.org">Cru19.JrSrHigh@cru.org</a> </li>
-          <li>finances, please contact <a href="mailto:Cru19.Finance@cru.org">Cru19.Finance@cru.org</a></li>
-          <li>anything else, please contact <a href="mailto:Cru19.Info@cru.org">Cru19.Info@cru.org</a></li>
+          <li>CruStu, please contact <a href="mailto:Cru19.CruStu@cru.org">Cru19.CruStu@cru.org</a></li>
+          <li>Housing, please contact <a href="mailto:Cru19.OffCampus@cru.org">Cru19.OffCampus@cru.org</a> and <a href="mailto:Cru19.OnCampus@cru.org">Cru19.OnCampus@cru.org</a></li>
+          <li>Finances, please contact <a href="mailto:Cru19.Finance@cru.org">Cru19.Finance@cru.org</a></li>
+          <li>Anything else, please contact <a href="mailto:Cru19.Info@cru.org">Cru19.Info@cru.org</a></li>
         </ul>'
       signature_html: "<p>Sincerely,<br><br>%{conference} Team</p>"
 

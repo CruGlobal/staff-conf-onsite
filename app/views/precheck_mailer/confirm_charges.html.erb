@@ -3,3 +3,7 @@
 <%= t('.body_html', conference: UserVariable[:conference_id]) %>
 
 <%= link_to t('.link'), precheck_status_url(token: @token.token) %>
+<br>
+<p>
+  <%= t("precheck_mailer.closing_html") %>
+</p>
