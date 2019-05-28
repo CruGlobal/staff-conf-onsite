@@ -363,15 +363,33 @@ en:
         too_late_for_precheck:
           apology: "Sorry, it is now too late to qualify for PreCheck. Please check-in when you arrive on-site."
         eligibility_errors_with_form:
+          closing_message_html:
+            We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team19 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
-          not_precheck_eligible_preamble: 'You are not eligible for PreCheck at this moment.'
-          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request to notify us of your request."
+          not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
+          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
           placeholder: 'Include your request or message in this box'
           confirm: 'Are you sure you want to send this request?'
           submit: 'Submit Request'
           eligibility_errors:
-            chargeable_staff_number_or_zero_balance?: 'no_chargeable_staff_number_and_finance_balance_not_zero'
-            children_forms_approved?: 'children_forms_not_approved'
+            chargeable_staff_number_or_zero_balance?_html: 
+              We noticed on your registration that we do not have your payment information.
+              <br>
+              If you are able to provide that up to 24 hours before your arrival, we can offer you PreCheck.
+              <br>
+              <br>
+              <ul>
+                <li>If you are an <b>employee of Cru in any capacity</b>, please type your employee ID (staff account number) or ministry chartfield in the message box below so that we can verify it and add it to your registration.</li>
+                <li>If you are <b>paying with a credit card</b>, it is unsafe to provide that information online. Please call 970-236-9555 between 9.00 AM – 4.30 PM MST and a Team19 staff member can process your payment.</li>
+                <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team19 staff member will be in touch with you.</li>
+              </ul>
+            children_forms_approved?_html:
+              We noticed that you have incomplete Cru19 Kids forms which can still be submitted online.
+              <br>
+              Please refer to the DocuSign email packet in your inbox to reference the remaining forms we need.
+              <br>
+              <br>
+              Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your PreCheck."
         confirm_precheck: "Yes, I accept my choices and charges"
@@ -433,6 +451,40 @@ en:
     report_issues:
       subject: "%{conference} - PreCheck Issues"
       link: "Click here to contact us"
+    closing_html: 
+      We look forward to seeing you in Colorado this summer.
+      <br>
+      <br>
+      Thank you,
+      <br>
+      Team19
+      <br>
+      <br>
+      P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19.
+      <br>
+      We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
+    not_eligible_preamble_html: 
+      Team19 is pleased to offer <b>PreCheck</b> at Summer19/Cru19.
+      This new experience allows you to confirm your conference details ahead of time so that you can qualify for express check-in at CSU.
+      <br>
+      We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+    eligibility_errors:
+      chargeable_staff_number_or_zero_balance?_html:
+        At this time, you have a <b>balance due</b> that does not qualify you for PreCheck.
+        <br>
+        We would like to try and resolve your balance before you arrive so that you receive PreCheck.
+        <br>
+        <br>
+        <b>Please click on the link below</b> and read the options you have to take care of your balance.
+        <br>
+        When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck and you will have the opportunity to review and confirm your conference information.
+      children_forms_approved?_html:
+        At this time, you have <b>incomplete Cru19 Kids forms</b> that do not qualify you for PreCheck.
+        <br>
+        We would like to help you submit the forms before you arrive so that you can receive PreCheck. 
+        <br>
+        <br>
+        <b>Please click on the link below</b> to learn what form(s) are still needed and how you can submit them through DocuSign.
 
   services:
     childcare:
