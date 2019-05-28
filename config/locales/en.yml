@@ -350,7 +350,7 @@ en:
     confirmation:
       create:
         title: "Congratulations!"
-        body: "You and your family (if applicable) have received %{conference} PreCheck. You should receive a confirmation email shortly with more details for your arrival."
+        body: "You have received PreCheck. You will receive a confirmation email shortly with more details for your arrival."
     rejection:
       create:
         title: "Request received."
@@ -422,7 +422,21 @@ en:
   family_mailer:
     summary:
       subject: "%{conference} Financial Summary"
-      precheck_confirmed: "Congratulations! You and your family (if applicable) have received %{conference} PreCheck. When you arrive for check in at the Durrell Center (dates and times to be changed for each one???) your name tags and other conference materials will be waiting for you. If you are checking in for IBS, you will still need to stop by the IBS tables to receive your class notes and optional seminary credit."
+      precheck_confirmed_html: 
+        Congratulations! You have received <b>PreCheck</b>.
+        <br>
+        <br>
+        When you arrive for check-in, please go to the <b>Durrell Center</b> (across from Moby Arena, near the corner of Shields and Plum) where your name tags and other conference materials will be waiting for you.
+        <br>
+        Look for the PreCheck signs and Team19 members, who will point you in the right direction.
+        <br>
+        If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival.
+        <br>
+        <br>
+        If you are staying on campus in a dorm, please review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view?usp=sharing" target="_blank">arrival and dining hall information.</a>
+        <br>
+        <br>
+        We look forward to seeing you in Colorado this summer.
       onsite_confirmed: "Welcome to Summer19/%{conference}"
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
