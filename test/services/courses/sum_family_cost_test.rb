@@ -14,6 +14,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
   test '1 course' do
     @attendee_1.course_attendances << create_course(price_cents: 123_00)
     @attendee_2.course_attendances = []
+    @family.reload
 
     @service.call
 
@@ -23,6 +24,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
   test '1 course each' do
     @attendee_1.course_attendances << create_course(price_cents: 123_00)
     @attendee_2.course_attendances << create_course(price_cents: 234_00)
+    @family.reload
 
     @service.call
 
@@ -34,6 +36,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
     @attendee_1.course_attendances << create_course(price_cents: 234_00)
     @attendee_2.course_attendances << create_course(price_cents: 234_00)
     @attendee_2.course_attendances << create_course(price_cents: 456_00)
+    @family.reload
 
     @service.call
 
@@ -43,6 +46,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
   test '1 course with credit' do
     @attendee_1.course_attendances << create_seminary_course(price_cents: 123_00)
     @attendee_2.course_attendances = []
+    @family.reload
 
     @service.call
 
@@ -52,6 +56,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
   test '1 course each with credit' do
     @attendee_1.course_attendances << create_seminary_course(price_cents: 123_00)
     @attendee_2.course_attendances << create_seminary_course(price_cents: 234_00)
+    @family.reload
 
     @service.call
 
@@ -63,6 +68,7 @@ class Course::SumFamilyCostTest < ServiceTestCase
     @attendee_1.course_attendances << create_course(price_cents: 234_00)
     @attendee_2.course_attendances << create_seminary_course(price_cents: 234_00)
     @attendee_2.course_attendances << create_course(price_cents: 456_00)
+    @family.reload
 
     @service.call
 

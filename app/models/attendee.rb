@@ -16,6 +16,10 @@ class Attendee < Person
   after_create  -> { family.update_spouses }
   after_destroy -> { family.update_spouses }
 
+  after_update (lambda do
+    [Family.find(family_id_was), family].each(&:update_spouses)
+  end), if: :family_id_changed?
+
   belongs_to :family
   belongs_to :seminary
   belongs_to :spouse, inverse_of: :spouse, class_name: 'Attendee'
