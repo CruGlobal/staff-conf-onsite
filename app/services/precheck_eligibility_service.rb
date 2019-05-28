@@ -37,6 +37,10 @@ class PrecheckEligibilityService < ApplicationService
     end
   end
 
+  def too_late_or_checked_in?
+    too_late? || checked_in_already?
+  end
+
   def too_late?
     return unless last_precheck_time
 
