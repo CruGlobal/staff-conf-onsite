@@ -391,10 +391,14 @@ en:
               <br>
               Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
-        financial_summary_preamble: "If your personal details and your conference cost breakdown are correct, please click below to confirm your PreCheck."
+        financial_summary_preamble_html:
+          Please carefully review your Summer19/Cru19 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival. 
+          <br>
+          <br>
+          If you see something that is incorrect or has changed since registering, click on “No, I need to request changes.”
         confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
-        request_changes_preamble: "If you would like to request a change or if there is a mistake on your profile or charges, please type a message in the box below and click the Submit Request button to notify us."
+        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team19 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck up to 24 hours before your arrival and we will do our best to resolve your situation before you arrive on campus."
         request_changes_placeholder: "Include your change request or message in this box"
         request_changes: "No, I need to request changes..."
         request_changes_confirm: "Are you sure you want to request changes?"
@@ -434,13 +438,19 @@ en:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       title: "%{conference} PreCheck"
-      body_html: "<p>Good news! Your Summer19 and/or %{conference} registration is eligible for PreCheck. This new system allows those who have PreCheck to pick up conference materials when they arrive at the Durrell Center on the CSU campus without visiting a computer check-in station.</p>
-
-      <p>To receive PreCheck, please click on the link below, review your registration choices, and click ACCEPT if they are correct.</p>
-
-      <p>If you notice that some of your choices have changed since you registered, you should click CHANGE, and we will update those options for you. After we’ve made the changes, you’ll once again receive this email so that you can choose to receive PreCheck.</p>
-
-      <p>NOTE: You will receive this email every day until you click ACCEPT or CHANGE.</p>"
+      body_html:
+        <p>Good news! Your Summer19/Cru19 registration is <b>eligible for PreCheck.</b>
+        <br>
+        <br>
+        This new experience allows you to confirm your conference details ahead of time and qualify for express check-in at CSU.
+        <br>
+        We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+        <br>
+        <br>
+        <b>To receive PreCheck</b>, please click the link below, up to 24 hours before your arrival, to review your registration details.
+        <br>
+        Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
+        </p>
       link: "Review Registration"
     changes_requested:
       subject: "%{conference} PreCheck Changes Requested for Family %{family}"
