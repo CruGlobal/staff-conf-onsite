@@ -100,4 +100,13 @@ class UserVariableTest < ModelTestCase
     assert_equal ['One', 'Item Two', '3'], UserVariable[:list_test]
     assert_equal 'One, Item Two, 3', var.raw_value
   end
+
+  test 'get caches values and update clears the cache' do
+    variable = create(:user_variable, short_name: :test, value_type: 'string', value: 'first')
+    assert_equal 'first', UserVariable[:test]
+    variable.update_columns(value: 'second')
+    assert_equal 'first', UserVariable[:test]
+    variable.update!(value: 'third')
+    assert_equal 'third', UserVariable[:test]
+  end
 end

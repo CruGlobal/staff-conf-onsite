@@ -4,12 +4,13 @@ class UserVariable < ApplicationRecord
   validates :code, :short_name, :value_type, presence: true
   validates :code, :short_name, uniqueness: true
 
+  after_commit { Rails.cache.clear }
+
   class << self
     def get(short_name)
-      find_by(short_name: short_name)&.value.tap do |val|
-        if val.nil?
-          raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)',
-                                      short_name, keys)
+      Rails.cache.fetch("user_variable/#{short_name}") do
+        find_by(short_name: short_name)&.value.tap do |val|
+          raise ArgumentError, format('Unknown UserVariable, %s (expected: %p)', short_name, keys) if val.nil?
         end
       end
     end
