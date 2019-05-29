@@ -38,6 +38,26 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     assert_match 'Review Registration', email.body.to_s
   end
 
+  test 'changing status does not send email if too late' do
+    @family.update!(precheck_status: :changes_requested)
+    @family.reload.update!(precheck_status: :pending_approval)
+    @attendee_one.update(arrived_at: Time.zone.now)
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    end
+  end
+
+  test 'changing status does not send email if attendee already checked in' do
+    @family.update!(precheck_status: :pending_approval)
+    @family.reload.update!(precheck_status: :changes_requested)
+    @attendee_one.update(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+
+    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
+      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    end
+  end
+
   test 'updating the family without changing the status does not send mail' do
     @family.update!(city: "Gotham", precheck_status: :pending_approval)
 
