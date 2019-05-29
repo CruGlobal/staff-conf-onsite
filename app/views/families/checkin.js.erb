@@ -1,3 +1,10 @@
 $('.summary.families form').replaceWith('<%= j(render('family_summary_form', finances: @finances, family: @family)) %>')
-window.open('<%= nametag_family_path(@family) %>');
+
+<%#
+  The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
+  The code was intentionally left in as comments for possible future-use.
+
+  window.open('<%= nametag_family_path(@family) %1>');
+%>
+
 window.location = '/families';

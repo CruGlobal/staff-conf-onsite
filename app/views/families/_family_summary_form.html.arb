@@ -16,18 +16,22 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
           end
       end
 
-      # Finance and admins can always print nametags
-      if family.checked_in? || current_user.finance? || current_user.admin?
-        li class: 'cancel' do
-          a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
-        end
-        # li class: 'cancel' do
-        #   a 'Print', href: 'javascript:window.print()'
-        # end
-      end
       li class: 'cancel' do
         a 'Back to Families', href: families_path
       end
+
+      # The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
+      # The code was intentionally left in as comments for possible future-use.
+      #
+      #   # Finance and admins can always print nametags
+      #   if family.checked_in? || current_user.finance? || current_user.admin?
+      #     li class: 'cancel' do
+      #       a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
+      #     end
+      #     # li class: 'cancel' do
+      #     #   a 'Print', href: 'javascript:window.print()'
+      #     # end
+      #   end
     end
   end
 end
