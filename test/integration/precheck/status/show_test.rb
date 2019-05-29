@@ -24,13 +24,13 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text "Hello #{@eligible_family.last_name} family!"
-    assert_text 'please click below to confirm your PreCheck'
+    assert_text 'If your personal information and conference cost breakdown are correct'
     assert_text 'Remaining Balance Due $0'
   end
 
   test '#show as not eligible family' do
     visit precheck_status_path(token: @not_eligible_family.precheck_email_token.token)
-    assert_text 'You are not eligible for PreCheck'
+    assert_text 'We are missing some conference details that will keep you from receiving PreCheck'
   end
 
   test '#show as not eligible family submits message' do
@@ -43,13 +43,13 @@ class Precheck::StatusController::ShowTest < IntegrationTest
       end
     end
 
-    assert_text 'The conference team has been notified'
+    assert_text 'Thank you for contacting us'
   end
 
   test '#show as eligible family pending approval' do
     @eligible_family.update!(precheck_status: :pending_approval)
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'please click below to confirm your PreCheck'
+    assert_text 'click “Yes, I accept my choices and charges”'
   end
 
   test '#show as previously eligible family now has changes requested' do
@@ -61,7 +61,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show as precheck approved' do
     @eligible_family.update!(precheck_status: :approved)
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'Congratulations! You and your family (if applicable) have received Cru17 PreCheck'
+    assert_text 'Congratulations! You have received PreCheck'
   end
 
   test '#show as checked in on site' do
@@ -75,12 +75,12 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show too late for precheck' do
     travel_to 5.days.from_now.end_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-      assert_text 'please click below to confirm your PreCheck'
+      assert_text 'If your personal information and conference cost breakdown are correct'
     end
 
     travel_to 7.days.from_now.beginning_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-      assert_text 'Sorry, it is now too late to qualify for PreCheck.'
+      assert_text 'We are sorry. PreCheck has closed and Team19 is working hard to prepare for your arrival.'
     end
   end
 end
