@@ -229,6 +229,31 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
     assert_nil service.too_late?
   end
 
+  test '#too_late_or_checked_in? is false' do
+    travel_to 2.days.ago do
+      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUSES[1])
+      assert_equal false, service.too_late_or_checked_in?
+    end
+  end
+
+  test '#too_late_or_checked_in? is true' do
+    travel_to 6.days.from_now do
+      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUSES[1])
+      assert_equal true, service.too_late_or_checked_in?
+    end
+
+    travel_to 4.days.from_now do
+      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+      assert_equal true, service.too_late_or_checked_in?
+    end
+
+    travel_to 8.days.from_now do
+      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+      assert_equal true, service.too_late_or_checked_in?
+    end
+
+  end
+
   test '#children_without_approved_forms' do
     @eligible_family.children.last.update! forms_approved: false, forms_approved_by: nil
     assert_equal [@eligible_family.children.last], service.children_without_approved_forms
