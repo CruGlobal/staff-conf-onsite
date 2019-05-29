@@ -37,6 +37,10 @@ class PrecheckEligibilityService < ApplicationService
     end
   end
 
+  def too_late_or_checked_in?
+    too_late? || checked_in_already?
+  end
+
   def too_late?
     return unless last_precheck_time
 
@@ -45,10 +49,6 @@ class PrecheckEligibilityService < ApplicationService
 
   def children_without_approved_forms
     children_requiring_forms_approval.reject(&:forms_approved?)
-  end
-
-  def checked_in_already?
-    !not_checked_in_already?
   end
 
   private
@@ -82,6 +82,10 @@ class PrecheckEligibilityService < ApplicationService
 
   def not_checked_in_already?
     !approved? && attendees.none?(&:checked_in?)
+  end
+
+  def checked_in_already?
+    !not_checked_in_already?
   end
 
   def not_changes_requested_status?
