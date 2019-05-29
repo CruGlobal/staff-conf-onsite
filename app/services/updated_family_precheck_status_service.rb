@@ -10,14 +10,18 @@ class UpdatedFamilyPrecheckStatusService < ApplicationService
   private
 
   def pending_approval
-    PrecheckMailer.confirm_charges(family).deliver_now
+    PrecheckMailer.confirm_charges(family).deliver_now unless too_late_or_checked_in?
   end
 
   def changes_requested
-    PrecheckMailer.changes_requested(family, message).deliver_now
+    PrecheckMailer.changes_requested(family, message).deliver_now unless too_late_or_checked_in?
   end
 
   def approved
     family.check_in!
+  end
+
+  def too_late_or_checked_in?
+    PrecheckEligibilityService.new(family: @family).too_late_or_checked_in?
   end
 end

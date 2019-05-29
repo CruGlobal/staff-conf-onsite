@@ -19,7 +19,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
   test '#create with a valid token checks in family, sends precheck confirmed email' do
     token = create(:precheck_email_token)
     create(:attendee, family: token.family)
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: true))
+    PrecheckEligibilityService.stubs(:new).returns(stub(call: true, "too_late_or_checked_in?": false))
 
     assert_equal token.family.reload.precheck_status, 'pending_approval'
     assert_no_difference('PrecheckEmailToken.count') do

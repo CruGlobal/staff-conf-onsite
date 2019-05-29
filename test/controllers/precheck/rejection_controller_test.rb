@@ -73,7 +73,7 @@ class Precheck::RejectionControllerTest < ControllerTestCase
   test '#create when precheck is too late' do
     token = create(:precheck_email_token)
     attendee = create(:attendee, family: token.family)
-    PrecheckEligibilityService.stubs(:new).returns(stub("too_late?": true))
+    PrecheckEligibilityService.stubs(:new).returns(stub("too_late_or_checked_in?": true))
 
     assert_equal attendee.family.precheck_status, 'pending_approval'
 
