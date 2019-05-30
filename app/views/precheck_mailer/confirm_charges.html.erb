@@ -1,5 +1,3 @@
-<h1><%= t('.title', conference: UserVariable[:conference_id]) %></h1>
-
 <%= t('.body_html', conference: UserVariable[:conference_id]) %>
 
 <%= link_to t('.link'), precheck_status_url(token: @token.token) %>
