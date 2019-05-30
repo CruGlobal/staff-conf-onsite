@@ -110,8 +110,8 @@ class Stay < ApplicationRecord
     percentage / 100.0
   end
 
-  def to_s
-    where = housing_unit&.to_s || 'Self-Provided'
+  def to_s(without_unit: false)
+    where = without_unit ? (housing_facility&.to_s || 'Self-Provided') : (housing_unit&.to_s || 'Self-Provided')
 
     format('%s, %s – %s', where, arrived_at, departed_at)
   end

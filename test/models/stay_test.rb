@@ -121,4 +121,12 @@ class StayTest < ModelTestCase
     assert @stay.for_date?(@stay.departed_at.to_date)
     refute @stay.for_date?(15.days.from_now.to_date)
   end
+
+  test '#to_s returns a decorated description of the stay' do
+    assert_equal @stay.to_s, "#{@unit}, #{@stay.arrived_at} – #{@stay.departed_at}"
+  end
+
+  test '#to_s has option to display description without unit' do
+    assert_equal @stay.to_s(without_unit: true), "#{@facility}, #{@stay.arrived_at} – #{@stay.departed_at}"
+  end
 end
