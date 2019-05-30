@@ -468,7 +468,6 @@ en:
   precheck_mailer:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
-      title: "%{conference} PreCheck"
       body_html:
         <p>Good news! Your Summer19/Cru19 registration is <b>eligible for PreCheck.</b>
         <br>
