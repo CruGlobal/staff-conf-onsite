@@ -86,7 +86,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal @family.attendees.map(&:email).sort, email.to.sort
     assert_equal 'Cru17 Financial Summary', email.subject
-    assert_match 'Congratulations! You and your family (if applicable) have received Cru17 PreCheck.', email.body.to_s
+    assert_match 'Congratulations! You have received <b>PreCheck</b>.', email.body.to_s
   end
 
   test 'changing to changes_requested does not affect attendees' do
