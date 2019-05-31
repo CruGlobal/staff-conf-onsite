@@ -18,12 +18,20 @@ module FamilyFinances
        conferences_cost, rec_center_cost]
     end
 
-    def on_campus_stays
-      stay_scope.select(&:dormitory?).map(&method(:stay_row))
+    def on_campus_stays(without_unit: false)
+      if without_unit
+        stay_scope.select(&:dormitory?).map(&method(:stay_row_without_unit))
+      else
+        stay_scope.select(&:dormitory?).map(&method(:stay_row))
+      end
     end
 
-    def off_campus_stays
-      stay_scope.reject(&:dormitory?).map(&method(:stay_row))
+    def off_campus_stays(without_unit: false)
+      if without_unit
+        stay_scope.reject(&:dormitory?).map(&method(:stay_row_without_unit))
+      else
+        stay_scope.reject(&:dormitory?).map(&method(:stay_row))
+      end
     end
 
     def courses
@@ -67,6 +75,10 @@ module FamilyFinances
 
     def stay_row(stay)
       row(stay.to_s, Stay::SingleAttendeeCost.call(stay: stay).total)
+    end
+
+    def stay_row_without_unit(stay)
+      row(stay.to_s(without_unit: true), Stay::SingleAttendeeCost.call(stay: stay).total)
     end
 
     def course_row(attendance)
