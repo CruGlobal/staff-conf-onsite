@@ -129,4 +129,11 @@ class StayTest < ModelTestCase
   test '#to_s has option to display description without unit' do
     assert_equal @stay.to_s(without_unit: true), "#{@facility}, #{@stay.arrived_at} – #{@stay.departed_at}"
   end
+
+  test '#to_s with a empty value for housing' do
+    @stay.housing_unit = nil
+
+    assert_equal @stay.housing_type, 'self_provided'
+    assert_equal @stay.to_s, "Self-Provided, #{@stay.arrived_at} – #{@stay.departed_at}"
+  end
 end
