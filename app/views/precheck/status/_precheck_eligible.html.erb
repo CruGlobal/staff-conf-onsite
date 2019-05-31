@@ -2,7 +2,7 @@
 <br>
 <br>
 
-<%= render 'families/family_summary', family: family, finances: finances, policy: policy %>
+<%= render 'families/family_summary', family: family, finances: finances, policy: policy, without_unit: true %>
 
 <span id='confirm'>
   <%= button_to t('.confirm_precheck'), precheck_confirmation_path(token: token), class: 'btn btn-confirm',
