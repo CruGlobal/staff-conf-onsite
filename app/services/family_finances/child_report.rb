@@ -43,11 +43,6 @@ module FamilyFinances
       row(stay.to_s(without_unit: without_unit), cost.total)
     end
 
-    def stay_row_without_unit(stay)
-      cost = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
-      row(stay.to_s(without_unit: true), cost.total)
-    end
-
     def childcare_row(index)
       row(childcare_weeks_label(index), childcares_cost.sum.week_charges[index])
     end
