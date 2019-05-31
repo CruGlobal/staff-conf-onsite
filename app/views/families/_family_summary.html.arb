@@ -1,13 +1,18 @@
 highlight_missing_data ||= false
+without_unit ||= false
 
 h2 'Attendees'
 finances.attendee_reports.each do |report|
-  render 'families/reports/attendee', highlight_missing_data: highlight_missing_data, report: report
+  render 'families/reports/attendee', highlight_missing_data: highlight_missing_data,
+                                      without_unit: without_unit,
+                                      report: report
 end
 
 h2 'Children' if finances.children_reports.present?
 finances.children_reports.each do |report|
-  render 'families/reports/child', report: report, highlight_missing_data: highlight_missing_data
+  render 'families/reports/child', report: report, 
+                                   highlight_missing_data: highlight_missing_data,
+                                   without_unit: without_unit
 end
 
 render 'families/reports/vehicle_info', family: family, highlight_missing_data: highlight_missing_data
