@@ -12,11 +12,22 @@ panel content_tag(:span, title, class: 'title',
     if highlight_missing_data && report.attendee.email.blank?
       h4 'MISSING EMAIL ADDRESS', style: 'color:red'
     end
-
-    render 'family_finances/line_items', title: 'On Campus Assignments',
-      collection: report.on_campus_stays
-    render 'family_finances/line_items', title: 'Off Campus Assignments',
-      collection: report.off_campus_stays
+    if without_unit
+      render 'family_finances/line_items', title: 'On Campus Assignments',
+        without_unit: without_unit,
+        collection: report.on_campus_stays(without_unit: true)
+    else
+      render 'family_finances/line_items', title: 'On Campus Assignments',
+        without_unit: without_unit,
+        collection: report.on_campus_stays
+    end
+    if without_unit
+      render 'family_finances/line_items', title: 'Off Campus Assignments',
+        collection: report.off_campus_stays(without_unit: true)
+    else
+      render 'family_finances/line_items', title: 'Off Campus Assignments',
+        collection: report.off_campus_stays
+    end
     render 'family_finances/adjustments', price: report.stay_adjustments
 
     render 'family_finances/line_items', title: 'Facility Use',
