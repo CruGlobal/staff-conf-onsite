@@ -1,7 +1,12 @@
+<h2 class="greeting"><%= t('precheck.status.show.greeting', last_name: @family.last_name) %></h2>
+
 <%= t('.body_html', conference: UserVariable[:conference_id]) %>
+
 <%= link_to t('.link'), precheck_status_url(token: @token.token) %>
+
 <br>
 <br>
+
 <p>
   <%= t("precheck_mailer.closing_html") %>
 </p>
