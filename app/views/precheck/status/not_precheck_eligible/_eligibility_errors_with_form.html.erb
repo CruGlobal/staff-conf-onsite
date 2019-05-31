@@ -1,0 +1,26 @@
+<p>
+  <% if family.changes_requested? %>
+    <%= t('.changes_requested_preamble') %>
+  <% else %>
+    <%= t('.not_precheck_eligible_preamble') %>
+  <% end %>
+</p>
+<br>
+
+<% precheck_eligibility_actionable_errors(family).each do |error| %>
+  <p><%= t(".eligibility_errors.#{error}_html") %></p>
+  <br>
+<% end %>
+
+<%= form_tag precheck_rejection_path(token: token) do %>
+  <p><%= t('.request_changes_preamble') %></p>
+
+  <%= text_area_tag(:message, '', rows: 10, placeholder: t('.placeholder')) %>
+  <br>
+  <%= submit_tag(t('.submit'), class: 'btn btn-cancel', data: { confirm: t('.confirm'), disable_with: '...' }) %>
+<% end %>
+<br>
+<br>
+<br>
+<br>
+<p><%= t('.closing_message_html') %></p>

@@ -3,6 +3,8 @@ class Family < ApplicationRecord
 
   has_paper_trail
 
+  REQUIRED_ACTION_TEAMS = %w[Housing Childcare Finance Info].freeze
+
   enum precheck_status: %i[
     pending_approval
     changes_requested
@@ -68,10 +70,8 @@ class Family < ApplicationRecord
 
   def check_in!
     self.class.transaction { attendees.each(&:check_in!) }
-    if anyone_has_email?
-      FamilyMailer.summary(self).deliver_now
-      FamilyMailer.media_release(self).deliver_now
-    end
+
+    FamilyMailer.summary(self).deliver_now if anyone_has_email?
   end
 
   def checked_in?
@@ -93,6 +93,10 @@ class Family < ApplicationRecord
     else
       attendees.each { |attendee| attendee.update!(spouse: nil) }
     end
+  end
+
+  def required_team_action=(value)
+    super Array(value).reject(&:blank?)
   end
 
   private

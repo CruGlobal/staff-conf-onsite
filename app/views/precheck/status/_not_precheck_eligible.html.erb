@@ -1,0 +1,5 @@
+<% if too_late_for_precheck?(family) %>
+  <%= render 'precheck/status/not_precheck_eligible/too_late_for_precheck', family: family %>
+<% else %>
+  <%= render 'precheck/status/not_precheck_eligible/eligibility_errors_with_form', family: family, token: token %>
+<% end %>

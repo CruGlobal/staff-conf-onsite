@@ -68,7 +68,7 @@ module ChildcareHelper
   # @return [String] a string describing the Childcare week represented by the
   #   given integer
   def childcare_weeks_label(index)
-    I18n.t("#{I18N_PREFIX_CHILDCARE}.weeks.week#{index}")
+    I18n.t("#{I18N_PREFIX_CHILDCARE}.weeks.week#{index}", conference: UserVariable[:conference_id])
   end
 
   # @return [String] a description of the given childcare level, based on the

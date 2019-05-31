@@ -1,0 +1,21 @@
+<p>
+  <% if family.approved? %>
+    <%= t('precheck.confirmation.show.precheck_confirmed_html', conference: UserVariable[:conference_id]) %>
+  <% else %>
+    <%= t('family_mailer.summary.onsite_confirmed', conference: UserVariable[:conference_id]) %>
+  <% end %>
+</p>
+<br>
+
+<p><%= t('family_mailer.summary.contact_list_preamble') %></p>
+<br>
+
+<%= t('family_mailer.summary.contact_list_html') %>
+<br>
+<br>
+
+<p><%= t('family_mailer.summary.summary_preamble') %></p>
+<br>
+<br>
+
+<%= render 'families/family_summary', family: family, finances: finances, policy: policy %>
