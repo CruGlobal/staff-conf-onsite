@@ -5,10 +5,14 @@ nightly_cron_schedule = '0 9 * * *'
 
 cron_jobs_hash = ActiveSupport::HashWithIndifferentAccess.new(
   production: {
+    'Nightly PreCheck Mailer (Production)' => {
+      class: NightlyPrecheckMailerJob.name,
+      cron:  nightly_cron_schedule
+    }
   },
 
   staging: {
-    'Nightly Precheck Mailer' => {
+    'Nightly PreCheck Mailer (Staging)' => {
       class: NightlyPrecheckMailerJob.name,
       cron:  nightly_cron_schedule
     }
