@@ -17,11 +17,7 @@ module FamilyFinances
     end
 
     def on_campus_stays(without_unit: false)
-      if without_unit
-        stay_scope.select(&:on_campus?).map(&method(:stay_row_without_unit))
-      else
-        stay_scope.select(&:on_campus?).map(&method(:stay_row))
-      end
+      stay_scope.select(&:on_campus?).map { |stay| stay_row(stay, without_unit: without_unit)}
     end
 
     def childcare
@@ -42,9 +38,9 @@ module FamilyFinances
 
     private
 
-    def stay_row(stay)
+    def stay_row(stay, without_unit: false)
       cost = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
-      row(stay.to_s, cost.total)
+      row(stay.to_s(without_unit: without_unit), cost.total)
     end
 
     def stay_row_without_unit(stay)
