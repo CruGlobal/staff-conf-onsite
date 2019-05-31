@@ -112,7 +112,7 @@ class Stay < ApplicationRecord
 
   def to_s(without_unit: false)
     where = without_unit ? housing_facility : housing_unit
-    where = where || 'Self-Provided'
+    where ||= 'Self-Provided'
 
     format('%s, %s – %s', where, arrived_at, departed_at)
   end

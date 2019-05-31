@@ -19,11 +19,11 @@ module FamilyFinances
     end
 
     def on_campus_stays(without_unit: false)
-      stay_scope.select(&:dormitory?).map { |stay| stay_row(stay, without_unit: without_unit)}
+      stay_scope.select(&:dormitory?).map { |stay| stay_row(stay, without_unit: without_unit) }
     end
 
     def off_campus_stays(without_unit: false)
-      stay_scope.reject(&:dormitory?).map { |stay| stay_row(stay, without_unit: without_unit)}
+      stay_scope.reject(&:dormitory?).map { |stay| stay_row(stay, without_unit: without_unit) }
     end
 
     def courses

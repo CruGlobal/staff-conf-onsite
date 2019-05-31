@@ -17,7 +17,7 @@ module FamilyFinances
     end
 
     def on_campus_stays(without_unit: false)
-      stay_scope.select(&:on_campus?).map { |stay| stay_row(stay, without_unit: without_unit)}
+      stay_scope.select(&:on_campus?).map { |stay| stay_row(stay, without_unit: without_unit) }
     end
 
     def childcare
