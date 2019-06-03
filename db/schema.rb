@@ -255,7 +255,7 @@ ActiveRecord::Schema.define(version: 20190524181136) do
     t.string   "country_code",               limit: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "last_name",                                        null: false
+    t.string   "last_name",                                         null: false
     t.string   "staff_number"
     t.string   "address2"
     t.string   "import_tag"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 20190524181136) do
     t.integer  "precheck_status",                      default: 0
     t.datetime "precheck_status_changed_at"
     t.string   "county"
+    t.string   "required_team_action",                 default: [],              array: true
   end
 
   add_index "families", ["county"], name: "index_families_on_county", using: :btree

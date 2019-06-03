@@ -4,11 +4,11 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
       case
         when !finances.remaining_balance.zero?
           li class: 'action input_action' do
-            p 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
+            para 'Balance must be $0 to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
         when !family.everyone_has_birthdates?
           li class: 'action input_action' do
-            p 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
+            para 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
         else
           li class: 'action input_action', id: 'checkin_button' do
@@ -16,18 +16,22 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
           end
       end
 
-      # Finance and admins can always print nametags
-      if family.checked_in? || current_user.finance? || current_user.admin?
-        li class: 'cancel' do
-          a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
-        end
-        # li class: 'cancel' do
-        #   a 'Print', href: 'javascript:window.print()'
-        # end
-      end
       li class: 'cancel' do
         a 'Back to Families', href: families_path
       end
+
+      # The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
+      # The code was intentionally left in as comments for possible future-use.
+      #
+      #   # Finance and admins can always print nametags
+      #   if family.checked_in? || current_user.finance? || current_user.admin?
+      #     li class: 'cancel' do
+      #       a 'Nametags (PDF)', target: '_blank', href: nametag_family_path(family)
+      #     end
+      #     # li class: 'cancel' do
+      #     #   a 'Print', href: 'javascript:window.print()'
+      #     # end
+      #   end
     end
   end
 end

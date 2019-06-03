@@ -6,17 +6,19 @@ panel content_tag(:span, title, class: 'title',
                                 data: { id: report.attendee.id,
                                         type: report.attendee.type }) do
   table class: 'finances-table' do
-    if !from_email && report.attendee.birthdate.blank?
+    if highlight_missing_data && report.attendee.birthdate.blank?
       h4 'MISSING BIRTH DATE', style: 'color:red'
     end
-    if !from_email && report.attendee.email.blank?
+    if highlight_missing_data && report.attendee.email.blank?
       h4 'MISSING EMAIL ADDRESS', style: 'color:red'
     end
 
     render 'family_finances/line_items', title: 'On Campus Assignments',
-      collection: report.on_campus_stays
+      without_unit: without_unit,
+      collection: report.on_campus_stays(without_unit: without_unit)
     render 'family_finances/line_items', title: 'Off Campus Assignments',
-      collection: report.off_campus_stays
+      collection: report.off_campus_stays(without_unit: without_unit)
+
     render 'family_finances/adjustments', price: report.stay_adjustments
 
     render 'family_finances/line_items', title: 'Facility Use',

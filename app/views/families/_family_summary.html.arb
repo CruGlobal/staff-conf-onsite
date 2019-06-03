@@ -1,20 +1,24 @@
-from_email ||= false
+highlight_missing_data ||= false
+without_unit ||= false
 
 h2 'Attendees'
 finances.attendee_reports.each do |report|
-  render 'families/reports/attendee', from_email: from_email, report: report
+  render 'families/reports/attendee', highlight_missing_data: highlight_missing_data,
+                                      without_unit: without_unit,
+                                      report: report
 end
 
 h2 'Children' if finances.children_reports.present?
 finances.children_reports.each do |report|
-  render 'families/reports/child', report: report, from_email: from_email
+  render 'families/reports/child', report: report,
+                                   highlight_missing_data: highlight_missing_data,
+                                   without_unit: without_unit
 end
 
-render 'families/reports/vehicle_info', family: family
+render 'families/reports/vehicle_info', family: family, highlight_missing_data: highlight_missing_data
 
 if policy.show_finances?
-  render 'cost_adjustments/table_panel',
-         cost_adjustments: family.cost_adjustments
+  render 'cost_adjustments/table_panel', cost_adjustments: family.cost_adjustments
   render 'payments/table_panel', payments: family.payments
 end
 

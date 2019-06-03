@@ -1,7 +1,7 @@
 class UserVariable < ApplicationRecord
   enum value_type: %i[string money date number html list]
 
-  validates :code, :short_name, :value_type, :value, presence: true
+  validates :code, :short_name, :value_type, presence: true
   validates :code, :short_name, uniqueness: true
 
   after_commit { Rails.cache.clear }
@@ -69,6 +69,8 @@ class UserVariable < ApplicationRecord
   end
 
   def parse_money(value)
+    value = value.presence || 0
+
     if value.is_a?(Money)
       value
     elsif value.is_a?(Numeric)
@@ -92,6 +94,8 @@ class UserVariable < ApplicationRecord
   end
 
   def parse_date(value)
+    value = value.presence || Time.zone.today
+
     if value.is_a?(Date)
       value
     else
@@ -107,6 +111,8 @@ class UserVariable < ApplicationRecord
   end
 
   def parse_number(value)
+    value = value.presence || 0
+
     if value.is_a?(Numeric)
       value
     else

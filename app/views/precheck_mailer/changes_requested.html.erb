@@ -1,4 +1,13 @@
-<%= image_tag(UserVariable[:conference_logo_url]) %>
+<p>
+  <%= t('.intro') %>
+</p>
 
-<h3>Family <%= @family.last_name %> (staff number: <%= @family.staff_number %>) rejected the precheck process with the following message:</h3>
-<p><%= @message %></p>
+<p><%= @family.to_s %></p>
+
+<p><%= t('.staff_number') %> <%= @family.staff_number %></p>
+
+<p><%= link_to(t('.link'), family_url(@family)) %></p>
+
+<p><%= t('.message') %>:</p>
+
+<blockquote><%= @message %></blockquote>

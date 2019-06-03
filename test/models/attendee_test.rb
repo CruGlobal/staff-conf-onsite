@@ -58,8 +58,10 @@ class AttendeeTest < ModelTestCase
 
   test 'automatically update conference_status_changed_at' do
     old_value = @attendee.conference_status_changed_at
-    @attendee.update!(conference_status: 'some new value')
-    refute_equal old_value, @attendee.conference_status_changed_at
+    travel_to 1.minute.from_now do
+      @attendee.update!(conference_status: 'some new value')
+      refute_equal old_value, @attendee.conference_status_changed_at
+    end
   end
 
   test '#main_ministry is the 1st child of the top level ministry' do

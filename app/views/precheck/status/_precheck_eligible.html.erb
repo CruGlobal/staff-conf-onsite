@@ -1,0 +1,20 @@
+<p><%= t('.financial_summary_preamble_html') %></p>
+<br>
+<br>
+
+<%= render 'families/family_summary', family: family, finances: finances, policy: policy, without_unit: true %>
+
+<span id='confirm'>
+  <%= button_to t('.confirm_precheck'), precheck_confirmation_path(token: token), class: 'btn btn-confirm',
+                data: { confirm: t('.confirm_precheck_confirm'), disable_with: '...' } %>
+
+  <%= link_to t('.request_changes'), '#', class: 'btn btn-cancel', onclick: "$('#confirm').hide(); $('#reject').show(); return false" %>
+</span>
+
+<%= form_tag precheck_rejection_path(token: token), id: 'reject', style: 'display:none' do %>
+  <p><%= t('.request_changes_preamble') %></p>
+  <%= text_area_tag(:message, '', rows: 10, placeholder: t('.request_changes_placeholder')) %>
+  <br>
+  <%= link_to t('.cancel'), '#', class: 'btn', onclick: "$('#reject').hide(); $('#confirm').show(); return false" %>
+  <%= submit_tag(t('.submit_request_changes'), class: 'btn btn-cancel', data: { confirm: t('.request_changes_confirm'), disable_with: '...' }) %>
+<% end %>

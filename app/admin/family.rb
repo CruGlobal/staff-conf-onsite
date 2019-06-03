@@ -12,7 +12,8 @@ ActiveAdmin.register Family do
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :county,
                 :state, :zip, :country_code, :primary_person_id, :license_plates,
-                :handicap, housing_preference_attributes: %i[
+                :handicap, :precheck_status, required_team_action: [],
+                housing_preference_attributes: %i[
                   id housing_type roommates beds_count single_room
                   children_count bedrooms_count other_family
                   accepts_non_air_conditioned location1 location2 location3
@@ -63,10 +64,6 @@ ActiveAdmin.register Family do
 
   action_item :summary, only: %i[show edit] do
     link_to 'Summary', summary_family_path(family)
-  end
-
-  action_item :nametag, only: %i[show edit] do
-    link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank', rel: 'noopener' if family.checked_in?
   end
 
   action_item :new_payment, only: :summary do
@@ -249,35 +246,43 @@ ActiveAdmin.register Family do
     end
   end
 
-  collection_action :nametags do
-    applicable = collection.select(&:checked_in?)
-    roster = AggregatePdfService.call(Family::Nametag, applicable,
-                                      key: :family, author: current_user)
-    send_data(roster.render, type: 'application/pdf', disposition: :inline)
-  end
-
-  member_action :nametag do
-    roster = Family::Nametag.call(family: Family.find(params[:id]),
-                                  author: current_user)
-
-    send_data(roster.render, type: 'application/pdf', disposition: :inline)
-  end
-
-  sidebar 'Nametags', only: :index do
-    link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
-  end
-
   controller do
     def update
       update! do |format|
+        UpdatedFamilyPrecheckStatusService.new(family: @family).call
         format.html do
           if request.referer.include?('housing')
             redirect_to housing_path(family_id: @family.id)
           else
-            redirect_to families_path
+            redirect_to family_path(@family)
           end
         end
       end
     end
   end
+
+  # The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
+  # The code was intentionally left in as comments for possible future-use.
+  #
+  #   action_item :nametag, only: %i[show edit] do
+  #     link_to 'Nametags (PDF)', nametag_family_path(family), target: '_blank', rel: 'noopener' if family.checked_in?
+  #   end
+  #
+  #   collection_action :nametags do
+  #     applicable = collection.select(&:checked_in?)
+  #     roster = AggregatePdfService.call(Family::Nametag, applicable,
+  #                                       key: :family, author: current_user)
+  #     send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  #   end
+  #
+  #   member_action :nametag do
+  #     roster = Family::Nametag.call(family: Family.find(params[:id]),
+  #                                   author: current_user)
+  #
+  #     send_data(roster.render, type: 'application/pdf', disposition: :inline)
+  #   end
+  #
+  #   sidebar 'Nametags', only: :index do
+  #     link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
+  #   end
 end

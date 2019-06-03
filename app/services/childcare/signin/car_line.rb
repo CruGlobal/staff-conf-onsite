@@ -9,7 +9,7 @@ class Childcare::Signin::CarLine < Childcare::Signin::Portrait
   end
 
   def header_text
-    t('header.title')
+    t('header.title', conference: UserVariable[:conference_id])
   end
 
   def children

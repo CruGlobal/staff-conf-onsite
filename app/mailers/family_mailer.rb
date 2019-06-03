@@ -6,23 +6,18 @@ class FamilyMailer < ApplicationMailer
   def summary(family)
     @family = family
     @finances = FamilyFinances::Report.call(family: family)
+    @policy = Pundit.policy(User.new(role: 'finance'), family)
 
-    # Send email with the rights of a finance user
-    finance_user = User.find_by(role: 'finance')
-    @policy = Pundit.policy(finance_user, family)
-
-    emails = family.attendees.pluck(:email).select(&:present?).compact
-
-    mail(to: emails, subject: 'Cru17 Financial Summary')
+    mail(to: to_family_attendees(family), subject: t('.subject', conference: UserVariable[:conference_id]))
   end
 
-  def media_release(family)
-    @family = family
-
-    emails = family.attendees.pluck(:email).select(&:present?).compact
-
-    mail(to: emails,
-         from: 'cru17.mediaReleases@cru.org',
-         subject: 'IMPORTANT: Please Read')
-  end
+  # def media_release(family)
+  #   @family = family
+  #
+  #   emails = family.attendees.pluck(:email).select(&:present?).compact
+  #
+  #   mail(to: emails,
+  #        from: 'cru17.mediaReleases@cru.org',
+  #        subject: 'IMPORTANT: Please Read')
+  # end
 end
