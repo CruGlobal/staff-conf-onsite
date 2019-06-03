@@ -112,4 +112,30 @@ class AttendeeTest < ModelTestCase
 
     assert_nil @attendee.cohort
   end
+
+  test 'after_create it updates family spouses' do
+    assert_nil @attendee.spouse
+    attendee_two = create(:attendee, family: @attendee.family)
+    assert_equal @attendee, attendee_two.reload.spouse
+    assert_equal attendee_two, @attendee.reload.spouse
+  end
+
+  test 'after_update it updates family spouses' do
+    attendee_two = create(:attendee, family: @attendee.family)
+
+    attendee_two.update!(family_id: create(:family).id)
+    assert_nil attendee_two.reload.spouse
+    assert_nil @attendee.reload.spouse
+
+    @attendee.update!(family_id: attendee_two.family_id)
+    assert_equal @attendee, attendee_two.reload.spouse
+    assert_equal attendee_two, @attendee.reload.spouse
+  end
+
+  test 'after_destroy it updates family spouses' do
+    attendee_two = create(:attendee, family: @attendee.family)
+    assert_equal attendee_two, @attendee.reload.spouse
+    attendee_two.destroy
+    assert_nil @attendee.reload.spouse
+  end
 end
