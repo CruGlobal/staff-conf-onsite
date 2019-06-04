@@ -853,13 +853,13 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def checkmark_if_yes(attribute)
     return '' if attribute.blank?
 
-    attribute.downcase == 'yes' ? 'X' : ''
+    attribute.casecmp('yes').zero? ? 'X' : ''
   end
 
   def checkmark_if_no(attribute)
     return '' if attribute.blank?
 
-    attribute.downcase == 'no' ? 'X' : ''
+    attribute.casecmp('no').zero? ? 'X' : ''
   end
 
   def checkmark_if_yes_present(attribute)
