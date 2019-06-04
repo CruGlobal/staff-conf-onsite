@@ -267,7 +267,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Immunizations',
-        value: checkmark(mh.immunizations&.join)
+        value: checkmark_if_yes(mh.immunizations&.join)
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay',
@@ -303,27 +303,27 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-Sunscreen-Self-Yes',
-        value: checkmark(mh.sunscreen_self)
+        value: checkmark_if_yes(mh.sunscreen_self)
       },
       {
         label: 'Forms-CC-Sunscreen-Self-No',
-        value: checkmark_false(mh.sunscreen_self)
+        value: checkmark_if_no(mh.sunscreen_self)
       },
       {
         label: 'Forms-CC-Sunscreen-Assisted-Yes',
-        value: checkmark(mh.sunscreen_assisted)
+        value: checkmark_if_yes(mh.sunscreen_assisted)
       },
       {
         label: 'Forms-CC-Sunscreen-Assisted-No',
-        value: checkmark_false(mh.sunscreen_assisted)
+        value: checkmark_if_no(mh.sunscreen_assisted)
       },
       {
         label: 'Forms-CC-Sunscreen-Provided-Yes',
-        value: checkmark(mh.sunscreen_provided)
+        value: checkmark_if_yes(mh.sunscreen_provided)
       },
       {
         label: 'Forms-CC-Sunscreen-Provided-No',
-        value: checkmark_false(mh.sunscreen_provided)
+        value: checkmark_if_no(mh.sunscreen_provided)
       }
     ]
   end
@@ -471,11 +471,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Sibling-Yes',
-        value: checkmark(smh.gtky_sibling)
+        value: checkmark_if_yes(smh.gtky_sibling)
       },
       {
         label: 'Forms-CS-GTKY-Sibling-No',
-        value: checkmark_false(smh.gtky_sibling)
+        value: checkmark_if_no(smh.gtky_sibling)
       },
       {
         label: 'Forms-CS-GTKY-SmallGroupFriend',
@@ -483,19 +483,19 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Leader-Yes',
-        value: checkmark(smh.gtky_leader)
+        value: checkmark_if_yes(smh.gtky_leader)
       },
       {
         label: 'Forms-CS-GTKY-Leader-No',
-        value: checkmark_false(smh.gtky_leader)
+        value: checkmark_if_no(smh.gtky_leader)
       },
       {
         label: 'Forms-CS-GTKY-Musical-Yes',
-        value: checkmark(smh.gtky_musical)
+        value: checkmark_if_yes(smh.gtky_musical)
       },
       {
         label: 'Forms-CS-GTKY-Musical-No',
-        value: checkmark_false(smh.gtky_musical)
+        value: checkmark_if_no(smh.gtky_musical)
       },
       {
         label: 'Forms-CS-GTKY-Activities',
@@ -629,11 +629,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       {
         label: 'Forms-CS-MH-Allergies-No',
-        value: checkmark_if_no_allergies(smh.gtky_allergies)
+        value: checkmark_if_no(smh.gtky_allergies)
       },
       {
         label: 'Forms-CS-MH-Allergies-Yes',
-        value: checkmark_if_allergies(smh.gtky_allergies)
+        value: checkmark_if_yes(smh.gtky_allergies)
       },
       {
         label: 'Forms-CS-MH-Med-Allergies',
@@ -649,11 +649,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Health-Concerns-No',
-        value: checkmark_false(smh.health_concerns)
+        value: checkmark_if_no(smh.health_concerns)
       },
       {
         label: 'Forms-CS-MH-Health-Concerns-Yes',
-        value: checkmark(smh.health_concerns)
+        value: checkmark_if_yes(smh.health_concerns)
       },
       {
         label: 'Forms-CS-MH-Asthma',
@@ -844,27 +844,19 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     recipient.cohort.name if recipient.campus_ministry_member?
   end
 
-  def checkmark_if_no_allergies(allergies)
-    allergies.present? ? '' : 'X'
-  end
-
-  def checkmark_if_allergies(allergies)
-    allergies.present? ? 'X' : ''
-  end
-
   def check_if_in_list(existing_conditions, condition)
     return '' if existing_conditions.blank?
 
     existing_conditions.include?(condition) ? 'X' : ''
   end
 
-  def checkmark(attribute)
+  def checkmark_if_yes(attribute)
     return '' if attribute.blank?
 
     attribute == 'Yes' ? 'X' : ''
   end
 
-  def checkmark_false(attribute)
+  def checkmark_if_no(attribute)
     return '' if attribute.blank?
 
     attribute == 'No' ? 'X' : ''
