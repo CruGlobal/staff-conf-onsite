@@ -91,6 +91,48 @@ class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
     end
   end
 
+  test '#checkmark_if_yes' do
+    subject = Childcare::SendDocusignEnvelope.new(@child)
+
+    assert_equal 'X', subject.send(:checkmark_if_yes, 'Yes')
+    assert_equal 'X', subject.send(:checkmark_if_yes, 'yes')
+    assert_equal 'X', subject.send(:checkmark_if_yes, 'YES')
+    assert_equal '', subject.send(:checkmark_if_yes, 'Maybe')
+    assert_equal '', subject.send(:checkmark_if_yes, 'No')
+    assert_equal '', subject.send(:checkmark_if_yes, '')
+    assert_equal '', subject.send(:checkmark_if_yes, nil)
+  end
+
+  test '#checkmark_if_no' do
+    subject = Childcare::SendDocusignEnvelope.new(@child)
+
+    assert_equal 'X', subject.send(:checkmark_if_no, 'No')
+    assert_equal 'X', subject.send(:checkmark_if_no, 'no')
+    assert_equal 'X', subject.send(:checkmark_if_no, 'NO')
+    assert_equal '', subject.send(:checkmark_if_no, 'Maybe')
+    assert_equal '', subject.send(:checkmark_if_no, 'Yes')
+    assert_equal '', subject.send(:checkmark_if_no, '')
+    assert_equal '', subject.send(:checkmark_if_no, nil)
+  end
+
+  test '#checkmark_if_yes_present' do
+    subject = Childcare::SendDocusignEnvelope.new(@child)
+
+    assert_equal 'X', subject.send(:checkmark_if_yes_present, 'YES lunch on their own')
+    assert_equal '', subject.send(:checkmark_if_yes_present, 'NO lunch on their own')
+    assert_equal '', subject.send(:checkmark_if_yes_present, '')
+    assert_equal '', subject.send(:checkmark_if_yes_present, nil)
+  end
+
+  test '#checkmark_if_no_present' do
+    subject = Childcare::SendDocusignEnvelope.new(@child)
+
+    assert_equal 'X', subject.send(:checkmark_if_no_present, 'NO lunch on their own')
+    assert_equal '', subject.send(:checkmark_if_no_present, 'YES lunch on their own')
+    assert_equal '', subject.send(:checkmark_if_no_present, '')
+    assert_equal '', subject.send(:checkmark_if_no_present, nil)
+  end
+
   def stub_envelope_const(const, value)
     old = Childcare::SendDocusignEnvelope.const_get(const)
     Childcare::SendDocusignEnvelope.send(:remove_const, const)
