@@ -10,6 +10,10 @@ class Precheck::RejectionControllerTest < ControllerTestCase
                      conference_logo_url: 'https://www.logo.com',
                      mail_interceptor_email_addresses: []
 
+  setup do
+    Sidekiq::Testing.inline!
+  end
+
   test '#create with an invalid auth token get error page' do
     post :create, token: "sdfsdf"
     assert_response :success
@@ -73,7 +77,7 @@ class Precheck::RejectionControllerTest < ControllerTestCase
   test '#create when precheck is too late' do
     token = create(:precheck_email_token)
     attendee = create(:attendee, family: token.family)
-    PrecheckEligibilityService.stubs(:new).returns(stub("too_late_or_checked_in?": true))
+    Precheck::EligibilityService.stubs(:new).returns(stub("too_late_or_checked_in?": true))
 
     assert_equal attendee.family.precheck_status, 'pending_approval'
 

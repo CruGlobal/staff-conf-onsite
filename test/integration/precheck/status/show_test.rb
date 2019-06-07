@@ -4,6 +4,7 @@ require_relative '../../../../db/user_variables'
 
 class Precheck::StatusController::ShowTest < IntegrationTest
   before do
+    Sidekiq::Testing.inline!
     SeedUserVariables.new.call
 
     @not_eligible_family = create(:family)
