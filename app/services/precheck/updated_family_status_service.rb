@@ -10,20 +10,20 @@ module Precheck
 
     private
 
+    def delivery_service
+      Precheck::MailDeliveryService.new(family: family)
+    end
+
     def pending_approval
-      PrecheckMailer.confirm_charges(family).deliver_now unless too_late_or_checked_in?
+      delivery_service.deliver_pending_approval_mail
     end
 
     def changes_requested
-      PrecheckMailer.changes_requested(family, message).deliver_now unless too_late_or_checked_in?
+      delivery_service.deliver_changes_requested_mail(message)
     end
 
     def approved
       family.check_in!
-    end
-
-    def too_late_or_checked_in?
-      EligibilityService.new(family: @family).too_late_or_checked_in?
     end
   end
 end

@@ -6,6 +6,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
   include ActionMailer::TestHelper
 
   setup do
+    Sidekiq::Testing.inline!
     SeedUserVariables.new.call
     UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
   end

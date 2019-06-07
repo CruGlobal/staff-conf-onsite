@@ -10,6 +10,10 @@ class Precheck::RejectionControllerTest < ControllerTestCase
                      conference_logo_url: 'https://www.logo.com',
                      mail_interceptor_email_addresses: []
 
+  setup do
+    Sidekiq::Testing.inline!
+  end
+
   test '#create with an invalid auth token get error page' do
     post :create, token: "sdfsdf"
     assert_response :success

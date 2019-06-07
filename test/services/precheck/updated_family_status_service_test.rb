@@ -4,6 +4,7 @@ require_relative '../../../db/user_variables'
 
 class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
   setup do
+    Sidekiq::Testing.inline!
     SeedUserVariables.new.call
     UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
 
@@ -24,6 +25,8 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
   end
 
   test 'changing status from changes_requested to pending_approval sends mail' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: false))
+
     @family.update!(precheck_status: :changes_requested)
     @family.reload.update!(precheck_status: :pending_approval)
 
@@ -38,20 +41,11 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     assert_match 'Review Registration', email.body.to_s
   end
 
-  test 'changing status does not send email if too late' do
+  test 'changing status does not send email if too late or checked in' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: true))
+
     @family.update!(precheck_status: :changes_requested)
     @family.reload.update!(precheck_status: :pending_approval)
-    @attendee_one.update(arrived_at: Time.zone.now)
-
-    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      Precheck::UpdatedFamilyStatusService.new(family: @family).call
-    end
-  end
-
-  test 'changing status does not send email if attendee already checked in' do
-    @family.update!(precheck_status: :pending_approval)
-    @family.reload.update!(precheck_status: :changes_requested)
-    @attendee_one.update(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
       Precheck::UpdatedFamilyStatusService.new(family: @family).call
@@ -59,6 +53,8 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
   end
 
   test 'updating the family without changing the status does not send mail' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: false))
+
     @family.update!(city: "Gotham", precheck_status: :pending_approval)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
