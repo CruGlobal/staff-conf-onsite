@@ -488,7 +488,7 @@ en:
       link: "Link to Admin"
       message: "Message provided by family"
     report_issues:
-      subject: "%{conference} - PreCheck Issues"
+      subject: "%{conference} - Unconfirmed PreCheck Details"
       link: "Click here to contact us"
     closing_html:
       We look forward to seeing you in Colorado this summer.

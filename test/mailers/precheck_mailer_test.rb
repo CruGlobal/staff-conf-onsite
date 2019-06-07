@@ -50,7 +50,7 @@ class PrecheckMailerTest < MailTestCase
 
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal @family.attendees.map(&:email).sort, email.to.sort
-    assert_equal 'Cru17 - PreCheck Issues', email.subject
+    assert_equal 'Cru17 - Unconfirmed PreCheck Details', email.subject
     assert_match 'children_forms_not_approved', email.body.to_s
     assert_match @family.precheck_email_token.token, email.body.to_s
   end
