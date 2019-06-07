@@ -31,6 +31,11 @@ class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
     end
   end
 
+  test '#get_cohort_for does not crash if campus ministry cohort is missing' do
+    @attendee.ministry.parent = create(:ministry, code: 'CM')
+    assert '', Childcare::SendDocusignEnvelope.new(@child).send(:get_cohort_for, @attendee)
+  end
+
   test "#determine_docusign_template for a child on childcare grade and 'None of the above' misc health issue checked" do
     @child.grade_level = 'grade5'
     ChildcareMedicalHistory.new(child: @child, health_misc: ['None of the above'])

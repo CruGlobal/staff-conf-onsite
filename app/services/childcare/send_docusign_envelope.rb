@@ -841,7 +841,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def get_cohort_for(recipient)
-    recipient.cohort.name if recipient.campus_ministry_member?
+    recipient.cohort&.name if recipient.campus_ministry_member?
   end
 
   def check_if_in_list(existing_conditions, condition)
