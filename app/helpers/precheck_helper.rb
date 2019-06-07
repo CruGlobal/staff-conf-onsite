@@ -1,14 +1,14 @@
 module PrecheckHelper
   def precheck_eligible?(family)
-    PrecheckEligibilityService.new(family: family).call
+    Precheck::EligibilityService.new(family: family).call
   end
 
   def precheck_eligibility_errors(family)
-    PrecheckEligibilityService.new(family: family).errors
+    Precheck::EligibilityService.new(family: family).errors
   end
 
   def precheck_eligibility_actionable_errors(family)
-    PrecheckEligibilityService.new(family: family).actionable_errors
+    Precheck::EligibilityService.new(family: family).actionable_errors
   end
 
   def precheck_eligibility_error_label(error, family)
@@ -16,7 +16,7 @@ module PrecheckHelper
   end
 
   def names_of_children_without_approved_forms(family)
-    PrecheckEligibilityService.new(family: family).children_without_approved_forms.map(&:full_name).to_sentence
+    Precheck::EligibilityService.new(family: family).children_without_approved_forms.map(&:full_name).to_sentence
   end
 
   def precheck_status_label(arg)
@@ -31,6 +31,6 @@ module PrecheckHelper
   end
 
   def too_late_for_precheck?(family)
-    PrecheckEligibilityService.new(family: family).too_late?
+    Precheck::EligibilityService.new(family: family).too_late?
   end
 end

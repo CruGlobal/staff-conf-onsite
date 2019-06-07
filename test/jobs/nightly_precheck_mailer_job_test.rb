@@ -8,13 +8,13 @@ class NightlyPrecheckMailerJobTest < JobTestCase
   end
 
   test 'queues the expected mail' do
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: true))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true))
     NightlyPrecheckMailerJob.new.perform
     assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { '_aj_globalid' => "gid://cru-conference/Family/#{@pending_family.id}" }], enqueued_jobs.last[:args]
   end
 
   test 'only mail families in the pending approval state' do
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: true))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true))
     assert_equal 3, Family.count
     assert_equal 0, enqueued_jobs.size
     NightlyPrecheckMailerJob.new.perform
@@ -23,13 +23,13 @@ class NightlyPrecheckMailerJobTest < JobTestCase
   end
 
   test 'skip families that are not precheck eligible and have no actionable_errors' do
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: false, actionable_errors: []))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: false, actionable_errors: []))
     NightlyPrecheckMailerJob.new.perform
     assert_equal 0, enqueued_jobs.size
   end
 
   test 'mail families that are not precheck eligible but have actionable_errors' do
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: false, actionable_errors: [:test_error]))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: false, actionable_errors: [:test_error]))
     NightlyPrecheckMailerJob.new.perform
     assert_equal 1, enqueued_jobs.size
   end

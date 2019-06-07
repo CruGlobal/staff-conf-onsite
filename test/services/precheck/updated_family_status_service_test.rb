@@ -1,8 +1,8 @@
 require 'test_helper'
 
-require_relative '../../db/user_variables'
+require_relative '../../../db/user_variables'
 
-class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
+class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
   setup do
     SeedUserVariables.new.call
     UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
@@ -18,7 +18,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     assert_no_difference -> { @attendee_one.reload.updated_at } do
       assert_no_difference -> { @attendee_two.reload.updated_at } do
-        UpdatedFamilyPrecheckStatusService.new(family: @family).call
+        Precheck::UpdatedFamilyStatusService.new(family: @family).call
       end
     end
   end
@@ -28,7 +28,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.reload.update!(precheck_status: :pending_approval)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -44,7 +44,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @attendee_one.update(arrived_at: Time.zone.now)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
   end
 
@@ -54,7 +54,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @attendee_one.update(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
   end
 
@@ -62,7 +62,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.update!(city: "Gotham", precheck_status: :pending_approval)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
   end
 
@@ -70,7 +70,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_one.reload.conference_status
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_two.reload.conference_status
     @family.update!(precheck_status: :approved)
-    UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    Precheck::UpdatedFamilyStatusService.new(family: @family).call
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_one.reload.conference_status
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_two.reload.conference_status
   end
@@ -79,7 +79,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.update!(precheck_status: :approved)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -94,7 +94,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     assert_no_difference -> { @attendee_one.reload.updated_at } do
       assert_no_difference -> { @attendee_two.reload.updated_at } do
-        UpdatedFamilyPrecheckStatusService.new(family: @family).call
+        Precheck::UpdatedFamilyStatusService.new(family: @family).call
       end
     end
   end
@@ -103,7 +103,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.update!(precheck_status: :changes_requested)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family, message: 'Test 1 2 3').call
+      Precheck::UpdatedFamilyStatusService.new(family: @family, message: 'Test 1 2 3').call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -118,7 +118,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.reload
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family, message: 'Test 1 2 3').call
+      Precheck::UpdatedFamilyStatusService.new(family: @family, message: 'Test 1 2 3').call
     end
 
     email = ActionMailer::Base.deliveries.last

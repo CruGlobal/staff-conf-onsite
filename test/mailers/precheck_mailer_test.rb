@@ -44,7 +44,7 @@ class PrecheckMailerTest < MailTestCase
   end
 
   test '#report_issues' do
-    PrecheckEligibilityService.stubs(:new).returns(stub(actionable_errors: [:children_forms_not_approved]))
+    Precheck::EligibilityService.stubs(:new).returns(stub(actionable_errors: [:children_forms_not_approved]))
     email = PrecheckMailer.report_issues(@family).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 

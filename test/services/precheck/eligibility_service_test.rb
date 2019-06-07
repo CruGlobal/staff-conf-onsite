@@ -1,8 +1,8 @@
 require 'test_helper'
 
-require_relative '../../db/user_variables'
+require_relative '../../../db/user_variables'
 
-class PrecheckEligibilityServiceTest < ServiceTestCase
+class Precheck::EligibilityServiceTest < ServiceTestCase
   setup do
     SeedUserVariables.new.call
 
@@ -22,7 +22,7 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
   end
 
   def service
-    PrecheckEligibilityService.new family: @eligible_family
+    Precheck::EligibilityService.new family: @eligible_family
   end
 
   def family_with_actionable_errors
@@ -32,7 +32,7 @@ class PrecheckEligibilityServiceTest < ServiceTestCase
   end
 
   test 'initialize' do
-    assert_kind_of PrecheckEligibilityService, service
+    assert_kind_of Precheck::EligibilityService, service
     assert_equal @eligible_family, service.family
   end
 

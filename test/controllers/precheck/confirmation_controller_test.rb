@@ -19,7 +19,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
   test '#create with a valid token checks in family, sends precheck confirmed email' do
     token = create(:precheck_email_token)
     create(:attendee, family: token.family)
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: true, "too_late_or_checked_in?": false))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, "too_late_or_checked_in?": false))
 
     assert_equal token.family.reload.precheck_status, 'pending_approval'
     assert_no_difference('PrecheckEmailToken.count') do
@@ -54,9 +54,9 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
     housing = create(:housing_preference, housing_type: 'self_provided')
     token.family.update(chargeable_staff_number: staff_number, housing_preference: housing)
     @attendee = create(:attendee, family: token.family, conference_status: 'Registered', arrived_at: 7.days.from_now)
-    
+
     assert_equal @attendee.family.precheck_status, 'pending_approval'
-    assert PrecheckEligibilityService.new(family: @attendee.family).call
+    assert Precheck::EligibilityService.new(family: @attendee.family).call
 
     @attendee.update!(arrived_at: DateTime.current)
 
@@ -72,7 +72,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
     @attendee = create(:attendee, family: token.family)
     assert_equal @attendee.family.precheck_status, 'pending_approval'
 
-    PrecheckEligibilityService.stubs(:new).returns(stub(call: false))
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: false))
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
       post :create, token: token.token
