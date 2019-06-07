@@ -17,6 +17,10 @@ class PrecheckMailerTest < MailTestCase
     assert_equal [UserVariable[:support_email]], email.to
     assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
     assert_match 'my name was mispelled', email.body.to_s
+
+    @family.attendees.each do |attendee|
+      assert_match attendee.email, email.body.to_s
+    end
   end
 
   test '#confirm_charges creates a auth token for the family' do

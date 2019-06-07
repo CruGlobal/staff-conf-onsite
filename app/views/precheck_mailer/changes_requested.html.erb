@@ -8,6 +8,10 @@
 
 <p><%= link_to(t('.link'), family_url(@family)) %></p>
 
+<% @family.attendees.each do |attendee| %>
+  <p><%= mail_to(attendee.email, "#{attendee.full_name} <#{attendee.email}>") %></p>
+<% end %>
+
 <p><%= t('.message') %>:</p>
 
 <blockquote><%= @message %></blockquote>
