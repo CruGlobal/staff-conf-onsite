@@ -2,7 +2,10 @@
 panel 'Vehicle Information', class: 'hide-on-email' do
   table(class: 'vehicle-table') do
     tbody do
-      tr { th 'License Plate(s)', colspan: 2, class: 'finances-table__title' }
+      tr do
+        th 'License Plate(s) (if you are renting a car, you can provide it when you arrive on campus)',
+          colspan: 2, class: 'finances-table__title'
+      end
       tr do
         if family.license_plates.present?
           td family.license_plates
