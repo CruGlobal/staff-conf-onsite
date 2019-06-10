@@ -25,7 +25,10 @@ context.instance_exec do
                 precheck_status_path(token: family.precheck_email_token.token),
                 target: '_blank'
       end
-      row :required_team_action
+
+      row :required_team_action do |family|
+        render 'families/show/precheck_actions', context: self, family: family
+      end
     end
   end
 end

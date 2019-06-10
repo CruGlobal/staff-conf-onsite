@@ -133,3 +133,25 @@ body.housing {
     margin: 0;
   }
 }
+
+a.checkbox-button {
+  text-decoration: none;
+  color: #323537;
+  margin-right: 20px;
+
+  &:hover {
+    opacity: 0.8;
+    color: #12405a;
+  }
+
+  &::before {
+    font: 20px/1 'Open Sans', sans-serif;
+    content: '\02610';
+  }
+}
+
+a.checkbox-button-checked::before {
+  font: 20px/1 'Open Sans', sans-serif;
+  content: '\02611';
+}
+
