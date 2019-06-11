@@ -49,9 +49,9 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
   end
 
   test 'changing status does not send email if attendee already checked in' do
+    @family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
     @family.update!(precheck_status: :pending_approval)
     @family.reload.update!(precheck_status: :changes_requested)
-    @attendee_one.update(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
       UpdatedFamilyPrecheckStatusService.new(family: @family).call
