@@ -42,7 +42,7 @@ class Precheck::MailDeliveryServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [@attendee.email], email.to
-    assert_equal 'Cru17 - PreCheck Issues', email.subject
+    assert_equal 'Cru17 - Unconfirmed PreCheck Details', email.subject
     assert_match 'incomplete Cru19 Kids forms', email.body.to_s
   end
 
