@@ -17,7 +17,7 @@ context.instance_exec do
         tr class: i % 2 == 1 ? 'even' : '' do
           td i + 1
           row.values.each do |val|
-            td val.html_safe
+            td val.to_s.html_safe
           end
         end
       end
