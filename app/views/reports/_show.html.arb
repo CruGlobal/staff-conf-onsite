@@ -16,7 +16,9 @@ context.instance_exec do
       result.to_hash.each_with_index do |row, i|
         tr class: i % 2 == 1 ? 'even' : '' do
           td i + 1
-          row.values.each(&method(:td))
+          row.values.each do |val|
+            td val.html_safe
+          end
         end
       end
     end
