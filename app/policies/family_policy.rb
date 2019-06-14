@@ -5,7 +5,7 @@ class FamilyPolicy < GeneralPolicy
   end
 
   def show_finances?
-    user.admin? || user.finance?
+    true
   end
 
   def checkin?
