@@ -114,4 +114,19 @@ class FamilyTest < ModelTestCase
 
     assert [], @family.required_team_action
   end
+
+  test '#toggle_required_team_action' do
+    @family.update(required_team_action: Family::REQUIRED_ACTION_TEAMS)
+
+    @family.toggle_required_team_action(Family::REQUIRED_ACTION_TEAMS[1])
+    assert_equal (Family::REQUIRED_ACTION_TEAMS - [Family::REQUIRED_ACTION_TEAMS[1]]).sort, @family.required_team_action.sort
+
+    @family.toggle_required_team_action(Family::REQUIRED_ACTION_TEAMS[1])
+    assert_equal Family::REQUIRED_ACTION_TEAMS.sort, @family.required_team_action.sort
+
+    assert_nil @family.toggle_required_team_action('batman')
+    assert_nil @family.toggle_required_team_action('')
+    assert_nil @family.toggle_required_team_action(nil)
+    assert_equal Family::REQUIRED_ACTION_TEAMS.sort, @family.required_team_action.sort
+  end
 end
