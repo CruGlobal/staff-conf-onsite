@@ -1,0 +1,4 @@
+<% Family::REQUIRED_ACTION_TEAMS.each do |team| %>
+  <% html_class = "checkbox-button #{'checkbox-button-checked' if family.required_team_action.include?(team)}" %>
+  <%= link_to team, toggle_action_required_by_team_family_path(family, team: team), method: :post, class: html_class %>
+<% end %>
