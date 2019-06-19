@@ -2,14 +2,16 @@ class Attendee < Person
   include FamilyMember
 
   CONFERENCE_STATUS_CHECKED_IN = 'Checked-In'.freeze
+  CONFERENCE_STATUS_EXEMPT = 'Exempt'.freeze
+  CONFERENCE_STATUS_EXPECTED = 'Expected'.freeze
   CONFERENCE_STATUS_ACCEPTED = [
-    'Exempt',
+    CONFERENCE_STATUS_EXEMPT,
     CONFERENCE_STATUS_CHECKED_IN,
     'Cru17 Not Required'
   ].freeze
 
   CONFERENCE_STATUSES =
-    (%w[Registered Expected] + CONFERENCE_STATUS_ACCEPTED).freeze
+    (%w[Registered] + [CONFERENCE_STATUS_EXPECTED] + CONFERENCE_STATUS_ACCEPTED).freeze
 
   after_initialize :set_default_seminary
   before_save :touch_conference_status_changed, if: :conference_status_changed?

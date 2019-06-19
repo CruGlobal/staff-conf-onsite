@@ -81,7 +81,7 @@ class PrecheckEligibilityService < ApplicationService
   end
 
   def not_checked_in_already?
-    !approved? && attendees.none?(&:checked_in?)
+    !approved? && !family.checked_in?
   end
 
   def checked_in_already?
