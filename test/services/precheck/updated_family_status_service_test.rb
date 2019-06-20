@@ -1,9 +1,10 @@
 require 'test_helper'
 
-require_relative '../../db/user_variables'
+require_relative '../../../db/user_variables'
 
-class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
+class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
   setup do
+    Sidekiq::Testing.inline!
     SeedUserVariables.new.call
     UserVariable.find_by(short_name: :mail_interceptor_email_addresses).update!(value: [])
 
@@ -18,17 +19,19 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     assert_no_difference -> { @attendee_one.reload.updated_at } do
       assert_no_difference -> { @attendee_two.reload.updated_at } do
-        UpdatedFamilyPrecheckStatusService.new(family: @family).call
+        Precheck::UpdatedFamilyStatusService.new(family: @family).call
       end
     end
   end
 
   test 'changing status from changes_requested to pending_approval sends mail' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: false))
+
     @family.update!(precheck_status: :changes_requested)
     @family.reload.update!(precheck_status: :pending_approval)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -38,31 +41,24 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     assert_match 'Review Registration', email.body.to_s
   end
 
-  test 'changing status does not send email if too late' do
+  test 'changing status does not send email if too late or checked in' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: true))
+
     @family.update!(precheck_status: :changes_requested)
     @family.reload.update!(precheck_status: :pending_approval)
-    @attendee_one.update(arrived_at: Time.zone.now)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
-    end
-  end
-
-  test 'changing status does not send email if attendee already checked in' do
-    @family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
-    @family.update!(precheck_status: :pending_approval)
-    @family.reload.update!(precheck_status: :changes_requested)
-
-    assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
   end
 
   test 'updating the family without changing the status does not send mail' do
+    Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: false))
+
     @family.update!(city: "Gotham", precheck_status: :pending_approval)
 
     assert_no_difference -> { ActionMailer::Base.deliveries.size } do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
   end
 
@@ -70,7 +66,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_one.reload.conference_status
     refute_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_two.reload.conference_status
     @family.update!(precheck_status: :approved)
-    UpdatedFamilyPrecheckStatusService.new(family: @family).call
+    Precheck::UpdatedFamilyStatusService.new(family: @family).call
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_one.reload.conference_status
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @attendee_two.reload.conference_status
   end
@@ -79,7 +75,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.update!(precheck_status: :approved)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family).call
+      Precheck::UpdatedFamilyStatusService.new(family: @family).call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -94,7 +90,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
 
     assert_no_difference -> { @attendee_one.reload.updated_at } do
       assert_no_difference -> { @attendee_two.reload.updated_at } do
-        UpdatedFamilyPrecheckStatusService.new(family: @family).call
+        Precheck::UpdatedFamilyStatusService.new(family: @family).call
       end
     end
   end
@@ -103,7 +99,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.update!(precheck_status: :changes_requested)
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family, message: 'Test 1 2 3').call
+      Precheck::UpdatedFamilyStatusService.new(family: @family, message: 'Test 1 2 3').call
     end
 
     email = ActionMailer::Base.deliveries.last
@@ -118,7 +114,7 @@ class UpdatedFamilyPrecheckStatusServiceTest < ServiceTestCase
     @family.reload
 
     assert_difference -> { ActionMailer::Base.deliveries.size }, 1 do
-      UpdatedFamilyPrecheckStatusService.new(family: @family, message: 'Test 1 2 3').call
+      Precheck::UpdatedFamilyStatusService.new(family: @family, message: 'Test 1 2 3').call
     end
 
     email = ActionMailer::Base.deliveries.last

@@ -257,7 +257,7 @@ ActiveAdmin.register Family do
   controller do
     def update
       update! do |format|
-        UpdatedFamilyPrecheckStatusService.new(family: @family).call
+        Precheck::UpdatedFamilyStatusService.new(family: @family).call
         format.html do
           if request.referer.include?('housing')
             redirect_to housing_path(family_id: @family.id)
