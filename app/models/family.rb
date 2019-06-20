@@ -99,6 +99,16 @@ class Family < ApplicationRecord
     super Array(value).reject(&:blank?)
   end
 
+  def toggle_required_team_action(team)
+    return unless team && REQUIRED_ACTION_TEAMS.include?(team)
+
+    if required_team_action.include?(team)
+      update(required_team_action: (required_team_action - [team]))
+    else
+      update(required_team_action: (required_team_action + [team]))
+    end
+  end
+
   private
 
   def remove_blank_housing_preference

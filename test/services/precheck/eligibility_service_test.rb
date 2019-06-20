@@ -40,8 +40,13 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
     assert_equal true, service.call
   end
 
-  test 'not eligible if an attendee is already checked in' do
-    @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+  test 'eligible if one attendee is exempt' do
+    @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_EXEMPT)
+    assert_equal true, service.call
+  end
+
+  test 'not eligible if all attendees are already checked in' do
+    @eligible_family.attendees.each { |attendee| attendee.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN) }
     assert_equal false, service.call
   end
 
@@ -170,9 +175,9 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
     end
   end
 
-  test '#actionable_errors is empty if 2 days before earliest attendee arrival' do
+  test '#actionable_errors is empty if before earliest attendee arrival' do
     family_with_actionable_errors
-    travel_to 6.days.from_now do
+    travel_to 6.days.from_now.beginning_of_day + 9.hours do
       assert_equal [], service.actionable_errors
     end
   end
@@ -194,7 +199,8 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
 
   test '#actionable_errors is always empty if any attendee is checked in' do
     family_with_actionable_errors.update!(precheck_status: :pending_approval)
-    @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+    @eligible_family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+    @eligible_family.reload
     assert_equal [], service.actionable_errors
   end
 
@@ -231,27 +237,29 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
 
   test '#too_late_or_checked_in? is false' do
     travel_to 2.days.ago do
-      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUSES[1])
+      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_EXPECTED)
       assert_equal false, service.too_late_or_checked_in?
     end
   end
 
   test '#too_late_or_checked_in? is true' do
-    travel_to 6.days.from_now do
-      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUSES[1])
+    travel_to 7.days.from_now do
+      @eligible_family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_EXPECTED)
+      @eligible_family.reload
       assert_equal true, service.too_late_or_checked_in?
     end
 
     travel_to 4.days.from_now do
-      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+      @eligible_family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+      @eligible_family.reload
       assert_equal true, service.too_late_or_checked_in?
     end
 
     travel_to 8.days.from_now do
-      @eligible_family.attendees.first.update!(conference_status: Attendee::CONFERENCE_STATUS_CHECKED_IN)
+      @eligible_family.attendees.update_all(conference_status: Attendee::CONFERENCE_STATUS_EXPECTED)
+      @eligible_family.reload
       assert_equal true, service.too_late_or_checked_in?
     end
-
   end
 
   test '#children_without_approved_forms' do

@@ -246,6 +246,14 @@ ActiveAdmin.register Family do
     end
   end
 
+  member_action :toggle_action_required_by_team, method: :post do
+    @family = Family.find(params[:id])
+    team = params[:team]
+
+    @family.toggle_required_team_action(team)
+    redirect_to family_path(@family)
+  end
+
   controller do
     def update
       update! do |format|
