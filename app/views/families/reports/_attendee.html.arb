@@ -13,7 +13,7 @@ panel content_tag(:span, title, class: 'title',
       h4 'MISSING EMAIL ADDRESS', style: 'color:red'
     end
 
-    render 'family_finances/line_items', title: 'On Campus Assignments',
+    render 'family_finances/line_items', title: 'On Campus Assignments (includes Rec Center)',
       without_unit: without_unit,
       collection: report.on_campus_stays(without_unit: without_unit)
     render 'family_finances/line_items', title: 'Off Campus Assignments',
@@ -39,7 +39,7 @@ panel content_tag(:span, title, class: 'title',
     render 'family_finances/adjustments',
       price: report.conference_adjustments
 
-    render 'family_finances/line_items', title: 'Rec Center',
+    render 'family_finances/line_items', title: 'Rec Center (while living off campus)',
       collection: report.rec_center
     render 'family_finances/adjustments',
       price: report.rec_center_adjustments

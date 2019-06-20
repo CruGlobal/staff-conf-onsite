@@ -362,7 +362,7 @@ en:
           For those attending IBS, please stop by the IBS tables for class notes and optional seminary credit.
           <br>
           <br>
-          Completing your check-in today means you <i>do not</i> need to return to check in again on July 19. Please keep your name tag throughout the summer, including %{conference}. You will also receive a security wristband and a clear bag for %{conference} through your track leader. 
+          Completing your check-in today means you <i>do not</i> need to return to check in again on July 19. Please keep your name tag throughout the summer, including %{conference}. You will also receive a security wristband and a clear bag for %{conference} through your track leader.
     rejection:
       create:
         title: "We have received your request."
@@ -388,7 +388,7 @@ en:
           confirm: 'Are you sure you want to send this request?'
           submit: 'Submit Request'
           eligibility_errors:
-            chargeable_staff_number_or_zero_balance?_html: 
+            chargeable_staff_number_or_zero_balance?_html:
               We noticed on your registration that we do not have your payment information.
               <br>
               If you are able to provide that up to 24 hours before your arrival, we can offer you PreCheck.
@@ -408,7 +408,7 @@ en:
               Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble_html:
-          Please carefully review your Summer19/Cru19 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival. 
+          Please carefully review your Summer19/Cru19 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival.
           <br>
           <br>
           If you see something that is incorrect or has changed since registering, click on “No, I need to request changes.”
@@ -438,18 +438,17 @@ en:
   family_mailer:
     summary:
       subject: "%{conference} Financial Summary"
-      precheck_confirmed_html: 
+      precheck_confirmed_html:
         Congratulations! You have received <b>PreCheck</b>.
         <br>
         <br>
-        When you arrive for check-in, please go to the <b>Durrell Center</b> (across from Moby Arena, near the corner of Shields and Plum) where your name tags and other conference materials will be waiting for you.
-        <br>
-        Look for the PreCheck signs and Team19 members, who will point you in the right direction.
-        <br>
-        If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival.
+        Upon your arrival at CSU, please check in at the date/time indicated by your track leader, as shown <a href="https://www.cru.org/cru19/precheck/" target="_blank">here</a>. Checking in on your designated day will allow Team19 to serve you well by having your name tags and other conference materials ready.
         <br>
         <br>
-        If you are staying on campus in a dorm, please review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view?usp=sharing" target="_blank">arrival and dining hall information.</a>
+        If you are not participating in a Summer19 track and arrive before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
+        <br>
+        <br>
+        If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival. If you are staying on campus in a dorm, please review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view?usp=sharing">arrival and dining hall information</a>.
         <br>
         <br>
         We look forward to seeing you in Colorado this summer.
@@ -489,9 +488,9 @@ en:
       link: "Link to Admin"
       message: "Message provided by family"
     report_issues:
-      subject: "%{conference} - PreCheck Issues"
+      subject: "%{conference} - Unconfirmed PreCheck Details"
       link: "Click here to contact us"
-    closing_html: 
+    closing_html:
       We look forward to seeing you in Colorado this summer.
       <br>
       <br>
@@ -503,7 +502,7 @@ en:
       P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19.
       <br>
       We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
-    not_eligible_preamble_html: 
+    not_eligible_preamble_html:
       Team19 is pleased to offer <b>PreCheck</b> at Summer19/Cru19.
       This new experience allows you to confirm your conference details ahead of time so that you can qualify for express check-in at CSU.
       <br>
@@ -521,7 +520,7 @@ en:
       children_forms_approved?_html:
         At this time, you have <b>incomplete Cru19 Kids forms</b> that do not qualify you for PreCheck.
         <br>
-        We would like to help you submit the forms before you arrive so that you can receive PreCheck. 
+        We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
         <br>
         <b>Please click on the link below</b> to learn what form(s) are still needed and how you can submit them through DocuSign.
