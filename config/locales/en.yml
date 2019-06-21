@@ -437,7 +437,7 @@ en:
 
   family_mailer:
     forms_approved:
-      subject: Cru Kids Forms Confirmation
+      subject: "Cru Kids Forms Approved for %{name}"
     summary:
       subject: "%{conference} PreCheck Summary"
       precheck_confirmed_html:
