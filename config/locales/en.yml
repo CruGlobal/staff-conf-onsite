@@ -436,6 +436,8 @@ en:
       pending_approval: 'Pending Conferee Acceptance'
 
   family_mailer:
+    forms_approved:
+      subject: Cru Kids Forms Confirmation
     summary:
       subject: "%{conference} PreCheck Summary"
       precheck_confirmed_html:
