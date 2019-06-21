@@ -18,7 +18,7 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
 
     render 'family_finances/adjustments', price: report.stay_adjustments
 
-    render 'family_finances/line_items', title: 'Childcare Weeks',
+    render 'family_finances/line_items', title: 'Kids Care Weeks',
       collection: report.childcare
     render 'family_finances/adjustments',
       price: report.childcare_adjustments

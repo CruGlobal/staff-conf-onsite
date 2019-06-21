@@ -31,7 +31,7 @@ panel 'Finances', class: 'finances_panel' do
       {
         'Housing' => Stay::ChargeChildCost.call(child: child),
         'Rec Pass' => RecPass::ChargePersonCost.call(person: child),
-        'Childcare' => Childcare::ChargeChildCost.call(child: child),
+        'Kids Care' => Childcare::ChargeChildCost.call(child: child),
         'Hot Lunches' => HotLunch::ChargeChildCost.call(child: child)
       }
     else
