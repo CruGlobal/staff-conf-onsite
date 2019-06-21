@@ -1,12 +1,15 @@
-<h2 class="greeting"><%= t('precheck.status.show.greeting', last_name: @family.last_name) %></h2>
+<h2 class="greeting"><%= t('precheck.status.show.greeting') %></h2>
 
 <%= t('.body_html', conference: UserVariable[:conference_id]) %>
 
 <%= link_to t('.link'), precheck_status_url(token: @token.token) %>
+(note: you can view your on-campus housing assignment on that page, if applicable)
 
 <br>
 <br>
-
+<p>
+  Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru19/precheck/">here</a>.
+</p>
 <p>
   <%= t("precheck_mailer.closing_html") %>
 </p>
