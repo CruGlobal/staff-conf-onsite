@@ -24,7 +24,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
 
   test '#show' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text "Hello #{@eligible_family.last_name} family!"
+    assert_text "Hello!"
     assert_text 'If your personal information and conference cost breakdown are correct'
     assert_text 'Remaining Balance Due $0'
   end
