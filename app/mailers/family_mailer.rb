@@ -14,7 +14,7 @@ class FamilyMailer < ApplicationMailer
   def forms_approved(family, child)
     @family = family
     @child = child
-    mail(to: to_family_attendees(family), subject: t('.subject'))
+    mail(to: to_family_attendees(family), subject: t('.subject', name: child.full_name_tag))
   end
 
   # def media_release(family)
