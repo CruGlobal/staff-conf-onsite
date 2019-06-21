@@ -11,6 +11,12 @@ class FamilyMailer < ApplicationMailer
     mail(to: to_family_attendees(family), subject: t('.subject', conference: UserVariable[:conference_id]))
   end
 
+  def forms_approved(family, child)
+    @family = family
+    @child = child
+    mail(to: to_family_attendees(family), subject: t('.subject'))
+  end
+
   # def media_release(family)
   #   @family = family
   #
