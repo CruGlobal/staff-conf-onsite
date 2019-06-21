@@ -31,7 +31,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
     assert_equal token.family.reload.precheck_status, 'approved'
 
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal 'Cru17 Financial Summary', last_email.subject
+    assert_equal 'Cru17 PreCheck Summary', last_email.subject
     assert_equal [token.family.attendees.first.email], last_email.to
   end
 

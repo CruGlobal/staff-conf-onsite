@@ -4,4 +4,10 @@ class FamilyMailerPreview < ActionMailer::Preview
     family = Family.first
     FamilyMailer.summary(family)
   end
+
+  def forms_approved
+    child = Child.first
+    family = child.family
+    FamilyMailer.forms_approved(family, family.children.first)
+  end
 end

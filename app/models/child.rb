@@ -23,6 +23,8 @@ class Child < Person
            'grade_level IN(?)'].join(' AND '), childcare_grade_levels)
   end)
 
+  after_commit :send_forms_approved_email, if: proc { |object| object.previous_changes.include?('forms_approved') }
+
   accepts_nested_attributes_for :meal_exemptions, allow_destroy: true
 
   validates :family_id, presence: true
@@ -142,6 +144,12 @@ class Child < Person
     if hot_lunch_weeks.any? && (age_group != :childcare || age <= 2)
       errors.add(:hot_lunch_weeks, 'is only for children at least 3 years old and in' \
                                    ' grade 5 or lower')
+    end
+  end
+
+  def send_forms_approved_email
+    if forms_approved?
+      FamilyMailer.forms_approved(family, self).deliver_now
     end
   end
 end
