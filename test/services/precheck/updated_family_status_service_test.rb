@@ -81,7 +81,7 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal @family.attendees.map(&:email).sort, email.to.sort
-    assert_equal 'Cru17 Financial Summary', email.subject
+    assert_equal 'Cru17 PreCheck Summary', email.subject
     assert_match 'Congratulations! You have received <b>PreCheck</b>.', email.body.to_s
   end
 
