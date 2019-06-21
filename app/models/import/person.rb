@@ -57,10 +57,10 @@ module Import
 
       grade_level:        'Age Group',
       needs_bed:          'Child Needs Dorm Bed',
-      childcare_deposit:  'Childcare Deposit',
+      childcare_deposit:  'Kids Care Deposit',
       childcare_weeks:    'Child Program Weeks',
       hot_lunch_weeks:    'Hot Lunch Weeks',
-      childcare_comment:  'Childcare Comments',
+      childcare_comment:  'Kids Care Comments',
 
       ibs_courses: 'IBS Courses',
       ibs_comment: 'IBS Comments',

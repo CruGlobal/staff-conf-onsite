@@ -26,8 +26,8 @@ en:
         one: "Chargeable Staff ID"
         other: "Chargeable Staff IDs"
       childcare:
-        one: "Childcare Class"
-        other: "Childcare Classes"
+        one: "Kids Care Class"
+        other: "Kids Care Classes"
       cost_code:
         one: "Housing Cost Code"
         other: "Housing Cost Codes"
@@ -63,13 +63,13 @@ en:
       child:
         forms_approved: "Forms Approved"
         forms_approved_by: "Approver Initials"
-        childcare: "Childcare Class"
+        childcare: "Kids Care Class"
         childcare_suffixes:
-          childcare: "%{label} Childcare"
+          childcare: "%{label} Kids Care"
           junior_senior: "%{label} JrSr"
           post_high_school: "%{label}"
         childcare_week_numbers:
-          none: "No Childcare Needed"
+          none: "No Kids Care Needed"
         hot_lunch_week_numbers:
           none: "No Hot Lunch Needed"
         grade_level: "Age Group or Grade Level"
@@ -144,7 +144,7 @@ en:
           books: "Books"
           rec_center: "Recreation Center"
           lunch: "Lunch Charges"
-          childcare: "Childcare"
+          childcare: "Kids Care"
           junior_senior: "Junior/Senior"
       cost_code:
         min_days: "Minimum Stay"
@@ -370,7 +370,7 @@ en:
         message: "The message you sent was:"
     status:
       show:
-        greeting: "Hello %{last_name} family!"
+        greeting: "Hello!"
       not_precheck_eligible:
         too_late_for_precheck:
           apology_html:
@@ -414,7 +414,7 @@ en:
           If you see something that is incorrect or has changed since registering, click on “No, I need to request changes.”
         confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
-        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team19 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck up to 24 hours before your arrival and we will do our best to resolve your situation before you arrive on campus."
+        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team19 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 9:00 AM MT the day before you arrive and we will do our best to resolve your situation before you arrive on campus."
         request_changes_placeholder: "Include your change request or message in this box"
         request_changes: "No, I need to request changes..."
         request_changes_confirm: "Are you sure you want to request changes?"
@@ -429,7 +429,7 @@ en:
       not_too_early?: 'Too early for PreCheck'
       housing_preference_confirmed?: 'Housing assignment incomplete'
       chargeable_staff_number_or_zero_balance?: 'Balance due'
-      children_forms_approved?: "Childcare forms not yet approved [%{names_of_children}]"
+      children_forms_approved?: "Kids Care forms not yet approved [%{names_of_children}]"
     status_label:
       approved: 'PreCheck Accepted by Conferee'
       changes_requested: 'Changes Requested by Conferee'
@@ -437,18 +437,18 @@ en:
 
   family_mailer:
     summary:
-      subject: "%{conference} Financial Summary"
+      subject: "%{conference} PreCheck Summary"
       precheck_confirmed_html:
         Congratulations! You have received <b>PreCheck</b>.
         <br>
         <br>
-        Upon your arrival at CSU, please check in at the date/time indicated by your track leader, as shown <a href="https://www.cru.org/cru19/precheck/" target="_blank">here</a>. Checking in on your designated day will allow Team19 to serve you well by having your name tags and other conference materials ready.
+        Upon your arrival at CSU, please check in at the date/time shown <a href="https://www.cru.org/cru19/precheck/">here</a> (scroll down). Checking in on your designated day will allow Team19 to serve you well by having your name tags and other conference materials ready.
         <br>
         <br>
-        If you are not participating in a Summer19 track and arrive before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
+        If you are arriving on a different date before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
         <br>
         <br>
-        If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival. If you are staying on campus in a dorm, please review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view?usp=sharing">arrival and dining hall information</a>.
+        If you are staying on campus in a dorm your housing assignment is below. Please also review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view">dorm arrival and dining hall information</a>.
         <br>
         <br>
         We look forward to seeing you in Colorado this summer.
@@ -471,12 +471,12 @@ en:
         <p>Good news! Your Summer19/Cru19 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
-        This new experience allows you to confirm your conference details ahead of time and qualify for express check-in at CSU.
+        This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), and qualify for express check-in at CSU.
         <br>
         We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
         <br>
         <br>
-        <b>To receive PreCheck</b>, please click the link below, up to 24 hours before your arrival, to review your registration details.
+        <b>To receive PreCheck</b>, please click the link below, which is available until 9:00AM MT the day before you arrive, to review your registration details.
         <br>
         Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
         </p>
@@ -502,9 +502,11 @@ en:
       P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19.
       <br>
       We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
+    video_html:
+      Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru19/precheck/">here</a>.
     not_eligible_preamble_html:
       Team19 is pleased to offer <b>PreCheck</b> at Summer19/Cru19.
-      This new experience allows you to confirm your conference details ahead of time so that you can qualify for express check-in at CSU.
+      This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), so that you can qualify for express check-in at CSU.
       <br>
       We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
     eligibility_errors:

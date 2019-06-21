@@ -1,3 +1,4 @@
+# rubocop:disable Rails/OutputSafety
 context.instance_exec do
   result = report.result
 
@@ -25,3 +26,4 @@ context.instance_exec do
   end
 
 end
+# rubocop:enable Rails/OutputSafety
