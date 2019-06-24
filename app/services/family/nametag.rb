@@ -8,7 +8,7 @@
 #     CONTACT_LINES = [
 #       'Cru17 Emergency/Security: (407) 232-1084',
 #       'Durrell Information Services: (970) 491-4345',
-#       'Kids Care: Johnson Elementary: (970) 488-4749',
+#       'Cru Kids: Johnson Elementary: (970) 488-4749',
 #       'Kids Camp: Webber Middle: (970) 488-4748',
 #       'Conference Information: go to the Cru17 app',
 #       'and www.cru.org/cru17',

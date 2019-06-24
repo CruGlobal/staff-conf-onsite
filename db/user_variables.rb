@@ -18,11 +18,11 @@ class SeedUserVariables
       description: 'Daily FUF rate after the split' },
 
     # Childcare Weekly Costs
-    childcare_week_0: { value_type: :money, code: :CCWK1,  value: 1_00, description: 'Week 1 Kids Care' },
-    childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Kids Care' },
-    childcare_week_2: { value_type: :money, code: :CCWK3,  value: 1_00, description: 'Week 3 Kids Care' },
-    childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Kids Care' },
-    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Staff Conference Kids Care' },
+    childcare_week_0: { value_type: :money, code: :CCWK1,  value: 1_00, description: 'Week 1 Cru Kids' },
+    childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Cru Kids' },
+    childcare_week_2: { value_type: :money, code: :CCWK3,  value: 1_00, description: 'Week 3 Cru Kids' },
+    childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Cru Kids' },
+    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Staff Conference Cru Kids' },
 
     childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
       description: 'This is the non-refundable registration fee for any child' \
