@@ -8,7 +8,7 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
       if report.child.birthdate.blank?
         h2 'MISSING BIRTH DATE', style: 'color:red'
       end
-      if (report.childcare - [report.deposit_charge]).present? && !report.child.forms_approved?
+      if report.child.childcare_weeks.present? && !report.child.forms_approved?
         h2 'CHILDCARE FORMS NOT COMPLETED', style: 'color:red'
       end
     end
