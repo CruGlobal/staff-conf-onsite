@@ -8,7 +8,7 @@ Rails.application.configure do
       { msg: 'Request' }.merge(data)
     end
   end
-  config.lograge.base_controller_class = ['ActionController::API', 'ActionController::Base']
+  config.lograge.base_controller_class = ['ActionController::Base']
   config.lograge.ignore_actions = ['MonitorsController#lb']
   config.lograge.custom_options = lambda do |event|
     exceptions = %w[controller action format id]
