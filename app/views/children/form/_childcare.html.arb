@@ -1,11 +1,11 @@
 form.instance_exec do
-  inputs 'Kids Care' do
+  inputs 'Cru Kids' do
     input :childcare_deposit, wrapper_html: { style: !policy.edit_deposit? ? 'display:none' : '' }
     input :childcare_weeks, label: 'Weeks of ChildCare', multiple: true,
       hint: 'Please add all weeks needed',
       collection: childcare_weeks_select
 
-    input :childcare_id, as: :select, label: 'Kids Care Spaces',
+    input :childcare_id, as: :select, label: 'Cru Kids Spaces',
       collection: childcare_spaces_select
 
     input :hot_lunch_weeks, label: 'Hot Lunch Weeks', multiple: true,

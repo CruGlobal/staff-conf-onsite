@@ -1,7 +1,7 @@
 module AccountingReport
   class ChildcareCosts < HelperBase
     def description_label
-      'Kids Care'
+      'Cru Kids'
     end
 
     protected

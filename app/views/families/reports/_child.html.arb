@@ -8,7 +8,7 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
       if report.child.birthdate.blank?
         h2 'MISSING BIRTH DATE', style: 'color:red'
       end
-      if report.childcare.present? && !report.child.forms_approved?
+      if report.child.childcare_weeks.present? && !report.child.forms_approved?
         h2 'CHILDCARE FORMS NOT COMPLETED', style: 'color:red'
       end
     end
@@ -18,7 +18,7 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
 
     render 'family_finances/adjustments', price: report.stay_adjustments
 
-    render 'family_finances/line_items', title: 'Kids Care Weeks',
+    render 'family_finances/line_items', title: 'Cru Kids Weeks',
       collection: report.childcare
     render 'family_finances/adjustments',
       price: report.childcare_adjustments

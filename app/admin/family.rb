@@ -148,7 +148,7 @@ ActiveAdmin.register Family do
   collection_action :finance_full_dump do
     csv_string = CSV.generate do |csv|
       csv << ['FamilyID', 'Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
-              'Child Dorm','Child Dorm Adj','Kids Care','Kids Care Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
+              'Child Dorm','Child Dorm Adj','Cru Kids','Cru Kids Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
               'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
               'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
               'Rec Pass Adj','Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',

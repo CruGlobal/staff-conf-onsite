@@ -7,7 +7,7 @@ class Attendee < Person
   CONFERENCE_STATUS_ACCEPTED = [
     CONFERENCE_STATUS_EXEMPT,
     CONFERENCE_STATUS_CHECKED_IN,
-    'Cru17 Not Required'
+    'Staff Conf Not Required'
   ].freeze
 
   CONFERENCE_STATUSES =
