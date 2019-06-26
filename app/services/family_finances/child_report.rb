@@ -36,6 +36,12 @@ module FamilyFinances
       child.hot_lunch_weeks.map(&method(:hot_lunch_row))
     end
 
+    def deposit_charge
+      if child.childcare_deposit?
+        row(t('childcare_deposit'), childcares_cost.sum.deposit_charge)
+      end
+    end
+
     private
 
     def stay_row(stay, without_unit: false)
@@ -67,12 +73,6 @@ module FamilyFinances
         else
           JuniorSenior::ChargeChildCost.call(child: child)
         end
-    end
-
-    def deposit_charge
-      if child.childcare_deposit?
-        row(t('childcare_deposit'), childcares_cost.sum.deposit_charge)
-      end
     end
 
     def rec_center_cost
