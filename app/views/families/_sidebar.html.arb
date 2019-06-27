@@ -21,7 +21,7 @@ context.instance_exec do
   end
 
   div class: 'action_items' do
-    span link_to('New Attendee', new_attendee_path(family_id: family.id), class: 'button')
+    span link_to('New Attendee', new_attendee_path(family_id: family.id), class: 'button') unless family.attendees.length > 1
     span link_to('New Child', new_child_path(family_id: family.id), class: 'button')
   end
 end
