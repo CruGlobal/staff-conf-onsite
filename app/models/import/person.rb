@@ -193,7 +193,7 @@ module Import
       'Age 2' => 'age2',
       'Age 3' => 'age3',
       'Age 4' => 'age4',
-      'Age 5 - Pre-Kindergarten (Cru Kids)' => 'age5-pre-kindergarten',
+      'Age 5 - Pre-Kindergarten (Kids Care)' => 'age5-pre-kindergarten',
       'Age 5 - Kindergarten (Kids Camp)' => 'age5-kindergarten',
       'Grade 1' => 'grade1',
       'Grade 2' => 'grade2',
