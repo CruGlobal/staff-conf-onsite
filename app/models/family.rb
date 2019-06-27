@@ -34,6 +34,7 @@ class Family < ApplicationRecord
 
   before_validation :remove_blank_housing_preference
   before_save :touch_precheck_status_changed, if: :precheck_status_changed?
+  after_create :create_precheck_email_token!
 
   scope :precheck_pending_approval,  -> { where(precheck_status: Family.precheck_statuses[:pending_approval]) }
   scope :precheck_changes_requested, -> { where(precheck_status: Family.precheck_statuses[:changes_requested]) }
