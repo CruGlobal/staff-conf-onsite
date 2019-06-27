@@ -80,7 +80,7 @@ en:
           age3: "Age 3"
           age4: "Age 4"
           age5: "Age 5 / Kindergarten"
-          age5-pre-kindergarten: "Age 5 - Pre-Kindergarten (Cru Kids)"
+          age5-pre-kindergarten: "Age 5 - Pre-Kindergarten (Kids Care)"
           age5-kindergarten: "Age 5 - Kindergarten (Kids Camp)"
           grade1: "Grade 1"
           grade2: "Grade 2"
@@ -458,7 +458,7 @@ en:
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
-          <li>Cru Kids / Kids Camp, please contact <a href="mailto:Cru19.Childcare@cru.org">Cru19.Childcare@cru.org</a> </li>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru19.Childcare@cru.org">Cru19.Childcare@cru.org</a> </li>
           <li>CruStu, please contact <a href="mailto:Cru19.CruStu@cru.org">Cru19.CruStu@cru.org</a></li>
           <li>Housing, please contact <a href="mailto:Cru19.OffCampus@cru.org">Cru19.OffCampus@cru.org</a> and <a href="mailto:Cru19.OnCampus@cru.org">Cru19.OnCampus@cru.org</a></li>
           <li>Finances, please contact <a href="mailto:Cru19.Finance@cru.org">Cru19.Finance@cru.org</a></li>
