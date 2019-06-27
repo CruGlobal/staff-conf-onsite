@@ -26,8 +26,8 @@ en:
         one: "Chargeable Staff ID"
         other: "Chargeable Staff IDs"
       childcare:
-        one: "Cru Kids Class"
-        other: "Cru Kids Classes"
+        one: "Kids Care Class"
+        other: "Kids Care Classes"
       cost_code:
         one: "Housing Cost Code"
         other: "Housing Cost Codes"
@@ -63,7 +63,7 @@ en:
       child:
         forms_approved: "Forms Approved"
         forms_approved_by: "Approver Initials"
-        childcare: "Cru Kids Class"
+        childcare: "Kids Care Class"
         childcare_suffixes:
           childcare: "%{label} Cru Kids"
           junior_senior: "%{label} JrSr"
