@@ -48,9 +48,8 @@ ActiveAdmin.register Child do
     ]
   )
 
-  filter :first_name
-  filter :middle_name
   filter :last_name
+  filter :first_name
   filter :birthdate
   filter :gender
   filter :parent_pickup
