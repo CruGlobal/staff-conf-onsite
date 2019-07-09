@@ -52,7 +52,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
       part1_end_date = end_date > split_date ? split_date : end_date
       part1 = Money.us_dollar((part1_end_date - start_date).to_i * UserVariable[:facility_use_before])
       # Subtract out dorm stays
-      attendee.stays.in_dormitory.where('arrived_at < ?', part1_end_date).each do |stay|
+      attendee.stays.in_dormitory.where('arrived_at < ? AND arrived_at >= ?', part1_end_date, start_date).each do |stay|
         days = ([stay.departed_at, part1_end_date].min - [stay.arrived_at, UserVariable[:facility_use_start]].max).to_i
         part1 -= days * UserVariable[:facility_use_before]
       end
