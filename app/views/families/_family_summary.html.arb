@@ -15,7 +15,7 @@ finances.children_reports.each do |report|
                                    without_unit: without_unit
 end
 
-render 'families/reports/vehicle_info', family: family, highlight_missing_data: highlight_missing_data
+# render 'families/reports/vehicle_info', family: family, highlight_missing_data: highlight_missing_data
 
 if policy.show_finances?
   render 'cost_adjustments/table_panel', cost_adjustments: family.cost_adjustments
