@@ -16,7 +16,7 @@ class Conference < ApplicationRecord
   validates :staff_conference, inclusion: { in: [true, false] }
   validates :start_at, :end_at, presence: true
 
-  after_save :only_one_staff_conference!
+  # after_save :only_one_staff_conference!
 
   class << self
     def staff_conference
@@ -34,11 +34,11 @@ class Conference < ApplicationRecord
 
   private
 
-  def only_one_staff_conference!
-    return unless staff_conference_changed? && staff_conference?
-
-    self.class.
-      where.not(id: id).where(staff_conference: true).
-      find_each { |c| c.update!(staff_conference: false) }
-  end
+  # def only_one_staff_conference!
+  #   return unless staff_conference_changed? && staff_conference?
+  #
+  #   self.class.
+  #     where.not(id: id).where(staff_conference: true).
+  #     find_each { |c| c.update!(staff_conference: false) }
+  # end
 end
