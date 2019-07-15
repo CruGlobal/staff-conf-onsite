@@ -21,7 +21,7 @@ gem 'sidekiq-unique-jobs'
 # Error Reporting
 gem 'ddtrace'
 gem 'dogstatsd-ruby'
-gem 'oj', '~> 2.18'
+gem 'oj', '>= 2.18'
 gem 'rollbar', '~> 2.18'
 
 # Framework
@@ -111,3 +111,6 @@ group :development do
   # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
   # gem 'web-console', '~> 2.0'
 end
+gem 'awesome_print'
+gem 'lograge'
+gem 'ougai', '~> 1.7'

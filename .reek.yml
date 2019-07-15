@@ -25,3 +25,21 @@ directories:
       enabled: false
     UtilityFunction:
       enabled: false
+
+  "lib/log":
+    DuplicateMethodCall:
+      enabled: false
+    IrresponsibleModule:
+      enabled: false
+    ManualDispatch:
+      enabled: false
+    UtilityFunction:
+      enabled: false
+    ControlParameter:
+      enabled: false
+    FeatureEnvy:
+      enabled: false
+    InstanceVariableAssumption:
+      enabled: false
+    LongParameterList:
+      enabled: false
