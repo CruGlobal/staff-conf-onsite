@@ -1,5 +1,7 @@
 context.instance_exec do
-  actions
+  actions do |report|
+    item 'Download', download_report_path(report), class: 'member_link'
+  end
   column(:category)
   column(:name)
 end
