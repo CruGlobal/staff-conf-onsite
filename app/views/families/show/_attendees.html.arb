@@ -12,8 +12,10 @@ context.instance_exec do
     else
       strong 'None'
     end
-    div do
-      a 'New Attendee', href: new_attendee_path(family_id: family.id)
-    end unless attendees.length > 1
+    unless attendees.length > 1
+      div do
+        a 'New Attendee', href: new_attendee_path(family_id: family.id)
+      end
+    end
   end
 end
