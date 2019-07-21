@@ -24,13 +24,17 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
   # If your start date is before facility_use_start, we use that value instead.
   def start_date
     unless @start_date
-      @start_date = attendee.stays.in_apartment.minimum(:arrived_at)
-      @start_date ||= attendee.arrived_at
+      @start_date = arrival_date
       if @start_date && @start_date < UserVariable[:facility_use_start]
         @start_date = UserVariable[:facility_use_start]
       end
     end
     @start_date ||= UserVariable[:facility_use_start]
+  end
+
+  def arrival_date
+    @arrival_date = attendee.stays.in_apartment.minimum(:arrived_at)
+    @arrival_date ||= attendee.arrived_at
   end
 
   # The last day we charge FUF is either the day before you said you're
@@ -52,7 +56,7 @@ class FacilityUseFee::SumAttendeeCost < ChargesService
       part1_end_date = end_date > split_date ? split_date : end_date
       part1 = Money.us_dollar((part1_end_date - start_date).to_i * UserVariable[:facility_use_before])
       # Subtract out dorm stays
-      attendee.stays.in_dormitory.where('arrived_at < ? AND arrived_at >= ?', part1_end_date, start_date).each do |stay|
+      attendee.stays.in_dormitory.where('arrived_at < ? AND arrived_at >= ?', part1_end_date, arrival_date).each do |stay|
         days = ([stay.departed_at, part1_end_date].min - [stay.arrived_at, UserVariable[:facility_use_start]].max).to_i
         part1 -= days * UserVariable[:facility_use_before]
       end
