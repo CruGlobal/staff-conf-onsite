@@ -66,7 +66,7 @@ module AccountingReport
     end
 
     def children
-      family.children.includes(:childcare_weeks).select do |child|
+      family.children.select do |child|
         child.age_group != :childcare && child.childcare_weeks.any?
       end
     end
