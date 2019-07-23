@@ -1,5 +1,4 @@
 class AccountingReport::HelperBase < ApplicationService
-  CONF_ID = 'Cru17'.freeze # TODO Should this be hardcoded?
   DESCRIPTION_LENGTH = 7
 
   attr_accessor :finances, :bank
@@ -66,12 +65,16 @@ class AccountingReport::HelperBase < ApplicationService
   end
 
   def description
-    [CONF_ID, description_label, description_staff_number].join(' ')
+    [conf_id, description_label, description_staff_number].join(' ')
+  end
+
+  def conf_id
+    Conference.order(:id).where(staff_conference: true).first.name
   end
 
   def description_staff_number
     if family.staff_number.present?
-      format("%0#{DESCRIPTION_LENGTH}d", family.staff_number)
+      format("%0#{DESCRIPTION_LENGTH}d", family.staff_number.to_i)
     else
       family.last_name[0, DESCRIPTION_LENGTH]
     end
