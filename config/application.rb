@@ -7,8 +7,11 @@ require 'rack-cas/session_store/active_record'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require_relative '../lib/log/logger'
 module CruConference
   class Application < Rails::Application
+    # Enable ougai
+    config.logger = Log::Logger.new(Rails.root.join('log', 'datadog.log'))
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
