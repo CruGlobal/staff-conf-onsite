@@ -41,7 +41,7 @@ module AccountingReport
         account: 51010,
         product: 'Ext',
         amount: staff_amount,
-        reference: nil # TODO
+        reference: family.staff_number
       }
     end
 
