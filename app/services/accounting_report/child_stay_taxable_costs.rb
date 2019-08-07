@@ -67,7 +67,7 @@ module AccountingReport
 
     def children
       family.children.select do |child|
-        child.age_group != :childcare && child.childcare_weeks.empty?
+        child.age_group == :childcare || child.childcare_weeks.empty?
       end
     end
   end
