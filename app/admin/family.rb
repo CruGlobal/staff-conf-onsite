@@ -151,7 +151,7 @@ ActiveAdmin.register Family do
               'Child Dorm','Child Dorm Taxable', 'Child Dorm Nontaxable', 'Child Dorm Adj','Cru Kids','Cru Kids Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
               'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
               'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
-              'Rec Pass Adj', 'Total Due', 'Total Paid', 'Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
+              'Rec Pass Adj', 'Total Due', 'Balance Due', 'Total Paid', 'Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
               'Business Unit', 'Operating Unit', 'Department', 'Project', 'Reference'
       ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
