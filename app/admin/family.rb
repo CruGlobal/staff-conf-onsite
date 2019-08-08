@@ -156,7 +156,7 @@ ActiveAdmin.register Family do
       ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
                       {children: :cost_adjustments})
-          .order(:last_name).where(id: 55484).each do |family|
+          .order(:last_name).each do |family|
 
         finances = FamilyFinances::Report.call(family: family)
 
@@ -240,19 +240,19 @@ ActiveAdmin.register Family do
       end
     end
 
-    output = '<html><body><table>'
-    csv_string.split("\n").each do |row|
-      output += '<tr>'
-      row.split(',').each do |cell|
-        output += "<td>#{cell}</td>"
-      end
-      output += '</tr>'
-    end
-
-    output + '</table></body></html>'
-
-    render html: output.html_safe
-    # send_data(csv_string, filename: "Finance Full Dump - #{Date.today.to_s(:db)}.csv")
+    # output = '<html><body><table>'
+    # csv_string.split("\n").each do |row|
+    #   output += '<tr>'
+    #   row.split(',').each do |cell|
+    #     output += "<td>#{cell}</td>"
+    #   end
+    #   output += '</tr>'
+    # end
+    #
+    # output + '</table></body></html>'
+    #
+    # render html: output.html_safe
+    send_data(csv_string, filename: "Finance Full Dump - #{Date.today.to_s(:db)}.csv")
   end
 
   member_action :checkin, method: :post do
