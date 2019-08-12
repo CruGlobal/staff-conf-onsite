@@ -146,9 +146,11 @@ ActiveAdmin.register Family do
   end
 
   collection_action :full_accounting_report do
+    row_num = 0
+
     csv_string = CSV.generate do |csv|
       csv << [
-        'Row Num', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference','Family',
+        'Row Num', 'Id', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference','Family',
         'Last name', 'First name', 'Spouse first name'
       ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
@@ -156,9 +158,10 @@ ActiveAdmin.register Family do
           .order(:last_name).each do |family|
         report = AccountingReport::Report.call(family_id: family.id).table
 
-        (1..report.total_pages).each do |i|
-          report.page(i).each do |row|
-            csv << row.attributes.values
+        (1..report.total_pages).each do |page|
+          report.page(page).each do |row|
+            row_num += 1
+            csv << [row_num, row.attributes.values].flatten
           end
         end
       end
