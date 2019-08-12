@@ -145,6 +145,28 @@ ActiveAdmin.register Family do
     send_data(csv_string, filename: "Finance Track Dump - #{Date.today.to_s(:db)}.csv")
   end
 
+  collection_action :full_accounting_report do
+    csv_string = CSV.generate do |csv|
+      csv << [
+        'Row Num', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference','Family',
+        'Last name', 'First name', 'Spouse first name'
+      ]
+      Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
+                      {children: :cost_adjustments})
+          .order(:last_name).each do |family|
+        report = AccountingReport::Report.call(family_id: family.id).table
+
+        (1..report.total_pages).each do |i|
+          report.page(i).each do |row|
+            csv << row.attributes.values
+          end
+        end
+      end
+    end
+
+    send_data(csv_string, filename: "Accounting Report - #{Date.today.to_s(:db)}.csv")
+  end
+
   collection_action :finance_full_dump do
     csv_string = CSV.generate do |csv|
       csv << ['FamilyID', 'Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
