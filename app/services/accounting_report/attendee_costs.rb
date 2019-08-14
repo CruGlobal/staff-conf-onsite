@@ -47,7 +47,7 @@ module AccountingReport
 
     def staff_credit_attributes
       {
-        bus_unit: 'PRESSO',
+        bus_unit: 'PRESO',
         oper_unit: 'LH',
         dept_id: 'CSU',
         project: '',
