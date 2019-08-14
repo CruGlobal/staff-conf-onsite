@@ -150,7 +150,7 @@ ActiveAdmin.register Family do
 
     csv_string = CSV.generate do |csv|
       csv << [
-        'Row Num', 'Id', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference','Family',
+        'Row Num', 'Id', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference', '', 'Family',
         'Last name', 'First name', 'Spouse first name'
       ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
