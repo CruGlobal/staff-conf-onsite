@@ -47,7 +47,7 @@ module AccountingReport
 
     def staff_credit_attributes
       {
-        bus_unit: 'PRESSO',
+        bus_unit: 'PRESO',
         oper_unit: 'LH',
         dept_id: 'CSU',
         project: '',
@@ -67,7 +67,7 @@ module AccountingReport
 
     def children
       family.children.select do |child|
-        child.age_group != :childcare && child.childcare_weeks.empty?
+        child.age_group == :childcare || child.childcare_weeks.empty?
       end
     end
   end

@@ -145,13 +145,38 @@ ActiveAdmin.register Family do
     send_data(csv_string, filename: "Finance Track Dump - #{Date.today.to_s(:db)}.csv")
   end
 
+  collection_action :full_accounting_report do
+    row_num = 0
+
+    csv_string = CSV.generate do |csv|
+      csv << [
+        'Row Num', 'Id', 'Bus unit','Oper unit','Dept','Project','Account','Product','Amount','Description','Reference', '', 'Family',
+        'Last name', 'First name', 'Spouse first name'
+      ]
+      Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
+                      {children: :cost_adjustments})
+          .order(:last_name).each do |family|
+        report = AccountingReport::Report.call(family_id: family.id).table
+
+        (1..report.total_pages).each do |page|
+          report.page(page).each do |row|
+            row_num += 1
+            csv << [row_num, row.attributes.values].flatten
+          end
+        end
+      end
+    end
+
+    send_data(csv_string, filename: "Accounting Report - #{Date.today.to_s(:db)}.csv")
+  end
+
   collection_action :finance_full_dump do
     csv_string = CSV.generate do |csv|
       csv << ['FamilyID', 'Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
-              'Child Dorm','Child Dorm Adj','Cru Kids','Cru Kids Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
+              'Child Dorm','Child Dorm Taxable', 'Child Dorm Nontaxable', 'Child Dorm Adj','Cru Kids','Cru Kids Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
               'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
               'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
-              'Rec Pass Adj','Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
+              'Rec Pass Adj', 'Total Due', 'Balance Due', 'Total Paid', 'Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
               'Business Unit', 'Operating Unit', 'Department', 'Project', 'Reference'
       ]
       Family.includes(:primary_person, :payments, {attendees: [:courses, :conferences, :cost_adjustments]},
@@ -160,62 +185,79 @@ ActiveAdmin.register Family do
 
         finances = FamilyFinances::Report.call(family: family)
 
+        total_due = 0
+
         totals = Stay::SumFamilyAttendeesDormitoryCost.call(family: family)
         adult_dorm = totals.total
         adult_dorm_adj = totals.total_adjustments
+        total_due += adult_dorm
 
         totals = Stay::SumFamilyAttendeesApartmentCost.call(family: family)
         adult_apt = totals.total
         adult_apt_adj = totals.total_adjustments
+        total_due += adult_apt
 
         totals = Stay::SumFamilyChildrenCost.call(family: family)
         child_dorm = totals.total
+        child_dorm_taxable = totals.taxable_total
+        child_dorm_nontaxable = totals.nontaxable_total
         child_dorm_adj = totals.total_adjustments
+        total_due += child_dorm
 
         totals = Childcare::SumFamilyCost.call(family: family)
         childcare = totals.total
         childcare_adj = totals.total_adjustments
+        total_due += childcare
 
         totals = HotLunch::SumFamilyCost.call(family: family)
         hot_lunch = totals.total
         hot_lunch_adj = totals.total_adjustments
+        total_due += hot_lunch
 
         totals = JuniorSenior::SumFamilyCost.call(family: family)
         jrsr = totals.total
         jrsr_adj = totals.total_adjustments
+        total_due += jrsr
 
         totals = FacilityUseFee::SumFamilyCost.call(family: family)
         fuf = totals.total
         fuf_adj = totals.total_adjustments
+        total_due += fuf
 
         totals = Course::SumFamilyCost.call(family: family)
         class_tuition = totals.total
         class_tuition_adj = totals.total_adjustments
+        total_due += class_tuition
 
         totals = Conference::SumFamilyCost.call(family: family)
         track_tuition = totals.total
         track_tuition_adj = totals.total_adjustments
+        total_due += track_tuition
 
         totals = StaffConference::SumFamilyCost.call(family: family)
         ussc_tuition = totals.total
         ussc_tuition_adj = totals.total_adjustments
+        total_due += ussc_tuition
 
         totals = RecPass::SumFamilyCost.call(family: family)
         rec = totals.total
         rec_adj = totals.total_adjustments
+        total_due += rec
 
         pre_paid = family.payments.to_a.select(&:pre_paid?).inject(0) {|sum, p| sum + p.price}
         ministry_payments = family.payments.to_a.select {|p| p.business_account? || p.staff_code?}
         ministry_payment_amount = ministry_payments.inject(0) {|sum, p| sum + p.price}
         cash_check = family.payments.to_a.select(&:cash_check?).inject(0) {|sum, p| sum + p.price}
         credit_card = family.payments.to_a.select(&:credit_card?).inject(0) {|sum, p| sum + p.price}
-        staff_code = finances.unpaid
+        staff_code = family.chargeable_staff_number? ? finances.unpaid : 0
+        total_paid = pre_paid + ministry_payment_amount + cash_check + credit_card + staff_code
+        balance_due = total_due - total_paid
 
         csv << [
           family.id, family.last_name, family.first_name, "_#{family.staff_number}", family.checked_in?,
-          adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_adj, childcare, childcare_adj,
+          adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_taxable, child_dorm_nontaxable, child_dorm_adj, childcare, childcare_adj,
           hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
-          track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, pre_paid, ministry_payment_amount,
+          track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, total_due, balance_due, total_paid, pre_paid, ministry_payment_amount,
           cash_check, credit_card, staff_code, ministry_payments.collect(&:business_unit).join(', '),
           ministry_payments.collect(&:operating_unit).join(', '), ministry_payments.collect(&:department_code).join(', '),
           ministry_payments.collect(&:project_code).join(', '), ministry_payments.collect(&:reference).join(', ')
@@ -223,6 +265,18 @@ ActiveAdmin.register Family do
       end
     end
 
+    # output = '<html><body><table>'
+    # csv_string.split("\n").each do |row|
+    #   output += '<tr>'
+    #   row.split(',').each do |cell|
+    #     output += "<td>#{cell}</td>"
+    #   end
+    #   output += '</tr>'
+    # end
+    #
+    # output + '</table></body></html>'
+    #
+    # render html: output.html_safe
     send_data(csv_string, filename: "Finance Full Dump - #{Date.today.to_s(:db)}.csv")
   end
 

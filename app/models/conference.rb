@@ -32,7 +32,7 @@ class Conference < ApplicationRecord
     "#{super}: #{self}"
   end
 
-  private
+  # private
 
   # def only_one_staff_conference!
   #   return unless staff_conference_changed? && staff_conference?
