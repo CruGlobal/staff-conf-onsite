@@ -11,7 +11,6 @@ gem 'puma', '~> 3.0'
 gem 'syslog-logger', '~> 1.6.8'
 
 # Background Processes
-gem 'redis-namespace', '~> 1.5'
 gem 'redis-objects', '~> 0.6'
 gem 'redis-rails', '~> 5.0'
 gem 'sidekiq-cron', '~> 1.1'

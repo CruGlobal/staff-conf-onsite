@@ -1,6 +1,6 @@
 require 'redis'
 require 'redis/objects'
-require 'redis/namespace'
 
-host = ENV['REDIS_PORT_6379_TCP_ADDR_A'] || ENV['REDIS_PORT_6379_TCP_ADDR']
-Redis.current = Redis::Namespace.new("sco:#{Rails.env}", redis: Redis.new(host: host))
+Redis.current = Redis.new(host: ENV['STORAGE_REDIS_HOST'],
+                          port: ENV['STORAGE_REDIS_PORT'],
+                          db: ENV['STORAGE_REDIS_DB_INDEX'])
