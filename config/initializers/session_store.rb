@@ -1,12 +1,5 @@
-require Rails.root.join('config', 'initializers', 'redis')
+require "redis"
 
-Rails.application.config.session_store(
-  :redis_store,
-  servers: [{
-    host: Redis.current.client.host,
-    port: Redis.current.client.port,
-    db: 2,
-    namespace: 'sco:session:'
-  }],
-  expire_after: 8.hours
-)
+redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["session"]
+
+Rails.application.config.session_store :redis_store, servers: redis_conf, expire_after: 8.hours
