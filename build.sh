@@ -11,7 +11,8 @@ docker build \
     --build-arg DB_ENV_POSTGRESQL_PASS=password \
     --build-arg DB_ENV_POSTGRESQL_USER=postgres \
     --build-arg DB_PORT_5432_TCP_ADDR=$PROJECT_NAME-postgres \
-    --build-arg REDIS_PORT_6379_TCP_ADDR=$PROJECT_NAME-redis \
+    --build-arg SESSION_REDIS_HOST=$PROJECT_NAME-redis \
+    --build-arg STORAGE_REDIS_HOST=$PROJECT_NAME-redis \
     --build-arg DD_API_KEY=$DD_API_KEY \
     -t 056154071827.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:$ENVIRONMENT-$BUILD_NUMBER .
 

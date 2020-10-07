@@ -1,12 +1,14 @@
+require 'redis'
 require 'datadog/statsd'
 
-require Rails.root.join('config', 'initializers', 'redis').to_s
+redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["sidekiq"]
 
-redis = { url: 'redis://' + ENV['REDIS_PORT_6379_TCP_ADDR'],
-          namespace: "sco:#{Rails.env}:sidekiq" }
+Redis.current = Redis.new(redis_conf)
+
+redis_settings = {url: Redis.current.id}
 
 Sidekiq.configure_client do |config|
-  config.redis = redis
+  config.redis = redis_settings
 end
 
 if Sidekiq::Client.method_defined? :reliable_push!
@@ -20,7 +22,7 @@ Sidekiq.configure_server do |config|
 
   config.super_fetch!
   config.reliable_scheduler!
-  config.redis = redis
+  config.redis = redis_settings
 end
 
 Sidekiq.default_worker_options = {

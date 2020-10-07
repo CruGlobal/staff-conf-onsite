@@ -37,11 +37,9 @@ module CruConference
     config.autoload_paths << Rails.root.join('app', 'admin', 'concerns')
     config.autoload_paths << Rails.root.join('app', 'services')
 
-    config.cache_store = :redis_store, {
-      host: ENV['REDIS_PORT_6379_TCP_ADDR'],
-      namespace: "sco:#{Rails.env}:cache_store",
-      expires_in: 1.hour
-    }
+    redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["cache"]
+    redis_conf[:url] = "redis://" + redis_conf[:host] + "/" + redis_conf[:db].to_s
+    config.cache_store = :redis_store, redis_conf
 
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']
