@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :course do
-    name { Faker::Educator.course }
+    name { Faker::Educator.course_name }
     price_cents { Faker::Number.between(0, 1000_00) }
     description { Faker::Lorem.paragraph(rand(1..3)) }
     instructor { Faker::Name.first_name }
