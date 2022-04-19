@@ -105,11 +105,12 @@ group :development do
   # Development Server
   gem 'better_errors'                     # Better Errors
   gem 'binding_of_caller'                 # Better Errors
-  gem 'spring'
+  gem 'spring', '~>2.1'
 
   # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
   # gem 'web-console', '~> 2.0'
 end
 gem 'awesome_print'
+gem 'amazing_print'
 gem 'lograge'
 gem 'ougai', '~> 1.7'
