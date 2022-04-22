@@ -18,7 +18,7 @@ docker buildx build $DOCKER_ARGS  \
     .
 rc=$?
 
-docker stop $PROJECT_NAME-redis $PROJECT_NAME-postgres
+docker stop $PROJECT_NAME-redis $PROJECT_NAME-pg
 
 
 if [ $rc -ne 0 ]; then
