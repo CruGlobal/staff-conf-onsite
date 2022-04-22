@@ -15,6 +15,8 @@ COPY docker/docker-entrypoint.sh /
 COPY Gemfile Gemfile.lock ./
 
 RUN bundle config gems.contribsys.com $SIDEKIQ_CREDS
+RUN gem uninstall bundler
+RUN gem install bundler:2
 RUN bundle install --jobs 20 --retry 5 --path vendor
 RUN bundle binstub puma sidekiq rake
 
