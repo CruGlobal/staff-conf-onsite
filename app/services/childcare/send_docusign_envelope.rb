@@ -72,8 +72,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       without_commas(child.last_name),
       without_commas(child.first_name),
-      grade_level_label(child, shorten: true),
-      child.arrived_at&.strftime('%m/%d/%Y')
+      grade_level_label(child, shorten: true)
+      #,child.arrived_at&.strftime('%m/%d/%Y')
     ].join(', ')
   end
 
@@ -104,7 +104,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def childcare_no_misc_health?
     return true if child&.childcare_medical_history&.health_misc.blank?
 
-    child&.childcare_medical_history&.health_misc == ['None of the above']
+    child&.childcare_medical_history&.health_misc.exclude?('Other special need')
   end
 
   def senior_grade?
@@ -114,7 +114,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def senior_no_misc_health?
     return true if child&.cru_student_medical_history&.cs_health_misc.blank?
 
-    child&.cru_student_medical_history&.cs_health_misc == ['None of the above']
+    child&.cru_student_medical_history&.cs_health_misc.exclude?('Other special need')
   end
 
   def build_text_tabs
@@ -147,26 +147,26 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         label: 'ChildPreferredFullName',
         value: "#{child.name_tag_first_name} #{child.name_tag_last_name}"
       },
-      {
-        label: 'Week1',
-        value: check_if_in_list(child.childcare_weeks, 0)
-      },
-      {
-        label: 'Week2',
-        value: check_if_in_list(child.childcare_weeks, 1)
-      },
-      {
-        label: 'Week3',
-        value: check_if_in_list(child.childcare_weeks, 2)
-      },
-      {
-        label: 'Week4',
-        value: check_if_in_list(child.childcare_weeks, 3)
-      },
-      {
-        label: 'SC',
-        value: check_if_in_list(child.childcare_weeks, 4)
-      },
+      #{
+      #   label: 'Week1',
+      #   value: check_if_in_list(child.childcare_weeks, 0)
+      # },
+      # {
+      #   label: 'Week2',
+      #   value: check_if_in_list(child.childcare_weeks, 1)
+      # },
+      # {
+      #   label: 'Week3',
+      #   value: check_if_in_list(child.childcare_weeks, 2)
+      # },
+      # {
+      #   label: 'Week4',
+      #   value: check_if_in_list(child.childcare_weeks, 3)
+      # },
+      # {
+      #   label: 'SC',
+      #   value: check_if_in_list(child.childcare_weeks, 4)
+      # },
       {
         label: '\\*Parent1FullName',
         value: recipient.full_name(skip_middle: true)
@@ -273,9 +273,13 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         label: 'Forms-CC-MH-Health-Misc-Delay',
         value: check_if_in_list(mh.health_misc, 'Developmental delay')
       },
+      # {
+      #   label: 'Forms-CC-MH-Health-Misc-Delay-Sensory',
+      #   value: check_if_in_list(mh.health_misc, 'Sensory Processing Disorder')
+      # },
       {
-        label: 'Forms-CC-MH-Health-Misc-Delay-Sensory',
-        value: check_if_in_list(mh.health_misc, 'Sensory Processing Disorder')
+        label: 'Forms-CC-MH-Health-Misc-Other-special-need',
+        value: check_if_in_list(mh.health_misc, 'Other special need')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Behavioral',
@@ -367,10 +371,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         label: 'Forms-CC-VIP-Comm-Sentences',
         value: check_if_in_list(mh.vip_comm, 'In complete sentences')
       },
-      {
-        label: 'Forms-CC-VIP-Comm-Visual',
-        value: check_if_in_list(mh.vip_comm, 'Visual schedule')
-      },
+      # {
+      #   label: 'Forms-CC-VIP-Comm-Visual',
+      #   value: check_if_in_list(mh.vip_comm, 'Visual schedule')
+      # },
       {
         label: 'Forms-CC-VIP-Comm-Other',
         value: check_if_in_list(mh.vip_comm, 'Other')
@@ -449,14 +453,14 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
     smh = child.cru_student_medical_history
     [
-      {
-        label: 'Forms-CS-GTKY-Lunch-Yes',
-        value: checkmark_if_yes_present(smh.gtky_lunch)
-      },
-      {
-        label: 'Forms-CS-GTKY-Lunch-No',
-        value: checkmark_if_no_present(smh.gtky_lunch)
-      },
+      # {
+      #   label: 'Forms-CS-GTKY-Lunch-Yes',
+      #   value: checkmark_if_yes_present(smh.gtky_lunch)
+      # },
+      # {
+      #   label: 'Forms-CS-GTKY-Lunch-No',
+      #   value: checkmark_if_no_present(smh.gtky_lunch)
+      # },
       {
         label: 'Forms-CS-GTKY-Signout-Yes',
         value: checkmark_if_yes_present(smh.gtky_signout)
@@ -489,14 +493,14 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         label: 'Forms-CS-GTKY-Leader-No',
         value: checkmark_if_no(smh.gtky_leader)
       },
-      {
-        label: 'Forms-CS-GTKY-Musical-Yes',
-        value: checkmark_if_yes(smh.gtky_musical)
-      },
-      {
-        label: 'Forms-CS-GTKY-Musical-No',
-        value: checkmark_if_no(smh.gtky_musical)
-      },
+      # {
+      #   label: 'Forms-CS-GTKY-Musical-Yes',
+      #   value: checkmark_if_yes(smh.gtky_musical)
+      # },
+      # {
+      #   label: 'Forms-CS-GTKY-Musical-No',
+      #   value: checkmark_if_no(smh.gtky_musical)
+      # },
       {
         label: 'Forms-CS-GTKY-Activities',
         value: smh.gtky_activities
@@ -687,9 +691,13 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         label: 'Forms-CS-MH-Health-Misc-Developmental-delay',
         value: check_if_in_list(smh.cs_health_misc, 'Developmental delay')
       },
+      # {
+      #   label: 'Forms-CS-MH-Health-Misc-Sensory-issues',
+      #   value: check_if_in_list(smh.cs_health_misc, 'Sensory issues')
+      # },
       {
-        label: 'Forms-CS-MH-Health-Misc-Sensory-issues',
-        value: check_if_in_list(smh.cs_health_misc, 'Sensory issues')
+        label: 'Forms-CS-MH-Health-Misc-Other-special-need',
+        value: check_if_in_list(smh.cs_health_misc, 'Other special need')### added JaPache
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Behavioral-issues',
