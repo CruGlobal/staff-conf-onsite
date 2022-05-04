@@ -8,8 +8,8 @@
   </head>
   <body>
     <div class='precheck-container'>
-      <%= image_tag(UserVariable[:conference_logo_url]) %>
-      <br>
+      <%= image_tag(UserVariable[:conference_logo_url], style: 'max-width: 100%') %>
+      <br>s
       <%= yield %>
     </div>
   </body>
