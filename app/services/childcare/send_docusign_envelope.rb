@@ -4,13 +4,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  CARECAMP_VIP_TEMPLATE   = '21502aed-387f-47fd-9b23-fb1791d981e4'.freeze
+  CARECAMP_VIP_TEMPLATE   = '22320162-2bfe-48c4-85b0-58415402a522'.freeze
   CARECAMP_TEMPLATE       = '832148af-f23d-475b-99f5-a290764d24b8'.freeze
-  CRUSTU_VIP_TEMPLATE     = 'd0dab3a9-3d3e-4d12-902d-9205639474ac'.freeze
+  CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
   CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
   TEST_RECIPIENT          = 'Cru19KidsForms+DocuSignTesting@cru.org'.freeze
   TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignVoid@cru.org'.freeze
-
   attr_reader :recipient, :child, :note
 
   def initialize(child, note = nil, recipient: nil)
