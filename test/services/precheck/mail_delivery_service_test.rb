@@ -43,7 +43,7 @@ class Precheck::MailDeliveryServiceTest < ServiceTestCase
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [@attendee.email], email.to
     assert_equal 'Cru17 - Unconfirmed PreCheck Details', email.subject
-    assert_match 'incomplete Cru19 Kids forms', email.body.to_s
+    assert_match 'incomplete Cru22 Kids forms', email.body.to_s
   end
 
   test '#deliver_pending_approval_mail does not deliver if status is not pending_approval' do
