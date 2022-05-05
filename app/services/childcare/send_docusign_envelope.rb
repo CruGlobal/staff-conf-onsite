@@ -8,8 +8,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   CARECAMP_TEMPLATE       = '832148af-f23d-475b-99f5-a290764d24b8'.freeze
   CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
   CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
-  TEST_RECIPIENT          = 'Cru19KidsForms+DocuSignTesting@cru.org'.freeze
-  TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignVoid@cru.org'.freeze
+  TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
+  TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
   attr_reader :recipient, :child, :note
 
   def initialize(child, note = nil, recipient: nil)
