@@ -380,7 +380,7 @@ en:
             Please do not worry. You will still have a great check-in experience with friendly service, shorter lines, the ability to confirm your information in person and get answers to your questions. When you arrive at CSU, look for the signs and Team19 members who will direct you to the check-in area.
         eligibility_errors_with_form:
           closing_message_html:
-            We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team19 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
+            We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team19 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
           request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
@@ -400,7 +400,7 @@ en:
                 <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team19 staff member will be in touch with you.</li>
               </ul>
             children_forms_approved?_html:
-              We noticed that you have incomplete Cru19 Kids forms which can still be submitted online.
+              We noticed that you have incomplete Cru22 Kids forms which can still be submitted online.
               <br>
               Please refer to the DocuSign email packet in your inbox to reference the remaining forms we need.
               <br>
@@ -408,7 +408,7 @@ en:
               Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble_html:
-          Please carefully review your Summer19/Cru19 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival.
+          Please carefully review your Summer19/Cru22 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival.
           <br>
           <br>
           If you see something that is incorrect or has changed since registering, click on “No, I need to request changes.”
@@ -444,7 +444,7 @@ en:
         Congratulations! You have received <b>PreCheck</b>.
         <br>
         <br>
-        Upon your arrival at CSU, please check in at the date/time shown <a href="https://www.cru.org/cru19/precheck/">here</a> (scroll down). Checking in on your designated day will allow Team19 to serve you well by having your name tags and other conference materials ready.
+        Upon your arrival at CSU, please check in at the date/time shown <a href="https://www.cru.org/cru22/precheck/">here</a> (scroll down). Checking in on your designated day will allow Team19 to serve you well by having your name tags and other conference materials ready.
         <br>
         <br>
         If you are arriving on a different date before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
@@ -458,11 +458,11 @@ en:
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
-          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru19.Childcare@cru.org">Cru19.Childcare@cru.org</a> </li>
-          <li>CruStu, please contact <a href="mailto:Cru19.CruStu@cru.org">Cru19.CruStu@cru.org</a></li>
-          <li>Housing, please contact <a href="mailto:Cru19.OffCampus@cru.org">Cru19.OffCampus@cru.org</a> and <a href="mailto:Cru19.OnCampus@cru.org">Cru19.OnCampus@cru.org</a></li>
-          <li>Finances, please contact <a href="mailto:Cru19.Finance@cru.org">Cru19.Finance@cru.org</a></li>
-          <li>Anything else, please contact <a href="mailto:Cru19.Info@cru.org">Cru19.Info@cru.org</a></li>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.Childcare@cru.org">Cru22.Childcare@cru.org</a> </li>
+          <li>CruStu, please contact <a href="mailto:Cru22.CruStu@cru.org">Cru22.CruStu@cru.org</a></li>
+          <li>Housing, please contact <a href="mailto:Cru22.OffCampus@cru.org">Cru22.OffCampus@cru.org</a> and <a href="mailto:Cru22.OnCampus@cru.org">Cru22.OnCampus@cru.org</a></li>
+          <li>Finances, please contact <a href="mailto:Cru22.Finance@cru.org">Cru22.Finance@cru.org</a></li>
+          <li>Anything else, please contact <a href="mailto:Cru22.Info@cru.org">Cru22.Info@cru.org</a></li>
         </ul>'
       signature_html: "<p>Sincerely,<br><br>%{conference} Team</p>"
 
@@ -470,7 +470,7 @@ en:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       body_html:
-        <p>Good news! Your Summer19/Cru19 registration is <b>eligible for PreCheck.</b>
+        <p>Good news! Your Summer19/Cru22 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
         This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), and qualify for express check-in at CSU.
@@ -499,13 +499,13 @@ en:
       Team19
       <br>
       <br>
-      P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru19.
+      P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22.
       <br>
       We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
     video_html:
-      Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru19/precheck/">here</a>.
+      Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru22/precheck/">here</a>.
     not_eligible_preamble_html:
-      Team19 is pleased to offer <b>PreCheck</b> at Summer19/Cru19.
+      Team19 is pleased to offer <b>PreCheck</b> at Summer19/Cru22.
       This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), so that you can qualify for express check-in at CSU.
       <br>
       We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
@@ -520,7 +520,7 @@ en:
         <br>
         When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck and you will have the opportunity to review and confirm your conference information.
       children_forms_approved?_html:
-        At this time, you have <b>incomplete Cru19 Kids forms</b> that do not qualify you for PreCheck.
+        At this time, you have <b>incomplete Cru22 Kids forms</b> that do not qualify you for PreCheck.
         <br>
         We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
