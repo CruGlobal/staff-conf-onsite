@@ -47,7 +47,7 @@ class Child < Person
     end
     
     def hot_lunch_grade_levels
-      GRADE_LEVELS.first(grade13_index + 1)
+      (GRADE_LEVELS.first(grade13_index + 1) - GRADE_LEVELS.first(age1_index + 1))
     end
 
     def senior_grade_levels
@@ -60,6 +60,10 @@ class Child < Person
 
     def grade13_index
       GRADE_LEVELS.index('grade13')
+    end
+
+    def age1_index
+      GRADE_LEVELS.index('age1')
     end
   end
 
