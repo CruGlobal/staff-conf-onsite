@@ -216,7 +216,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Gender',
-        value: child.gender
+        value: get_gender_formatted(child.gender)
       },
       {
         label: 'Parent1Email',
@@ -834,6 +834,17 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     age = Time.zone.today.year - birthdate.year
     age -= 1 if Time.zone.today < birthdate + age.years
     age
+  end
+
+  def get_gender_formatted(gender)
+    case gender.upcase
+    when 'M'
+      "Male"
+    when 'F'
+      "Female"
+    else
+      gender
+    end
   end
 
   def get_full_address(family)
