@@ -27,9 +27,9 @@ class CollectionAttributesTest < ActiveSupport::TestCase
   test '.multi_selection_collections' do
     assert_equal({
                    gtky_challenges: ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Anxiety', 'Eating disorder',
-                                     'Major life change', 'Depression', 'Significant bullying', 'Behavioral issues',
+                                     'Major life change', 'Depression', 'Significant bullying', 'Behavioral challenges',
                                      'Self harm', 'Bipolar disorder', 'Foster Adoption', 'Other'],
-                   cs_health_misc: ['Developmental delay', 'Sensory issues', 'Behavioral issues', 'Disability',
+                   cs_health_misc: ['Developmental delay', 'Sensory issues', 'Behavioral challenges', 'Disability',
                                     'Extra assistance', 'Adaptive equipment', 'None of the above'],
                    cs_vip_comm: ['In simple phrases', 'In complete sentences', 'Other'],
                    cs_vip_stress: ['Noisy spaces', 'Crowded spaces', 'Loud noises', 'Other']

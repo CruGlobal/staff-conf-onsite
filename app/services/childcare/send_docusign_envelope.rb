@@ -5,9 +5,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   SendEnvelopeError = Class.new(StandardError)
 
   CARECAMP_VIP_TEMPLATE   = '22320162-2bfe-48c4-85b0-58415402a522'.freeze
-  CARECAMP_TEMPLATE       = '832148af-f23d-475b-99f5-a290764d24b8'.freeze
+  CARECAMP_TEMPLATE       = 'eb24252c-5765-4231-9c0e-88f977e38b4b'.freeze
   CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
-  CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
+  CRUSTU_TEMPLATE         = 'd0325321-708b-42d3-a151-8b86089236e3'.freeze
   TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
   TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
   attr_reader :recipient, :child, :note
@@ -282,7 +282,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Behavioral',
-        value: check_if_in_list(mh.health_misc, 'Behavioral issues')
+        value: check_if_in_list(mh.health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Autism',
@@ -554,7 +554,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Behavioral-issues',
-        value: check_if_in_list(smh.gtky_challenges, 'Behavioral issues')
+        value: check_if_in_list(smh.gtky_challenges, 'Behavioral challenges')
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Self-harm',
@@ -700,7 +700,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Behavioral-issues',
-        value: check_if_in_list(smh.cs_health_misc, 'Behavioral issues')
+        value: check_if_in_list(smh.cs_health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Disability',
