@@ -112,8 +112,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def senior_no_misc_health?
     return true if child&.cru_student_medical_history&.cs_health_misc.blank?
-
-    child&.cru_student_medical_history&.cs_health_misc.exclude?('Other special need')
+    
+    child&.childcare_medical_history&.health_misc == ['None of the above']
   end
 
   def build_text_tabs
