@@ -282,7 +282,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Behavioral',
-        value: check_if_in_list(mh.health_misc, 'Behavioral issues')
+        value: check_if_in_list(mh.health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Autism',
@@ -554,7 +554,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Behavioral-issues',
-        value: check_if_in_list(smh.gtky_challenges, 'Behavioral issues')
+        value: check_if_in_list(smh.gtky_challenges, 'Behavioral challenges')
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Self-harm',
@@ -700,7 +700,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Behavioral-issues',
-        value: check_if_in_list(smh.cs_health_misc, 'Behavioral issues')
+        value: check_if_in_list(smh.cs_health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Disability',
