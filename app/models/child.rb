@@ -153,7 +153,7 @@ class Child < Person
   end
 
   def hot_lunch_age_range!
-    if hot_lunch_weeks.any? && (!self.class.hot_lunch_grade_levels.include?(grade_level) || age <= 1)
+    if hot_lunch_weeks.any? && (!self.class.hot_lunch_grade_levels.include?(grade_level))
       errors.add(:hot_lunch_weeks, 'is only for children at least 2 years old and in' \
                                    ' grade 13 or lower')
     end
