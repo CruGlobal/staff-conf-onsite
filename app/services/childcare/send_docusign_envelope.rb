@@ -554,7 +554,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Behavioral-issues',
-        value: check_if_in_list(smh.gtky_challenges, 'Behavioral challenges')
+        value: check_if_in_list(smh.gtky_challenges, 'Behavioral issues')
       },
       {
         label: 'Forms-CS-GTKY-Challenges-Self-harm',
