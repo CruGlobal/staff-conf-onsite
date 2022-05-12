@@ -566,6 +566,7 @@ DEPENDENCIES
   rack-cas (~> 0.15.0)
   rack_session_access (~> 0.1)
   rails (~> 4.2.11)
+  ransack (~> 1.8.2)
   redis-objects (~> 0.6)
   redis-rails (~> 5.0)
   reek (~> 5.2)
