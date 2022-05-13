@@ -1,4 +1,4 @@
-FROM 056154071827.dkr.ecr.us-east-1.amazonaws.com/base-image-ruby-version-arg:2.5
+FROM 056154071827.dkr.ecr.us-east-1.amazonaws.com/base-image-ruby-version-arg:2.6
 MAINTAINER cru.org <wmd@cru.org>
 
 ARG SIDEKIQ_CREDS
@@ -15,6 +15,8 @@ COPY docker/docker-entrypoint.sh /
 COPY Gemfile Gemfile.lock ./
 
 RUN bundle config gems.contribsys.com $SIDEKIQ_CREDS
+RUN gem uninstall bundler
+RUN gem install bundler:2
 RUN bundle install --jobs 20 --retry 5 --path vendor
 RUN bundle binstub puma sidekiq rake
 

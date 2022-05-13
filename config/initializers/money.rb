@@ -1,5 +1,8 @@
 # encoding : utf-8
 
+Money.locale_backend = :currency
+#Money.rounding_mode = ROUND_HALF_UP
+
 MoneyRails.configure do |config|
   # To set the default currency
   #
