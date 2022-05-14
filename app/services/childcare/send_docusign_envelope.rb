@@ -4,13 +4,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  CARECAMP_VIP_TEMPLATE   = '21502aed-387f-47fd-9b23-fb1791d981e4'.freeze
-  CARECAMP_TEMPLATE       = '832148af-f23d-475b-99f5-a290764d24b8'.freeze
-  CRUSTU_VIP_TEMPLATE     = 'd0dab3a9-3d3e-4d12-902d-9205639474ac'.freeze
-  CRUSTU_TEMPLATE         = '71ed9525-e3b8-40fe-bb02-fcd3ba66d43a'.freeze
-  TEST_RECIPIENT          = 'Cru19KidsForms+DocuSignTesting@cru.org'.freeze
-  TRACKING_COPY_RECIPIENT = 'Cru19KidsForms+DocuSignVoid@cru.org'.freeze
-
+  CARECAMP_VIP_TEMPLATE   = '22320162-2bfe-48c4-85b0-58415402a522'.freeze
+  CARECAMP_TEMPLATE       = 'eb24252c-5765-4231-9c0e-88f977e38b4b'.freeze
+  CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
+  CRUSTU_TEMPLATE         = 'd0325321-708b-42d3-a151-8b86089236e3'.freeze
+  TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
+  TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
   attr_reader :recipient, :child, :note
 
   def initialize(child, note = nil, recipient: nil)
@@ -113,8 +112,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   def senior_no_misc_health?
     return true if child&.cru_student_medical_history&.cs_health_misc.blank?
-
-    child&.cru_student_medical_history&.cs_health_misc.exclude?('Other special need')
+    
+    child&.childcare_medical_history&.health_misc == ['None of the above']
   end
 
   def build_text_tabs
@@ -217,7 +216,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Gender',
-        value: child.gender
+        value: get_gender_formatted(child.gender)
       },
       {
         label: 'Parent1Email',
@@ -283,7 +282,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Behavioral',
-        value: check_if_in_list(mh.health_misc, 'Behavioral issues')
+        value: check_if_in_list(mh.health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Delay-Autism',
@@ -701,7 +700,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Behavioral-issues',
-        value: check_if_in_list(smh.cs_health_misc, 'Behavioral issues')
+        value: check_if_in_list(smh.cs_health_misc, 'Behavioral challenges')
       },
       {
         label: 'Forms-CS-MH-Health-Misc-Disability',
@@ -835,6 +834,17 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     age = Time.zone.today.year - birthdate.year
     age -= 1 if Time.zone.today < birthdate + age.years
     age
+  end
+
+  def get_gender_formatted(gender)
+    case gender.upcase
+    when 'M'
+      "Male"
+    when 'F'
+      "Female"
+    else
+      gender
+    end
   end
 
   def get_full_address(family)
