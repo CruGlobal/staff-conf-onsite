@@ -115,6 +115,18 @@ role, with a real CAS account:
 
 Each account uses the password `CRUstaff2016`
 
+### Sidekiq Job Queue
+
+In development/local you can run sidekiq:
+
+```sh
+bundle exec sidekiq
+```
+
+To monitor queue/jobs
+
+[SideKiq Dashboard]http://localhost:3000/sidekiq/
+
 ### Docusign
 
 Docusign is a 3rd party service that provides digital signatures.
@@ -128,7 +140,7 @@ To test sending real DocuSign documents on dev, you need to:
 1. [Create a free developer account](https://go.docusign.com/sandbox/productshot/)
 2. Create a template on the DocuSign web ui by going to templates on the main menu.
 3. On template setup add a signing role, and some fields to be pre filled.
-4. Add your docusign credentials to your env.local file
+4. Add your docusign credentials to your env.local file (User password needs to be an App Pass created under your account in docusign)
 5. Edit the service .rb for the envelope you want to serve to add your template id,
 and other particular customizations.
 

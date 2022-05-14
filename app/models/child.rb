@@ -45,6 +45,10 @@ class Child < Person
     def childcare_grade_levels
       GRADE_LEVELS.first(grade5_index + 1)
     end
+    
+    def hot_lunch_grade_levels
+      GRADE_LEVELS.first(grade13_index + 1)
+    end
 
     def senior_grade_levels
       GRADE_LEVELS.last(GRADE_LEVELS.size - (grade5_index + 1))
@@ -52,6 +56,10 @@ class Child < Person
 
     def grade5_index
       GRADE_LEVELS.index('grade5')
+    end
+
+    def grade13_index
+      GRADE_LEVELS.index('grade13')
     end
   end
 
@@ -141,11 +149,18 @@ class Child < Person
   end
 
   def hot_lunch_age_range!
-    if hot_lunch_weeks.any? && (age_group != :childcare || age <= 2)
-      errors.add(:hot_lunch_weeks, 'is only for children at least 3 years old and in' \
-                                   ' grade 5 or lower')
+    if hot_lunch_weeks.any? && (!self.class.hot_lunch_grade_levels.include?(grade_level) || age <= 1)
+      errors.add(:hot_lunch_weeks, 'is only for children at least 2 years old and in' \
+                                   ' grade 13 or lower')
     end
   end
+
+  # def hot_lunch_age_range!
+  #   if hot_lunch_weeks.any? && (age_group != :childcare || age <= 2)
+  #     errors.add(:hot_lunch_weeks, 'is only for children at least 3 years old and in' \
+  #                                  ' grade 5 or lower')
+  #   end
+  # end
 
   def send_forms_approved_email
     if forms_approved?
