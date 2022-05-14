@@ -25,6 +25,7 @@ gem 'rollbar', '~> 2.18'
 
 # Framework
 gem 'activeadmin', '~> 1.0.0'
+gem 'ransack', '~> 1.8.2'
 gem 'acts_as_list', '~> 0.9'
 gem 'paper_trail', '~> 5.2.2'
 gem 'rails', '~> 4.2.11'
