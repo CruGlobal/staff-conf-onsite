@@ -22,7 +22,9 @@ class SeedUserVariables
     childcare_week_1: { value_type: :money, code: :CCWK2,  value: 1_00, description: 'Week 2 Cru Kids' },
     childcare_week_2: { value_type: :money, code: :CCWK3,  value: 1_00, description: 'Week 3 Cru Kids' },
     childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Cru Kids' },
-    childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Staff Conference Cru Kids' },
+    #childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Staff Conference Cru Kids' }, // TO DELETE
+    childcare_week_4: { value_type: :money, code: :CareSC, value: 1_00, description: 'Staff Conference Care' },
+    childcare_week_5: { value_type: :money, code: :CampSC, value: 1_00, description: 'Staff Conference Camp' },
 
     childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
       description: 'This is the non-refundable registration fee for any child' \
@@ -40,17 +42,23 @@ class SeedUserVariables
     hot_lunch_week_1: { value_type: :money, code: :HL2,  value: 2_00, description: 'Cost of the Week 2 Hot Lunches' },
     hot_lunch_week_2: { value_type: :money, code: :HL3,  value: 4_00, description: 'Cost of the Week 3 Hot Lunches' },
     hot_lunch_week_3: { value_type: :money, code: :HL4,  value: 8_00, description: 'Cost of the Week 4 Hot Lunches' },
-    hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00, description: 'Cost of the Staff Conference Hot Lunches' },
+    #hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00, description: 'Cost of the Staff Conference Hot Lunches' }, // TO DELETE
+    hot_lunch_week_4: { value_type: :money, code: :HLCare, value: 16_00, description: 'Cost of the Care Conference Hot Lunches' },
+    hot_lunch_week_5: { value_type: :money, code: :HLCamp, value: 16_00, description: 'Cost of the Camp Conference Hot Lunches' },
+    hot_lunch_week_6: { value_type: :money, code: :HLCruStu, value: 16_00, description: 'Cost of the Cru Students Conference Hot Lunches' },
 
     # Hot Lunch Start Dates
     hot_lunch_begin_0: { value_type: :date, code: :HLFDW1, value: '2017-07-01', description: 'Hot Lunch First Day of Week 1' },
     hot_lunch_begin_1: { value_type: :date, code: :HLFDW2, value: '2017-07-08', description: 'Hot Lunch First Day of Week 2' },
     hot_lunch_begin_2: { value_type: :date, code: :HLFDW3, value: '2017-07-15', description: 'Hot Lunch First Day of Week 3' },
     hot_lunch_begin_3: { value_type: :date, code: :HLFDW4, value: '2017-07-22', description: 'Hot Lunch First Day of Week 4' },
-    hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
+    #hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' }, // TO DELETE
+    hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2022-07-17', description: 'Hot Lunch First Day of Conference' },
+    hot_lunch_begin_5: { value_type: :date, code: :HLFDSC, value: '2022-07-17', description: 'Hot Lunch First Day of Conference' },
+    hot_lunch_begin_6: { value_type: :date, code: :HLFDSC, value: '2022-07-17', description: 'Hot Lunch First Day of Conference' },
 
     # Conference
-    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'A string containing the name of the conference.' },
+    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru22', description: 'A string containing the name of the conference.' },
     support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
     conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru22/cru22-logo-thumbnail.png', description: 'Conference logo URL' },
 
