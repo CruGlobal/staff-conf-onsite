@@ -2,11 +2,24 @@ class BaseChildcareSumCost < ChargesService
   attr_accessor :child
 
   def call
-    charges[age_group] += week_charges.values.inject(Money.empty, :+)
+    charges[age_group] += tuition_charges
     charges[age_group] += deposit_charge
 
     self.cost_adjustments = child.cost_adjustments
   end
+
+  def tuition_charges
+    if child.childcare_care_grade?
+      UserVariable["CARESC"]
+    elsif child.childcare_camp_grade?
+      UserVariable["CAMPSC"]    
+    elsif child.crustu_grade?
+      UserVariable["junior_senior_week_4"]
+    else
+      Money.empty
+    end
+  end
+
 
   # @return Hash[Integer, Money] a map of week numbers to the child's fee for
   #   that week

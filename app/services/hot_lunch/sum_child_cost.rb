@@ -4,8 +4,20 @@ class HotLunch::SumChildCost < ChargesService
   attr_accessor :child
 
   def call
-    charges[:lunch] += week_charges.values.inject(Money.empty, :+)
+    charges[:lunch] += hot_lunch_charges
     self.cost_adjustments = child.cost_adjustments
+  end
+
+  def hot_lunch_charges
+    if child.childcare_care_grade?
+      UserVariable["HLCARE"]
+    elsif child.childcare_camp_grade?
+      UserVariable["HLCAMP"]    
+    elsif child.crustu_grade?
+      UserVariable["HLCRUSTU"]    
+    else
+      Money.empty
+    end
   end
 
   def week_charges
