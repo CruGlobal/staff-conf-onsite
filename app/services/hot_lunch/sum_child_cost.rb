@@ -1,31 +1,45 @@
 class HotLunch::SumChildCost < ChargesService
   REQUIRED_AGES = 3..4
+  IS_MULTI_WEEK_CONF = false
+  # System was built for a conference over 4 weeks, so charges were done per week.  
+  # Now there is only a single week, but may go back, so left code and a flag {#IS_MULTI_WEEK_CONF}
+  # Currently using the 5th entry in hot lunch weeks (0 index so 4) 
+  WEEK_INDEX = 4
 
   attr_accessor :child
 
   def call
-    charges[:lunch] += hot_lunch_charges
+    charges[:lunch] += week_charges.values.inject(Money.empty, :+)
     self.cost_adjustments = child.cost_adjustments
   end
 
   def hot_lunch_charges
-    if child.childcare_care_grade?
-      UserVariable["HLCARE"]
-    elsif child.childcare_camp_grade?
-      UserVariable["HLCAMP"]    
-    elsif child.crustu_grade?
-      UserVariable["HLCRUSTU"]    
+    if child.hot_lunch_weeks.any?
+      if child.childcare_care_grade?
+        UserVariable["HLCARE"]
+      elsif child.childcare_camp_grade?
+        UserVariable["HLCAMP"]    
+      elsif child.crustu_grade?
+        UserVariable["HLCRUSTU"]    
+      else
+        Money.empty
+      end 
     else
       Money.empty
     end
   end
 
   def week_charges
-    @hot_lunch_costs ||= Hash[
-      applicable_hot_lunch_indexes.map do |index|
-        [index, UserVariable["hot_lunch_week_#{index}"]]
-      end
-    ]
+    if (IS_MULTI_WEEK_CONF)
+      @hot_lunch_costs ||= Hash[
+        applicable_hot_lunch_indexes.map do |index|
+          [index, UserVariable["hot_lunch_week_#{index}"]]
+        end
+      ]
+    else
+      @hot_lunch_costs ||= Hash[WEEK_INDEX, hot_lunch_charges]
+      
+    end
   end
 
   private
