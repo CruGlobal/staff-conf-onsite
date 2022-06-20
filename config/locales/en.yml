@@ -436,27 +436,34 @@ en:
       subject: "CruKids Forms Approved for %{name}"
     summary:
       subject: "%{conference} PreCheck Summary"
+      precheck_confirmed_legacy_html:
+        Congratulations! You have received <b>PreCheck</b>.
+        <br>
+        <br>
+        Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+        <br>
+        <br>
+        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+        <br>
+        <br>
+        We look forward to seeing you in Milwaukee this summer!
       precheck_confirmed_html:
         Congratulations! You have received <b>PreCheck</b>.
         <br>
         <br>
-        Upon your arrival at CSU, please check in at the date/time shown <a href="https://www.cru.org/cru22/precheck/">here</a> (scroll down). Checking in on your designated day will allow Team22 to serve you well by having your name tags and other conference materials ready.
+        Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
         <br>
         <br>
-        If you are arriving on a different date before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
+        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
         <br>
         <br>
-        If you are staying on campus in a dorm your housing assignment is below. Please also review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view">dorm arrival and dining hall information</a>.
-        <br>
-        <br>
-        We look forward to seeing you in Colorado this summer.
-      onsite_confirmed: "Welcome to Summer19/%{conference}"
+        We look forward to seeing you in Milwaukee this summer!
+      onsite_confirmed: "Welcome to %{conference}"
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
-          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.Childcare@cru.org">Cru22.Childcare@cru.org</a> </li>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.CruKids@cru.org">Cru22.CruKids@cru.org</a> </li>
           <li>CruStu, please contact <a href="mailto:Cru22.CruStu@cru.org">Cru22.CruStu@cru.org</a></li>
-          <li>Housing, please contact <a href="mailto:Cru22.OffCampus@cru.org">Cru22.OffCampus@cru.org</a> and <a href="mailto:Cru22.OnCampus@cru.org">Cru22.OnCampus@cru.org</a></li>
           <li>Finances, please contact <a href="mailto:Cru22.Finance@cru.org">Cru22.Finance@cru.org</a></li>
           <li>Anything else, please contact <a href="mailto:Cru22.Info@cru.org">Cru22.Info@cru.org</a></li>
         </ul>'
