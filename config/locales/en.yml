@@ -383,29 +383,25 @@ en:
             We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team22 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
-          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
+          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click “Submit Request” and one of our team members will get in touch with you."
           placeholder: 'Include your request or message in this box'
           confirm: 'Are you sure you want to send this request?'
           submit: 'Submit Request'
           eligibility_errors:
             chargeable_staff_number_or_zero_balance?_html:
-              We noticed on your registration that we do not have your payment information.
-              <br>
-              If you are able to provide that up to 24 hours before your arrival, we can offer you PreCheck.
+             At this time, you have a <b>balance due</b>, which prevents eligibility for PreCheck. If you are able to provide payment information prior to two days before your arrival, we can offer you PreCheck.
               <br>
               <br>
               <ul>
                 <li>If you are an <b>employee of Cru in any capacity</b>, please type your employee ID (staff account number) or ministry chartfield in the message box below so that we can verify it and add it to your registration.</li>
-                <li>If you want to <b>pay by credit card</b>, we will be happy to take your credit card payment when you arrive.</li>
+                <li>If you don’t have a chargeable staff account number or ministry chartfield that you can provide now, we can take payment <b> by credit card</b> at check-in when you arrive in Milwaukee.</li>
                 <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team22 staff member will be in touch with you.</li>
               </ul>
             children_forms_approved?_html:
-              We noticed that you have incomplete Cru22 Kids forms which can still be submitted online.
-              <br>
-              Please refer to the DocuSign email packet in your inbox to reference the remaining forms we need.
+              At this time, you have <b>incomplete Cru22 Kids forms</b>, which prevents eligibility for PreCheck. These can still be submitted online. Please refer to the DocuSign email packet in your email inbox to reference the remaining forms needed. <b>If you haven't received a DocuSign packet or if it is going to the wrong email box, please notify us at cru22.crukids@cru.org so that we can make sure a packet is sent.</b>
               <br>
               <br>
-              Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
+              Once the forms are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble_html:
           Please carefully review your Summer19/Cru22 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival.
