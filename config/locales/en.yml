@@ -466,15 +466,13 @@ en:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       body_html:
-        <p>Good news! Your Summer19/Cru22 registration is <b>eligible for PreCheck.</b>
+        <p>Good news! Your Cru22 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
-        This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), and qualify for express check-in at CSU.
-        We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+        You can confirm your conference details ahead of time and qualify for express check-in at the Wisconsin Center. We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the downtown Milwaukee area.
         <br>
         <br>
-        <b>To receive PreCheck</b>, please click the link below, which is available until 9:00AM MT the day before you arrive, to review your registration details.
-        Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
+        <b>To receive PreCheck</b>, please click the link below to review your registration details. This link will only be available until 10:00 a.m. CT the day before your registered arrival date. Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
         </p>
       link: "Review Registration"
     changes_requested:
