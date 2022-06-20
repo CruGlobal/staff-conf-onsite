@@ -391,10 +391,10 @@ en:
             Please do not worry. You will still have a great check-in experience with friendly service, shorter lines, the ability to confirm your information in person and get answers to your questions. When you arrive at CSU, look for the signs and Team22 members who will direct you to the check-in area.
         eligibility_errors_with_form:
           closing_message_html:
-            We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team22 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
+            We want to help you receive PreCheck to expedite your check-in at Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
-          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click “Submit Request” and one of our team members will get in touch with you."
+          request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
           placeholder: 'Include your request or message in this box'
           confirm: 'Are you sure you want to send this request?'
           submit: 'Submit Request'
@@ -469,7 +469,7 @@ en:
         <br>
         <br>
         We look forward to seeing you in Milwaukee this summer!
-      onsite_confirmed: "Welcome to %{conference}"
+      onsite_confirmed: "Welcome to Cru22"
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
