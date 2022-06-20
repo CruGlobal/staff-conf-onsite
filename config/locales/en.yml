@@ -352,17 +352,28 @@ en:
         title: "Congratulations!"
         body: "You have received PreCheck. You will receive a confirmation email shortly with more details for your arrival."
       show:
+        precheck_confirmed_legacyg_html:
+          Congratulations! You have received <b>PreCheck</b>.
+          <br>
+          <br>
+          Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+          <br>
+          <br>
+          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+          <br>
+          <br>
+          We look forward to seeing you in Milwaukee this summer!
         precheck_confirmed_html:
           Congratulations! You have received <b>PreCheck</b>.
           <br>
           <br>
-          When you arrive for check-in, please go to the <b>Durrell Center</b> (across from Moby Arena, near the corner of Shields and Plum) where your name tags and other conference materials will be waiting for you. Look for the PreCheck signs and Team22 workers who will point you in the right direction. If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival.
+          Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
           <br>
           <br>
-          For those attending IBS, please stop by the IBS tables for class notes and optional seminary credit.
+          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
           <br>
           <br>
-          Completing your check-in today means you <i>do not</i> need to return to check in again on July 19. Please keep your name tag throughout the summer, including %{conference}. You will also receive a security wristband and a clear bag for %{conference} through your track leader.
+          We look forward to seeing you in Milwaukee this summer!
     rejection:
       create:
         title: "We have received your request."
