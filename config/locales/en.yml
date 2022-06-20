@@ -384,11 +384,28 @@ en:
         greeting: "Hello!"
       not_precheck_eligible:
         too_late_for_precheck:
+          apology_legacy_html:
+            We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
+            <br>
+            <br>
+            Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
+            <br>
+            <br>
+            Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+            <br>
+            <br>
+            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
           apology_html:
             We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
             <br>
             <br>
-            Please do not worry. You will still have a great check-in experience with friendly service, shorter lines, the ability to confirm your information in person and get answers to your questions. When you arrive at CSU, look for the signs and Team22 members who will direct you to the check-in area.
+            Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
+            <br>
+            <br>
+            Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
+            <br>
+            <br>
+            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
         eligibility_errors_with_form:
           closing_message_html:
             We want to help you receive PreCheck to expedite your check-in at Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
