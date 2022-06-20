@@ -1,1 +1,6 @@
-<p><%= t(".apology_html") %></p>
+
+<% if UserVariable[:conference_id] === "Legacy" %>
+    <p><%= t(".apology_legacy_html") %></p>    
+<% else %>
+    <p><%= t(".apology_html") %></p>
+<% end %>

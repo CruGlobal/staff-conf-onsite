@@ -1,9 +1,13 @@
 <h2 class="greeting"><%= t('precheck.status.show.greeting') %></h2>
 
 <p>
-  <% if @family.approved? %>
-    <%= t('.precheck_confirmed_html', conference: UserVariable[:conference_id]) %>
-  <% else %>
+  <% if @family.approved? 
+    if UserVariable[:conference_id] === "Legacy" %>
+      <%= t('.precheck_confirmed_legacy_html', conference: UserVariable[:conference_id]) %>
+    <% else %>
+      <%= t('.precheck_confirmed_html', conference: UserVariable[:conference_id]) %>
+    <% end
+  else %>
     <%= t('.onsite_confirmed', conference: UserVariable[:conference_id]) %>
   <% end %>
 </p>
