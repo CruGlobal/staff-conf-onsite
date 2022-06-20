@@ -491,7 +491,7 @@ en:
       subject: "%{conference} - Unconfirmed PreCheck Details"
       link: "Click here to contact us"
     closing_html:
-      We look forward to seeing you in Colorado this summer.
+      We look forward to seeing you in Milwaukee in a few weeks.
       <br>
       <br>
       Thank you,
@@ -499,28 +499,26 @@ en:
       Team22
       <br>
       <br>
-      P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22.
-      <br>
-      We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
+      P.S. We want to help you receive PreCheck to expedite your check-in at Cru22. We will send a reminder each day until you have successfully resolved your conference details.
     video_html:
       Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru22/precheck/">here</a>.
     not_eligible_preamble_html:
-      Team22 is pleased to offer <b>PreCheck</b> at Summer19/Cru22.
-      This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), so that you can qualify for express check-in at CSU.
+      Team22 is pleased to offer you <b>PreCheck</b> at Cru22.
+      This allows you to confirm your conference details ahead of time for express check-in in Milwaukee.
       <br>
-      We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+      We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in and enjoying the Milwaukee area.
     eligibility_errors:
       chargeable_staff_number_or_zero_balance?_html:
-        At this time, you have a <b>balance due</b> that does not qualify you for PreCheck.
+        At this time, you have a <b>balance due</b>, which prevents eligibility for PreCheck..
         <br>
         We would like to try and resolve your balance before you arrive so that you receive PreCheck.
         <br>
         <br>
         <b>Please click on the link below</b> and read the options you have to take care of your balance.
         <br>
-        When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck and you will have the opportunity to review and confirm your conference information.
+        When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck with the opportunity to review and confirm your conference information.
       children_forms_approved?_html:
-        At this time, you have <b>incomplete Cru22 Kids forms</b> that do not qualify you for PreCheck.
+        At this time, you have <b>incomplete Cru22 Kids forms</b> which prevents eligibility for PreCheck.
         <br>
         We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
