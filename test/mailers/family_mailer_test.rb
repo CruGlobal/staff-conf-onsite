@@ -15,7 +15,7 @@ class FamilyMailerTest < ActionMailer::TestCase
 
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal @family.attendees.map(&:email).sort, email.to.sort
-    assert_equal 'Cru17 PreCheck Summary', email.subject
+    assert_equal 'Cru22 PreCheck Summary', email.subject
     assert_match 'Remaining Balance Due', email.body.to_s
   end
 end

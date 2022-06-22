@@ -50,7 +50,7 @@ class SeedUserVariables
     hot_lunch_begin_4: { value_type: :date, code: :HLFDSC, value: '2017-07-29', description: 'Hot Lunch First Day of Staff Conference' },
 
     # Conference
-    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru17', description: 'A string containing the name of the conference.' },
+    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru22', description: 'A string containing the name of the conference.' },
     support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
     conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru22/cru22-logo-thumbnail.png', description: 'Conference logo URL' },
 
