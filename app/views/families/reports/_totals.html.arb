@@ -3,26 +3,30 @@ panel 'Total' do
   table(class: 'totals-table') do
     tbody do
       tr do
-        td 'Charges'
-        td humanized_money_with_symbol(finances.subtotal),
-          class: 'totals-table__amount'
+        td 'Charges'        
+        td(class: 'finances-table__price totals-table__amount') do
+          text_node humanized_money_with_symbol(finances.subtotal)
+        end
       end
       tr do
         td 'Payments'
-        td humanized_money_with_symbol(finances.paid),
-          class: 'totals-table__amount'
+        td(class: 'finances-table__price totals-table__amount') do
+          text_node humanized_money_with_symbol(finances.paid)
+        end
       end
       unless finances.staff_number_balance.zero?
         tr do
-          td format('Charge Staff Account: %s', finances.staff_number)
-          td humanized_money_with_symbol(finances.unpaid),
-            class: 'totals-table__amount'
+          td format('Charge Staff Account: %s', finances.staff_number)          
+          td(class: 'finances-table__price totals-table__amount') do
+            text_node humanized_money_with_symbol(finances.unpaid)
+          end
         end
       end
       tr do
         td 'Remaining Balance Due'
-        td humanized_money_with_symbol(finances.remaining_balance),
-          class: 'totals-table__amount'
+        td(class: 'finances-table__price totals-table__amount') do
+          text_node humanized_money_with_symbol(finances.remaining_balance)
+        end
       end
     end
   end
