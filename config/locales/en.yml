@@ -352,7 +352,7 @@ en:
         title: "Congratulations!"
         body: "You have received PreCheck. You will receive a confirmation email shortly with more details for your arrival."
       show:
-        precheck_confirmed_legacyg_html:
+        precheck_confirmed_legacy_html:
           Congratulations! You have received <b>PreCheck</b>.
           <br>
           <br>
