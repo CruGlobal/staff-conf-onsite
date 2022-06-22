@@ -28,7 +28,7 @@ class Precheck::MailDeliveryServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [@attendee.email], email.to
-    assert_equal 'Cru17 - PreCheck Eligible', email.subject
+    assert_equal 'Cru22 - PreCheck Eligible', email.subject
     assert_match 'Review Registration', email.body.to_s
   end
 
@@ -42,7 +42,7 @@ class Precheck::MailDeliveryServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [@attendee.email], email.to
-    assert_equal 'Cru17 - Unconfirmed PreCheck Details', email.subject
+    assert_equal 'Cru22 - Unconfirmed PreCheck Details', email.subject
     assert_match 'incomplete Cru22 Kids forms', email.body.to_s
   end
 
@@ -82,7 +82,7 @@ class Precheck::MailDeliveryServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal ['help@cru.org'], email.to
-    assert_equal "Cru17 PreCheck Changes Requested for Family #{@eligible_family.to_s}", email.subject
+    assert_equal "Cru22 PreCheck Changes Requested for Family #{@eligible_family.to_s}", email.subject
     assert_match 'The following family has used the PreCheck form to request changes to their registration', email.body.to_s
     assert_match 'Hello World', email.body.to_s
   end

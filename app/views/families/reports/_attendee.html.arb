@@ -13,21 +13,21 @@ panel content_tag(:span, title, class: 'title',
       h4 'MISSING EMAIL ADDRESS', style: 'color:red'
     end
 
-    render 'family_finances/line_items', title: 'On Campus Assignments (includes Rec Center)',
-      without_unit: without_unit,
-      collection: report.on_campus_stays(without_unit: without_unit)
-    render 'family_finances/line_items', title: 'Off Campus Assignments',
-      collection: report.off_campus_stays(without_unit: without_unit)
+    #render 'family_finances/line_items', title: 'On Campus Assignments (includes Rec Center)',
+    #  without_unit: without_unit,
+    #  collection: report.on_campus_stays(without_unit: without_unit)
 
-    render 'family_finances/adjustments', price: report.stay_adjustments
+    #render 'family_finances/line_items', title: 'Off Campus Assignments',
+    #  collection: report.off_campus_stays(without_unit: without_unit)
+    #render 'family_finances/adjustments', price: report.stay_adjustments
 
-    render 'family_finances/line_items', title: 'Facility Use',
-      collection: report.campus_facility_use
-    render 'family_finances/adjustments', price: report.facility_use_adjustments
+    #render 'family_finances/line_items', title: 'Facility Use',
+    #  collection: report.campus_facility_use
+    #render 'family_finances/adjustments', price: report.facility_use_adjustments
 
-    render 'family_finances/line_items', title: 'Classes',
-      collection: report.courses
-    render 'family_finances/adjustments', price: report.course_adjustments
+    #render 'family_finances/line_items', title: 'Classes',
+    #  collection: report.courses
+    #render 'family_finances/adjustments', price: report.course_adjustments
 
     render 'family_finances/line_items', title: 'Staff Conference',
       collection: report.staff_conference
@@ -39,8 +39,9 @@ panel content_tag(:span, title, class: 'title',
     render 'family_finances/adjustments',
       price: report.conference_adjustments
 
-    render 'family_finances/line_items', title: 'Rec Center (while living off campus)',
-      collection: report.rec_center
+    #render 'family_finances/line_items', title: 'Rec Center (while living off campus)',
+    #  collection: report.rec_center
+    
     render 'family_finances/adjustments',
       price: report.rec_center_adjustments
 

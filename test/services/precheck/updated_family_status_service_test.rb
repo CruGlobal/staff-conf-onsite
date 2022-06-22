@@ -37,7 +37,7 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [@attendee_one.email, @attendee_two.email], email.to
-    assert_equal 'Cru17 - PreCheck Eligible', email.subject
+    assert_equal 'Cru22 - PreCheck Eligible', email.subject
     assert_match 'Review Registration', email.body.to_s
   end
 
@@ -81,7 +81,7 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal @family.attendees.map(&:email).sort, email.to.sort
-    assert_equal 'Cru17 PreCheck Summary', email.subject
+    assert_equal 'Cru22 PreCheck Summary', email.subject
     assert_match 'Congratulations! You have received <b>PreCheck</b>.', email.body.to_s
   end
 
@@ -105,7 +105,7 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [UserVariable[:support_email]], email.to
-    assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
+    assert_equal "Cru22 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
     assert_match 'Test 1 2 3', email.body.to_s
   end
 
@@ -120,7 +120,7 @@ class Precheck::UpdatedFamilyStatusServiceTest < ServiceTestCase
     email = ActionMailer::Base.deliveries.last
     assert_equal ['no-reply@cru.org'], email.from
     assert_equal [UserVariable[:support_email]], email.to
-    assert_equal "Cru17 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
+    assert_equal "Cru22 PreCheck Changes Requested for Family #{@family.to_s}", email.subject
     assert_match 'Test 1 2 3', email.body.to_s
   end
 end
