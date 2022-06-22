@@ -6,7 +6,9 @@ panel "Payments (#{payments.size})" do
         th 'Payment Type'
         th 'Cost Type'
         th 'Description'
-        th 'Price'
+        th class: 'finances-table__price' do
+          'Price' 
+        end
       end
     end
 
