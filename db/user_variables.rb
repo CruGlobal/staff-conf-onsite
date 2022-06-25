@@ -24,7 +24,7 @@ class SeedUserVariables
     childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Cru Kids' },
     childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Kids Care Tuition Staff Conference' },
 
-    #Childcare costs by Type (NEW)
+    # Childcare costs by Type (NEW)
     CARESC: { value_type: :money, code: :CARESC, value: 1_00, description: 'Kids Camp tuition during Staff Conference' },
     CAMPSC: { value_type: :money, code: :CAMPSC, value: 1_00, description: 'Kids Care tuition during Staff Conference' },
 
