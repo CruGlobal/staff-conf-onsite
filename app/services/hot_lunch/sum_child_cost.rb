@@ -14,16 +14,14 @@ class HotLunch::SumChildCost < ChargesService
   end
 
   def hot_lunch_charges
-    if child.hot_lunch_weeks.any?
-      if child.childcare_care_grade?
-        UserVariable["HLCARE"]
-      elsif child.childcare_camp_grade?
-        UserVariable["HLCAMP"]    
-      elsif child.crustu_grade?
-        UserVariable["HLCRUSTU"]    
-      else
-        Money.empty
-      end 
+    return Money.empty if !child.hot_lunch_weeks.any?
+
+    if child.childcare_care_grade?
+      UserVariable["HLCARE"]
+    elsif child.childcare_camp_grade?
+      UserVariable["HLCAMP"]
+    elsif child.crustu_grade?
+      UserVariable["HLCRUSTU"]
     else
       Money.empty
     end
