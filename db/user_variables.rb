@@ -49,7 +49,7 @@ class SeedUserVariables
     hot_lunch_week_3: { value_type: :money, code: :HL4,  value: 8_00, description: 'Cost of the Week 4 Hot Lunches' },
     hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00, description: 'Cost of the Staff Conference Hot Lunches' },
 
-    #Hot Lunchs by type now (NEW)
+    # Hot Lunches by type now (NEW)
     HLCARE: { value_type: :money, code: :HLCARE, value: 16_00, description: 'Hot Lunch for Kids Care' },
     HLCAMP: { value_type: :money, code: :HLCAMP, value: 16_00, description: 'Hot Lunch for Kids Camp' },
     HLCRUSTU: { value_type: :money, code: :HLCRUSTU, value: 16_00, description: 'Hot Lunch for CruStu' },
