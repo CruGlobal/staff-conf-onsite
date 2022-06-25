@@ -341,6 +341,7 @@ en:
         not_eligible: '%{family} family is not eligible due to the following reasons:'
         precheck_eligible?: 'Precheck Eligible?'
         precheck_status: 'Precheck Status'
+        precheck_hotel_stay: 'Hotel'
         precheck_page: 'Precheck Page'
         open_family_precheck_page: "Open %{family} family's PreCheck page"
     form:
