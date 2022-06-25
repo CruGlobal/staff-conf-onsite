@@ -27,7 +27,7 @@ context.instance_exec do
       end
 
       row t('.precheck_hotel_stay') do |family|
-        status_tag family.hotel_stay.hotel
+        status_tag (family.hotel_stay ? family.hotel_stay.hotel : 'Not Selected')
       end
 
       row :required_team_action do |family|
