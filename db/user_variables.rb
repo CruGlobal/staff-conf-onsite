@@ -52,7 +52,7 @@ class SeedUserVariables
     #Hot Lunchs by type now (NEW)
     HLCARE: { value_type: :money, code: :HLCARE, value: 16_00, description: 'Hot Lunch for Kids Care' },
     HLCAMP: { value_type: :money, code: :HLCAMP, value: 16_00, description: 'Hot Lunch for Kids Camp' },
-    HLCRUSTU: { value_type: :money, code: :HLCRUSTU, value: 16_00, description: 'Hot Lunch for Crustu' },
+    HLCRUSTU: { value_type: :money, code: :HLCRUSTU, value: 16_00, description: 'Hot Lunch for CruStu' },
 
     # Hot Lunch Start Dates (OLD METHOD)
     hot_lunch_begin_0: { value_type: :date, code: :HLFDW1, value: '2017-07-01', description: 'Hot Lunch First Day of Week 1' },
