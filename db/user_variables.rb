@@ -24,7 +24,7 @@ class SeedUserVariables
     childcare_week_3: { value_type: :money, code: :CCWK4,  value: 1_00, description: 'Week 4 Cru Kids' },
     childcare_week_4: { value_type: :money, code: :CCWKSC, value: 1_00, description: 'Kids Care Tuition Staff Conference' },
 
-    #Childcare costs by Type (NEW)
+    # Childcare costs by Type (NEW)
     CARESC: { value_type: :money, code: :CARESC, value: 1_00, description: 'Kids Camp tuition during Staff Conference' },
     CAMPSC: { value_type: :money, code: :CAMPSC, value: 1_00, description: 'Kids Care tuition during Staff Conference' },
 
@@ -49,10 +49,10 @@ class SeedUserVariables
     hot_lunch_week_3: { value_type: :money, code: :HL4,  value: 8_00, description: 'Cost of the Week 4 Hot Lunches' },
     hot_lunch_week_4: { value_type: :money, code: :HLSC, value: 16_00, description: 'Cost of the Staff Conference Hot Lunches' },
 
-    #Hot Lunchs by type now (NEW)
+    # Hot Lunches by type now (NEW)
     HLCARE: { value_type: :money, code: :HLCARE, value: 16_00, description: 'Hot Lunch for Kids Care' },
     HLCAMP: { value_type: :money, code: :HLCAMP, value: 16_00, description: 'Hot Lunch for Kids Camp' },
-    HLCRUSTU: { value_type: :money, code: :HLCRUSTU, value: 16_00, description: 'Hot Lunch for Crustu' },
+    HLCRUSTU: { value_type: :money, code: :HLCRUSTU, value: 16_00, description: 'Hot Lunch for CruStu' },
 
     # Hot Lunch Start Dates (OLD METHOD)
     hot_lunch_begin_0: { value_type: :date, code: :HLFDW1, value: '2017-07-01', description: 'Hot Lunch First Day of Week 1' },
