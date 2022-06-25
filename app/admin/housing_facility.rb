@@ -1,4 +1,4 @@
-ActiveAdmin.register HousingFacility do
+ActiveAdmin.register HousingFacility, as: 'Hotels'  do
   extend Rails.application.helpers
 
   partial_view :index, :show, :form,

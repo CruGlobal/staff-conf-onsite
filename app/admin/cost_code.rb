@@ -1,4 +1,5 @@
 ActiveAdmin.register CostCode do
+  menu false
   partial_view :index, :show, :form
 
   permit_params :name, :description, :min_days, charges_attributes: %i[
