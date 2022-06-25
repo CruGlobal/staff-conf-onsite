@@ -341,6 +341,7 @@ en:
         not_eligible: '%{family} family is not eligible due to the following reasons:'
         precheck_eligible?: 'Precheck Eligible?'
         precheck_status: 'Precheck Status'
+        precheck_hotel_stay: 'Hotel'
         precheck_page: 'Precheck Page'
         open_family_precheck_page: "Open %{family} family's PreCheck page"
     form:
@@ -439,10 +440,13 @@ en:
         confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
         request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team22 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 10:00 a.m CT the day before your registered arrival date, and we will do our best to resolve your situation before you arrive in Milwaukee."
+        request_hotel_confirmation_html: "<b>Please tell us where you chose to stay in Milwaukee.</b><br><small>(This information will help with future conference planning.)</small>"
+        request_hotel_confirmation_other: "Please enter where you stayed in Milwaukee (Manditory)"
         request_changes_placeholder: "Include your change request or message in this box"
         request_changes: "No, I need to request changes..."
         request_changes_confirm: "Are you sure you want to request changes?"
         submit_request_changes: "Submit Request"
+        submit_hotel_confirmation: "Submit"
         cancel: "Cancel"
 
   precheck_helper:

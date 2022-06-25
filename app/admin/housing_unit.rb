@@ -1,4 +1,6 @@
 ActiveAdmin.register HousingUnit do
+  menu false
+  
   partial_view(
     :form,
     index: { title: -> { "#{@housing_facility.name}: Units" } },
