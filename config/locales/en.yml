@@ -567,7 +567,11 @@ en:
           title: "%{conference} Kids Car Line Sign-In/Sign-Out"
           date: "Date:"
 
-    family_finances:
+    family_finances:  
+      childcare_label:
+        pre-kindergarten: "Kids Care"
+        kindergarten-to-grade-5: "Kids Camp"
+        post-grade-6: "CruStu"
       childcare_deposit: "Deposit"
       facility_use: "Fee"
       no_fee: "No Fee"
