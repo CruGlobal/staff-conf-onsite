@@ -45,7 +45,15 @@ class Child < Person
     def childcare_grade_levels
       GRADE_LEVELS.first(grade5_index + 1)
     end
+
+    def childcare_care_grade_levels
+      GRADE_LEVELS.first(gradeAge5PreKindergarten_index + 1)
+    end
     
+    def childcare_camp_grade_levels
+      (GRADE_LEVELS.first(grade5_index + 1) - GRADE_LEVELS.first(gradeAge5Kindergarten_index))
+    end
+
     def hot_lunch_grade_levels
       (GRADE_LEVELS.first(grade13_index + 1) - GRADE_LEVELS.first(age1_index + 1))
     end
@@ -58,6 +66,14 @@ class Child < Person
       GRADE_LEVELS.index('grade5')
     end
 
+    def gradeAge5PreKindergarten_index
+      GRADE_LEVELS.index('age5-pre-kindergarten')
+    end
+
+    def gradeAge5Kindergarten_index
+      GRADE_LEVELS.index('age5-kindergarten')
+    end
+
     def grade13_index
       GRADE_LEVELS.index('grade13')
     end
@@ -65,6 +81,18 @@ class Child < Person
     def age1_index
       GRADE_LEVELS.index('age1')
     end
+  end
+
+  def childcare_care_grade?
+    self.class.childcare_care_grade_levels.include?(grade_level)
+  end
+
+  def childcare_camp_grade?
+    self.class.childcare_camp_grade_levels.include?(grade_level)
+  end
+
+  def crustu_grade?
+    self.class.senior_grade_levels.include?(grade_level)
   end
 
   def conferences
