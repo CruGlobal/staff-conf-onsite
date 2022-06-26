@@ -18,12 +18,12 @@ panel content_tag(:span, title, class: 'title', data: { id: report.child.id, typ
 
     render 'family_finances/adjustments', price: report.stay_adjustments
 
-    render 'family_finances/line_items', title: 'Cru Kids Weeks',
+    render 'family_finances/line_items', title: 'Cru Kids',
       collection: report.childcare
     render 'family_finances/adjustments',
       price: report.childcare_adjustments
 
-    render 'family_finances/line_items', title: 'Hot Lunch Weeks',
+    render 'family_finances/line_items', title: 'Hot Lunch',
       collection: report.hot_lunches
     render 'family_finances/adjustments',
       price: report.hot_lunch_adjustments
