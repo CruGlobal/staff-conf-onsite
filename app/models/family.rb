@@ -87,7 +87,7 @@ class Family < ApplicationRecord
     attendees.any? { |p| p.email.present? }
   end
  
-  def anyone_registered_for_legacy_conferences()
+  def anyone_registered_for_legacy_conferences?()
     attendees.find{|a| a.conferences.find{ |c| c.name == 'Legacy'}} != nil
   end
 
