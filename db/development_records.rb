@@ -25,7 +25,9 @@ class SeedDevelopmentRecords
   # +test/fixtures/+
   CONFERENCES = [
     'Coach or Instructor',
-    'Cru17',
+    'Cru22',
+    'Legacy',
+    'Team22',
     'Institute of Biblical Studies TA',
     'Legacy Track (Staff 60 years of age and older)',
     'Legal Internship Participant',

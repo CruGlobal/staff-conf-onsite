@@ -86,6 +86,10 @@ class Family < ApplicationRecord
   def anyone_has_email?
     attendees.any? { |p| p.email.present? }
   end
+ 
+  def anyone_registered_for_legacy_conferences?()
+    attendees.find{|a| a.conferences.find{ |c| c.name == 'Legacy'}} != nil
+  end
 
   def update_spouses
     if attendees.reload.size == 2

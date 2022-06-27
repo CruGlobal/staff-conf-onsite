@@ -352,17 +352,28 @@ en:
         title: "Congratulations!"
         body: "You have received PreCheck. You will receive a confirmation email shortly with more details for your arrival."
       show:
+        precheck_confirmed_legacy_html:
+          Congratulations! You have received <b>PreCheck</b>.
+          <br>
+          <br>
+          Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+          <br>
+          <br>
+          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+          <br>
+          <br>
+          We look forward to seeing you in Milwaukee this summer!
         precheck_confirmed_html:
           Congratulations! You have received <b>PreCheck</b>.
           <br>
           <br>
-          When you arrive for check-in, please go to the <b>Durrell Center</b> (across from Moby Arena, near the corner of Shields and Plum) where your name tags and other conference materials will be waiting for you. Look for the PreCheck signs and Team22 workers who will point you in the right direction. If you are parking a car on campus, don’t forget to snap a photo of your license plate to submit upon arrival.
+          Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
           <br>
           <br>
-          For those attending IBS, please stop by the IBS tables for class notes and optional seminary credit.
+          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
           <br>
           <br>
-          Completing your check-in today means you <i>do not</i> need to return to check in again on July 19. Please keep your name tag throughout the summer, including %{conference}. You will also receive a security wristband and a clear bag for %{conference} through your track leader.
+          We look forward to seeing you in Milwaukee this summer!
     rejection:
       create:
         title: "We have received your request."
@@ -373,14 +384,31 @@ en:
         greeting: "Hello!"
       not_precheck_eligible:
         too_late_for_precheck:
+          apology_legacy_html:
+            We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
+            <br>
+            <br>
+            Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
+            <br>
+            <br>
+            Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+            <br>
+            <br>
+            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
           apology_html:
             We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
             <br>
             <br>
-            Please do not worry. You will still have a great check-in experience with friendly service, shorter lines, the ability to confirm your information in person and get answers to your questions. When you arrive at CSU, look for the signs and Team22 members who will direct you to the check-in area.
+            Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
+            <br>
+            <br>
+            Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
+            <br>
+            <br>
+            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
         eligibility_errors_with_form:
           closing_message_html:
-            We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive on campus, look for the signs and Team22 members who will direct you to the check-in area. You will have a great experience with friendly service, shorter lines, and answers to your questions.
+            We want to help you receive PreCheck to expedite your check-in at Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
           request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
@@ -389,32 +417,28 @@ en:
           submit: 'Submit Request'
           eligibility_errors:
             chargeable_staff_number_or_zero_balance?_html:
-              We noticed on your registration that we do not have your payment information.
-              <br>
-              If you are able to provide that up to 24 hours before your arrival, we can offer you PreCheck.
+             At this time, you have a <b>balance due</b>, which prevents eligibility for PreCheck. If you are able to provide payment information prior to two days before your arrival, we can offer you PreCheck.
               <br>
               <br>
               <ul>
                 <li>If you are an <b>employee of Cru in any capacity</b>, please type your employee ID (staff account number) or ministry chartfield in the message box below so that we can verify it and add it to your registration.</li>
-                <li>If you want to <b>pay by credit card</b>, we will be happy to take your credit card payment when you arrive.</li>
+                <li>If you don’t have a chargeable staff account number or ministry chartfield that you can provide now, we can take payment <b> by credit card</b> at check-in when you arrive in Milwaukee.</li>
                 <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team22 staff member will be in touch with you.</li>
               </ul>
             children_forms_approved?_html:
-              We noticed that you have incomplete Cru22 Kids forms which can still be submitted online.
-              <br>
-              Please refer to the DocuSign email packet in your inbox to reference the remaining forms we need.
+              At this time, you have <b>incomplete Cru22 Kids forms</b>, which prevents eligibility for PreCheck. These can still be submitted online. Please refer to the DocuSign email packet in your email inbox to reference the remaining forms needed. <b>If you haven't received a DocuSign packet or if it is going to the wrong email box, please notify us at cru22.crukids@cru.org so that we can make sure a packet is sent.</b>
               <br>
               <br>
-              Once they are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
+              Once the forms are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble_html:
-          Please carefully review your Summer19/Cru22 details. If your personal information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck closes 24 hours before your arrival.
+          Please carefully review your Cru22 details. If your personal/family registration information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck will only be available until 10:00 a.m. CT the day before your registered arrival date.
           <br>
           <br>
-          If you see something that is incorrect or has changed since registering, click on “No, I need to request changes.”
+          If you see something incorrect, or something has changed since registering, click “No, I need to request changes.”
         confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
-        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team22 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 9:00 AM MT the day before you arrive and we will do our best to resolve your situation before you arrive on campus."
+        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team22 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 10:00 a.m CT the day before your registered arrival date, and we will do our best to resolve your situation before you arrive in Milwaukee."
         request_changes_placeholder: "Include your change request or message in this box"
         request_changes: "No, I need to request changes..."
         request_changes_confirm: "Are you sure you want to request changes?"
@@ -440,27 +464,34 @@ en:
       subject: "CruKids Forms Approved for %{name}"
     summary:
       subject: "%{conference} PreCheck Summary"
+      precheck_confirmed_legacy_html:
+        Congratulations! You have received <b>PreCheck</b>.
+        <br>
+        <br>
+        Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
+        <br>
+        <br>
+        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+        <br>
+        <br>
+        We look forward to seeing you in Milwaukee this summer!
       precheck_confirmed_html:
         Congratulations! You have received <b>PreCheck</b>.
         <br>
         <br>
-        Upon your arrival at CSU, please check in at the date/time shown <a href="https://www.cru.org/cru22/precheck/">here</a> (scroll down). Checking in on your designated day will allow Team22 to serve you well by having your name tags and other conference materials ready.
+        Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
         <br>
         <br>
-        If you are arriving on a different date before July 19, please come to the Information Services desk in the Durrell Center (across from Moby Arena, near the corner of Shields and Plum) to check-in between 8:30 AM - 4:30 PM, Monday–Friday.
+        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
         <br>
         <br>
-        If you are staying on campus in a dorm your housing assignment is below. Please also review this helpful <a href="https://drive.google.com/file/d/1Jb8dN8jMT2-jvWBWmlYNnFy-8ootoonb/view">dorm arrival and dining hall information</a>.
-        <br>
-        <br>
-        We look forward to seeing you in Colorado this summer.
-      onsite_confirmed: "Welcome to Summer19/%{conference}"
+        We look forward to seeing you in Milwaukee this summer!
+      onsite_confirmed: "Welcome to Cru22"
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
-          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.Childcare@cru.org">Cru22.Childcare@cru.org</a> </li>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.CruKids@cru.org">Cru22.CruKids@cru.org</a> </li>
           <li>CruStu, please contact <a href="mailto:Cru22.CruStu@cru.org">Cru22.CruStu@cru.org</a></li>
-          <li>Housing, please contact <a href="mailto:Cru22.OffCampus@cru.org">Cru22.OffCampus@cru.org</a> and <a href="mailto:Cru22.OnCampus@cru.org">Cru22.OnCampus@cru.org</a></li>
           <li>Finances, please contact <a href="mailto:Cru22.Finance@cru.org">Cru22.Finance@cru.org</a></li>
           <li>Anything else, please contact <a href="mailto:Cru22.Info@cru.org">Cru22.Info@cru.org</a></li>
         </ul>'
@@ -470,15 +501,13 @@ en:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       body_html:
-        <p>Good news! Your Summer19/Cru22 registration is <b>eligible for PreCheck.</b>
+        <p>Good news! Your Cru22 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
-        This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), and qualify for express check-in at CSU.
-        We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+        You can confirm your conference details ahead of time and qualify for express check-in at the Wisconsin Center. We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the downtown Milwaukee area.
         <br>
         <br>
-        <b>To receive PreCheck</b>, please click the link below, which is available until 9:00AM MT the day before you arrive, to review your registration details.
-        Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
+        <b>To receive PreCheck</b>, please click the link below to review your registration details. This link will only be available until 10:00 a.m. CT the day before your registered arrival date. Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
         </p>
       link: "Review Registration"
     changes_requested:
@@ -491,7 +520,7 @@ en:
       subject: "%{conference} - Unconfirmed PreCheck Details"
       link: "Click here to contact us"
     closing_html:
-      We look forward to seeing you in Colorado this summer.
+      We look forward to seeing you in Milwaukee in a few weeks.
       <br>
       <br>
       Thank you,
@@ -499,28 +528,26 @@ en:
       Team22
       <br>
       <br>
-      P.S. We want to help you receive PreCheck to expedite your check-in at Summer19/Cru22.
-      <br>
-      We will send a reminder each day until you (or your spouse, if applicable) have successfully resolved your conference details.
+      P.S. We want to help you receive PreCheck to expedite your check-in at Cru22. We will send a reminder each day until you have successfully resolved your conference details.
     video_html:
       Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru22/precheck/">here</a>.
     not_eligible_preamble_html:
-      Team22 is pleased to offer <b>PreCheck</b> at Summer19/Cru22.
-      This new experience allows you to confirm your conference details ahead of time, including your on-campus housing assignment (if applicable), so that you can qualify for express check-in at CSU.
+      Team22 is pleased to offer you <b>PreCheck</b> at Cru22.
+      This allows you to confirm your conference details ahead of time for express check-in in Milwaukee.
       <br>
-      We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the Fort Collins area.
+      We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in and enjoying the Milwaukee area.
     eligibility_errors:
       chargeable_staff_number_or_zero_balance?_html:
-        At this time, you have a <b>balance due</b> that does not qualify you for PreCheck.
+        At this time, you have a <b>balance due</b>, which prevents eligibility for PreCheck..
         <br>
         We would like to try and resolve your balance before you arrive so that you receive PreCheck.
         <br>
         <br>
         <b>Please click on the link below</b> and read the options you have to take care of your balance.
         <br>
-        When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck and you will have the opportunity to review and confirm your conference information.
+        When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck with the opportunity to review and confirm your conference information.
       children_forms_approved?_html:
-        At this time, you have <b>incomplete Cru22 Kids forms</b> that do not qualify you for PreCheck.
+        At this time, you have <b>incomplete Cru22 Kids forms</b> which prevents eligibility for PreCheck.
         <br>
         We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
