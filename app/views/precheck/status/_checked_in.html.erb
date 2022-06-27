@@ -1,6 +1,6 @@
 <p>
   <% if family.approved? 
-    if family.anyone_registered_for_legacy_conferences %>
+    if family.anyone_registered_for_legacy_conferences? %>
       <%= t('precheck.confirmation.show.precheck_confirmed_legacy_html', conference: UserVariable[:conference_id]) %>
     <% else %>
       <%= t('precheck.confirmation.show.precheck_confirmed_html', conference: UserVariable[:conference_id]) %>
