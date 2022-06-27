@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524181136) do
+ActiveRecord::Schema.define(version: 20220625160551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,15 @@ ActiveRecord::Schema.define(version: 20190524181136) do
   add_index "families", ["precheck_status"], name: "index_families_on_precheck_status", using: :btree
   add_index "families", ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at", using: :btree
 
+  create_table "hotel_stays", force: :cascade do |t|
+    t.text     "hotel",      null: false
+    t.integer  "family_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "hotel_stays", ["family_id"], name: "index_hotel_stays_on_family_id", unique: true, using: :btree
+
   create_table "housing_facilities", force: :cascade do |t|
     t.string   "name"
     t.string   "city"
@@ -529,6 +538,7 @@ ActiveRecord::Schema.define(version: 20190524181136) do
   add_foreign_key "childcare_envelopes", "people", column: "recipient_id"
   add_foreign_key "childcare_medical_histories", "people", column: "child_id"
   add_foreign_key "cru_student_medical_histories", "people", column: "child_id"
+  add_foreign_key "hotel_stays", "families"
   add_foreign_key "people", "seminaries"
   add_foreign_key "precheck_email_tokens", "families"
 end

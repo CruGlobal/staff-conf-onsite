@@ -4,7 +4,7 @@
 <% if @family.approved? || @family.checked_in? %>
   <%= render 'checked_in', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% elsif precheck_eligible?(@family) %>
-  <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
+  <%= render 'precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy, hotels: @hotels %>
 <% else %>
   <%= render 'not_precheck_eligible', family: @family, token: @token, finances: @finances, policy: @policy %>
 <% end %>

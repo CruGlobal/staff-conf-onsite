@@ -1,4 +1,6 @@
-ActiveAdmin.register HousingFacility do
+ActiveAdmin.register HousingFacility  do
+  menu label: 'Hotels'
+
   extend Rails.application.helpers
 
   partial_view :index, :show, :form,

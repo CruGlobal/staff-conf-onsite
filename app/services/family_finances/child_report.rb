@@ -44,17 +44,29 @@ module FamilyFinances
 
     private
 
+    def childcare_label (index)
+      return childcare_weeks_label(index) if index < 4
+
+      if child.childcare_care_grade?
+        t('childcare_label.pre-kindergarten')
+      elsif child.childcare_camp_grade?
+        t('childcare_label.kindergarten-to-grade-5')
+      elsif child.crustu_grade?
+        t('childcare_label.post-grade-6')
+      end
+    end
+
     def stay_row(stay, without_unit: false)
       cost = Stay::SingleChildDormitoryCost.call(child: child, stay: stay)
       row(stay.to_s(without_unit: without_unit), cost.total)
     end
 
     def childcare_row(index)
-      row(childcare_weeks_label(index), childcares_cost.sum.week_charges[index])
+      row(childcare_label(index), childcares_cost.sum.week_charges[index])
     end
 
     def hot_lunch_row(index)
-      row(childcare_weeks_label(index),
+      row(childcare_label(index),
           hot_lunches_cost.sum.week_charges[index])
     end
 
