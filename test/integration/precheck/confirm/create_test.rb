@@ -22,7 +22,7 @@ class Precheck::ConfirmationController::CreateTest < IntegrationTest
     page.driver.browser.switch_to.alert.accept
     wait_for_ajax!
     
-    assert_text 'Congratulations! You have received PreCheck'
+    assert_text 'Congratulations! Your PreCheck has been completed - you have now received PreCheck'
     assert @eligible_family.reload.approved?
     assert_equal Attendee::CONFERENCE_STATUS_CHECKED_IN, @eligible_family.attendees.first.conference_status
 

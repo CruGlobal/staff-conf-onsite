@@ -62,7 +62,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show as precheck approved' do
     @eligible_family.update!(precheck_status: :approved)
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'Congratulations! You have received PreCheck'
+    assert_text 'Congratulations! Your PreCheck has been completed - you have now received PreCheck.'
   end
 
   test '#show as checked in on site' do
