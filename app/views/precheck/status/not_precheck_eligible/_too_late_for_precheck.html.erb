@@ -1,5 +1,5 @@
 
-<% if family.anyone_registered_for_legacy_conferences %>
+<% if family.anyone_registered_for_legacy_conferences? %>
     <p><%= t(".apology_legacy_html") %></p>    
 <% else %>
     <p><%= t(".apology_html") %></p>
