@@ -15,6 +15,8 @@ class BaseChildcareSumCost < ChargesService
   end
 
   def tuition_charges
+    return Money.empty if child.childcare_weeks.empty?
+
     if child.childcare_care_grade?
       UserVariable["CARESC"]
     elsif child.childcare_camp_grade?
