@@ -66,7 +66,7 @@ gem 'docusign_rest', '~> 0.4.4'
 
 # We don't require Nokogiri directly, only through other gems (like axlsx).
 # However, due to CVE's, we need to ensure we're using a recent version.
-gem 'nokogiri', '~> 1.10.3'
+gem 'nokogiri', '>= 1.10.3'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.5.0'
