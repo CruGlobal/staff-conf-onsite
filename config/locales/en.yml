@@ -469,7 +469,7 @@ en:
     summary:
       subject: "%{conference} PreCheck Summary"
       precheck_confirmed_legacy_html:
-        Congratulations! You have received <b>PreCheck</b>.
+        Your <b>PreCheck</b> has been completed - you have now received <b>PreCheck</b>.
         <br>
         <br>
         Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
@@ -480,7 +480,7 @@ en:
         <br>
         We look forward to seeing you in Milwaukee this summer!
       precheck_confirmed_html:
-        Congratulations! You have received <b>PreCheck</b>.
+        Your <b>PreCheck</b> has been completed - you have now received <b>PreCheck</b>.
         <br>
         <br>
         Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
