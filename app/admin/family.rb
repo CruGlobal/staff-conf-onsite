@@ -75,10 +75,11 @@ ActiveAdmin.register Family do
   end
 
   member_action :summary do
-    family = Family.find(params[:id])
+    family = Family.find(params[:id])    
     finances = FamilyFinances::Report.call(family: family)
+    hotels = HousingFacility.all    
 
-    render :summary, locals: { family: family, finances: finances }
+    render :summary, locals: { family: family, finances: finances, hotels: hotels }
   end
 
   collection_action :balance_due do
@@ -285,9 +286,13 @@ ActiveAdmin.register Family do
 
     @family = Family.find(params[:id])
     @finances = FamilyFinances::Report.call(family: @family)
+    @hotels = HousingFacility.all
 
     if @finances.remaining_balance.zero?
+      hotel = params['hotel'] == 'Other' ? " OTHER - #{params['other_hotel']} " : params['hotel']
+      HotelStay.create(:hotel => hotel  , :family_id => @family.id)
       @family.check_in!
+
       respond_to do |format|
         format.html do
           redirect_to summary_family_path(@family.id), notice: 'Checked-in!'
