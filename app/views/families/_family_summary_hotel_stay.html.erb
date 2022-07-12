@@ -1,0 +1,16 @@
+<%= form_tag checkin_family_path(family.id), id: 'accept' do %>
+  <% if !family.checked_in? %>
+    <p style="margin-bottom:10px;font-size: 1.25em;"><%= t('precheck.status.precheck_eligible.request_hotel_confirmation_html') %></p>
+    <%= select_tag(:hotel, options_for_select(["Please Select.."] + hotels + ["Other"], {style: 'font-size: 1.25em;'}), :onchange=> "
+      if ($('#hotel').val() === 'Other') {
+        $('#other_hotel').show()
+        $('#confirm_precheck_confirm').hide()
+      } else {
+        $('#other_hotel').hide()
+        $('#confirm_precheck_confirm').show()
+      }
+    ", multiple: false, style: 'font-size: 1.25em;') %>
+    <%= text_area_tag(:other_hotel, '', rows: 2, style: 'display:none', placeholder: t('precheck.status.precheck_eligible.request_hotel_confirmation_other'), :onkeyup=>"$(this).val().length > 0 ? $('#confirm_precheck_confirm').show() : $('#confirm_precheck_confirm').hide()") %>
+  <% end %>
+  <%= submit_tag((family.checked_in? ? 'Re-Send Summary' : 'Check-in'), id: 'confirm_precheck_confirm',  class: 'btn btn-confirm', style: (family.checked_in? ? 'margin-top:15px' : 'display:none;margin-top:15px')) %>
+<% end %>
