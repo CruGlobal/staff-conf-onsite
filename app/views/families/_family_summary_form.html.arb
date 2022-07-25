@@ -11,13 +11,9 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
             para 'Everyone in the family must have a birthdate set to check in. &nbsp;&nbsp;&nbsp;'.html_safe
           end
         else
-          li class: 'action input_action', id: 'checkin_button' do
-            input type: :submit, value: (family.checked_in? ? 'Re-Send Summary' : 'Check-in')
+          li class: 'action input_action', id: 'checkin_button' do            
+            render 'family_summary_hotel_stay.html.erb', hotels: hotels, family: family
           end
-      end
-
-      li class: 'cancel' do
-        a 'Back to Families', href: families_path
       end
 
       # The nametag feature has been disabled for Cru 2019 (nametags will be handled outside of this system).
@@ -32,6 +28,16 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
       #     #   a 'Print', href: 'javascript:window.print()'
       #     # end
       #   end
+    end
+
+    div class: 'checkin actions' do
+      div class: 'cancel', style: 'float: right' do
+        ol do
+          li class: 'cancel' do
+            a 'Back to Families', href: families_path
+          end
+        end
+      end
     end
   end
 end

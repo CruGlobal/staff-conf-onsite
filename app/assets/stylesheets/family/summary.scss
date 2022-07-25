@@ -2,6 +2,36 @@
   #main_content {
     font-size: 1.5em;
   }
+
+    
+  .edit_family {
+    .chosen-container {
+      font-size: 1.15em;
+
+      .chosen-single {
+        padding: 5px 0 5px 8px;
+        height: 35px;
+      }
+      span {
+        font-size: 100%;
+      }
+      .chosen-drop {
+        bottom: 100%;
+        top:initial;
+        margin-top: 0;
+      }
+
+      .chosen-results {
+        > li {
+          float:none;
+        }
+      }
+    }
+
+    #other_hotel {
+      font-size: 1.15em;
+    }
+  }
 }
 
 .finances-table {
