@@ -15,7 +15,6 @@ gem 'redis-objects', '~> 0.6'
 gem 'redis-rails', '~> 5.0'
 gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-failures'
-gem 'sidekiq-unique-jobs'
 
 # Error Reporting
 gem 'ddtrace'

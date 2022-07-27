@@ -26,10 +26,7 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.default_job_options = {
-  backtrace: false,
-  # Set uniqueness lock expiration to 24 hours to balance preventing
-  # duplicate jobs from running (if uniqueness time is too short)
-  unique_job_expiration: 24.hours
+  backtrace: false
 }
 
 unless Rails.env.development? || Rails.env.test?
