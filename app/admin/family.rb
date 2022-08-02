@@ -174,7 +174,16 @@ ActiveAdmin.register Family do
   collection_action :finance_full_dump do
     csv_string = CSV.generate do |csv|
       csv << ['FamilyID', 'Last','First','Staff Id','Checked-In','Adult Dorm','Adult Dorm Adj','Apt Rent','Apt Rent Adj',
-              'Child Dorm','Child Dorm Taxable', 'Child Dorm Nontaxable', 'Child Dorm Adj','Cru Kids','Cru Kids Adj','Hot Lunch','Hot Lunch Adj','JrSr','JrSr Adj',
+              'Child Dorm','Child Dorm Taxable', 'Child Dorm Nontaxable', 'Child Dorm Adj','Cru Kids','Cru Kids Adj',  
+              'Hot Lunch Care',
+              'Hot Lunch Care Adj',
+              'Hot Lunch Camp',
+              'Hot Lunch Camp Adj',
+              'Hot Lunch CruStu',
+              'Hot Lunch CruStu Adj',
+              'Hot Lunch Total',              
+              'Hot Lunch Adj Total', 
+              'JrSr','JrSr Adj',
               'Facility Use Fee','Facility Use Fee Adj','Class Tuition','Class Tuition Adj','Track Tuition',
               'Track Tuition Adj','USSC Tuition','USSC Tuition Adj','Rec Pass',
               'Rec Pass Adj', 'Total Due', 'Balance Due', 'Total Paid', 'Pre Paid', 'Ministry Acct', 'Cash/Check', 'Credit Card', 'Charge Staff Acct',
@@ -210,10 +219,24 @@ ActiveAdmin.register Family do
         childcare_adj = totals.total_adjustments
         total_due += childcare
 
+        totals = HotLunch::SumFamilyCareCost.call(family: family)
+        hot_lunch_care = totals.total
+        hot_lunch_care_adj = totals.total_adjustments
+        total_due += hot_lunch_care
+
+        totals = HotLunch::SumFamilyCampCost.call(family: family)
+        hot_lunch_camp = totals.total
+        hot_lunch_camp_adj = totals.total_adjustments
+        total_due += hot_lunch_camp
+
+        totals = HotLunch::SumFamilyCruStuCost.call(family: family)
+        hot_lunch_cru_stu = totals.total
+        hot_lunch_cru_stu_adj = totals.total_adjustments
+        total_due += hot_lunch_cru_stu
+        
         totals = HotLunch::SumFamilyCost.call(family: family)
         hot_lunch = totals.total
         hot_lunch_adj = totals.total_adjustments
-        total_due += hot_lunch
 
         totals = JuniorSenior::SumFamilyCost.call(family: family)
         jrsr = totals.total
@@ -257,7 +280,7 @@ ActiveAdmin.register Family do
         csv << [
           family.id, family.last_name, family.first_name, "_#{family.staff_number}", family.checked_in?,
           adult_dorm, adult_dorm_adj, adult_apt, adult_apt_adj, child_dorm, child_dorm_taxable, child_dorm_nontaxable, child_dorm_adj, childcare, childcare_adj,
-          hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
+          hot_lunch_care, hot_lunch_care_adj, hot_lunch_camp, hot_lunch_camp_adj, hot_lunch_cru_stu, hot_lunch_cru_stu_adj, hot_lunch, hot_lunch_adj, jrsr, jrsr_adj, fuf, fuf_adj, class_tuition, class_tuition_adj,
           track_tuition, track_tuition_adj, ussc_tuition, ussc_tuition_adj, rec, rec_adj, total_due, balance_due, total_paid, pre_paid, ministry_payment_amount,
           cash_check, credit_card, staff_code, ministry_payments.collect(&:business_unit).join(', '),
           ministry_payments.collect(&:operating_unit).join(', '), ministry_payments.collect(&:department_code).join(', '),
