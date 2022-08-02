@@ -237,7 +237,6 @@ ActiveAdmin.register Family do
         totals = HotLunch::SumFamilyCost.call(family: family)
         hot_lunch = totals.total
         hot_lunch_adj = totals.total_adjustments
-        total_due += hot_lunch
 
         totals = JuniorSenior::SumFamilyCost.call(family: family)
         jrsr = totals.total
