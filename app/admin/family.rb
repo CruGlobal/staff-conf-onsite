@@ -128,8 +128,8 @@ ActiveAdmin.register Family do
               when conference.name == 'Missional Team Leader Spouse'
                 mtl_spouse += amount
               when /MPD.*/.match?(conference.name)
-                mpd += amount
-              when /Legacy.*/.match?(conference.name)
+                mpd += amount              
+              when /Legacy/i.match?(conference.name)
                 legacy += amount
               when /Connection Weekend Attendee.*/.match?(conference.name)
                 cw += amount
