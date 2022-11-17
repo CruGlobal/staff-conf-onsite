@@ -13,3 +13,4 @@ public/dev-assets
 .idea
 vendor/ruby
 vendor/cache
+Dockerfile
