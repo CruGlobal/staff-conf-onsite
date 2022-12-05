@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:2.6-alpine
+FROM public.ecr.aws/docker/library/ruby:2.6.10-alpine
 
 # DataDog logs source
 LABEL com.datadoghq.ad.logs='[{"source": "ruby"}]'
