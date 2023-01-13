@@ -9,17 +9,16 @@ PG_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress
 
 docker buildx build $DOCKER_ARGS  \
     --build-arg SIDEKIQ_CREDS=$SIDEKIQ_CREDS \
+    --build-arg RUBY_VERSION=$(cat .ruby-version) \
     --build-arg DB_ENV_POSTGRESQL_PASS=password \
     --build-arg DB_ENV_POSTGRESQL_USER=postgres \
     --build-arg DB_PORT_5432_TCP_ADDR=$PG_IP \
     --build-arg SESSION_REDIS_HOST=$REDIS_IP \
     --build-arg STORAGE_REDIS_HOST=$REDIS_IP \
-    --build-arg DD_API_KEY=$DD_API_KEY \
     .
 rc=$?
 
 docker stop $PROJECT_NAME-redis $PROJECT_NAME-pg
-
 
 if [ $rc -ne 0 ]; then
   echo -e "Docker build failed"

@@ -10,12 +10,9 @@ Bundler.require(*Rails.groups)
 require_relative '../lib/log/logger'
 module CruConference
   class Application < Rails::Application
-    # Enable ougai
-    if Rails.env.development? || Rails.const_defined?('Console')
-      config.logger = Log::Logger.new(STDOUT)
-    elsif !Rails.env.test? # use default logger in test env
-      config.logger = Log::Logger.new(Rails.root.join('log', 'datadog.log'))
-    end
+    # Send all logs to stdout, which docker reads and sends to datadog.
+    config.logger = Log::Logger.new($stdout) unless Rails.env.test? # we don't need a logger in test env
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
