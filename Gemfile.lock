@@ -545,12 +545,7 @@ DEPENDENCIES
   minitest-reporters (~> 1.1)
   mocha (~> 1.7.0)
   money-rails (~> 1.7)
-<<<<<<< HEAD
-  newrelic_rpm (~> 4.0)
   nokogiri (>= 1.10.3)
-=======
-  nokogiri (~> 1.10.3)
->>>>>>> master
   oj (>= 2.18)
   ougai (~> 1.7)
   paper_trail (~> 5.2.2)
