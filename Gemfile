@@ -90,7 +90,7 @@ group :development, :test do
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
   gem 'reek', '~> 5.2'                    # Linter
   gem 'rubocop', '~> 0.60'                # Linter
-  gem 'selenium-webdriver', '~> 3.2'      # Integration tests javascript support
+  gem 'selenium-webdriver', '~> 4.4'      # Integration tests javascript support
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false
   gem 'vcr', '~> 4.0.0'                   # Record/Reply HTTP Requests
