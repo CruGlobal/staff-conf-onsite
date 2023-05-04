@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :stay do
     person { create(Faker::Boolean.boolean ? :attendee : :child) }
     housing_unit

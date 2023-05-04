@@ -159,7 +159,7 @@ GEM
     et-orbi (1.2.7)
       tzinfo
     execjs (2.8.1)
-    factory_girl (4.9.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
     faker (1.9.6)
       i18n (>= 0.7)
@@ -528,7 +528,7 @@ DEPENDENCIES
   docusign_rest (~> 0.4.4)
   dogstatsd-ruby
   dotenv-rails (~> 2.5.0)
-  factory_girl (~> 4.7)
+  factory_bot (~> 4.8)
   faker (~> 1.6)
   good_migrations (~> 0.0.2)
   guard (~> 2.14)

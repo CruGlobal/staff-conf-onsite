@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cost_code do
     name { Faker::Code.asin }
     description { Faker::Lorem.paragraph(rand(3)) }

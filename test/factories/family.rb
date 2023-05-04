@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :family do
     last_name { Faker::Name.last_name }
     staff_number { Faker::Number.number(10) }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :seminary do
     name { Faker::University.name }
     sequence(:code) { |i| format('%d_%s', i, Faker::Bank.swift_bic) }

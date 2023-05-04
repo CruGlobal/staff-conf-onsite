@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :course do
     name { Faker::Educator.course_name }
     price_cents { Faker::Number.between(0, 1000_00) }

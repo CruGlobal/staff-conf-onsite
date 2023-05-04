@@ -1,4 +1,4 @@
-if defined? FactoryGirl
+if defined? FactoryBot
   require Rails.root.join('test', 'factory_helper.rb')
-  FactoryGirl::SyntaxRunner.send(:include, FactoryHelper)
+  FactoryBot::SyntaxRunner.send(:include, FactoryHelper)
 end

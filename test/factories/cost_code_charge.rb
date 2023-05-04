@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cost_code_charge do
     cost_code
     max_days { Faker::Number.between(1, 100) }

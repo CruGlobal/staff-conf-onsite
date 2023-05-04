@@ -32,12 +32,12 @@ Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 
 Support::StubCas.stub_requests
 
-FactoryGirl.find_definitions
+FactoryBot.find_definitions
 
 Minitest.after_run { DatabaseCleaner.clean_with :truncation }
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
   include Support::UserVariable
   include Support::DatabaseCleanerHooks
 

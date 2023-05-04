@@ -1,6 +1,6 @@
 using InternationalPhoneNumber
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :attendee do
     family
     ministry

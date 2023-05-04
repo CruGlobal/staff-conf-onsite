@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ministry do
     sequence(:name) { |n| "Ministry of #{Faker::Commerce.department} (#{n})" }
     code do

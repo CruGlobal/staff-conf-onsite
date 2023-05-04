@@ -74,7 +74,7 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
-  gem 'factory_girl', '~> 4.7'            # Test object factories
+  gem 'factory_bot', '~> 4.8'            # Test object factories
   gem 'faker', '~> 1.6'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""

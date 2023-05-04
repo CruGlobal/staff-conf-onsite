@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_variable do
     value_type { UserVariable.value_types.keys.sample }
     sequence(:short_name) { |n| format('%s_%d', Faker::File.extension, n) }

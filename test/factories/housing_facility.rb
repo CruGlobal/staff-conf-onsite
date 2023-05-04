@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :housing_facility do
     association :cost_code, factory: :cost_code_with_long_max_days
 

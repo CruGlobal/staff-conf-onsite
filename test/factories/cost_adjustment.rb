@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cost_adjustment do
     person factory: :attendee
 

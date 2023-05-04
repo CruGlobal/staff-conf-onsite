@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :housing_preference do
     family
     housing_type { HousingFacility.housing_types.values.sample }

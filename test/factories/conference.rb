@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :conference do
     name { Faker::Educator.course_name }
     description { Faker::Lorem.paragraph(rand(3)) }
