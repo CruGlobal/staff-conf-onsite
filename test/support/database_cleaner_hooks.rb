@@ -4,7 +4,7 @@ module Support
       base.use_transactional_fixtures = false
 
       base.setup do
-        DatabaseCleaner.strategy = :truncation, { pre_count: true, reset_ids: false }
+        DatabaseCleaner.strategy = :truncation, { pre_count: true }
         DatabaseCleaner.start
       end
 
