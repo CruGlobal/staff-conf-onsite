@@ -5,19 +5,19 @@ FactoryBot.define do
     guid { Faker::Number.hexadecimal(8) }
 
     factory :admin_user do
-      role 'admin'
+      role { 'admin' }
     end
 
     factory :general_user do
-      role 'general'
+      role { 'general' }
     end
 
     factory :finance_user do
-      role 'finance'
+      role { 'finance' }
     end
 
     factory :read_only_user do
-      role 'read_only'
+      role { 'read_only' }
     end
   end
 end

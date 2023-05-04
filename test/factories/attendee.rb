@@ -31,7 +31,7 @@ FactoryBot.define do
 
     factory :attendee_with_meal_exemptions do
       transient do
-        count 20
+        count { 20 }
       end
 
       after(:create) do |attendee, params|

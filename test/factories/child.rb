@@ -20,7 +20,7 @@ FactoryBot.define do
     end
 
     grade_level { Child::GRADE_LEVELS.sample }
-    childcare_deposit false
+    childcare_deposit { false }
 
     after(:build) do |child|
       # A random number of random weeks
@@ -45,7 +45,7 @@ FactoryBot.define do
 
     factory :child_with_meal_exemptions do
       transient do
-        count 20
+        count { 20 }
       end
 
       after(:create) do |child, params|

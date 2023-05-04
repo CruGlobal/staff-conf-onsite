@@ -6,7 +6,7 @@ FactoryBot.define do
 
     factory :cost_code_with_charges do
       transient do
-        count 5
+        count { 5 }
       end
 
       after(:create) do |cost_code, params|
@@ -16,7 +16,7 @@ FactoryBot.define do
 
     factory :cost_code_with_long_max_days do
       transient do
-        max_days 10_000
+        max_days { 10_000 }
       end
 
       after(:create) do |cost_code, params|
