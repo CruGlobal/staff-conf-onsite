@@ -94,7 +94,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false
   gem 'vcr', '~> 4.0.0'                   # Record/Reply HTTP Requests
-  gem 'webmock', '~> 2.1'                 # Stub HTTP requests
+  gem 'webmock', '~> 3.5'                 # Stub HTTP requests
 
   # Documentation
   gem 'yard', '~> 0.9.5'
