@@ -3,7 +3,7 @@ require 'datadog/statsd'
 
 redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["sidekiq"]
 
-redis_settings = {url: Redis.new(redis_conf)}
+redis_settings = {url: Redis.new(redis_conf).id}
 
 Sidekiq.configure_client do |config|
   config.redis = redis_settings
