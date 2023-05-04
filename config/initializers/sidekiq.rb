@@ -3,9 +3,9 @@ require 'datadog/statsd'
 
 redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["sidekiq"]
 
-Redis.current = Redis.new(redis_conf)
+$redis = Redis.new(redis_conf)
 
-redis_settings = {url: Redis.current.id}
+redis_settings = {url: $redis.id}
 
 Sidekiq.configure_client do |config|
   config.redis = redis_settings
@@ -25,7 +25,7 @@ Sidekiq.configure_server do |config|
   config.redis = redis_settings
 end
 
-Sidekiq.default_job_options = {
+Sidekiq.default_worker_options  = {
   backtrace: false
 }
 
