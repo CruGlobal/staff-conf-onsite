@@ -5,7 +5,6 @@ end
 
 # Server
 gem 'good_migrations', '~> 0.0.2'
-gem 'newrelic_rpm', '~> 4.0'
 gem 'pg', '~> 0.19.0'
 gem 'puma', '~> 3.0'
 gem 'syslog-logger', '~> 1.6.8'
