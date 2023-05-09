@@ -4,13 +4,13 @@ source 'https://gems.contribsys.com/' do
 end
 
 # Server
-gem 'good_migrations', '~> 0.0.2'
-gem 'pg', '~> 0.19.0'
+gem 'good_migrations', '~> 0.2.1'
+gem 'pg', '~> 1.5.0'
 gem 'puma', '~> 3.0'
 gem 'syslog-logger', '~> 1.6.8'
 
 # Background Processes
-gem 'redis-objects', '~> 0.6'
+gem 'redis-objects', '~> 1.7'
 gem 'redis-rails', '~> 5.0'
 gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-failures'
@@ -22,20 +22,27 @@ gem 'oj', '>= 2.18'
 gem 'rollbar', '~> 2.18'
 
 # Framework
-gem 'activeadmin', '~> 1.0.0'
-gem 'ransack', '~> 1.8.2'
-gem 'acts_as_list', '~> 0.9'
-gem 'paper_trail', '~> 5.2.2'
-gem 'rails', '~> 4.2.11'
+gem 'activeadmin', '~> 2.10.0'
+gem 'acts_as_list', '~> 1.0'
 gem 'roo', '~> 2.7'
 
+gem 'rails', '~> 6.1.7.2'
+gem 'actionpack', '~> 6.1.7.2'
+gem 'activerecord', '~> 6.1.7.2'
+gem 'activesupport', '~> 6.1.7.2'
+gem 'railties', '~> 6.1.7.2'
+gem 'lograge', '~> 0.12.0'
+gem 'money-rails', '~> 1.15'
+gem 'paper_trail', '~> 14.0'
+gem "net-http"
+
 # Authentication
-gem 'pundit', '~> 1.1.0'
-gem 'rack-cas', '~> 0.15.0'
-gem 'rest-client', '~> 2.0.0'
+gem 'pundit', '~> 2.3.0'
+gem 'rack-cas', '~> 0.16.0'
+gem 'rest-client', '~> 2.1.0'
 
 # Assets
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
@@ -43,10 +50,10 @@ gem 'uglifier', '>= 1.3.0'
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 3.0.0.pre'
-gem 'chosen-rails', '~> 1.5.2'
-gem 'compass-rails', '~> 3.0'
+#gem 'chosen-rails', '~> 1.5.2'
+gem 'compass-rails', '~> 4.0'
 gem 'countries', '~> 1.2.5'
-gem 'money-rails', '~> 1.7'
+#gem 'money-rails', '~> 1.13'
 gem 'phone', '~> 1.2.3'
 gem 'prawn', '~> 2.2'
 gem 'prawn-table', '~> 0.2'
@@ -67,7 +74,7 @@ gem 'docusign_rest', '~> 0.4.4'
 gem 'nokogiri', '>= 1.10.3'
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.5.0'
+  gem 'dotenv-rails', '~> 2.8.0'
 
   # Testing
   gem 'bundler-audit', '~> 0.5'           # Linter
@@ -80,12 +87,17 @@ group :development, :test do
   gem 'guard-minitest', '~> 2.4'          # ""
   gem 'letter_opener', '~> 1.7.0'         # Preview email on browser instead of sending
   gem 'm', '~> 1.5.0'                     # Allow to run individual tests
-  gem 'minitest', '~> 5.10.2'
-  gem 'minitest-around', '~> 0.4'         # Minitest around callback
-  gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
+  gem 'minitest', '~> 5.14'
+  gem 'minitest-around', '~> 0.5'         # Minitest around callback
+  #gem 'minitest-rails-capybara', '~> 2.1' # Integration tests
   gem 'minitest-reporters', '~> 1.1'      # Test output format
+
+  gem 'minitest-rails', '~> 6.0'
+  #gem 'minitest-rails-capybara', '~> 3.0'
+  gem 'chosen-rails', '~> 1.10.0'
+
   gem 'mocha', '~> 1.7.0'                 # Test mocking and stubbing
-  gem 'pry-byebug', '~> 3.6.0'            # Debugger
+  gem 'pry-byebug', '~> 3.9.0'            # Debugger
   gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
   gem 'reek', '~> 5.2'                    # Linter
@@ -104,13 +116,13 @@ group :development do
   # Development Server
   gem 'better_errors'                     # Better Errors
   gem 'binding_of_caller'                 # Better Errors
-  gem 'spring', '~>2.1'
+  gem 'spring', '~>4.1'
 
   # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
   # gem 'web-console', '~> 2.0'
 end
 gem 'awesome_print'
 gem 'amazing_print'
-gem 'lograge'
+#gem 'lograge'
 gem 'ougai', '~> 1.7'
-gem 'bigdecimal', '< 2'
+gem 'bigdecimal', '< 3'
