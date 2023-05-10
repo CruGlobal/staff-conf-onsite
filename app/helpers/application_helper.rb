@@ -1,6 +1,6 @@
 module ApplicationHelper
-  include Pundit
-
+  include Pundit::Authorization
+  
   # Creates an HTML representation of the given attribute, depending on what
   # type of attribute it is: +text+ as paragraphs, +boolean+ as a checkbox, etc.
   #
