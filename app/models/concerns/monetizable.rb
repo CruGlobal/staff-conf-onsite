@@ -21,7 +21,13 @@ module Monetizable
           send(setter, value)
         end
 
-        alias_method_chain "#{prefix}=", :strip
+        #alias_method_chain "#{prefix}=", :strip
+
+        prepend Module.new {
+          define_method "#{prefix}=" do |value|
+            send("#{prefix}_with_strip=", value)
+          end
+        }
       end
     end
   end
