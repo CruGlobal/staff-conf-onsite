@@ -15,10 +15,10 @@ ActiveAdmin.register Childcare do
       Childcare::CHILDCARE_WEEKS.each_with_index do |_, index|
         dt childcare_weeks_label(index)
         dd do
-          span link_to 'Portrait', params.merge(action: :signin_portrait, week: index)
-          span link_to 'Landscape', params.merge(action: :signin_landscape, week: index)
-          span link_to 'Roster', params.merge(action: :roster, week: index)
-          span link_to 'Car Line', params.merge(action: :car_line, week: index)
+          span link_to 'Portrait', params.permit(index).merge(action: :signin_portrait, week: index)
+          span link_to 'Landscape', params.permit(index).merge(action: :signin_landscape, week: index)
+          span link_to 'Roster', params.permit(index).merge(action: :roster, week: index)
+          span link_to 'Car Line', params.permit(index).merge(action: :car_line, week: index)
         end
       end
     end
@@ -29,10 +29,10 @@ ActiveAdmin.register Childcare do
       Childcare::CHILDCARE_WEEKS.each_with_index do |_, index|
         dt childcare_weeks_label(index)
         dd do
-          span link_to 'Portrait', params.merge(action: :signin_portraits, week: index)
-          span link_to 'Landscape', params.merge(action: :signin_landscapes, week: index)
-          span link_to 'Roster', params.merge(action: :rosters, week: index)
-          span link_to 'Car Line', params.merge(action: :car_lines, week: index)
+          span link_to 'Portrait', params.permit(index).merge(action: :signin_portraits, week: index)
+          span link_to 'Landscape', params.permit(index).merge(action: :signin_landscapes, week: index)
+          span link_to 'Roster', params.permit(index).merge(action: :rosters, week: index)
+          span link_to 'Car Line', params.permit(index).merge(action: :car_lines, week: index)
         end
       end
     end
@@ -130,6 +130,10 @@ ActiveAdmin.register Childcare do
   end
 
   controller do
+    def resource_class
+      Childcare
+    end
+
     def week_param
       week = params[:week]&.to_i
       week if Childcare::CHILDCARE_WEEKS.size.times.to_a.include?(week)
