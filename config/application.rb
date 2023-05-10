@@ -26,7 +26,7 @@ module CruConference
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    #config.active_record.raise_in_transactional_callbacks = true
 
     config.active_job.queue_adapter = :sidekiq
 
@@ -36,7 +36,8 @@ module CruConference
 
     redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["cache"]
     redis_conf[:url] = "redis://" + redis_conf[:host] + "/" + redis_conf[:db].to_s
-    config.cache_store = :redis_store, redis_conf
+
+    config.cache_store = :redis_cache_store, redis_conf
 
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']

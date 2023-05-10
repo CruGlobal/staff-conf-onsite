@@ -23,7 +23,7 @@ Sidekiq.configure_server do |config|
   config.redis = redis_settings
 end
 
-Sidekiq.default_worker_options  = {
+Sidekiq.default_job_options  = {
   backtrace: false
 }
 
