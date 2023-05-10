@@ -54,7 +54,8 @@ module ApplicationHelper
     elsif respond_to? :object
       super(object)
     else
-      super(controller.resource_class)
+      resource_class = controller.respond_to?(:resource_class) ? controller.resource_class : controller.controller_name.classify.constantize
+      super(resource_class)
     end
   end
 end

@@ -130,10 +130,6 @@ ActiveAdmin.register Childcare do
   end
 
   controller do
-    def resource_class
-      Childcare
-    end
-
     def week_param
       week = params[:week]&.to_i
       week if Childcare::CHILDCARE_WEEKS.size.times.to_a.include?(week)
