@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Conference::IndexTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @conference = create :conference
   end

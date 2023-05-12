@@ -3,7 +3,7 @@ require 'test_helper'
 require_relative '../../../../db/user_variables'
 
 class Precheck::ConfirmationController::CreateTest < IntegrationTest
-  before do
+  setup do
     SeedUserVariables.new.call
 
     @eligible_family = create(:family)

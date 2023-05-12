@@ -3,7 +3,7 @@ require 'test_helper'
 require_relative '../../../../db/user_variables'
 
 class Precheck::StatusController::ShowTest < IntegrationTest
-  before do
+  setup do
     Sidekiq::Testing.inline!
     SeedUserVariables.new.call
 
