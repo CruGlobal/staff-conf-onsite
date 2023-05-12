@@ -45,7 +45,7 @@ module ApplicationHelper
   #
   # @param form [Formtastic Form] the form DSL object
   def show_errors_if_any(form)
-    form.semantic_errors(*form.object.errors.keys)
+    form.semantic_errors(*form.object.errors.attribute_names)
   end
 
   def policy(*args)
