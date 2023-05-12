@@ -39,6 +39,8 @@ module CruConference
 
     config.cache_store = :redis_cache_store, redis_conf
 
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
+
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']
     config.rack_cas.session_store = RackCAS::ActiveRecordStore
