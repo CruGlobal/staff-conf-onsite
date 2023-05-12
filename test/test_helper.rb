@@ -17,9 +17,12 @@ abort("The Rails environment is running in #{Rails.env} mode!") unless Rails.env
 
 require 'rails/test_help'
 require 'webmock/minitest'
-require 'minitest/rails/capybara'
+#require 'minitest/rails/capybara'
+require 'minitest/mock'
+require 'minitest/rails'
 require 'rack_session_access/capybara'
 require 'capybara-screenshot/minitest'
+require 'capybara/rails'
 require 'minitest/reporters'
 require_relative '../db/seminaries'
 require 'vcr'
@@ -50,11 +53,13 @@ end
 
 class ControllerTestCase < ActionController::TestCase; end
 
-class IntegrationTest < Capybara::Rails::TestCase
+class IntegrationTest < ActiveSupport::TestCase
+  include Capybara::DSL
   include Support::ActiveAdmin
   include Support::Authentication
   include Support::Javascript
   include Capybara::Screenshot::MiniTestPlugin
+  include Rails.application.routes.url_helpers
 
   setup { VCR.turn_off! }
 
