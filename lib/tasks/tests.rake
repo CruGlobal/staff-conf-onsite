@@ -1,3 +1,5 @@
+require 'rake/testtask'
+
 # These tasks are deleted and then redefined below
 %w[default test:units test:integration].each do |t|
   Rake.application.instance_variable_get('@tasks').delete(t)
