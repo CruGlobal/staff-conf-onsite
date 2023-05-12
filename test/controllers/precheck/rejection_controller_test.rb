@@ -15,7 +15,7 @@ class Precheck::RejectionControllerTest < ControllerTestCase
   end
 
   test '#create with an invalid auth token get error page' do
-    post :create, token: "sdfsdf"
+    post :create, params: { token: "sdfsdf" }
     assert_response :success
     assert_template :error
   end
