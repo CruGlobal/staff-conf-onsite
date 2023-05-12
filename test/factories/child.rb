@@ -3,10 +3,10 @@ FactoryBot.define do
     family
 
     first_name { Faker::Name.first_name }
-    last_name { Faker::Boolean.boolean(0.9) ? nil : Faker::Name.last_name }
+    last_name { Faker::Boolean.boolean(true_ratio: 0.9) ? nil : Faker::Name.last_name }
     birthdate do
-      if Faker::Boolean.boolean(0.9)
-        Faker::Date.between(12.years.ago, 1.years.ago)
+      if Faker::Boolean.boolean(true_ratio: 0.9)
+        Faker::Date.between(from: 12.years.ago, to: 1.years.ago)
       end
     end
     gender { Person::GENDERS.keys.sample }
@@ -29,7 +29,7 @@ FactoryBot.define do
           nil
         else
           count = Childcare::CHILDCARE_WEEKS.size
-          samples = Faker::Number.between(0, count)
+          samples = Faker::Number.between(from: 0, to: count)
           (0...count).to_a.shuffle[0...samples]
         end
       end

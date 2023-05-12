@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     role { User::ROLES.sample }
-    guid { Faker::Number.hexadecimal(8) }
+    guid { Faker::Number.hexadecimal(digits: 8) }
 
     factory :admin_user do
       role { 'admin' }
