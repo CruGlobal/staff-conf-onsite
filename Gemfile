@@ -82,7 +82,7 @@ group :development, :test do
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 1.5'        # Truncates the DB after each test
   gem 'factory_bot', '~> 4.8'            # Test object factories
-  gem 'faker', '~> 1.6'                   # Fake data generator
+  gem 'faker', '~> 3.2'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
   gem 'letter_opener', '~> 1.7.0'         # Preview email on browser instead of sending
@@ -95,11 +95,13 @@ group :development, :test do
   gem 'minitest-rails', '~> 6.0'
   #gem 'minitest-rails-capybara', '~> 3.0'
   gem 'chosen-rails', '~> 1.10.0'
+  gem 'capybara'
+  gem 'rails-controller-testing'
 
   gem 'mocha', '~> 1.7.0'                 # Test mocking and stubbing
   gem 'pry-byebug', '~> 3.9.0'            # Debugger
   gem 'pry-rails', '~> 0.3.5'
-  gem 'rack_session_access', '~> 0.1'     # Edit user-agent session
+  gem 'rack_session_access', '~> 0.2.0'     # Edit user-agent session
   gem 'reek', '~> 5.2'                    # Linter
   gem 'rubocop', '~> 0.60'                # Linter
   gem 'selenium-webdriver', '~> 4.4'      # Integration tests javascript support
