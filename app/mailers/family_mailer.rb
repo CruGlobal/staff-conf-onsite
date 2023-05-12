@@ -1,7 +1,7 @@
 class FamilyMailer < ApplicationMailer
-  add_template_helper(ApplicationHelper)
-  add_template_helper(CostAdjustmentHelper)
-  add_template_helper(PaymentHelper)
+  helper(ApplicationHelper)
+  helper(CostAdjustmentHelper)
+  helper(PaymentHelper)
 
   def summary(family)
     @family = family
