@@ -107,7 +107,7 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 4.4'      # Integration tests javascript support
   gem 'simplecov', '~> 0.15',             # test coverage
       require: false
-  gem 'vcr', '~> 4.0.0'                   # Record/Reply HTTP Requests
+  gem 'vcr', '~> 6.0.0'                   # Record/Reply HTTP Requests
   gem 'webmock', '~> 3.5'                 # Stub HTTP requests
 
   # Documentation
