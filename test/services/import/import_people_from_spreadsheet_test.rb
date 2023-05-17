@@ -2,9 +2,6 @@ require 'test_helper'
 
 class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   def around(&blk)
-    #create :conference, name: 'Cru22'
-    #create :ministry, code: 'FL33230'
-
     conference = Conference.find_or_initialize_by(name: 'Cru22')
     conference.save if conference.new_record?
 
