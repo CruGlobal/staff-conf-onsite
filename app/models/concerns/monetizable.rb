@@ -11,23 +11,18 @@ module Monetizable
       options = fields.extract_options!
 
       fields.each do |field|
-        monetize(field, options)
-
         prefix = options[:as] || field.to_s.sub(/_cents$/, '')
-        setter = "#{prefix}_without_strip="
 
         define_method "#{prefix}_with_strip=" do |value|
           value = value.gsub(/[^\d.]/, '').to_f if value.is_a?(String)
-          send(setter, value)
+          write_attribute(field, value)
         end
 
-        #alias_method_chain "#{prefix}=", :strip
+        define_method "#{prefix}=" do |value|
+          send("#{prefix}_with_strip=", value)
+        end
 
-        prepend Module.new {
-          define_method "#{prefix}=" do |value|
-            send("#{prefix}_with_strip=", value)
-          end
-        }
+        monetize field, options.merge({ as: prefix })
       end
     end
   end
