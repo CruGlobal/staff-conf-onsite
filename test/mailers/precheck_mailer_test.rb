@@ -38,7 +38,7 @@ class PrecheckMailerTest < MailTestCase
 
   test '#confirm_charges with an existing token uses the existing token' do
     @family.save
-    existing_token = @family.precheck_email_token.token
+    existing_token = @family.precheck_email_token
 
     assert_no_difference('PrecheckEmailToken.count') do
       email = PrecheckMailer.confirm_charges(@family).deliver_now
