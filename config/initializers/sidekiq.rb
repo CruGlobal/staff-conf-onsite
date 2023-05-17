@@ -14,9 +14,9 @@ if Sidekiq::Client.method_defined? :reliable_push!
 end
 
 Sidekiq.configure_server do |config|
-  Sidekiq::Logging.logger.level = Logger::FATAL unless Rails.env.development?
+  Sidekiq.logger.level = Logger::FATAL unless Rails.env.development?
 
-  Rails.logger = Sidekiq::Logging.logger
+  Rails.logger = Sidekiq.logger
 
   config.super_fetch!
   config.reliable_scheduler!
