@@ -14,7 +14,7 @@ FactoryBot.define do
 
     factory :family_with_members do
       transient do
-        attendee_count { 1 + rand(2) }
+        attendee_count { 2 + rand(2) }
         child_count { rand(4) }
       end
 
