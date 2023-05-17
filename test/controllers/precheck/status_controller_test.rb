@@ -17,8 +17,8 @@ class Precheck::StatusControllerTest < ControllerTestCase
   end
 
   test 'show action with a valid auth token' do
-    token = create(:precheck_email_token)
-    get :show, params: { token: token.token }
+    family = create(:family)
+    get :show, params: { token: family.precheck_email_token.token }
 
     assert_response :success
     assert_template :show

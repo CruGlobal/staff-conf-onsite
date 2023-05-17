@@ -7,7 +7,6 @@ class Precheck::RejectionController::CreateTest < IntegrationTest
     SeedUserVariables.new.call
 
     @eligible_family = create(:family)
-    @eligible_family.create_precheck_email_token!
     create(:attendee, family: @eligible_family, arrived_at: 1.week.from_now, conference_status: Attendee::CONFERENCE_STATUSES.first)
     @eligible_family.housing_preference.update!(housing_type: :self_provided)
     create(:chargeable_staff_number, family: @eligible_family)

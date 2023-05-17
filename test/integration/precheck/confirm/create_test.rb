@@ -7,7 +7,6 @@ class Precheck::ConfirmationController::CreateTest < IntegrationTest
     SeedUserVariables.new.call
 
     @eligible_family = create(:family)
-    @eligible_family.create_precheck_email_token!
     create(:attendee, family: @eligible_family, arrived_at: 1.week.from_now, conference_status: Attendee::CONFERENCE_STATUSES.first)
     @eligible_family.housing_preference.update!(housing_type: :self_provided)
     create(:chargeable_staff_number, family: @eligible_family)
@@ -15,7 +14,7 @@ class Precheck::ConfirmationController::CreateTest < IntegrationTest
 
   test '#create' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    click_button 'Yes, I accept my choices and charges'
+    click_link 'Yes, I accept my choices and charges'
     select 'Airbnb or VRBO', :from => 'hotel'
     click_button 'Submit'
     

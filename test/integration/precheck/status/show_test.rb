@@ -8,10 +8,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     SeedUserVariables.new.call
 
     @not_eligible_family = create(:family)
-    @not_eligible_family.create_precheck_email_token!
-
     @eligible_family = create(:family)
-    @eligible_family.create_precheck_email_token!
     create(:attendee, family: @eligible_family, arrived_at: 1.week.from_now, conference_status: Attendee::CONFERENCE_STATUSES.first)
     @eligible_family.housing_preference.update!(housing_type: :self_provided)
     create(:chargeable_staff_number, family: @eligible_family)
@@ -25,7 +22,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
   test '#show' do
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text "Hello!"
-    assert_text 'If your personal information and conference cost breakdown are correct'
+    assert_text 'If your personal/family registration information and conference cost breakdown are correct'
     assert_text 'Remaining Balance Due $0'
   end
 
@@ -70,13 +67,13 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     @eligible_family.check_in!
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
     assert_text 'Welcome to Cru22'
-    refute_text 'received Cru22 PreCheck'
+    assert has_no_text? 'received Cru22 PreCheck'
   end
 
   test '#show too late for precheck' do
     travel_to 5.days.from_now.end_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-      assert_text 'If your personal information and conference cost breakdown are correct'
+      assert_text 'If your personal/family registration information and conference cost breakdown are correct'
     end
 
     travel_to 7.days.from_now.beginning_of_day do
