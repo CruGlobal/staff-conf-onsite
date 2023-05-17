@@ -10,7 +10,7 @@ class NightlyPrecheckMailerJobTest < JobTestCase
   test 'queues the expected mail' do
     Precheck::EligibilityService.stubs(:new).returns(stub(call: true, too_late_or_checked_in?: false))
     NightlyPrecheckMailerJob.new.perform
-    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { '_aj_globalid' => "gid://cru-conference/Family/#{@pending_family.id}" }], enqueued_jobs.last[:args]
+    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { "args" => [{"_aj_globalid" => "gid://cru-conference/Family/#{@pending_family.id}" }], "_aj_ruby2_keywords"=>["args"]}], enqueued_jobs.last[:args]
   end
 
   test 'only mail families in the pending approval state' do
@@ -19,7 +19,7 @@ class NightlyPrecheckMailerJobTest < JobTestCase
     assert_equal 0, enqueued_jobs.size
     NightlyPrecheckMailerJob.new.perform
     assert_equal 1, enqueued_jobs.size
-    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { '_aj_globalid' => "gid://cru-conference/Family/#{@pending_family.id}" }], enqueued_jobs.last[:args]
+    assert_equal ['PrecheckMailer', 'confirm_charges', 'deliver_now', { "args" => [{"_aj_globalid" => "gid://cru-conference/Family/#{@pending_family.id}" }], "_aj_ruby2_keywords"=>["args"]}], enqueued_jobs.last[:args]
   end
 
   test 'skip families that are not precheck eligible and have no actionable_errors' do
