@@ -35,6 +35,7 @@ gem 'lograge', '~> 0.12.0'
 gem 'money-rails', '~> 1.15'
 gem 'paper_trail', '~> 14.0'
 gem "net-http"
+gem 'activemodel-serializers-xml'
 
 # Authentication
 gem 'pundit', '~> 2.3.0'
