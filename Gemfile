@@ -63,8 +63,8 @@ gem 'truncate_html', '~> 0.9.3'
 # Frontend Scripts
 gem 'ckeditor_rails', '~> 4.6'
 gem 'intl-tel-input-rails', '~> 8.4.9'
-gem 'jquery-rails', '~> 4.2'
-gem 'jquery-ui-rails', '~> 5.0'
+gem 'jquery-rails', '~> 4.5'
+gem 'jquery-ui-rails', '~> 6.0'
 gem 'turbolinks', '~> 5.0.1'
 
 # Interface with DocuSign
