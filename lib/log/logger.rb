@@ -1,10 +1,11 @@
 require 'ougai'
 require File.expand_path('logger/formatter', __dir__)
 require File.expand_path('logger/formatter_readable', __dir__)
+
 module Log
   class Logger < Ougai::Logger
     include ActiveSupport::LoggerThreadSafeLevel
-    include LoggerSilence
+    include ActiveSupport::LoggerSilence
 
     def initialize(*args)
       @readable = args[0] == STDOUT

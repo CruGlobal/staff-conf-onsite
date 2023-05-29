@@ -29,7 +29,7 @@ class CollectionAttributesTest < ActiveSupport::TestCase
                    gtky_challenges: ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Anxiety', 'Eating disorder',
                                      'Major life change', 'Depression', 'Significant bullying', 'Behavioral issues',
                                      'Self harm', 'Bipolar disorder', 'Foster Adoption', 'Other'],
-                   cs_health_misc: ['Developmental delay', 'Sensory issues', 'Behavioral challenges', 'Disability',
+                   cs_health_misc: ['Developmental delay', 'Other special need', 'Behavioral challenges', 'Disability',
                                     'Extra assistance', 'Adaptive equipment', 'None of the above'],
                    cs_vip_comm: ['In simple phrases', 'In complete sentences', 'Other'],
                    cs_vip_stress: ['Noisy spaces', 'Crowded spaces', 'Loud noises', 'Other']

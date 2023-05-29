@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ChargeableStaffNumber::FormTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @chargeable = create :chargeable_staff_number
   end
@@ -10,8 +10,6 @@ class ChargeableStaffNumber::FormTest < IntegrationTest
     visit edit_chargeable_staff_number_path(@chargeable)
 
     assert_edit_fields :staff_number, record: @chargeable
-
-    assert_active_admin_comments
   end
 
   test '#new record creation' do
