@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get '/unauthorized', to: 'login#unauthorized', as: :unauthorized_login
   get '/monitors/lb', to: 'monitors#service_online'
 
+  post '/', to: "application#consume_okta"
+
   namespace :precheck do
     get ':token', to: 'status#show', as: :status
     post ':token/confirmation', to: 'confirmation#create', as: :confirmation
