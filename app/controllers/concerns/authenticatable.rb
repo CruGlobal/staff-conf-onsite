@@ -15,23 +15,29 @@ module Authenticatable
   #   login page.
   # * If the logged-in user doesn't have a {User local account}, they will be
   #   shown an error message.
+
+  def consume_okta()
+    session_user.sign_into_okta?(params, saml_settings)
+    redirect_to('/')
+  end
+
   def authenticate_user!
-    if session_user.signed_into_cas?
+    if session_user.signed_into_okta?
       if current_user.present?
         after_successful_authentication
       else
         redirect_to unauthorized_login_path
       end
     else
-      # envoke rack-cas redirect for user authentication
-      head :unauthorized
+      request = OneLogin::RubySaml::Authrequest.new
+      redirect_to(request.create(saml_settings))
       false
     end
   end
 
   # @return [User] the currently logged-in and authenticated user
   def current_user
-    session_user.user_matching_cas_session
+    session_user.user_matching_okta_session
   end
 
   def session_user
@@ -40,12 +46,31 @@ module Authenticatable
 
   def after_successful_authentication
     current_user.assign_attributes(
-      email: session_user.cas_email,
-      first_name: session_user.cas_attr('firstName'),
-      last_name: session_user.cas_attr('lastName')
+      email: session_user.email,
+      first_name: session_user.first_name,
+      last_name: session_user.last_name
     )
 
     current_user.save! if current_user.changed?
+  end
+
+  private
+
+  def saml_settings
+    settings = OneLogin::RubySaml::Settings.new
+
+    # You provide to IDP
+    settings.assertion_consumer_service_url = "http://#{request.host_with_port}"
+    settings.sp_entity_id                   = ENV['SP_ENTITY_ID']
+
+    # IDP provides to you
+    settings.idp_sso_target_url             = ENV['IDP_SSO_TARGET_URL']
+    settings.idp_cert                       = ENV['IDP_CERT']
+
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.authn_context                  = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+
+    settings
   end
 
   class SessionUser
@@ -55,35 +80,56 @@ module Authenticatable
       @session = session
     end
 
-    # @return [Boolean] if the user has signed into the remote CAS service
-    def signed_into_cas?
-      cas_attr('ssoGuid').present?
+    def signed_into_okta?()
+      return true unless email == false || email.nil?
     end
 
-    # @return [User] the local user matching the GUID passed from the remote CAS
-    #   service
-    def user_matching_cas_session
-      @user_matching_cas_session ||=
-        if (guid = cas_attr('ssoGuid'))
-          User.find_by(guid: guid)
+    def sign_into_okta?(params, saml_settings)
+      return false unless params[:SAMLResponse].present?
+
+      response = OneLogin::RubySaml::Response.new(
+        params[:SAMLResponse],
+        :settings => saml_settings
+      )
+
+      raise response.errors.inspect unless response.is_valid?
+
+      attributes = response.attributes
+      email = response.nameid
+      allowed_group = attributes.multi(:groups).select { |num| num.include?("Staff_Conference_Onsite:Users:") }
+      first_name = attributes[:FirstName]
+      last_name = attributes[:LastName]
+
+      group = allowed_group.first.gsub("Staff_Conference_Onsite:Users:", "").downcase.strip      
+      raise "Missing group or group not allowed" unless group
+
+      @user = User.find_by(email: email)
+      @user ||= User.create!(email: email, first_name: first_name, last_name: last_name, role: group)
+
+      session['email'] = email
+      session['first_name'] = first_name
+      session['last_name'] = last_name
+      session['role'] = group       
+      return true
+    end
+
+    def user_matching_okta_session
+      @user_matching_okta_session ||=
+        if (email = session['email'])
+          User.find_by(email: email)
         end
     end
 
-    # @return [Object, nil] The value of the given attribute name from the {User
-    #   current user's} data from the CAS service.
-    def cas_attr(attr)
-      cas_extra_attributes&.[](attr)
+    def email
+      session['email']
     end
 
-    # @return [String, nil] The {User User's} email, from the CAS service.
-    def cas_email
-      session['cas']&.[]('user')
+    def first_name
+      session['first_name']
     end
 
-    private
-
-    def cas_extra_attributes
-      session['cas']&.[]('extra_attributes')
+    def last_name
+      session['last_name']
     end
   end
 end
