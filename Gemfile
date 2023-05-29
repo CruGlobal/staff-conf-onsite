@@ -41,6 +41,7 @@ gem 'activemodel-serializers-xml'
 gem 'pundit', '~> 2.3.0'
 gem 'rack-cas', '~> 0.16.0'
 gem 'rest-client', '~> 2.1.0'
+gem 'ruby-saml', '~> 1.15.0'
 
 # Assets
 gem 'coffee-rails', '~> 5.0.0'
@@ -72,7 +73,7 @@ gem 'docusign_rest', '~> 0.4.4'
 
 # We don't require Nokogiri directly, only through other gems (like axlsx).
 # However, due to CVE's, we need to ensure we're using a recent version.
-gem 'nokogiri', '>= 1.10.3'
+gem 'nokogiri', '>= 1.15.2'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.8.0'
