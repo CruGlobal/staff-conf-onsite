@@ -2,11 +2,13 @@ require 'test_helper'
 
 class Course::SumFamilyCostTest < ServiceTestCase
   setup do
-    @attendee_1 = create :attendee, seminary: create(:seminary,
-                                                     course_price_cents: 100_00)
-    @attendee_2 = create :attendee, seminary: create(:seminary,
-                                                     course_price_cents: 200_00)
-    @family = create :family, attendees: [@attendee_1, @attendee_2]
+    @family = create :family_with_members
+
+    @attendee_1 = @family.attendees.first
+    @attendee_2 = @family.attendees.second    
+
+    @attendee_1.update(seminary: create(:seminary, course_price_cents: 100_00))
+    @attendee_2.update(seminary: create(:seminary, course_price_cents: 200_00))
 
     @service = Course::SumFamilyCost.new(family: @family)
   end

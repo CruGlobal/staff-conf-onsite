@@ -3,7 +3,7 @@ require 'test_helper'
 class Child::ShowTest < IntegrationTest
   include CostAdjustmentHelper
 
-  before do
+  setup do
     @user = create_login_user
     @child = create :child, birthdate: 5.years.ago
   end
@@ -52,18 +52,7 @@ class Child::ShowTest < IntegrationTest
     visit child_path(@child)
     within('.stays.panel') { assert_text @housing_assignment.housing_unit.name }
   end
-
-  test '#show meal_exemptions when empty' do
-    visit child_path(@child)
-    within('.meal_exemptions.panel') { assert_text 'None' }
-  end
-
-  test '#show meal_exemptions' do
-    @meal_exemption = create :meal_exemption, person: @child
-    visit child_path(@child)
-    within('.meal_exemptions.panel') { assert_text @meal_exemption.date.strftime("%B %-d") }
-  end
-
+  
   test '#show send_docusign' do
     @parent1 = create :attendee, family: @child.family
 

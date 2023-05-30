@@ -1,15 +1,15 @@
-require 'factory_girl'
+require 'factory_bot'
 require Rails.root.join('test', 'support', 'stub_cas.rb')
 
 def create_dummies(model, *args, count: 1)
   puts "Creating #{count} #{model.to_s.pluralize(count)} records#{" (args: #{args})" if args.any?}..."
-  count.times { FactoryGirl.create(model, *args) }
+  count.times { FactoryBot.create(model, *args) }
 end
 
 namespace :dev do
   desc 'Populate the development DB with dummy records'
   task populate: :environment do
-    FactoryGirl.find_definitions
+    FactoryBot.find_definitions
 
     begin
       User.connection.transaction do
@@ -24,7 +24,7 @@ namespace :dev do
         create_dummies :family_with_members, count: 10
       end
     rescue ActiveRecord::RecordInvalid => e
-      # FactoryGirl randomly selects the day for MealExemptions. If it happens
+      # FactoryBot randomly selects the day for MealExemptions. If it happens
       # to create a duplicate exemption, just try it again.
       if e.record.is_a?(MealExemption) && e.message =~ /one meal type per day/
         raise

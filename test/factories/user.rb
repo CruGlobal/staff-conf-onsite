@@ -1,23 +1,23 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     role { User::ROLES.sample }
-    guid { Faker::Number.hexadecimal(8) }
+    guid { Faker::Number.hexadecimal(digits: 8) }
 
     factory :admin_user do
-      role 'admin'
+      role { 'admin' }
     end
 
     factory :general_user do
-      role 'general'
+      role { 'general' }
     end
 
     factory :finance_user do
-      role 'finance'
+      role { 'finance' }
     end
 
     factory :read_only_user do
-      role 'read_only'
+      role { 'read_only' }
     end
   end
 end

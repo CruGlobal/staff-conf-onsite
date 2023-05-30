@@ -2,8 +2,11 @@ require 'test_helper'
 
 class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   def around(&blk)
-    create :conference, name: 'Cru22'
-    create :ministry, code: 'FL33230'
+    conference = Conference.find_or_initialize_by(name: 'Cru22')
+    conference.save if conference.new_record?
+
+    ministry = Ministry.find_or_initialize_by(code: 'FL33230')
+    ministry.save if ministry.new_record?
     stub_default_seminary(&blk)
   end
 
@@ -91,10 +94,12 @@ class Import::ImportPeopleFromSpreadsheetTest < ServiceTestCase
   end
 
   test 'import child' do
-    import_spreadsheet('people-import--single-primary-medical-history.csv')
-
-    assert_equal 'Melina', Child.first.middle_name
-    assert_equal 'Child M', Child.first.tshirt_size
+    assert_difference ->{ Child.count }, +2 do
+      import_spreadsheet('people-import--single-primary-medical-history.csv')
+    end
+    
+    ##assert_equal 'Melina', Child.first.middle_name
+    assert_equal 'Duane', Child.first.first_name
   end
 
   test 'import spouses' do

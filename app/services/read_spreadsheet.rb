@@ -22,7 +22,10 @@
 # +Enumerable+ of "cells" in that row, and each cell is a +String+.
 class ReadSpreadsheet < UploadService
   UnexpectedFilenameError = Class.new(StandardError)
-  TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
+
+  TRUE_VALUES = defined?(ActiveModel::Type::Boolean::TRUE_VALUES) ?
+    ActiveModel::Type::Boolean::TRUE_VALUES :
+     [true, 1, '1', 't', 'T', 'true', 'TRUE']
 
   # +Enumerable+
   #   a ruby-representation of the uploaded spreadsheet file

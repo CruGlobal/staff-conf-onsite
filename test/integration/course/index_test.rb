@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Course::IndexTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @course = create :course
   end
