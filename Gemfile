@@ -51,7 +51,7 @@ gem 'uglifier', '>= 1.3.0'
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 3.0.0.pre'
-#gem 'chosen-rails', '~> 1.5.2'
+gem 'chosen-rails', '~> 1.10.0'
 gem 'compass-rails', '~> 4.0'
 gem 'countries', '~> 1.2.5'
 #gem 'money-rails', '~> 1.13'

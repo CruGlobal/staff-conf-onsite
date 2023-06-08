@@ -53,7 +53,7 @@ ARG SECRET_KEY_BASE=b12374ce07c365986c3be4fa417fe9248242c64bb4aec0dc04c6562a08b0
 
 
 # Compile assets
-RUN RAILS_ENV=production bundle exec rake assets:clobber assets:precompile \
+RUN RAILS_ENV=${ENVIRONMENT} bundle exec rake assets:clobber assets:precompile \
   && chown -R webapp:webapp /home/webapp/
 
 # Define volumes used by ECS to share public html and extra nginx config with nginx container
