@@ -10,10 +10,10 @@ if ENV["AWS_EXECUTION_ENV"].present?
       t.adapter :net_http, Net::HTTP.get(URI("http://169.254.169.254/latest/meta-data/local-ipv4")), 8126, timeout: 30
     }
 
-    c.service ENV["PROJECT_NAME"]
-    c.tags app: ENV['PROJECT_NAME']
-    c.env ENV["ENVIRONMENT"]
-    c.diagnostics.debug false
+    c.service = ENV["PROJECT_NAME"]
+    c.tags = { app: ENV['PROJECT_NAME'] }
+    c.env = ENV["ENVIRONMENT"]
+    c.diagnostics.debug = false
 
     c.runtime_metrics.statsd = Datadog::Statsd.new socket_path: "var/run/datadog/dsd.socket"
     c.runtime_metrics.enabled = true
