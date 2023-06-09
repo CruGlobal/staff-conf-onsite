@@ -16,7 +16,7 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-failures'
 
 # Error Reporting
-gem 'ddtrace'
+gem "ddtrace", "~> 1.4"
 gem 'dogstatsd-ruby'
 gem 'oj', '>= 2.18'
 gem 'rollbar', '~> 2.18'
@@ -95,7 +95,6 @@ group :development, :test do
 
   gem 'minitest-rails', '~> 6.0'
   #gem 'minitest-rails-capybara', '~> 3.0'
-  gem 'chosen-rails', '~> 1.10.0'
   gem 'capybara'
   gem 'rails-controller-testing'
 
