@@ -579,7 +579,7 @@ DEPENDENCIES
   compass-rails (~> 4.0)
   countries (~> 1.2.5)
   database_cleaner (~> 1.5)
-  ddtrace
+  ddtrace (~> 1.4)
   docusign_rest (~> 0.4.4)
   dogstatsd-ruby
   dotenv-rails (~> 2.8.0)
