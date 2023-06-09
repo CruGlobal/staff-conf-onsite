@@ -4,7 +4,6 @@ require "net/http"
 
 if ENV["AWS_EXECUTION_ENV"].present?
   Datadog.configure do |c|
-
     # Global settings
     c.tracing.transport_options = proc { |t|
       t.adapter :net_http, Net::HTTP.get(URI("http://169.254.169.254/latest/meta-data/local-ipv4")), 8126, timeout: 30
@@ -36,7 +35,6 @@ if ENV["AWS_EXECUTION_ENV"].present?
     c.tracing.instrument :sidekiq, service_name: "#{ENV['PROJECT_NAME']}-sidekiq"
 
     # Net::HTTP
-    # Sidekiq
     c.tracing.instrument :http, service_name: "#{ENV['PROJECT_NAME']}-http"
 
     # skipping the health check: if it returns true, the trace is dropped
