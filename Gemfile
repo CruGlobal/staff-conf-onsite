@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 source 'https://gems.contribsys.com/' do
-  gem 'sidekiq-pro'
+  gem 'sidekiq-pro', '~> 5.5.8'
 end
 
 # Server
@@ -16,7 +16,7 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-failures'
 
 # Error Reporting
-gem 'ddtrace'
+gem "ddtrace", "~> 1.4"
 gem 'dogstatsd-ruby'
 gem 'oj', '>= 2.18'
 gem 'rollbar', '~> 2.18'
@@ -52,7 +52,7 @@ gem 'uglifier', '>= 1.3.0'
 # TODO: gem 'activeadmin-axlsx', '>= 2.2' when compatible with activeadmin-1.0.0
 # TODO: and remove the version in ./lib/active_admin/
 gem 'axlsx', '~> 3.0.0.pre'
-#gem 'chosen-rails', '~> 1.5.2'
+gem 'chosen-rails', '~> 1.10.0'
 gem 'compass-rails', '~> 4.0'
 gem 'countries', '~> 1.2.5'
 #gem 'money-rails', '~> 1.13'
@@ -96,7 +96,6 @@ group :development, :test do
 
   gem 'minitest-rails', '~> 6.0'
   #gem 'minitest-rails-capybara', '~> 3.0'
-  gem 'chosen-rails', '~> 1.10.0'
   gem 'capybara'
   gem 'rails-controller-testing'
 
