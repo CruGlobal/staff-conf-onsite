@@ -60,7 +60,7 @@ module Authenticatable
     settings = OneLogin::RubySaml::Settings.new
 
     # You provide to IDP
-    settings.assertion_consumer_service_url = "http://#{request.host_with_port}"
+    settings.assertion_consumer_service_url = ENV['BASE_URL']
     settings.sp_entity_id                   = ENV['SP_ENTITY_ID']
 
     # IDP provides to you
