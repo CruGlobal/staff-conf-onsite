@@ -2,6 +2,6 @@ class MonitorsController < ApplicationController
   skip_before_action :authenticate_user!, only: :service_online
 
   def service_online
-    render plain: 'OK', layout: false
+    render plain: 'OK'
   end
 end
