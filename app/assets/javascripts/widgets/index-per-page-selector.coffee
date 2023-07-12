@@ -6,23 +6,23 @@ pageAction 'index', ->
   $('.table_tools').append(perPageDropdown())
 
 perPageDropdown = ->
-  $list = $('<ul class="dropdown_menu_list">')
-  $list.append($item) for $item in perPageDropdownItems()
+  uri = document.URL
+  uri = updateQueryStringParameter(document.URL, 'page', 1)
 
-  title = "Records Per Page (#{currentPerPage()})"
+  $select = $('<select>').append(createOptions({ value: optionsUrl(limit), name: "Records Per Page (#{limit})" } for limit in applicableLimits(), optionsUrl(currentPerPage())))
+  $select.on 'change', -> window.location = $select.val() 
 
-  $('<div class="dropdown_menu">').append(
-    $('<a class="dropdown_menu_button" href="#">').text(title),
-    $('<div class="dropdown_menu_list_wrapper">').css('display', 'none').append(
-      $list
-    )
-  )
+  $('<div class="dropdown_menu">').append($select)
 
-perPageDropdownItems = ->
-  items = (createItem(limit, limit) for limit in applicableLimits())
-  $lastLink = items[items.length - 1].children()
-  $lastLink.text("All #{$lastLink.text()}")
-  items
+optionsUrl = (limit) ->
+  uri = document.URL
+  uri = updateQueryStringParameter(uri, 'page', 1)
+  updateQueryStringParameter(uri, 'per_page', limit)
+
+createOptions = (options, selected) ->
+  for opt in options
+    $option = $('<option>').attr('value', opt['value']).text(opt['name'])
+    $option.prop('selected', selected == opt['value'])
 
 # Returns a subset of LIMITS containing only those numbers less than the total
 # number of records
@@ -31,17 +31,6 @@ applicableLimits = ->
   limits = (limit for limit in LIMITS when limit < count)
   limits.push(count)
   limits
-
-
-createItem = (limit, label) ->
-  uri = document.URL
-  uri = updateQueryStringParameter(uri, 'per_page', limit)
-  uri = updateQueryStringParameter(uri, 'page', 1)
-
-  $link = $('<a class="batch_action">').text(label).attr('href', uri)
-  if limit == currentPerPage()
-    $link.addClass('active')
-  $('<li>').append($link)
 
 updateQueryStringParameter = (uri, key, value) ->
   re = new RegExp("([?&])#{key}=.*?(&|$)", 'i')
