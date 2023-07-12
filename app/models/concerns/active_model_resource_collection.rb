@@ -44,8 +44,15 @@ module ActiveModelResourceCollection
     # @param type [#to_s] the column's data type
     # @param default [#to_s] the column's default value, if any
     def column(name, type, default: nil)
-      klass = "ActiveRecord::Type::#{type.to_s.camelize}".constantize
-      ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, klass)
+      klass = ActiveRecord::Type.const_get(type.to_s.camelize).new
+      sql_type_metadata = ActiveRecord::ConnectionAdapters::SqlTypeMetadata.new(
+        sql_type: klass.type.to_s,
+        type: klass.type,
+        limit: klass.limit,
+        precision: klass.precision,
+        scale: klass.scale)
+
+      ActiveRecord::ConnectionAdapters::Column.new(name.to_s, sql_type_metadata)
     end
   end
 
