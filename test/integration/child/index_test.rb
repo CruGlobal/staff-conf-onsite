@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Child::IndexTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @child = create :child, :childcare
     @childcare = create :childcare
@@ -47,7 +47,7 @@ class Child::IndexTest < IntegrationTest
 
     visit children_path
     within("#child_#{@old_child.id}") do
-      refute_selector "select[name='child[childcare_id]']"
+      assert_no_selector  "select[name='child[childcare_id]']"
     end
   end
 

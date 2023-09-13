@@ -24,7 +24,7 @@ module Authenticatable
       end
     else
       # envoke rack-cas redirect for user authentication
-      head status: :unauthorized
+      head :unauthorized
       false
     end
   end

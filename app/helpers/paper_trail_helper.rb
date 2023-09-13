@@ -9,7 +9,7 @@ module PaperTrailHelper
 
   # @return [String] a link to the user who edited the given version
   def editor_link(version)
-    if version.whodunnit.present?
+    if version.whodunnit.present? && User.exists?(version.whodunnit)
       editor = User.find(version.whodunnit)
       link_to editor.email, editor
     else

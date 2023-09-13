@@ -1,5 +1,5 @@
 class PrecheckMailer < ApplicationMailer
-  add_template_helper(PrecheckHelper)
+  helper(PrecheckHelper)
 
   def confirm_charges(family)
     @family = family

@@ -9,5 +9,6 @@ $ ->
 setupPriceFormat = (elem) ->
   $(elem).priceFormat(
     allowNegative: true,
-    limit: 8
+    limit: 8,
+    prefix: false
   )

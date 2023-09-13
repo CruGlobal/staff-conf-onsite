@@ -1,9 +1,13 @@
 module ActiveAdmin
   module Axlsx
     module ResourceControllerExtension
-      def self.included(base)
-        base.send :alias_method_chain, :index, :xlsx
-        base.send :respond_to, :xlsx, only: :index
+      def self.prepended(base)
+        base.class_eval do
+          alias_method :index_without_xlsx, :index
+          alias_method :index, :index_with_xlsx
+    
+          respond_to :xlsx, only: :index
+        end
       end
 
       # patching the index method to allow the xlsx format.

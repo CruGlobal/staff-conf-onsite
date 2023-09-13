@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SeminaryTest < ModelTestCase
   setup  { @seminary = create :seminary_with_attendees }
-  before do
+  setup do
     @seminary.reload
     SeedSeminaries.new.call
   end

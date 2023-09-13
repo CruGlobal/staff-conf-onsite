@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Conference::FormTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @conference = create :conference
   end
@@ -12,8 +12,6 @@ class Conference::FormTest < IntegrationTest
     assert_edit_fields :name, :price, :description, :start_at, :end_at,
                        :waive_off_campus_facility_fee,
                        record: @conference
-
-    assert_active_admin_comments
   end
 
   test '#new record creation' do

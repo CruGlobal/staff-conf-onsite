@@ -3,7 +3,7 @@ require 'test_helper'
 require_relative '../../../db/user_variables'
 
 class Family::IndexTest < IntegrationTest
-  before do
+  setup do
     SeedUserVariables.new.call
     @user = create_login_user
     @family = create :family_with_members

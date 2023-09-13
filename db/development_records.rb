@@ -2,7 +2,7 @@
 # your development code against, but this class will create some non-random
 # records which may be helpful.
 class SeedDevelopmentRecords
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   # These courses are referenced by some test spreadsheet imports found in
   # +test/fixtures/+
@@ -1063,7 +1063,7 @@ class SeedDevelopmentRecords
   ].freeze
 
   def initialize
-    FactoryGirl.find_definitions
+    FactoryBot.find_definitions
   end
 
   def call

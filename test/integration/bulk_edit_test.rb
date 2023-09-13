@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class BulkEditTest < IntegrationTest
-  before do
+  setup do
     create :family
   end
 
@@ -16,14 +16,14 @@ class BulkEditTest < IntegrationTest
     create_login_user :finance
 
     visit families_path
-    refute_selector '.resource_selection_toggle_cell'
+    assert_no_selector  '.resource_selection_toggle_cell'
   end
 
   test 'Select-all toggle is not available for general user' do
     create_login_user :general
 
     visit families_path
-    refute_selector '.resource_selection_toggle_cell'
+    assert_no_selector  '.resource_selection_toggle_cell'
   end
 end
 

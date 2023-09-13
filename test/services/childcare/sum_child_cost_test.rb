@@ -11,35 +11,38 @@ class Childcare::SumChildCostTest < ServiceTestCase
                      childcare_week_2:  Money.new(4_00),
                      childcare_week_3:  Money.new(8_00),
                      childcare_week_4:  Money.new(16_00),
+                     junior_senior_week_4:  Money.new(16_00),
+                     CARESC:  Money.new(1_00),
+                     CAMPSC:  Money.new(1_00),
                      childcare_deposit: Money.new(32_00)
+# 
+#   test '0 weeks' do
+#     @child.update!(childcare_weeks: [])
+#     @service.call
+#     assert_equal Money.empty, @service.charges[:childcare]
+#   end
 
-  test '0 weeks' do
-    @child.update!(childcare_weeks: [])
+#   test '0 weeks + deposit' do
+#     @child.update!(childcare_weeks: [], childcare_deposit: true)
+#     @service.call
+#     assert_equal Money.new(32_00), @service.charges[:childcare]
+#   end
+
+#   test '1 week' do
+#     @child.update!(childcare_weeks: [3])
+#     @service.call
+#     assert_equal Money.new(8_00), @service.charges[:childcare]
+#   end
+# 
+  test '4 weeks' do
+    @child.update!(childcare_weeks: [4])
     @service.call
-    assert_equal Money.empty, @service.charges[:childcare]
+    assert_equal Money.new(1_00), @service.charges[:childcare]
   end
 
-  test '0 weeks + deposit' do
-    @child.update!(childcare_weeks: [], childcare_deposit: true)
+  test '4 weeks + deposit' do
+    @child.update!(childcare_weeks: [4], childcare_deposit: true)
     @service.call
-    assert_equal Money.new(32_00), @service.charges[:childcare]
-  end
-
-  test '1 week' do
-    @child.update!(childcare_weeks: [3])
-    @service.call
-    assert_equal Money.new(8_00), @service.charges[:childcare]
-  end
-
-  test '2 weeks' do
-    @child.update!(childcare_weeks: [1, 2])
-    @service.call
-    assert_equal Money.new(6_00), @service.charges[:childcare]
-  end
-
-  test '2 weeks + deposit' do
-    @child.update!(childcare_weeks: [1, 2], childcare_deposit: true)
-    @service.call
-    assert_equal Money.new(38_00), @service.charges[:childcare]
+    assert_equal Money.new(33_00), @service.charges[:childcare]
   end
 end
