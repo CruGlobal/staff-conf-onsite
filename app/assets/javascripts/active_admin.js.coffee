@@ -31,7 +31,7 @@
 #= require jquery.price_format.2.0
 #= require widgets/price_format-jquery
 #
-#= require jquery-ui/autocomplete
+//= require jquery-ui/widgets/autocomplete
 #
 #
 #  Specific Models

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DashboardTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
   end
 

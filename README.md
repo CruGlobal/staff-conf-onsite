@@ -31,7 +31,7 @@ Finally, setup the database and start the development server.
 
 This application is mainly concerned with data-entry and report creation. It
 can be very tedious to create the data required to do any real manual testing.
-You can use `FactoryGirl` to generate a number of fake records in the
+You can use `FactoryBot` to generate a number of fake records in the
 development DB.
 
 ```sh

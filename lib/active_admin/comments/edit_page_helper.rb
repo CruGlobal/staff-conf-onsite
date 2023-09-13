@@ -3,8 +3,11 @@ module ActiveAdmin
     # Adds #active_admin_comments to the edit page for use and sets it up on
     # the main content
     module EditPageHelper
-      def self.included(base)
-        base.alias_method_chain(:main_content, :comments)
+      def self.prepended(base)
+        base.class_eval do
+          alias_method :main_content_without_comments, :main_content
+          alias_method :main_content, :main_content_with_comments
+        end
       end
 
       # Add admin comments to the main content if they are

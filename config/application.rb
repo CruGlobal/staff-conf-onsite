@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'rack-cas/session_store/active_record'
+require 'onelogin/ruby-saml'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -12,6 +13,7 @@ module CruConference
   class Application < Rails::Application
     # Send all logs to stdout, which docker reads and sends to datadog.
     config.logger = Log::Logger.new($stdout) unless Rails.env.test? # we don't need a logger in test env
+    # OneLogin::RubySaml::Logging.logger = Logger.new('/var/log/ruby-saml.log')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -26,7 +28,7 @@ module CruConference
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    #config.active_record.raise_in_transactional_callbacks = true
 
     config.active_job.queue_adapter = :sidekiq
 
@@ -36,7 +38,10 @@ module CruConference
 
     redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["cache"]
     redis_conf[:url] = "redis://" + redis_conf[:host] + "/" + redis_conf[:db].to_s
-    config.cache_store = :redis_store, redis_conf
+
+    config.cache_store = :redis_cache_store, redis_conf
+
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
     # gem 'rack-cas'
     config.rack_cas.server_url = ENV['CAS_URL']

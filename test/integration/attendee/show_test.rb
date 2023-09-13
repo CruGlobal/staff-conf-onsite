@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Attendee::ShowTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @attendee = create :attendee
   end

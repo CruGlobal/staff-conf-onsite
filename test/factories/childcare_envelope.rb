@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :childcare_envelope do
     envelope_id { SecureRandom.uuid }
     status      { 'sent' }

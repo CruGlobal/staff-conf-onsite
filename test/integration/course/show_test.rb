@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Course::ShowTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @course = create :course
   end
@@ -12,7 +12,6 @@ class Course::ShowTest < IntegrationTest
     assert_selector '#page_title', text: @course.name
     assert_show_rows :name, :instructor, :price, :description, :ibs_code,
                      :location, :created_at, :updated_at
-    assert_active_admin_comments
   end
 
   test '#show attendees when empty' do

@@ -1,6 +1,6 @@
 sudo: false
 language: ruby
-rvm: 2.6.10
+rvm: 3.0.6
 cache:
   bundler: true
 addons:

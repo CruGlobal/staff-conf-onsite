@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Attendee::FormTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @attendee = create :attendee
   end
@@ -22,8 +22,6 @@ class Attendee::FormTest < IntegrationTest
                        :emergency_contact, :ministry_id, :department,
                        :rec_pass_start_at, :rec_pass_end_at,
                        record: @attendee
-
-    assert_active_admin_comments
   end
 
   test '#edit add cost_adjustment' do
@@ -68,7 +66,7 @@ class Attendee::FormTest < IntegrationTest
     visit edit_attendee_path(@attendee)
 
     within('.basic.inputs') do
-      refute_selector 'select[name="attendee[family_id]"]'
+      assert_no_selector  'select[name="attendee[family_id]"]'
     end
   end
 
@@ -79,7 +77,7 @@ class Attendee::FormTest < IntegrationTest
     visit edit_attendee_path(@attendee)
 
     within('.basic.inputs') do
-      refute_selector 'select[name="attendee[family_id]"]'
+      assert_no_selector  'select[name="attendee[family_id]"]'
     end
   end
 

@@ -15,6 +15,7 @@ docker buildx build $DOCKER_ARGS  \
     --build-arg DB_PORT_5432_TCP_ADDR=$PG_IP \
     --build-arg SESSION_REDIS_HOST=$REDIS_IP \
     --build-arg STORAGE_REDIS_HOST=$REDIS_IP \
+    --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
     .
 rc=$?
 

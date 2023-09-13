@@ -22,6 +22,10 @@ module FoodHeadCount
       @next_id = 0
     end
 
+    def length
+      @rows.length
+    end
+
     def rows
       start = (current_page - 1) * limit_value
       @rows[start, limit_value]

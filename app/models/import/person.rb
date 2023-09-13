@@ -3,7 +3,9 @@ module Import
     include ActiveModel::Model
     include ActiveRecord::AttributeAssignment
 
-    TRUE_VALUES = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES
+    TRUE_VALUES = defined?(ActiveModel::Type::Boolean::TRUE_VALUES) ?
+      ActiveModel::Type::Boolean::TRUE_VALUES :
+      [true, 1, '1', 't', 'T', 'true', 'TRUE']
 
     SPREADSHEET_TITLES = {
       person_type: 'Person Type',

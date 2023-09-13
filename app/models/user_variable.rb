@@ -106,7 +106,7 @@ class UserVariable < ApplicationRecord
   end
 
   def load_number(value)
-    num = BigDecimal.new(value.to_s)
+    num = BigDecimal(value.to_s)
     num.frac.zero? ? num.to_i : num.to_f
   end
 

@@ -9,9 +9,14 @@ setupChosenWidget = (scope) ->
     return if $elem.parent().hasClass('ui-datepicker-title')
 
     hasBlank = allow_single_deselect: $elem.find('option[value=""]').length
-
-    $elem.chosen(
-      width: '80%'
-      allow_single_deselect: hasBlank
-    )
+    
+    if $elem.parent().hasClass('select_and_search')
+      $elem.chosen(
+        width:'80%'
+        allow_single_deselect: hasBlank
+      )
+    else 
+      $elem.chosen(
+        allow_single_deselect: hasBlank
+      )
   )
