@@ -24,7 +24,7 @@ class Attendee < Person
 
   belongs_to :family
   belongs_to :seminary
-  belongs_to :spouse, inverse_of: :spouse, class_name: 'Attendee'
+  belongs_to :spouse, class_name: 'Attendee'
 
   has_many :conference_attendances, dependent: :destroy
   has_many :conferences, through: :conference_attendances

@@ -6,7 +6,7 @@ context.instance_exec do
         row :last_name
         row(:staff_number) do |f|
           code f.staff_number
-          status_tag :yes, label: 'Chargeable' if f.chargeable_staff_number?
+          status_tag('Chargeable', class: 'yes') if f.chargeable_staff_number?
         end
 
         row :address1

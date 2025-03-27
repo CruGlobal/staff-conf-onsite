@@ -1,4 +1,3 @@
-# vim:ft=ruby:
 panel "Meal Exemptions (#{person.meal_exemptions.size})", class: 'meal_exemptions' do
   if person.meal_exemptions.any?
     table do
@@ -16,9 +15,9 @@ panel "Meal Exemptions (#{person.meal_exemptions.size})", class: 'meal_exemption
             MealExemption::TYPES.each do |t|
               td do
                 if types[t]
-                  status_tag :yes, :meal_type, label: 'exempt'
+                  status_tag 'Exempt', class: 'meal_type yes'
                 else
-                  status_tag :no, :meal_type, label: 'accept'
+                  status_tag 'Accept', class: 'meal_type no'
                 end
               end
             end

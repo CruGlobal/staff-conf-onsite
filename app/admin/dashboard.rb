@@ -13,7 +13,7 @@ ActiveAdmin.register_page 'Dashboard' do
       table_for PaperTrail::Version.order('id desc').limit(20) do
         column('Record') { |v| version_label(v) }
         column :event
-        column('When')   { |v| v.created_at.to_s :long }
+        column('When')   { |v| v.created_at.to_s }
         column('Editor') { |v| editor_link(v) }
       end
     end
