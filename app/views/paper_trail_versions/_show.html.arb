@@ -5,7 +5,7 @@ context.instance_exec do
       attributes_table do
         row('Record') { |v| version_label(v) }
         row :event
-        row('When')   { |v| v.created_at.to_s :long }
+        row('When')   { |v| v.created_at.to_s }
         row('Editor') { |v| editor_link(v) }
       end
     end

@@ -2,7 +2,7 @@ context.instance_exec do
   panel t('.precheck') do
     attributes_table_for family do
       row t('.precheck_eligible?') do |family|
-        status_tag(precheck_eligible?(family))
+        status_tag(precheck_eligible?(family) ? :yes : :no)
         if precheck_eligibility_errors(family).present?
           div t('.not_eligible', family: family.last_name)
           ul do
@@ -14,7 +14,7 @@ context.instance_exec do
       end
 
       row t('.precheck_status') do |family|
-        status_tag precheck_status_label(family)
+        status_tag(precheck_status_label(family), class: precheck_status_class(family))
       end
 
       row(:precheck_status_changed_at)
@@ -27,7 +27,7 @@ context.instance_exec do
       end
 
       row t('.precheck_hotel_stay') do |family|
-        status_tag (family.hotel_stay ? family.hotel_stay.hotel : 'Not Selected')
+        status_tag(family.hotel_stay&.hotel || 'Not Selected', class: family.hotel_stay ? :yes : :no)
       end
 
       row :required_team_action do |family|
