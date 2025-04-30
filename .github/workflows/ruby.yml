@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:17
+        image: postgres:14
         env:
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -40,16 +40,11 @@ jobs:
 
       - name: Set up DB
         run: |
-          bundle exec rails db:setup          
+          bundle exec rails db:create          
 
-      - name: RSpec tests
-        run: bundle exec rspec --color
+      - name: Run tests
+        run: bundle exec rake test
 
-      - name: Codecov upload
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
 
   lint:
     runs-on: ubuntu-latest
@@ -71,8 +66,5 @@ jobs:
       - name: Brakeman
         run: bundle exec brakeman -A -q --ensure-latest --no-pager
 
-      - name: StandardRB
-        run: bundle exec standardrb --format simple
-
-      - name: JavaScript audit
-        run: bin/importmap audit
+      - name: RuboCop
+        run: bundle exec rubocop

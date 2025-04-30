@@ -97,6 +97,7 @@ class Family < ApplicationRecord
 
   def update_spouses
     return if destroyed? # Prevent running on destroyed records
+    
     people = attendees.reload.to_a  
     if people.size == 2
       # Use update_all to prevent callbacks
