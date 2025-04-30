@@ -25,6 +25,7 @@ class Conference::FormTest < IntegrationTest
         fill_in 'Description', with: attr[:description]
         fill_in 'Start at',    with: attr[:start_at]
         fill_in 'End at',      with: attr[:end_at]
+        fill_in 'Price',       with: attr[:price].to_f.to_s
 
         check 'Waive off campus facility fee'
       end

@@ -1,5 +1,5 @@
 class HousingUnit < ApplicationRecord
-  belongs_to :housing_facility
+  belongs_to :housing_facility, optional: true
   has_many :stays, dependent: :restrict_with_exception
   has_many :people, through: :stays
 

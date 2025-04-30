@@ -14,7 +14,7 @@ context.instance_exec do
       end
 
       row t('.precheck_status') do |family|
-        status_tag(precheck_status_label(family), class: precheck_status_class(family))
+        status_tag precheck_status_label(family)
       end
 
       row(:precheck_status_changed_at)

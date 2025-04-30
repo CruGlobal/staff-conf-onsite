@@ -4,7 +4,7 @@ class Ministry < ApplicationRecord
   has_many :people, dependent: :nullify
   has_many :children, class_name: 'Ministry', foreign_key: 'parent_id',
                       dependent: :destroy
-  belongs_to :parent, class_name: 'Ministry'
+  belongs_to :parent, class_name: 'Ministry', optional: true
 
   validates :code, uniqueness: true
   validate :not_own_ancestor

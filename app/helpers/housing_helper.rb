@@ -99,7 +99,7 @@ module HousingHelper
     dates =
       %i[arrived_at departed_at].map do |attr|
         next unless stay.send(attr)
-        stay.send(attr).to_s(:db)
+        stay.send(attr)&.strftime("%Y-%m-%d %H:%M:%S")
       end
     dates.compact.present? ? dates.join(' to ') : ''
   end
