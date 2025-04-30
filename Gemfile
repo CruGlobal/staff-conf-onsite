@@ -115,6 +115,7 @@ group :development, :test do
 
   # Documentation
   gem 'yard', '~> 0.9.5'
+  gem 'brakeman', require: false
 end
 
 group :development do
