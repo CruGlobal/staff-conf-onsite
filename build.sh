@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker run --rm --network=$DOCKER_NETWORK --name=$PROJECT_NAME-redis -d redis
-docker run --rm --network=$DOCKER_NETWORK --name=$PROJECT_NAME-pg -e POSTGRES_PASSWORD=password -d postgres:13
+docker run --rm --network=$DOCKER_NETWORK --name=$PROJECT_NAME-pg -e POSTGRES_PASSWORD=password -d postgres:14
 sleep 10
 
 REDIS_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $PROJECT_NAME-redis)
