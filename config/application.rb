@@ -23,6 +23,9 @@ module CruConference
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Mountain Time (US & Canada)'
 
+    config.load_defaults 6.1
+    config.active_support.cache_format_version = 7.0
+    
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
@@ -36,7 +39,13 @@ module CruConference
     config.autoload_paths << Rails.root.join('app', 'admin', 'concerns')
     config.autoload_paths << Rails.root.join('app', 'services')
 
-    redis_conf = YAML.safe_load(ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result, [Symbol], [], true)["cache"]
+    redis_conf = YAML.safe_load(
+  ERB.new(File.read(Rails.root.join("config", "redis.yml"))).result,
+  permitted_classes: [Symbol],
+  permitted_symbols: [],
+  aliases: true
+)["cache"]
+
     redis_conf[:url] = "redis://" + redis_conf[:host] + "/" + redis_conf[:db].to_s
 
     config.cache_store = :redis_cache_store, redis_conf

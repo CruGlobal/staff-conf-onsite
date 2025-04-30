@@ -49,16 +49,13 @@ module Support
 
     # Updates the session for the Capybara user agent to login the given user.
     def login_user(user)
-      # {#set_rack_session} comes from the 'rack_session_access' gem
-      page.set_rack_session('cas' => {
-        'user' => user.email,
-        'extra_attributes' => {
-          'email' => user.email,
-          'first_name' => user.first_name,
-          'last_name' => user.last_name,
-          'ssoGuid' => user.guid
-        }
-      })
-    end
+      raise "Expected a user, got nil" if user.nil?
+      page.set_rack_session(
+        user_id: user.id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name
+      )
+    end    
   end
 end

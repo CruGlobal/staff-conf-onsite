@@ -1063,7 +1063,7 @@ class SeedDevelopmentRecords
   ].freeze
 
   def initialize
-    FactoryBot.find_definitions
+    # FactoryBot.find_definitions
   end
 
   def call

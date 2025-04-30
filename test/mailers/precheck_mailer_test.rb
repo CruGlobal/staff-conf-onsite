@@ -25,6 +25,8 @@ class PrecheckMailerTest < MailTestCase
 
   test '#confirm_charges creates a auth token for the family' do
     @family.save
+    @family.precheck_email_token&.destroy
+    @family.reload
     assert_difference('PrecheckEmailToken.count', +1) do
       email = PrecheckMailer.confirm_charges(@family).deliver_now
 

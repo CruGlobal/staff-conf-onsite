@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Course::FormTest < IntegrationTest
-  setup do
+  setup do    
     @user = create_login_user
     @course = create :course
   end
@@ -26,7 +26,8 @@ class Course::FormTest < IntegrationTest
         fill_in 'Description',     with: attr[:description]
         fill_in 'Week descriptor', with: attr[:week_descriptor]
         fill_in 'IBS ID',          with: attr[:ibs_code]
-        fill_in 'Location',        with: attr[:location]
+        fill_in 'Location',        with: attr[:location]        
+        fill_in 'Price',           with: attr[:price].to_f.to_s
       end
 
       click_button 'Create Class'

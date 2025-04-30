@@ -25,8 +25,7 @@ class Family < ApplicationRecord
   has_one :chargeable_staff_number, primary_key: :staff_number,
                                 foreign_key: :staff_number
 
-  belongs_to :primary_person, class_name: 'Attendee',
-                                foreign_key: :primary_person_id
+  belongs_to :primary_person, class_name: 'Attendee', foreign_key: :primary_person_id, optional: true
 
   accepts_nested_attributes_for :housing_preference
   accepts_nested_attributes_for :people
@@ -36,7 +35,10 @@ class Family < ApplicationRecord
 
   before_validation :remove_blank_housing_preference
   before_save :touch_precheck_status_changed, if: :precheck_status_changed?
-  after_create :create_precheck_email_token!
+
+  # Move after_create callbacks to after_commit to prevent nested transactions
+  after_commit :create_precheck_email_token!, on: :create
+  after_commit :update_spouses, on: [:create, :update]
 
   scope :precheck_pending_approval,  -> { where(precheck_status: Family.precheck_statuses[:pending_approval]) }
   scope :precheck_changes_requested, -> { where(precheck_status: Family.precheck_statuses[:changes_requested]) }
@@ -89,16 +91,19 @@ class Family < ApplicationRecord
     attendees.any? { |p| p.email.present? }
   end
  
-  def anyone_registered_for_legacy_conferences?()
+  def anyone_registered_for_legacy_conferences?
     attendees.find{|a| a.conferences.find{ |c| c.name == 'Legacy'}} != nil
   end
 
   def update_spouses
-    if attendees.reload.size == 2
-      attendees.first.update!(spouse: attendees.second)
-      attendees.second.update!(spouse: attendees.first)
+    return if destroyed? # Prevent running on destroyed records
+    people = attendees.reload.to_a  
+    if people.size == 2
+      # Use update_all to prevent callbacks
+      Attendee.where(id: people.first.id).update_all(spouse_id: people.second.id)
+      Attendee.where(id: people.second.id).update_all(spouse_id: people.first.id)
     else
-      attendees.each { |attendee| attendee.update!(spouse: nil) }
+      Attendee.where(id: people.map(&:id)).update_all(spouse_id: nil)
     end
   end
 

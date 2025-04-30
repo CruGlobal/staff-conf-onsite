@@ -32,10 +32,16 @@ class ApplicationService
 
   def t(*args)
     opts = args.extract_options!
-    opts[:scope] =
-      I18N_SCOPE + Array(self.class.i18n_scope) + Array(opts[:scope])
-
-    I18n.t(*args, opts)
+    opts[:scope] = I18N_SCOPE + Array(self.class.i18n_scope) + Array(opts[:scope])
+    
+    # For Rails 7.1+ compatibility
+    if args.empty?
+      raise ArgumentError, "Missing translation key"
+    elsif args.size == 1
+      I18n.t(args.first, **opts)
+    else
+      I18n.t(args.first, args.second, **opts)
+    end
   end
 
   def l(*args)

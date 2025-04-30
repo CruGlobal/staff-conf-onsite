@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 source 'https://gems.contribsys.com/' do
-  gem 'sidekiq-pro', '~> 6.0'
+  gem 'sidekiq-pro', '~> 7.3.6'
 end
 # Server
 gem 'good_migrations', '~> 0.2.1'
@@ -43,7 +43,7 @@ gem 'activemodel-serializers-xml'
 gem 'pundit', '~> 2.3.0' 
 gem 'rack-cas', '~> 0.16.0' 
 gem 'rest-client', '~> 2.1.0' 
-gem 'ruby-saml', '~> 1.15.0' 
+gem 'ruby-saml', '~> 1.18.0' 
 
 # Assets
 # gem 'coffee-rails' 
@@ -65,7 +65,7 @@ gem 'truncate_html', '~> 0.9.3'
 gem 'ckeditor_rails', '~> 4.6' 
 gem 'intl-tel-input-rails', '~> 8.4.9' 
 gem 'jquery-rails', '~> 4.5' 
-gem 'jquery-ui-rails', '~> 6.0' 
+gem 'jquery-ui-rails', '>= 7.0.0' 
 gem 'turbolinks', '~> 5.2' 
 
 # Interface with DocuSign
@@ -73,7 +73,8 @@ gem 'docusign_rest', '~> 0.4.4'
 
 # We don't require Nokogiri directly, only through other gems (like axlsx).
 # However, due to CVE's, we need to ensure we're using a recent version.
-gem 'nokogiri', '>= 1.15.2' 
+gem 'nokogiri', '>= 1.18.8' 
+gem 'net-imap', '>= 0.5.7'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.8.0' 
@@ -83,7 +84,7 @@ group :development, :test do
   gem 'capybara-screenshot' 
   gem 'coffeelint', '~> 1.16'             # Coffeescript Linter
   gem 'database_cleaner', '~> 2.0'        
-  gem 'factory_bot', '~> 6.2'             
+  gem 'factory_bot_rails'           
   gem 'faker', '~> 3.2'                   # Fake data generator
   gem 'guard', '~> 2.14'                  # Continuous testing
   gem 'guard-minitest', '~> 2.4'          # ""
@@ -98,17 +99,19 @@ group :development, :test do
   gem 'capybara' 
   gem 'rails-controller-testing' 
 
-  gem 'mocha', '~> 1.7.0'                 # Test mocking and stubbing
+  gem 'mocha', '>= 1.13.0'
+
   gem 'pry-byebug', '~> 3.9.0'            # Debugger
   gem 'pry-rails', '~> 0.3.5'
   gem 'rack_session_access', '~> 0.2.0'     # Edit user-agent session
-  gem 'reek', '~> 5.2'                    # Linter
-  gem 'rubocop', '~> 1.0'                 
+  gem 'reek', '~> 6.5'              # Linter
+  gem 'rubocop', '~> 1.75', '>= 1.75.4'  
+  gem 'rubocop-rails'            
   gem 'selenium-webdriver', '~> 4.4'      # Integration tests javascript support
   gem 'simplecov', '~> 0.21',             
       require: false
-  gem 'vcr', '~> 6.0.0'                   # Record/Reply HTTP Requests
-  gem 'webmock', '~> 3.5'                 # Stub HTTP requests
+  gem 'vcr'                   # Record/Reply HTTP Requests
+  gem 'webmock'               # Stub HTTP requests
 
   # Documentation
   gem 'yard', '~> 0.9.5'
