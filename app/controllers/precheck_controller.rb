@@ -12,7 +12,7 @@ class PrecheckController < ApplicationController
   private
 
   def load_token
-    @token = PrecheckEmailToken.find(params['token'])
+    @token = PrecheckEmailToken.find_by!(token: params['token'])
   end
 
   def load_family

@@ -101,8 +101,8 @@ group :development, :test do
 
   gem 'mocha', '>= 1.13.0'
 
-  gem 'pry-byebug', '~> 3.9.0'            # Debugger
-  gem 'pry-rails', '~> 0.3.5'
+  gem 'pry-byebug', '~> 3.11'           # Debugger
+  gem 'pry-rails', '~> 0.3.11'
   gem 'rack_session_access', '~> 0.2.0'     # Edit user-agent session
   gem 'reek', '~> 6.5'              # Linter
   gem 'rubocop', '~> 1.75', '>= 1.75.4'  
