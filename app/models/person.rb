@@ -18,7 +18,10 @@ class Person < ApplicationRecord
   has_paper_trail
 
   belongs_to :family, inverse_of: :people, required: true
-  belongs_to :ministry
+  belongs_to :ministry, optional: true
+  belongs_to :spouse, class_name: 'Person', optional: true
+  belongs_to :childcare, optional: true
+  belongs_to :seminary, optional: true
 
   has_many :cost_adjustments, dependent: :destroy
   has_many :meal_exemptions, dependent: :destroy

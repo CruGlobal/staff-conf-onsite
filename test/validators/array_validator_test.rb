@@ -19,8 +19,8 @@ class ArrayValidatorTest < ActiveSupport::TestCase
 
   test 'array contains invalid values' do
     @model.assign_attributes(@array_attribute => [@collection.first, 'invalid one', 'invalid two'])
-    assert_equal false, @model.valid?
-    assert_equal ['does not accept invalid one and invalid two'], @model.errors[@array_attribute]
+    assert_equal false, @model.valid?    
+    assert_equal ['does not accept invalid one and invalid two'], @model.errors[:attribute]
   end
 
   test 'array contains valid values' do

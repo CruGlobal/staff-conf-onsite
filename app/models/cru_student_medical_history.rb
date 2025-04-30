@@ -2,7 +2,7 @@ class CruStudentMedicalHistory < ApplicationRecord
   include AttributePresence
   include CollectionAttributes
 
-  belongs_to :child
+  belongs_to :child, optional: true
 
   multi_selection_attributes gtky_challenges: ['Death', 'Divorce', 'Abuse', 'Anger issues', 'Anxiety', 'Eating disorder',
                                                'Major life change', 'Depression', 'Significant bullying', 'Behavioral issues',

@@ -48,7 +48,7 @@ class CollectionAttributesTest < ActiveSupport::TestCase
   test 'validate multi selection attribute' do
     @model.assign_attributes(@multi_selection_attribute => ['invalid one', 'invalid two'])
     assert_equal false, @model.valid?
-    assert_equal ['does not accept invalid one and invalid two'], @model.errors[@multi_selection_attribute]
+    assert_equal ['does not accept invalid one and invalid two'], @model.errors[:attribute]
 
     @model.assign_attributes(@multi_selection_attribute => [@multi_select_value_one, @multi_select_value_two])
     assert_equal true, @model.valid?

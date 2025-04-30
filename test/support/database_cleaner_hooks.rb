@@ -4,17 +4,16 @@ module Support
       #base.use_transactional_fixtures = false
 
       base.setup do
-        DatabaseCleaner.clean_with(:truncation, { pre_count: true })
+        # Custom truncate with CASCADE to satisfy PostgreSQL
+        tables = ActiveRecord::Base.connection.tables - ['schema_migrations', 'ar_internal_metadata']
+        ActiveRecord::Base.connection.execute("TRUNCATE #{tables.map { |t| %("#{t}") }.join(', ')} CASCADE")      
         DatabaseCleaner.strategy = :transaction
         DatabaseCleaner.start
       end
-     
-
-      base.after do
+      # Clean up the database after each test
+      base.teardown do
         DatabaseCleaner.clean
       end
-
-      base.teardown { DatabaseCleaner.clean }
     end
   end
 end

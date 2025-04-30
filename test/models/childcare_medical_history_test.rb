@@ -14,6 +14,7 @@ class ChildcareMedicalHistoryTest < ActiveSupport::TestCase
 
   test 'mult select attribute' do
     @childcare.chronic_health = ['Asthma', 'Other']
+    @childcare.child = @child
     @childcare.save!
     @childcare.reload
     assert_equal ['Asthma', 'Other'], @childcare.chronic_health
