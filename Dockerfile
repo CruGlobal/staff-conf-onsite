@@ -15,10 +15,10 @@ WORKDIR /home/webapp/app
 RUN apk upgrade --no-cache
 
 # Install rails/app dependencies
-RUN apk --no-cache add libc6-compat git postgresql-libs tzdata nodejs yarn shared-mime-info
+RUN apk --no-cache add libc6-compat git postgresql-libs tzdata nodejs yarn shared-mime-info yaml-dev
 
 # Copy dependency definitions and lock files
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock .ruby-version ./
 
 # Install bundler version which created the lock file and configure it
 ARG SIDEKIQ_CREDS
