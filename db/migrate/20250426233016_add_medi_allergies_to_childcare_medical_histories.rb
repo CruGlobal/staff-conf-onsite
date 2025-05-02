@@ -6,6 +6,7 @@ class AddMediAllergiesToChildcareMedicalHistories < ActiveRecord::Migration[7.1]
     add_column :childcare_medical_histories, :restriction_certified, :string, array: true, default: [], null: true    
     add_column :childcare_medical_histories, :vip_developmental_age, :integer, null: true
     add_column :childcare_medical_histories, :cc_vip_sitting, :text, null: true
+    add_column :childcare_medical_histories, :other_special_needs, :text, null: true
 
     add_column :cru_student_medical_histories, :med_allergy_multi, :string, array: true, default: [], null: true   
     add_column :cru_student_medical_histories, :crustu_forms_acknowledged, :string, array: true, default: [], null: true
