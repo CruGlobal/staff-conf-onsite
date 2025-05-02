@@ -19,7 +19,6 @@ require 'rails/test_help'
 require 'webmock/minitest'
 #require 'minitest/rails/capybara'
 require 'minitest/mock'
-require 'minitest/rails'
 require 'rack_session_access/capybara'
 require 'capybara-screenshot/minitest'
 require 'capybara/rails'
@@ -28,6 +27,7 @@ require_relative '../db/seminaries'
 require 'vcr'
 require 'mocha/minitest'
 require 'sidekiq/testing'
+require 'factory_bot_rails'
 
 Minitest::Reporters.use!
 
@@ -35,10 +35,15 @@ Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 
 Support::StubCas.stub_requests
 
-FactoryBot.find_definitions
+# FactoryBot.find_definitions
+# puts FactoryBot.factories.inspect
 
 Minitest.after_run { DatabaseCleaner.clean_with :truncation }
-
+# Allow connections to Selenium Chrome server
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: ['chrome', 'selenium', '127.0.0.1', 'localhost']
+)
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include Support::UserVariable

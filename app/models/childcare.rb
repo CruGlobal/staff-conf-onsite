@@ -2,7 +2,7 @@ class Childcare < ApplicationRecord
   acts_as_list
   has_paper_trail
 
-  belongs_to :family
+  belongs_to :family, optional: true
   has_many :children, dependent: :nullify
 
   # The list of individual weeks that children may attend.

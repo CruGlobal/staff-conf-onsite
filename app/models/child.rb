@@ -7,8 +7,8 @@ class Child < Person
     grade10 grade11 grade12 grade13 postHighSchool
   ].freeze
 
-  belongs_to :family
-  belongs_to :childcare
+  belongs_to :family, optional: true
+  belongs_to :childcare, optional: true
   has_one :primary_person, through: :family, source: :primary_person
   # has_many :conferences, through: :primary_person, source: :conferences
   has_many :childcare_envelopes, dependent: :destroy

@@ -16,7 +16,7 @@ class HousingPreference < ApplicationRecord
 
   enum housing_type: %i[dormitory apartment self_provided]
 
-  belongs_to :family, inverse_of: :housing_preference
+  belongs_to :family, inverse_of: :housing_preference, touch: true
 
   validates :family, :housing_type, presence: true
   validates :children_count, :bedrooms_count,

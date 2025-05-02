@@ -9,7 +9,9 @@ end
 namespace :dev do
   desc 'Populate the development DB with dummy records'
   task populate: :environment do
-    FactoryBot.find_definitions
+    # FactoryBot.find_definitions
+    retry_count = 0
+    max_retries = 3
 
     begin
       User.connection.transaction do
@@ -27,10 +29,11 @@ namespace :dev do
       # FactoryBot randomly selects the day for MealExemptions. If it happens
       # to create a duplicate exemption, just try it again.
       if e.record.is_a?(MealExemption) && e.message =~ /one meal type per day/
-        raise
+        Faker::UniqueGenerator.clear # Reset Faker uniqueness
+        retry_count += 1
+        retry if retry_count <= max_retries
       end
-      puts 'Trying again...'
-      retry
+      raise
     end
   end
 end

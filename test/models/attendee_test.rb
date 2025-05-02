@@ -50,6 +50,7 @@ class AttendeeTest < ModelTestCase
   end
 
   test 'default seminary should be IBS' do
+    Seminary.instance_variable_set(:@default, nil)
     SeedSeminaries.new.call
 
     refute_nil Seminary.default
