@@ -14,6 +14,7 @@ form.instance_exec do
       s.input :immunizations, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:immunizations]
       s.input :non_immunizations, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:immunizations] 
       s.input :health_misc, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:health_misc]
+      s.input :other_special_needs, input_html: { rows: 5 }
       s.input :restrictions, input_html: { rows: 5 }      
     end
   end
