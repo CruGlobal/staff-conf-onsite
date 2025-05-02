@@ -233,6 +233,8 @@ en:
           list: 'List'
       childcare_medical_history:
         allergy: "Allergies"
+        allergies: "Other Allergies"
+        medi_allergy: "Medication Allergies"
         food_intolerance: "Food Intolerances"
         chronic_health: "Chronic Health Issues"
         chronic_health_addl: "Chronic Health Additional Information"
