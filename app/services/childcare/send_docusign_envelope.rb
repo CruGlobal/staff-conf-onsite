@@ -346,7 +346,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Certify-Restrictions',
-        value: mh.certify_restrictions
+        value: mh.restrictions
       },
       {
         label: 'Forms-CC-MH-Health-Misc-DownSyndrome',
@@ -390,7 +390,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-OtherSpecialNeeds',
-        value: mh.restrictions
+        value: mh.other_special_needs
       }
     ]
   end
