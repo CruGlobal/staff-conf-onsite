@@ -34,7 +34,8 @@ module Import
           email: @import.email,
           conference_comment: @import.conference_comment,
           ibs_comment: @import.ibs_comment,
-          conference_status: @import.conference_status
+          conference_status: @import.conference_status,
+          tracking_id: @import.tracking_id
         )
 
         set_human_resource_attributes
