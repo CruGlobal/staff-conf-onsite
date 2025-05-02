@@ -239,7 +239,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
-    t.text "med_allergy_multi"
+    t.string "med_allergy_multi", default: [], array: true
     t.string "crustu_forms_acknowledged", default: [], array: true
     t.index ["child_id"], name: "index_cru_student_medical_histories_on_child_id"
   end
