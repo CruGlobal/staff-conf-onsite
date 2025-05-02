@@ -238,8 +238,10 @@ en:
         chronic_health_addl: "Chronic Health Additional Information"
         medications: "Medications Taken Regularly"
         immunizations: "Current Immunizations"
+        non_immunizations: "May include non-immunized children"
         health_misc: "Misc Health Issues"
         restrictions: "Participation Restrictions"
+        other_special_needs: "Other Special Needs"
         vip_meds: Medications Taken During Program Hours
         vip_dev: "Health And Developmental Needs"
         vip_strengths: "Strengths"
