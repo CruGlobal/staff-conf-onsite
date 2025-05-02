@@ -233,7 +233,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     mh = child.childcare_medical_history
     [
       {
-        label: 'Forms-CC-MH-Allergy',
+        label: 'Forms-CC-MH-Other-Allergies',
         value: mh.allergy
       },
       {
@@ -277,7 +277,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       #   value: check_if_in_list(mh.health_misc, 'Sensory Processing Disorder')
       # },
       {
-        label: 'Forms-CC-MH-Health-Misc-Other-special-need',
+        label: 'Forms-CC-MH-Health-Misc-OtherSpecialNeeds',
         value: check_if_in_list(mh.health_misc, 'Other special need')
       },
       {
@@ -301,7 +301,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: check_if_in_list(mh.health_misc, 'None of the above')
       },
       {
-        label: 'Forms-CC-MH-Restrictions',
+        label: 'Forms-CC-MH-Certify-Restrictions',
         value: mh.restrictions
       },
       {
@@ -639,7 +639,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_yes(smh.gtky_allergies)
       },
       {
-        label: 'Forms-CS-MH-Med-Allergies',
+        label: 'Forms-CS-MH-Med-Allergy',
         value: smh.med_allergies
       },
       {
