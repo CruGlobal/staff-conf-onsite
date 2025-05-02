@@ -94,6 +94,7 @@ module Import
       restrictions: 'Forms CC MH Restrictions',
       medications_by_staff: 'Forms CC MH MedicationsByStaff',
       crustu_forms_acknowledged: 'crustu_forms_acknowledged',
+      other_special_needs: 'Forms CC MH Special Needs',
 
       # CC VIP
       # vip_meds: 'Forms CC VIP Meds',

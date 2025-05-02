@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "restriction_certified", default: [], array: true
     t.integer "vip_developmental_age"
     t.text "cc_vip_sitting"
+    t.text "other_special_needs"
     t.index ["child_id"], name: "index_childcare_medical_histories_on_child_id"
   end
 

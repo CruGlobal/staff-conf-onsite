@@ -73,6 +73,7 @@ module Import
         med_allergy_multi: @import.med_allergy_multi,
         other_allergies: @import.other_allergies,
         crustu_forms_acknowledged: @import.crustu_forms_acknowledged,
+        other_special_needs: @import.other_special_needs,
         cs_health_misc: @import.cs_health_misc,
         cs_vip_strengths: @import.cs_vip_strengths,
         cs_vip_challenges: @import.cs_vip_challenges,
