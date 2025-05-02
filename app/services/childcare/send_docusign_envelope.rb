@@ -7,9 +7,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   CARECAMP_VIP_TEMPLATE   = '22320162-2bfe-48c4-85b0-58415402a522'.freeze
   CARECAMP_TEMPLATE       = 'eb24252c-5765-4231-9c0e-88f977e38b4b'.freeze
   CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
-  CRUSTU_TEMPLATE         = 'd0325321-708b-42d3-a151-8b86089236e3'.freeze
-  TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
-  TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
+  CRUSTU_TEMPLATE         = '3322f849-395a-41ae-8843-24d9d346cc41'.freeze
+  TEST_RECIPIENT          = 'nkalampulan@outlook.com'.freeze
+  TRACKING_COPY_RECIPIENT = 'mail2nisam@gmail.com'.freeze
   attr_reader :recipient, :child, :note
 
   def initialize(child, note = nil, recipient: nil)
@@ -233,6 +233,62 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     mh = child.childcare_medical_history
     [
       {
+        label: 'Forms-CC-MH-Allergies-Eggs',
+        value: check_if_in_list(mh.allergies, 'Eggs')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Milk',
+        value: check_if_in_list(mh.allergies, 'Milk')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Treenuts',
+        value: check_if_in_list(mh.allergies, 'Tree nuts')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Fish',
+        value: check_if_in_list(mh.allergies, 'Fish/Shellfish')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Peanuts',
+        value: check_if_in_list(mh.allergies, 'Peanuts')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Wheat',
+        value: check_if_in_list(mh.allergies, 'Wheat')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-InsectSting',
+        value: check_if_in_list(mh.allergies, 'Insect sting')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Pollen',
+        value: check_if_in_list(mh.allergies, 'Pollen')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Meds',
+        value: check_if_in_list(mh.allergies, 'Medications')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Latex',
+        value: check_if_in_list(mh.allergies, 'Latex')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Soy',
+        value: check_if_in_list(mh.allergies, 'Soy')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Other',
+        value: check_if_in_list(mh.allergies, 'Other')
+      },
+      {
+        label: 'Forms-CC-MH-Allergies-Nota',
+        value: check_if_in_list(mh.allergies, 'None of the above')
+      },
+      {
+        label: 'Forms-CC-MH-Med-Allergies',
+        value: mh.medi_allergy
+      },
+      {
         label: 'Forms-CC-MH-Other-Allergies',
         value: mh.allergy
       },
@@ -241,27 +297,35 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: mh.food_intolerance
       },
       {
-        label: 'Forms-CC-MH-Chronic-Health-Asthma',
+        label: 'Forms-CC-MH-Chronic-Asthma',
         value: check_if_in_list(mh.chronic_health, 'Asthma')
       },
       {
-        label: 'Forms-CC-MH-Chronic-Health-Diabetes',
+        label: 'Forms-CC-MH-Chronic-Diabetes',
         value: check_if_in_list(mh.chronic_health, 'Diabetes')
       },
       {
-        label: 'Forms-CC-MH-Chronic-Health-Allergy',
+        label: 'Forms-CC-MH-Chronic-Epilepsy',
+        value: check_if_in_list(mh.chronic_health, 'Epilepsy or other seizure disorders')
+      },
+      {
+        label: 'Forms-CC-MH-Chronic-SevereAllergy',
         value: check_if_in_list(mh.chronic_health, 'Severe allergy')
       },
       {
-        label: 'Forms-CC-MH-Chronic-Health-Other',
+        label: 'Forms-CC-MH-Chronic-Other',
         value: check_if_in_list(mh.chronic_health, 'Other')
       },
       {
-        label: 'Forms-CC-MH-Chronic-Health-Addl',
+        label: 'Forms-CC-MH-Chronic-Nota',
+        value: check_if_in_list(mh.chronic_health, 'None of the above')
+      },
+      {
+        label: 'Forms-CC-MH-Chronic-OtherAdditional',
         value: mh.chronic_health_addl
       },
       {
-        label: 'Forms-CC-MH-Medications',
+        label: 'Forms-CC-MH-AllMeds',
         value: mh.medications
       },
       {
@@ -269,64 +333,64 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_yes(mh.immunizations&.join)
       },
       {
-        label: 'Forms-CC-MH-Health-Misc-Delay',
-        value: check_if_in_list(mh.health_misc, 'Developmental delay')
-      },
-      # {
-      #   label: 'Forms-CC-MH-Health-Misc-Delay-Sensory',
-      #   value: check_if_in_list(mh.health_misc, 'Sensory Processing Disorder')
-      # },
-      {
-        label: 'Forms-CC-MH-Health-Misc-OtherSpecialNeeds',
-        value: check_if_in_list(mh.health_misc, 'Other special need')
+        label: 'Forms-CC-MH-non-immunized',
+        value: checkmark_if_yes(mh.non_immunizations&.join)
       },
       {
-        label: 'Forms-CC-MH-Health-Misc-Delay-Behavioral',
-        value: check_if_in_list(mh.health_misc, 'Behavioral challenges')
+        label: 'Forms-CC-MH-Certify-No',
+        value: checkmark_if_no(mh.restriction_certified&.join)
       },
       {
-        label: 'Forms-CC-MH-Health-Misc-Delay-Autism',
-        value: check_if_in_list(mh.health_misc, 'Disability')
-      },
-      {
-        label: 'Forms-CC-MH-Health-Misc-Delay-Assistance',
-        value: check_if_in_list(mh.health_misc, 'Extra assistance')
-      },
-      {
-        label: 'Forms-CC-MH-Health-Misc-Delay-Equipment',
-        value: check_if_in_list(mh.health_misc, 'Adaptive equipment')
-      },
-      {
-        label: 'Forms-CC-MH-Health-Misc-Delay-None',
-        value: check_if_in_list(mh.health_misc, 'None of the above')
+        label: 'Forms-CC-MH-Certify-Yes',
+        value: checkmark_if_yes(mh.restriction_certified&.join)
       },
       {
         label: 'Forms-CC-MH-Certify-Restrictions',
+        value: mh.certify_restrictions
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-DownSyndrome',
+        value: check_if_in_list(mh.health_misc, 'Down Syndrome')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-ADHD',
+        value: check_if_in_list(mh.health_misc, 'ADHD/ADD')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Developmental-delay',
+        value: check_if_in_list(mh.health_misc, 'Developmental delay')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Other-special-need',
+        value: check_if_in_list(mh.health_misc, 'Other special need')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Behavioral-challenges',
+        value: check_if_in_list(mh.health_misc, 'Behavioral challenges')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Autism',
+        value: check_if_in_list(mh.health_misc, 'Disability')
+      },
+      {
+        label: 'Forms-CS-MH-MH-Health-Misc-Extra-assistance',
+        value: check_if_in_list(mh.health_misc, 'Extra assistance')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Adaptive-equipment',
+        value: check_if_in_list(mh.health_misc, 'Adaptive equipment')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Nota',
+        value: check_if_in_list(mh.health_misc, 'None of the above')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-Other',
+        value: check_if_in_list(mh.health_misc, 'Other special need')
+      },
+      {
+        label: 'Forms-CC-MH-Health-Misc-OtherSpecialNeeds',
         value: mh.restrictions
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Self-Yes',
-        value: checkmark_if_yes(mh.sunscreen_self)
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Self-No',
-        value: checkmark_if_no(mh.sunscreen_self)
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Assisted-Yes',
-        value: checkmark_if_yes(mh.sunscreen_assisted)
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Assisted-No',
-        value: checkmark_if_no(mh.sunscreen_assisted)
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Provided-Yes',
-        value: checkmark_if_yes(mh.sunscreen_provided)
-      },
-      {
-        label: 'Forms-CC-Sunscreen-Provided-No',
-        value: checkmark_if_no(mh.sunscreen_provided)
       }
     ]
   end
@@ -338,6 +402,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
     mh = child.childcare_medical_history
     [
+      {
+        label: 'Forms-CC-VIP-DevAge',
+        value: mh.vip_developmental_age
+      },
       {
         label: 'Forms-CC-VIP-Meds',
         value: mh.vip_meds
@@ -395,15 +463,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: mh.vip_comm_directions
       },
       {
-        label: 'Forms-CC-VIP-Stress-Noisy',
+        label: 'Forms-CC-VIP-Stress-Noisy-spaces',
         value: check_if_in_list(mh.vip_stress, 'Noisy spaces')
       },
       {
-        label: 'Forms-CC-VIP-Stress-Crowded',
+        label: 'Forms-CC-VIP-Stress-Crowded-spaces',
         value: check_if_in_list(mh.vip_stress, 'Crowded spaces')
       },
       {
-        label: 'Forms-CC-VIP-Stress-Loud',
+        label: 'Forms-CC-VIP-Stress-Loud-noises',
         value: check_if_in_list(mh.vip_stress, 'Loud noises')
       },
       {
@@ -411,12 +479,21 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: check_if_in_list(mh.vip_stress, 'Heights')
       },
       {
-        label: 'Forms-CC-VIP-Stress-Change',
+        label: 'Forms-CC-VIP-Stress-ChangingSchedule',
         value: check_if_in_list(mh.vip_stress, 'Changing schedule')
       },
       {
         label: 'Forms-CC-VIP-Stress-Other',
         value: check_if_in_list(mh.vip_stress, 'Other')
+      },
+      {
+        label: 'Forms-CC-VIP-Stress-Nota',
+        value: check_if_in_list(mh.vip_stress, 'None of the above')
+      },
+      {
+        label: 'Forms-CC-VIP-Sitting',
+        value: mh.cc_vip_sitting
+
       },
       {
         label: 'Forms-CC-VIP-Stress-Addl',
@@ -639,7 +716,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_yes(smh.gtky_allergies)
       },
       {
-        label: 'Forms-CS-MH-Med-Allergy',
+        label: 'Forms-CS-MH-Med-Allergies',
         value: smh.med_allergies
       },
       {
