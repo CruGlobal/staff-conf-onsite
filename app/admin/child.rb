@@ -24,7 +24,7 @@ ActiveAdmin.register Child do
     ],
     childcare_medical_history_attributes: %i[
       id _destroy date allergy food_intolerance chronic_health_addl medications
-      restrictions vip_meds vip_dev vip_strengths vip_challenges vip_mobility vip_walk
+      restrictions vip_meds vip_dev vip_strengths vip_challenges vip_mobility vip_walk medi_allergy
       vip_comm_addl vip_comm_small vip_comm_large vip_comm_directions vip_stress_addl
       vip_stress_behavior vip_calm vip_hobby vip_buddy vip_addl_info sunscreen_self sunscreen_assisted
       sunscreen_provided
