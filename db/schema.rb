@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_26_134100) do
-
+ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +78,13 @@ ActiveRecord::Schema.define(version: 2023_05_26_134100) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
+    t.text "medi_allergy"
+    t.string "allergies", default: [], array: true
+    t.string "non_immunizations", default: [], array: true
+    t.string "restriction_certified", default: [], array: true
+    t.integer "vip_developmental_age"
+    t.text "cc_vip_sitting"
+    t.text "other_special_needs"
     t.index ["child_id"], name: "index_childcare_medical_histories_on_child_id"
   end
 
@@ -234,6 +240,8 @@ ActiveRecord::Schema.define(version: 2023_05_26_134100) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
+    t.string "med_allergy_multi", default: [], array: true
+    t.string "crustu_forms_acknowledged", default: [], array: true
     t.index ["child_id"], name: "index_cru_student_medical_histories_on_child_id"
   end
 
@@ -411,6 +419,7 @@ ActiveRecord::Schema.define(version: 2023_05_26_134100) do
     t.string "middle_name"
     t.integer "spouse_id"
     t.string "forms_approved_by"
+    t.string "tracking_id"
     t.index ["childcare_id"], name: "index_people_on_childcare_id"
     t.index ["middle_name"], name: "index_people_on_middle_name"
     t.index ["seminary_id"], name: "index_people_on_seminary_id"

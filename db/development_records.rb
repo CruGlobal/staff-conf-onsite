@@ -26,6 +26,7 @@ class SeedDevelopmentRecords
   CONFERENCES = [
     'Coach or Instructor',
     'Cru22',
+    'Cru25',
     'Legacy',
     'Team22',
     'Institute of Biblical Studies TA',
