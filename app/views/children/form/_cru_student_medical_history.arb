@@ -8,13 +8,10 @@ form.instance_exec do
       s.input :med_allergies
       s.input :food_allergies
       s.input :other_allergies
+      s.input :cs_chronic_health, as: :check_boxes, 
+                                  collection: CruStudentMedicalHistory.multi_selection_collections[:cs_chronic_health]
       s.input :health_concerns, as: :radio, collection: CruStudentMedicalHistory.single_selection_collections[:health_concerns]
-      s.input :asthma
-      s.input :migraines
-      s.input :severe_allergy
-      s.input :anorexia
-      s.input :diabetes
-      s.input :altitude
+      s.input :cs_allergies, as: :check_boxes, collection: CruStudentMedicalHistory.multi_selection_collections[:cs_allergies]
       s.input :concerns_misc
       s.input :cs_health_misc, as: :check_boxes,
                                collection: CruStudentMedicalHistory.multi_selection_collections[:cs_health_misc]
