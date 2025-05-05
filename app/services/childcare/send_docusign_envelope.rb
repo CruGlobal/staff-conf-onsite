@@ -4,10 +4,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  CARECAMP_VIP_TEMPLATE   = '22320162-2bfe-48c4-85b0-58415402a522'.freeze
-  CARECAMP_TEMPLATE       = 'eb24252c-5765-4231-9c0e-88f977e38b4b'.freeze
-  CRUSTU_VIP_TEMPLATE     = '2f34b10b-e87e-4f2d-82c3-20a4e82b7a8a'.freeze
-  CRUSTU_TEMPLATE         = 'd0325321-708b-42d3-a151-8b86089236e3'.freeze
+  CARECAMP_VIP_TEMPLATE   = 'c836796a-ad75-4dcb-b132-402b031f70dc'.freeze
+  CARECAMP_TEMPLATE       = 'c836796a-ad75-4dcb-b132-402b031f70dc'.freeze
+  CRUSTU_VIP_TEMPLATE     = '9e86bc46-fe68-499f-891c-c02bd59ab972'.freeze
+  CRUSTU_TEMPLATE         = '9e86bc46-fe68-499f-891c-c02bd59ab972'.freeze
   TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
   TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
   attr_reader :recipient, :child, :note
