@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :childcare do
     name { Faker::Educator.course_name }
     teachers { rand(4).times.map { Faker::Name.name }.to_sentence }

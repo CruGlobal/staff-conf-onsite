@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :family do
     last_name { Faker::Name.last_name }
-    staff_number { Faker::Number.number(10) }
+    staff_number { Faker::Number.number(digits: 10) }
     address1 { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     factory :family_with_members do
       transient do
-        attendee_count { 1 + rand(2) }
+        attendee_count { 2 + rand(2) }
         child_count { rand(4) }
       end
 

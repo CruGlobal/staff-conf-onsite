@@ -11,14 +11,14 @@ class Precheck::StatusControllerTest < ControllerTestCase
                      mail_interceptor_email_addresses: ['test@test.com']
 
   test 'show action with an invalid auth token gets error page' do
-    get :show, token: "sdfsdf"
+    get :show, params: { token: "sdfsdf" }
     assert_response :success
     assert_template :error
   end
 
   test 'show action with a valid auth token' do
-    token = create(:precheck_email_token)
-    get :show, token: token.token
+    family = create(:family)
+    get :show, params: { token: family.precheck_email_token.token }
 
     assert_response :success
     assert_template :show

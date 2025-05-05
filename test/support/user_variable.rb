@@ -1,18 +1,20 @@
 module Support
   module UserVariable
+
     def self.included(base)
       base.extend(ClassMethods)
     end
 
     def stub_user_variable(variables, &blk)
+      Rails.logger.debug variables
       get_result = ->(name) do
-        var = variables[name]
+        var = variables[name.to_sym]
         raise ArgumentError if var.nil?
         var
       end
 
-      ::UserVariable.stub :get, get_result do
-        ::UserVariable.stub :[], get_result, &blk
+      ::UserVariable.stub(:get, get_result) do
+        ::UserVariable.stub(:[], get_result, &blk)
       end
     end
 

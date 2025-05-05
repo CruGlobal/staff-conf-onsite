@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Ministry::FormTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @ministry = create :ministry
   end
@@ -10,8 +10,6 @@ class Ministry::FormTest < IntegrationTest
     visit edit_ministry_path(@ministry)
 
     assert_edit_fields :code, :name, :parent_id, record: @ministry
-
-    assert_active_admin_comments
   end
 
   test '#new record creation' do

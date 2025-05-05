@@ -33,7 +33,10 @@ class ApplyCostAdjustments < ChargesService
   after_initialize :zero_totals
 
   def call
-    charges.each(&method(:add_to_total))
+    charges.each do |type, charge|
+      add_to_total(type, charge)
+    end
+
     constrain_total_adjustments
   end
 

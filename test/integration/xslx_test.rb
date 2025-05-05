@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class XlsxTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
   end
 

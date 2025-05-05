@@ -5,9 +5,15 @@ class Conference::SumFamilyCostTest < ServiceTestCase
     @staff_conference = create :conference, staff_conference: true,
                                             price_cents: 50_00
 
-    @attendee_1 = create :attendee
-    @attendee_2 = create :attendee
-    @family = create :family, attendees: [@attendee_1, @attendee_2]
+    #@attendee_1 = create :attendee_with_meal_exemptions
+    #@attendee_2 = create :attendee_with_meal_exemptions
+    
+    @family = create :family_with_members
+
+    #@family = create :family, attendees: [@attendee_1, @attendee_2]
+
+    @attendee_1 = @family.attendees.first
+    @attendee_2 = @family.attendees.second
 
     @service = Conference::SumFamilyCost.new(family: @family)
   end

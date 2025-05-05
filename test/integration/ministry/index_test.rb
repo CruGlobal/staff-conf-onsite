@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Ministry::IndexTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @ministry = create :ministry
   end

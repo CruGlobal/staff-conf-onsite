@@ -48,8 +48,9 @@ module ActiveAdmin
           authorized?(ActiveAdmin::Auth::READ, PaperTrail::Version)
 
         klass = active_admin_config.resource_class
+        enabled = PaperTrail.request.enabled_for_model?(klass)
 
-        if permitted && klass.paper_trail.enabled?
+        if permitted && enabled
           link_to(
             I18n.t('activerecord.models.paper_trail.version.other'),
             paper_trail_versions_path(

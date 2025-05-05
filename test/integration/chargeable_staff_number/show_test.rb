@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ChargeableStaffNumber::ShowTest < IntegrationTest
-  before do
+  setup do
     @user = create_login_user
     @chargeable = create :chargeable_staff_number
   end
