@@ -16,8 +16,8 @@ module Import
     def set_childcare_medical_history_attributes # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       childcare_medical_history = ChildcareMedicalHistory.new(
         allergy: @import.allergy,
-        allergies: @import.allergies,
-        medi_allergy: @import.medi_allergy,        
+        cc_allergies: @import.cc_allergies,
+        cc_medi_allergy: @import.cc_medi_allergy,        
         chronic_health: @import.chronic_health,
         chronic_health_addl: @import.chronic_health_addl,
         medications: @import.medications,
@@ -38,9 +38,9 @@ module Import
         vip_hobby: @import.vip_hobby,
         vip_buddy: @import.vip_buddy,
         vip_addl_info: @import.vip_addl_info,
-        restriction_certified: @import.restriction_certified,
+        cc_restriction_certified: @import.cc_restriction_certified,
         cc_vip_sitting: @import.cc_vip_sitting,
-        vip_developmental_age: @import.vip_developmental_age
+        cc_vip_developmental_age: @import.cc_vip_developmental_age
       )
       person.childcare_medical_history = childcare_medical_history
     end
@@ -70,10 +70,10 @@ module Import
         gtky_authority: @import.gtky_authority,
         gtky_adapts: @import.gtky_adapts,
         med_allergies: @import.med_allergies,
-        med_allergy_multi: @import.med_allergy_multi,
+        cs_allergies: @import.cs_allergies,
         other_allergies: @import.other_allergies,
         crustu_forms_acknowledged: @import.crustu_forms_acknowledged,
-        other_special_needs: @import.other_special_needs,
+        cs_other_special_needs: @import.cs_other_special_needs,
         cs_health_misc: @import.cs_health_misc,
         cs_vip_strengths: @import.cs_vip_strengths,
         cs_vip_challenges: @import.cs_vip_challenges,
@@ -88,7 +88,12 @@ module Import
         cs_vip_sitting: @import.cs_vip_sitting,
         cs_vip_hobby: @import.cs_vip_hobby,
         cs_vip_buddy: @import.cs_vip_buddy,
-        cs_vip_addl_info: @import.cs_vip_addl_info
+        cs_vip_addl_info: @import.cs_vip_addl_info,
+        cs_restriction_certified: @import.cs_restriction_certified,
+        cs_vip_staff_administered_meds: @import.cs_vip_staff_administered_meds,
+        cs_chronic_health: @import.cs_chronic_health,
+        cs_medications: @import.cs_medications,
+        cs_vip_developmental_age: @import.cs_vip_developmental_age
       )
       person.cru_student_medical_history = student_medical_history
     end

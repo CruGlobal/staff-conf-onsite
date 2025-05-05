@@ -78,13 +78,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
-    t.text "medi_allergy"
-    t.string "allergies", default: [], array: true
+    t.text "cc_medi_allergy"
+    t.string "cc_allergies", default: [], array: true
     t.string "non_immunizations", default: [], array: true
-    t.string "restriction_certified", default: [], array: true
-    t.integer "vip_developmental_age"
-    t.text "cc_vip_sitting"
-    t.text "other_special_needs"
+    t.string "cc_restriction_certified", default: [], array: true
+    t.string "cc_vip_sitting"
+    t.string "cc_other_special_needs"
+    t.string "cc_vip_staff_administered_meds"
+    t.string "cc_vip_developmental_age"
     t.index ["child_id"], name: "index_childcare_medical_histories_on_child_id"
   end
 
@@ -240,8 +241,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
-    t.string "med_allergy_multi", default: [], array: true
     t.string "crustu_forms_acknowledged", default: [], array: true
+    t.string "cs_allergies", default: [], array: true
+    t.string "cs_restriction_certified", default: [], array: true
+    t.text "cs_other_special_needs"
+    t.text "cs_vip_staff_administered_meds"
+    t.string "cs_chronic_health", default: [], array: true
+    t.string "cs_medications"
+    t.string "cs_vip_developmental_age"
+    t.string "cs_restrictions"
     t.index ["child_id"], name: "index_cru_student_medical_histories_on_child_id"
   end
 
