@@ -14,7 +14,7 @@ context.instance_exec do
       end
     end
     tbody do
-      result.to_hash.each_with_index do |row, i|
+      result.to_a.each_with_index do |row, i|
         tr class: i % 2 == 1 ? 'even' : '' do
           td i + 1
           row.values.each do |val|

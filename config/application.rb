@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'rack-cas/session_store/active_record'
+require 'onelogin/ruby-saml'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -12,6 +13,7 @@ module CruConference
   class Application < Rails::Application
     # Send all logs to stdout, which docker reads and sends to datadog.
     config.logger = Log::Logger.new($stdout) unless Rails.env.test? # we don't need a logger in test env
+    # OneLogin::RubySaml::Logging.logger = Logger.new('/var/log/ruby-saml.log')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
