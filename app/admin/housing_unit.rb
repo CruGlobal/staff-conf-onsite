@@ -11,7 +11,7 @@ ActiveAdmin.register HousingUnit do
   config.sort_order = 'name_asc'
   order_by(:name) { |clause| HousingUnit.natural_order(clause.order) }
 
-  belongs_to :housing_facility
+  belongs_to :housing_facility, optional: true
 
   permit_params :name, :occupancy_type
 

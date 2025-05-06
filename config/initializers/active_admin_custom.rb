@@ -17,7 +17,7 @@ ActiveAdmin.application.view_factory.edit_page.send(
 Rails.configuration.to_prepare do
   ActiveAdmin::ResourceDSL.class_eval do
     def partial_view(*actions)
-      ActiveAdmin::PartialViewDSL.create_actions(self, actions)
+      ActiveAdmin::PartialViewDsl.create_actions(self, actions)
     end
   end
 end

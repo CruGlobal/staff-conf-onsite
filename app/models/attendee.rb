@@ -15,16 +15,13 @@ class Attendee < Person
 
   after_initialize :set_default_seminary
   before_save :touch_conference_status_changed, if: :conference_status_changed?
-  after_create  -> { family.update_spouses }
-  after_destroy -> { family.update_spouses }
+  
+  # Move callbacks to after_commit to prevent nested transactions
+  after_commit :update_family_spouses, on: [:create, :update, :destroy]
 
-  after_update (lambda do
-    [Family.find(family_id_was), family].each(&:update_spouses)
-  end), if: :family_id_changed?
-
-  belongs_to :family
-  belongs_to :seminary
-  belongs_to :spouse, inverse_of: :spouse, class_name: 'Attendee'
+  belongs_to :family, optional: true
+  belongs_to :seminary, optional: true
+  belongs_to :spouse, class_name: 'Attendee', optional: true
 
   has_many :conference_attendances, dependent: :destroy
   has_many :conferences, through: :conference_attendances
@@ -88,5 +85,19 @@ class Attendee < Person
 
   def touch_conference_status_changed
     self.conference_status_changed_at = Time.zone.now
+  end
+
+  private
+
+  def update_family_spouses
+    return if destroyed? # Prevent running on destroyed records
+    
+    # Update current family
+    family&.update_spouses
+    
+    # Update previous family if family_id changed
+    if saved_change_to_family_id? && family_id_before_last_save
+      Family.find_by(id: family_id_before_last_save)&.update_spouses
+    end
   end
 end

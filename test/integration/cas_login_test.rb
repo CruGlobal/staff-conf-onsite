@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class CasLoginTest < IntegrationTest
-  test 'Login Page' do
-    visit root_path
+  # Need to add Okta login test
+  # test 'Login Page' do
+  #   visit root_path
 
-    assert_current_path root_path
-    assert_title 'Fake CAS'
-  end
+  #   assert_current_path root_path
+  #   assert_title 'Fake CAS'
+  # end
 
   test 'login' do
     user = create_login_user

@@ -25,7 +25,7 @@ module ActiveAdmin
   # sidebar, etc) without replacing the entire contents of the page.
   #
   # @see +config/initializers/active_admin_custom.rb+
-  class PartialViewDSL
+  class PartialViewDsl
     class << self
       def create_actions(dsl, actions)
         new(dsl).tap do |view_dsl|

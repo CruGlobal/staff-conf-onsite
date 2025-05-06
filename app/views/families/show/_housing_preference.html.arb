@@ -16,10 +16,9 @@ context.instance_exec do
 
       row :confirmed_at do |hp|
         if hp.confirmed_at.present?
-          status_tag :yes,
-                     label: "confirmed on #{l hp.confirmed_at, format: :month}"
+          status_tag("confirmed on #{l(hp.confirmed_at, format: :month)}", class: 'yes')
         else
-          status_tag :no, label: 'unconfirmed'
+          status_tag('unconfirmed', class: 'no')
         end
       end
     end
