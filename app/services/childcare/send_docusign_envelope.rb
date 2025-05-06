@@ -4,10 +4,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   SendEnvelopeError = Class.new(StandardError)
 
-  CARECAMP_VIP_TEMPLATE   = 'c836796a-ad75-4dcb-b132-402b031f70dc'.freeze
-  CARECAMP_TEMPLATE       = 'c836796a-ad75-4dcb-b132-402b031f70dc'.freeze
-  CRUSTU_VIP_TEMPLATE     = '9e86bc46-fe68-499f-891c-c02bd59ab972'.freeze
-  CRUSTU_TEMPLATE         = '9e86bc46-fe68-499f-891c-c02bd59ab972'.freeze
+  KIDS_CARE_WITH_VIP_TEMPLATE = 'c836796a-ad75-4dcb-b132-402b031f70dc'.freeze
+  KIDS_CARE_NO_VIP_TEMPLATE   = 'e92627a4-2865-4b81-8de0-6db9f3517576'.freeze
+  KIDS_CAMP_WITH_VIP_TEMPLATE = '97ef9609-036b-4d9c-8343-5bec92ea734d'.freeze
+  KIDS_CAMP_NO_VIP_TEMPLATE   = '817f4a90-d6f4-4d7a-9500-62e4c0a1f8da'.freeze
+  CRUSTU_WITH_VIP_TEMPLATE    = '9e86bc46-fe68-499f-891c-c02bd59ab972'.freeze
+  CRUSTU_NO_VIP_TEMPLATE      = '59f3c410-1072-483a-94de-b7c3f06b032d'.freeze
   TEST_RECIPIENT          = 'Cru22KidsForms+DocuSignTesting@cru.org'.freeze
   TRACKING_COPY_RECIPIENT = 'Cru22KidsForms+DocuSignVoid@cru.org'.freeze
   attr_reader :recipient, :child, :note
@@ -82,14 +84,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   # rubocop:disable Metrics/PerceivedComplexity
   def determine_docusign_template
-    if childcare_grade? && childcare_no_misc_health?
-      CARECAMP_TEMPLATE
-    elsif childcare_grade?
-      CARECAMP_VIP_TEMPLATE
-    elsif senior_grade? && senior_no_misc_health?
-      CRUSTU_TEMPLATE
+    if childcare_grade?
+      childcare_no_misc_health? ? KIDS_CARE_NO_VIP_TEMPLATE : KIDS_CARE_WITH_VIP_TEMPLATE
+    elsif childcare_camp_grade?
+      childcare_no_misc_health? ? KIDS_CAMP_NO_VIP_TEMPLATE : KIDS_CAMP_WITH_VIP_TEMPLATE
     elsif senior_grade?
-      CRUSTU_VIP_TEMPLATE
+      senior_no_misc_health? ? CRUSTU_NO_VIP_TEMPLATE : CRUSTU_WITH_VIP_TEMPLATE
     else
       raise SendEnvelopeError, 'There is an error on the child record, possibly incomplete details'
     end
@@ -101,9 +101,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def childcare_no_misc_health?
-    return true if child&.childcare_medical_history&.health_misc.blank?
+    misc = child&.childcare_medical_history&.health_misc
+    misc.blank? || misc == ['None of the above']
+  end
 
-    child&.childcare_medical_history&.health_misc.exclude?('Other special need')
+  def childcare_camp_grade?
+    Child.childcare_camp_grade_levels.include?(child.grade_level)
   end
 
   def senior_grade?
@@ -111,9 +114,8 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
 
   def senior_no_misc_health?
-    return true if child&.cru_student_medical_history&.cs_health_misc.blank?
-    
-    child&.childcare_medical_history&.health_misc == ['None of the above']
+    misc = child&.cru_student_medical_history&.cs_health_misc
+    misc.blank? || misc == ['None of the above']
   end
 
   def build_text_tabs
