@@ -17,7 +17,7 @@ module Import
         person.assign_attributes(
           needs_bed: @import.needs_bed,
           grade_level: @import.grade_level,
-          childcare_deposit: @import.childcare_deposit,
+          # childcare_deposit: @import.childcare_deposit,
           childcare_comment: @import.childcare_comment
         )
 
