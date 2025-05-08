@@ -50,6 +50,7 @@ gem 'ruby-saml', '~> 1.18.0'
 gem 'sassc-rails', '~> 2.1'
 gem 'autoprefixer-rails', '~> 10.0' # Optional: For CSS vendor prefixes
 gem 'uglifier', '>= 4.2', require: false 
+gem 'terser'
 
 # View Helpers
 gem 'axlsx', '~> 3.0.0.pre' 
