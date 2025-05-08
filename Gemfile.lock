@@ -628,8 +628,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.1)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -733,7 +731,6 @@ DEPENDENCIES
   terser
   truncate_html (~> 0.9.3)
   turbolinks (~> 5.2)
-  uglifier (>= 4.2)
   vcr
   webmock
   yard (~> 0.9.5)
