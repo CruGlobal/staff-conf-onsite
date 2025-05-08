@@ -16,7 +16,7 @@ class Person < ApplicationRecord
   }.freeze
 
   has_paper_trail
-
+  before_create :assign_uuid
   belongs_to :family, inverse_of: :people, required: true
   belongs_to :ministry, optional: true
   belongs_to :spouse, class_name: 'Person', optional: true
@@ -140,5 +140,9 @@ class Person < ApplicationRecord
     if family.primary_person_id.blank? && is_a?(Attendee)
       family.update!(primary_person_id: id)
     end
+  end
+
+  def assign_uuid
+    self.uuid ||= SecureRandom.uuid
   end
 end
