@@ -130,7 +130,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
     [
       {
         label: 'SCOPersonID',
-        value: child.uuid
+        value: child.id
       },
       {
         label: '\\*ChildFullName',
