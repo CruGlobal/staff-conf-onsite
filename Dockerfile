@@ -55,7 +55,7 @@ ARG SP_ENTITY_ID="SCO"
 ARG IDP_CERT= "-----BEGIN CERTIFICATE----------END CERTIFICATE-----"
 
 # Compile assets
-RUN RAILS_ENV=${RAILS_ENV} bundle exec rake assets:clobber assets:precompile \
+RUN RAILS_ENV=${RAILS_ENV} SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:clobber assets:precompile \
   && chown -R webapp:webapp /home/webapp/
 
 # Define volumes used by ECS to share public html and extra nginx config with nginx container
