@@ -76,7 +76,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.logger =
-    ActiveSupport::TaggedLogging.new(Logger::Syslog.new("cru-onsite-#{ENV['ENVIRONMENT']}", Syslog::LOG_LOCAL7))
+    ActiveSupport::TaggedLogging.new(Logger::Syslog.new("cru-onsite-#{ENV['RAILS_ENV']}", Syslog::LOG_LOCAL7))
   config.log_tags = [->(request) { "ReqID:#{request.uuid}" }]
 
   # Do not dump schema after migrations.
