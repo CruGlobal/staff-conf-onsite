@@ -129,6 +129,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   def build_general_fields
     [
       {
+        label: 'SCOPersonID',
+        value: child.uuid
+      },
+      {
         label: '\\*ChildFullName',
         value: child.full_name(skip_middle: true)
       },
@@ -219,6 +223,10 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       {
         label: 'Gender',
         value: get_gender_formatted(child.gender)
+      },
+      {
+        label: 'ChildGender',
+        value:  get_gender_formatted(child.gender)
       },
       {
         label: 'Parent1Email',
