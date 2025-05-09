@@ -233,13 +233,17 @@ en:
           list: 'List'
       childcare_medical_history:
         allergy: "Allergies"
+        cc_allergies: "Allergies"
+        cc_medi_allergy: "Medication Allergies"
         food_intolerance: "Food Intolerances"
         chronic_health: "Chronic Health Issues"
         chronic_health_addl: "Chronic Health Additional Information"
         medications: "Medications Taken Regularly"
         immunizations: "Current Immunizations"
+        non_immunizations: "May include non-immunized children"
         health_misc: "Misc Health Issues"
         restrictions: "Participation Restrictions"
+        other_special_needs: "Other Special Needs"
         vip_meds: Medications Taken During Program Hours
         vip_dev: "Health And Developmental Needs"
         vip_strengths: "Strengths"
@@ -319,6 +323,9 @@ en:
         cs_vip_hobby: "Student’s Favorite Activity, Hobby Or Interest"
         cs_vip_buddy: "Someone In The Program To Place In The Same Group As Your Student During CruStu and/or The Getaway"
         cs_vip_addl_info: "Please Explain Anything Else You Would Like Us To Know About Your Student"
+        cs_allergies: "Allergies"
+        cs_chronic_health: "Chronic Health Issues"
+        cs_restrictions: "Participation Restrictions"
 
   active_admin:
     dashboard:
