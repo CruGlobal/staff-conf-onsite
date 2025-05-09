@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   post '/', to: "application#consume_okta"
 
+  post '/child_form_approval/:uid', to: 'external_forms#approve', as: :approve_external_form
+  delete '/child_form_approval/:uid', to: 'external_forms#disapprove', as: :disapprove_external_form
+
   namespace :precheck do
     get ':token', to: 'status#show', as: :status
     post ':token/confirmation', to: 'confirmation#create', as: :confirmation

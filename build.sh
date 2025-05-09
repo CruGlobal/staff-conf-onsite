@@ -16,6 +16,7 @@ docker buildx build $DOCKER_ARGS  \
     --build-arg SESSION_REDIS_HOST=$REDIS_IP \
     --build-arg STORAGE_REDIS_HOST=$REDIS_IP \
     --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
+    --build-arg EXTERNAL_API_KEY=$EXTERNAL_API_KEY \
     .
 rc=$?
 
