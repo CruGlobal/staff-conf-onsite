@@ -87,6 +87,7 @@ context.instance_exec do
     column do
       panel 'Forms Approval', class: 'forms_approved' do
         attributes_table_for child do
+          row :uuid 
           row :forms_approved
           row :forms_approved_by
         end
