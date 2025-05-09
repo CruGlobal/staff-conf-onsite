@@ -44,7 +44,7 @@ gem 'pundit', '~> 2.3.0'
 gem 'rack-cas', '~> 0.16.0' 
 gem 'rest-client', '~> 2.1.0' 
 gem 'ruby-saml', '~> 1.18.0' 
-
+gem 'sprockets-rails'
 # Assets
 # gem 'coffee-rails' 
 gem 'sassc-rails', '~> 2.1'
@@ -121,8 +121,7 @@ end
 group :development do
   # Development Server
   gem 'better_errors'                     # Better Errors
-  gem 'binding_of_caller'                 # Better Errors
-  gem 'spring', '~> 4.1' 
+  gem 'binding_of_caller'                 # Better Errors  
 
   # Disabled web-console due to server error `IPAddr::InvalidAddressError: invalid address`
   # gem 'web-console', '~> 2.0'
