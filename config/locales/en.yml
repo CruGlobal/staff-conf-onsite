@@ -63,6 +63,7 @@ en:
       child:
         forms_approved: "Forms Approved"
         forms_approved_by: "Approver Initials"
+        uuid: "Unique ID"
         childcare: "Kids Care Class"
         childcare_suffixes:
           childcare: "%{label} Cru Kids"
