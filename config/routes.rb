@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   authenticated_constraint = lambda do |request|
-    Authenticatable::SessionUser.new(request.session).signed_into_cas?
+    Authenticatable::SessionUser.new(request.session).signed_into_okta?
   end
 
   constraints authenticated_constraint do
