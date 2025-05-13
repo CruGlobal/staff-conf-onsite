@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_08_154443) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -78,6 +79,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
+    t.text "medi_allergy"
+    t.string "allergies", default: [], array: true
+    t.string "restriction_certified", default: [], array: true
+    t.integer "vip_developmental_age"
+    t.text "other_special_needs"
     t.text "cc_medi_allergy"
     t.string "cc_allergies", default: [], array: true
     t.string "non_immunizations", default: [], array: true
@@ -241,6 +247,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
+    t.string "med_allergy_multi", default: [], array: true
     t.string "crustu_forms_acknowledged", default: [], array: true
     t.string "cs_allergies", default: [], array: true
     t.string "cs_restriction_certified", default: [], array: true
@@ -428,12 +435,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.integer "spouse_id"
     t.string "forms_approved_by"
     t.string "tracking_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["childcare_id"], name: "index_people_on_childcare_id"
     t.index ["middle_name"], name: "index_people_on_middle_name"
     t.index ["seminary_id"], name: "index_people_on_seminary_id"
     t.index ["spouse_id"], name: "index_people_on_spouse_id"
     t.index ["student_number"], name: "index_people_on_student_number"
     t.index ["type"], name: "index_people_on_type"
+    t.index ["uuid"], name: "index_people_on_uuid", unique: true
   end
 
   create_table "precheck_email_tokens", id: false, force: :cascade do |t|
