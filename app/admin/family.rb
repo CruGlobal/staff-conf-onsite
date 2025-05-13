@@ -54,7 +54,7 @@ ActiveAdmin.register Family do
       filename: import_params[:file].path
     )
   
-    ImportPeopleFromSpreadsheetJob.perform_now(job.id)
+    ImportPeopleFromSpreadsheetJob.perform_later(job.id)
   
     redirect_to job
   end
