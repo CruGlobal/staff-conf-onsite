@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_08_154443) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_15_040956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -79,11 +79,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_08_154443) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
-    t.text "medi_allergy"
-    t.string "allergies", default: [], array: true
-    t.string "restriction_certified", default: [], array: true
-    t.integer "vip_developmental_age"
-    t.text "other_special_needs"
     t.text "cc_medi_allergy"
     t.string "cc_allergies", default: [], array: true
     t.string "non_immunizations", default: [], array: true
@@ -247,16 +242,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_08_154443) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
-    t.string "med_allergy_multi", default: [], array: true
-    t.string "crustu_forms_acknowledged", default: [], array: true
+    t.string "crustu_forms_acknowledged", default: ""
     t.string "cs_allergies", default: [], array: true
-    t.string "cs_restriction_certified", default: [], array: true
     t.text "cs_other_special_needs"
     t.text "cs_vip_staff_administered_meds"
     t.string "cs_chronic_health", default: [], array: true
     t.string "cs_medications"
     t.string "cs_vip_developmental_age"
     t.string "cs_restrictions"
+    t.string "cs_restriction_certified", default: [], array: true
+    t.text "cs_chronic_health_addl"
     t.index ["child_id"], name: "index_cru_student_medical_histories_on_child_id"
   end
 

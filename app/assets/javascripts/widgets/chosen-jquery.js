@@ -4,9 +4,29 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 $(function() {
-  $('body').on('DOMNodeInserted', event => setupChosenWidget(event.target));
-  return setupChosenWidget(document);
+  function setupWidgetIfNeeded(node) {
+    // Only act on elements, not text nodes, etc.
+    if (node.nodeType === 1) {
+      setupChosenWidget(node);
+    }
+  }
+
+  // Initialize on existing document
+  setupChosenWidget(document);
+
+  // Use MutationObserver to detect future inserts
+  const chosenObserver = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(setupWidgetIfNeeded);
+    });
+  });
+
+  chosenObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
 });
+
 
 
 var setupChosenWidget = scope => $('select', scope).each( function() {

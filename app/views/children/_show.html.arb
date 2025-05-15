@@ -45,23 +45,26 @@ context.instance_exec do
       if child.childcare_medical_history&.any_attribute_present? && child.age_group == :childcare
         panel 'Care/Camp Medical History', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
+            row :cc_allergies
             row :allergy
+            row :cc_medi_allergy
             row :food_intolerance
             row :chronic_health
             row :chronic_health_addl
             row :medications
             row :immunizations
+            row :non_immunizations
             row :health_misc
+            row :cc_other_special_needs
             row :restrictions
-            row :sunscreen_self
-            row :sunscreen_assisted
-            row :sunscreen_provided
           end
         end
 
         panel 'Care/Camp VIP Information', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
+            row :cc_vip_developmental_age
             row :vip_meds
+            row :cc_vip_staff_administered_meds
             row :vip_dev
             row :vip_strengths
             row :vip_challenges
@@ -74,6 +77,7 @@ context.instance_exec do
             row :vip_comm_directions
             row :vip_stress
             row :vip_stress_addl
+            row :cc_vip_sitting
             row :vip_stress_behavior
             row :vip_calm
             row :vip_hobby
@@ -135,20 +139,21 @@ context.instance_exec do
             row :food_allergies
             row :other_allergies
             row :health_concerns
-            row :asthma
-            row :migraines
-            row :severe_allergy
-            row :anorexia
-            row :diabetes
-            row :altitude
-            row :concerns_misc
+            row :cs_allergies
+            row :cs_other_special_needs  
+            row :cs_chronic_health_addl
             row :cs_health_misc
+            row :cs_medications
+            row :cs_restriction_certified
+            row :cs_restrictions
+            row :crustu_forms_acknowledged
           end
         end
 
         panel 'CruStu VIP Information', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
-            row :cs_vip_meds
+            row :cs_vip_developmental_age
+            row :cs_vip_staff_administered_meds
             row :cs_vip_dev
             row :cs_vip_strengths
             row :cs_vip_challenges

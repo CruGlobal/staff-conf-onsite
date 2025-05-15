@@ -20,8 +20,8 @@ class HousingUnit < ApplicationRecord
     where(housing_facility: HousingFacility.where(cafeteria: cafe))
   end)
 
-  scope :natural_order_asc, -> { order(natural_order) }
-  scope :natural_order_desc, -> { order(natural_order(:desc)) }
+  scope :natural_order_asc, -> { order(Arel.sql(natural_order)) }
+  scope :natural_order_desc, -> { order(Arel.sql(natural_order(:desc))) }
 
   class << self
     def hierarchy

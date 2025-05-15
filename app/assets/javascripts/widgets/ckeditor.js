@@ -75,7 +75,34 @@ const setupCkeditor = function() {
 };
 
 $(function() {
-  $('body').on('DOMNodeInserted', event => $('.ckeditor_input', event.target).each(setupCkeditor));
+  function initializeCkeditorOn(node) {
+    if (node.nodeType !== 1) return;
 
-  return $('.ckeditor_input').each(setupCkeditor);
+    // Handle the node itself if it matches
+    if ($(node).is('.ckeditor_input')) {
+      setupCkeditor.call(node);
+    }
+
+    // Handle any matching descendants
+    $(node).find('.ckeditor_input').each(function() {
+      setupCkeditor.call(this);
+    });
+  }
+
+  // Initialize on existing elements
+  $('.ckeditor_input').each(function() {
+    setupCkeditor.call(this);
+  });
+
+  // Watch for future inserts
+  const ckeObserver = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(initializeCkeditorOn);
+    });
+  });
+
+  ckeObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
 });
