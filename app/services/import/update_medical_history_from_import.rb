@@ -40,7 +40,8 @@ module Import
         vip_addl_info: @import.vip_addl_info,
         cc_restriction_certified: @import.cc_restriction_certified,
         cc_vip_sitting: @import.cc_vip_sitting,
-        cc_vip_developmental_age: @import.cc_vip_developmental_age      
+        cc_vip_developmental_age: @import.cc_vip_developmental_age,
+        cc_other_special_needs: @import.cc_other_special_needs
       )
       person.childcare_medical_history = childcare_medical_history
     end

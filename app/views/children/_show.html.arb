@@ -52,6 +52,7 @@ context.instance_exec do
             row :chronic_health
             row :chronic_health_addl
             row :medications
+            row :cc_vip_staff_administered_meds
             row :immunizations
             row :non_immunizations
             row :health_misc
@@ -64,7 +65,6 @@ context.instance_exec do
           attributes_table_for child.childcare_medical_history do
             row :cc_vip_developmental_age
             row :vip_meds
-            row :cc_vip_staff_administered_meds
             row :vip_dev
             row :vip_strengths
             row :vip_challenges
@@ -140,10 +140,12 @@ context.instance_exec do
             row :other_allergies
             row :health_concerns
             row :cs_allergies
-            row :cs_other_special_needs  
+            row :cs_other_special_needs
+            row :cs_chronic_health
             row :cs_chronic_health_addl
             row :cs_health_misc
             row :cs_medications
+            row :cs_vip_staff_administered_meds
             row :cs_restriction_certified
             row :cs_restrictions
             row :crustu_forms_acknowledged
@@ -153,7 +155,6 @@ context.instance_exec do
         panel 'CruStu VIP Information', class: 'medical_history' do
           attributes_table_for child.cru_student_medical_history do
             row :cs_vip_developmental_age
-            row :cs_vip_staff_administered_meds
             row :cs_vip_dev
             row :cs_vip_strengths
             row :cs_vip_challenges
