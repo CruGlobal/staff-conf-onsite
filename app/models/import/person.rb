@@ -94,7 +94,7 @@ module Import
       restrictions: 'Forms CC MH Restrictions',
       medications_by_staff: 'Forms CC MH MedicationsByStaff',
       crustu_forms_acknowledged: 'crustu_forms_acknowledged',
-      other_special_needs: 'Forms CC MH Special Needs',
+      cc_other_special_needs: 'Forms CC MH Special Needs',
 
       # CC VIP
       # vip_meds: 'Forms CC VIP Meds',
@@ -170,7 +170,7 @@ module Import
       # anorexia: 'Forms CS MH Anorexia',
       # diabetes: 'Forms CS MH Diabetes',
       # altitude: 'Forms CS MH Altitude',
-      concerns_misc: 'Forms CS MH Chronic Health Addl',
+      cs_chronic_health_addl: 'Forms CS MH Chronic Health Addl',
       cs_health_misc: 'Forms CS MH Health Misc',
       # cs_vip_meds: 'Forms CS VIP Meds',
       # cs_vip_dev: 'Forms CS VIP Dev',
