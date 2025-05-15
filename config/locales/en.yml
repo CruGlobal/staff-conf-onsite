@@ -426,7 +426,7 @@ en:
             Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
         eligibility_errors_with_form:
           closing_message_html:
-            We want to help you receive PreCheck to expedite your check-in at Cru22. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
+            We want to help you receive PreCheck to expedite your check-in at Cru25. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
           request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
@@ -444,13 +444,13 @@ en:
                 <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team22 staff member will be in touch with you.</li>
               </ul>
             children_forms_approved?_html:
-              At this time, you have <b>incomplete Cru22 Kids forms</b>, which prevents eligibility for PreCheck. These can still be submitted online. Please refer to the DocuSign email packet in your email inbox to reference the remaining forms needed. <b>If you haven't received a DocuSign packet or if it is going to the wrong email box, please notify us at cru22.crukids@cru.org so that we can make sure a packet is sent.</b>
+              At this time, you have <b>incomplete Cru25 Kids forms</b>, which prevents eligibility for PreCheck. These can still be submitted online. Please refer to the DocuSign email packet in your email inbox to reference the remaining forms needed. <b>If you haven't received a DocuSign packet or if it is going to the wrong email box, please notify us at Cru25.crukids@cru.org so that we can make sure a packet is sent.</b>
               <br>
               <br>
               Once the forms are signed and submitted using the steps outlined in the email, the CruKids team will notify you that they are complete. You have up to 24 hours before your arrival to complete this step and become eligible for PreCheck.
       precheck_eligible:
         financial_summary_preamble_html:
-          Please carefully review your Cru22 details. If your personal/family registration information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck will only be available until 10:00 a.m. CT the day before your registered arrival date.
+          Please carefully review your Cru25 details. If your personal/family registration information and conference cost breakdown are correct, click “Yes, I accept my choices and charges”. This opportunity to receive PreCheck will only be available until 10:00 a.m. CT the day before your registered arrival date.
           <br>
           <br>
           If you see something incorrect, or something has changed since registering, click “No, I need to request changes.”
@@ -507,14 +507,14 @@ en:
         <br>
         <br>
         We look forward to seeing you in Milwaukee this summer!
-      onsite_confirmed: "Welcome to Cru22"
+      onsite_confirmed: "Welcome to Cru25"
       summary_preamble: "Below is your conference registration summary."
       contact_list_preamble: "For questions regarding:"
       contact_list_html: '<ul>
-          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru22.CruKids@cru.org">Cru22.CruKids@cru.org</a> </li>
-          <li>CruStu, please contact <a href="mailto:Cru22.CruStu@cru.org">Cru22.CruStu@cru.org</a></li>
-          <li>Finances, please contact <a href="mailto:Cru22.Finance@cru.org">Cru22.Finance@cru.org</a></li>
-          <li>Anything else, please contact <a href="mailto:Cru22.Info@cru.org">Cru22.Info@cru.org</a></li>
+          <li>Kids Care / Kids Camp, please contact <a href="mailto:Cru25.CruKids@cru.org">Cru25.CruKids@cru.org</a> </li>
+          <li>CruStu, please contact <a href="mailto:Cru25.CruStu@cru.org">Cru25.CruStu@cru.org</a></li>
+          <li>Finances, please contact <a href="mailto:Cru25.Finance@cru.org">Cru25.Finance@cru.org</a></li>
+          <li>Anything else, please contact <a href="mailto:Cru25.Info@cru.org">Cru25.Info@cru.org</a></li>
         </ul>'
       signature_html: "<p>Sincerely,<br><br>%{conference} Team</p>"
 
@@ -522,7 +522,7 @@ en:
     confirm_charges:
       subject: "%{conference} - PreCheck Eligible"
       body_html:
-        <p>Good news! Your Cru22 registration is <b>eligible for PreCheck.</b>
+        <p>Good news! Your Cru25 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
         You can confirm your conference details ahead of time and qualify for express check-in at the Wisconsin Center. We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the downtown Milwaukee area.
@@ -549,11 +549,11 @@ en:
       Team22
       <br>
       <br>
-      P.S. We want to help you receive PreCheck to expedite your check-in at Cru22. We will send a reminder each day until you have successfully resolved your conference details.
+      P.S. We want to help you receive PreCheck to expedite your check-in at Cru25. We will send a reminder each day until you have successfully resolved your conference details.
     video_html:
-      Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/cru22/precheck/">here</a>.
+      Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/Cru25/precheck/">here</a>.
     not_eligible_preamble_html:
-      Team22 is pleased to offer you <b>PreCheck</b> at Cru22.
+      Team22 is pleased to offer you <b>PreCheck</b> at Cru25.
       This allows you to confirm your conference details ahead of time for express check-in in Milwaukee.
       <br>
       We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in and enjoying the Milwaukee area.
@@ -568,7 +568,7 @@ en:
         <br>
         When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck with the opportunity to review and confirm your conference information.
       children_forms_approved?_html:
-        At this time, you have <b>incomplete Cru22 Kids forms</b> which prevents eligibility for PreCheck.
+        At this time, you have <b>incomplete Cru25 Kids forms</b> which prevents eligibility for PreCheck.
         <br>
         We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
