@@ -4,7 +4,9 @@ form.instance_exec do
     collection = [:childcare_medical_history, object.childcare_medical_history]
     has_many :childcare_medical_history, heading: nil, new_record: 'Add New Care/Camp VIP Information',
              class: 'has_one', collection: collection do |s|
+      s.input :cc_vip_developmental_age, input_html: { rows: 5 }
       s.input :vip_meds, input_html: { rows: 5 }
+      s.input :cc_vip_staff_administered_meds, input_html: { rows: 5 }
       s.input :vip_dev, input_html: { rows: 5 }
       s.input :vip_strengths, input_html: { rows: 5 }
       s.input :vip_challenges, input_html: { rows: 5 }
@@ -17,6 +19,7 @@ form.instance_exec do
       s.input :vip_comm_directions, input_html: { rows: 5 }
       s.input :vip_stress, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:vip_stress]
       s.input :vip_stress_addl, input_html: { rows: 5 }
+      s.input :cc_vip_sitting, input_html: { rows: 5 }
       s.input :vip_stress_behavior, input_html: { rows: 5 }
       s.input :vip_calm, input_html: { rows: 5 }
       s.input :vip_hobby, input_html: { rows: 5 }
