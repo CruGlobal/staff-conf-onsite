@@ -233,7 +233,7 @@ en:
           html: 'HTML'
           list: 'List'
       childcare_medical_history:
-        allergy: "Allergies"
+        allergy: "Other Allergy Information"
         cc_allergies: "Allergies"
         cc_medi_allergy: "Medication Allergies"
         food_intolerance: "Food Intolerances"
@@ -244,7 +244,7 @@ en:
         non_immunizations: "May include non-immunized children"
         health_misc: "Misc Health Issues"
         restrictions: "Participation Restrictions"
-        other_special_needs: "Other Special Needs"
+        cc_other_special_needs: "Other Special Needs"
         vip_meds: Medications Taken During Program Hours
         vip_dev: "Health And Developmental Needs"
         vip_strengths: "Strengths"
@@ -266,6 +266,9 @@ en:
         sunscreen_self: "Can apply sunscreen to self"
         sunscreen_assisted: "Can be assisted to apply sunscreen"
         sunscreen_provided: "OK to use Care/Camp sunscreen"
+        cc_vip_developmental_age: "Developmental Age"
+        cc_vip_staff_administered_meds: "Medications By Staff"
+        cc_vip_sitting: "How Your Child Manages Sitting In Long Meetings (2-3 hours)"
       cru_student_medical_history:
         parent_agree: "Parent Agrees"
         gtky_lunch: "Their Own Lunch"
@@ -327,7 +330,13 @@ en:
         cs_allergies: "Allergies"
         cs_chronic_health: "Chronic Health Issues"
         cs_restrictions: "Participation Restrictions"
-
+        crustu_forms_acknowledged: "Acknowledges That The Forms Are Complete"
+        cs_chronic_health_addl: "Chronic Health Additional Information"
+        cs_vip_staff_administered_meds: "Medications By Staff"
+        cs_other_special_needs: "Other Special Needs"
+        cs_restriction_certified: "Certify restrictions"
+        cs_vip_developmental_age: "Developmental Age"
+        cs_medications: "Medications Taken Regularly"
   active_admin:
     dashboard:
       title: "Dashboard"
