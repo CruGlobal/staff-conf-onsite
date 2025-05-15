@@ -25,9 +25,9 @@ class SeedDevelopmentRecords
   # +test/fixtures/+
   CONFERENCES = [
     'Coach or Instructor',
-    'Cru22',
-    'Cru25',
+    'Cru25',    
     'Legacy',
+    'Team25',
     'Team22',
     'Institute of Biblical Studies TA',
     'Legacy Track (Staff 60 years of age and older)',
@@ -1060,7 +1060,8 @@ class SeedDevelopmentRecords
     'WWC',
     'YALE',
     'ZAF',
-    'ZAF4'
+    'ZAF4',
+    'CMMO0503'
   ].freeze
 
   def initialize

@@ -66,8 +66,8 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     @eligible_family.update!(precheck_status: :pending_approval)
     @eligible_family.check_in!
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'Welcome to Cru22'
-    assert has_no_text? 'received Cru22 PreCheck'
+    assert_text 'Welcome to Cru25'
+    assert has_no_text? 'received Cru25 PreCheck'
   end
 
   test '#show too late for precheck' do

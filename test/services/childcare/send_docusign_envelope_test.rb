@@ -10,7 +10,7 @@ class Childcare::SendDocusignEnvelopeTest < ServiceTestCase
   end
 
   stub_user_variable child_age_cutoff: 6.months.from_now.to_date,
-                     conference_id: 'Cru22'
+                     conference_id: 'Cru25'
 
   test 'valid payload' do
     VCR.use_cassette('docusign/childcare_send_valid_payload') do
