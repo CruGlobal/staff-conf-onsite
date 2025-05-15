@@ -28,9 +28,9 @@
 //= require widgets/index-per-page-selector
 //
 //  Telephone Numbers ------------------
-//= require intlTelInput
-//= require libphonenumber/utils
-//= require widgets/intl-tel-input-rails
+// require intlTelInput
+// require libphonenumber/utils
+// require widgets/intl-tel-input-rails
 //
 //  Money ------------------------------
 //= require jquery.price_format.2.0
@@ -72,6 +72,7 @@
 //= require acts_as_list/reorder
 
 //  Fetch data for housing lists (this is needed on multiple pages)
+console.log('Loading housing unit hierarchy and families');
 window.$menu_loaded = $.get('/housing_units_list', function(data) {
   window.$housing_unit_hierarchy = data.housing;
   return window.$housing_families = data.families;
