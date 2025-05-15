@@ -91,8 +91,7 @@ module Import
       immunizations: 'Forms CC MH Immunizations',
       non_immunizations: 'Forms CC MH non-immunized',
       health_misc: 'Forms CC MH Health Misc',
-      restrictions: 'Forms CC MH Restrictions',
-      medications_by_staff: 'Forms CC MH MedicationsByStaff',
+      restrictions: 'Forms CC MH Restrictions',    
       crustu_forms_acknowledged: 'crustu_forms_acknowledged',
       cc_other_special_needs: 'Forms CC MH Special Needs',
 
@@ -103,7 +102,7 @@ module Import
       vip_challenges: 'Forms CC VIP Challenges',
       vip_mobility: 'Forms CC VIP Mobility',
       # vip_walk: 'Forms CC VIP Walk',
-      cc_vip_developmental_age: 'Forms CS VIP child_dev_age',
+      cc_vip_developmental_age: 'Forms CC VIP child_dev_age',
       cc_vip_staff_administered_meds: 'Forms CC MH MedicationsByStaff',
       # vip_comm: 'Forms CC VIP Comm',
       # vip_comm_addl: 'Forms CC VIP Comm Addl',
@@ -125,8 +124,7 @@ module Import
     
       # parent_agree: 'Forms CS ParentAgree',
       # gtky_lunch: 'Forms CS GTKY Lunch',
-      cs_chronic_health: 'Forms CS MH Chronic Health',
-      cs_medications_by_staff: 'Forms CS MH MedicationsByStaff',
+      cs_chronic_health: 'Forms CS MH Chronic Health',      
       cs_other_special_needs: 'Forms CS MH Special Needs',
       cs_restriction_certified: 'Forms CS MH Certify',
       cs_restrictions: 'Forms CS MH Restrictions',
