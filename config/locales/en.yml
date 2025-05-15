@@ -377,7 +377,7 @@ en:
           Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
           <br>
           <br>
-          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+          Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
           <br>
           <br>
           We look forward to seeing you in Milwaukee this summer!
@@ -388,14 +388,14 @@ en:
           Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
           <br>
           <br>
-          Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+          Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
           <br>
           <br>
           We look forward to seeing you in Milwaukee this summer!
     rejection:
       create:
         title: "We have received your request."
-        body: "Thank you for contacting us. Team22 is working hard to answer all your questions and we hope to get back to you within 24-48 hours."
+        body: "Thank you for contacting us. Team25 is working hard to answer all your questions and we hope to get back to you within 24-48 hours."
         message: "The message you sent was:"
     status:
       show:
@@ -403,7 +403,7 @@ en:
       not_precheck_eligible:
         too_late_for_precheck:
           apology_legacy_html:
-            We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
+            We are sorry. PreCheck has closed and Team25 is working hard to prepare for your arrival.
             <br>
             <br>
             Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
@@ -412,9 +412,9 @@ en:
             Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
             <br>
             <br>
-            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+            Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
           apology_html:
-            We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.
+            We are sorry. PreCheck has closed and Team25 is working hard to prepare for your arrival.
             <br>
             <br>
             Please don’t worry. You will still have a great check-in experience with the ability to confirm your information in person and get answers to your questions.
@@ -423,10 +423,10 @@ en:
             Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
             <br>
             <br>
-            Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+            Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
         eligibility_errors_with_form:
           closing_message_html:
-            We want to help you receive PreCheck to expedite your check-in at Cru25. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team22 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
+            We want to help you receive PreCheck to expedite your check-in at Cru25. <b>However, if you do not receive PreCheck clearance, do not worry!</b> When you arrive at the Wisconsin Center, look for the signs and Team25 members who will direct you to the check-in area. Our team looks forward to serving you and answering your questions.
           changes_requested_preamble: "You've submitted a change request, your registration is undergoing review by our team."
           not_precheck_eligible_preamble: 'We are missing some conference details that will keep you from receiving PreCheck.'
           request_changes_preamble: "If you would like to request help or to send us a message, please type a message in the box below and click Submit Request and one of our team members will get in touch with you."
@@ -441,7 +441,7 @@ en:
               <ul>
                 <li>If you are an <b>employee of Cru in any capacity</b>, please type your employee ID (staff account number) or ministry chartfield in the message box below so that we can verify it and add it to your registration.</li>
                 <li>If you don’t have a chargeable staff account number or ministry chartfield that you can provide now, we can take payment <b> by credit card</b> at check-in when you arrive in Milwaukee.</li>
-                <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team22 staff member will be in touch with you.</li>
+                <li>If you have <b>another financial question</b> or would like to request help, type a message in the box below, click ‘Submit Request’ and a Team25 staff member will be in touch with you.</li>
               </ul>
             children_forms_approved?_html:
               At this time, you have <b>incomplete Cru25 Kids forms</b>, which prevents eligibility for PreCheck. These can still be submitted online. Please refer to the DocuSign email packet in your email inbox to reference the remaining forms needed. <b>If you haven't received a DocuSign packet or if it is going to the wrong email box, please notify us at Cru25.crukids@cru.org so that we can make sure a packet is sent.</b>
@@ -456,7 +456,7 @@ en:
           If you see something incorrect, or something has changed since registering, click “No, I need to request changes.”
         confirm_precheck: "Yes, I accept my choices and charges"
         confirm_precheck_confirm: "Are you sure you reviewed your details and want to confirm your PreCheck?"
-        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team22 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 10:00 a.m CT the day before your registered arrival date, and we will do our best to resolve your situation before you arrive in Milwaukee."
+        request_changes_preamble: "In the message box, please type the reason or situation that caused you to request a change so that one of our Team25 staff can help. Click the “Submit Request” button to notify us. You are still eligible to receive PreCheck until 10:00 a.m CT the day before your registered arrival date, and we will do our best to resolve your situation before you arrive in Milwaukee."
         request_hotel_confirmation_html: "<b>Please tell us where you chose to stay in Milwaukee.</b><br><small>(This information will help with future conference planning.)</small>"
         request_hotel_confirmation_other: "Please enter where you chose to stay in Milwaukee (Required)"
         request_changes_placeholder: "Include your change request or message in this box"
@@ -492,7 +492,7 @@ en:
         Check In will be held at the Hyatt Regency Milwaukee on July 13th, between 4 p.m. and 7 p.m. CT.
         <br>
         <br>
-        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+        Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
         <br>
         <br>
         We look forward to seeing you in Milwaukee this summer!
@@ -503,7 +503,7 @@ en:
         Check In will be held at the Wisconsin Center on July 16th, between 11 a.m. and 6 p.m. CT. (Enter through the main entrance at the corner of W. Wisconsin Ave. and Vel R. Phillips Ave.)
         <br>
         <br>
-        Team22 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team22 members who will point you in the right direction.
+        Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
         <br>
         <br>
         We look forward to seeing you in Milwaukee this summer!
@@ -546,14 +546,14 @@ en:
       <br>
       Thank you,
       <br>
-      Team22
+      Team25
       <br>
       <br>
       P.S. We want to help you receive PreCheck to expedite your check-in at Cru25. We will send a reminder each day until you have successfully resolved your conference details.
     video_html:
       Watch a fun video, learn more about the PreCheck process and see FAQ <a href="https://www.cru.org/Cru25/precheck/">here</a>.
     not_eligible_preamble_html:
-      Team22 is pleased to offer you <b>PreCheck</b> at Cru25.
+      Team25 is pleased to offer you <b>PreCheck</b> at Cru25.
       This allows you to confirm your conference details ahead of time for express check-in in Milwaukee.
       <br>
       We desire for you to receive PreCheck so that your time can be spent connecting with friends, settling in and enjoying the Milwaukee area.
