@@ -28,7 +28,6 @@ class SeedDevelopmentRecords
     'Cru25',    
     'Legacy',
     'Team25',
-    'Team22',
     'Institute of Biblical Studies TA',
     'Legacy Track (Staff 60 years of age and older)',
     'Legal Internship Participant',

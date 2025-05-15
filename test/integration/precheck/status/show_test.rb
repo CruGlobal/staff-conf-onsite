@@ -78,7 +78,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
 
     travel_to 7.days.from_now.beginning_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-      assert_text 'We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.'
+      assert_text 'We are sorry. PreCheck has closed and Team25 is working hard to prepare for your arrival.'
     end
   end
 end
