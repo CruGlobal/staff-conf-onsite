@@ -151,27 +151,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       {
         label: 'ChildPreferredFullName',
         value: "#{child.name_tag_first_name} #{child.name_tag_last_name}"
-      },
-      #{
-      #   label: 'Week1',
-      #   value: check_if_in_list(child.childcare_weeks, 0)
-      # },
-      # {
-      #   label: 'Week2',
-      #   value: check_if_in_list(child.childcare_weeks, 1)
-      # },
-      # {
-      #   label: 'Week3',
-      #   value: check_if_in_list(child.childcare_weeks, 2)
-      # },
-      # {
-      #   label: 'Week4',
-      #   value: check_if_in_list(child.childcare_weeks, 3)
-      # },
-      # {
-      #   label: 'SC',
-      #   value: check_if_in_list(child.childcare_weeks, 4)
-      # },
+      },      
       {
         label: '\\*Parent1FullName',
         value: recipient.full_name(skip_middle: true)
@@ -210,7 +190,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: '\\*HomeCounty',
-        value: child.family&.county
+        value: get_county(child)
       },
       {
         label: '\\*HomeState',
@@ -347,12 +327,12 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_yes(mh.non_immunizations&.join)
       },
       {
-        label: 'Forms-CC-MH-Certify-No',
-        value: checkmark_if_no(mh.cc_restriction_certified&.join)
+        label: 'Forms-CC-MH-Certify-No',        
+        value: checkmark_if_value(mh.cc_restriction_certified, 'CruKids_certify_NOres')
       },
       {
         label: 'Forms-CC-MH-Certify-Yes',
-        value: checkmark_if_yes(mh.cc_restriction_certified&.join)
+        value: checkmark_if_value(mh.cc_restriction_certified, 'CruKids_certify_WITHres')
       },
       {
         label: 'Forms-CC-MH-Certify-Restrictions',
@@ -364,7 +344,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-ADHD',
-        value: check_if_in_list(mh.health_misc, 'ADHD/ADD')
+        value: check_if_in_list(mh.health_misc, 'ADHD')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Developmental-delay',
@@ -372,7 +352,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Other-special-need',
-        value: check_if_in_list(mh.health_misc, 'Other special need')
+        value: check_if_in_list(mh.health_misc, 'Other')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Behavioral-challenges',
@@ -380,7 +360,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Autism',
-        value: check_if_in_list(mh.health_misc, 'Disability')
+        value: check_if_in_list(mh.health_misc, 'Autism')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Extra-assistance',
@@ -396,7 +376,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CC-MH-Health-Misc-Other',
-        value: check_if_in_list(mh.health_misc, 'Other special need')
+        value: check_if_in_list(mh.health_misc, 'Other')
       },
       {
         label: 'Forms-CC-MH-Health-Misc-OtherSpecialNeeds',
@@ -798,7 +778,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Chronic-Migraine',
-        value: check_if_in_list(smh.cs_chronic_health, 'Migraine')
+        value: check_if_in_list(smh.cs_chronic_health, 'Migraines')
       },
       {
         label: 'Forms-CS-MH-Chronic-SevereAllergy',
@@ -866,7 +846,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Health-Misc-ADHD',
-        value: check_if_in_list(smh.cs_health_misc, 'ADHD/ADD')
+        value: check_if_in_list(smh.cs_health_misc, 'ADHD')
       },
       {
         label: 'Forms-CS-MH-Health-Misc-DownSyndrome',
@@ -886,11 +866,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
       },
       {
         label: 'Forms-CS-MH-Certify-No',
-        value: checkmark_if_no(smh.cs_restriction_certified&.join)
+        value: checkmark_if_value(smh.cs_restriction_certified, 'CruKids_certify_NOres')
       },
       {
         label: 'Forms-CS-MH-Certify-Yes',
-        value: checkmark_if_yes(smh.cs_restriction_certified&.join)
+        value: checkmark_if_value(smh.cs_restriction_certified, 'CruKids_certify_WITHres')
       },
       {
         label: 'Forms-CS-MH-Certify-Restrictions',
@@ -1090,5 +1070,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
     attribute.include?('NO') ? 'X' : ''
   end
+
+  def checkmark_if_value(attribute, expected_value)
+    return '' if attribute.blank?
+
+    attribute.to_s.casecmp(expected_value.to_s).zero? ? 'X' : ''
+  end
+
+  def get_county(child)
+    child.county.presence || child.family&.county
+  end 
 end
 # rubocop:enable Metrics/ClassLength

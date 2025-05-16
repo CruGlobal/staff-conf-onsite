@@ -35,10 +35,12 @@ context.instance_exec do
           row(:childcare) do |c|
             link_to chilcare_spaces_label(c.childcare), c.childcare if c.childcare
           end
-          row :childcare_deposit
+          row :childcare_late_fee
+          row :childcare_cancellation_fee
           row(:childcare_weeks) { |c| childcare_weeks_list(c) }
           row(:hot_lunch_weeks) { |c| hot_lunch_weeks_list(c) }
           row :childcare_comment
+          row :county
         end
       end
 
@@ -63,8 +65,7 @@ context.instance_exec do
 
         panel 'Care/Camp VIP Information', class: 'medical_history' do
           attributes_table_for child.childcare_medical_history do
-            row :cc_vip_developmental_age
-            row :vip_meds
+            row :cc_vip_developmental_age            
             row :vip_dev
             row :vip_strengths
             row :vip_challenges

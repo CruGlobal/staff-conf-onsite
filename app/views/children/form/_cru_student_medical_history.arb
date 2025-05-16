@@ -19,10 +19,10 @@ form.instance_exec do
       s.input :crustu_forms_acknowledged, as: :radio,
                                collection: CruStudentMedicalHistory.single_selection_collections[:crustu_forms_acknowledged]
       s.input :cs_medications
-      s.input :cs_restriction_certified, as: :check_boxes,
+      s.input :cs_restriction_certified, as: :radio,
                                    collection: {
-                                     'I certify with reservations' => 'CruKids_certify_WITHres',
-                                     'I certify without reservations' => 'CruKids_certify_NOres'
+                                     'Certified Participation WITH Restrictions' => 'CruKids_certify_WITHres',
+                                     'Certified Participation NO Restrictions' => 'CruKids_certify_NOres'
                                    }
       s.input :cs_restrictions, input_html: { rows: 5 }
     end

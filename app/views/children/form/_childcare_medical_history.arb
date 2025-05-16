@@ -11,10 +11,16 @@ form.instance_exec do
       s.input :chronic_health, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:chronic_health]
       s.input :chronic_health_addl, input_html: { rows: 5 }
       s.input :medications, input_html: { rows: 5 }
+      s.input :cc_vip_staff_administered_meds, input_html: { rows: 5 }
       s.input :immunizations, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:immunizations]
       s.input :non_immunizations, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:immunizations] 
       s.input :health_misc, as: :check_boxes, collection: ChildcareMedicalHistory.multi_selection_collections[:health_misc]
       s.input :cc_other_special_needs, input_html: { rows: 5 }
+      s.input :cc_restriction_certified, as: :radio,
+                              collection: {
+                                'Certified Participation WITH Restrictions' => 'CruKids_certify_WITHres',
+                                'Certified Participation NO Restrictions' => 'CruKids_certify_NOres'
+                              }
       s.input :restrictions, input_html: { rows: 5 }      
     end
   end

@@ -18,7 +18,8 @@ module Import
           needs_bed: @import.needs_bed,
           grade_level: @import.grade_level,
           # childcare_deposit: @import.childcare_deposit,
-          childcare_comment: @import.childcare_comment
+          childcare_comment: @import.childcare_comment,
+          county: @import.county
         )
 
         person.childcare_weeks = childcare_weeks(@import.childcare_weeks)
