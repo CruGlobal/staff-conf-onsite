@@ -17,7 +17,7 @@ ActiveAdmin.register Child do
     :needs_bed, :grade_level, :childcare_id, :arrived_at, :departed_at,
     :name_tag_first_name, :name_tag_last_name, :childcare_deposit,
     :childcare_comment, :rec_pass_start_at, :rec_pass_end_at, :forms_approved, :forms_approved_by,
-    :tshirt_size,
+    :tshirt_size, :childcare_cancellation_fee, :childcare_late_fee, :county,
     childcare_weeks: [], hot_lunch_weeks: [], 
     cost_adjustments_attributes: %i[
       id _destroy description person_id price percent cost_type
@@ -28,7 +28,7 @@ ActiveAdmin.register Child do
       vip_comm_addl vip_comm_small vip_comm_large vip_comm_directions vip_stress_addl
       vip_stress_behavior vip_calm vip_hobby vip_buddy vip_addl_info sunscreen_self sunscreen_assisted
       sunscreen_provided cc_allergies cc_vip_developmental_age cc_medi_allergy cc_vip_staff_administered_meds non_immunizations
-      cc_vip_sitting
+      cc_vip_sitting cc_restriction_certified
     ] << ChildcareMedicalHistory.multi_selection_collections.transform_values { |_| [] },
     cru_student_medical_history_attributes: %i[
       id _destroy date parent_agree gtky_lunch gtky_signout gtky_sibling_signout gtky_sibling cs_allergies cs_chronic_health

@@ -13,8 +13,7 @@ class CruStudentMedicalHistory < ApplicationRecord
                              cs_vip_stress: ['Noisy spaces', 'Crowded spaces', 'Loud noises', 'Heights', 'Changing schedule', 'Other', 'None of the above'],
                              cs_allergies: ['Eggs', 'Milk', 'Tree nuts', 'Fish/Shellfish', 'Peanuts', 'Wheat',
                                             'Insect sting', 'Pollen', 'Medications', 'Latex', 'Soy', 'Other', 'None of the above'],
-                             cs_chronic_health: ['Asthma', 'Anorexia', 'Diabetes', 'Migraines', 'Epilepsy', 'Severe allergy', 'Other', 'None of the above'],
-                             cs_restriction_certified: %w[CruKids_certify_WITHres CruKids_certify_NOres]
+                             cs_chronic_health: ['Asthma', 'Anorexia', 'Diabetes', 'Migraines', 'Epilepsy', 'Severe allergy', 'Other', 'None of the above']
 
   single_selection_attributes gtky_lunch: ['YES lunch on their own', 'NO lunch on their own'],
                               gtky_signout: %w[YES NO],
@@ -23,5 +22,6 @@ class CruStudentMedicalHistory < ApplicationRecord
                               gtky_musical: %w[Yes No],
                               gtky_allergies: %w[Yes No],
                               health_concerns: %w[Yes No],
-                              crustu_forms_acknowledged: %w[Yes No]
+                              crustu_forms_acknowledged: %w[Yes No],
+                              cs_restriction_certified: %w[CruKids_certify_WITHres CruKids_certify_NOres]
 end
