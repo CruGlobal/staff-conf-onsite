@@ -17,9 +17,11 @@ module Import
         person.assign_attributes(
           needs_bed: @import.needs_bed,
           grade_level: @import.grade_level,
-          # childcare_deposit: @import.childcare_deposit,
           childcare_comment: @import.childcare_comment,
-          county: @import.county
+          county: @import.county,
+          childcare_cancellation_fee: @import.childcare_cancellation_fee,
+          childcare_late_fee: @import.childcare_late_fee,
+          tracking_id: @import.tracking_id
         )
 
         person.childcare_weeks = childcare_weeks(@import.childcare_weeks)
