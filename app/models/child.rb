@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class Child < Person
   include FamilyMember
 
@@ -84,6 +85,18 @@ class Child < Person
 
     def age1_index
       GRADE_LEVELS.index('age1')
+    end
+
+    def kids_care_grades
+      GRADE_LEVELS.first(gradeAge5Kindergarten_index + 1)
+    end
+
+    def kids_camp_grades
+      GRADE_LEVELS[grade1_index..grade6_index]
+    end
+
+    def grade1_index
+      GRADE_LEVELS.index('grade1')
     end
   end
 
@@ -204,3 +217,4 @@ class Child < Person
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

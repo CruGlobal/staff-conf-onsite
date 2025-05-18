@@ -84,11 +84,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
 
   # rubocop:disable Metrics/PerceivedComplexity
   def determine_docusign_template
-    if childcare_grade?
+    if Child.kids_care_grades.include?(child.grade_level)
       childcare_no_misc_health? ? KIDS_CARE_NO_VIP_TEMPLATE : KIDS_CARE_WITH_VIP_TEMPLATE
-    elsif childcare_camp_grade?
+    elsif Child.kids_camp_grades.include?(child.grade_level)
       childcare_no_misc_health? ? KIDS_CAMP_NO_VIP_TEMPLATE : KIDS_CAMP_WITH_VIP_TEMPLATE
-    elsif senior_grade?
+    elsif Child.senior_grade_levels.include?(child.grade_level)
       senior_no_misc_health? ? CRUSTU_NO_VIP_TEMPLATE : CRUSTU_WITH_VIP_TEMPLATE
     else
       raise SendEnvelopeError, 'There is an error on the child record, possibly incomplete details'
@@ -96,21 +96,9 @@ class Childcare::SendDocusignEnvelope < ApplicationService
   end
   # rubocop:enable Metrics/PerceivedComplexity
 
-  def childcare_grade?
-    Child.childcare_grade_levels.include?(child.grade_level)
-  end
-
   def childcare_no_misc_health?
     misc = child&.childcare_medical_history&.health_misc
     misc.blank? || misc == ['None of the above']
-  end
-
-  def childcare_camp_grade?
-    Child.childcare_camp_grade_levels.include?(child.grade_level)
-  end
-
-  def senior_grade?
-    Child.senior_grade_levels.include?(child.grade_level)
   end
 
   def senior_no_misc_health?

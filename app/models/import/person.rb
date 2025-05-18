@@ -59,7 +59,8 @@ module Import
     
       grade_level: 'Age Group',
       needs_bed: 'Child Needs Dorm Bed',
-      # childcare_deposit: 'Cru Kids Deposit',
+      childcare_late_fee: 'Cru Kids Late Fee',
+      childcare_cancellation_fee: 'Cru Kids Cancellation Fee',
       childcare_weeks: 'Child Program Weeks',
       hot_lunch_weeks: 'Hot Lunch Weeks',
       childcare_comment: 'Cru Kids Comments',
@@ -283,6 +284,14 @@ module Import
       @needs_bed = true_string?(str)
     end
 
+    def childcare_late_fee=(str)
+      @childcare_late_fee = true_string?(str)
+    end
+
+    def childcare_cancellation_fee=(str)
+      @childcare_cancellation_fee = true_string?(str)
+    end
+    
     def grade_level=(group)
       @grade_level =
         if (match = AGE_GROUPS[group])

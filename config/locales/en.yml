@@ -270,6 +270,9 @@ en:
         cc_vip_staff_administered_meds: "Medications By Staff"
         cc_vip_sitting: "How Your Child Manages Sitting In Long Meetings (2-3 hours)"
         cc_restriction_certified: "Certify restrictions"
+        cc_restriction_certified_values:
+          CruKids_certify_WITHres: "Certified Participation WITH Restrictions"
+          CruKids_certify_NOres: "Certified Participation NO Restrictions"
       cru_student_medical_history:
         parent_agree: "Parent Agrees"
         gtky_lunch: "Their Own Lunch"
@@ -336,6 +339,9 @@ en:
         cs_vip_staff_administered_meds: "Medications By Staff"
         cs_other_special_needs: "Other Special Needs"
         cs_restriction_certified: "Certify restrictions"
+        cs_restriction_certified_values:
+          CruKids_certify_WITHres: "Certified Participation WITH Restrictions"
+          CruKids_certify_NOres: "Certified Participation NO Restrictions"
         cs_vip_developmental_age: "Developmental Age"
         cs_medications: "Medications Taken Regularly"
   active_admin:

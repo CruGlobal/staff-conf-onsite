@@ -59,7 +59,14 @@ context.instance_exec do
             row :non_immunizations
             row :health_misc
             row :cc_other_special_needs
-            row :restrictions
+            cc_values = Array(resource.childcare_medical_history&.cc_restriction_certified)
+            keys = %w[CruKids_certify_WITHres CruKids_certify_NOres]
+            keys.each do |key|
+              row I18n.t("activerecord.attributes.childcare_medical_history.cc_restriction_certified_values.#{key}") do
+                value = cc_values.include?(key) ? I18n.t('yes', default: 'Yes') : I18n.t('no', default: 'No')
+                status_tag(value, class: value == 'Yes' ? :ok : :warning)
+              end
+            end
           end
         end
 
@@ -92,7 +99,10 @@ context.instance_exec do
     column do
       panel 'Forms Approval', class: 'forms_approved' do
         attributes_table_for child do
-          row :uuid 
+          row :uuid do |child|
+            value = child.uuid.to_s
+            content_tag(:span, value)
+          end
           row :forms_approved
           row :forms_approved_by
         end
@@ -147,7 +157,14 @@ context.instance_exec do
             row :cs_health_misc
             row :cs_medications
             row :cs_vip_staff_administered_meds
-            row :cs_restriction_certified
+            cs_values = Array(resource.cru_student_medical_history&.cs_restriction_certified)
+            keys = %w[CruKids_certify_WITHres CruKids_certify_NOres]
+            keys.each do |key|
+              row I18n.t("activerecord.attributes.cru_student_medical_history.cs_restriction_certified_values.#{key}") do
+                value = cs_values.include?(key) ? I18n.t('yes', default: 'Yes') : I18n.t('no', default: 'No')
+                status_tag(value, class: value == 'Yes' ? :ok : :warning)
+              end
+            end
             row :cs_restrictions
             row :crustu_forms_acknowledged
           end

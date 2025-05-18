@@ -5,6 +5,12 @@
   table th{
     width: 200px;
   }
+  table tr.row-uuid td span{
+    color: white;
+    font-weight: bold;
+    background: gray;
+    padding: 3px;
+  }
 }
 
 .attendance-comment {
