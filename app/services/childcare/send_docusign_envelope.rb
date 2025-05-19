@@ -987,7 +987,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: smh.cs_vip_addl_info
       },
       {
-        label: 'Forms-CS-MH-StaffAdministeredMeds',
+        label: '\\*Forms-CS-MH-StaffAdministeredMeds',
         value: smh.cs_vip_staff_administered_meds
       }
       
