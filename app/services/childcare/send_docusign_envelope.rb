@@ -157,15 +157,15 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: recipient&.spouse&.phone
       },
       {
-        label: 'Parent2Email',
+        label: '\\*Parent2Email',
         value: recipient&.spouse&.email
       },
       {
-        label: 'Parent1Ministry',
+        label: '\\*Parent1Ministry',
         value: recipient.main_ministry&.name
       },
       {
-        label: 'Parent1Cohort',
+        label: '\\*Parent1Cohort',
         value: get_cohort_for(recipient)
       },
       {
@@ -185,19 +185,19 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: child.family&.state
       },
       {
-        label: 'HomeAddress',
+        label: '\\*HomeAddress',
         value: get_full_address(child.family)
       },
       {
-        label: 'Gender',
+        label: '\\*Gender',
         value: get_gender_formatted(child.gender)
       },
       {
-        label: 'ChildGender',
+        label: '\\*ChildGender',
         value:  get_gender_formatted(child.gender)
       },
       {
-        label: 'Parent1Email',
+        label: '\\*Parent1Email',
         value: recipient.email
       }
     ]
@@ -303,7 +303,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: mh.chronic_health_addl
       },
       {
-        label: 'Forms-CC-MH-AllMeds',
+        label: '\\*Forms-CC-MH-AllMeds',
         value: mh.medications
       },      
       {
@@ -385,7 +385,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: mh.vip_meds
       },
       {
-        label: 'Forms-CC-VIP-DevAge',
+        label: '\\*Forms-CC-VIP-DevAge',
         value: mh.cc_vip_developmental_age
       },
       {
@@ -493,7 +493,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: mh.vip_addl_info
       },
       {
-        label: 'Forms-CC-MH-StaffAdministeredMeds',
+        label: '\\*Forms-CC-MH-StaffAdministeredMeds',
         value: mh.cc_vip_staff_administered_meds
       }
     ]
