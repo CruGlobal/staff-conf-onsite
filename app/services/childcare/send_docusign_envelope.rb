@@ -801,7 +801,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: smh.cs_chronic_health_addl
       },
       {
-        label: 'Forms-CS-MH-AllMeds',
+        label: '\\*Forms-CS-MH-AllMeds',
         value: smh.cs_medications
       },
       {
