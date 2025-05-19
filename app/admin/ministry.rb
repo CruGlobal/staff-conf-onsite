@@ -35,9 +35,6 @@ ActiveAdmin.register Ministry do
     ImportHierarchySpreadsheetJob.perform_later(job.id,
                                                 import_params[:skip_first])
 
-
-
-
     redirect_to job
   end
 
