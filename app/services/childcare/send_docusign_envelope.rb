@@ -319,7 +319,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_value(mh.cc_restriction_certified, 'CruKids_certify_NOres')
       },
       {
-        label: 'Forms-CC-MH-Certify-Yes',
+        label: 'Forms-CC-MH-Certify-No',
         value: checkmark_if_value(mh.cc_restriction_certified, 'CruKids_certify_WITHres')
       },
       {
@@ -853,11 +853,11 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: smh.cs_other_special_needs
       },
       {
-        label: 'Forms-CS-MH-Certify-No',
+        label: 'Forms-CS-MH-Certify-Yes',
         value: checkmark_if_value(smh.cs_restriction_certified, 'CruKids_certify_NOres')
       },
       {
-        label: 'Forms-CS-MH-Certify-Yes',
+        label: 'Forms-CS-MH-Certify-No',
         value: checkmark_if_value(smh.cs_restriction_certified, 'CruKids_certify_WITHres')
       },
       {
