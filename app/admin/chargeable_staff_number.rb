@@ -15,7 +15,7 @@ ActiveAdmin.register ChargeableStaffNumber do
 
     import_params =
       ActionController::Parameters.new(params).require('import_spreadsheet').
-        permit(:file, :delete_existing, :skip_first)
+        permit(:file, :delete_existing, :skip_first).to_h.with_indifferent_access
 
     job = UploadJob.create!(user_id: current_user.id,
                             filename: import_params[:file].path)

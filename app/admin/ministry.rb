@@ -15,9 +15,7 @@ ActiveAdmin.register Ministry do
   collection_action :import_ministries, method: :post do
     return head :forbidden unless authorized?(:import, Ministry)
 
-    import_params =
-      ActionController::Parameters.new(params).
-        require(:spreadsheet_import_ministries).permit(:file, :skip_first)
+    import_params = params.require(:spreadsheet_import_ministries).permit(:file, :skip_first)
 
     job = UploadJob.create!(user_id: current_user.id,
                             filename: import_params[:file].path)
@@ -30,14 +28,15 @@ ActiveAdmin.register Ministry do
   collection_action :import_hierarchy, method: :post do
     return head :forbidden unless authorized?(:import, Ministry)
 
-    import_params =
-      ActionController::Parameters.new(params).
-        require(:spreadsheet_import_hierarchy).permit(:file, :skip_first)
+    import_params = params.require(:spreadsheet_import_hierarchy).permit(:file, :skip_first)
 
     job = UploadJob.create!(user_id: current_user.id,
                             filename: import_params[:file].path)
     ImportHierarchySpreadsheetJob.perform_later(job.id,
                                                 import_params[:skip_first])
+
+
+
 
     redirect_to job
   end
