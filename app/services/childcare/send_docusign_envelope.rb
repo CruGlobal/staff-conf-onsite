@@ -315,7 +315,7 @@ class Childcare::SendDocusignEnvelope < ApplicationService
         value: checkmark_if_yes(mh.non_immunizations&.join)
       },
       {
-        label: 'Forms-CC-MH-Certify-No',        
+        label: 'Forms-CC-MH-Certify-Yes',        
         value: checkmark_if_value(mh.cc_restriction_certified, 'CruKids_certify_NOres')
       },
       {
