@@ -55,8 +55,8 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
   
   # Allow Google Apps Script hosts
-  config.hosts << /script\.google\.com/
-  config.hosts << /googleusercontent\.com/
+  # config.hosts << /script\.google\.com/
+  # config.hosts << /googleusercontent\.com/
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
