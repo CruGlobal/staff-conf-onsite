@@ -67,6 +67,7 @@ context.instance_exec do
                 status_tag(value, class: value == 'Yes' ? :ok : :warning)
               end
             end
+            row :restrictions
           end
         end
 
