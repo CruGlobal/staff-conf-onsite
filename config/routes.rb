@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   authenticated_constraint = lambda do |request|
-    Authenticatable::SessionUser.new(request.session).signed_into_cas?
+    Authenticatable::SessionUser.new(request.session).signed_into_okta?
   end
 
   constraints authenticated_constraint do
@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get '/monitors/lb', to: 'monitors#service_online'
 
   post '/', to: "application#consume_okta"
+
+  post '/child_form_approval/:uid', to: 'external_forms#approve', as: :approve_external_form
+  delete '/child_form_approval/:uid', to: 'external_forms#disapprove', as: :disapprove_external_form
 
   namespace :precheck do
     get ':token', to: 'status#show', as: :status

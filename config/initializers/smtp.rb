@@ -3,6 +3,6 @@ ActionMailer::Base.smtp_settings = {
   password: ENV['SMTP_PASSWORD'],
   address: ENV['SMTP_ADDRESS'],
   authentication: ENV['SMTP_AUTHENTICATION'] || :none,
-  enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'],
+  enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'].to_s.downcase == 'true',
   port: ENV['SMTP_PORT'] || 25
 }

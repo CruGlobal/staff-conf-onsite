@@ -30,9 +30,7 @@ ActiveAdmin.register HousingFacility  do
   collection_action :import_spreadsheet, method: :post do
     return head :forbidden unless authorized?(:import, HousingFacility)
 
-    import_params =
-      ActionController::Parameters.new(params).require('import_spreadsheet').
-        permit(:file, :skip_first)
+    import_params = params.require('import_spreadsheet').permit(:file, :skip_first)
 
     job = UploadJob.create!(user_id: current_user.id,
                             filename: import_params[:file].path)

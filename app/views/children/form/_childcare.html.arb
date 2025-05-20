@@ -1,6 +1,7 @@
 form.instance_exec do
   inputs 'Cru Kids' do
-    input :childcare_deposit, wrapper_html: { style: !policy.edit_deposit? ? 'display:none' : '' }
+    input :childcare_late_fee
+    input :childcare_cancellation_fee
     input :childcare_weeks, label: 'Weeks of ChildCare', multiple: true,
       hint: 'Please add all weeks needed',
       collection: childcare_weeks_select
@@ -12,5 +13,6 @@ form.instance_exec do
       hint: 'Please add all weeks needed',
       collection: childcare_weeks_select
     input :childcare_comment, input_html: { rows: 4 }
+    input :county
   end
 end

@@ -14,9 +14,19 @@ var setupCourseAttendanceForm = function() {
   if (!$form.length) { return; }
 
 
-  return $('body').on('DOMNodeInserted', function(event) {
-    if ($(event.target).is(`${containerSelectormain} ${itemSelectorMain}`)) {
-      return $(event.target).find('select').chosen({width: '80%'});
-    }
+  const courseAttendanceObserver = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node) {
+      if (node.nodeType === 1 && $(node).is(`${containerSelectormain} ${itemSelectorMain}`)) {
+        $(node).find('select').chosen({ width: '80%' });
+      }
+    });
   });
+});
+
+const container = document.querySelector('body'); // or limit to a more specific container if possible
+if (container) {
+  courseAttendanceObserver.observe(container, { childList: true, subtree: true });
+}
+
 };

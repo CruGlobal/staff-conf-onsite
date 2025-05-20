@@ -49,14 +49,24 @@ $(function() {
   });
 
   // When new Stay fields are added
-  return $(containerSelector).on('DOMNodeInserted', function(event) {
-    const $container = $(event.target);
-    if ($(event.target).is(`${containerSelector} ${itemSelector}`)) {
-      setupDynamicFields($container, true);
-      setupNewStayDefaults($container);
-      return setupDurationCalculation($container);
-    }
+  const housingObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      mutation.addedNodes.forEach(function(node) {
+        if (node.nodeType === 1 && $(node).is(`${containerSelector} ${itemSelector}`)) {
+          const $container = $(node);
+          setupDynamicFields($container, true);
+          setupNewStayDefaults($container);
+          setupDurationCalculation($container);
+        }
+      });
+    });
   });
+
+  const container = document.querySelector(containerSelector);
+  if (container) {
+    housingObserver.observe(container, { childList: true, subtree: true });
+  }
+
 });
 
 var setupHousingDefaults = function($container) {

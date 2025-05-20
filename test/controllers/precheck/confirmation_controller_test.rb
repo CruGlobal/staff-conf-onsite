@@ -31,7 +31,7 @@ class Precheck::ConfirmationControllerTest < ControllerTestCase
     assert_equal family.reload.precheck_status, 'approved'
 
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal 'Cru22 PreCheck Summary', last_email.subject
+    assert_equal 'Cru25 PreCheck Summary', last_email.subject
     assert_equal [family.attendees.first.email], last_email.to
   end
 

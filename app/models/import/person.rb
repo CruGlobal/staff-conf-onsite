@@ -59,7 +59,8 @@ module Import
     
       grade_level: 'Age Group',
       needs_bed: 'Child Needs Dorm Bed',
-      # childcare_deposit: 'Cru Kids Deposit',
+      childcare_late_fee: 'Cru Kids Late Fee',
+      childcare_cancellation_fee: 'Cru Kids Cancellation Fee',
       childcare_weeks: 'Child Program Weeks',
       hot_lunch_weeks: 'Hot Lunch Weeks',
       childcare_comment: 'Cru Kids Comments',
@@ -91,10 +92,9 @@ module Import
       immunizations: 'Forms CC MH Immunizations',
       non_immunizations: 'Forms CC MH non-immunized',
       health_misc: 'Forms CC MH Health Misc',
-      restrictions: 'Forms CC MH Restrictions',
-      medications_by_staff: 'Forms CC MH MedicationsByStaff',
+      restrictions: 'Forms CC MH Restrictions',    
       crustu_forms_acknowledged: 'crustu_forms_acknowledged',
-      other_special_needs: 'Forms CC MH Special Needs',
+      cc_other_special_needs: 'Forms CC MH Special Needs',
 
       # CC VIP
       # vip_meds: 'Forms CC VIP Meds',
@@ -103,7 +103,7 @@ module Import
       vip_challenges: 'Forms CC VIP Challenges',
       vip_mobility: 'Forms CC VIP Mobility',
       # vip_walk: 'Forms CC VIP Walk',
-      cc_vip_developmental_age: 'Forms CS VIP child_dev_age',
+      cc_vip_developmental_age: 'Forms CC VIP child_dev_age',
       cc_vip_staff_administered_meds: 'Forms CC MH MedicationsByStaff',
       # vip_comm: 'Forms CC VIP Comm',
       # vip_comm_addl: 'Forms CC VIP Comm Addl',
@@ -125,8 +125,7 @@ module Import
     
       # parent_agree: 'Forms CS ParentAgree',
       # gtky_lunch: 'Forms CS GTKY Lunch',
-      cs_chronic_health: 'Forms CS MH Chronic Health',
-      cs_medications_by_staff: 'Forms CS MH MedicationsByStaff',
+      cs_chronic_health: 'Forms CS MH Chronic Health',      
       cs_other_special_needs: 'Forms CS MH Special Needs',
       cs_restriction_certified: 'Forms CS MH Certify',
       cs_restrictions: 'Forms CS MH Restrictions',
@@ -170,7 +169,7 @@ module Import
       # anorexia: 'Forms CS MH Anorexia',
       # diabetes: 'Forms CS MH Diabetes',
       # altitude: 'Forms CS MH Altitude',
-      concerns_misc: 'Forms CS MH Chronic Health Addl',
+      cs_chronic_health_addl: 'Forms CS MH Chronic Health Addl',
       cs_health_misc: 'Forms CS MH Health Misc',
       # cs_vip_meds: 'Forms CS VIP Meds',
       # cs_vip_dev: 'Forms CS VIP Dev',
@@ -285,6 +284,14 @@ module Import
       @needs_bed = true_string?(str)
     end
 
+    def childcare_late_fee=(str)
+      @childcare_late_fee = true_string?(str)
+    end
+
+    def childcare_cancellation_fee=(str)
+      @childcare_cancellation_fee = true_string?(str)
+    end
+    
     def grade_level=(group)
       @grade_level =
         if (match = AGE_GROUPS[group])

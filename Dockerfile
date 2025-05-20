@@ -53,6 +53,7 @@ ARG SECRET_KEY_BASE=b12374ce07c365986c3be4fa417fe9248242c64bb4aec0dc04c6562a08b0
 ARG IDP_SSO_TARGET_URL="https://dev-54692893.okta.com/app/dev-54692893_cruconfdev_1/exk9ofqjjbx7hfHkr5d7/sso/saml"
 ARG SP_ENTITY_ID="SCO"
 ARG IDP_CERT= "-----BEGIN CERTIFICATE----------END CERTIFICATE-----"
+ARG EXTERNAL_API_KEY="b07f8a12a309f418b1d3aebc35d6e4a6c117ecfd0174a8c5b5e4c72d1cdd8f7e"
 
 # Compile assets
 RUN RAILS_ENV=${RAILS_ENV} SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:clobber assets:precompile \

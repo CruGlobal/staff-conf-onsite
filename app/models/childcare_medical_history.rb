@@ -4,15 +4,15 @@ class ChildcareMedicalHistory < ApplicationRecord
 
   belongs_to :child
 
-  multi_selection_attributes chronic_health: ['Asthma', 'Diabetes', 'Severe allergy', 'Other'],
+  multi_selection_attributes chronic_health: ['Asthma', 'Diabetes', 'Epilepsy', 'Severe allergy', 'Other', 'None of the above'],
                              immunizations: ['Yes'],
-                             health_misc: ['Developmental delay', 'Behavioral challenges', 'Other special need',
-                                           'Disability', 'Extra assistance', 'Adaptive equipment', 'None of the above'], ## removed sensory Processing Disorder, added Other special need
+                             non_immunizations: ['Yes'],
+                             health_misc: ['ADHD', 'Adaptive equipment', 'Autism', 'Behavioral challenges', 'Developmental delay',
+                             'Down Syndrome', 'Extra assistance', 'Other', 'None of the above'],
                              vip_comm: ['In simple phrases', 'In complete sentences', 'Other'],## removed Visual schedule 
-                             vip_stress: ['Noisy spaces', 'Crowded spaces', 'Loud noises',
-                                          'Heights', 'Changing schedule', 'Other']
-
-  single_selection_attributes sunscreen_self: %w[Yes No],
-                              sunscreen_assisted: %w[Yes No],
-                              sunscreen_provided: %w[Yes No]
+                             vip_stress: ['Noisy spaces', 'Crowded spaces', 'Loud noises', 'Heights', 'Changing schedule', 'Other', 'None of the above'],
+                             cc_allergies: ['Eggs', 'Milk', 'Tree nuts', 'Fish/Shellfish', 'Peanuts', 'Wheat',
+                                       'Insect sting', 'Pollen', 'Medications', 'Latex', 'Soy', 'Other','None of the above']
+  single_selection_attributes cc_restriction_certified: %w[CruKids_certify_WITHres CruKids_certify_NOres]
+                              
 end

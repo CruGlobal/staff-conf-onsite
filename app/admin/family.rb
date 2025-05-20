@@ -46,17 +46,19 @@ ActiveAdmin.register Family do
 
   collection_action :import_spreadsheet, method: :post do
     return head :forbidden unless authorized?(:import, Family)
-
-    import_params =
-      ActionController::Parameters.new(params).require(:import_spreadsheet).
-        permit(:file)
-
-    job = UploadJob.create!(user_id: current_user.id,
-                            filename: import_params[:file].path)
+  
+    import_params = params.require(:import_spreadsheet).permit(:file)
+  
+    job = UploadJob.create!(
+      user_id: current_user.id,
+      filename: import_params[:file].path
+    )
+  
     ImportPeopleFromSpreadsheetJob.perform_later(job.id)
-
+  
     redirect_to job
   end
+  
 
   action_item :accounting_report, only: %i[show edit] do
     link_to 'Accounting Report', family_accounting_reports_path(family)

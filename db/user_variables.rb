@@ -63,9 +63,9 @@ class SeedUserVariables
     
 
     # Conference
-    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru22', description: 'A string containing the name of the conference.' },
+    conference_id:       { value_type: :string, code: :CONFID, value: 'Cru25', description: 'A string containing the name of the conference.' },
     support_email:       { value_type: :string, code: :SUPPORTEMAIL, value: 'help@cru.org', description: 'Support email address' },
-    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/cru22/cru22-logo-thumbnail.png', description: 'Conference logo URL' },
+    conference_logo_url: { value_type: :string, code: :CONFLOGO, value: 'https://www.cru.org/content/dam/cru/Cru25/Cru25-logo-thumbnail.png', description: 'Conference logo URL' },
 
     # Mail
     mail_interceptor_email_addresses: { value_type: :list, code: :MAIL_INTERCEPTOR_EMAILS, value: 'interceptor_one@example.com, interceptor_two@example.com',

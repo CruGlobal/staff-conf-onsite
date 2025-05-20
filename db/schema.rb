@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_16_190555) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -78,14 +79,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
+    t.string "non_immunizations", default: [], array: true
     t.text "cc_medi_allergy"
     t.string "cc_allergies", default: [], array: true
-    t.string "non_immunizations", default: [], array: true
-    t.string "cc_restriction_certified", default: [], array: true
     t.string "cc_vip_sitting"
     t.string "cc_other_special_needs"
     t.string "cc_vip_staff_administered_meds"
     t.string "cc_vip_developmental_age"
+    t.string "cc_restriction_certified"
     t.index ["child_id"], name: "index_childcare_medical_histories_on_child_id"
   end
 
@@ -241,15 +242,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.string "cs_health_misc", default: [], array: true
     t.string "cs_vip_comm", default: [], array: true
     t.string "cs_vip_stress", default: [], array: true
-    t.string "crustu_forms_acknowledged", default: [], array: true
+    t.string "crustu_forms_acknowledged", default: ""
     t.string "cs_allergies", default: [], array: true
-    t.string "cs_restriction_certified", default: [], array: true
     t.text "cs_other_special_needs"
     t.text "cs_vip_staff_administered_meds"
     t.string "cs_chronic_health", default: [], array: true
     t.string "cs_medications"
     t.string "cs_vip_developmental_age"
     t.string "cs_restrictions"
+    t.text "cs_chronic_health_addl"
+    t.string "cs_restriction_certified"
     t.index ["child_id"], name: "index_cru_student_medical_histories_on_child_id"
   end
 
@@ -428,12 +430,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_233016) do
     t.integer "spouse_id"
     t.string "forms_approved_by"
     t.string "tracking_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.boolean "childcare_cancellation_fee", default: false, null: false
+    t.boolean "childcare_late_fee", default: false, null: false
+    t.string "county"
     t.index ["childcare_id"], name: "index_people_on_childcare_id"
     t.index ["middle_name"], name: "index_people_on_middle_name"
     t.index ["seminary_id"], name: "index_people_on_seminary_id"
     t.index ["spouse_id"], name: "index_people_on_spouse_id"
     t.index ["student_number"], name: "index_people_on_student_number"
     t.index ["type"], name: "index_people_on_type"
+    t.index ["uuid"], name: "index_people_on_uuid", unique: true
   end
 
   create_table "precheck_email_tokens", id: false, force: :cascade do |t|

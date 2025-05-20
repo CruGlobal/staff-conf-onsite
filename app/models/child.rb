@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class Child < Person
   include FamilyMember
 
@@ -43,7 +44,7 @@ class Child < Person
 
   class << self
     def childcare_grade_levels
-      GRADE_LEVELS.first(grade5_index + 1)
+      GRADE_LEVELS.first(grade6_index + 1)
     end
 
     def childcare_care_grade_levels
@@ -51,7 +52,7 @@ class Child < Person
     end
     
     def childcare_camp_grade_levels
-      (GRADE_LEVELS.first(grade5_index + 1) - GRADE_LEVELS.first(gradeAge5Kindergarten_index))
+      (GRADE_LEVELS.first(grade6_index + 1) - GRADE_LEVELS.first(gradeAge5Kindergarten_index))
     end
 
     def hot_lunch_grade_levels
@@ -59,11 +60,15 @@ class Child < Person
     end
 
     def senior_grade_levels
-      GRADE_LEVELS.last(GRADE_LEVELS.size - (grade5_index + 1))
+      GRADE_LEVELS.last(GRADE_LEVELS.size - (grade6_index + 1))
     end
 
     def grade5_index
       GRADE_LEVELS.index('grade5')
+    end
+
+    def grade6_index
+      GRADE_LEVELS.index('grade6')
     end
 
     def gradeAge5PreKindergarten_index
@@ -80,6 +85,18 @@ class Child < Person
 
     def age1_index
       GRADE_LEVELS.index('age1')
+    end
+
+    def kids_care_grades
+      GRADE_LEVELS.first(gradeAge5Kindergarten_index + 1)
+    end
+
+    def kids_camp_grades
+      GRADE_LEVELS[grade1_index..grade6_index]
+    end
+
+    def grade1_index
+      GRADE_LEVELS.index('grade1')
     end
   end
 
@@ -200,3 +217,4 @@ class Child < Person
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

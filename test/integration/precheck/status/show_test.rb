@@ -66,8 +66,8 @@ class Precheck::StatusController::ShowTest < IntegrationTest
     @eligible_family.update!(precheck_status: :pending_approval)
     @eligible_family.check_in!
     visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-    assert_text 'Welcome to Cru22'
-    assert has_no_text? 'received Cru22 PreCheck'
+    assert_text 'Welcome to Cru25'
+    assert has_no_text? 'received Cru25 PreCheck'
   end
 
   test '#show too late for precheck' do
@@ -78,7 +78,7 @@ class Precheck::StatusController::ShowTest < IntegrationTest
 
     travel_to 7.days.from_now.beginning_of_day do
       visit precheck_status_path(token: @eligible_family.precheck_email_token.token)
-      assert_text 'We are sorry. PreCheck has closed and Team22 is working hard to prepare for your arrival.'
+      assert_text 'We are sorry. PreCheck has closed and Team25 is working hard to prepare for your arrival.'
     end
   end
 end
