@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_16_190555) do
     t.string "health_misc", default: [], array: true
     t.string "vip_comm", default: [], array: true
     t.string "vip_stress", default: [], array: true
-    t.string "non_immunizations", array: true
+    t.string "non_immunizations", default: [], array: true
     t.text "cc_medi_allergy"
     t.string "cc_allergies", default: [], array: true
     t.string "cc_vip_sitting"
