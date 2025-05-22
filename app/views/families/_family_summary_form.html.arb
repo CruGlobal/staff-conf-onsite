@@ -12,7 +12,7 @@ form_for family, url: checkin_family_path(family.id), method: :post, remote: tru
           end
         else
           li class: 'action input_action', id: 'checkin_button' do            
-            render 'family_summary_hotel_stay.html.erb', hotels: hotels, family: family
+            render 'family_summary_hotel_stay', hotels: hotels, family: family
           end
       end
 
