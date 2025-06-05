@@ -6,14 +6,14 @@ Rails.application.config.after_initialize do
   cron_jobs_hash = ActiveSupport::HashWithIndifferentAccess.new(
     production: {
       'Nightly PreCheck Mailer (Production)' => {
-        class: NightlyPrecheckMailerJob.name,
+        class: 'NightlyPrecheckMailerWorker',
         cron:  nightly_cron_schedule
       }
     },
 
     staging: {
       'Nightly PreCheck Mailer (Staging)' => {
-        class: NightlyPrecheckMailerJob.name,
+        class: 'NightlyPrecheckMailerWorker',
         cron:  nightly_cron_schedule
       }
     }
