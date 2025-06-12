@@ -303,7 +303,7 @@ ActiveAdmin.register Family do
     # output + '</table></body></html>'
     #
     # render html: output.html_safe
-    send_data(csv_string, filename: "Finance Full Dump - #{Date.today.to_s(:db)}.csv")
+    send_data(csv_string, filename: "Finance Full Dump - #{Date.today.strftime('%Y-%m-%d')}.csv")
   end
 
   member_action :checkin, method: :post do

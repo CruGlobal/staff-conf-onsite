@@ -27,7 +27,10 @@ class SeedUserVariables
     # Childcare costs by Type (NEW)
     CARESC: { value_type: :money, code: :CARESC, value: 1_00, description: 'Kids Camp tuition during Staff Conference' },
     CAMPSC: { value_type: :money, code: :CAMPSC, value: 1_00, description: 'Kids Care tuition during Staff Conference' },
-
+    childcare_late_fee: { value_type: :money, code: :CCLATEFEE, value: 1_00,
+      description: 'Childcare Late Registration Fee' },
+    childcare_cancellation_fee: { value_type: :money, code: :CCCANCELFEE, value: 1_00,
+      description: 'Childcare Cancellation Fee' },
     childcare_deposit: { value_type: :money, code: :CCNRF, value: 1_00,
       description: 'This is the non-refundable registration fee for any child' \
                    ' registered for either childcare or JrSr High programs.' },

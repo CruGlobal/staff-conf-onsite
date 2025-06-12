@@ -21,7 +21,7 @@ module FamilyFinances
     end
 
     def childcare
-      (child.childcare_weeks.map(&method(:childcare_row)) << deposit_charge).compact
+      (child.childcare_weeks.map(&method(:childcare_row)) << childcare_cancellation_fee << childcare_late_fee).compact
     end
 
     def rec_center
@@ -39,6 +39,19 @@ module FamilyFinances
     def deposit_charge
       if child.childcare_deposit?
         row(t('childcare_deposit'), childcares_cost.sum.deposit_charge)
+      end
+    end
+
+    def childcare_cancellation_fee
+      if child.childcare_cancellation_fee?
+        row(t('childcare_cancellation_fee'),
+            childcares_cost.sum.childcare_cancellation_fee)
+      end
+    end
+    def childcare_late_fee
+      if child.childcare_late_fee?
+        row(t('childcare_late_fee'),
+            childcares_cost.sum.childcare_late_fee)
       end
     end
 

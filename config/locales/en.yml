@@ -387,6 +387,9 @@ en:
           Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
           <br>
           <br>
+          Please bring a photo id with you to Check In. Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
+          <br>
+          <br>
           We look forward to seeing you in Milwaukee this summer!
         precheck_confirmed_html:
           Congratulations! Your <b>PreCheck</b> has been completed - you have now received <b>PreCheck</b>.
@@ -406,7 +409,7 @@ en:
         message: "The message you sent was:"
     status:
       show:
-        greeting: "Hello!"
+        greeting: ""
       not_precheck_eligible:
         too_late_for_precheck:
           apology_legacy_html:
@@ -442,7 +445,7 @@ en:
           submit: 'Submit Request'
           eligibility_errors:
             chargeable_staff_number_or_zero_balance?_html:
-             At this time, you have a <b>balance due</b>, If you are able to provide payment information prior to two days before your arrival, we can offer you PreCheck.
+             At this time, you have a <b>balance due</b>. If you are able to provide payment information prior to two days before your arrival, we can offer you PreCheck.
               <br>
               <br>
               <ul>
@@ -499,7 +502,7 @@ en:
         Check In will be held on the 1st floor of Baird Center on July 9th, between 4 p.m. and 7 p.m. CT. (Enter through the main entrance at the corner of W Kilbourn Ave. and N Vel R. Phillips Ave.)
         <br>
         <br>
-        Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
+        Please bring a photo id with you to Check In. Team25 will have your name tags and other conference materials ready for you. Look for the “Check In Starts Here” signs and Team25 members who will point you in the right direction.
         <br>
         <br>
         We look forward to seeing you in Milwaukee this summer!
@@ -532,7 +535,7 @@ en:
         <p>Good news! Your Cru25 registration is <b>eligible for PreCheck.</b>
         <br>
         <br>
-        You can confirm your conference details ahead of time and qualify for express check-in at the Baird Center. We want to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the downtown Milwaukee area.
+        You can confirm your conference details ahead of time and qualify for express check-in at the Baird Center. We want you to receive PreCheck so that your time can be spent connecting with friends, settling in, and enjoying the downtown Milwaukee area.
         <br>
         <br>
         <b>To receive PreCheck</b>, please click the link below to review your registration details. This link will only be available until 10:00 a.m. CT the day before your registered arrival date. Follow the instructions to confirm PreCheck or request changes. You will receive a reply email with further instructions on what to do when you arrive.
@@ -566,7 +569,7 @@ en:
       We want you to receive PreCheck so that your time can be spent connecting with friends, settling in and enjoying the Milwaukee area.
     eligibility_errors:
       chargeable_staff_number_or_zero_balance?_html:
-        At this time, you have a <b>balance due</b>, which prevents eligibility for PreCheck..
+        At this time, you have a <b>balance due</b>.
         <br>
         We would like to try and resolve your balance before you arrive so that you receive PreCheck.
         <br>
@@ -575,7 +578,7 @@ en:
         <br>
         When your balance is paid in full, you will receive another email indicating that you are now eligible for PreCheck with the opportunity to review and confirm your conference information.
       children_forms_approved?_html:
-        At this time, you have <b>incomplete Cru25 Kids forms</b> which prevents eligibility for PreCheck.
+        At this time, you have <b>incomplete Cru25 Kids forms</b>.
         <br>
         We would like to help you submit the forms before you arrive so that you can receive PreCheck.
         <br>
@@ -597,6 +600,8 @@ en:
         kindergarten-to-grade-5: "Kids Camp"
         post-grade-6: "CruStu"
       childcare_deposit: "Deposit"
+      childcare_cancellation_fee: "Childcare Cancellation Fee"
+      childcare_late_fee: "Childcare Late Registration Fee"
       facility_use: "Fee"
       no_fee: "No Fee"
       unknown_housing: "Unknown Housing"
