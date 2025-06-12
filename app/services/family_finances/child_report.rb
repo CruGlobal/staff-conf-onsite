@@ -48,6 +48,7 @@ module FamilyFinances
             childcares_cost.sum.childcare_cancellation_fee)
       end
     end
+    
     def childcare_late_fee
       if child.childcare_late_fee?
         row(t('childcare_late_fee'),
