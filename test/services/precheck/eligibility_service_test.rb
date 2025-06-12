@@ -65,7 +65,7 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
     assert_equal false, service.call
   end
 
-  test 'not eligible if more than 18 days before earliest attendee arrival' do
+  test 'not eligible if more than 22 days before earliest attendee arrival' do
     travel_to 13.days.ago do
       assert_equal false, service.call
     end
@@ -168,7 +168,7 @@ class Precheck::EligibilityServiceTest < ServiceTestCase
     assert_equal [], service.actionable_errors
   end
 
-  test '#actionable_errors is empty if more than 18 days before earliest attendee arrival' do
+  test '#actionable_errors is empty if more than 22 days before earliest attendee arrival' do
     family_with_actionable_errors
     travel_to 13.days.ago do
       assert_equal [], service.actionable_errors
