@@ -1,4 +1,6 @@
 ActiveAdmin.register HousingFacility  do
+  acts_as_list
+  
   menu label: 'Hotels'
 
   extend Rails.application.helpers

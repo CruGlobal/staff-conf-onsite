@@ -61,6 +61,7 @@ var createOptions = (options, selected) => (() => {
 pageAction('childcares', 'index', createPositionSelectors);
 pageAction('conferences', 'index', createPositionSelectors);
 pageAction('courses', 'index', createPositionSelectors);
+pageAction('housing_facilities', 'index', createPositionSelectors);
 
 function __range__(left, right, inclusive) {
   let range = [];
