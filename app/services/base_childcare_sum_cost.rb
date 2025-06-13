@@ -9,7 +9,8 @@ class BaseChildcareSumCost < ChargesService
 
   def call
     charges[age_group] += week_charges.values.inject(Money.empty, :+)
-    charges[age_group] += deposit_charge
+    charges[age_group] += childcare_cancellation_fee
+    charges[age_group] += childcare_late_fee
 
     self.cost_adjustments = child.cost_adjustments
   end
@@ -43,6 +44,22 @@ class BaseChildcareSumCost < ChargesService
   def deposit_charge
     if child.childcare_deposit?
       UserVariable[:childcare_deposit]
+    else
+      Money.empty
+    end
+  end
+
+  def childcare_cancellation_fee
+    if child.childcare_cancellation_fee?
+      UserVariable[:childcare_cancellation_fee]
+    else
+      Money.empty
+    end
+  end
+  
+  def childcare_late_fee
+    if child.childcare_late_fee?
+      UserVariable[:childcare_late_fee]
     else
       Money.empty
     end

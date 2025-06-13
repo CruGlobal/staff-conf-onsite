@@ -108,7 +108,7 @@ module Precheck
     def earliest_precheck_time
       return unless earliest_attendee_arrival_date
 
-      (earliest_attendee_arrival_date - 18.days).beginning_of_day
+      (earliest_attendee_arrival_date - 22.days).beginning_of_day
     end
 
     def last_precheck_time

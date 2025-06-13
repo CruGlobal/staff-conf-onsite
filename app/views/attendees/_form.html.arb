@@ -40,7 +40,7 @@ context.instance_exec do
       end
 
       inputs do
-        input :ministry_id, as: :string, hint: object.ministry || 'No Ministry Selected'
+        input :ministry_id, as: :string, input_html: { maxlength: 6 }, hint: object.ministry || 'No Ministry Selected'
         input :department
         input :conferences, collection: conferences_select
         input :conference_comment, input_html: { rows: 4 }

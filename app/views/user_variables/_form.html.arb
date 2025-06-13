@@ -5,10 +5,12 @@ context.instance_exec do
   inputs do
     if object.new_record?
       input :code
-      input :short_name, as: :hidden, input_html: { value: SecureRandom.uuid }
     else
       input :code, as: :string, input_html: { readonly: true }
     end
+
+    # Allow editing short_name in both new and edit modes
+    input :short_name, as: :string
 
     if object.new_record?
       input :value_type
