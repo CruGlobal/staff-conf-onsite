@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_16_190555) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_12_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -310,6 +310,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_16_190555) do
     t.boolean "on_campus"
     t.string "csu_dorm_code"
     t.string "csu_dorm_block"
+    t.integer "position"
     t.index ["cost_code_id"], name: "index_housing_facilities_on_cost_code_id"
   end
 
