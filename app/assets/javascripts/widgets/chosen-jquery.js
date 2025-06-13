@@ -29,8 +29,7 @@ function setupChosenWidget(scope) {
     const chosenOptions = {
       allow_single_deselect: allowSingleDeselect,
       width: 'calc(80% - 22px)' 
-    };
-    console.log('Chosen options:', $elem);
+    };    
     $elem.chosen(chosenOptions);
   });
 }
