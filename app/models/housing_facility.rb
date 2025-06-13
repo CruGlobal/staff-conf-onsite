@@ -1,4 +1,6 @@
 class HousingFacility < ApplicationRecord
+  acts_as_list
+
   has_paper_trail
 
   enum housing_type: %i[dormitory apartment self_provided]
