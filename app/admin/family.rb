@@ -79,7 +79,7 @@ ActiveAdmin.register Family do
   member_action :summary do
     family = Family.find(params[:id])    
     finances = FamilyFinances::Report.call(family: family)
-    hotels = HousingFacility.all    
+    hotels = HousingFacility.order(:position)
 
     render :summary, locals: { family: family, finances: finances, hotels: hotels }
   end
@@ -311,7 +311,7 @@ ActiveAdmin.register Family do
 
     @family = Family.find(params[:id])
     @finances = FamilyFinances::Report.call(family: @family)
-    @hotels = HousingFacility.all
+    @hotels = HousingFacility.order(:position)
 
     if @finances.remaining_balance.zero?
       hotel = params['hotel'] == 'Other' ? " OTHER - #{params['other_hotel']} " : params['hotel']
