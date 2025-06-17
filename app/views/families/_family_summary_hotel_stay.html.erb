@@ -1,6 +1,5 @@
 <%= form_tag checkin_family_path(family.id), id: 'accept' do %>
-  <% if !family.checked_in? %>
-    <% hotels = HousingFacility.order(:position).pluck(:name) %>
+  <% if !family.checked_in? %>    
     <p style="margin-bottom:10px;font-size: 1.25em;"><%= t('precheck.status.precheck_eligible.request_hotel_confirmation_html') %></p>
     <%= select_tag(:hotel, options_for_select(["Please Select.."] + hotels + ["Other"], {style: 'font-size: 1.25em;'}), :onchange=> "
       if ($('#hotel').val() === 'Other') {
