@@ -1,8 +1,8 @@
 class Precheck::StatusController < PrecheckController
   def show
     @finances = FamilyFinances::Report.call(family: @family)
-    @policy = build_policy
-    @hotels = HousingFacility.all
+    @policy = build_policy    
+    @hotels = HousingFacility.order(:position)
   end
 
   private
