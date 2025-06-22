@@ -12,7 +12,7 @@ ActiveAdmin.register Family do
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :county,
                 :state, :zip, :country_code, :primary_person_id, :license_plates,
-                :handicap, :precheck_status, required_team_action: [],
+                :handicap, :precheck_status, :arrival_scanned, required_team_action: [],
                 housing_preference_attributes: %i[
                   id housing_type roommates beds_count single_room
                   children_count bedrooms_count other_family
@@ -338,6 +338,13 @@ ActiveAdmin.register Family do
     redirect_to family_path(@family)
   end
 
+  member_action :toggle_admin_arrival_scanned, method: :post do
+    family = Family.find(params[:id])
+    family.update(arrival_scanned: !family.arrival_scanned)
+    redirect_to family_path(family)
+  end
+  
+
   controller do
     def update
       update! do |format|
@@ -377,4 +384,50 @@ ActiveAdmin.register Family do
   #   sidebar 'Nametags', only: :index do
   #     link_to 'Checked-in Families (PDF)', params.merge(action: :nametags)
   #   end
+
+  # index do
+  #   selectable_column
+  #   id_column
+  #   column :last_name
+  #   column :staff_number
+  #   column :city
+  #   column :state
+  #   column :arrival_scanned
+  #   actions
+  # end
+
+  # show do
+  #   attributes_table do
+  #     row :id
+  #     row :last_name
+  #     row :staff_number
+  #     row :city
+  #     row :state
+  #     row :arrival_scanned
+  #     # ... other fields ...
+  #   end
+  #   # ... rest of show ...
+  # end
+
+  # form do |f|
+  #   f.semantic_errors
+  #   f.inputs do
+  #     f.input :last_name
+  #     f.input :staff_number
+  #     f.input :address1
+  #     f.input :address2
+  #     f.input :city
+  #     f.input :county
+  #     f.input :state
+  #     f.input :zip
+  #     f.input :country_code, as: :select, collection: country_select
+  #     f.input :primary_person_id
+  #     f.input :license_plates
+  #     f.input :handicap
+  #     f.input :precheck_status, as: :select, collection: Family.precheck_statuses.keys
+  #     f.input :arrival_scanned, as: :boolean
+  #     # ... other fields ...
+  #   end
+  #   f.actions
+  # end
 end

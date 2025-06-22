@@ -1,0 +1,7 @@
+<% html_class = "checkbox-button#{' checkbox-button-checked' if family.arrival_scanned?}" %>
+<%= link_to 'Checked In', toggle_admin_arrival_scanned_family_path(family), method: :post, class: html_class %>
+<% if family.arrival_scanned? %>
+  <div>
+    <span>Checked in at: <%= family.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></span>
+  </div>
+<% end %> 

@@ -1,0 +1,14 @@
+<div class="family-info">
+  <h3><%= t('checkin.family_members') %></h3>
+  <% if @family_names.any? %>
+    <% @family_names.each do |first_name, last_name| %>
+      <div class="family-member">
+        <strong><%= first_name %> <%= last_name %></strong>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="family-member">
+      <em><%= t('checkin.no_family_members') %></em>
+    </div>
+  <% end %>
+</div> 
