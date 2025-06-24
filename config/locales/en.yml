@@ -147,6 +147,12 @@ en:
           lunch: "Lunch Charges"
           childcare: "Cru Kids"
           junior_senior: "Junior/Senior"
+          staff_conference: "Staff Conference"
+          legacy_track: "Legacy Track"
+          cru_kids_camp: "CruKids - Camp"
+          cru_kids_care: "CruKids - Care"
+          cru_stu: "CruStu"
+          hot_lunch: "Hot Lunch"
       cost_code:
         min_days: "Minimum Stay"
       cost_code_charge:
