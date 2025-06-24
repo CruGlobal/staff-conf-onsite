@@ -26,4 +26,9 @@ Rails.application.routes.draw do
     post ':token/confirmation', to: 'confirmation#create', as: :confirmation
     post ':token/rejection', to: 'rejection#create', as: :rejection
   end
+
+  # Check-in routes using RESTful conventions
+  get '/arrival-scan', to: 'checkins#new', as: :new_checkin
+  post '/arrival-scan/confirm', to: 'checkins#confirm_scan', as: :confirm_scan_checkins
+  post '/arrival-scan', to: 'checkins#create', as: :checkins
 end

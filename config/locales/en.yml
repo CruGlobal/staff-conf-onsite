@@ -366,6 +366,8 @@ en:
 
   families:
     show:
+      checkin:
+        checkin: 'Check-In'
       precheck:
         precheck: 'PreCheck'
         not_eligible: '%{family} family is not eligible due to the following reasons:'
@@ -639,3 +641,24 @@ en:
   time:
     formats:
       month: "%B %-d"
+
+  checkin:
+    title: "Family Arrival Scan"
+    page_title: "Family Arrival Scan"
+    confirm_title: "Confirm Family Arrival"
+    success_title: "Family Arrival Confirmed"
+    welcome: "Welcome, %{name}"
+    dashboard: "Dashboard"
+    instructions: "Scan the Family ID barcode or manually enter the Family ID number to mark the family as arrived."
+    alert_already_arrived: "This family has already been marked as arrived."
+    alert_not_found: "Family not found. Please check the Family ID and try again."
+    confirm_message: "Please confirm: Are these the correct family members to mark as arrived?"
+    success_message: "Success! The family has been marked as arrived."
+    family_members: "Family Members:"
+    no_family_members: "No family members found"
+    check_family_members: "Check Family Members"
+    confirm_arrival: "Confirm Arrival"
+    scan_different_family: "Scan Different Family"
+    scan_another_family: "Scan Another Family"
+    family_id: "Family ID:"
+    access_denied: "Access denied. You must be in the General group to access this page."

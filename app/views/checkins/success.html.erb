@@ -1,0 +1,24 @@
+<% content_for :title, t('checkin.success_title') %>
+<% content_for :page_title, t('checkin.success_title') %>
+
+<div class="confirm-message">
+  <strong><%= t('checkin.success_message') %></strong>
+</div>
+
+<%= render 'family_info' %>
+
+<%= render 'button_group' do %>
+  <%= link_to t('checkin.scan_another_family'), new_checkin_path, class: 'btn btn-primary' %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    // Auto-focus on the "Scan Another Family" button for quick access
+    document.addEventListener('DOMContentLoaded', function() {
+      const scanButton = document.querySelector('.btn-primary');
+      if (scanButton) {
+        scanButton.focus();
+      }
+    });
+  </script>
+<% end %> 

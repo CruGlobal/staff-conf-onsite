@@ -13,4 +13,5 @@
  *= require ./active_admin
  *= require ./precheck
  *= require ./login
+ *= require ./checkins
  */

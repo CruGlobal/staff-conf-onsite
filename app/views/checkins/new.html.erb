@@ -1,0 +1,24 @@
+<% content_for :title, t('checkin.title') %>
+<% content_for :page_title, t('checkin.page_title') %>
+
+<%= render 'scan_form' %>
+
+<% content_for :javascript do %>
+  <script>
+    // Auto-submit on Enter key
+    document.addEventListener('DOMContentLoaded', function() {
+      const input = document.querySelector('input[name="family_id"]');
+      const form = document.querySelector('form');
+      
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          form.submit();
+        }
+      });
+      
+      // Focus on input when page loads
+      input.focus();
+    });
+  </script>
+<% end %> 

@@ -1,0 +1,10 @@
+# vim:ft=ruby:
+context.instance_exec do
+  panel 'Check-In' do
+    attributes_table_for family do
+      row :arrival_scanned do |family|
+        render 'families/show/checkin_actions', context: self, family: family
+      end
+    end
+  end
+end
