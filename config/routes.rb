@@ -29,6 +29,5 @@ Rails.application.routes.draw do
 
   # Check-in routes using RESTful conventions
   get '/arrival-scan', to: 'checkins#new', as: :new_checkin
-  post '/arrival-scan/confirm', to: 'checkins#confirm_scan', as: :confirm_scan_checkins
-  post '/arrival-scan', to: 'checkins#create', as: :checkins
+  post '/arrival-scan', to: 'checkins#new', as: :checkins
 end

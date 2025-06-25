@@ -12,7 +12,7 @@ ActiveAdmin.register Family do
 
   permit_params :last_name, :staff_number, :address1, :address2, :city, :county,
                 :state, :zip, :country_code, :primary_person_id, :license_plates,
-                :handicap, :precheck_status, :arrival_scanned, required_team_action: [],
+                :handicap, :precheck_status, :arrival_scanned, :arrival_scanned_at, required_team_action: [],
                 housing_preference_attributes: %i[
                   id housing_type roommates beds_count single_room
                   children_count bedrooms_count other_family
@@ -36,6 +36,7 @@ ActiveAdmin.register Family do
   filter :country_code, as: :select, collection: -> { country_select }
   filter :zip
   filter :precheck_status, as: :select, collection: Family.precheck_statuses
+  filter :arrival_scanned_at
   filter :created_at
   filter :updated_at
 
@@ -340,7 +341,11 @@ ActiveAdmin.register Family do
 
   member_action :toggle_admin_arrival_scanned, method: :post do
     family = Family.find(params[:id])
-    family.update(arrival_scanned: !family.arrival_scanned)
+    if family.arrival_scanned?
+      family.update(arrival_scanned: false, arrival_scanned_at: nil)
+    else
+      family.update(arrival_scanned: true, arrival_scanned_at: Time.current)
+    end
     redirect_to family_path(family)
   end
   
