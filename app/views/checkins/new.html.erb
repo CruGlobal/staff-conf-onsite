@@ -1,6 +1,16 @@
 <% content_for :title, t('checkin.title') %>
 <% content_for :page_title, t('checkin.page_title') %>
 
+<% if flash[:notice] %>
+  <div class="success-message">
+    <strong><%= flash[:notice] %></strong>
+  </div>
+<% end %>
+
+<% if @family_names.present? %>
+  <%= render 'family_info' %>
+<% end %>
+
 <%= render 'scan_form' %>
 
 <% content_for :javascript do %>
