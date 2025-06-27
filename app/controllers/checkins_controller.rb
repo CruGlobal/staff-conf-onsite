@@ -1,7 +1,8 @@
 class CheckinsController < ApplicationController
   layout 'checkin'
   before_action :authenticate_user!
-  before_action :require_general_access!
+  before_action :require_staff_access!
+  
 
 
   def new
@@ -48,9 +49,9 @@ class CheckinsController < ApplicationController
     render :new
   end
 
-  def require_general_access!
-    unless current_user&.general?
-      flash[:alert] = 'Access denied. You must be in the General group to access this page.'
+  def require_staff_access!
+    unless current_user&.read_only? || current_user&.general? || current_user&.finance? || current_user&.admin?
+      flash[:alert] = 'Access denied. You must be in the staff groups to access this page.'
       redirect_to root_path
     end
   end
