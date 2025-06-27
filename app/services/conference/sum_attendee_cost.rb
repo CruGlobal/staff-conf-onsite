@@ -2,7 +2,7 @@ class Conference::SumAttendeeCost < ChargesService
   attr_accessor :attendee
 
   def call
-    charges[:tuition_track] += conferences_price
+    charges[:legacy_track] += conferences_price
     self.cost_adjustments = attendee.cost_adjustments
   end
 

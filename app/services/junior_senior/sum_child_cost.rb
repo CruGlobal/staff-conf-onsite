@@ -2,6 +2,6 @@ class JuniorSenior::SumChildCost < BaseChildcareSumCost
   protected
 
   def age_group
-    :junior_senior
+    :cru_stu
   end
 end

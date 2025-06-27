@@ -9,7 +9,7 @@ class HotLunch::SumChildCost < ChargesService
   attr_accessor :child
 
   def call
-    charges[:lunch] += week_charges.values.inject(Money.empty, :+)
+    charges[:hot_lunch] += week_charges.values.inject(Money.empty, :+)
     self.cost_adjustments = child.cost_adjustments
   end
 
