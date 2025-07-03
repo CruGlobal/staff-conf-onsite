@@ -9,7 +9,7 @@ class CostAdjustment < ApplicationRecord
   }
 
   # MPD means "Ministry Partner Development"
-  enum cost_type: %i[staff_conference legacy_track cru_kids_camp cru_kids_care cru_stu hot_lunch]
+  enum cost_type: %i[staff_conference legacy_track cru_kids_care cru_stu hot_lunch]
 
   belongs_to :person, foreign_key: 'person_id'
 
