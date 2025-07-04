@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_12_120000) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_25_052007) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -274,6 +274,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_12_120000) do
     t.datetime "precheck_status_changed_at"
     t.string "county"
     t.string "required_team_action", default: [], array: true
+    t.boolean "arrival_scanned"
+    t.datetime "arrival_scanned_at"
     t.index ["county"], name: "index_families_on_county"
     t.index ["precheck_status"], name: "index_families_on_precheck_status"
     t.index ["precheck_status_changed_at"], name: "index_families_on_precheck_status_changed_at"

@@ -1,0 +1,26 @@
+<div class="instructions">
+  <strong><%= t('checkin.instructions') %></strong>
+</div>
+
+<% if flash[:alert] %>
+  <div class="alert alert-error">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= form_with url: checkins_path, method: :post, local: true, html: { autocomplete: 'off' } do |form| %>
+  <div class="form-group">
+    <%= form.label :family_id, t('checkin.family_id') %>
+    <%= form.text_field :family_id, 
+        autofocus: true, 
+        autocomplete: 'off',
+        placeholder: t('checkin.family_id'),
+        required: true,
+        pattern: '[0-9]+',
+        title: t('checkin.family_id') %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.submit t('checkin.confirm_arrival'), class: 'btn btn-primary btn-full' %>
+  </div>
+<% end %> 

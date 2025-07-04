@@ -27,6 +27,7 @@ context.instance_exec do
     column do
       render 'families/show/attendees', context: self
       render 'families/show/children', context: self
+      render 'families/show/checkin', context: self
       render 'families/show/precheck', context: self
     end
   end

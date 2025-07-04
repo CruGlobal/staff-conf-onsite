@@ -1,0 +1,9 @@
+# vim:ft=ruby:
+context.instance_exec do
+  panel 'Check-In' do
+    div class: 'checkin-row' do
+      span 'Arrival Scanned:'
+      render 'families/show/checkin_actions', context: self, family: family
+    end
+  end
+end

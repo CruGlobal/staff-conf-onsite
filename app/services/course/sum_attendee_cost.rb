@@ -2,7 +2,7 @@ class Course::SumAttendeeCost < ChargesService
   attr_accessor :attendee
 
   def call
-    charges[:tuition_class] += courses_price
+    charges[:cru_kids_camp] += courses_price
     self.cost_adjustments = attendee.cost_adjustments
   end
 
