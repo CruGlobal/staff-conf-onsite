@@ -29,6 +29,16 @@
       
       // Focus on input when page loads
       input.focus();
+
+      // --- Arrival Scan Background Color Cycling ---
+      const body = document.body;
+      if (body.classList.contains('checkin-page')) {
+        let lastColor = localStorage.getItem('arrivalScanColor') || 'orange';
+        let nextColor = lastColor === 'orange' ? 'cyan' : 'orange';        
+        body.classList.remove('cycle-orange', 'cycle-cyan');        
+        body.classList.add('cycle-' + nextColor);        
+        localStorage.setItem('arrivalScanColor', nextColor);
+      }
     });
   </script>
 <% end %> 
