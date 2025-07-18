@@ -249,3 +249,23 @@ $checkin-info-bg: #e9ecef;
     }
   }
 } 
+.checkin-page.cycle-orange {
+  background-color: #F08020 !important;
+}
+
+.checkin-page.cycle-cyan {
+  background-color: #00C0D8 !important;
+}
+
+#family_id {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+#family_id:focus {
+  outline: none;
+  box-shadow: 0 0 8px 2px #FFD000;
+  border: 1px solid #FFD000;
+} 
