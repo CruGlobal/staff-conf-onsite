@@ -12,6 +12,11 @@ class HotLunch::SumFamilyCampCost < ChargesService
   private
 
   def family_costs
-    family.children.map { |c|  HotLunch::ChargeChildCost.call(child: c) if c.childcare_camp_grade? }
+    care_levels = Child.childcare_care_grade_levels
+    family.children.map do |c|
+      if c.childcare_camp_grade? && !care_levels.include?(c.grade_level)
+        HotLunch::ChargeChildCost.call(child: c)
+      end
+    end.compact
   end
 end
