@@ -43,7 +43,7 @@ gem 'activemodel-serializers-xml'
 gem 'pundit', '~> 2.3.0' 
 gem 'rack-cas', '~> 0.16.0' 
 gem 'rest-client', '~> 2.1.0' 
-gem 'ruby-saml', '~> 1.18.0' 
+gem 'ruby-saml', '~> 1.18.1' 
 gem 'sprockets-rails'
 # Assets
 # gem 'coffee-rails' 
