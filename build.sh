@@ -8,7 +8,7 @@ REDIS_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddr
 PG_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $PROJECT_NAME-pg)
 
 docker buildx build $DOCKER_ARGS  \
-    --build-arg SIDEKIQ_CREDS=$SIDEKIQ_CREDS \
+    --secret id=sidekiq_creds,env=SIDEKIQ_CREDS \
     --build-arg RUBY_VERSION=$(cat .ruby-version) \
     --build-arg DB_ENV_POSTGRESQL_PASS=password \
     --build-arg DB_ENV_POSTGRESQL_USER=postgres \
