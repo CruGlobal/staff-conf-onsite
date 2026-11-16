@@ -20,14 +20,17 @@ RUN apk --no-cache add libc6-compat git postgresql-libs tzdata nodejs yarn share
 # Copy dependency definitions and lock files
 COPY Gemfile Gemfile.lock .ruby-version ./
 
-# Install bundler version which created the lock file and configure it
-ARG SIDEKIQ_CREDS
-RUN gem install bundler -v $(awk '/^BUNDLED WITH/ { getline; print $1; exit }' Gemfile.lock) \
-    && bundle config --global gems.contribsys.com $SIDEKIQ_CREDS
+# Install bundler version which created the lock file
+RUN gem install bundler -v $(awk '/^BUNDLED WITH/ { getline; print $1; exit }' Gemfile.lock)
 
 # Install build-dependencies, then install gems, subsequently removing build-dependencies
-RUN apk --no-cache add --virtual build-deps build-base postgresql-dev \
+# The Sidekiq Pro login comes from the sidekiq_creds BuildKit secret (see build.sh) and is only
+# set for this RUN, so it is not saved in the image. Bundler's cache folder under /root/.bundle
+# is named after the gem server URL, username included, so it is removed in the same RUN.
+RUN --mount=type=secret,id=sidekiq_creds,env=BUNDLE_GEMS__CONTRIBSYS__COM \
+    apk --no-cache add --virtual build-deps build-base postgresql-dev \
     && bundle install --jobs 20 --retry 2 \
+    && rm -rf /root/.bundle \
     && apk del build-deps
 
 # Copy the application
